@@ -1,0 +1,55 @@
+/*
+  Include the base theme settigns if needed otherwise write your own
+  @import "../../../../../../sites/all/themes/helsingin_yliopisto/sass/_base";
+*/
+
+// list styles for wysiwyg fields
+.body-text {
+  @include font-family-bodytext;
+  ol, ul {
+    list-style: outside decimal;
+    li {
+      margin: 0.5em 0 0 2em;
+      font-size: 1.125rem;
+      letter-spacing: 0.01em;
+      line-height: 1.7em;
+      padding: 0 0 1em;
+    }
+    ol, ul {
+      margin-left: 1em;
+    }
+  }
+  ul {
+    list-style: none;
+    li:before {
+      content: '\00b7';
+      display: block;
+      float: left;
+      font-size: 75px;
+      margin-left: -35px;
+      margin-top: -4px;
+      color: $blue;
+    }
+  }
+}
+
+// used for hiding certain elements and show it only in mobile
+.show-only-in-mobile {
+  @include at-breakpoint($layout-small) {
+    display: none;
+  }
+}
+
+h1 {
+  @include hyphenate;
+}
+
+dl, menu, ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+input[type=text] {
+  -webkit-appearance: textfield !important;
+}

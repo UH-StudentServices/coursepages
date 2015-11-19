@@ -1,0 +1,6 @@
+name = HY Contact card
+description = Provides Contact Card content type
+core = 7.x
+package = HY Portal
+version = 7.x-1.41-dev
+project = hy_contact_card

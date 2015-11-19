@@ -1,0 +1,11 @@
+<?php
+/**
+ * Takes care of (un)installation and update tasks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_event_source_uninstall() {
+  variable_del('uhc_event_source_path_pattern');
+}

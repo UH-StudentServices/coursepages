@@ -1,0 +1,397 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+/**
+ * Define two source systems where we can request course information from.
+ */
+define('UHC_SOURCE_REST', 'rest');
+define('UHC_SOURCE_ESB_OODI', 'esb-oodi');
+
+/**
+ * Helper function for returning the referenced course node from course
+ * implementation node.
+ *
+ * @param $node
+ * @param string $field_name
+ * @return mixed
+ *   Course node object OR NULL.
+ */
+function _uhc_source_load_course_node($node, $field_name = 'field_imp_reference_to_courses') {
+  if ($node->type == 'course') {
+    // Uhm, this should have been course implementation, but anyway return
+    // itself then :D
+    return $node;
+  }
+  elseif (isset($node->{$field_name})) {
+    // When we have the expected reference field available in given $node
+    $courses = field_get_items('node', $node, $field_name);
+    if (isset($courses[0]['target_id'])) {
+      return node_load($courses[0]['target_id']);
+    }
+  }
+
+  // When useless node (wrong type or no expected field found, or not correct
+  // type of field), then return NULL
+  return NULL;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function uhc_sources_permission() {
+  return array(
+    'access sync status page' => array(
+      'title' => t('Access synchronization status page'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ *
+ * Defines node synchronization task and some administrative migration settings.
+ */
+function uhc_sources_menu() {
+  $items['node/%node/sync-status'] = array(
+    'title' => 'Status',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('uhc_sources_sync_status_form', 1),
+    'access callback' => 'uhc_sources_sync_status_access',
+    'access arguments' => array(1),
+    'file' => 'uhc_sources.pages.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['admin/config/system/uhc-migrate'] = array(
+    'title' => 'UHC migrate settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('uhc_sources_migrate_method_of_study_settings_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'uhc_sources.pages.inc',
+  );
+
+  $items['admin/config/system/uhc-migrate/methods-of-study'] = array(
+    'title' => 'Methods of study marked as exam',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'access arguments' => array('access administration pages'),
+  );
+
+  $items['admin/config/system/uhc-migrate/organisational-units'] = array(
+    'title' => 'Organisational units',
+    'type' => MENU_LOCAL_TASK,
+    'access arguments' => array('access administration pages'),
+    'page arguments' => array('uhc_sources_migrate_organisational_units_settings_form'),
+  );
+
+  return $items;
+}
+
+/**
+ * Access callback for path 'node/%node/sync-status'.
+ *
+ * @param $node object Node.
+ * @return bool TRUE if access is allowed, otherwise FALSE.
+ */
+function uhc_sources_sync_status_access($node) {
+  return $node->type == 'course_implementation'
+    && (user_access('access sync status page')
+    || uhc_course_collaboration_is_current_user_course_teacher($node)
+    || uhc_course_collaboration_is_current_user_course_administrator($node)
+  );
+}
+
+/**
+ * TODO: Callback for synchronizing everything we need for updating course
+ * implementation page.
+ *
+ * If the course implementation page exists, it will update it unless it is
+ * migrated by "mass-migrations".
+ *
+ * If the course implementation page does not exist, it will create one.
+ *
+ * @param $course_imp_id
+ *   Course implementation ID. This is so that we can create new pages from
+ *   given implementation ID.
+ * @param $course_number
+ *   Course number. This is optional when using UHC_SOURCE_REST as source
+ *   system, but required when using UHC_SOURCE_ESB_OODI.
+ * @param $source_system
+ *   Specify from which system we synchronize the course from. Can be either
+ *   UHC_SOURCE_REST or UHC_SOURCE_ESB_OODI. If not provided, then
+ *   UHC_SOURCE_REST will be used as default.
+ * @return object|bool
+ *   Node object when new page is created or when existing page has been
+ *   synchronized. FALSE when could not create or update. More information will
+ *   be written to the log why it failed.
+ *
+ * @see _uhc_sources_resolve_course_number()
+ * @see uhc_course_source_import()
+ * @see uhc_course_implementation_source_import()
+ */
+function uhc_sources_sync_for_page($course_imp_id, $course_number = NULL, $source_system = UHC_SOURCE_REST) {
+
+  // "UHC Course Implementation Source" and "UHC Course Source" modules are both
+  // dependent on *this* module. Lets not make circular dependency and just
+  // ensure here that if required functions are available and skip declaring a
+  // dependency back to them.
+  if (!function_exists('uhc_course_source_import') ||
+      !function_exists('uhc_course_implementation_source_import')) {
+    watchdog('uhc_sources', 'Failed to ensure that we have required functions available.', array(), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+  // When using REST as source system, lets figure out the course number and
+  // import it before importing course implementation import.
+  if ($source_system == UHC_SOURCE_REST) {
+
+    // When course number missing, try to resolve it
+    if (is_null($course_number)) {
+      // If we failed to ensure course entity presence, report it to log and
+      // return FALSE as a sign of failure.
+      if (!$course_number = _uhc_sources_resolve_course_number($course_imp_id)) {
+        watchdog('uhc_sources', 'Failed to resolve course number from @course_imp_id.', array('@course_imp_id' => $course_imp_id), WATCHDOG_ERROR);
+        return FALSE;
+      }
+    }
+
+    // Now ensure that course node exists. If it fails, then log and return
+    // FALSE.
+    if (!$course_node = uhc_course_source_import($course_number)) {
+      watchdog('uhc_sources', 'Failed to ensure @course_number course presence.', array('@course_number' => $course_number), WATCHDOG_ERROR);
+      return FALSE;
+    }
+
+    // After we have ensured that we have referenced entity in the system we may
+    // now import course implementation.
+    if ($node = uhc_course_implementation_source_import($course_imp_id)) {
+      return $node;
+    }
+    else {
+      watchdog('uhc_sources', 'Failed to import @course_imp_id course implementation.', array('@course_imp_id' => $course_imp_id), WATCHDOG_ERROR);
+      return FALSE;
+    }
+
+  }
+  elseif ($source_system == UHC_SOURCE_ESB_OODI) {
+
+    // TODO: Not sure how we figure this out without REST source?
+    if (is_null($course_number)) {
+      watchdog('uhc_sources', 'Failed to resolve course number from @course_imp_id.', array('@course_imp_id' => $course_imp_id), WATCHDOG_ERROR);
+      return FALSE;
+    }
+
+    // Get settings and construct connection to Oodi
+    $activemq_settings = variable_get('uhc_activemq_connector_settings');
+    $queue_base = variable_get('uhc_activemq_connector_default_queue_base', 'doo.local1.kurssisivu');
+    $oodi = new UHCOodi($activemq_settings, $queue_base);
+
+    // Call method "course" with given course number and and course
+    // implementation.
+    $response = $oodi->requestMethod('course', array('course_id' => $course_imp_id, 'jakso_code' => $course_number));
+    $json_response = json_decode($response->body);
+    if ($json_response && $json_response->status == 200) {
+
+      // Read and split course and course implementation data. Add type to the
+      // objects so message they can be picked up by right modules during
+      // message processing.
+      $json_response->data->base->type = 'base';
+      $course = json_encode($json_response->data->base);
+      $json_response->data->realisation->type = 'realisation';
+      $course_implementation = json_encode($json_response->data->realisation);
+
+      // Connect to Stomp and send course and course implementations
+      $stomp = uhc_activemq_connector_get_stomp_instance();
+      $queue_name = variable_get('uhc_activemq_connector_default_queue', 'doo.local1.kurssisivu.in');
+      try {
+        $stomp->send("/queue/" . $queue_name, $course);
+        $stomp->send("/queue/" . $queue_name, $course_implementation);
+      }
+      catch (\FuseSource\Stomp\Exception\StompException $e) {
+        UHCMessageQueueProcessorBase::log('Error creating queue item: @exception', array('@exception' => $e->getMessage()), WATCHDOG_ERROR);
+      }
+      $stomp->disconnect();
+
+      // After sending, lets process the queue
+      uhc_activemq_connector_process_queue($queue_name);
+
+    }
+
+    return FALSE;
+  }
+  else {
+    watchdog('uhc_sources', 'Unknown source system @source_system', array('@source_system' => $source_system), WATCHDOG_ERROR);
+    return FALSE;
+  }
+}
+
+/**
+ * Helper function for resolving an course number from given course
+ * implementation id.
+ *
+ * @param $course_imp_id
+ *   Course implementation ID, which allows us to construct item URL.
+ * @return integer|bool
+ *   The course number of given course implementation on success. Returns FALSE
+ *   if failed to resolve.
+ *
+ * @see uhc_sources_sync_for_page()
+ */
+function _uhc_sources_resolve_course_number($course_imp_id) {
+  if (!is_numeric($course_imp_id) && !is_string($course_imp_id)) {
+    // Uhm, this should be numeric or string value.
+    watchdog('uhc_sources', 'Calling _uhc_sources_resolve_course_number() with unexpected argument of type "@type"', array('@type' => gettype($course_imp_id)), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+  // Construct URL
+  $item_url = variable_get('uhc_course_implementation_source_item_url', '');
+  $item_url = str_replace(':id', $course_imp_id, $item_url);
+  // Replace language in the URL, use FI as it should not matter. All languages
+  // should have same course id value
+  $item_url = str_replace(':lang', 'fi', $item_url);
+  $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
+
+  // Fetch contents and JSON decode
+  $response = drupal_http_request($item_url);
+  if ($response->code != 200) {
+    // Failed to connect and get the contents :(
+    watchdog('uhc_sources', 'Failed to request @url as response reports HTTP @code, @response', array('@response' => print_r($response,1),'@url' => $item_url, '@code' => $response->code), WATCHDOG_ERROR);
+    return FALSE;
+  }
+  $json = json_decode($response->data);
+  if (!is_object($json) || !$json) {
+    // Return FALSE if we're not dealing with JSON here!
+    watchdog('uhc_sources', 'Response turned out not to be an JSON response.', array(), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+  // Course number should be located here:
+  return isset($json->data->learningopportunity_id) ? $json->data->learningopportunity_id : FALSE;
+}
+
+/**
+ * Does given course implementation node belong to given organisation code.
+ *
+ * @param $node
+ * @param $organisation_code
+ * @return bool
+ */
+function uhc_sources_is_from_organisation($node, $organisation_code) {
+
+  // This function supports only course implementations nodes
+  if ($node->type != 'course_implementation') {
+    watchdog('uhc_sources', 'Tried detecting organisation from unexpected node type "@type".', array('@type' => $node->type), WATCHDOG_WARNING);
+    return FALSE;
+  }
+
+  // Now loop over organisation codes until we find a match.
+  $field_imp_organisation_codes = field_get_items('node', $node, 'field_imp_organisation_codes');
+  if (!empty($field_imp_organisation_codes)) {
+    foreach ($field_imp_organisation_codes as $field_imp_organisation_code) {
+      if ($field_imp_organisation_code['value'] == $organisation_code) {
+        return TRUE;
+      }
+    }
+  }
+
+  // If no match, we fall to returning FALSE
+  return FALSE;
+}
+
+/**
+ * Implements hook_uhc_course_implementation_source_allow_source_row().
+ *
+ * Tell course implementation migration which course implementations are allowed
+ * to be migrated.
+ */
+function uhc_sources_uhc_course_implementation_source_allow_source_row($row) {
+
+  // Allow by organisation
+  // @todo Perhaps do this in uhc_open_univerity module?
+  $allowed_organisation_units = uhc_sources_allowed_organisation_unit_codes();
+  if (empty($allowed_organisation_units)) {
+    // When $allowed_organisation_units is empty, we allow any organisation by
+    // default.
+    $allow_by_organisation = TRUE;
+  }
+  else {
+    $allow_by_organisation = FALSE;
+    if (isset($row->organisations) && is_array($row->organisations)) {
+      foreach ($row->organisations as $organisation) {
+        if (!empty($organisation->code) && in_array($organisation->code, $allowed_organisation_units)) {
+          // If organisation H930 involved, then we want this item to be migrated
+          $allow_by_organisation = TRUE;
+          break;
+        }
+      }
+    }
+  }
+
+  // Allow by keyword and realisation types (only check if
+  // $allow_by_organisation is not TRUE)
+  // @todo Perhaps do this in uhc_genetics and uhc_molecular_biosciences modules?
+  $allow_by_keyword_and_realisation_type = FALSE;
+  if (!$allow_by_organisation) {
+    $allowed_keywords = array('genetiikka', 'molekyylibiotieteet');
+    $denied_realisations = uhc_sources_denied_realisation_type_codes();
+    if (isset($row->descriptions) && isset($row->realisation_type_code)) {
+      $keywords = CourseImplementationNodeMigration::parseKeywordsFromDescriptions($row->descriptions);
+      foreach ($keywords as $keyword) {
+        if (in_array($keyword, $allowed_keywords) && !in_array($row->realisation_type_code, $denied_realisations)) {
+          // When source row has allowed keyword and allowed realistion type, then
+          // allow migrating this item.
+          $allow_by_keyword_and_realisation_type = TRUE;
+          break;
+        }
+      }
+    }
+  }
+
+  return $allow_by_organisation || $allow_by_keyword_and_realisation_type;
+}
+
+/**
+ * Helper function for getting configured allowed organisation units.
+ *
+ * @return array
+ * @throws MigrateException
+ */
+function uhc_sources_allowed_organisation_unit_codes() {
+  $whitelist_codes = &drupal_static(__FUNCTION__);
+  if (!$whitelist_codes) {
+    $whitelist_codes = array();
+    $whitelist = variable_get('uhc_migrate_selected_organisational_units', array());
+    foreach ($whitelist as $item) {
+      if (!empty($item)) {
+        $whitelist_codes[] = $item;
+      }
+    }
+  }
+  return $whitelist_codes;
+}
+
+/**
+ * Helper function for getting configured denied realisation type codes.
+ *
+ * @return array
+ * @throws MigrateException
+ */
+function uhc_sources_denied_realisation_type_codes() {
+  $blacklist_codes = &drupal_static(__FUNCTION__);
+  if (!$blacklist_codes) {
+    $blacklist_tids = variable_get('uhc_migrate_methods_of_study_marked_as_exam', array());
+    if ($migration = Migration::getInstance('TaxonomyFormOfTeachingTerm')) {
+      /** @var $migration Migration */
+      foreach ($blacklist_tids as $blacklist_tid) {
+        $source_key = $migration->getMap()->lookupSourceID(array($blacklist_tid));
+        if (!empty($source_key['sourceid1'])) {
+          $blacklist_codes[] = $source_key['sourceid1'];
+        }
+      }
+    }
+  }
+  return $blacklist_codes;
+}

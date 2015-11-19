@@ -1,0 +1,211 @@
+<?php
+
+/**
+ * Implements hook_user_login().
+ *
+ * Retrieves and stores avatar image as user profile picture on login.
+ */
+function uhc_avatar_user_login(&$edit, $account) {
+  $oodi_uid = uhc_autofill_metadata_get_current_user_oodi_uid();
+
+  if (!empty($oodi_uid)) {
+    $avatar_image = uhc_avatar_get_avatar_image($oodi_uid);
+    uhc_avatar_save_avatar_image($avatar_image, $account);
+  }
+}
+
+/**
+ * Saves avatar image as user profile picture. Deletes the current user profile
+ * picture if the avatar picture was not found (it might have been removed in
+ * the external system).
+ *
+ * @param $avatar_image_file object File object.
+ * @param $user object Drupal user.
+ * @return bool TRUE when the image was saved successfully, otherwise FALSE.
+ */
+function uhc_avatar_save_avatar_image($avatar_image_file, $user) {
+  $save_result = FALSE;
+
+  if (is_object($avatar_image_file)) {
+    $edit = array();
+    $edit['picture'] = $avatar_image_file;
+    $account = user_load($user->uid);
+
+    if (isset($user->picture->uri)) {
+      image_path_flush($user->picture->uri);
+    }
+
+    $save_result = user_save($account, $edit) ? TRUE : FALSE;
+
+    if ($save_result) {
+      uhc_avatar_log('Saved avatar for user @uid', array('@uid' => $user->uid));
+    }
+  }
+  else {
+    if (!empty($user->picture->fid)) {
+      uhc_avatar_delete_avatar_image($user);
+    }
+  }
+
+  return $save_result;
+}
+
+function uhc_avatar_delete_avatar_image($user) {
+  if (!empty($user->picture->fid)) {
+    $file = file_load($user->picture->fid);
+    file_delete($file);
+    uhc_avatar_log('Deleted avatar for user @uid', array('@uid' => $user->uid));
+  }
+}
+
+/**
+ * Retrieves avatar image from an external API, stores the image as managed file
+ * and returns the stored file.
+ *
+ * @param $oodi_uid int Oodi UID.
+ * @return bool|mixed Avatar image file on success, otherwise FALSE.
+ */
+function uhc_avatar_get_avatar_image($oodi_uid) {
+  $avatar_image_file = FALSE;
+  $avatar_image_url = uhc_avatar_get_avatar_image_url($oodi_uid);
+
+  if (!empty($avatar_image_url)) {
+    $avatar_image_temp_destination = "public://avatar/$oodi_uid";
+    $file_extension = pathinfo($avatar_image_url, PATHINFO_EXTENSION);
+
+    if (!empty($file_extension)) {
+      $avatar_image_temp_destination .= ".$file_extension";
+    }
+
+    $avatar_image_final_destination = "public://avatar/$oodi_uid-" . REQUEST_TIME;
+
+    if (!empty($file_extension)) {
+      $avatar_image_final_destination .= ".$file_extension";
+    }
+
+    $avatar_image_file = system_retrieve_file($avatar_image_url, $avatar_image_temp_destination, TRUE, FILE_EXISTS_REPLACE);
+
+    if ($avatar_image_file) {
+      $avatar_image_file = file_move($avatar_image_file, $avatar_image_final_destination);
+    }
+  }
+
+  return $avatar_image_file;
+}
+
+/**
+ * Returns avatar image URL for the given Oodi UID.
+ *
+ * @param $oodi_uid int Oodi UID.
+ * @return string Avatar image URL or empty string if URL is not found.
+ */
+function uhc_avatar_get_avatar_image_url($oodi_uid) {
+  $avatar_api_response = uhc_avatar_get_avatar_api_response($oodi_uid);
+
+  return !empty($avatar_api_response->avatarImageUrl) ? $avatar_api_response->avatarImageUrl : '';
+}
+
+/**
+ * Retrieves and returns avatar image response from an external API.
+ *
+ * @param $oodi_uid int Oodi UID.
+ * @return bool|mixed|object Response object on success, otherwise FALSE.
+ */
+function uhc_avatar_get_avatar_api_response($oodi_uid) {
+  static $api_response = FALSE;
+
+  if ($api_response) {
+    return $api_response;
+  }
+
+  $api_url = uhc_avatar_get_avatar_api_url($oodi_uid);
+  $api_response = drupal_http_request($api_url, array('timeout' => 2.0));
+
+  if ($api_response->code == 200) {
+    $api_response = drupal_json_decode($api_response->data);
+  }
+  elseif ($api_response->code == 404) {
+    uhc_avatar_log('No avatar found for Oodi UID @oodi_uid', array('@oodi_uid' => $oodi_uid));
+  }
+  else {
+    $api_response = FALSE;
+    $error = isset($api_response->error) ? $api_response->error : '';
+
+    uhc_avatar_log(
+      'Failed to get avatar API response for Oodi UID @oodi_uid. Error: @error',
+      array('@oodi_uid' => $oodi_uid, '@error' => $error),
+      WATCHDOG_WARNING
+    );
+  }
+
+  return (object) $api_response;
+}
+
+/**
+ * Returns avatar API URL for the given Oodi Uid.
+ *
+ * @param $oodi_uid int Oodi UID.
+ * @return string Avatar API URL for the given Oodi UID.
+ */
+function uhc_avatar_get_avatar_api_url($oodi_uid) {
+  $api_base_url = variable_get('uhc_avatar_api_base_url', 'https://student.helsinki.fi/');
+  $api_path = "api/public/v1/profile/$oodi_uid";
+
+  return $api_base_url . $api_path;
+}
+
+/**
+ * @see watchdog()
+ */
+function uhc_avatar_log($message, $variables = array(), $severity = WATCHDOG_NOTICE) {
+  watchdog('uhc_avatar', $message, $variables, $severity);
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function uhc_avatar_block_info() {
+  $blocks = array();
+
+  $blocks['avatar_block'] = array(
+    'info' => t('Avatar block'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function uhc_avatar_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'avatar_block':
+      $block['subject'] = '';
+      $block['content'] = _uhc_avatar_block_content();
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * If user is logged in, we print the user avatar
+ */
+function _uhc_avatar_block_content() {
+  if(user_is_logged_in()) {
+    global $user;
+    $account = user_load($user->uid);
+    if($account->picture) {
+      $avatar = theme(
+        'image_style',
+        array(
+          'style_name' => 'profile_picture_small',
+          'path' => $account->picture->uri,
+        )
+      );
+      return $avatar;
+    }
+  }
+}

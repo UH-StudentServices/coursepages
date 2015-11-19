@@ -1,0 +1,49 @@
+{
+  "type": "base",
+  "data": [
+    {
+      "TUNNISTE": "590155",
+      "NIMI_FI": "Formulointi III",
+      "NIMI_SV": "Formulering III",
+      "NIMI_EN": "Formulation III",
+      "OPPIAINE": "Teollisuusfarmasia",
+      "OPETUSTYYPPI_ID": 3,
+      "URL_FI": "https://weboodi.helsinki.fi/hy/alkusivu.jsp?Kieli=1\u0026avattavaSivu=opintjakstied\u0026OpinKohd=46010555",
+      "URL_SV": "https://weboodi.helsinki.fi/hy/alkusivu.jsp?Kieli=2\u0026avattavaSivu=opintjakstied\u0026OpinKohd=46010555",
+      "URL_EN": "https://weboodi.helsinki.fi/hy/alkusivu.jsp?Kieli=6\u0026avattavaSivu=opintjakstied\u0026OpinKohd=46010555",
+      "LAAJUUS": "6",
+      "KURSSIKUVAUS": {
+        "AJOITUS_FI": "\u003cp\u003eOpintojakso luennoidaan kolmen vuoden v\u0026#228;lein. Seuraavan\nkerran opintojakso luennoidaan syksylll\u0026#228; 2016.\u003c/p\u003e",
+        "ARVIOINTI_FI": "\u003cp\u003eArviointi asteikolla 0-5\u003c/p\u003e",
+        "ED_OPINNOT_FI": "\u003cp\u003eL\u0026#228;\u0026#228;kevalmiste I (590335). Formulointi I, II ja III\novat erillisi\u0026#228; kokonaisuuksia, joita ei tarvitse suorittaa\nj\u0026#228;rjestyksess\u0026#228;.\u003c/p\u003e",
+        "KOHDERYHMA_FI": "\u003cp\u003ePakollinen opintojakso teollisuusfarmasian jatko-opiskelijoille\nsek\u0026#228; erikoistumiskoulutusta suorittaville proviisoreille.\nOpintojakso soveltuu valinnaisena farmasian opiskelijoille,\nteollisuusfarmasiaan ja farmasian teknologiaan syventyville\nproviisoriopiskelijoille ja muille tiedekunnan\njatko-opiskelijoille.\u003c/p\u003e",
+        "LISATIEDOT_FI": "\u003cp\u003eOsallistujista riippuen opetuskielen\u0026#228; voi olla\nenglanti.\u003c/p\u003e",
+        "OPPIMATERIAALI_FI": "\u003cp\u003eLuentomateriaali\u003c/p\u003e\n\u003cp\u003eGibson, M.: Pharmaceutical Preformulation and formulation (1.\npainos): sivut: 201-223 (preformulointi), 331-352 (parenteraaliset\nvalmisteet), 355-376 (inhalaatiovalmisteet), 459-488\n(silm\u0026#228;l\u0026#228;\u0026#228;kkeet), 491-511 (nen\u0026#228;\u0026#228;n\nannosteltavat), 515-567 (paikallisesti k\u0026#228;ytett\u0026#228;v\u0026#228;t\nja transdermaaliset valmisteet)\u003c/p\u003e\n\u003cp\u003etai\u003c/p\u003e\n\u003cp\u003e\n\u003c!--[if gte mso 9]\u003e\u003cxml\u003e Normal   0         21         false   false   false      FI   X-NONE   X-NONE                                                     MicrosoftInternetExplorer4 \u003c/xml\u003e\u003c![endif]--\u003e\n \n\u003c!--[if gte mso 9]\u003e\u003cxml\u003e \u003c/xml\u003e\u003c![endif]--\u003e\n \n\u003c!--[if gte mso 10]\u003e \u003cmce:style\u003e\u003c!    /* Style Definitions */  table.MsoNormalTable       {mso-style-name:\"Normaali taulukko\";    mso-tstyle-rowband-size:0;      mso-tstyle-colband-size:0;      mso-style-noshow:yes;   mso-style-priority:99;  mso-style-qformat:yes;  mso-style-parent:\"\";    mso-padding-alt:0cm 5.4pt 0cm 5.4pt;    mso-para-margin:0cm;    mso-para-margin-bottom:.0001pt;         mso-pagination:widow-orphan;    font-size:11.0pt;       font-family:\"Calibri\",\"sans-serif\";     mso-ascii-font-family:Calibri;  mso-ascii-theme-font:minor-latin;       mso-fareast-font-family:Calibri;        mso-fareast-theme-font:minor-latin;     mso-hansi-font-family:Calibri;  mso-hansi-theme-font:minor-latin;       mso-bidi-font-family:\"Times New Roman\";         mso-bidi-theme-font:minor-bidi;         mso-ansi-language:EN-US;        mso-fareast-language:EN-US;}  --\u003e\n \n\u003c!--[endif]--\u003e\n\u003c/p\u003e\n\u003cp\u003eGibson, M.: Pharmaceutical Preformulation and formulation\n(2.painos): kappaleet 6 (s. 214-231), 9-10, 12-14.\u003c/p\u003e",
+        "SISALTO_FI": "\u003cp\u003eOpintojaksossa perehdyt\u0026#228;\u0026#228;n esimerkiksi\nparenteraalisten, puolikiinteiden ja\ninhalaatio-l\u0026#228;\u0026#228;kevalmisteiden formulointiin.\u003c/p\u003e",
+        "SUORITUSTAVAT_FI": "\u003cp\u003eOpintojakso koostuu asiantuntijaluennoista. Opintojaksosta on\nloppukuulustelu. Opintojakson materiaali ja linkki kurssikirjaan\n(e-kirja) ovat saatavilla Moodlessa. Moodle-alueen avaimen saa\nottamalla yhteytt\u0026#228; teollisuusfarmasian\nhenkil\u0026#246;kuntaan.\u003c/p\u003e\n\u003cp\u003eLukukausina, joina kurssia ei luennoida, opintojakson\ntenttiminen on mahdollista kaikkina teollisuusfarmasian\ntenttip\u0026#228;ivin\u0026#228; ilmoittautumalla Teollisuusfarmasian\nkirjatenttiin (590188). Tentitt\u0026#228;v\u0026#228;n opintojakson nimi\ntulee kirjoittaa ilmoittautuessa lomakkeen\nlis\u0026#228;tietoja-kohtaan.\u003c/p\u003e",
+        "TAVOITE_FI": "\u003cp\u003eOpiskelija ymm\u0026#228;rt\u0026#228;\u0026#228; muiden kuin suun kautta\nannettavien l\u0026#228;\u0026#228;kemuotojen kuten parenteraalisten,\npuolikiinteiden ja inhalaatiol\u0026#228;\u0026#228;kevalmisteiden\nformulointia.\u003c/p\u003e",
+        "AJOITUS_SV": "Ajoitus ruotsiksi",
+        "ARVIOINTI_SV": "Arviointi ruotsiksi",
+        "ED_OPINNOT_SV": "Edelliset opinnot ruotsiksi",
+        "KOHDERYHMA_SV": "Kohderyhmä ruotsiksi",
+        "LISATIEDOT_SV": "Lisätiedot ruotsiksi",
+        "OPPIMATERIAALI_SV": "Oppimateriaali ruotsiksi",
+        "SISALTO_SV": "Sisältö ruotsiksi",
+        "SUORITUSTAVAT_SV": "Suoritustavat ruotsiksi",
+        "TAVOITE_SV": "Tavoite ruotsiksi",
+        "AJOITUS_EN": "Ajoitus englanniksi",
+        "ARVIOINTI_EN": "Arviointi englanniksi",
+        "ED_OPINNOT_EN": "Edelliet opinnot englanniksi",
+        "KOHDERYHMA_EN": "Kohderyhmä englanniksi",
+        "LISATIEDOT_EN": "Lisätiedot englanniksi",
+        "OPPIMATERIAALI_EN": "Oppimateriaali englanniksi",
+        "SISALTO_EN": "Sisältö engalnniksi",
+        "SUORITUSTAVAT_EN": "Suoritustvat englanniksi",
+        "TAVOITE_EN": "Tavoite englanniksi"
+      },
+      "KIELI": ["FI"],
+      "KIRJALLISUUS": []
+    }
+  ],
+  "md5": "785afadb81d58936d15f60746d539581"
+}

@@ -1,0 +1,162 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Tour feature.
+ */
+
+include_once 'uhc_tour.features.inc';
+
+/**
+ * Implements hook_permission().
+ */
+function uhc_tour_permission() {
+  return array(
+    'administer tour triggering' => array(
+      'title' => t('Administer tour triggering'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_context_plugins().
+ *
+ * Introduce an own condition plugin as "Context by node" and "Context node" did
+ * not fit nicely to our case.
+ */
+function uhc_tour_context_plugins() {
+  $plugins = array();
+  $plugins['uhc_tour_is_demo_content'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'uhc_tour') .'/plugins',
+      'file' => 'uhc_tour_context_condition_demo_content.inc',
+      'class' => 'uhc_tour_context_condition_demo_content',
+      'parent' => 'context_condition',
+    ),
+  );
+  return $plugins;
+}
+
+/**
+ * Implements hook_context_registry().
+ */
+function uhc_tour_context_registry() {
+  return array(
+    'conditions' => array(
+      'uhc_tour_context_condition_demo_content' => array(
+        'title' => t('Demo course implementation'),
+        'plugin' => 'uhc_tour_is_demo_content',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function uhc_tour_user_login(&$edit, $account) {
+  if ($account->access == 0) {
+    // When login is an "virgin login" and has teacher role assigned, then
+    // promote demo content with tour if we have such value available.
+    $demo_nid = variable_get('uhc_tour_demo_nid', 0);
+    $teacher_role = user_role_load_by_name('teacher');
+    $course_administrator_role = user_role_load_by_name('course administrator');
+    if (!empty($demo_nid) && (user_has_role($teacher_role->rid) || user_has_role($course_administrator_role->rid))) {
+      drupal_set_message(t('Welcome! Please have tour about course page maintaining by <a href="@url">visiting demo content</a>.', array('@url' => url('node/' . $demo_nid))), 'status');
+    }
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function uhc_tour_node_view($node, $view_mode, $langcode) {
+  if ($plugin = context_get_plugin('condition', 'uhc_tour_context_condition_demo_content')) {
+    $plugin->execute($node);
+  }
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function uhc_tour_preprocess_node(&$node) {
+  if ($node['type'] == 'course_implementation') {
+    // Add some js for handling opening accordoin items for course implementation node
+    drupal_add_js(drupal_get_path('module', 'uhc_tour') . '/js/uhc_tour_accordion.js', array('scope' => 'footer'));
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function uhc_tour_form_alter(&$form, &$form_state, $form_id) {
+
+  // When in course implementation node form
+  if ($form_id == 'course_implementation_node_form') {
+
+    // Add after build callback function
+    $form['#after_build'][] = 'uhc_tour_after_build';
+
+    // And add additional tour triggering option
+    if (user_access('administer tour triggering')) {
+
+      // Determine default value for the checkbox. If we're editing the node
+      // which is already set as demo content. Then make it TRUE.
+      $default_value = FALSE;
+      if (isset($form_state['node']->nid) && !empty($form_state['node']->nid)) {
+        $default_value = variable_get('uhc_tour_demo_nid', 0) == $form_state['node']->nid;
+      }
+
+      // Define the checkbox element
+      $form['actions']['uhc_tour_trigger'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Trigger tour'),
+        '#default_value' => $default_value,
+        '#description' => t('Check this if you want to trigger tour for teachers about how to maintain the course page.'),
+      );
+      $form['#submit'][] = 'uhc_tour_submit_node_form';
+    }
+
+  }
+}
+
+/**
+ * Callback for embedding JS and triggering context conditions.
+ */
+function uhc_tour_after_build($form, &$form_state) {
+
+  // Add some js for handling opening vertical tabs for course implementation node edit form
+  drupal_add_js(drupal_get_path('module', 'uhc_tour') . '/js/uhc_tour_tabs.js', array('scope' => 'footer'));
+
+  // Trigger condition execution when editing node (except in admin pages).
+  if (!empty($form['#node_edit_form']) && arg(0) != 'admin' && isset($form['#node']->nid)) {
+    if ($plugin = context_get_plugin('condition', 'uhc_tour_context_condition_demo_content')) {
+      $plugin->execute($form['#node']);
+    }
+  }
+
+  return $form;
+}
+
+/**
+ * Callback for course implementation node form submission.
+ */
+function uhc_tour_submit_node_form(&$form, &$form_state) {
+  // If permission to administer this option
+  if (user_access('administer tour triggering')) {
+
+    $previous_demo_nid = variable_get('uhc_tour_demo_nid', 0);
+    $new_demo_nid = isset($form_state['values']['nid']) ? $form_state['values']['nid'] : 0;
+    $trigger_this = isset($form_state['values']['uhc_tour_trigger']) ? (bool) $form_state['values']['uhc_tour_trigger'] : FALSE;
+
+    // When triggering this node with new nid, change it
+    if ($trigger_this && $new_demo_nid) {
+      variable_set('uhc_tour_demo_nid', $new_demo_nid);
+    }
+    elseif (!$trigger_this && $previous_demo_nid == $new_demo_nid) {
+      // If not triggering this and the setting used to be this node, then reset
+      // variable. In this case, we'll not have any demo content set and
+      // therefore no tour will be triggered.
+      variable_del('uhc_tour_demo_nid');
+    }
+  }
+}

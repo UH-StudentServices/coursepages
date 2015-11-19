@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the uhc_liftups feature.
+ */
+
+include_once 'uhc_liftups.features.inc';

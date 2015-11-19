@@ -1,0 +1,68 @@
+{
+  "type": "realisation",
+  "data": {
+    "info": [
+      {
+        "JAKSO_ID": "590155",
+        "NIMI_FI": "Formulointi III - Pauliinan opetus",
+        "NIMI_SV": "Formulering III - Pauliinas undervisning",
+        "NIMI_EN": "Formulation III - Pauliina's teaching",
+        "ALKAMISPVM": "2015-05-11T00:00:00.000+03:00",
+        "PAATTYMISPVM": "2015-06-30T00:00:00.000+03:00",
+        "OPETUSMUOTO_ID": 5,
+        "URL_FI": "https://weboodi.helsinki.fi/hy/alkusivu.jsp?Kieli=1\u0026avattavaSivu=opettaptied\u0026OpetTap=107694052",
+        "URL_SV": "https://weboodi.helsinki.fi/hy/alkusivu.jsp?Kieli=2\u0026avattavaSivu=opettaptied\u0026OpetTap=107694052",
+        "URL_EN": "https://weboodi.helsinki.fi/hy/alkusivu.jsp?Kieli=6\u0026avattavaSivu=opettaptied\u0026OpetTap=107694052",
+        "TOTEUTUS_ID": 107694052,
+        "ARVIOINTI_FI": "Arviointi suomeksi",
+        "ARVIOINTI_SV": "Arviointi ruotsiksi",
+        "ARVIOINTI_EN": "Arviointi englanniksi",
+        "AJOITUS_FI": "Ajoitus suomeksi",
+        "AJOITUS_SV": "Ajoitus ruotsiksi",
+        "AJOITUS_EN": "Ajoitus englanniksi",
+        "ED_OPINNOT_FI": "Edelliset opinnot suomeksi",
+        "ED_OPINNOT_SV": "Edelliset opinnot ruotsiksi",
+        "ED_OPINNOT_EN": "Edelliset opinnot engalnniksi",
+        "KOHDERYHMA_FI": "Kohderyhmä suomeksi",
+        "KOHDERYHMA_SV": "Kohderyhmä ruotsiksi",
+        "KOHDERYHMA_EN": "Kohderyhmä englanniksi",
+        "LISATIEDOT_FI": "Lisätiedot suomeksi",
+        "LISATIEDOT_SV": "Lisätiedot ruotsiksi",
+        "LISATIEDOT_EN": "Lisätiedot englanniksi",
+        "OPPIMATERIAALI_FI": "Oppimateriaali suomeksi",
+        "OPPIMATERIAALI_SV": "Oppimateriaali ruotsiksi",
+        "OPPIMATERIAALI_EN": "Oppimateriaali englanniksi",
+        "OPINTOMAKSU_FI": "50 €",
+        "OPINTOMAKSU_SV": "50 €",
+        "OPINTOMAKSU_EN": "50 €",
+        "SISALTO_FI": "Sisältö suomeksi",
+        "SISALTO_SV": "Sisältö ruotsiksi",
+        "SISALTO_EN": "Sisältö englanniksi",
+        "SUORITUSTAVAT_FI": "Suoritustavat suomeksi",
+        "SUORITUSTAVAT_SV": "Suoritustavat ruotsiksi",
+        "SUORITUSTAVAT_EN": "Suoritustavat englanniksi",
+        "TAVOITE_FI": "Tavoite suomeksi",
+        "TAVOITE_SV": "Tavoite ruotsiksi",
+        "TAVOITE_EN": "Tavoite englanniksi",
+        "TOTEUTUS_FI": "Toteutus suomeksi",
+        "TOTEUTUS_SV": "Toteutus ruotsiksi",
+        "TOTEUTUS_EN": "Toteutus englanniksi",
+        "LAAJUUS": "4",
+        "KIELI": ["FI"],
+        "PAIKKAKUNNAT": {},
+        "TOTEUTTAJA": {}
+      }
+    ],
+    "opettajat": [],
+    "alitoteutukset": [],
+    "organisaatiot": [
+      {
+        "VASTUUORGANISAATIO_ID": "H5530",
+        "VASTUUPROSENTTI": 100,
+        "TIEDEKUNTA_ID": "H55"
+      }
+    ],
+    "periodit": [{"PERIODI_ID": 68257725}]
+  },
+  "md5": "6778cf05a9c26c2c565bbb2b33fc2625"
+}

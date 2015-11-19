@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Subject feature.
+ */
+
+include_once 'uhc_subject.features.inc';

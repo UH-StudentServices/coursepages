@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Handle (un)installation tasks of this module.
+ */
+
+/**
+ * Enable Better Formats module.
+ */
+function hy_portal_content_administration_feature_update_7002(&$sandbox) {
+  module_enable(array('better_formats'));
+}

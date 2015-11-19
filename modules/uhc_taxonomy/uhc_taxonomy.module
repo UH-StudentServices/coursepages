@@ -1,0 +1,76 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Taxonomy feature.
+ */
+
+include_once 'uhc_taxonomy.features.inc';
+
+/**
+ * Implements hook_taxonomy_term_insert().
+ */
+function uhc_taxonomy_taxonomy_term_insert($term) {
+  if ($term->vocabulary_machine_name == 'months') {
+    _uhc_taxonomy_translate_monthyear($term);
+  }
+}
+
+/**
+ * Implements hook_taxonomy_term_update().
+ */
+function uhc_taxonomy_taxonomy_term_update($term) {
+  if ($term->vocabulary_machine_name == 'months') {
+    _uhc_taxonomy_translate_monthyear($term);
+  }
+}
+
+/**
+ * Helper function for translating terms from months.
+ *
+ * DOO-575: When taxonomy term is saving and it belongs to vocabulary "months",
+ * then translate the name to all supported languages.
+ *
+ * We expect the name to be in "F Y" format (example "September 2015").
+ *
+ * @param $term
+ */
+function _uhc_taxonomy_translate_monthyear($term) {
+  if (_uhc_taxonomy_monthyear_translations_missing($term)) {
+    // We do some sanity check of the name. If it has two words and second is
+    // numeric, then we should be fine. (example: September 2015)
+    $parts = explode(" ", $term->name);
+    if (count($parts) == 2 && is_numeric($parts[1])) {
+      list($month, $year) = $parts;
+      foreach (PortalMigrationBase::getSupportedLanguages() as $langcode) {
+        $translated_month = t($month, array(), array('langcode' => $langcode));
+        $term->name_field[$langcode] = array(array('value' => $translated_month . ' ' . $year));
+      }
+
+      // Note: Risk of infinite loop (save triggers _insert and _update hooks),
+      // please see _uhc_taxonomy_monthyear_translations_missing().
+      taxonomy_term_save($term);
+
+    }
+    else {
+      // If we fail sanity check, make a note in the logs for potential issue
+      // detection.
+      watchdog('uhc_taxonomy', 'Failed sanity check while translating months. Tried to translate from @name_original', array('@name_original' => $term->name_original), WATCHDOG_WARNING);
+    }
+  }
+}
+
+/**
+ * Helper function for determining whether the term is already translated. To
+ * supported languages.
+ *
+ * @param $term
+ * @return bool
+ */
+function _uhc_taxonomy_monthyear_translations_missing($term) {
+  foreach (PortalMigrationBase::getSupportedLanguages() as $langcode) {
+    if (!isset($term->name_field[$langcode])) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}

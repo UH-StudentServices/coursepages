@@ -1,0 +1,13 @@
+{"data":[
+	{"id": "1", "NIMI_FI": "Kasvit", "NIMI_EN": "Plants", "NIMI_SV": "Växter"},
+	{"id": "2", "NIMI_FI": "Ihmiset", "NIMI_EN": "Humans", "NIMI_SV": "Människor"},
+	{"id": "3", "NIMI_FI": "Kehitys", "NIMI_EN": "Development", "NIMI_SV": "Utveckling"},
+	{"id": "4", "NIMI_FI": "Molekyylit", "NIMI_EN": "Molecules", "NIMI_SV": "Molekyler"},
+	{"id": "5", "NIMI_FI": "Informaatio", "NIMI_EN": "Information", "NIMI_SV": "Information"},
+	{"id": "6", "NIMI_FI": "Mikrobit", "NIMI_EN": "Microbes", "NIMI_SV": "Mikrober"},
+	{"id": "7", "NIMI_FI": "DNA", "NIMI_EN": "DNA", "NIMI_SV": "DNA"},
+	{"id": "8", "NIMI_FI": "Yksilö", "NIMI_EN": "Individual", "NIMI_SV": "Individuell"},
+	{"id": "9", "NIMI_FI": "Laskenta", "NIMI_EN": "Count", "NIMI_SV": "Beräkning"},
+	{"id": "10", "NIMI_FI": "Laboratorio", "NIMI_EN": "Laboratorio", "NIMI_SV": "Laboratorie"},
+	{"id": "11", "NIMI_FI": "Lääketiede", "NIMI_EN": "Medicine", "NIMI_SV": "Medicin"}
+]}

@@ -1,0 +1,52 @@
+<?php
+/**
+ * @file
+ * Provides (un)installation tasks and update tasks of this module.
+ */
+
+/**
+ * Sets "Show only to course students" default values to existing nodes.
+ */
+function hy_portal_teacher_tools_update_7001(&$sandbox) {
+
+  // Ensure that we have needed field for this update (by reverting certain
+  // feature components).
+  features_revert(array('hy_portal_teacher_tools' => array('field_base', 'field_instance')));
+
+  // Fetch all course implementaiton nids available from node table
+  $result = db_select('node')
+    ->condition('type', 'course_implementation')
+    ->fields('node', array('nid'))
+    ->execute();
+  $nids = $result->fetchCol();
+
+  // Set value for "Show only to course students" which should be boolean true
+  // by default, as legacy nodes does not have this checked by default.
+  $value_schemes = array(
+    'entity_type' => 'node',
+    'bundle' => 'course_implementation',
+    'deleted' => 0,
+    'entity_id' => 0,
+    'revision_id' => 0,
+    'language' => LANGUAGE_NONE,
+    'delta' => 0,
+    'field_moodle_show_to_students_value' => 1,
+  );
+  $fields = array_keys($value_schemes);
+  foreach ($nids as $nid) {
+
+    $data_insert = db_insert('field_data_field_moodle_show_to_students')->fields($fields);
+    $revision_insert = db_insert('field_revision_field_moodle_show_to_students')->fields($fields);
+
+    $record = $value_schemes;
+    $record['entity_id'] = $nid;
+    $record['revision_id'] = $nid;
+
+    $data_insert->values($record)->execute();
+    $revision_insert->values($record)->execute();
+  }
+
+  // Clears field cache after DB inserts
+  field_cache_clear();
+
+}

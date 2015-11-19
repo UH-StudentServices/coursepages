@@ -1,0 +1,59 @@
+<?php
+/**
+ * @file
+ * Takes care of module's installations tasks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function hy_course_implementation_source_uninstall() {
+  variable_del('hy_course_implementation_source_list_url');
+  variable_del('hy_course_implementation_source_item_url');
+  variable_del('hy_course_implementation_source_predefined_description_names');
+}
+
+/**
+ * Deregisters all organisational course implementation importers and migrate
+ * its map and message items to new responsible migration.
+ */
+function hy_course_implementation_source_update_7006() {
+  $migrations = array(
+    'FromOrg4325ToCourseImplementationNode',
+    'FromOrg4327ToCourseImplementationNode',
+    'FromOrgH470ToCourseImplementationNode',
+    'FromOrgH930ToCourseImplementationNode',
+    'FromKeywordMolekyylibiotieteetToCourseImplementationNode',
+    'SingleCourseImplementationNode',
+  );
+  foreach ($migrations as $migration) {
+
+    // Deregister migration
+    db_delete('migrate_status')
+      ->condition('machine_name', $migration)
+      ->execute();
+
+    // Migrate values to new one. Table names apparently can't be longer than 63
+    // characters long.
+    $map_table = substr('migrate_map_' . drupal_strtolower($migration), 0, 63);
+    $map_query = db_select($map_table, 'map')->fields('map')->execute();
+    while ($values = $map_query->fetchAssoc()) {
+      db_merge('migrate_map_courseimplementationnode')->key(array('sourceid1' => $values['sourceid1']))->fields($values)->execute();
+    }
+    $message_table = substr('migrate_message_' . drupal_strtolower($migration), 0, 63);
+    $message_query = db_select($message_table, 'msg')->fields('msg')->execute();
+    while ($values = $message_query->fetchAssoc()) {
+      unset($values['msgid']);
+      db_merge('migrate_message_courseimplementationnode')->key(array('sourceid1' => $values['sourceid1']))->fields($values)->execute();
+    }
+
+    // Drop tables.
+    db_drop_table($map_table);
+    db_drop_table($message_table);
+  }
+
+  // Remove variables containing source URL of migrations we're removing
+  variable_del('hy_course_implementation_source_keyword_mole_list_url');
+  db_query("DELETE FROM {variable} WHERE name LIKE 'hy_course_implementation_source_org_%'");
+
+}

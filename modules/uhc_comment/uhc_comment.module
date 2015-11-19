@@ -1,0 +1,107 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Comment feature.
+ */
+
+include_once 'uhc_comment.features.inc';
+
+/**
+ * Implements hook_menu_alter().
+ * @see uhc_comment_comment_access().
+ */
+function uhc_comment_menu_alter(&$items) {
+  if (isset($items['comment/%/delete'])) {
+    // Replace access callback/arguments to similar to comment_access() used in
+    // edit task. See DOO-737.
+    $items['comment/%/delete']['access callback'] = 'uhc_comment_comment_access';
+    $items['comment/%/delete']['access arguments'] = array('edit', 1);
+  }
+}
+
+/**
+ * This is wrapper access callback, which utilizes the comment_access(). We
+ * can't use comment_access() directly, because it takes the whole comment
+ * entity instead comment id.
+ *
+ * That is why we do access callback which loads the comment and passes it then
+ * for comment_access().
+ *
+ * @see uhc_comment_menu_alter().
+ */
+function uhc_comment_comment_access($op, $cid) {
+  $comment = comment_load($cid);
+  return comment_access($op, $comment);
+}
+
+/**
+ * Implements hook_preprocess_comment().
+ */
+function uhc_comment_preprocess_comment(&$variables) {
+
+  // Append comment deletion link when having permissions to edit comments. Note
+  // that normally Drupal requires higher permission level for deletion, here we
+  // explicitly want to allow that. See DOO-737.
+  if (comment_access('edit', $variables['comment'])) {
+    $variables['content']['links']['comment']['#links']['comment-delete'] = array(
+      'title' => t('delete'),
+      'href' => 'comment/' . $variables['comment']->cid . '/delete',
+      'html' => TRUE,
+    );
+  }
+
+  // We do not want to use reply links. Lets stay simple and flat.
+  if (isset($variables['content']['links']['comment']['#links']['comment-reply'])) {
+    unset($variables['content']['links']['comment']['#links']['comment-reply']);
+  }
+
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function uhc_comment_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'course_implementation') {
+    uhc_comment_add_accordion_target_to_pager_links();
+  }
+}
+
+function uhc_comment_add_accordion_target_to_pager_links() {
+  $script_path = drupal_get_path('module', 'uhc_comment') . '/js/uhc_comment.js';
+  drupal_add_js($script_path, array('scope' => 'footer'));
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function uhc_comment_form_comment_node_course_implementation_form_alter(&$form, &$form_state, $form_id) {
+  if (!uhc_comment_form_access($form['#node'])) {
+    // Deny access to form.
+    $form['#access'] = FALSE;
+    // Hide "Add new comment" title.
+    drupal_add_css('div#comments h2.title {display: none;}', 'inline');
+  }
+
+  $form['#submit'][] = 'uhc_comment_handle_comment_form_submit';
+}
+
+/**
+ * @param $node object Node.
+ * @return bool TRUE if the current user is course teacher or course
+ * administrator (or editor or admin), otherwise FALSE.
+ */
+function uhc_comment_form_access($node) {
+  return user_has_role(user_role_load_by_name('administrator')->rid)
+    || user_has_role(user_role_load_by_name('editor-in-chief of communications')->rid)
+    || uhc_course_collaboration_is_current_user_course_teacher($node)
+    || uhc_course_collaboration_is_current_user_course_administrator($node);
+}
+
+/**
+ * Redirect comment form submit back to the first page of comments and open up
+ * the accordion automatically.
+ */
+function uhc_comment_handle_comment_form_submit($form, &$form_state) {
+  $form_state['redirect'][1]['query']['page'] = 0;
+  $form_state['redirect'][1]['query']['group-course-messages'] = TRUE;
+}

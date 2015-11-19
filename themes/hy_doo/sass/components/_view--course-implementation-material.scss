@@ -1,0 +1,14 @@
+.course-material {
+  .grouping-title {
+    @extend .accordion-content--label;
+    font-size: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin-top: 3em;
+  }
+  .item-list:only-child {
+    h2.grouping-title.other {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+name = HY REST API
+description = Provides an API for services to consume this site's data.
+core = 7.x
+package = HY Portal
+version = 7.x-1.41-dev
+project = hy_rest_api

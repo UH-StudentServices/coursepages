@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Takes care of module's installations tasks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_course_implementation_source_uninstall() {
+  variable_del('uhc_course_implementation_source_list_url');
+  variable_del('uhc_course_implementation_source_item_url');
+  variable_del('uhc_course_implementation_source_predefined_description_names');
+}

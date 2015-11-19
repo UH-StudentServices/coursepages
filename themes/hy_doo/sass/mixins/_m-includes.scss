@@ -1,0 +1,27 @@
+// use Susy v.1 syntax, please note that this version has "soon to be depricated" values
+@import "susyone";
+
+@mixin some-background-color($color) {
+  background-color: $color;
+
+  &:hover {
+    background-color: darken($color, 5%);
+  }
+}
+
+@mixin hyphenate() {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  word-break: break-word;
+  -ms-word-break: break-all;
+}
+
+@mixin hy-icon($unicode : '') {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "hy-icons";
+  @if ($unicode) {
+    content: $unicode;
+  }
+}

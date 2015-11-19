@@ -1,0 +1,23 @@
+/*
+* Adjustments and overrides for header region
+*/
+
+// logo on mobile devices
+.l-top-bar {
+	height: auto;
+  .block-site_logo {
+    background: $black;
+  }
+  .site-logo {
+    padding: 0;
+    margin-top: 10px;
+    height: 45px;
+  }
+  .site-name {
+  	padding-top: 24px;
+  }
+}
+
+.l-menu-bar {
+  border-bottom: 1px solid $lightsilver;
+}

@@ -1,0 +1,17 @@
+name = UHC Molecular Biosciences
+description = Provides ability to have molecular biosciences section in the site.
+core = 7.x
+package = UHC
+version = 7.x-1.42
+project = uhc_molecular_biosciences
+dependencies[] = context
+dependencies[] = ctools
+dependencies[] = search_api_views
+dependencies[] = views
+features[context][] = portal_main_biosciences
+features[context][] = portal_search_results_biosciences
+features[ctools][] = context:context:3
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = uhc_search_biosciences
+mtime = 1447075184

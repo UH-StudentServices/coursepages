@@ -1,0 +1,39 @@
+<?php
+/**
+ * @file
+ * Code for the UHC statistics feature.
+ */
+
+include_once 'uhc_statistics.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function uhc_statistics_menu() {
+  $items['statistics'] = array(
+    'page callback' => 'uhc_statistics_page',
+    'access callback' => TRUE,
+   	//'access callback' => 'uhc_statistics_access',
+   	//'access arguments' => array(1, array('administrator', 'admin')),
+  );
+  return $items;
+}
+
+/**
+ * Access callback for statistics, only for admin role
+ */
+function uhc_statistics_access($user, $roles = array()) {
+  foreach ($roles as $role) {
+    if (in_array($role, $user->roles)) {
+      return TRUE;
+    }
+  }
+  return FALSE; 
+}
+
+/**
+ * Page callback for statistics
+ */
+function uhc_statistics_page() {
+  return ' ';	
+}

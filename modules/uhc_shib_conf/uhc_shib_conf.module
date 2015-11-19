@@ -1,0 +1,131 @@
+<?php
+/**
+ * @file
+ * Code for the uhc_shib_conf feature.
+ */
+
+include_once 'uhc_shib_conf.features.inc';
+
+
+/**
+ * Implements hook_block_info().
+ */
+function uhc_shib_conf_block_info() {
+  $blocks = array();
+  $blocks['uhc_login'] = array(
+    'info' => t('Login / Logout'),
+    'cache' => DRUPAL_CACHE_CUSTOM,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function uhc_shib_conf_block_view($delta) {
+
+  $block = array();
+
+  switch ($delta) {
+    case 'uhc_login':
+      #$block['subject'] = t('Login');
+      if (user_is_logged_in()) {
+        $url = url(shib_auth_get_handler_base() . '/Logout', array('absolute' => TRUE, 'query' => array('return' => shib_auth_config('logout_url'))));
+        $block['content'] = array(
+          '#markup' => theme('shib_login_block', array('login_url' => $url, 'login_text' => t("Logout"))),
+        );          
+      }
+      else {
+        $block['content'] = array(
+            '#markup' => theme('shib_login_block', array('login_url' => shib_auth_generate_login_url(), 'login_text' => t('Login'))),
+        );
+      }
+    break;
+  }
+
+
+  return $block;
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function uhc_shib_conf_user_login(&$edit, $account) {
+  // See DOO-845.
+  drupal_set_message(t('You have been logged in.'));
+}
+
+/**
+ * Implements hook_menu_alter().
+ *
+ * Inject our own access callback on user edit pages, as we want to deny people
+ * to edit their accounts, because they're handled through Shibboleth.
+ */
+function uhc_shib_conf_menu_alter(&$items) {
+  if (isset($items['user/%user/edit']['access callback'])) {
+    $items['user/%user/edit']['access callback'] = 'uhc_shib_conf_user_edit_access';
+  }
+}
+
+/**
+ * Access callback for determining whether to let people edit given account.
+ */
+function uhc_shib_conf_user_edit_access($account) {
+  global $user;
+
+  // If we're user 1 or administrator, then fallback to original
+  // user_edit_access() call.
+  $administrator_role = user_role_load_by_name('administrator');
+  if ($user->uid == 1 || user_has_role($administrator_role->rid)) {
+    return user_edit_access($account);
+  }
+
+  // Or else, return FALSE.
+  return FALSE;
+}
+
+/**
+ * Implements hook_menu().
+ *
+ * Adds a login/logout link item to og menu (main menu) & open uni main menu.
+ * correct shib login/logout url's are handled in theme template.php  uhc_doo_menu_link().
+ */
+function uhc_shib_conf_menu() {
+  $menus = array('user-menu');
+
+  $items['logout'] = array(
+    'menu_name' => 'user-menu',
+    'title' => t('Logout'),
+    'options' => array(
+      'attributes' => array(
+        'class' => 'login-link',
+      ),
+    ),
+    'access callback' => 'user_is_logged_in',
+    // we don't use this callback as the url is changed later
+    //but the menu item doesn't work without it
+    'page callback' => 'uhc_shib_conf_blank_callback'
+  );
+  $menus = array('og-menu-single', 'menu-open-university-navigation');
+  foreach ($menus as $menu) {
+      $items[$menu . '/login'] = array(
+      'menu_name' => $menu,
+      'title' => t('Login'),
+      'options' => array(
+        'attributes' => array(
+          'class' => 'login-link',
+        ),
+      ),
+      'access callback' => 'user_is_anonymous',
+      // we don't use this callback as the url is changed later
+      //but the menu item doesn't work without it
+      'page callback' => 'uhc_shib_conf_blank_callback'
+    );
+  }
+
+  return $items;
+}
+
+function uhc_shib_conf_blank_callback() {
+  return '';
+}

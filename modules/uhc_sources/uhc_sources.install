@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Handle installation tasks for this module.
+ */
+
+/**
+ * Uninstall.
+ */
+function uhc_sources_uninstall() {
+  variable_del('uhc_sources_base_url');
+  variable_del('uhc_sources_examination_type_codes');
+  variable_del('uhc_sources_timeout');
+  variable_del('uhc_sources_simulate_failure');
+  db_query("DELETE FROM {variable} WHERE name LIKE 'uhc_sources_last_requested_%'");
+}

@@ -1,0 +1,6 @@
+name = HY Course Source
+description = Provides the source data for courses.
+core = 7.x
+package = HY Portal
+version = 7.x-1.41-dev
+project = hy_course_source

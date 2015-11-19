@@ -1,0 +1,370 @@
+<?php
+/**
+ * @file
+ * UHC Course Material Drag 'N Drop module file.
+ */
+
+/**
+ * Implements hook_field_widget_form_alter().
+ * @see inline_entity_form_field_widget_form()
+ */
+function uhc_course_material_dnd_field_widget_form_alter(&$element, &$form_state, $context) {
+  // When rendering field_section_material field in course implementation nodes
+  if ($context['instance']['entity_type'] == 'node' &&
+      $context['instance']['bundle'] == 'course_implementation' && 
+      $context['instance']['field_name'] == 'field_section_material') {
+
+    // We want actions & ief forms before the material list
+    $element['actions']['#weight'] = 0;
+    if(isset($element['form'])) {
+      $element['form']['#weight'] = 0;
+    }
+
+    // Determine the $ief_id and $wrapper, see how
+    // inline_entity_form_field_widget_form() id it
+    $parents = array_merge($element['#field_parents'], array($element['#field_name'], $element['#language']));
+    $ief_id = sha1(implode('-', $parents));
+    $wrapper = 'inline-entity-form-' . $ief_id;
+    $controller = inline_entity_form_get_controller($context['instance']);
+
+    //format our allowed extensions for dropzone.js
+    $entity_type = 'node';
+    $entity_bundle = 'course_material';
+    $field_name = 'field_material_file';
+    $allowed_extensions = str_replace(' ', ', .',  uhc_course_material_dnd_get_field_settings($entity_type, $entity_bundle, $field_name, 'file_extensions'));
+    $allowed_extensions = '.' . $allowed_extensions;
+    $max_filesize = str_replace(' MB', '',  uhc_course_material_dnd_get_field_settings($entity_type, $entity_bundle, $field_name, 'max_filesize'));
+
+    // When no form is rendered, show button for opening it
+    if (empty($form_state['inline_entity_form'][$ief_id]['form'])) {
+      $element['actions']['ief_dragndrop'] = array(
+        '#type' => 'submit',
+        '#value' => t('Upload multiple files'),
+        '#name' => 'ief-' . $ief_id . '-dnd',
+        '#limit_validation_errors' => array(array_merge($parents, array('actions'))),
+        '#ajax' => array(
+          'callback' => 'inline_entity_form_get_element',
+          'wrapper' => $wrapper,
+        ),
+        '#submit' => array('inline_entity_form_open_form'),
+        '#ief_form' => 'dnd',
+        '#attached' => array(
+          'css' => array(
+            drupal_get_path('module', 'uhc_course_material_dnd') . '/css/dropzone.css',
+          ),
+        ),
+      );
+
+      $element['actions']['ief_dragndrop']['#attached']['js'][] = array(
+        'data' => libraries_get_path('dropzone') . '/dropzone.js'
+      );
+
+      $element['actions']['ief_dragndrop']['#attached']['js'][] = array(
+        'data' => drupal_get_path('module', 'uhc_course_material_dnd') . '/js/uhc_course_material_dnd.js',
+        array('type' => 'file', 'scope' => 'footer', 'weight' => 5)
+      );
+
+      $element['actions']['ief_dragndrop']['#attached']['library'][] = array('system', 'ui.dialog');
+      $element['actions']['ief_dragndrop']['#attached']['js'][] = array(
+        'data' => array(
+          'uhc_course_material_dnd' => array(
+            'allowed_extensions' => $allowed_extensions,
+            'max_filesize' => $max_filesize,
+          ),
+        ),
+        'type' => 'setting',
+      );
+    }
+    else {
+      // When "dnd" form is supposed to be open, then do it
+      if ($form_state['inline_entity_form'][$ief_id]['form'] == 'dnd') {
+        $element['form']['#op'] = 'dnd';
+        $element['form'] += uhc_course_material_dnd_form($controller, $element['form'], $form_state);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_ajax_render_alter().
+ */
+function uhc_course_material_dnd_ajax_render_alter(&$commands) {
+  foreach ($commands as $command) {
+    if(isset($command['settings']['ajax']['edit-field-section-material-und-form-actions-ief-dnd-save'])) {
+      $commands[] = array('command' => 'dropzoneinit');
+    }
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function uhc_course_material_dnd_menu() {
+  $items['dragndrop'] = array(
+    'page callback' => 'uhc_course_material_dnd_upload_callback',
+    'access callback' => 'node_access',
+    'access arguments' => array('create', 'course_material'),
+    'delivery callback' => 'ajax_deliver',
+    'theme callback' => 'ajax_base_page_theme',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Provides an IEF form for allowing drag and drop multiple files and generate
+ * course materials.
+ *
+ * @return
+ *   The form array containing the embedded form.
+ */
+function uhc_course_material_dnd_form($controller, $dnd_form, &$form_state) {
+
+  $dnd_form['material_nids'] = array(
+    '#type' => 'hidden',
+    '#weight' => 99,
+    '#suffix' => '<div id="material-dropzone"><div class="dropzone material-dropzone"></div></div>',
+    '#attributes' => array('id' => array('material-nids')),
+  );
+
+  $dnd_form['actions'] = array(
+    '#type' => 'container',
+    '#weight' => 100,
+  );
+  $dnd_form['actions']['ief_dnd_save'] = array(
+    '#type' => 'submit',
+    '#value' => t('Upload files'),
+    '#name' => 'ief-dnd-submit-' . $dnd_form['#ief_id'],
+    '#limit_validation_errors' => array($dnd_form['#parents']),
+    '#attributes' => array('class' => array('ief-entity-submit')),
+    '#ajax' => array(
+      'callback' => 'inline_entity_form_get_element',
+      'wrapper' => 'inline-entity-form-' . $dnd_form['#ief_id'],
+    ),
+    '#submit' => array(
+      'inline_entity_form_trigger_submit',
+      'inline_entity_form_close_form',
+    ),
+  );
+  $dnd_form['actions']['ief_dnd_cancel'] = array(
+    '#type' => 'submit',
+    '#value' => t('Cancel'),
+    '#name' => 'ief-dnd-cancel-' . $dnd_form['#ief_id'],
+    '#limit_validation_errors' => array(),
+    '#ajax' => array(
+      'callback' => 'inline_entity_form_get_element',
+      'wrapper' => 'inline-entity-form-' . $dnd_form['#ief_id'],
+    ),
+    '#submit' => array('inline_entity_form_close_form'),
+  );
+
+  $dnd_form['#element_validate'][] = 'uhc_course_material_dnd_form_validate';
+  $dnd_form['#ief_element_submit'][] = 'uhc_course_material_dnd_form_submit';
+
+  return $dnd_form;
+}
+
+/**
+ * Validates the form for attaching course materials.
+ *
+ * @param $dnd_form
+ *   The reference entity form.
+ * @param $form_state
+ *   The form state of the parent form.
+ */
+function uhc_course_material_dnd_form_validate(&$dnd_form, &$form_state) {
+  $ief_id = $dnd_form['#ief_id'];
+  $parents_path = implode('][', $dnd_form['#parents']);
+  $form_values = drupal_array_get_nested_value($form_state['values'], $dnd_form['#parents']);
+
+  // Instantiate controller to access labels
+  $instance = $form_state['inline_entity_form'][$ief_id]['instance'];
+  $controller = inline_entity_form_get_controller($instance);
+  $labels = $controller->labels();
+
+  // Check to see if entity is already referenced by current IEF widget
+  $material_nids = uhc_course_material_dnd_extract_by_space($form_values['material_nids']);
+  $attach_entities = node_load_multiple($material_nids);
+  foreach ($attach_entities as $attach_entity) {
+    foreach ($form_state['inline_entity_form'][$ief_id]['entities'] as $key => $value) {
+
+      // Alrough these form errors breaks the dropzone functionality, it's fine
+      // because these situations should not be possible to occur unless you
+      // try to hack the DOM.
+      if (!empty($attach_entity)) {
+        if ($value['entity'] == $attach_entity) {
+          form_set_error($parents_path . '][field_section_material[und][form][material_nids', t('The selected @label has already been added.', array('@label' => $labels['singular'])));
+          unset($attach_entity);
+        }
+      }
+      else {
+        form_set_error($parents_path . '][field_section_material[und][form][material_nids', t('The selected @label is not valid.', array('@label' => $labels['singular'])));
+      }
+
+    }
+  }
+}
+
+/**
+ * Submits the form for attaching course materials.
+ *
+ * Adds the specified entities to the IEF form state.
+ *
+ * @param $dnd_form
+ *    The reference entity form.
+ * @param $form_state
+ *   The form state of the parent form.
+ */
+function uhc_course_material_dnd_form_submit($dnd_form, &$form_state) {
+  $ief_id = $dnd_form['#ief_id'];
+  $entity_type = $dnd_form['#entity_type'];
+  $form_values = drupal_array_get_nested_value($form_state['values'], $dnd_form['#parents']);
+
+  // Load materials
+  $material_nids = uhc_course_material_dnd_extract_by_space($form_values['material_nids']);
+  $attach_entities = node_load_multiple($material_nids);
+
+  // Append each entity to the list
+  foreach ($attach_entities as $attach_entity) {
+
+    // Determine the correct weight of the new element.
+    $weight = 0;
+    if (!empty($form_state['inline_entity_form'][$ief_id]['entities'])) {
+      $weight = max(array_keys($form_state['inline_entity_form'][$ief_id]['entities'])) + 1;
+    }
+
+    $form_state['inline_entity_form'][$ief_id]['entities'][] = array(
+      'entity' => $attach_entity,
+      'weight' => $weight,
+      'form' => NULL,
+      'needs_save' => FALSE,
+    );
+  }
+}
+
+/**
+ * Extract all values which were separated by space and ensure that values are
+ * not empty.
+ *
+ * @param $string
+ * @return array
+ */
+function uhc_course_material_dnd_extract_by_space($string) {
+  $values = array();
+  foreach (explode(" ", $string) as $value) {
+    if (!empty($value)) {
+      $values[] = $value;
+    }
+  }
+  return $values;
+}
+
+/**
+ * Dropzone.js AJAX file callback when files gets dropped into material dropzone
+ *
+ * @see uhc_course_material_dnd_menu()
+ * @return array
+ *   Ajax commands.
+ */
+function uhc_course_material_dnd_upload_callback() {
+  if(!empty($_FILES)) {
+    $file = $_FILES['file'];
+    $material_nid = uhc_course_material_dnd_create_material($file);
+    $commands = array();
+    $commands[] = ajax_command_invoke('#material-nids', 'attr', array('value', $material_nid));
+    return array('#type' => 'ajax', '#commands' => $commands);
+  }
+}
+
+/**
+ * Used for creating material out from a uploaded file.
+ *
+ * @see uhc_course_material_dnd_upload_callback()
+ * @param $file
+ * @return mixed
+ */
+function uhc_course_material_dnd_create_material($file) {
+
+  // If we find the destination where to create the material file
+  $entity_type = 'node';
+  $entity_bundle = 'course_material';
+  $field_name = 'field_material_file';
+  $destination = 'public://' . uhc_course_material_dnd_get_field_settings($entity_type, $entity_bundle, $field_name, 'file_directory');
+  $extensions = uhc_course_material_dnd_get_field_settings($entity_type, $entity_bundle, $field_name, 'file_extensions');
+  if (file_prepare_directory($destination, FILE_CREATE_DIRECTORY)) {
+
+    // Now file the save
+    $file_name = file_munge_filename($file['name'], $extensions, FALSE);
+    $file_uri = $destination . '/' . $file_name;
+    $file_to_save = file_save_data(file_get_contents($file['tmp_name']), $file_uri);
+
+    // Ensure that we have allowed file extension. Unfortunately this is already
+    // added in the system, but we delete this and not create material node if
+    // this validation fails.
+    if (!empty(file_validate_extensions($file_to_save, $extensions))) {
+      file_delete($file_to_save);
+      watchdog('uhc_course_material_dnd', 'Disallowed file extension (@filename) was tried to be dragged as material.', array('@filename' => $file_to_save->filename), WATCHDOG_WARNING);
+      return NULL;
+    }
+
+    // Create initial values for course material
+    global $user;
+    $values = array(
+      'type' => $entity_bundle,
+      'uid' => $user->uid,
+      'status' => 1,
+      'comment' => 0,
+      'promote' => 0,
+    );
+
+    // Create course material node out from initial values and recently
+    // uploaded and moved file.
+    $entity = entity_create($entity_type, $values);
+    $wrapper = entity_metadata_wrapper($entity_type, $entity);
+    $wrapper->title->set($file['name']);
+    $wrapper->{$field_name}->file->set($file_to_save);
+    $wrapper->save();
+
+    return $entity->nid;
+  }
+  else {
+    watchdog('uhc_course_material_dnd', 'Could not prepare directory for dragged file.', array(), WATCHDOG_ERROR);
+  }
+
+  return NULL;
+}
+
+/**
+ * Used for creating reference between course implementation and material node.
+ *
+ * @see uhc_course_material_dnd_upload_callback()
+ * @param $node
+ * @param $material_nids
+ * @throws Exception
+ */
+function uhc_course_material_dnd_create_reference($node, $material_nids) {
+  foreach ($material_nids as $material_nid) {
+    $node->field_section_material[LANGUAGE_NONE][] = array(
+      'target_id' => $material_nid,
+    );
+  }
+  node_save($node);
+}
+
+/**
+ * Get settings for given field.
+ *
+ * @param $entity_type
+ * @param $entity_bundle
+ * @param $field_name
+ * @return string
+ */
+function uhc_course_material_dnd_get_field_settings($entity_type, $entity_bundle, $field_name, $setting_name) {
+  if (field_info_instance($entity_type, $field_name, $entity_bundle)) {
+    $field_info_instance = field_info_instance($entity_type, $field_name, $entity_bundle);
+    return $field_info_instance['settings'][$setting_name];
+  }
+  else {
+    watchdog('uhc_course_material_dnd', 'could not retrieve field settings for ' . $setting_name, array(), WATCHDOG_ERROR);
+  }
+}

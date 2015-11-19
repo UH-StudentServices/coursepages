@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Module's (un)installation tasks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_autofill_metadata_uninstall() {
+  variable_del('uhc_enrollments_base_url');
+  variable_del('uhc_refresh_enrollments');
+}

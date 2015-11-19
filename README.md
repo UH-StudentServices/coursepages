@@ -28,4 +28,3 @@ Projektia kehitetään avoimesti ja avoimia ohjelmistoja hyödyntäen.
 
 ### Muutokset
 Katso [CHANGELOG.md](CHANGELOG.md)
-

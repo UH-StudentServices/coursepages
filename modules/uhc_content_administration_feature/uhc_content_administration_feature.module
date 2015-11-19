@@ -1,0 +1,160 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Content Administration feature.
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function uhc_content_administration_feature_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
+ * Implements hook_preprocess_page().
+ *
+ * NON-FEATURE CODE: This implementation will hide tabs from node edit form from
+ * editors, as they are considered as distraction.
+ */
+function uhc_content_administration_feature_preprocess_page(&$variables) {
+  // When editing an node
+  $arg = arg();
+  $url_match = (count($arg) == 3 && $arg[0] == 'node' && $arg[2] == 'edit');
+  $node_match = (isset($variables['node']->nid) && $variables['node']->type == 'course_implementation');
+  if ($url_match && $node_match) {
+    // And if we're in editor role
+    global $user;
+    $role = user_role_load_by_name('editor-in-chief of communications');
+    foreach ($user->roles as $rid => $role_name) {
+      if ($rid == $role->rid) {
+        // Reduce distraction by removing tabs. Editor should have "Cancel"
+        // button provided for navigating back. (see DOO-120).
+        $variables['tabs']['#access'] = FALSE;
+        break;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ * @see _uhc_content_administration_feature_set_frontpage_if_requested()
+ */
+function uhc_content_administration_feature_node_update($node) {
+  _uhc_content_administration_feature_set_frontpage_if_requested($node, 'portal_page');
+}
+
+/**
+ * Implements hook_node_insert().
+ * @see _uhc_content_administration_feature_set_frontpage_if_requested()
+ */
+function uhc_content_administration_feature_node_insert($node) {
+  _uhc_content_administration_feature_set_frontpage_if_requested($node, 'portal_page');
+}
+
+/**
+ * Helper function for checking whether node was checked to be promoted in front
+ * page.
+ *
+ * When node type gets saved, we check whether the "Promote to frontpage" is
+ * checked and then put the node as homepage.
+ *
+ * Node should be field translatable, so it should be translated and the
+ * homepage should work in all languages.
+ *
+ * This was decided to be done in code instead of Rules, because Rules did not
+ * support setting Drupal variables out of the box.
+ *
+ * @param $node
+ * @param $node_type
+ */
+function _uhc_content_administration_feature_set_frontpage_if_requested($node, $node_type) {
+  if ($node->type == $node_type && $node->promote == 1) {
+    // When saving a node having "Promote to frontpage" checked
+    if (isset($node->nid)) {
+
+      // Then set this node as front page
+      $entity_uri = entity_uri('node', $node);
+      variable_set('site_frontpage', $entity_uri['path']);
+
+      // And uncheck "Promote to front page" from other same type nodes
+      $promoted_nodes = node_load_multiple(array(), array('type' => $node_type, 'promote' => 1));
+      foreach ($promoted_nodes as &$promoted_node) {
+        // Loop over each promoted node, and when it's not this node we're now
+        // promoting, then just set promote to FALSE and save.
+        if ($promoted_node->nid != $node->nid) {
+          $promoted_node->promote = 0;
+          node_save($promoted_node);
+        }
+      }
+
+    }
+  }
+}
+
+/**
+ * Implements hook_ds_fields_info().
+ *
+ * Introduce an field which shows an certain message for given roles.
+ */
+function uhc_content_administration_feature_ds_fields_info($entity_type) {
+  if ($entity_type == 'node') {
+    return array(
+      'node' => array(
+        'uhc_content_administration_from_oodi' => array(
+          'title' => 'Course overview comes from Oodi -message',
+          'field_type' => DS_FIELD_TYPE_FUNCTION,
+          'ui_limit' => array('course_implementation|*'),
+          'function' => 'uhc_content_administration_feature_ds_from_oodi',
+        ),
+      ),
+    );
+  }
+  return array();
+}
+
+/**
+ * Callback for rendering an system message. No staff check needed as its
+ * handled by DS field permissions.
+ */
+function uhc_content_administration_feature_ds_from_oodi($field = NULL) {
+  $message = array(
+    'type' => 'status',
+    'class' => ' alternative',
+    'message' => '<p>' . t('Course overview information comes from Oodi') . '</p>',
+  );
+  return theme('views_system_message', $message);
+}
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * In DOO-706 we have added system message from view to let editors know that
+ * the information is out of their control. However, Views does not allow to
+ * control when to show certain handler areas, so we need to implement this hook
+ * to control it from code.
+ */
+function uhc_content_administration_feature_views_pre_render(&$view) {
+  if ($view->name == 'course_event_references' && $view->current_display == 'block_2') {
+    /*
+     * Render course event references' block_2 without system message header
+     * handler area, when user does not belong to staff. The view/display is
+     * defined by uhc_event module.
+     */
+    if (!uh_coursepages_has_staff_role()) {
+      unset($view->header['system_message']);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Attach an generic "actions" JS file which modifies some elements using jQuery
+ * selectors. We want to do this instead when we find too tricky to alter some
+ * complex elements.
+ */
+function uhc_content_administration_feature_form_alter(&$form, &$form_state) {
+  $form['#attached']['js'][] = drupal_get_path('module', 'uhc_content_administration_feature') . '/js/content-admin-actions.js';
+}

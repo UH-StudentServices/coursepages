@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Module's (un)installation tasks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function hy_autofill_metadata_uninstall() {
+  variable_del('hy_enrollments_base_url');
+  variable_del('hy_refresh_enrollments');
+}

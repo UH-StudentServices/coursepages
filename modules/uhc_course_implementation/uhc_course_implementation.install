@@ -1,0 +1,71 @@
+<?php
+/**
+ * @file Takes care of installation/update/uninstallation operations.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function uhc_course_implementation_install() {
+  // If this variable has been already set prior to installing this module...
+  if (!variable_get('uhc_course_implementation_default_image', 0)) {
+    _uhc_course_implementation_create_default_image(array(
+      'filename' => 'default_image.jpg',
+      'title' => 'Default image',
+      'variable' => 'uhc_course_implementation_default_image',
+    ));
+  }
+  if (!variable_get('uhc_course_implementation_default_image_open_uni', 0)) {
+    _uhc_course_implementation_create_default_image(array(
+      'filename' => 'default_image_open_uni.jpg',
+      'title' => 'Default image (Open university)',
+      'variable' => 'uhc_course_implementation_default_image_open_uni',
+    ));
+  }
+}
+
+/**
+ * Helper function for creating default images.
+ *
+ * @return mixed
+ *   Returns the managed file object or NULL if failed.
+ */
+function _uhc_course_implementation_create_default_image($config) {
+  // Set the image source path.
+  $source_path = drupal_get_path('module', 'uhc_course_implementation') . '/default_image/';
+  // Set the image destination path and prepare it.
+  $destination_path = 'public://images/default_images/';
+  file_prepare_directory($destination_path, FILE_CREATE_DIRECTORY);
+
+  $filename = $config['filename'];
+  $file_source = $source_path . $filename;
+
+  $f = (object) array(
+    'uri' => $file_source,
+    'filemime' => file_get_mimetype($file_source),
+    'status' => FILE_STATUS_PERMANENT,
+    'title' => $config['title'],
+  );
+  $managed_file = file_copy($f, $destination_path . $filename, FILE_EXISTS_RENAME);
+  if ($managed_file) {
+    // Add lock on file.
+    if (module_exists('file_lock') && function_exists('file_lock_act_on')) {
+      file_lock_act_on($managed_file, 'all');
+    }
+    variable_set($config['variable'], $managed_file->fid);
+
+    // Mark this file to be used, so it wont get deleted
+    file_usage_add($managed_file, 'uhc_course_implementation', 'module', 1);
+
+    return $managed_file;
+  }
+
+  return NULL;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_course_implementation_uninstall() {
+  variable_del('uhc_course_implementation_default_image');
+}

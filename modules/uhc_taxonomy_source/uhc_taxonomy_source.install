@@ -1,0 +1,10 @@
+<?php
+/**
+ * @file
+ * Handles install, uninstall and update tasks.
+ */
+
+function uhc_taxonomy_source_uninstall() {
+  variable_del('uhc_taxonomy_source_taxonomy_form_of_teaching_term_source_url');
+  variable_del('uhc_taxonomy_source_taxonomy_type_of_teaching_term_source_url');
+}

@@ -1,0 +1,7 @@
+name = UHC Autologin
+description = Provides autologin services.
+core = 7.x
+package = UHC
+version = 7.x-1.42
+project = uhc_autologin
+dependencies[] = shib_auth

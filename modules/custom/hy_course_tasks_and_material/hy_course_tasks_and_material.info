@@ -1,0 +1,6 @@
+name = Course tasks and material
+description = Provide content type for tasks and material - used on courses
+core = 7.x
+package = HY Portal
+version = 7.x-1.41-dev
+project = hy_course_tasks_and_material

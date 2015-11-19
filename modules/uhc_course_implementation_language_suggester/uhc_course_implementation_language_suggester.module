@@ -1,0 +1,148 @@
+<?php
+/**
+ * @file
+ * Provides module functionality.
+ */
+
+/**
+ * Implements hook_preprocess_page().
+ *
+ * When rendering the page, figure out whether we have course overview content
+ * set or not. If it's not, it is likely because of content being entered only
+ * in teaching language.
+ *
+ * If the case is so, lets set a message for visitor so that it can switch
+ * language to the teaching language.
+ */
+function uhc_course_implementation_language_suggester_preprocess_page(&$variables) {
+  $elements = isset($variables['page']['content']['system_main']['nodes']) ? $variables['page']['content']['system_main']['nodes'] : array();
+  $is_course_implementation_node_page = uhc_course_implementation_language_suggester_is_course_imp_node_page($elements);
+  $has_description_objectives = uhc_course_implementation_language_suggester_has_description_objectives($elements);
+  if ($is_course_implementation_node_page && !$has_description_objectives) {
+
+    /*
+     * A course may be taught with one or more languages. Fetch switch URLs for
+     * those teaching languages and then create show an message with following
+     * rules:
+     *   1) If there are only one URL (majority of cases), create a link for
+     *      switching language.
+     *   2) If you already inspect the page with the given teaching language,
+     *      then do not show the message.
+     *
+     * For testing, see how it works for following cases:
+     *   +---------------------------------------------------------------------+
+     *   | Active language | Teaching languages | It should...                 |
+     *   +---------------------------------------------------------------------+
+     *   | FI              | FI                 | not show message             |
+     *   | EN              | FI                 | show message with link       |
+     *   | FI              | FI, EN             | not show message             |
+     *   | EN              | FI, EN             | not show message             |
+     *   | SV              | FI, EN             | show message without link    |
+     *   +---------------------------------------------------------------------+
+     */
+
+    $urls = uhc_course_implementation_language_suggester_language_urls_from_teaching_language($variables['node']);
+    $url_languages = array_keys($urls);
+    if (!in_array(i18n_langcode(), $url_languages)) {
+      while ($url = array_pop($urls)) {
+        if (count($url_languages) > 1) {
+          uh_coursepages_set_message(t('Please read this page in teaching languages'));
+        }
+        elseif (count($url_languages) === 1) {
+          uh_coursepages_set_message(t('Please read this page in <a href="@url">teaching language</a>', array('@url' => $url)));
+        }
+        break;
+      }
+    }
+
+  }
+}
+
+/**
+ * Helper function to determine that whether the page elements happens to be an
+ * course implementation's page.
+ *
+ * @param $elements
+ * @return bool
+ */
+function uhc_course_implementation_language_suggester_is_course_imp_node_page($elements) {
+  foreach ($elements as $element) {
+    // Sanity check that we're dealing here now a regular renderable array, not
+    // just random "#access = FALSE" kind of elements.
+    if (is_array($element)) {
+      if ($element['#entity_type'] == 'node' && $element['#bundle'] == 'course_implementation') {
+        return TRUE;
+      }
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Helper function for determining from renderable array that if it has content
+ * set in course overview element.
+ *
+ * @param $elements
+ * @return bool
+ */
+function uhc_course_implementation_language_suggester_has_description_objectives(array $elements) {
+  foreach ($elements as $element) {
+    // Sanity check that we're dealing here now a regular renderable array, not
+    // just random "#access = FALSE" kind of elements.
+    if (is_array($element)) {
+      // Now, if we have group's children available, we use that to determine
+      // which fields we're up to check if we have content or not.
+      $group_name = variable_get('uhc_course_implementation_language_suggester_group_name', 'group_description_objectives');
+      $fields = isset($element['#fieldgroups'][$group_name]->children) ? $element['#fieldgroups'][$group_name]->children : array();
+      foreach ($fields as $item) {
+        if ($item != 'uhc_content_administration_from_oodi' &&
+          isset($element[$item]) &&
+          isset($element[$item][0]['#markup']) &&
+          drupal_strlen($element[$item][0]['#markup']) > 0) {
+          // If we the markup element and it has content, then return TRUE for
+          // indication of having content in expected elements.
+          return TRUE;
+        }
+      }
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Helper function for generating a list of URLs for swithcing language to
+ * teaching language ones.
+ *
+ * @param $node
+ * @return array
+ */
+function uhc_course_implementation_language_suggester_language_urls_from_teaching_language($node) {
+
+  // Get list of available language links, these two lines of code were copied
+  // using same approach as in locale_block_view().
+  $path = drupal_is_front_page() ? '<front>' : $_GET['q'];
+  $negotiation_links = language_negotiation_get_switch_links('language', $path);
+
+  // Figure out available teaching languages and then try to filter out all
+  // language swithc links which doesn't match with teaching languages.
+  $field_imp_teaching_language = field_get_items('node', $node, 'field_imp_teaching_language');
+  if ($field_imp_teaching_language !== FALSE && is_array($field_imp_teaching_language) && count($field_imp_teaching_language) > 0) {
+
+    // Usually we have only one teaching language, but sometimes we also have
+    // multiple languages.
+    $links = array();
+    foreach ($field_imp_teaching_language as $teaching_language) {
+      $langcode = $teaching_language['langcode'];
+      if (isset($negotiation_links->links[$langcode])) {
+        // If match, then generate an switch URL address and pile it up for
+        // returning list ($links).
+        $link = $negotiation_links->links[$langcode];
+        $url = url($link['href'], array('language' => $link['language']));
+        $links[$langcode] = $url;
+      }
+    }
+
+    return $links;
+  }
+  return array();
+}

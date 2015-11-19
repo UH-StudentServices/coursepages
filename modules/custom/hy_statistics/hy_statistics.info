@@ -1,0 +1,6 @@
+name = HY Statistics
+description = Provides statistics of course page usage. Works together with HY Course Implementation Activity module.
+core = 7.x
+package = HY Portal
+version = 7.x-1.41-dev
+project = hy_statistics

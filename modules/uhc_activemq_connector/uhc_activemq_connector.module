@@ -1,0 +1,173 @@
+<?php
+/**
+ * @file
+ * UHC ActiveMQ Connector module for extracting message queue.
+ */
+
+/**
+ * Implements hook_libraries_info().
+ */
+function uhc_activemq_connector_libraries_info() {
+  $libraries = array();
+  $libraries['stomp_php'] = array(
+    'name' => 'STOMP PHP Client',
+    'vendor url' => 'https://github.com/dejanb/stomp-php',
+    'download url' => 'https://github.com/dejanb/stomp-php',
+    'path' => 'src/FuseSource/Stomp',
+    'version callback' => 'uhc_activemq_connector_stomp_version_callback',
+    'files' => array(
+      'php' => array(
+        'ExceptionInterface.php',
+        'Exception/StompException.php',
+        'Frame.php',
+        'Message.php',
+        'Message/Bytes.php',
+        'Message/Map.php',
+        'Stomp.php',
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Callback for bypassing version of Stomp client as it does not provide any
+ * information or technique to detect it.
+ */
+function uhc_activemq_connector_stomp_version_callback() {
+  return TRUE;
+}
+
+/**
+ * Helper function for getting stomp instance,
+ * @return \FuseSource\Stomp\Stomp
+ * @throws \FuseSource\Stomp\Exception\StompException If Stomp connection creation fails.
+ * @throws Exception If the Stomp instance can not get Stomp instance.
+ */
+function uhc_activemq_connector_get_stomp_instance() {
+
+  // Stomp library is stored in this directory. TODO: Use library!
+  if (($library = libraries_load('stomp_php')) && !empty($library['loaded'])) {
+
+    // Specify connection settings
+    $options = variable_get('uhc_activemq_connector_settings');
+    $user = $options['credentials']['user'];
+    $pass = $options['credentials']['pass'];
+    $connection = $options['brokers'][0];
+
+    // Connect and return the instance
+    $stomp = new \FuseSource\Stomp\Stomp($connection);
+    $stomp->connect($user, $pass);
+    return $stomp;
+  }
+
+  throw new Exception('Could not get Stomp instance. Library missing?');
+}
+
+/**
+ * Processes the queue by claiming each item and then calling for subscribers.
+ *
+ * @param string $queue_name Queue name.
+ * @return null|void
+ */
+function uhc_activemq_connector_process_queue($queue_name) {
+  $implementations = uhc_activemq_connector_get_queue_worker_implementations($queue_name);
+
+  // Skip processing if there are no queue worker implementations.
+  if (empty($implementations)) {
+    return NULL;
+  }
+
+  // Ensure that each class implements UHCMessageQueueProcessorInterface.
+  $classes = array();
+  foreach ($implementations as $implementation) {
+    if ($implementation['implements'] != 'UHCMessageQueueProcessorInterface') {
+      UHCMessageQueueProcessorBase::log('Class @class was not implementing UHCMessageQueueProcessorInterface interface', array('@class' => $implementation['class_name']), WATCHDOG_ERROR);
+      return NULL;
+    }
+    if (!in_array($implementation['implements'], class_implements($implementation['class_name']))) {
+      UHCMessageQueueProcessorBase::log('Class @class was not implementing @interface', array('@class' => $implementation['class_name'], '@interface' => $implementation['implements']), WATCHDOG_ERROR);
+      return NULL;
+    }
+    $classes[] = $implementation['class_name'];
+  }
+
+  // Now, as we know that there are listeners to this queue and they're
+  // validated now lets start the hazzle.
+  /** @var $stomp \FuseSource\Stomp\Stomp */
+  $stomp = uhc_activemq_connector_get_stomp_instance();
+  $stomp->subscribe('/queue/' . $queue_name);
+  while ($item = $stomp->readFrame()) {
+
+    // Log all incoming messages if settings has been set to do so.
+    if (variable_get('uhc_activemq_connector_log_incoming_messages', FALSE)) {
+      watchdog('uhc_activemq_connector', 'Incoming message: <pre>!message</pre>', array('!message' => print_r($item, 1)), WATCHDOG_DEBUG);
+    }
+
+    // Construct each listener class.
+    $listeners = array();
+    foreach ($classes as $class) {
+      $listeners[] = new $class($queue_name, $item);
+    }
+
+    // Ensure that there are no more than one listener passing validation.
+    $validated = NULL;
+    foreach ($listeners as $key => $listener) { /** @var $listener UHCMessageQueueProcessorInterface */
+      if ($listener->validate() === UHCMessageQueueProcessorInterface::VALIDATE_PASS) {
+        // When listener passes validation while already validated by some other
+        // listener...
+        if ($validated !== NULL) {
+          // Log out error and continue to next item (not next listener)
+          UHCMessageQueueProcessorBase::log('There were more than one listener passing the validation. First passed validation was by @key', array('@key' => $validated), WATCHDOG_ERROR);
+          continue 2;
+        }
+        else {
+          // Or else, just this item to be the validated one
+          $validated = $key;
+        }
+      }
+    }
+
+    // Skip processing if no validations passed.
+    if ($validated === NULL) {
+      continue;
+    }
+
+    // Process. If successful, delete item / acknowledge it.
+
+    /** @var $processor UHCMessageQueueProcessorInterface */
+    $processor = $listeners[$validated];
+    if ($processor->process() === UHCMessageQueueProcessorInterface::PROCESS_PROCESSED) {
+      // This will send signal to ActiveMQ that this item has been processed.
+      $stomp->ack($item->headers['message-id']);
+    }
+
+  }
+  $stomp->disconnect();
+}
+
+/**
+ * Return queue worker implementations for the given queue.
+ *
+ * @param string $queue_name Queue name.
+ * @return array Queue worker implementations.
+ */
+function uhc_activemq_connector_get_queue_worker_implementations($queue_name) {
+  $hook = 'uhc_activemq_connector_message_processor_info';
+  $modules = module_implements($hook);
+  $implementations = array();
+  foreach ($modules as $module) {
+    $function = $module . '_' . $hook;
+    if (function_exists($function)) {
+      $items = $function();
+      foreach ($items as $key => $value) {
+        if ($key == $queue_name) {
+          $implementations = array_merge($value, $implementations);
+        }
+      }
+    }
+  }
+
+  return $implementations;
+}

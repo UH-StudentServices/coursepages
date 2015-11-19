@@ -1,0 +1,83 @@
+  .activity {
+    float: right;
+    margin-left: 10px;
+    position: relative;
+    width: 35px;
+    height: 20px;
+    cursor: pointer;
+    .activity-toggle {
+      display: inline;
+      &:before {
+        @include font-awesome('\f0f3');
+        font-size: 14px;
+        color: $blue;
+      }
+    }
+    .count {
+      @include border-radius(1em);
+      @include font-weight-bold;
+      display: inline;
+      position: absolute;
+      left: 3px;
+      top: -4px;
+      background-color: $orange;
+      color: $white;
+      text-align: center;
+      font-size: 10px;
+      line-height: 14px;
+      padding: 0 4px;
+      min-width: 14px;
+    }
+    .item-list {
+      @include dropdown-menu;
+      top: 30px;
+      ul {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 330px;
+        li {
+          @include border-bottom;
+          @include clearfix;
+          padding: 10px;
+          &:last-child {
+            border-bottom: 0;
+          }
+          &.new {
+            background-color: $light-blue;
+          }
+          .user-picture {
+            float: left;
+            height: 75px;
+            width: 75px;
+            margin-right: 10px;
+            img {
+              background: $color-user;
+            }
+          }
+          .message {
+            float: left;
+            width: 70%;
+            p {
+              font-size: inherit;
+              color: $gray;
+              margin: 0;
+              padding: 0;
+              .user-name {
+                @include font-weight-bold;
+              }
+            }
+          }
+          .message-date {
+            @include font-weight-bold;
+            color: $silver;
+            text-transform: uppercase;
+            font-size: 9px;
+            display: block;
+            .placeholder {
+              font-style: normal;
+            }
+          }
+        }
+      }
+    }
+  }

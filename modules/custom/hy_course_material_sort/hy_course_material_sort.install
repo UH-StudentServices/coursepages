@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Module's installation content.
+ */
+
+/**
+ * Enable behavior weights module
+ */
+function hy_course_material_sort_7001() {
+  module_enable(array('behavior_weights'));
+}

@@ -1,0 +1,117 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+/**
+ * Implements hook_og_permission().
+ */
+function uhc_course_collaboration_private_og_permission() {
+  return array(
+    'view private uhc items' => array(
+      'title' => t('View private items'),
+      'description' => t('Allows user to view content items which has been marked to be as private content.'),
+      'roles' => array(OG_AUTHENTICATED_ROLE),
+      'default role' => array(),
+    ),
+  );
+}
+
+/**
+ * Implements hook_query_comment_filter_alter().
+ */
+function uhc_course_collaboration_private_query_comment_filter_alter(QueryAlterableInterface $query) {
+  // Alter comment query to filter out private comments when active user has no
+  // permission to view private items. Alter count query accordingly.
+  if ( ($node = $query->getMetaData('node')) && (get_class($query) == 'PagerDefault') ) {
+    if (!og_user_access_entity('view private uhc items', 'node', $node)) {
+      /** @var $query PagerDefault */
+      $query->leftJoin('field_data_field_private', 'fp', '(fp.entity_id = c.cid)');
+      $query->where('fp.field_private_value != 1');
+
+      $query->getCountQuery()->leftJoin('field_data_field_private', 'fp', '(fp.entity_id = c.cid)');
+      $query->getCountQuery()->where('fp.field_private_value != 1');
+    }
+  }
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Tell Drupal core this module wants to implement hook_entity_info_alter().
+ */
+function uhc_course_collaboration_private_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'entity_info_alter') {
+    $group = $implementations['uhc_course_collaboration_private'];
+    unset($implementations['uhc_course_collaboration_private']);
+    $implementations['uhc_course_collaboration_private'] = $group;
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Override node access callback with custom implementation that defaults to
+ * normal node access, but in addition implements more business rules for
+ * determining access for certain node types.
+ */
+function uhc_course_collaboration_private_entity_info_alter(&$entity_info) {
+  $entity_info['node']['access callback'] = 'uhc_course_collaboration_private_entity_metadata_no_hook_node_access';
+}
+
+/**
+ * Overrides entity_metadata_no_hook_node_access function. Checks if the given
+ * entity is marked as private course material and if the current user should
+ * have access to it. Defaults to normal
+ * {@link entity_metadata_no_hook_node_access()} implementation.
+ */
+function uhc_course_collaboration_private_entity_metadata_no_hook_node_access($op, $entity = NULL, $account = NULL, $entity_type = NULL) {
+  $return = entity_metadata_no_hook_node_access($op, $entity, $account, $entity_type);
+  $private_material = uhc_course_collaboration_private_is_private_course_material($entity);
+
+  if ($private_material) {
+    $return = uhc_course_collaboration_private_current_user_has_access_to_private_content();
+  }
+
+  return $return;
+}
+
+/**
+ * @param $entity object Entity
+ * @return bool TRUE if the entity is private course material, otherwise FALSE.
+ */
+function uhc_course_collaboration_private_is_private_course_material($entity) {
+  return $entity->type == 'course_material'
+    && isset($entity->field_private['und'][0]['value'])
+    && $entity->field_private['und'][0]['value'] == 1;
+}
+
+/**
+ * @return bool TRUE if the current user should have access to private content,
+ * otherwise FALSE.
+ */
+function uhc_course_collaboration_private_current_user_has_access_to_private_content() {
+  return !user_is_anonymous()
+    && user_has_role(user_role_load_by_name('administrator')->rid)
+    || user_has_role(user_role_load_by_name('editor-in-chief of communications')->rid)
+    || uhc_course_collaboration_is_current_user_course_student()
+    || uhc_course_collaboration_is_current_user_course_teacher()
+    || uhc_course_collaboration_is_current_user_course_administrator();
+}
+
+/**
+ * Implements hook_views_pre_render().
+ * Lets hide course material if it's private and user has no access
+ */
+function uhc_course_collaboration_private_views_pre_render(&$view) {
+  if ($view->name == 'course_implementation_material') {
+    $no_access_to_private = !uhc_course_collaboration_private_current_user_has_access_to_private_content();
+    foreach ($view->result as $key => $value) {
+      $material_node = node_load($value->node_field_data_field_section_material_nid);
+      if ($no_access_to_private && uhc_course_collaboration_private_is_private_course_material($material_node)) {
+        unset($view->result[$key]);
+      }
+    }
+  }
+}

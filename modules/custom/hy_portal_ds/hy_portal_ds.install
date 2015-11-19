@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Takes care of (un)installation/update tasks of this module.
+ */
+
+/**
+ * Enables "Date Views" module.
+ */
+function hy_portal_ds_update_7001(&$sandbox) {
+  module_enable(array('date_views'));
+}

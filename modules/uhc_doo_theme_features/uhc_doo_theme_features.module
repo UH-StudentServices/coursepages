@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the theme feature.
+ */
+
+include_once 'uhc_doo_theme_features.features.inc';

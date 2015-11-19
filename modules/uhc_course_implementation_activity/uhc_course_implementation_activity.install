@@ -1,0 +1,40 @@
+<?php
+/**
+ * @file
+ * Takes care of (un)installation and update tasks.
+ */
+
+/**
+ * Implement hook_schema_alter().
+ */
+function uhc_course_implementation_activity_schema_alter(&$schema) {
+  $schema['message_type']['fields']['target_accordion_class'] = array(
+    'description' => 'Target accordion class which should be opened when clicking to message.',
+    'type' => 'varchar',
+    'length' => 255,
+    'not null' => TRUE,
+    'default' => '',
+  );
+}
+
+/**
+ * Implements hook_install().
+ */
+function uhc_course_implementation_activity_install() {
+  if (!db_field_exists('message_type', 'target_accordion_class')) {
+    db_add_field('message_type', 'target_accordion_class', array(
+      'description' => 'Target accordion class which should be opened when clicking to message.',
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => TRUE,
+      'default' => '',
+    ));
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_course_implementation_activity_uninstall() {
+  db_drop_field('message_type', 'target_accordion_class');
+}

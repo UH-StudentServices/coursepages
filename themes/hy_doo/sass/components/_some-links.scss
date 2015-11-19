@@ -1,0 +1,46 @@
+.some-links {
+  li {
+    display: inline;
+    a {
+      font-size: 0;
+      @include some-background-color(#547bb9);
+      color: $white;
+      display: inline-block;
+      line-height: 50px;
+      height: 50px;
+      width: 50px;
+      margin: 0 0 20px 20px;
+      text-align: center;
+
+      &:before {
+        @include font-awesome("\f09a");
+        @include font-size(28px);
+      }
+
+      &.twitter {
+        @include some-background-color(#5ea9dd);
+
+        &:before {
+          @include font-awesome("\f099");
+        }
+      }
+
+      &.youtube {
+        @include some-background-color(#e6644a);
+
+        &:before {
+          @include font-awesome("\f167");
+        }
+      }
+
+      &.linkedin {
+        @include some-background-color(#1483c4);
+
+        &:before {
+          @include font-awesome("\f0e1");
+        }
+        margin-right: 0;
+      }
+    }
+  }
+}

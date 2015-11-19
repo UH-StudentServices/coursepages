@@ -1,0 +1,121 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Event feature.
+ */
+
+include_once 'uhc_event.features.inc';
+
+
+/**
+ * Helper function to get referencing course implementation nid
+ * from event node
+ */
+function uhc_event_get_course_implementation($nid) {
+  $table_name = 'field_data_field_imp_reference_to_events';
+  $column_name = 'field_imp_reference_to_events_target_id';
+  $query = db_select($table_name)->fields($table_name, array('entity_id'))->condition($column_name, $nid)->execute();
+  while ($entity_id = $query->fetchField()) {
+    return $entity_id;
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_node_view().
+ *
+ * We have not implemented event view page. Instead we redirect to its
+ * corresponding course implementation where this event information gets
+ * displayed.
+ */
+function uhc_event_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'event' && uh_coursepages_is_node_page($node, $view_mode)) {
+    if ($nid = uhc_event_get_course_implementation($node->nid)) {
+      drupal_goto('node/' . $nid);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * After event deletion, when we have reference to course implementation; lets
+ * redirect back to the course page after event deletion.
+ */
+function uhc_event_form_node_delete_confirm_alter(&$form, &$form_state) {
+  $node = $form['#node'];
+  if ($node->type == 'event') {
+    $form['#submit'][] = 'uhc_event_node_delete_confirm';
+  }
+}
+
+/**
+ * Form submission callback for setting redirect path after node deletion.
+ */
+function uhc_event_node_delete_confirm(&$form, &$form_state) {
+if ($nid = uhc_event_get_course_implementation($form['nid']['#value'])) {
+    $form_state['redirect'] = 'node/' . $nid;
+  }
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function uhc_event_preprocess_block(&$variables) {
+  $block = $variables['block'];
+
+  if ($block->module == 'views' && ($block->delta == 'course_event_references-block' || $block->delta == 'course_event_references-block_2')) {
+
+    // lets check if both repeating and one off events exist in case we need an accordion
+    $has_one_off_events = !empty(views_block_view('course_event_references-block'));
+    $has_repeating_events = !empty(views_block_view('course_event_references-block_2'));
+
+    if($has_one_off_events && $has_repeating_events) {
+
+      // Create title wrapper element
+      $variables['title_prefix'][] = array('#markup' => '<div class="ds-teaser-accordion--title">');
+      $variables['title_suffix'][] = array('#markup' => '</div>');
+
+      // Creates accordiong title and content elements, which will style and
+      // trigger the accordion functionality.
+      $variables['title_attributes_array']['class'][] = 'ds-teaser-accordion--title_header';
+      $variables['content_attributes_array']['class'][] = 'ds-teaser-accordion--content';
+
+    }
+    else {
+      //lets hide the title if no accordion is needed
+       $variables['title_attributes_array']['class'][] = 'element-invisible';
+    }
+  }
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ *
+ * Add timepicker js to event inline entity form. Deny access to location edit
+ * form.
+ */
+function uhc_event_field_widget_form_alter(&$element, &$form_state, $context) {
+  if ($context['instance']['entity_type'] == 'node' && $context['instance']['bundle'] == 'event') {
+    if ($context['instance']['field_name'] == 'field_event_begin_date') {
+      $element['#attached']['js'][] = libraries_get_path('wvega-timepicker') . '/jquery.timepicker.js';
+      $element['#attached']['js'][] = drupal_get_path('module', 'uhc_event') . '/js/duration_picker.js';
+    }
+    elseif ($context['instance']['field_name'] == 'field_event_location') {
+      // See ticket DOO-1507
+      $element['#access'] = FALSE;
+    }
+  }
+}
+
+/**
+ * Implements hook_ajax_render_alter().
+ * trigger timepicker when we have datepopup.
+ */
+function uhc_event_ajax_render_alter(&$commands) {
+  foreach ($commands as $command) {
+    if(isset($command['settings']['datePopup'])) {
+      $commands[] = array('command' => 'timepickerinit');
+    }
+  }
+}

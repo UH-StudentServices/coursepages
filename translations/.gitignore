@@ -1,0 +1,8 @@
+# Use remote translations except for customized module translations.
+*
+!.gitignore
+
+# These have some additional translations which are not good translations for
+# public contribution.
+!chosen-7.x-2.0-beta4.fi.po
+!chosen-7.x-2.0-beta4.sv.po

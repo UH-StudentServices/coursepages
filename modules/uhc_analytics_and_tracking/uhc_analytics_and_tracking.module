@@ -1,0 +1,249 @@
+<?php
+/**
+ * @file
+ * Module implementation code.
+ */
+
+/**
+ * Implements hook_google_analytics_et_api().
+ */
+function uhc_analytics_and_tracking_google_analytics_et_api() {
+  $selectors = array();
+
+  // Liftups
+  $liftup_template = array(
+    'event' => 'click',
+    'selector' => '',
+    'category' => '',
+    'action' => 'click',
+    'label' => '!href',
+  );
+  $selectors[0] = $liftup_template;
+  $selectors[0]['selector'] = '#block-views-uhc-course-liftups-latest a';
+  $selectors[0]['category'] = 'liftups course';
+  $selectors[1] = $liftup_template;
+  $selectors[1]['selector'] = '#block-views-uhc-liftups-main a';
+  $selectors[1]['category'] = 'liftups main';
+
+  // Search form
+  // Some parts are here, but some advanced tracking is handled through
+  // uhc_analytics_and_tracking_views_post_execute().
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => 'form#views-exposed-form-uhc-search-desktop input#edit-reset',
+    'category' => 'search form',
+    'action' => 'reset',
+  );
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => 'form#views-exposed-form-uhc-search-desktop input#edit-submit-uhc-search',
+    'category' => 'search form',
+    'action' => 'submit',
+  );
+
+  // Search results
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.view.view-id-uhc_search .views-field-title-field a',
+    'category' => 'search results',
+    'action' => 'click',
+    'label' => '!text',
+  );
+  // Sorting in desktop
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.view.view-id-uhc_search th a',
+    'category' => 'search results',
+    'action' => 'sort',
+    'label' => '!text',
+  );
+  // Sorting in mobile
+  $selectors[] = array(
+    'event' => 'change',
+    'selector' => '#edit-sort-by',
+    'category' => 'search results',
+    'action' => 'sort',
+  );
+
+  return $selectors;
+}
+
+/**
+ * Implements hook_views_post_execute().
+ * After view has executed, we want to let our analytics know what type of
+ * search has been performed.
+ *
+ * To do that, we attach JS behaviour which calls analytics through event
+ * tracking functions.
+ *
+ * See DOO-28 and DOO-344
+ */
+function uhc_analytics_and_tracking_views_post_execute(&$view) {
+  if ($view->name == 'uhc_search') {
+
+    // Figure out search keyword and sanitize it to avoid XSS
+    $keyword = isset($_GET['search']) ? $_GET['search'] : '';
+    $keyword = check_plain($keyword);
+
+    // Resolve filters to an nice array list compatbile to event tracking
+    $filters = uhc_analytics_and_tracking_resolve_filters();
+
+    // Gather events for tracking
+    $events = array();
+
+    // Track filters
+    foreach ($filters as $label => $value) {
+      uhc_analytics_and_tracking_put_event($events, 'search filter', $label, $value);
+    }
+
+    // Track search type
+    $search_type = uhc_analytics_and_tracking_track_search_type($keyword, $filters);
+    uhc_analytics_and_tracking_put_event($events, 'search type', 'search', $search_type);
+
+    // Now push to frontend
+    uhc_analytics_and_tracking_track_events($events);
+
+  }
+}
+
+/**
+ * Helper function to determine search type.
+ * @param $keyword
+ * @param $filters
+ */
+function uhc_analytics_and_tracking_track_search_type($keyword, $filters) {
+
+  // Determine the label depending on filters being used and keyword being used
+  $filters_used = (is_array($filters) && count($filters) > 0);
+  if (!empty($keyword)) {
+    // Search with keyword
+    if ($filters_used === TRUE) {
+      // ...and with filters
+      $search_type = 'with keyword and filters';
+    }
+    else {
+      // ...but without filters
+      $search_type = 'with keyword but without filters';
+    }
+  }
+  else {
+    // Search without keyword
+    if ($filters_used === TRUE) {
+      // ...but with filters
+      $search_type = 'without keyword but with filters';
+    }
+    else {
+      // ...and without filters
+      $search_type = 'without keyword or filters';
+    }
+  }
+
+  return isset($search_type) ? $search_type : '';
+}
+
+/**
+ * Helper function for triggering event tracking on frontend with given events.
+ * This should be called only once, as each call will override previous call.
+ *
+ * @param $events
+ */
+function uhc_analytics_and_tracking_track_events($events) {
+  // Attach JS behaviour which will deliver this stats
+  drupal_add_js(drupal_get_path('module', 'uhc_analytics_and_tracking') . '/js/uhc_analytics_and_tracking.js');
+  drupal_add_js(array('uhcGoogleAnalyticsEventTracking' => array(
+    'events' => $events,
+  )), 'setting');
+}
+
+/**
+ * Puts an event to an list of events for event tracking.
+ *
+ * @param $events
+ * @param $category
+ * @param $action
+ * @param $opt_label
+ */
+function uhc_analytics_and_tracking_put_event(&$events, $category, $action, $opt_label) {
+  $events[] = array(
+    'category' => $category,
+    'action' => $action,
+    'opt_label' => check_plain($opt_label),
+  );
+}
+
+/**
+ * Helper function to resolve used filters from given view arguments.
+ * @return array
+ */
+function uhc_analytics_and_tracking_resolve_filters() {
+
+  /* This is an mapping array for figuring out filters here, because I could not
+   * find simple documentation how to use FacetAPI classes in order to figure
+   * these out.
+   *
+   * For each facet filter we define an filter label and type, so that we know
+   * which filters and values were used when inspecting statistics.
+   *
+   * Array key represents the machine name of facet filter.
+   *
+   * Type:
+   *   - taxonomy_term: When taxonomy term, the value will be fetched using
+   *                    taxonomy_term_load() callback and its name which will be
+   *                    used as the value.
+   *   - text: This is ignored, but works as clear placeholder for letting know
+   *           that it will not be processed magically for retrieving the value.
+   *
+   * PS: 17.03.2015, if you actually read these comments, let me know and I'll
+   *     buy a beer for the first guy actually reading this.
+   *     #nobodyreadscomments @iMiksu
+   */
+  $mapping = array(
+    'field_imp_method_of_study' => array(
+      'filter_label' => 'Method of study',
+      'type' => 'taxonomy_term',
+    ),
+    'field_imp_teaching_language:value' => array(
+      'filter_label' => 'Teaching language',
+      'type' => 'text',
+    ),
+    'field_imp_reference_to_courses:field_course_type_of_teaching' => array(
+      'filter_label' => 'Type of teaching',
+      'type' => 'taxonomy_term',
+    ),
+    'field_imp_reference_to_courses:field_course_theme' => array(
+      'filter_label' => 'Course theme',
+      'type' => 'taxonomy_term',
+    ),
+  );
+
+  // Gather all resolutions to this array which gets returned further
+  $filters = array();
+
+  // Instantiate an facetapi adapter and loop over each active item for
+  // gathering their labels and values.
+  $adapter = facetapi_adapter_load('search_api@uhc_portal');
+  if ($adapter !== FALSE) {
+    foreach ($adapter->getAllActiveItems() as $item) {
+      // If mapping match...
+      if (isset($mapping[$item['field alias']])) {
+
+        // Construct these for easier reading
+        $filter_label = $mapping[$item['field alias']]['filter_label'];
+        $type = $mapping[$item['field alias']]['type'];
+        $value = $item['value'];
+
+        // When taxonomy term, then load the term and fetch its name
+        if ($type == 'taxonomy_term') {
+          $term = taxonomy_term_load($value);
+          if ($term) {
+            $value = $term->name;
+          }
+        }
+
+        $filters[$filter_label] = $value;
+      }
+    }
+  }
+
+  return is_array($filters) ? $filters : array();
+}

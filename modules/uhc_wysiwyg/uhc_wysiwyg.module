@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Wysiwyg feature.
+ */
+
+include_once 'uhc_wysiwyg.features.inc';

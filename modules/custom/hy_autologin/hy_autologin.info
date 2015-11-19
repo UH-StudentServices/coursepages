@@ -1,0 +1,6 @@
+name = HY Autologin
+description = Provides autologin services.
+core = 7.x
+package = HY Portal
+version = 7.x-1.41-dev
+project = hy_autologin

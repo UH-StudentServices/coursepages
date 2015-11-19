@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Contact card feature.
+ */
+
+include_once 'uhc_contact_card.features.inc';

@@ -1,0 +1,42 @@
+/**
+ * Theme structure presented a simple manner
+ *
+ * Disclaimer: The following information might change during development
+ */
+ 
+/**
+ * Helsingin yliopisto -theme's markup is as follows:
+ *
+ *  <page>
+ *    <top-bar></top-bar>
+ *
+ *    <menu-bar>
+ *      <header>
+ *        <branding></branding>
+ *        <navigation></navigation>
+ *      </header>
+ *    </menu-bar>
+ *
+ *    <hero></hero>
+ *
+ *    <main>
+ *      <content></content>
+ *      <sidebar-first>
+ *      <sidebar-second>
+ *    </main>
+ *
+ *    <footer></footer>
+ *  </page>
+ * 
+ * The visual presentation for the user however is very different with the 
+ * menu-bar positioned to the right, just under the top-bar and all other 
+ * content next to the menu-bar. The hero section takes 100% of the browsers 
+ * width and is located under the menu-bar. Please refer to the preview image 
+ * of the hy-layout for more detail.
+ * 
+ * The header-section and branding and navigation regions inside it are placed 
+ * inside the menu-bar for crawlers to read the page information from correct 
+ * place. They expect to find main navigation and branding information inside 
+ * the header and since all this information is placed in the menu bar, the 
+ * header wrapper should be located here as well.
+ */

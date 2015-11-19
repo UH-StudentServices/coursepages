@@ -1,0 +1,245 @@
+.main-menu {
+  // Fix admin links
+  &.contextual-links-region {
+    position: static;
+  }
+
+  h2.block__title {
+    display: none;
+  }
+
+  .navigation {
+    /**
+     * Responsive navigation cannot calculate the height of the child <li>...
+     * TODO: Check this!
+     */
+    &.opened {
+      max-height: 9999px !important;
+    }
+  }
+
+  @include at-breakpoint($layout-mobile-only) {
+    #nav-toggle {
+      background: $black;
+      display: block;
+      text-indent: -2000em;
+      height: 50px;
+      position: absolute;
+      right: 0;
+      top: 0px;
+      width: 50px;
+
+      &:hover {
+        background-color: $blue;
+      }
+
+      &:after {
+        @include font-size(28px);
+        @include font-awesome("\f0c9");
+        color: $white;
+        left: 13px;
+        top: 11px;
+        position: absolute;
+        text-indent: 0;
+      }
+
+      &.active {
+        &:after {
+          @include font-awesome("\f068");
+          top: 5px;
+          left: 14px;
+        }
+      }
+    }
+  }
+}
+
+.responsive-navigation {
+  @include at-breakpoint($layout-mobile-only) {
+    border-bottom: 1px solid lighten($silver, 20%);
+
+    .triangle {
+      bottom: 0;
+      cursor: pointer;
+      left: 0;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      width: 75px;
+      z-index: 10;
+    }
+
+    .menuparent {
+      > .triangle {
+        &:before {
+          @include font-awesome("\f054");
+          color: $blue;
+          display: inline-block;
+          margin-top: 1.3em;
+        }
+
+        // ipad retina
+        &.hidden:before {
+          display: none;
+        }
+      }
+
+      &.m-active {
+        > .triangle:before {
+          @include font-awesome("\f078");
+        }
+      }
+
+      > .active-triangle {
+        &:before {
+          color: $darkblue;
+        }
+      }
+    }
+
+    li {
+      border-top: 1px solid darken($lightsilver, 10%);
+      list-style-type: none;
+      list-style-image: none;
+      min-height: 50px;
+      position: relative;
+      width: auto;
+    }
+
+    ul {
+      display: none;
+
+      &.active-trail {
+        > li > ul {
+          display: block;
+        }
+      }
+    }
+
+    .responsive-navigation {
+      display: block;
+    }
+
+    a {
+      @include link-menu;
+      padding: 20px 30px 25px 90px;
+
+      &:hover,
+      &.active-trail,
+      &.active {
+        color: $darkblue;
+      }
+    }
+
+    // 2nd level of navigation
+    .level-2 {
+      background: darken($white,5%);
+    }
+
+    // 3rd level of navigation
+    .level-3 {
+      border: none;
+
+      a {
+        @include font-weight-book;
+        border: 0 none;
+        color: $silver;
+        padding: 15px 30px 20px 90px;
+        text-transform: none;
+
+        &:hover, &.active {
+          color: $darkgray;
+        }
+        &.active.m-active {
+          color: $white;
+        }
+      }
+
+      &.active-trail .triangle {
+        display: block;
+        text-align: center;
+
+        &:before {
+          @include font-awesome("\f0da");
+          @include font-size(22px);
+          color: $darkblue;
+          display: inline-block;
+          margin-top: 0.6em;
+        }
+      }
+    }
+  }
+
+  @include at-breakpoint($layout-small) {
+    @include container;
+
+    li {
+      display: block;
+      float: left;
+      list-style-image: none;
+      list-style-type: none;
+      position: relative;
+
+      &:first-child a {
+        padding-left: 0;
+      }
+
+      a {
+        @include link-menu;
+        @include font-weight-bold;
+        display: block;
+        padding: 1.6em 1.5em;
+
+        @include at-breakpoint($layout-medium) {
+          padding: 1.6em 2em;
+        }
+      }
+
+      &.active-trail {
+        .triangle {
+          border-bottom: 10px solid $darkblue;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          bottom: 0;
+          height: 0;
+          left: 50%;
+          margin-left: -10px;
+          min-height: 0;
+          position: absolute;
+          width: 0;
+          z-index: auto;
+        }
+        &:first-child .triangle {
+          margin-left: -25px;
+        }
+      }
+
+      &.menuparent ul {
+        display: none;
+        height: 0px;
+      }
+    }
+  }
+}
+
+// JS stuff
+.js #nav {
+  clip: rect(0 0 0 0);
+  max-height: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  zoom: 1;
+}
+
+@include at-breakpoint($layout-small) {
+  .js #nav {
+    position: relative;
+  }
+  .js #nav.closed {
+    max-height: none;
+  }
+  #nav-toggle {
+    display: none;
+  }
+}

@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Date format feature.
+ */
+
+include_once 'uhc_date_format.features.inc';
+
+/**
+ * Implements hook_date_formats().
+ */
+function uhc_date_format_date_formats() {
+  return array(
+    array(
+      'type' => 'short_date_only',
+      'format' => 'j.n.Y',
+      'locales' => array(),
+    ),
+    array(
+      'type' => 'time_only',
+      'format' => 'H:i',
+      'locales' => array(),
+    ),
+    array(
+      'type' => 'weekday_and_time',
+      'format' => 'D H:i',
+      'locales' => array(),
+    ),
+  );
+}
+
+/**
+ * Implements hook_date_format_types().
+ */
+function uhc_date_format_date_format_types() {
+  return array(
+    'short_date_only' => t('Short date only'),
+    'time_only' => t('Time only'),
+    'weekday_and_time' => t('Weekday and time'),
+  );
+}

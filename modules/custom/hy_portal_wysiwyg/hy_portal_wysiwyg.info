@@ -1,0 +1,6 @@
+name = HY Portal WYSIWYG
+description = Adds wysiwyg-editor and related features and modules
+core = 7.x
+package = HY
+version = 7.x-1.41-dev
+project = hy_portal_wysiwyg

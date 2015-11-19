@@ -1,0 +1,70 @@
+// Susy grid.
+$container-style: magic;
+$container-width: 75em;
+
+$total-columns: 4;
+// a 4-column grid
+$column-width: 4em;
+// each column is 4em wide
+$gutter-width: 2em;
+// 2em gutters between columns
+$grid-padding: 1em;
+// grid-padding is twice as wide as gutter
+
+$debug-grid: true;
+
+// Set consistent vertical and horizontal spacing units.
+$vert-spacing-unit: 0.938em;
+$horz-spacing-unit: 0.938em;
+
+// Susy Media Layouts
+$layout-mobile-only: 0em 12 48em; // Mobile only.
+$layout-small: 48em 12; // At 48em use 12 columns.
+$layout-medium: 62.5em 16; // At 62.5em use 12 columns.
+$layout-large: 75em 16; // At 75em use 16 columns.
+
+// Legacy support.
+$legacy-support-for-ie6: false;
+$legacy-support-for-ie7: true;
+$legacy-support-for-ie8: true;
+
+$light-blue: #e5f3f9;
+$orange: #fa9500;
+$purple: #7A46A2;
+
+// User colors
+$color-user: $purple;
+
+// Basic colors
+$color-bg-prefooter: #f7f7f7;
+
+$messages: (
+	'status': (
+		'color': $black,
+		'color-alt': #81b43b,
+		'bg-color': #b2e576,
+		'bg-color-alt': #f2f7eb,
+		'icon': '\f00c',
+	),
+	'warning': (
+		'color': $white,
+		'color-alt': $black,
+		'bg-color': #52c6af,
+		'bg-color-alt': #f8f8f8,
+		'icon': '\f06a',
+	),
+	'error': (
+		'color': $white,
+		'color-alt': #964822,
+		'bg-color': #964822,
+		'bg-color-alt': #f4ece8,
+		'icon': '\f071',
+	),
+	'search-info': (
+		'color': $black,
+		'color-alt': $black,
+		'bg-color': #F8F8F8,
+		'bg-color-alt': #F8F8F8,
+		'icon': '\f06a',
+	)
+);

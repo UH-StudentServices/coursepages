@@ -1,0 +1,411 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Course implementation feature.
+ */
+
+include_once 'uhc_course_implementation.features.inc';
+
+/**
+ * Implements hook_field_widget_form_alter().
+ * Change labels of inline entity form when dealing with materials.
+ */
+function uhc_course_implementation_field_widget_form_alter(&$element, &$form_state, $context) {
+  // Change field widget to "Add material" or "Add task"
+  if (isset($element['#field_name'])) {
+    if ($element['#field_name'] == 'field_event_ref_to_material' ||
+        $element['#field_name'] == 'field_section_material') {
+      if (isset($element['actions']['ief_add']['#value'])) {
+        $element['actions']['ief_add']['#value'] = $label = t('Add material');
+      }
+    }
+    elseif ($element['#field_name'] == 'field_reference_to_course_tasks') {
+      if (isset($element['actions']['ief_add']['#value'])) {
+        $element['actions']['ief_add']['#value'] = $label = t('Add task');
+      }
+    }
+    if ($element['#field_name'] == 'field_imp_reference_to_events') {
+      // We want actions & ief forms before the event list
+      $element['actions']['#weight'] = 0;
+      if (isset($element['form'])) {
+        $element['form']['#weight'] = 0;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ * Change labels of inline entity form when dealing with materials.
+ */
+function uhc_course_implementation_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if ($entity_form['#bundle'] == 'course_material') {
+    $label = t('Add material');
+    $entity_form['#title'] = $label;
+    $entity_form['actions']['ief_add_save']['#value'] = $label;
+  }
+  elseif ($entity_form['#bundle'] == 'course_task') {
+    $label = t('Add task');
+    $entity_form['#title'] = $label;
+    $entity_form['actions']['ief_add_save']['#value'] = $label;
+  }
+}
+
+function uhc_course_implementation_get_teacher_numbers($node) {
+  $teacher_numbers = array();
+
+  if ($node->type == 'course_implementation' && !empty($node->field_imp_teacher_number[LANGUAGE_NONE][0]['value'])) {
+    $teacher_numbers = explode(',', $node->field_imp_teacher_number[LANGUAGE_NONE][0]['value']);
+
+    foreach ($teacher_numbers as $key => $teacher_number) {
+      $teacher_numbers[$key] = trim($teacher_number);
+    }
+  }
+
+  return $teacher_numbers;
+}
+
+function uhc_course_implementation_get_course_administrator_numbers($node) {
+  $course_administrator_numbers = array();
+
+  if ($node->type == 'course_implementation' && !empty($node->field_imp_administrator_number[LANGUAGE_NONE][0]['value'])) {
+    $course_administrator_numbers = explode(',', $node->field_imp_administrator_number[LANGUAGE_NONE][0]['value']);
+
+    foreach ($course_administrator_numbers as $key => $course_administrator_number) {
+      $course_administrator_numbers[$key] = trim($course_administrator_number);
+    }
+  }
+
+  return $course_administrator_numbers;
+}
+
+/**
+ * Implements hook_field_group_build_pre_render_alter().
+ *
+ * Lets add some help texts to our accordion items
+ */
+function uhc_course_implementation_field_group_build_pre_render_alter(&$element) {
+  if (isset($element['group_timetable']['#prefix'])) {
+    $element['group_timetable']['#prefix'] .= '<div class="accordion-help accordion-content-item"><p>' . t('Here is the course’s teaching schedule. Check the course overview for possible other schedules.') . '</p></div>';
+  }
+  if (isset($element['group_course_task_material']['#prefix'])) {
+    $element['group_course_task_material']['#prefix'] .= '<div class="accordion-help accordion-content-item"><p>' . t('In this section you can find the course tasks.') . '</p></div>';
+  }
+}
+
+/**
+ * Implements hook_entity_load().
+ *
+ * Problem:
+ *   If we would feature export image fields with default image's file id. It
+ *   might get wrong or miss completely the file in other environments due to
+ *   different file IDs in different environments.
+ *
+ * Solution(tm) by Mario Vercelotti:
+ *   When loading course implementations which does not have header image set at
+ *   all, first try to fetch an image and caption from related faculty term. 
+ *   If this fails, fetch default image from variable. This default image is set during
+ *   installation or update hook and its copied from default image provided in
+ *   this module.
+ *
+ * @see _uhc_course_implementation_create_default_image().
+ * @see uhc_course_implementation_entity_presave().
+ */
+function uhc_course_implementation_entity_load($entities, $type) {
+  if ($type == 'node') {
+
+    foreach ($entities as $entity) {
+      if ($entity->type == 'course_implementation') {
+
+        // When loading course implementation entity and not having header image
+        // set, check if the related faculty term has an image and caption set. if not, (and 
+        // while default file id is set), then attach the default image
+        // into the entity.
+        $field_imp_header_image = field_get_items('node', $entity, 'field_imp_header_image');
+        if (empty($field_imp_header_image)) {
+          $faculty_term_image_and_caption = array();
+
+          if (!empty($entity->field_imp_reference_to_courses[LANGUAGE_NONE][0]['target_id'])) {
+            $faculty_term_image_and_caption = uhc_course_implementation_get_faculty_image_and_caption($entity->field_imp_reference_to_courses[LANGUAGE_NONE][0]['target_id']);
+          }
+
+          if(!empty($faculty_term_image_and_caption['fid'])) {
+            $entity->field_imp_header_image_caption = $faculty_term_image_and_caption['caption'];
+            $fid = $faculty_term_image_and_caption['fid'];
+          }
+          else {
+            if (isset($entity->field_imp_organisation_codes['und'][0]['value']) &&
+            $entity->field_imp_organisation_codes['und'][0]['value'] == 'H930') {
+              // Open university default image
+              $fid = variable_get('uhc_course_implementation_default_image_open_uni', 0);
+            }
+            else {
+              // This value should be set by
+              // _uhc_course_implementation_create_default_image()
+              $fid = variable_get('uhc_course_implementation_default_image', 0);
+              // set default image caption
+              $entity->field_imp_header_image_caption[LANGUAGE_NONE][0]['value'] = t('Social Network Analysis Visualization by MartinGrandjean CC BY-SA 3.0');
+            }
+          }
+          $file = file_load($fid);
+          $entity->field_imp_header_image = array(
+            LANGUAGE_NONE => array(array('fid' => $fid) + (array) $file),
+          );
+
+          // See uhc_course_implementation_entity_presave(), this is for telling
+          // to form editing process that it should not save this file.
+          $entity->has_default_image = TRUE;
+
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function uhc_course_implementation_entity_presave($entity, $type) {
+  // If we've set a default image, remove it before saving, so we don't
+  // accidentally save the default image as actualy image of the field.
+  if ($type == 'node' && isset($entity->has_default_image) && isset($entity->field_imp_header_image)) {
+    $default_image_fid = variable_get('uhc_course_implementation_default_image', 0);
+    $image_fid = empty($entity->field_imp_header_image[LANGUAGE_NONE][0]['fid']) ? NULL : $entity->field_imp_header_image[LANGUAGE_NONE][0]['fid'];
+
+    if ($image_fid == NULL || ($default_image_fid == $image_fid)) {
+      $entity->field_imp_header_image = array();
+    }
+  }
+}
+
+/**
+ * Determines whether given $node has private content associated.
+ *
+ * @param $node object
+ *   Course implementation node.
+ * @return bool
+ *   TRUE if the course has private content, otherwise FALSE.
+ *
+ * @see uhc_course_implementation_node_view()
+ * @see uhc_course_implementation_has_private_messages()
+ */
+function uhc_course_implementation_has_private_content($node) {
+  $moodle_key = uhc_teacher_tools_get_moodle_key($node);
+
+  return !empty($moodle_key)
+    || uhc_course_implementation_has_private_messages($node)
+    || uhc_course_implementation_has_private_material($node);
+}
+
+/**
+ * Determines whether given $node has private messages.
+ *
+ * @param $node object
+ *   Course implementation node.
+ * @return bool
+ *   TRUE if the course has private messages, otherwise FALSE.
+ *
+ * @see uhc_course_implementation_has_private_content()
+ */
+function uhc_course_implementation_has_private_messages($node) {
+  $has_private_messages = FALSE;
+
+  if ($node->type == 'course_implementation') {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'comment');
+    $query->propertyCondition('nid', $node->nid);
+    $query->fieldCondition('field_private', 'value', 1);
+    $result = $query->execute();
+
+    $has_private_messages = !empty($result['comment']);
+  }
+
+  return $has_private_messages;
+}
+
+/**
+ * Determines whether given $node has private material.
+ *
+ * @param $node object
+ *   Course implementation node.
+ * @return bool
+ *   TRUE if the course has private material, otherwise FALSE.
+ *
+ * @see uhc_course_implementation_has_private_content() and uhc_course_collaboration_private_is_private_course_material().
+ */
+function uhc_course_implementation_has_private_material($node) {
+  $has_private_material = FALSE;
+
+  if ($node->type == 'course_implementation' && !empty($node->field_section_material[LANGUAGE_NONE])) {
+    foreach ($node->field_section_material[LANGUAGE_NONE] as $material) {
+      // Load node to ensure it exists before checking whether its private
+      // material or not.
+      $material_node = node_load($material['target_id']);
+      if ($material_node && uhc_course_collaboration_private_is_private_course_material($material_node)) {
+        $has_private_material = TRUE;
+        break;
+      }
+    }
+  }
+
+  return $has_private_material;
+}
+
+/**
+ * Determines whether given $node has material.
+ *
+ * @param $node object
+ *   Course implementation node.
+ * @return bool
+ *   TRUE if the course has material, otherwise FALSE.
+ */
+function uhc_course_implementation_has_material($node) {
+  return $node->type == 'course_implementation' && !empty($node->field_section_material[LANGUAGE_NONE]);
+}
+
+/**
+ * Determines whether given $node has a faculty reference with and image and/or caption set.
+ *
+ * @param $node object
+ *   Course node.
+ * @return $values
+ *   array with image fid and caption
+ */
+function uhc_course_implementation_get_faculty_image_and_caption($node) {
+  $values = array('fid' => NULL, 'caption' => array());
+  if (!empty($node)) {
+    $course = node_load($node);
+    if (!empty($course->field_course_faculty[LANGUAGE_NONE][0]['tid'])) {
+      $faculty = taxonomy_term_load($course->field_course_faculty[LANGUAGE_NONE][0]['tid']);
+      if(!empty($faculty->field_faculty_image)) {
+        $values['fid'] = $faculty->field_faculty_image[LANGUAGE_NONE][0]['fid'];
+        // we want the caption only if image is set
+        if(!empty($faculty->field_faculty_image_caption)) {
+          $values['caption'] = $faculty->field_faculty_image_caption;
+        }
+        else {
+          $values['caption'] = array();
+        }
+      }
+    }
+  }
+  return $values;
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function uhc_course_implementation_preprocess_node(&$vars) {
+  $node = $vars['node'];
+
+  if ($node->type == 'course_implementation') {
+    uhc_course_implementation_display_private_content_message($node);
+    uhc_course_implementation_process_sign_up_button_url($vars, $node);
+
+    // add class so we can theme exams
+    if (in_array($node->field_imp_method_of_study[LANGUAGE_NONE][0]['tid'], variable_get('uhc_migrate_methods_of_study_marked_as_exam'))) {
+      $vars['classes_array'][] = 'exam';
+    }
+  }
+}
+
+/**
+ * Display private content message when the course has private content and the
+ * current user is not signed up for the course.
+ *
+ * @see uhc_course_implementation_has_private_content()
+ * @param $node object Node object.
+ */
+function uhc_course_implementation_display_private_content_message($node) {
+  $display_private_content_message = $node->type == 'course_implementation'
+    && arg(0) == 'node'
+    && arg(1) == $node->nid
+    && !uhc_course_collaboration_is_current_user_course_student()
+    && !uhc_course_collaboration_is_current_user_course_teacher()
+    && !uhc_course_collaboration_is_current_user_course_administrator()
+    && uhc_course_implementation_has_private_content($node);
+
+  if ($display_private_content_message) {
+    uh_coursepages_set_message(
+      t('You need to log in and sign up for the course to view some of the content on this page.'),
+      'warning'
+    );
+  }
+}
+
+/**
+ * Helper function for hiding button url from node template from preprocessing
+ * variables.
+ *
+ * @param $vars array Variables.
+ * @param $node object Course implementation node.
+ */
+function uhc_course_implementation_process_sign_up_button_url(&$vars, $node) {
+  if ($node->type == 'course_implementation') {
+    $hide_sign_up_button = uhc_course_collaboration_is_current_user_course_student()
+                        || uhc_course_collaboration_is_current_user_course_teacher()
+                        || uhc_course_collaboration_is_current_user_course_administrator()
+                        || (uhc_sources_is_from_organisation($node, 'H930') === TRUE
+                           && !uhc_course_implementation_is_organised_by_open_uni($node))
+                        || uhc_course_implementation_signup_hidden($node);
+
+    if ($hide_sign_up_button) {
+      if (isset($vars['content']['field_imp_canonical_url']['#access'])) {
+        $vars['content']['field_imp_canonical_url']['#access'] = FALSE;
+
+      }
+    }
+    elseif (uhc_sources_is_from_organisation($node, 'H930') === TRUE) {
+      $id = field_get_items('node', $node, 'field_imp_id')[0]['value'];
+      $url = 'https://www.avoin.helsinki.fi/palvelut/esittely.aspx?o=' . $id;
+      global $language;
+      if ($language->language != 'fi') {
+        $url .= '&lang=' . $language->language;
+      }
+      $vars['content']['field_imp_canonical_url'][0]['#element']['url'] = $url;
+    }
+  }
+}
+
+function uhc_course_implementation_is_organised_by_open_uni($node) {
+  $org = field_get_items('node', $node, 'field_imp_course_organiser')[0]['value'];
+  return $org == 'Open university' || $org == 'Avoin yliopisto' || $org == 'Öppna universitet';
+}
+
+function uhc_course_implementation_signup_hidden($node) {
+  return field_get_items('node', $node, 'field_imp_hide_sign_up_button')[0]['value'];
+}
+
+/**
+ * Loads a course implementation node by course implementation ID.
+ *
+ * @param $course_implementation_id int Course implementation ID.
+ * @return bool|mixed|null Course implementation node (if found), NULL (if not
+ * found) or FALSE (if node loading fails).
+ */
+function uhc_course_implementation_load_by_id($course_implementation_id) {
+  $course_implementation_node = NULL;
+
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'course_implementation')
+    ->fieldCondition('field_imp_id', 'value', $course_implementation_id);
+
+  $result = $query->execute();
+
+  if (!empty($result['node'])) {
+    $node = array_pop($result['node']);
+    $course_implementation_node = node_load($node->nid);
+  }
+
+  return $course_implementation_node;
+}
+
+/**
+ * Implements hook_field_access(). Limits Moodle key visibility.
+ */
+function uhc_course_implementation_field_access($op, $field, $entity_type, $entity, $account) {
+  if ($field['field_name'] == 'field_moodle_key') {
+    return uhc_course_collaboration_private_current_user_has_access_to_private_content();
+  }
+}

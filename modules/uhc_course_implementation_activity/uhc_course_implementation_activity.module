@@ -1,0 +1,776 @@
+<?php
+/**
+ * @file
+ * Code for the uhc_course_implementation_activity feature.
+ */
+
+include_once 'uhc_course_implementation_activity.features.inc';
+
+/**
+ * Implements hook_entity_property_info_alter().
+ */
+function uhc_course_implementation_activity_entity_property_info_alter(&$info) {
+  if (isset($info['message_type'])) {
+    $info['message_type']['properties']['target_accordion_class'] = array(
+      'type' => 'text',
+      'label' => t('Target accordion class'),
+      'schema field' => 'target_accordion_class',
+      'description' => t('Target accordion class which should be opened when clicking to message.'),
+    );
+  }
+}
+
+/**
+ * Implements hook_form_message_type_form_alter().
+ */
+function uhc_course_implementation_activity_form_message_type_form_alter(&$form, &$form_state) {
+  // Allow message types to specify an target accordion class, that is used for
+  // linking to corresponding accodion item.
+  $form['target_accordion_class'] = array(
+    '#title' => t('Target accordion class'),
+    '#type' => 'textfield',
+    '#default_value' => $form_state['message_type']->target_accordion_class,
+    '#description' => t('Type here accordion target class which should be opened when clicking this message. Example: ".group-imp-material".'),
+  );
+}
+
+/**
+ * Implements hook_comment_insert().
+ * @see uhc_course_implementation_activity_comment_modify()
+ */
+function uhc_course_implementation_activity_comment_insert($comment) {
+  uhc_course_implementation_activity_comment_modify($comment, 'create');
+}
+
+/**
+ * Implements hook_comment_update().
+ * @see uhc_course_implementation_activity_comment_modify()
+ */
+function uhc_course_implementation_activity_comment_update($comment) {
+  uhc_course_implementation_activity_comment_modify($comment, 'update');
+}
+
+/**
+ * Implements hook_comment_delete().
+ * @see uhc_course_implementation_activity_comment_modify()
+ */
+function uhc_course_implementation_activity_comment_delete($comment) {
+  uhc_course_implementation_activity_comment_modify($comment, 'remove');
+}
+
+/**
+ * Helper function for detecting comment creation, update and removals. This is
+ * called from comment hooks.
+ *
+ * @param $comment
+ * @param $message_type
+ * @see uhc_course_implementation_activity_comment_insert()
+ * @see uhc_course_implementation_activity_comment_update()
+ * @see uhc_course_implementation_activity_comment_delete()
+ */
+function uhc_course_implementation_activity_comment_modify($comment, $message_type) {
+  // These are the entities we refer in the message
+  $account = user_load($comment->uid);
+  $node = node_load($comment->nid);
+
+  // Lets strip tags & trim our comment body so we can use it as a token
+  $comment_body = strip_tags($comment->comment_body[LANGUAGE_NONE][0]['value']);
+  $comment_body = truncate_utf8($comment_body, 80, TRUE, TRUE);
+
+  // Create an message and set references and then save it.
+  if (_uhc_course_implementation_activity_is_private_comment($comment)) {
+    $message = message_create('course_implementation_private_comment_' . $message_type, array(), $account);
+  }
+  else {
+    $message = message_create('course_implementation_comment_' . $message_type, array('arguments' => array('@comment_body' => $comment_body)), $account);
+  }
+
+  $wrapper = entity_metadata_wrapper('message', $message);
+  $wrapper->field_message_ref_to_course_imp->set($node);
+  $wrapper->save();
+}
+
+/**
+ * Helper function for determining whether the comment is private comment or
+ * not.
+ *
+ * @param $comment
+ * @return bool
+ * @see uhc_course_implementation_activity_comment_modify()
+ */
+function _uhc_course_implementation_activity_is_private_comment($comment) {
+  return isset($comment->field_private[LANGUAGE_NONE][0]['value'])
+    && $comment->field_private[LANGUAGE_NONE][0]['value'] == 1;
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function uhc_course_implementation_activity_node_insert($node) {
+  _uhc_course_implementation_activity_flag_generate_activity_message($node);
+}
+
+/**
+ * Generates an flag for node indicating that it needs and activity message.
+ *
+ * @param $node
+ * @see uhc_course_implementation_activity_node_insert()
+ */
+function _uhc_course_implementation_activity_flag_generate_activity_message($node) {
+  if (in_array($node->type, array('course_material', 'event'))) {
+
+    /** @var $flag flag_flag */
+    $flag = flag_get_flag('generate_activity_message');
+    $flag->flag('flag', $node->nid);
+  }
+}
+
+/**
+ * Removes an flag from the node about activity message. Used probably after the
+ * message has been generated successfully for the node.
+ *
+ * @param $node
+ * @see _uhc_course_implementation_activity_track_reference_insert()
+ */
+function _uhc_course_implementation_activity_unflag_generate_activity_message($node) {
+
+  /** @var $flag flag_flag */
+  $flag = flag_get_flag('generate_activity_message');
+  $flag->flag('unflag', $node->nid);
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function uhc_course_implementation_activity_node_update($node) {
+
+  // Track child node inserts. We can't do this in hook_node_insert(), because
+  // the child nodes are inserted and then parent node is updated. Therefore we
+  // can't properly make the relationships for the messages.
+  _uhc_course_implementation_activity_track_reference_insert($node);
+  _uhc_course_implementation_activity_track_task_insert($node);
+
+  // Track when updating material, tasks or events.
+  _uhc_course_implementation_activity_track_material_update($node);
+  _uhc_course_implementation_activity_track_material_description_update($node);
+  _uhc_course_implementation_activity_track_task_update($node);
+  _uhc_course_implementation_activity_track_event_update_or_delete($node, 'course_implementation_event_update');
+
+  // Track when updating manually written conduct text. Please note that field
+  // machine name may be confusing due to legacy usage.
+  _uhc_course_implementation_activity_track_field_value_update($node, 'field_imp_teacher_se_content', 'course_implementation_course_conduct');
+
+  // Keep track of these statistics
+  _uhc_course_implementation_activity_track_update_statistics($node, 'course_implementation_update_statistics');
+  _uhc_course_implementation_activity_track_private_statistics($node, 'course_implementation_private_statistics');
+}
+
+/**
+ * Helper function for identifying when course implementation page has been
+ * edited. Used only for statistical purposes.
+ *
+ * @param $node
+ * @param $message_type
+ * @return NULL
+ */
+function _uhc_course_implementation_activity_track_update_statistics($node, $message_type) {
+  if ($node->type == 'course_implementation') {
+    // Load the account of current user.
+
+    // if the node has been updated by migration, user_is_logged_in is false
+    if (user_is_logged_in()) {
+      global $user;
+      $account = user_load($user->uid);
+
+      // Create an message and set references and then save it.
+      $message = message_create($message_type, array(), $account);
+      $wrapper = entity_metadata_wrapper('message', $message);
+      $wrapper->field_message_ref_to_course_imp->set($node);
+      $wrapper->save();
+    }
+  }
+}
+
+/**
+ * Helper function for identifying determining whether this course
+ * implementation page has or has been private content.
+ *
+ * @param $node
+ * @param $message_type
+ */
+function _uhc_course_implementation_activity_track_private_statistics($node, $message_type) {
+  if($node->type == 'course_implementation' && uhc_course_implementation_has_private_content($node)) {
+
+    // Query whether we have existing message types referencing to this course
+    // implementation.
+    $query = new EntityFieldQuery();
+    $messages = $query->entityCondition('entity_type', 'message')
+      ->entityCondition('bundle', $message_type)
+      ->fieldCondition('field_message_ref_to_course_imp', 'target_id', $node->nid);
+    $results = $query->execute();
+
+    // When no results, create message type
+    if (empty($results)) {
+      global $user;
+      $account = user_load($user->uid);
+      // Create an message and set references and then save it.
+      $message = message_create($message_type, array(), $account);
+      $wrapper = entity_metadata_wrapper('message', $message);
+      $wrapper->field_message_ref_to_course_imp->set($node);
+      $wrapper->save();
+    }
+
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function uhc_course_implementation_activity_node_delete($node) {
+  _uhc_course_implementation_activity_track_material_delete($node);
+  _uhc_course_implementation_activity_track_task_delete($node);
+  _uhc_course_implementation_activity_track_event_update_or_delete($node , 'course_implementation_event_remove');
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function uhc_course_implementation_activity_entity_update($entity) {
+  _uhc_course_implementation_activity_track_teacher_section_modify($entity, array('field_imp_teachersection_content', 'field_imp_teachersection_label'), 'course_implementation_teacher_section_update');
+}
+
+
+/**
+ * Implements hook_entity_insert().
+ */
+function uhc_course_implementation_activity_entity_insert($entity) {
+  _uhc_course_implementation_activity_track_teacher_section_modify($entity, array('field_imp_teachersection_content', 'field_imp_teachersection_label'), 'course_implementation_teacher_section_create');
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function uhc_course_implementation_activity_entity_delete($entity) {
+  _uhc_course_implementation_activity_track_teacher_section_modify($entity, array('field_imp_teachersection_content', 'field_imp_teachersection_label'), 'course_implementation_teacher_section_remove');
+}
+
+/**
+ * Helper function to set activity message when inserting references.
+ *
+ * @param $node
+ *   The course implementation node.
+ */
+function _uhc_course_implementation_activity_track_reference_insert($node) {
+  if ($node->type == 'course_implementation') {
+
+    // Figure out new references
+    $material_values = !empty($node->field_section_material[LANGUAGE_NONE]) ? $node->field_section_material[LANGUAGE_NONE] : array();
+    $event_values = !empty($node->field_imp_reference_to_events[LANGUAGE_NONE]) ? $node->field_imp_reference_to_events[LANGUAGE_NONE] : array();
+    $values = array_merge($material_values, $event_values);
+
+    /** @var $flag flag_flag */
+    $flag = flag_get_flag('generate_activity_message');
+    $added_target_ids = array();
+
+    foreach ($values as $value) {
+      if ($flag->is_flagged($value['target_id'])) {
+        $added_target_ids[] = $value['target_id'];
+      }
+    }
+
+    // Loop over each new material
+    foreach ($added_target_ids as $added_target_id) {
+
+      // different settings for different node types referenced
+      $referenced_node = node_load($added_target_id);
+      if ($referenced_node->type == 'course_material') {
+        $arguments = array('@material_title' => $referenced_node->title);
+        $message_type = 'course_implementation_material_create';
+      }
+      if ($referenced_node->type == 'event') {
+        $arguments = array('@event_title' => $referenced_node->title);
+        $message_type = 'course_implementation_event_create';
+      }
+
+      // Load the account of material creator
+      $account = user_load($referenced_node->uid);
+      // Create an message and set references and then save it.
+      $message = message_create($message_type, array('arguments' => $arguments), $account);
+      $wrapper = entity_metadata_wrapper('message', $message);
+      $wrapper->field_message_ref_to_course_imp->set($node);
+      $wrapper->save();
+
+      // Remove "generate activity message" flag.
+      _uhc_course_implementation_activity_unflag_generate_activity_message($referenced_node);
+    }
+  }
+}
+
+/**
+ * Helper function to set activity message when updating material.
+ *
+ * @param $node
+ *   The course material node.
+ */
+function _uhc_course_implementation_activity_track_material_update($node) {
+  if ($node->type == 'course_material') {
+
+    // Load the account of current user.
+    global $user;
+    $account = user_load($user->uid);
+
+    // When updating material, it might be an update through course materials or
+    // through tasks.
+    $callbacks = array(
+      '_uhc_course_material_resolve_nid_from_course_material',
+      '_uhc_course_material_resolve_nid_from_course_task',
+    );
+    foreach ($callbacks as $callback) {
+      if (function_exists($callback)) {
+        $nid = $callback($node);
+        if ($nid) {
+          // Nice, we got now an resolved nid
+          break;
+        }
+      }
+    }
+    $course_implementation_node = !is_null($nid) ? node_load($nid) : NULL;
+
+    // Create an message and set references and then save it.
+    $arguments = array('@material_title' => $node->title);
+    $message = message_create('course_implementation_material_update', array('arguments' => $arguments), $account);
+    $wrapper = entity_metadata_wrapper('message', $message);
+    if (!is_null($course_implementation_node)) {
+      $wrapper->field_message_ref_to_course_imp->set($course_implementation_node);
+    }
+    $wrapper->save();
+
+  }
+}
+
+/**
+ * Helper function to set activity message when updating course implementation
+ * material description.
+ *
+ * @param $node
+ *   The course material node.
+ */
+function _uhc_course_implementation_activity_track_material_description_update($node) {
+  if ($node->type == 'course_implementation') {
+
+    $original_description = !empty($node->original->field_imp_material_description[LANGUAGE_NONE][0]['value'])
+      ? $node->original->field_imp_material_description[LANGUAGE_NONE][0]['value']
+      : '';
+
+    $current_description = !empty($node->field_imp_material_description[LANGUAGE_NONE][0]['value'])
+      ? $node->field_imp_material_description[LANGUAGE_NONE][0]['value']
+      : '';
+
+    $description_changed = (empty($original_description) && !empty($current_description))
+      || (!empty($original_description) && empty($current_description))
+      || $original_description != $current_description;
+
+    if ($description_changed) {
+      global $user;
+      $account = user_load($user->uid);
+
+      $message = message_create('course_implementation_material_description_update', array(), $account);
+      $wrapper = entity_metadata_wrapper('message', $message);
+      $wrapper->field_message_ref_to_course_imp->set($node);
+      $wrapper->save();
+    }
+  }
+}
+
+/**
+ * Helper function for tracking material removals.
+ *
+ * @param $node
+ *   The material node.
+ */
+function _uhc_course_implementation_activity_track_material_delete($node) {
+  if ($node->type == 'course_material') {
+
+    // Load the account of event creator and load the corresponding course
+    // implementation node.
+    global $user;
+    $account = user_load($user->uid);
+
+    // When updating material, it might be an update through course materials or
+    // through tasks.
+    $callbacks = array(
+      '_uhc_course_material_resolve_nid_from_course_material',
+      '_uhc_course_material_resolve_nid_from_course_task',
+    );
+    foreach ($callbacks as $callback) {
+      if (function_exists($callback)) {
+        $nid = $callback($node);
+        if ($nid) {
+          // Nice, we got now an resolved nid
+          break;
+        }
+      }
+    }
+    $course_implementation_node = !is_null($nid) ? node_load($nid) : NULL;
+
+    // Create an message and set references and then save it.
+    $arguments = array('@material_title' => $node->title);
+    $message = message_create('course_implementation_material_remove', array('arguments' => $arguments), $account);
+    $wrapper = entity_metadata_wrapper('message', $message);
+    // Here we would setup normally reference to material, but we're removing it
+    // at the moment, so no need to bother.
+    if (!is_null($course_implementation_node)) {
+      $wrapper->field_message_ref_to_course_imp->set($course_implementation_node);
+    }
+    $wrapper->save();
+
+  }
+}
+
+/**
+ * Helper function to set activity message when inserting task.
+ *
+ * @param $node
+ *   The course implementation node.
+ */
+function _uhc_course_implementation_activity_track_task_insert($node) {
+  if ($node->type == 'course_implementation') {
+
+    // Figure out new tasks
+    $original_target_ids = _uhc_course_implementation_activity_get_target_ids($node->original->field_reference_to_course_tasks);
+    $target_ids = _uhc_course_implementation_activity_get_target_ids($node->field_reference_to_course_tasks);
+    $added_target_ids = array_diff($target_ids, $original_target_ids);
+
+    // Loop over each new task
+    foreach ($added_target_ids as $added_target_id) {
+
+      // Load the account of task creator
+      $task_node = node_load($added_target_id);
+      $account = user_load($task_node->uid);
+
+      // Create an message and set references and then save it.
+      $arguments = array('@task_title' => $task_node->title);
+      $message = message_create('course_implementation_task_create', array('arguments' => $arguments), $account);
+      $wrapper = entity_metadata_wrapper('message', $message);
+      $wrapper->field_message_ref_to_task->set($task_node);
+      $wrapper->field_message_ref_to_course_imp->set($node);
+      $wrapper->save();
+
+    }
+
+  }
+}
+
+/**
+ * Helper function to set activity message when updating task.
+ *
+ * @param $node
+ *   The course task node.
+ */
+function _uhc_course_implementation_activity_track_task_update($node) {
+  if ($node->type == 'course_task') {
+
+    // Load the account of material creator and load the corresponding course
+    // implementation node.
+    $account = user_load($node->uid);
+    $course_implementation_node = node_load(uhc_course_tasks_and_material_resolve_referencing_course_implementation($node));
+
+    // Create an message and set references and then save it.
+    $arguments = array('@task_title' => $node->title);
+    $message = message_create('course_implementation_task_update', array('arguments' => $arguments), $account);
+    $wrapper = entity_metadata_wrapper('message', $message);
+    $wrapper->field_message_ref_to_task->set($node);
+    if (!is_null($course_implementation_node)) {
+      $wrapper->field_message_ref_to_course_imp->set($course_implementation_node);
+    }
+    $wrapper->save();
+  }
+}
+
+/**
+ * Helper function for tracking task removals.
+ *
+ * @param $node
+ *   The task node.
+ */
+function _uhc_course_implementation_activity_track_task_delete($node) {
+  if ($node->type == 'course_task') {
+
+    // Load the account of event creator and load the corresponding course
+    // implementation node.
+    global $user;
+    $account = user_load($user->uid);
+    $course_implementation_node = node_load(uhc_course_tasks_and_material_resolve_referencing_course_implementation($node));
+
+    // Create an message and set references and then save it.
+    $arguments = array('@task_title' => $node->title);
+    $message = message_create('course_implementation_task_remove', array('arguments' => $arguments), $account);
+    $wrapper = entity_metadata_wrapper('message', $message);
+    // Here we would setup normally reference to material, but we're removing it
+    // at the moment, so no need to bother.
+    if (!is_null($course_implementation_node)) {
+      $wrapper->field_message_ref_to_course_imp->set($course_implementation_node);
+    }
+    $wrapper->save();
+
+  }
+}
+
+/**
+ * Helper function for tracking event updates and deletes.
+ *
+ * @param $node
+ *   The event node.
+ */
+function _uhc_course_implementation_activity_track_event_update_or_delete($node, $message_type) {
+  if ($node->type == 'event') {
+    // Lets get the course imp node referencing this event
+    if ($nid = uhc_event_get_course_implementation($node->nid)) {
+      $course_implementation_node = node_load($nid);
+
+      // Make sure that this is a manually added event
+      foreach ($course_implementation_node->field_imp_reference_to_events[LANGUAGE_NONE] as $referenced_event) {
+        if ($referenced_event['target_id'] == $node->nid) {
+
+          global $user;
+          $account = user_load($user->uid);
+
+          // Create an message and set references and then save it.
+          $arguments = array('@event_title' => $node->title);
+          $message = message_create($message_type, array('arguments' => $arguments), $account);
+          $wrapper = entity_metadata_wrapper('message', $message);
+          $wrapper->field_message_ref_to_course_imp->set($course_implementation_node);
+          $wrapper->save();
+        }
+      }
+    }
+  }
+}
+
+function _uhc_course_implementation_activity_track_teacher_section_modify($entity, $field_names, $message_type) {
+  if(!empty($entity->field_name)) {
+    if ($entity->field_name == 'field_imp_teachersection') {
+
+      // if field collection has existing data and any other field is updated,
+      //  hook_entity_update is run even when no value in field collection is updated.
+      // to prevent unwanted update messages, we need to compare old and new values.
+      $modified = FALSE;
+      if($message_type == 'course_implementation_teacher_section_update') {
+        foreach($field_names as $field_name) {
+          if(_uhc_course_implementation_activity_field_value_updated($entity, $field_name)) {
+            $modified = TRUE;
+          }
+        }
+        if(!$modified) {
+          return;
+        }
+      }
+
+      global $user;
+      $account = user_load($user->uid);
+      $arguments = array('@field_imp_teachersection_label' => $entity->field_imp_teachersection_label[LANGUAGE_NONE][0]['value']);
+      $message = message_create($message_type, array('arguments' => $arguments), $account);
+      $wrapper = entity_metadata_wrapper('message', $message);
+
+      if (isset($wrapper->field_message_ref_to_course_imp)) {
+        // the message needs to reference the course implementation node that has the field collection
+        $course_implementation_node = $entity->hostEntity();
+        $wrapper->field_message_ref_to_course_imp->set($course_implementation_node->nid);
+        $wrapper->save();
+      }
+    }
+  }
+}
+
+/**
+ * Helper function for tracking field value changes.
+ *
+ * @param $node object Course implementation node.
+ * @param $field_name string Field name.
+ * @param $message_type_prefix string Message type prefix (such as
+ *   "course_implementation_course_conduct")
+ */
+function _uhc_course_implementation_activity_track_field_value_update($node, $field_name, $message_type_prefix) {
+  if ($node->type == 'course_implementation') {
+    global $user;
+    $account = user_load($user->uid);
+
+    // Identify if value has been modified
+    $created = _uhc_course_implementation_activity_field_value_created($node, $field_name);
+    $updated = _uhc_course_implementation_activity_field_value_updated($node, $field_name);
+    $removed = _uhc_course_implementation_activity_field_value_removed($node, $field_name);
+    $modified = $created || $updated || $removed;
+
+    // Determine message type depending what/how the value has been modified
+    if ($created) {
+      $message_type = $message_type_prefix . '_create';
+    }
+    elseif ($updated) {
+      $message_type = $message_type_prefix . '_update';
+    }
+    elseif ($removed) {
+      $message_type = $message_type_prefix .'_remove';
+    }
+
+    // When modification has been done and message type determined, then create
+    // the activity message.
+    if ($modified && isset($message_type)) {
+      $message = message_create($message_type, array(), $account);
+      $wrapper = entity_metadata_wrapper('message', $message);
+
+      if (isset($wrapper->field_message_ref_to_course_imp)) {
+        $wrapper->field_message_ref_to_course_imp->set($node);
+        $wrapper->save();
+      }
+    }
+  }
+}
+
+/**
+ * Helper function for identifying whether given field has a new value and
+ * therefore identified as "created".
+ *
+ * @param $node
+ * @param $field_name
+ * @return bool
+ *   Returns TRUE when value has been created. FALSE if it has not.
+ */
+function _uhc_course_implementation_activity_field_value_created($node, $field_name) {
+  return !empty($node->{$field_name}[LANGUAGE_NONE][0]['value'])
+    && empty($node->original->{$field_name}[LANGUAGE_NONE][0]['value']);
+}
+
+/**
+ * Helper function for identifying whether the value has been updated/changed.
+ *
+ * @param $node
+ * @param $field_name
+ * @return bool
+ *   Returns TRUE when given field value has been updated/changed.
+ */
+function _uhc_course_implementation_activity_field_value_updated($node, $field_name) {
+  return !empty($node->{$field_name}[LANGUAGE_NONE][0]['value'])
+    && !empty($node->original->{$field_name}[LANGUAGE_NONE][0]['value'])
+    && $node->{$field_name}[LANGUAGE_NONE][0]['value'] != $node->original->{$field_name}[LANGUAGE_NONE][0]['value'];
+}
+
+/**
+ * Helper function for identifying whether the value has been removed.
+ *
+ * @param $node
+ * @param $field_name
+ * @return bool
+ *   Returns TRUE if given field value has been removed.
+ */
+function _uhc_course_implementation_activity_field_value_removed($node, $field_name) {
+  return empty($node->{$field_name}[LANGUAGE_NONE][0]['value'])
+    && !empty($node->original->{$field_name}[LANGUAGE_NONE][0]['value']);
+}
+
+/**
+ * Helper function to figure out target ids from given material sections which
+ * are field collections.
+ *
+ * @param $sections
+ * @param $field_name
+ * @param string $langcode
+ * @return array
+ */
+function _uhc_course_implementation_activity_get_target_ids_from_section($sections, $field_name, $langcode = LANGUAGE_NONE) {
+  if (is_null($sections) || !isset($sections[$langcode])) {
+    return array();
+  }
+
+  // First know that what collections we have in the sections
+  $collection_ids = array();
+  foreach ($sections[$langcode] as $collection_item) {
+    $collection_ids[] = $collection_item['value'];
+  }
+
+  // Load the collection entities, so we can fetch their entity references to
+  // materials.
+  $collections = field_collection_item_load_multiple($collection_ids);
+  $target_ids = array();
+  foreach ($collections as $collection) {
+    if (isset($collection->{$field_name}[$langcode])) {
+      // Now loop over each entity reference and gather the target ids
+      $field_items = $collection->{$field_name}[$langcode];
+      foreach ($field_items as $field_item) {
+        $target_ids[] = $field_item['target_id'];
+      }
+    }
+  }
+
+  return $target_ids;
+}
+
+/**
+ * Helper function for getting an list of entity reference's target_ids of an
+ * given field.
+ *
+ * @param $field
+ * @param string $langcode
+ * @return array
+ */
+function _uhc_course_implementation_activity_get_target_ids($field, $langcode = LANGUAGE_NONE) {
+  $target_ids = array();
+  if (isset($field[$langcode]) && is_array($field[$langcode]) && count($field[$langcode]) > 0) {
+    foreach ($field[$langcode] as $item) {
+      $target_ids[] = $item['target_id'];
+    }
+  }
+  return $target_ids;
+}
+
+/**
+ * Implements hook_field_views_post_execute().
+ */
+function uhc_course_implementation_activity_views_post_execute(&$view) {
+  if($view->name == 'course_implementation_activity') {
+    // lets pass the system time & info about logged in status to js so we can
+    // check if we need to update recent activity
+    drupal_add_js(array(
+      'uhc_course_implementation_activity' => array(
+        'time' => time(),
+        'is_logged_in' => user_is_logged_in(),
+        'sections' => _uhc_course_implementation_activity_get_target_accordions()
+      ),
+    ), 'setting');
+    drupal_add_js(drupal_get_path('module', 'uhc_course_implementation_activity') . '/js/activity_confirm.js', array('scope' => 'footer'));
+  }
+}
+
+/**
+ * Helper function for getting message type / target accordion classes by
+ * sections. Used as in JS settings for activity_confirm.js.
+ *
+ * @return array
+ */
+function _uhc_course_implementation_activity_get_target_accordions() {
+  $target_sections = array();
+  foreach (message_type_load() as $key => $message_type) {
+    $target_sections[] = array(
+      // Messages are rendered using message type as class name but with dash
+      // instead underscores.
+      'messageType' => str_replace('_', '-', $key),
+      // This is used for triggering through URL parameter, for example:
+      // /courses/xyz/zyx?group-course-messages
+      'param' => _uhc_course_implementation_activity_generate_section_url_param($message_type->target_accordion_class),
+      // This is the target accordion specified in message type settings
+      'targetAccordion' => $message_type->target_accordion_class,
+    );
+  }
+  return $target_sections;
+}
+
+/**
+ * Helper function for generating an URL parameter identifier from target
+ * accordion class string.
+ *
+ * @param $target_accordion_class
+ * @retrun string
+ */
+function _uhc_course_implementation_activity_generate_section_url_param($target_accordion_class) {
+  $target_accordion_class = str_replace(' ', '-', $target_accordion_class);
+  return preg_replace('/[^A-Za-z0-9\-]/', '', $target_accordion_class);
+}

@@ -1,0 +1,153 @@
+/* Course implementation node form theming */
+
+fieldset#edit-field-imp-teachersection-und-0 legend,
+#course-implementation-node-form label[for=edit-field-imp-header-image-und-0-upload],
+#course-implementation-node-form .form-item-field-imp-header-image-und-0 .image-widget-data span {
+  display: none;
+}
+
+#course-implementation-node-form .group-imp-header-img .field-name-field-imp-header-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+#course-implementation-node-form .group-imp-header-img .field-name-field-imp-header-image .image-preview {
+  padding: 0;
+}
+
+#course-implementation-node-form #edit-field-imp-header-headline-und-0-value {
+  font-size: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#course-implementation-node-form #edit-field-field-imp-header-intro-tex-und-0-value {
+  font-size: 22px;
+}
+
+#course-implementation-node-form .field-name-field-imp-header-text,
+#course-implementation-node-form .field-name-field-private.form-wrapper {
+  clear: both;
+}
+
+#course-implementation-node-form .field-name-field-private label {
+  font-weight: bold;
+}
+
+#course-implementation-node-form .group-headline-and-intro {
+  width: 64%;
+}
+
+#course-implementation-node-form .group-material-metadata {
+  width: 49%;
+}
+
+#course-implementation-node-form .group-material-title-and-section {
+  width: 49%;
+  margin-right: 2%;
+}
+
+#course-implementation-node-form .group-imp-header-img {
+  width: 34%;
+  margin-right: 2%;
+}
+
+#course-implementation-node-form .group-imp-header-img,
+#course-implementation-node-form .group-headline-and-intro,
+#course-implementation-node-form .group-material-title-and-section,
+#course-implementation-node-form .group-material-metadata {
+  float: left;
+  box-sizing: border-box;
+}
+
+#course-implementation-node-form .group-imp-header-img input,
+#course-implementation-node-form .group-headline-and-intro input,
+#course-implementation-node-form .group-material-title-and-section input,
+#course-implementation-node-form .group-material-metadata input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#course-implementation-node-form .group-imp-header-img .form-item,
+#course-implementation-node-form .group-headline-and-intro .form-item,
+#course-implementation-node-form .group-material-title-and-section .form-item,
+#course-implementation-node-form .group-material-metadata .form-item {
+  padding: 0;
+}
+
+/* Custom theming for menu local tasks */
+ul.tabs.primary,
+ul.tabs--primary  {
+  margin-bottom: 0;
+  border-bottom: 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #0097cd;
+  z-index: 1;
+}
+
+ul.tabs.primary li,
+ul.tabs--primary li  {
+    margin: 0;
+    border-right: 1px solid #0882b3;
+    float: left;
+}
+
+ul.tabs.primary li a:link,
+ul.tabs--primary li a:link {
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  display: block;
+  text-transform: none;
+  background-color: #0097cd;
+  color: #FFF;
+  height: auto;
+  font-size: 12px;
+  line-height: auto;
+  padding: 0 1em;
+  font-weight: normal;
+  border-width: 0;
+  line-height: 31px;
+  -moz-border-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 0;
+  border-radius: 0;
+}
+
+ul.tabs.primary li a:visited,
+ul.tabs--primary li a:visited  {
+  background-color: inherit;
+  color: #FFF;
+}
+
+ul.tabs.primary li a:link:hover,
+ul.tabs.primary li.active a:hover,
+ul.tabs.primary li.active a.active,
+ul.tabs--primary li a:link.active,
+ul.tabs--primary li a:link:hover {
+  background-color: #0882b3;
+}
+
+.admin-menu ul.tabs.primary,
+.admin-menu ul.tabs--primary {
+  top: 21px;
+}
+
+body {
+  margin-top: 31px !important;
+}
+
+body.admin-menu {
+  margin-top: 52px !important;
+}
+
+@media all and (max-width: 767px) {
+  ul.tabs.primary,
+  ul.tabs--primary {
+    display: none !important;
+  }
+  body.admin-menu {
+    margin-top: 20px !important;
+  }
+}

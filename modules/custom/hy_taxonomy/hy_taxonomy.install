@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Deletes "Period" vocabulary.
+ */
+function hy_taxonomy_update_7002(&$sandbox) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('period');
+  if (is_object($vocabulary) && isset($vocabulary->vid)) {
+    taxonomy_vocabulary_delete($vocabulary->vid);
+  }
+}

@@ -1,0 +1,93 @@
+<?php
+/**
+ * @file
+ * Module implementation code.
+ */
+
+/**
+ * Implements hook_page_alter().
+ */
+function uhc_autologin_page_alter(&$page) {
+  uhc_autologin_expire_login_cookies_on_logout();
+
+  if (uhc_autologin_should_redirect_to_login()) {
+    uhc_autologin_redirect_to_login();
+  }
+}
+
+/**
+ * Expires the login cookies if the user has logged out.
+ */
+function uhc_autologin_expire_login_cookies_on_logout() {
+  if (user_is_anonymous() && uhc_autologin_has_login_redirect_triggered()) {
+    uhc_autologin_log('Logout: Expiring login cookies.');
+    uhc_autologin_expire_login_redirect_cookie();
+    uhc_autologin_expire_login_cookie();
+  }
+}
+
+/**
+ * Sets the login redirect cookie as expired.
+ */
+function uhc_autologin_expire_login_redirect_cookie() {
+  setcookie('uhc_autologin_redirect_triggered', FALSE, null, '/', '.helsinki.fi');
+}
+
+/**
+ * Sets the login cookie as expired.
+ */
+function uhc_autologin_expire_login_cookie() {
+  setcookie('OPINTONI_LAST_LOGIN', FALSE, null, '/', '.helsinki.fi');
+}
+
+/**
+ * @return bool TRUE if should redirect to login, otherwise FALSE.
+ */
+function uhc_autologin_should_redirect_to_login() {
+  return uhc_autologin_login_cookie_exists() && user_is_anonymous() && !uhc_autologin_has_login_redirect_triggered();
+}
+
+/**
+ * @return bool TRUE if the login cookie exists.
+ */
+function uhc_autologin_login_cookie_exists() {
+  return !empty(uhc_autologin_get_login_cookie_value());
+}
+
+/**
+ * @return string Login cookie value or empty.
+ */
+function uhc_autologin_get_login_cookie_value() {
+  return isset($_COOKIE['OPINTONI_LAST_LOGIN']) ? $_COOKIE['OPINTONI_LAST_LOGIN'] : '';
+}
+
+/**
+ * @return bool TRUE if the login redirect has been triggered.
+ */
+function uhc_autologin_has_login_redirect_triggered() {
+  return isset($_COOKIE['uhc_autologin_redirect_triggered']) ? $_COOKIE['uhc_autologin_redirect_triggered'] : FALSE;
+}
+
+/**
+ * Redirects to login.
+ */
+function uhc_autologin_redirect_to_login() {
+  uhc_autologin_log('Redirecting to login.');
+  uhc_autologin_mark_login_redirect_as_triggered();
+  drupal_goto(shib_auth_generate_login_url());
+}
+
+/**
+ * Marks login redirect as triggered to prevent login redirect loop. The cookie
+ * expires when the browser is closed.
+ */
+function uhc_autologin_mark_login_redirect_as_triggered() {
+  setcookie('uhc_autologin_redirect_triggered', TRUE, null, '/', '.helsinki.fi');
+}
+
+/**
+ * @see watchdog().
+ */
+function uhc_autologin_log($message, $variables = array(), $severity = WATCHDOG_NOTICE) {
+  watchdog('uhc_autologin', $message, $variables, $severity);
+}

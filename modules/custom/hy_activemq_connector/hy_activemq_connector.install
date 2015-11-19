@@ -1,0 +1,15 @@
+<?php
+/**
+ * @file
+ * Module's (un)installation and update tasks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function hy_activemq_connector_uninstall() {
+  variable_del('hy_activemq_connector_settings');
+  variable_del('hy_activemq_connector_log_incoming_messages');
+  variable_del('hy_activemq_connector_default_queue');
+  variable_del('hy_activemq_connector_default_queue_base');
+}

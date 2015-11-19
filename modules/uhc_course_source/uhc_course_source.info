@@ -1,0 +1,13 @@
+name = UHC Course Source
+description = Provides the source data for courses.
+core = 7.x
+package = UHC
+version = 7.x-1.42
+project = uhc_course_source
+files[] = includes/UHCCourseMessageProcessor.inc
+files[] = migrate/CourseNodeMigration.inc
+files[] = migrate/CourseDestinationNode.inc
+files[] = migrate/CourseThemeTermMigration.inc
+dependencies[] = migrate
+dependencies[] = uhc_course
+dependencies[] = uhc_sources

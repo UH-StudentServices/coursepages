@@ -1,0 +1,84 @@
+<?php
+/**
+ * @file
+ * Code for the Course tasks and material feature.
+ */
+
+include_once 'uhc_course_tasks_and_material.features.inc';
+
+/**
+ * Implements hook_entity_property_info().
+ *
+ * Introduce an reverse reference link between "course_task" node type and
+ * "course_implementation" node type.
+ */
+function uhc_course_tasks_and_material_entity_property_info() {
+  $info = array();
+  $properties = &$info['node']['bundles']['course_task']['properties'];
+  $properties['course_implementation_node'] = array(
+    'label' => t("Course implementation node"),
+    'type' => 'node',
+    'description' => t("Reverse reference back to course implementation."),
+    'getter callback' => 'uhc_course_tasks_and_material_entity_property_course_implementation_node',
+  );
+  return $info;
+}
+
+/**
+ * Entity property callback for [node:course_implementation_node].
+ */
+function uhc_course_tasks_and_material_entity_property_course_implementation_node($data, array $options, $name, $type, $info) {
+  if ($info['name'] == 'course_implementation_node') {
+    $node = $data;
+    $nid = uhc_course_tasks_and_material_resolve_referencing_course_implementation($node);
+    return !is_null($nid) ? node_load($nid) : NULL;
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_node_view().
+ *
+ * We have not implemented course task view page. Instead we redirect to its
+ * corresponding course implementation where this information gets displayed as
+ * designed.
+ */
+function uhc_course_tasks_and_material_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'course_task' && uh_coursepages_is_node_page($node, $view_mode)) {
+    $nid = uhc_course_tasks_and_material_resolve_referencing_course_implementation($node);
+    if ($nid) {
+      $course_implementation_node = node_load($nid);
+      $entity_uri = entity_uri('node', $course_implementation_node);
+      drupal_goto($entity_uri['path']);
+    }
+  }
+}
+
+/**
+ * Helper function for resolving which course implementation is referencing to
+ * this course task.
+ *
+ * We don't exepct more than one node to be referencing. If there would be
+ * multiple course implementations referencing to an single course task, then
+ * this needs to be improved.
+ *
+ * @param $node
+ * @return int|null
+ */
+function uhc_course_tasks_and_material_resolve_referencing_course_implementation($node) {
+  if ($node->type == 'course_task') {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'course_implementation')
+      ->fieldCondition('field_reference_to_course_tasks', 'target_id', $node->nid);
+    $course_implementation_results = $query->execute();
+    if (isset($course_implementation_results['node']) && count($course_implementation_results['node']) == 1) {
+
+      // We expect only one course implementation to refer to this course task
+      $course_implementation = array_shift($course_implementation_results['node']);
+
+      // Return its node id, that's what we wanted
+      return $course_implementation->nid;
+    }
+  }
+}

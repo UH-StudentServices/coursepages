@@ -1,0 +1,33 @@
+# Swedish translation of Chosen (7.x-2.0-beta4)
+# Copyright (c) 2014 by the Swedish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Chosen (7.x-2.0-beta4)\n"
+"POT-Creation-Date: 2014-12-09 15:33+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Swedish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+# Original translations from Swedish translation of Chosen (7.x-2.0-beta4)
+msgid "User interface"
+msgstr "Användargränssnitt"
+msgid "Not Installed"
+msgstr "Inte installerad"
+msgid "Installed"
+msgstr "Installerad"
+msgid "Apply"
+msgstr "Verkställ"
+msgid "No results text"
+msgstr "Text vid inget resultat"
+
+# Custom additional translations
+msgid "Choose some options"
+msgstr "Välj (några) alternativ / Alternativ"
+msgid "Choose an option"
+msgstr "Välj (några) alternativ / Alternativ"
+msgid "No results match"
+msgstr "Inga resultat"

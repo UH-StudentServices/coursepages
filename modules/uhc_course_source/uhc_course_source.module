@@ -1,0 +1,62 @@
+<?php
+/**
+ * @file
+ * Drupal module implementation.
+ */
+
+/**
+ * Implements hook_uhc_activemq_connector_message_processor_info().
+ */
+function uhc_course_source_uhc_activemq_connector_message_processor_info() {
+  $default_queue_name = variable_get('uhc_activemq_connector_default_queue', 'doo.local1.kurssisivu.in');
+  return array(
+    $default_queue_name => array(
+      array('class_name' => 'UHCCourseMessageProcessor', 'implements' => 'UHCMessageQueueProcessorInterface')
+    ),
+  );
+}
+
+/**
+ * Imports given course number no matter whether it exist in system already or
+ * not.
+ *
+ * @param $course_number
+ *   The course number of the course to import.
+ * @return bool|object
+ *   Returns FALSE if failed to import. Node object when successfully imported.
+ */
+function uhc_course_source_import($course_number) {
+
+  // Construct the URLs for source class
+  $item_url = variable_get('uhc_course_source_item_url', '');
+  $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
+
+  /** @var $migration CourseNodeMigration */
+  $migration = Migration::getInstance('CourseNode', 'CourseNodeMigration', array('predefined_ids' => $course_number, 'predefined_item' => $item_url));
+  $migration->prepareUpdate();
+  $result = $migration->processImport();
+  if ($result == Migration::RESULT_COMPLETED) {
+
+    // Use EntityFieldQuery to find out the node id. Then load and return it.
+    $query = new EntityFieldQuery();
+    $result = $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'course')
+      ->fieldCondition('field_course_course_number', 'value', $course_number)
+      ->execute();
+    if (isset($result['node'])) {
+      foreach ($result['node'] as $nid => $item) {
+        return node_load($nid);
+      }
+    }
+    else {
+      watchdog('uhc_course_source', 'Node with course number @course_number was imported but could not be loaded.', array('@course_number' => $course_number), WATCHDOG_ERROR);
+      return FALSE;
+    }
+
+  }
+  else {
+    watchdog('uhc_course_source', 'Failed to process importing, migration returned "@result" as result.', array('@result' => $result), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+}

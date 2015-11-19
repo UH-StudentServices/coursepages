@@ -1,0 +1,45 @@
+/**
+*   styles for node comments
+*/
+.comment-wrapper {
+  padding: 2em 0 1em;
+  @include at-breakpoint($layout-small) {
+    margin-left: 2.6em;
+  }
+  form.comment-form {
+    margin-bottom: 3em;
+    #edit-author--2,
+    label[for=edit-comment-body-und-0-value] {
+      display: none;
+    }
+  }
+  .comment {
+    @include horizontal-rule('bottom');
+    font-size: 1em;
+    p {
+      padding-bottom: 0;
+      font-size: inherit;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  .user-picture {
+    @include span-columns(2, 16);
+    img {
+      background: $color-user;
+    }
+  }
+  .message-wrapper {
+    @include span-columns(14 omega, 16);
+    .message-header {
+      .message-author {
+        font-size: 1.4rem;
+      }
+      @include horizontal-rule('bottom');
+      font-size: 0.875rem;
+      float: left;
+      width: 100%;
+    }
+  }
+}

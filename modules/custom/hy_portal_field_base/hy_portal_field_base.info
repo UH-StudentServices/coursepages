@@ -1,0 +1,6 @@
+name = HY Portal Field Base
+description = Specifies what fields this installation has. Does not hold instance information as they're specified by the modules.
+core = 7.x
+package = HY Portal
+version = 7.x-1.41-dev
+project = hy_portal_field_base

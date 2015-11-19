@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function uhc_open_university_install() {
+  // Create default block content for Open university contact block
+  $translations = array(
+    'fi' => '<h4>Avoin Yliopisto</h4><p>PL 53<br>00014 Helsingin yliopisto</p>',
+    'en' => '<h4>Open University</h4><p>P.O.Box 53<br>00014 University of Helsinki</p>',
+    'sv' => '<h4>Öppna universitetet</h4><p>PB 53<br>00014 Helsingfors universitet</p>',
+  );
+  foreach ($translations as $key => $value) {
+    if (!variable_store_get('language', $key, 'uhc_open_university_contactblock')) {
+      variable_store_set('language', $key, 'uhc_open_university_contactblock', array('value' => $translations[$key], 'format' => 'filtered_html'));
+    }
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_open_university_uninstall() {
+  $realm = 'language';
+  $name = 'uhc_open_university_contactblock';
+  variable_store_del($realm, 'fi', $name);
+  variable_store_del($realm, 'en', $name);
+  variable_store_del($realm, 'sv', $name);
+}

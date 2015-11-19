@@ -1,0 +1,809 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the helsinki university portal
+ * installation profile.
+ */
+
+/**
+ * Creates Multilingual menu items
+ * @param $menus
+ *   The menu array.
+ */
+function uh_coursepages_create_menu_items($menus) {
+  // Loop over each menu which is structured by menu name and its links
+  foreach ($menus as $menu) {
+    // Each link are structured by language
+    $menu_translation_set = NULL;
+    foreach ($menu['links'] as $link) {
+      // Each translated item has label, link and class
+      foreach ($link as $lang => $item) {
+        $item['source_language'] = isset($item['source_language']) ? $item['source_language'] : FALSE;
+        $item['weight'] = isset($item['weight']) ? $item['weight'] : 0;
+
+        // For language neutral and source language items, we can generate the
+        // menu link right away. For source language item, we generate
+        // translation set.
+        if ($lang == LANGUAGE_NONE || $item['source_language'] === TRUE) {
+          $menu_link_item = array(
+            'enabled' => TRUE,
+            'link_path' => $item['link'],
+            'link_title' => $item['label'],
+            'menu_name' => $menu['name'],
+            'customized' => TRUE,
+            'weight' => $item['weight'],
+            'language' => $lang,
+            'plid' => 0,
+            'module' => 'menu',
+            'options' => array(
+              'alter' => TRUE,
+              'attributes' => array(
+                'class' => array($item['class']),
+              ),
+            ),
+          );
+          menu_link_save($menu_link_item);
+
+          // No need to mess around with menu translation sets, just carry on..
+          if ($lang == LANGUAGE_NONE) {
+            continue 2;
+          }
+          elseif ($item['source_language'] === TRUE) {
+            // If we're dealing with the source language, we need to generate an
+            // translation set out from it.
+
+            /** @var $menu_translation_set i18n_menu_link_translation_set */
+            $menu_translation_set = i18n_translation_set_create('menu_link');
+            $menu_translation_set->add_item($menu_link_item, $lang);
+          }
+        }
+
+        // When having translation set available and not being source language,
+        // then we can create an translation from source language.
+        if ($item['source_language'] === FALSE && !is_null($menu_translation_set)) {
+          $translated_menu_item = array(
+            'enabled' => TRUE,
+            'link_title' => $item['label'],
+            'menu_name' => $menu['name'],
+            'customized' => TRUE,
+            'link_path' => $item['link'],
+            'language'  => $lang,
+            'weight' => $item['weight'],
+            'options' => array(
+              'alter' => TRUE,
+              'attributes' => array(
+                'class' => array($item['class']),
+              ),
+            ),
+          );
+          menu_link_save($translated_menu_item);
+
+          // Add this translation
+          $menu_translation_set->add_item($translated_menu_item);
+        }
+
+        // Save menu translation set, to let i18n_menu_link know about these
+        // translations.
+        $menu_translation_set->save();
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function uh_coursepages_install() {
+  // Add text formats.
+  $filtered_html_format = array(
+    'format' => 'filtered_html',
+    'name' => 'Filtered HTML',
+    'weight' => 0,
+    'filters' => array(
+      // URL filter.
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+      ),
+      // HTML filter.
+      'filter_html' => array(
+        'weight' => 1,
+        'status' => 1,
+      ),
+      // Line break filter.
+      'filter_autop' => array(
+        'weight' => 2,
+        'status' => 1,
+      ),
+      // HTML corrector filter.
+      'filter_htmlcorrector' => array(
+        'weight' => 10,
+        'status' => 1,
+      ),
+    ),
+  );
+  $filtered_html_format = (object) $filtered_html_format;
+  filter_format_save($filtered_html_format);
+
+  $full_html_format = array(
+    'format' => 'full_html',
+    'name' => 'Full HTML',
+    'weight' => 1,
+    'filters' => array(
+      // URL filter.
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+      ),
+      // Line break filter.
+      'filter_autop' => array(
+        'weight' => 1,
+        'status' => 1,
+      ),
+      // HTML corrector filter.
+      'filter_htmlcorrector' => array(
+        'weight' => 10,
+        'status' => 1,
+      ),
+    ),
+  );
+  $full_html_format = (object) $full_html_format;
+  filter_format_save($full_html_format);
+
+  $embed_code_format = array(
+    'format' => 'embed_code',
+    'name' => 'Embed code',
+    'weight' => 1,
+  );
+  $embed_code_format = (object) $embed_code_format;
+  filter_format_save($embed_code_format);
+
+  // Enable user picture support and set the default to a square thumbnail option.
+  variable_set('user_pictures', '1');
+  variable_set('user_picture_dimensions', '1024x1024');
+  variable_set('user_picture_file_size', '800');
+  variable_set('user_picture_style', 'thumbnail');
+
+  // Allow visitor account creation with administrative approval.
+  variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
+
+  // Enable default permissions for system roles.
+  $filtered_html_permission = filter_permission_name($filtered_html_format);
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access content', $filtered_html_permission));
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access content', $filtered_html_permission));
+
+  // Create a Home link in the main menu.
+  $item = array(
+    'link_title' => st('Home'),
+    'link_path' => '<front>',
+    'menu_name' => 'main-menu',
+  );
+  menu_link_save($item);
+
+  // Update the menu router information.
+  menu_rebuild();
+
+  // Enable the admin theme.
+  db_update('system')
+    ->fields(array('status' => 1))
+    ->condition('type', 'theme')
+    ->condition('name', 'seven')
+    ->execute();
+  variable_set('admin_theme', 'seven');
+  variable_set('node_admin_theme', '1');
+
+  // Enable the default theme
+  $default_theme = 'hy_doo';
+  $enable = array(
+    'hy_doo',
+    'helsingin_yliopisto',
+    'theme_default' => $default_theme,
+  );
+  theme_enable($enable);
+  foreach ($enable as $var => $theme) {
+    if (!is_numeric($var)) {
+      variable_set($var, $theme);
+    }
+  }
+
+  // Disable the default Bartik theme
+  theme_disable(array('bartik'));
+
+  // Set portal view to be the homepage
+  variable_set('site_frontpage', 'genetics');
+
+  // Configure multilinguality
+  variable_set('l10n_update_download_store', 'profiles/uh_coursepages/translations');
+
+  // Flush cache & magick whoo!
+  module_list(TRUE);
+  drupal_flush_all_caches();
+
+  // This is the list of email addresses which should remain as editors.
+  $remain_as_editors = array(
+    'editor@example.com',
+    'tuomas.naakka.hy@gmail.com',
+    'marjo.eskola@helsinki.fi',
+    'Antero.Aunesluoma@helsinki.fi',
+    'Jere.Majava@helsinki.fi',
+    'pauliina.kupila@helsinki.fi',
+  );
+
+  //update roles for unidentified users having editor role.
+  $editor_role = user_role_load_by_name('editor-in-chief of communications');
+  $teacher_role = user_role_load_by_name('teacher');
+  if ($editor_role && $teacher_role) {
+
+    // Query all user ids which are not in the "remain as editors" list
+    $query = db_select('users')
+      ->fields('users', array('uid'))
+      ->condition('mail', $remain_as_editors, 'NOT IN')
+      ->condition('uid', 1, '>');
+    $uids = $query->execute()->fetchCol();
+
+    // Load each user for checking their roles
+    $users = user_load_multiple($uids);
+    foreach ($users as $user) {
+
+      // Loop the roles thorugh, and if we find editor role assigned to the user
+      foreach ($user->roles as $rid => $role) {
+        if ($rid == $editor_role->rid) {
+
+          // 1. Take out editor role
+          unset($user->roles[$rid]);
+
+          // 2. Assign new role instead
+          $user->roles[$teacher_role->rid] = $teacher_role->name;
+
+          // 3. Save account
+          user_save($user);
+
+          break;
+        }
+      }
+    }
+  }
+
+  // Change text input formats from textfields allowing dangerous text inputs.
+  $fields = array(
+    'field_imp_header_text' => 'field_imp_header_text_format',
+    'field_imp_header_image_caption' => 'field_imp_header_image_caption_format',
+    'field_imp_material_description' => 'field_imp_material_description_format',
+    'field_material_description' => 'field_material_description_format',
+    'field_course_task_description' => 'field_course_task_description_format',
+    'field_imp_teachersection_content' => 'field_imp_teachersection_content_format',
+    'field_imp_teacher_se_content' => 'field_imp_teacher_se_content_format',
+  );
+  foreach ($fields as $field_name => $column) {
+    // Change formatting to filtered_html if it has been set to one of the
+    // XSS-risky text formats (full html and embed code)
+    db_query("UPDATE {field_data_$field_name} SET $column = 'filtered_html' WHERE $column IN ('full_html', 'embed_code')");
+    db_query("UPDATE {field_revision_$field_name} SET $column = 'filtered_html' WHERE $column IN ('full_html', 'embed_code')");
+  }
+
+  //Hide user menu block title
+  _block_rehash('helsingin_yliopisto');
+  db_merge('block')
+    ->key(array(
+      'theme' => 'helsingin_yliopisto',
+      'delta' => 'user-menu',
+      'module' => 'system',
+    ))
+    ->fields(array(
+      'title' => '<none>',
+    ))
+    ->execute();
+
+  // Revert hy_subject, so we have vocabulary to place terms into
+  features_revert_module('hy_subject');
+
+  // Specify these categories
+  $categories = array(
+    array(
+      'en' => 'Health and wellbeing',
+      'fi' => 'Terveys ja hyvinvointi',
+      'sv' => 'Hälsa och välfärd',
+    ),
+    array(
+      'en' => 'Learning and mind',
+      'fi' => 'Oppiminen ja mieli',
+      'sv' => 'Lärande och sinne',
+    ),
+    array(
+      'en' => 'Language and culture',
+      'fi' => 'Kieli ja kulttuuri',
+      'sv' => 'Språk och kultur',
+    ),
+    array(
+      'en' => 'Society and economics',
+      'fi' => 'Yhteiskunta ja talous',
+      'sv' => 'Samhälle och ekonomi',
+    ),
+    array(
+      'en' => 'Environment and Science',
+      'fi' => 'Ympäristö ja luonnontiede',
+      'sv' => 'Miljö och naturvätenskap',
+    ),
+  );
+  uh_coursepages_create_terms($categories, 'subject_category');
+
+  /**
+   * Add content to contact block variable. Add menu items
+   * to open uni footer menu & some menu.
+   */
+
+  $translations = array(
+    'fi' => array(
+      'title' => 'Helsingin Yliopisto',
+      'pobox' => 'PL 33',
+      'postal1' => '(Yliopistonkatu 4)',
+      'postal2' => '00014 Helsingin yliopisto',
+      'switchboard' => 'Puhelinvaihde',
+    ),
+    'en' => array(
+      'title' => 'University of Helsinki',
+      'pobox' => 'P.O. Box 33',
+      'postal1' => '(Yliopistonkatu 4)',
+      'postal2' => '00014 University of Helsinki',
+      'switchboard' => 'Switchboard',
+    ),
+    'sv' => array(
+      'title' => 'Helsingfors universitet',
+      'pobox' => 'PB 33',
+      'postal1' => '(Universitetsgatan 4)',
+      'postal2' => '00014 Helsingfors universitet',
+      'switchboard' => 'Växel',
+    ),
+  );
+  $lang = language_list();
+  foreach ($lang as $key => $value) {
+
+    $hy_logo_block_content = '
+      <a href="http://www.helsinki.fi/university/">
+        <svg width="53" height="50" class="site-logo">
+          <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/sites/all/themes/helsingin_yliopisto/images/hy_logo_white.svg" src="/sites/all/themes/helsingin_yliopisto/images/ie/helsinki_university_53x50.png" width="53" height="50"></image>
+        </svg>
+        <h2 class="site-name">'. $translations[$key]['title'] . '</h2>
+      </a>';
+
+    $hy_contact_logo_block_content = '
+      <div class="logo">
+        <a href="http://www.helsinki.fi/university/">
+          <svg width="99" height="93" class="site-logo">
+            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/sites/all/themes/helsingin_yliopisto/images/hy_logo_white.svg" src="/sites/all/themes/helsingin_yliopisto/images/ie/helsinki_university_99x93.png" width="99" height="93"></image>
+          </svg>
+        </a>
+      </div>
+      <div class="contact text-bold">
+        <h4>'. $translations[$key]['title'] . '</h4>
+        <p>'. $translations[$key]['pobox'] . '<br>' . $translations[$key]['postal1'] . '<br>'. $translations[$key]['postal2'] . '</p>
+        <p>'. $translations[$key]['switchboard'] . ':<br>'. t('+358 (0) 2941 911') . '</p>
+      </div>';
+
+    variable_store_set('language', $key, 'hy_logo_block_form_content', array('value' => $hy_logo_block_content, 'format' => 'filtered_html'));
+    variable_store_set('language', $key, 'hy_contact_logo_block_form_content', array('value' => $hy_contact_logo_block_content, 'format' => 'filtered_html'));
+  }
+
+  // Create multilingual menu items
+  $menus = array(
+    'Some-menu' => array(
+      'name' => 'menu-open-university-some-links',
+      'links' => array(
+        array(
+          LANGUAGE_NONE => array(
+            'label' => 'Facebook',
+            'link' => 'https://www.facebook.com/pages/Helsingin-yliopiston-Avoin-yliopisto/116280055091202',
+            'class' => 'facebook',
+          ),
+        ),
+        array(
+          LANGUAGE_NONE => array(
+            'label' => 'Twitter',
+            'link' => 'https://twitter.com/HYAvoin',
+            'class' => 'twitter',
+          ),
+        ),
+        array(
+          LANGUAGE_NONE => array(
+            'label' => 'YouTube',
+            'link' => 'http://www.youtube.com/hyavoinyliopisto',
+            'class' => 'youtube',
+          ),
+        ),
+      ),
+    ),
+    'Footer-info-menu' => array(
+      'name' => 'menu-open-university-footer-link',
+      'links' =>  array(
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'Contact information',
+            'link' => 'https://www.avoin.helsinki.fi/open_university/support.htm',
+            'class' => 'list-of-links__link',
+          ),
+          'fi' => array(
+            'source_language' => FALSE,
+            'label' => 'Yhteystiedot',
+            'link' => 'https://www.avoin.helsinki.fi/yhteystiedot.htm',
+            'class' => 'list-of-links__link',
+          ),
+          'sv' => array(
+            'label' => 'Kontaktuppgifter',
+            'link' => 'https://www.avoin.helsinki.fi/oppna_universitetet/kontakt.htm',
+            'class' => 'list-of-links__link',
+          ),
+        ),
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'Feedback',
+            'link' => 'https://www.avoin.helsinki.fi/lomakkeet/palaute.htm',
+            'class' => 'list-of-links__link',
+          ),
+          'fi' => array(
+            'source_language' => FALSE,
+            'label' => 'Palaute',
+            'link' => 'https://www.avoin.helsinki.fi/open_university/forms/feedback.htm',
+            'class' => 'list-of-links__link',
+          ),
+          'sv' => array(
+            'source_language' => FALSE,
+            'label' => 'Feedback',
+            'link' => 'https://www.avoin.helsinki.fi/oppna_universitetet/blanketter/respons.htm',
+            'class' => 'list-of-links__link',
+          ),
+        ),
+      ),
+    ),
+    'Open-uni-navigation' => array(
+      'name' => 'menu-open-university-navigation',
+      'links' =>  array(
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'Homepage',
+            'link' => 'https://www.avoin.helsinki.fi/open_university/',
+            'class' => '',
+          ),
+          'fi' => array(
+            'source_language' => FALSE,
+            'label' => 'Etusivu',
+            'link' => 'https://www.avoin.helsinki.fi/index.htm',
+            'class' => '',
+          ),
+          'sv' => array(
+            'label' => 'Hemsida',
+            'link' => 'https://www.avoin.helsinki.fi/oppna_universitetet/index.htm',
+            'class' => '',
+          ),
+        ),
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'Studying',
+            'link' => 'https://www.avoin.helsinki.fi/open_university/studying.htm',
+            'class' => '',
+          ),
+          'fi' => array(
+            'source_language' => FALSE,
+            'label' => 'Opiskelu',
+            'link' => 'https://www.avoin.helsinki.fi/opintotarjonta/index.htm',
+            'class' => '',
+          ),
+          'sv' => array(
+            'label' => 'Studier',
+            'link' => 'https://www.avoin.helsinki.fi/oppna_universitetet/studier/index.htm',
+            'class' => '',
+          ),
+        ),
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'Presentation',
+            'link' => 'https://www.avoin.helsinki.fi/open_university/presentation.htm ',
+            'class' => '',
+          ),
+          'sv' => array(
+            'label' => 'Presentation',
+            'link' => 'https://www.avoin.helsinki.fi/oppna_universitetet/presentation/index.htm',
+            'class' => '',
+          ),
+        ),
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'My pages',
+            'link' => 'https://www.avoin.helsinki.fi/open_university/own/',
+            'class' => '',
+          ),
+          'sv' => array(
+            'label' => 'De egna sidorna',
+            'link' => 'https://www.avoin.helsinki.fi/oppna_universitetet/egna/',
+            'class' => '',
+          ),
+        ),
+        array(
+          'fi' => array(
+            'source_language' => TRUE,
+            'label' => 'Yhteistyö',
+            'link' => 'https://www.avoin.helsinki.fi/yhteistyo.htm',
+            'class' => '',
+          ),
+          'sv' => array(
+            'source_language' => FALSE,
+            'label' => 'Samarbete',
+            'link' => 'https://www.avoin.helsinki.fi/oppna_universitetet/instituten/index.htm',
+            'class' => '',
+          ),
+        ),
+        array(
+          'fi' => array(
+            'source_language' => TRUE,
+            'label' => 'Opettajille',
+            'link' => 'https://www.avoin.helsinki.fi/opettajille/index.htm',
+            'class' => '',
+          ),
+        ),
+        array(
+          'fi' => array(
+            'source_language' => TRUE,
+            'label' => 'Studia Generalia',
+            'link' => 'https://www.avoin.helsinki.fi/studiageneralia/index.htm',
+            'class' => '',
+          ),
+        ),
+        array(
+          'fi' => array(
+            'source_language' => TRUE,
+            'label' => 'Tietoa Avoimesta',
+            'link' => 'https://www.avoin.helsinki.fi/esittely/index.htm',
+            'class' => '',
+          ),
+        ),
+      ),
+    ),
+    'main-menu' => array(
+      'name' => 'og-menu-single',
+      'links' =>  array(
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'Studying',
+            'link' => 'http://www.helsinki.fi/studying/',
+            'class' => '',
+          ),
+          'fi' => array(
+            'source_language' => FALSE,
+            'label' => 'Opiskelu',
+            'link' => 'http://www.helsinki.fi/miksi/',
+            'class' => '',
+          ),
+          'sv' => array(
+            'label' => 'Studier',
+            'link' => 'http://www.helsinki.fi/varfor/',
+            'class' => '',
+          ),
+        ),
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'Research',
+            'link' => 'http://www.helsinki.fi/research/',
+            'class' => '',
+          ),
+          'fi' => array(
+            'source_language' => FALSE,
+            'label' => 'Tutkimus',
+            'link' => 'http://www.helsinki.fi/tutkimus/',
+            'class' => '',
+          ),
+          'sv' => array(
+            'label' => 'Forskning',
+            'link' => 'http://www.helsinki.fi/funds/index.html',
+            'class' => '',
+          ),
+        ),
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'Services',
+            'link' => 'http://www.helsinki.fi/funds/index.html',
+            'class' => '',
+          ),
+          'fi' => array(
+            'source_language' => FALSE,
+            'label' => 'Palvelut',
+            'link' => 'http://www.helsinki.fi/yritykset/index.html',
+            'class' => '',
+          ),
+          'sv' => array(
+            'label' => 'Service',
+            'link' => 'http://www.helsinki.fi/fonder/index.html',
+            'class' => '',
+          ),
+        ),
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'University',
+            'link' => 'http://www.helsinki.fi/inbrief/',
+            'class' => '',
+          ),
+          'fi' => array(
+            'source_language' => FALSE,
+            'label' => 'Yliopisto',
+            'link' => 'http://www.helsinki.fi/lyhyesti/index.html',
+            'class' => '',
+          ),
+          'sv' => array(
+            'label' => 'Universitet',
+            'link' => 'http://www.helsinki.fi/fakta/',
+            'class' => '',
+          ),
+        ),
+      ),
+    ),
+    'menu-header-links' => array(
+      'name' => 'menu-header-links',
+      'links' =>  array(
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'Email',
+            'link' => 'http://www.helsinki.fi/office365',
+            'class' => '',
+          ),
+          'fi' => array(
+            'source_language' => FALSE,
+            'label' => 'Sähköposti',
+            'link' => 'http://www.helsinki.fi/office365',
+            'class' => '',
+          ),
+          'sv' => array(
+            'label' => 'E-post',
+            'link' => 'http://www.helsinki.fi/office365',
+            'class' => '',
+          ),
+        ),
+        array(
+          LANGUAGE_NONE => array(
+            'label' => 'Flamma',
+            'link' => 'http://flamma.helsinki.fi/',
+            'class' => '',
+          ),
+        ),
+        array(
+          'en' => array(
+            'source_language' => TRUE,
+            'label' => 'Library',
+            'link' => 'http://www.helsinki.fi/kirjasto/en/home/',
+            'class' => '',
+          ),
+          'fi' => array(
+            'source_language' => FALSE,
+            'label' => 'Kirjasto',
+            'link' => 'http://www.helsinki.fi/kirjasto/fi/etusivu/',
+            'class' => '',
+          ),
+          'sv' => array(
+            'label' => 'Bibliotek',
+            'link' => 'http://www.helsinki.fi/kirjasto/sv/hem/',
+            'class' => '',
+          ),
+        ),
+      ),
+    ),
+  );
+  uh_coursepages_create_menu_items($menus);
+
+  // remove titles and add classes to open uni specific blocks
+  $no_titles = array(
+    array('module' => 'menu', 'delta' => 'menu-open-university-footer-link', 'css_class' => ''),
+    array('module' => 'menu', 'delta' => 'menu-open-university-some-links', 'css_class' => 'some-links'),
+    array('module' => 'menu', 'delta' => 'menu-open-university-navigation', 'css_class' => 'responsive-navigation'),
+    array('module' => 'hy_open_university', 'delta' => 'hy_open_university_contact_block', 'css_class' => ''),
+    array('module' => 'hy_contact', 'delta' => 'hy_contact_logo_block', 'css_class' => 'logo-block'),
+    array('module' => 'responsive_navigation', 'delta' => '1', 'css_class' => 'main-menu'),
+    array('module' => 'responsive_navigation', 'delta' => '2', 'css_class' => 'main-menu'),
+    array('module' => 'menu_block', 'delta' => 'open-university-nav-level2', 'css_class' => 'fatmenu'),
+  );
+
+  foreach($no_titles as $block) {
+    _block_rehash('hy_doo');
+    db_merge('block')
+      ->key(array(
+        'theme' => 'hy_doo',
+        'module' => $block['module'],
+        'delta' => $block['delta'],
+      ))
+      ->fields(array(
+        'title' => '<none>',
+        'css_class' => $block['css_class'],
+        'pages' => '',
+      ))
+      ->execute();
+  }
+
+  // lets get rid of the default shib_auth login block
+    _block_rehash('hy_doo');
+    db_merge('block')
+      ->key(array(
+        'theme' => 'hy_doo',
+        'module' => 'shib_auth',
+        'delta' => 'login_box',
+      ))
+      ->fields(array(
+        'region' => '-1',
+      ))
+      ->execute();
+
+  // rebuild permissions
+  node_access_rebuild(FALSE);
+
+  // Configure hy_contact module
+  variable_set('hy_logo_block_form_css_class', 'logo-block');
+  $hy_contact_config = array(
+    'hy_logo_block_form_content' => array(
+      'fi' => array(
+        'value' => '<a href="http://www.helsinki.fi/university/">
+        <svg width="53" height="50" class="site-logo">
+          <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/sites/all/themes/helsingin_yliopisto/images/hy_logo_white.svg" src="/sites/all/themes/helsingin_yliopisto/images/ie/helsinki_university_53x50.png" width="53" height="50"></image>
+        </svg>
+        <h2 class="site-name">Helsingin Yliopisto</h2>
+      </a>',
+        'format' => 'filtered_html',
+      ),
+      'sv' => array(
+        'value' => '<a href="http://www.helsinki.fi/university/">
+        <svg width="53" height="50" class="site-logo">
+          <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/sites/all/themes/helsingin_yliopisto/images/hy_logo_white.svg" src="/sites/all/themes/helsingin_yliopisto/images/ie/helsinki_university_53x50.png" width="53" height="50"></image>
+        </svg>
+        <h2 class="site-name">Helsingfors universitet</h2>
+      </a>',
+        'format' => 'filtered_html',
+      )
+    ),
+    'hy_contact_logo_block_form_content' => array(
+      'fi' => array(
+        'value' => '<div class="logo">
+        <a href="http://www.helsinki.fi/university/">
+          <svg width="99" height="93" class="site-logo">
+            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/sites/all/themes/helsingin_yliopisto/images/hy_logo_white.svg" src="/sites/all/themes/helsingin_yliopisto/images/ie/helsinki_university_99x93.png" width="99" height="93"></image>
+          </svg>
+        </a>
+      </div>
+      <div class="contact text-bold">
+        <h4>Helsingin Yliopisto</h4>
+        <p>PL 33<br>(Yliopistonkatu 4)<br>00014 Helsingin yliopisto</p>
+        <p>Puhelinvaihde:<br>+358 (0) 2941 911</p>
+      </div>',
+        'format' => 'filtered_html',
+      ),
+      'sv' => array(
+        'value' => '<div class="logo">
+        <a href="http://www.helsinki.fi/university/">
+          <svg width="99" height="93" class="site-logo">
+            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/sites/all/themes/helsingin_yliopisto/images/hy_logo_white.svg" src="/sites/all/themes/helsingin_yliopisto/images/ie/helsinki_university_99x93.png" width="99" height="93"></image>
+          </svg>
+        </a>
+      </div>
+      <div class="contact text-bold">
+        <h4>Helsingfors universitet</h4>
+        <p>PB 33<br>(Universitetsgatan 4)<br>00014 Helsingfors universitet</p>
+        <p>Växel:<br>+358 (0) 2941 911</p>
+      </div>',
+        'format' => 'filtered_html',
+      )
+    ),
+  );
+  foreach ($hy_contact_config as $name => $languages) {
+    foreach ($languages as $lang => $value) {
+      variable_realm_set('language', $lang, $name, $value);
+    }
+  }
+}

@@ -1,0 +1,253 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Course material feature.
+ */
+
+include_once 'uhc_course_material.features.inc';
+
+/**
+ * Implements hook_entity_property_info().
+ *
+ * Introduce an reverse reference link between "course_material" node type and
+ * "course_implementation" node type.
+ */
+function uhc_course_material_entity_property_info() {
+  $info = array();
+  $properties = &$info['node']['bundles']['course_material']['properties'];
+  $properties['course_implementation_node'] = array(
+    'label' => t("Course implementation node"),
+    'type' => 'node',
+    'description' => t("Reverse reference back to course implementation."),
+    'getter callback' => 'uhc_course_material_entity_property_course_implementation_node',
+  );
+  return $info;
+}
+
+/**
+ * Entity property callback for [node:course_implementation_node].
+ */
+function uhc_course_material_entity_property_course_implementation_node($data, array $options, $name, $type, $info) {
+  if ($info['name'] == 'course_implementation_node') {
+    $nid = NULL;
+    $node = $data;
+
+    // Because we may reference this node from several different ways, we gather
+    // here set of callbacks which tries to resolve node id of course
+    // implementation.
+    $callbacks = array(
+      '_uhc_course_material_resolve_nid_from_course_material',
+      '_uhc_course_material_resolve_nid_from_course_task',
+    );
+    foreach ($callbacks as $callback) {
+      if (function_exists($callback)) {
+        $nid = $callback($node);
+        if ($nid) {
+          // Nice, we got now an resolved nid
+          break;
+        }
+      }
+    }
+
+    return !is_null($nid) ? node_load($nid) : NULL;
+
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_node_view().
+ *
+ * We have not implemented material view page. Instead we redirect to its
+ * corresponding course implementation where this material information gets
+ * displayed.
+ */
+function uhc_course_material_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'course_material' && uh_coursepages_is_node_page($node, $view_mode)) {
+
+    // Because we may reference this node from several different ways, we gather
+    // here set of callbacks which tries to resolve node id of course
+    // implementation.
+    $callbacks = array(
+      '_uhc_course_material_resolve_nid_from_course_material',
+      '_uhc_course_material_resolve_nid_from_course_task',
+    );
+    $nid = NULL;
+    foreach ($callbacks as $callback) {
+      if (function_exists($callback)) {
+        $nid = $callback($node);
+        if ($nid) {
+          // Nice, we got now an resolved nid
+          break;
+        }
+      }
+    }
+
+    // If we have resolved an node id, let's redirect to it
+    if ($nid) {
+      $course_implementation_node = node_load($nid);
+      $entity_uri = entity_uri('node', $course_implementation_node);
+      drupal_goto($entity_uri['path']);
+    }
+    else {
+      /* Lets log this, because we should be able to resolve this. Maybe field
+       * names have changed or new references has been added?
+       *
+       * Also, if you get lots of these, it might be also that some of the
+       * entities in between has been removed or references have been removed.
+       *
+       * Maybe field reference some clean up could be useful?
+       */
+      watchdog('uhc_course_material', 'Could not figure out course implemenation for material with nid %nid', array('%nid' => $node->nid), WATCHDOG_WARNING);
+    }
+  }
+}
+
+/**
+ * One of course implementation node id resolver callback. This should cover
+ * cases where we reference materials from course implementations
+ *
+ * @param $node
+ * @return int|null
+ */
+function _uhc_course_material_resolve_nid_from_course_material($node) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'course_implementation')
+    ->fieldCondition('field_section_material', 'target_id', $node->nid);
+  $course_implementation_results = $query->execute();
+  if (isset($course_implementation_results['node']) && count($course_implementation_results['node']) == 1) {
+    $course_implementation = array_shift($course_implementation_results['node']);
+    return $course_implementation->nid;
+  }
+
+  return NULL;
+}
+
+/**
+ * One of course implementation node id resolver callback. This should cover
+ * cases where we reference materials from course tasks.
+ *
+ * @param $node
+ * @return int|null
+ */
+function _uhc_course_material_resolve_nid_from_course_task($node) {
+  // We require uhc_course_tasks_and_material module's helper function to be
+  // available for resolving course implementation reference from course task.
+  if (!function_exists('uhc_course_tasks_and_material_resolve_referencing_course_implementation')) {
+    return NULL;
+  }
+
+  // First resolve which course task is referencing to this material
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'course_task')
+    ->fieldCondition('field_event_ref_to_material', 'target_id', $node->nid);
+  $course_tasks_results = $query->execute();
+  if (isset($course_tasks_results['node']) && count($course_tasks_results['node']) == 1) {
+    $course_task = array_shift($course_tasks_results['node']);
+    $course_task->nid;
+  }
+
+  // Then if we found course task, then we should be able to resolve course
+  // implementation node id too.
+  if (isset($course_task->nid)) {
+    return uhc_course_tasks_and_material_resolve_referencing_course_implementation(node_load($course_task->nid));
+  }
+
+  return NULL;
+}
+
+/**
+ * Implements hook_inline_entity_form_table_fields_alter().
+ * Remove status column, add material_section column.
+ */
+function uhc_course_material_inline_entity_form_table_fields_alter(&$fields, $context) {
+  if ($context['field_name'] == 'field_section_material') {
+    unset($fields['status']);
+    $fields['field_material_file'] = array(
+      'type' => 'field',
+      'label' =>  t('Filename'),
+      'weight' => 98,
+    );
+    $fields['field_material_section'] = array(
+      'type' => 'field',
+      'label' => t('Section'),
+      'weight' => 99,
+    );
+  }
+}
+
+/**
+ * Implements hook_node_view_alter(). Remove contextual links from course materials.
+ */
+function uhc_course_material_node_view_alter(&$variables) {
+  if (isset($variables['#node'])) {
+    $node = $variables['#node'];
+    if ($node->type == 'course_material') {
+      unset($variables['#contextual_links']);
+    }
+  }
+}
+
+/**
+ * Implements hook_file_validate().
+ *
+ * Generates an error if the course implementation already has a file with the
+ * same name as the validated file.
+ */
+function uhc_course_material_file_validate($file) {
+  $errors = array();
+
+  $validate = !empty($_REQUEST['form_id'])
+    && !empty($_SESSION['og_context']['gid'])
+    && $_REQUEST['form_id'] == 'course_implementation_node_form';
+
+  if ($validate) {
+    $course_implementation_id = $_SESSION['og_context']['gid'];
+    $course_implementation_node = node_load($course_implementation_id);
+    $file_names = uhc_course_material_get_file_names($course_implementation_node);
+
+    if (in_array($file->filename, $file_names)) {
+      $errors[] = t('The file "@file" already exists and was not uploaded.', array('@file' => $file->filename));
+    }
+  }
+
+  return $errors;
+}
+
+/**
+ * Returns all file names from files related to the given course implementation
+ * node.
+ *
+ * @param $course_implementation_node object Course implemantation node.
+ * @return array File names.
+ */
+function uhc_course_material_get_file_names($course_implementation_node) {
+  $file_names = array();
+  $field_items = field_get_items('node', $course_implementation_node, 'field_section_material');
+
+  if (!empty($field_items)) {
+    $material_node_ids = array();
+
+    foreach ($field_items as $field_item) {
+      $material_node_ids[] = $field_item['target_id'];
+    }
+
+    if (!empty($material_node_ids)) {
+      $material_nodes = node_load_multiple($material_node_ids);
+
+      foreach ($material_nodes as $material_node) {
+        $file_name = !empty($material_node->field_material_file['und'][0]['filename'])
+          ? $material_node->field_material_file['und'][0]['filename']
+          : '';
+
+        if (!empty($file_name)) {
+          $file_names[] = $file_name;
+        }
+      }
+    }
+  }
+
+  return $file_names;
+}

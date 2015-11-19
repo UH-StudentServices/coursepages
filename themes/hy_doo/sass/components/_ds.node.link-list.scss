@@ -1,0 +1,42 @@
+/**
+* Expected content consists of a section title and section content - list
+*/
+.ds-node-link-list {
+  .ds-node-link-list__section-title {
+    text-transform: uppercase;
+    a {
+      color: $gray;
+      &:after {
+        color: $blue;
+      }
+    }
+  }
+  .list-item {
+    @include font-weight-bold;
+    @include border-bottom;
+    padding: 0.8em 3em 0.8em 0;
+    position: relative;
+    a {
+      display: block;
+      &:after {
+        @include font-awesome('\f061');
+        position: absolute;
+        height: 100%;
+        padding: 1em;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+  &.dark .list-item {
+    background: $blue;
+    padding: 0.8em 3em 0.8em 0.8em;
+    margin-bottom: 0.3em;
+    a {
+      color: $white;
+      &:after {
+        background: $darkblue;
+      }
+    }
+  }
+}

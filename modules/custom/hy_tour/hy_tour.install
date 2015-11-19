@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * HY Tour's (un)installation and update tasks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function hy_tour_uninstall() {
+  variable_del('hy_tour_demo_nid');
+}

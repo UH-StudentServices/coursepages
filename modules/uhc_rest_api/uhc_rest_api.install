@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Tasks for (un)installation and update.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_rest_api_uninstall() {
+  variable_del('uhc_rest_api_opintoni_datetime_format');
+}

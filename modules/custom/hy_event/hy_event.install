@@ -1,0 +1,11 @@
+<?php
+/**
+ * @file Takes care of (un)installation and update tasks of this module.
+ */
+
+/**
+ * Enable views_system_message module.
+ */
+function hy_event_update_7003(&$sandbox) {
+  module_enable(array('views_system_message'));
+}

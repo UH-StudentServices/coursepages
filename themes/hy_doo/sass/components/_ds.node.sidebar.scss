@@ -1,0 +1,91 @@
+.ds-node-sidebar {
+  @include at-breakpoint($layout-small) {
+    @include border-left;
+    padding-left: 1.5em;
+  }
+}
+
+.related-content-section {
+  margin-bottom: 2em;
+  .ds-node-link-list {
+    margin-top: 0.5em;
+  }
+}
+
+.block--uhc-autofill-metadata-enrollments-block {
+  li {
+    @include border-bottom;
+    @include font-weight-bold;
+    padding: 1em 0;
+    font-size: 0.9em;
+  }
+}
+
+.moodle-link .list-item {
+  a:after {
+    @include hy-icon($hy-link-arrow-offsite);
+  }
+}
+
+.moodle-key {
+  @include font-size(14px);
+  @include font-weight-bold;
+  label {
+    font-weight: initial;
+  }
+}
+
+.course-feedback-button {
+  display: block;
+  padding: 1em;
+  margin: 1em 0;
+  background: $blue;
+  h4 {
+    color: $white;
+    margin-bottom: 0.3em;
+  }
+  p {
+    @include font-family-bodytext;
+    @include font-size(16px);
+    color: $white;
+    line-height: 1.3em;
+    margin: 0;
+    padding: 0;
+  }
+  &:hover {
+    background: $blue--active;
+  }
+}
+
+.sidebar-liftup {
+  margin-top: 3em;
+  .box-story__title {
+    height: auto;
+    margin-top: 0.5em;
+  }
+  .box-story__content p {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.sidebar-contact {
+  margin-top: 3em;
+  .contact-card {
+    @include border;
+    padding: 1.3em 1em;
+    margin-top: 1.5em;
+    .contact-title {
+      @include link-heading;
+      margin-bottom: 0.5em;
+    }
+    .contact-name,
+    .contact-tel {
+      @include font-weight-light;
+      margin-bottom: 0.2em;
+      .label-inline {
+        margin-right: 0.3em;
+      }
+    }
+  }
+}

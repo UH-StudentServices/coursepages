@@ -1,0 +1,28 @@
+<?php
+/**
+ * @file Installs/updates/uninstalls.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function uhc_search_portal_feature_install() {
+  module_enable(array('search_api_autocomplete'));
+}
+
+/**
+ * Implements hook_uninstall().
+ * Formal uninstallation hook.
+ */
+function uhc_search_portal_feature_uninstall() {
+  variable_del('uhc_search_portal_feature_host');
+  variable_del('uhc_search_portal_feature_port');
+  variable_del('uhc_search_portal_feature_path');
+}
+
+/**
+ * Enable Search API Autocomplete.
+ */
+function uhc_search_portal_feature_update_7005() {
+  module_enable(array('search_api_autocomplete'));
+}

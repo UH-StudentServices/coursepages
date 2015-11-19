@@ -1,0 +1,6 @@
+name = HY Taxonomy Source
+description = Provides the source data for taxonomy.
+core = 7.x
+package = HY Portal
+version = 7.x-1.41-dev
+project = hy_taxonomy_source

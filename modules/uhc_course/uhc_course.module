@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Course feature.
+ */
+
+include_once 'uhc_course.features.inc';
+
+function uhc_course_views_post_execute(&$view) {
+  if($view->name == 'course_node_references') {
+    drupal_add_js(drupal_get_path('module', 'uhc_course') . '/js/show_past_imps.js', array('scope' => 'footer'));
+  }
+}

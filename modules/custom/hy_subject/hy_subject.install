@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Handles (un)installation of this module.
+ */
+
+/**
+ * Enable Linkit module.
+ */
+function hy_subject_update_7004() {
+  module_enable(array('linkit'));
+}

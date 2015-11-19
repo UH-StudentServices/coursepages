@@ -1,0 +1,5 @@
+name = HY Portal Content Administration
+core = 7.x
+package = HY Portal
+version = 7.x-1.41-dev
+project = hy_portal_content_administration_feature

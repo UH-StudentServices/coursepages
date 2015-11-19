@@ -1,0 +1,41 @@
+/**
+* Expected metadata setup consists from a variation of inline text elements which
+* either float to the left or right
+*/
+
+.ds-node-metadata {
+  width: 100%;
+  clear: both;
+
+  @include border-side(top);
+  @include border-side(bottom);
+  display: block;
+  padding: 6px 0 5px;
+  margin-bottom: 2rem;
+
+  font-size: 0.875em;
+  line-height: 1.31em;
+
+  .field {
+    margin-right: 1em;
+  }
+  .strong {
+    font-weight: 900;
+  }
+  .highlight {
+    color: $blue;
+  }
+  .date {
+    float: right;
+  }
+  label {
+    margin-right: 0.35em;
+  }
+  .teaching-languages {
+    float: right;
+    span {
+      margin-left: 0.35em;
+      font-weight: 900;
+    }
+  }
+}

@@ -1,0 +1,329 @@
+// This is the exposed filter form
+.block--views.course-search form {
+  margin: 0;
+  border-width: 0 0 2px 0;
+  border-color: $lightsilver;
+  border-style: solid;
+  .views-exposed-form-header {
+    @include at-breakpoint($layout-mobile-only) {
+      text-align: center;
+    }
+  }
+  .views-exposed-form {
+    .views-exposed-widget {
+      &#edit-search-wrapper {
+        label {
+          @include text-label;
+        }
+        .description {
+          display: none;
+        }
+      }
+      &.views-widget-filter-search_api_aggregation_1 {
+        width: 100%;
+        .form-item-search {
+          max-width: 660px;
+          margin-bottom: 1.5em;
+          input {
+            width: 100%;
+          }
+          .field-prefix {
+            float: right;
+            margin-top: -2.7em;
+            padding-bottom: 1em;
+            font-size: 0.875rem;
+            font-weight: 300;
+            &:before {
+              content: "( ";
+            }
+            &:after {
+              content: " )";
+            }
+            @include at-breakpoint($layout-mobile-only) {
+              display: none;
+            }
+          }
+        }
+      }
+      &.views-submit-button {
+        display: inline;
+        clear: left;
+        float: left;
+        input {
+          margin: 0;
+          @include at-breakpoint($layout-mobile-only) {
+            width: 100%;
+          }
+        }
+        @include at-breakpoint($layout-mobile-only) {
+          width: 100%;
+        }
+      }
+      &.views-reset-button {
+        display: inline;
+        float: left;
+        text-align: center;
+        &:after {
+          content: "\f00d";
+          font-family: "FontAwesome";
+          position: relative;
+          right: 13px;
+          top: 2px;
+          color: $blue;
+        }
+        input {
+          display: inline;
+          background: $white;
+          color: $blue;
+          margin: 0;
+        }
+        @include at-breakpoint($layout-mobile-only) {
+          width: 100%;
+          position: relative;
+          top: -1em;
+        }
+      }
+      .form-item-include-ongoing-courses {
+        margin-top: 15px;
+        input {
+          width: auto;
+        }
+        label {
+          font-weight: normal;
+          font-size: 0.85em;
+          color: $gray;
+        }
+      }
+      // This rule will be overridden for hiding when viewing .search-main-page
+      &.views-widget-sort-by {
+        @include at-breakpoint($layout-mobile-only) {
+          text-align: center;
+          width: 100%;
+          .form-item-sort-by {
+            label {
+              display: inline;
+              margin-right: 1em;
+            }
+          }
+        }
+        @include at-breakpoint($layout-small) {
+          display: none;
+        }
+      }
+      &.views-widget-sort-order {
+        display: none;
+      }
+      @include at-breakpoint($layout-mobile-only) {
+        &.gridder-box {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .filter-help {
+    display: block;
+    margin-top: 2em;
+    cursor: help;
+    .icon-help-circled {
+      color: $blue;
+    }
+  }
+  .block.block--facetapi {
+    position: relative;
+    float: left;
+    margin: 0 1em 1em 0;
+    overflow: visible;
+    width: 100%;
+    @include at-breakpoint($layout-small) {
+      width: 23%;
+    }
+    h2.block__title {
+      display: block;
+      border: 1px solid $lightsilver;
+      padding: 5px 10px;
+      margin-bottom: -1px;
+      color: $blue;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 0.875em;
+      text-transform: uppercase;
+      width: 100%;
+      &:after {
+        content: "\f0d7"; // \f0d7
+        font-family: "FontAwesome";
+        float: right;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    }
+    // Faux chosen multiselect theming
+    .block__content {
+      display: none;
+      max-height: 200px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      font-size: 13px;
+      &.collapsed {
+        display: block;
+        border: 1px solid $lightsilver;
+        background: #fff;
+        position: absolute;
+        width: 100%;
+        z-index: 999;
+      }
+      li {
+        padding: 5px;
+        .facetapi-active, input {
+          display: none;
+        }
+      }
+    }
+    .chosen-choices {
+      border: 1px solid $lightsilver;
+      .search-choice {
+        cursor: pointer !important;
+        border: 1px solid $silver;
+        background: $lightsilver;
+        font-size: 13px;
+        padding: 2px;
+        margin: 2px;
+        display: inline-block;
+        &:after {
+          @include hy-icon("\EA2F");
+          @include transform(rotate(-45deg));
+          display: inline-block;
+        }
+      }
+    }
+    // Placing filters nicely for small width
+    @include at-breakpoint($layout-small) {
+      &#edit-type-wrapper {
+        padding-right: 1em;
+      }
+      &#edit-form-wrapper {
+        padding-left: 1em;
+      }
+      &#edit-theme-wrapper {
+        padding-right: 1em;
+      }
+      &#edit-periods-wrapper {
+        padding-left: 1em;
+      }
+    }
+    // Placing filters nicely for medium and larger width
+    @include at-breakpoint($layout-medium) {
+      &#edit-type-wrapper {
+        padding-right: 1em;
+      }
+      &#edit-form-wrapper {
+        padding: 0 1em;
+      }
+      &#edit-theme-wrapper {
+        padding: 0 1em;
+      }
+      &#edit-periods-wrapper {
+        padding-left: 1em;
+      }
+    }
+  }
+  h2 {
+    clear: both;
+  }
+}
+// On main page we don't want to show sorting
+body.search-main-page .views-widget-sort-by {
+  display: none;
+}
+// Switch locations between reset and submit buttons
+.page-genetics-search .block--views.course-search form .views-exposed-form .views-exposed-widget.views-submit-button {
+  @include at-breakpoint($layout-mobile-only) {
+    margin-top: 3em;
+    margin-bottom: -6em;
+  }
+}
+
+// This is the results view (which also includes facet search elements)
+.view.course-search {
+  .view-header {
+    h2 {
+      margin: 0;
+      padding: 1em 0 0.4em 0;
+    }
+  }
+
+  @include at-breakpoint($layout-mobile-only) {
+    // Space for overlapping sort div
+    margin-bottom: 9em;
+    z-index: 1;
+  }
+
+  // Views-table styles
+  th, td {
+    // mobile first
+    float: left;
+    clear: both;
+    padding: 0;
+
+    background: $white;
+    font-weight: normal;
+    @include at-breakpoint($layout-small) {
+      float: none;
+      padding: 0.6em 0.9em;
+    }
+  }
+
+  th {
+    color: $black;
+    a, a.active {
+      color: $black;
+      font-weight: normal;
+    }
+    img {
+      margin-left: 0.5em;
+    }
+  }
+
+  tr {
+    // mobile first
+    display: block;
+    padding: 1em 0;
+    border-bottom: 1px dashed #efefef;
+
+    background: white;
+    overflow: hidden;
+    @include at-breakpoint($layout-small) {
+      display: table-row;
+      border-bottom-style: solid;
+      border-bottom-color: $lightsilver;
+      overflow: scroll;
+    }
+    &.views-row-first {
+      border-top: 1px dashed #efefef;
+      @include at-breakpoint($layout-small) {
+        border-top: 0;
+      }
+    }
+  }
+  thead {
+    display: none;
+    @include at-breakpoint($layout-small) {
+      display: table-header-group;
+    }
+  }
+}
+
+#autocomplete {
+  z-index: 9999;
+}
+
+.views-exposed-form-uhc-portal-search-front-page--desktop {
+  @include border-top;
+  padding-top: 1em;
+  border-bottom: none !important;
+  .views-exposed-widget {
+    padding: 0;
+    .form-item-search {
+      max-width: none !important;
+    }
+  }
+}

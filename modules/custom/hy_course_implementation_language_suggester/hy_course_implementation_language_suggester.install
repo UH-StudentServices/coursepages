@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Takes care of (un)intallation and update tasks of this module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function hy_course_implementation_language_suggester_uninstall() {
+  variable_del('hy_course_implementation_language_suggester_group_name');
+}

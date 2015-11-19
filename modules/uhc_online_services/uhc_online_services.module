@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the uhc_online_services feature.
+ */
+
+include_once 'uhc_online_services.features.inc';

@@ -1,0 +1,208 @@
+<?php
+/**
+ * @file
+ * Code for the uhc_ds feature.
+ */
+
+include_once 'uhc_ds.features.inc';
+
+/**
+ * Implements hook_ds_fields_info().
+ *
+ * Introduce fields for bringing course fields to course implementation.
+ */
+function uhc_ds_ds_fields_info($entity_type) {
+  if ($entity_type == 'node') {
+
+    // This is the list of fields, we want to bring in from course node to
+    // course implementation display suite package.
+    $embeddable_fields = array(
+      'uhc_ds_course_number' => array(
+        'function' => 'uhc_ds_render_inherited_ds_field',
+        'field_name' => 'field_course_course_number',
+        'label' => 'Course: Course number',
+      ),
+      'uhc_ds_additional_info' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_additional_info',
+        'label' => 'Course implementation or Course: Additional information',
+      ),
+      'uhc_ds_req_prerequisites' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_req_prerequisites',
+        'label' => 'Course implementation or Course: Required pre-requisites',
+      ),
+      'uhc_ds_contents' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_contents',
+        'label' => 'Course implementation or Course: Contents',
+      ),
+      'uhc_ds_evaluation' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_evaluation',
+        'label' => 'Course implementation or Course: Evaluation',
+      ),
+      'uhc_ds_objective' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_objective',
+        'label' => 'Course implementation or Course: Objective',
+      ),
+      'uhc_ds_target_group' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_target_group',
+        'label' => 'Course implementation or Course: Target group',
+      ),
+      'uhc_ds_study_materials' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_study_materials',
+        'label' => 'Course implementation or Course: Study materials',
+      ),
+      'uhc_ds_conduct' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_conduct',
+        'label' => 'Course implementation or Course: Conduct',
+      ),
+    );
+
+    $ds_fields = array();
+    foreach ($embeddable_fields as $embeddable_field => $item) {
+      if (isset($item['function'])) {
+        $ds_fields[$embeddable_field] = array(
+          'title' => $item['label'],
+          'field_type' => DS_FIELD_TYPE_FUNCTION,
+          'ui_limit' => array('course_implementation|*'),
+          'function' => $item['function'],
+          'properties' => array(
+            'field_name' => $item['field_name'],
+            'reference_field' => 'field_imp_reference_to_courses'
+          ),
+        );
+      }
+    }
+
+    return array('node' => $ds_fields);
+  }
+}
+
+/**
+ * Helper function for introducing an inherited field.
+ * @param $ds_fields
+ * @param $embeddable_field
+ * @param $label
+ * @param $field_name
+ */
+function _uhc_ds_inherit_from_source(&$ds_fields, $embeddable_field, $label, $field_name) {
+  $ds_fields[$embeddable_field] = array(
+    'title' => $label,
+    'field_type' => DS_FIELD_TYPE_FUNCTION,
+    'ui_limit' => array('course_implementation|*'),
+    'function' => 'uhc_ds_render_inherited_ds_field',
+    'properties' => array(
+      'field_name' => $field_name,
+      'reference_field' => 'field_imp_reference_to_courses'
+    ),
+  );
+}
+
+/**
+ * Helper function for introducing an comparable field.
+ * @param $ds_fields
+ * @param $embeddable_field
+ * @param $label
+ * @param $field_name
+ */
+function _uhc_ds_compare(&$ds_fields, $embeddable_field, $label, $field_name) {
+  $ds_fields[$embeddable_field] = array(
+    'title' => $label,
+    'field_type' => DS_FIELD_TYPE_FUNCTION,
+    'ui_limit' => array('course_implementation|*'),
+    'function' => 'uhc_ds_render_comparable_ds_field',
+    'properties' => array(
+      'field_name' => $field_name,
+      'reference_field' => 'field_imp_reference_to_courses'
+    ),
+  );
+}
+
+/**
+ * This is an callback for rendering an display suite field.
+ * @see uhc_ds_ds_fields_info()
+ * @see _uhc_ds_inherit_from_source()
+ */
+function uhc_ds_render_inherited_ds_field($field = NULL) {
+
+  // This is the node we're rendering at the moment.
+  $node = $field['entity'];
+
+  // This is th field, where we find out the course node where we take the field
+  // for rendering.
+  $reference_field = $field['properties']['reference_field'];
+
+  // This is the field, we want to embed
+  $field_name = $field['properties']['field_name'];
+
+  // If there's reference to course(s) set, load the node, so we can render its
+  // fields
+  $course_node = NULL;
+  if (isset($node->{$reference_field}[LANGUAGE_NONE])) {
+    foreach ($node->{$reference_field}[LANGUAGE_NONE] as $item) {
+      if (isset($item['target_id'])) {
+        $course_node = node_load($item['target_id']);
+        break;
+      }
+    }
+  }
+
+  // If we don't have course node, return nothing!
+  if (is_null($course_node)) {
+    return NULL;
+  }
+
+  // Find out language code so we know which language value we'll fetch
+  $langcode = function_exists('i18n_langcode') ? i18n_langcode() : LANGUAGE_NONE;
+
+  // Get values and return the first item. TODO: How we handle multiple values?
+  $values = field_get_items('node', $course_node, $field_name, $langcode);
+  if (is_array($values)) {
+    foreach ($values as $value) {
+      if (isset($value['safe_value'])) {
+        return $value['safe_value'];
+        break;
+      }
+    }
+  }
+  return NULL;
+
+}
+
+/**
+ * This is an callback for rendering an comparable DS field.
+ * @see uhc_ds_ds_fields_info()
+ * @see uhc_ds_render_inherited_ds_field()
+ */
+function uhc_ds_render_comparable_ds_field($field = NULL) {
+
+  // This is the node we're rendering at the moment.
+  $node = $field['entity'];
+
+  // This is the field, we want to compare
+  $field_name = $field['properties']['field_name'];
+
+  // Find out language code so we know which language value we'll fetch
+  $langcode = function_exists('i18n_langcode') ? i18n_langcode() : LANGUAGE_NONE;
+
+  // Get values and return the first item. TODO: How we handle multiple values?
+  $values = field_get_items('node', $node, $field_name, $langcode);
+  if (is_array($values)) {
+    foreach ($values as $value) {
+      if (isset($value['safe_value'])) {
+        return $value['safe_value'];
+        break;
+      }
+    }
+  }
+
+  // If no values from active node, then try inheriting it from course
+  return uhc_ds_render_inherited_ds_field($field);
+
+}

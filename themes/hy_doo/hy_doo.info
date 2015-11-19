@@ -1,0 +1,46 @@
+name = Helsingin yliopisto DOO subtheme
+description = Theme for Helsingin yliopisto DOO -prject (subtheme).
+base theme = hy_base_theme
+screenshot = screenshot.png
+engine = phptemplate
+core = 7.x
+version = 7.x-1.42
+
+; Scripts
+scripts[] = js/ds_accordion.js
+scripts[] = js/jquery.browser.min.js
+scripts[] = js/jquery.hoverIntent.r6.js
+scripts[] = js/masonry.pkgd.min.js
+scripts[] = js/menu.js
+scripts[] = js/user_menu.js
+scripts[] = js/anchor.js
+
+; Stylesheets
+stylesheets[all][] = css/hy_doo.styles.css
+stylesheets[print][] = css/hy_doo.print.css
+
+
+; Regions
+regions[top_bar]        = Top bar
+regions[menu_bar]       = Menu bar
+regions[hero]           = Hero
+regions[header]         = Header
+regions[navigation]     = Navigation
+regions[highlighted]    = Highlighted
+regions[help]           = Help
+regions[content_prefix] = Content prefix
+regions[content]        = Content
+regions[content_bottom] = Content bottom
+regions[long_page]      = Long page - Content
+regions[sidebar]        = Sidebar
+regions[content_suffix] = Content suffix
+regions[action_footer]  = Action Footer
+regions[info_footer]    = Info Footer
+regions[footer]         = Footer
+
+
+; Breakpoints
+breakpoints[layout-mobile] = screen and (max-width: 48em)
+breakpoints[layout-small] = screen and (min-width: 48em)
+breakpoints[layout-medium] = screen and (min-width: 62.5em)
+breakpoints[layout-large] = screen and (min-width: 75em)

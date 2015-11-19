@@ -1,0 +1,455 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Course Collaboration feature.
+ */
+
+include_once 'uhc_course_collaboration.features.inc';
+
+/**
+ * Implements hook_og_user_access_alter().
+ *
+ * Give editors permission to update any group.
+ */
+function uhc_course_collaboration_og_user_access_alter(&$perm, $context) {
+  // When no permissions yet given and we're checking "update" access to nodes
+  if (empty($perm['update group']) && $context['group_type'] == 'node' && $context['string'] == 'update group') {
+
+    // This access altering applies only to course implementations.
+    if ($context['group']->type == 'course_implementation') {
+
+      // If user has editor role, then grant access
+      $editor_role = user_role_load_by_name('editor-in-chief of communications');
+      if (isset($editor_role->rid) && user_has_role($editor_role->rid, $context['account'])) {
+        // This is how we grant access to the group in OG :)
+        $perm['update group'] = TRUE;
+      }
+
+    }
+
+  }
+}
+
+/**
+ * Function for setting an course implementation membership.
+ *
+ * @param $node
+ *   Node of course implementation which we want to set membership to.
+ * @param $account
+ *   User account which we want to set membership from.
+ * @param $og_role_name
+ *   Type of membership. Example: 'Teacher' or 'Student'
+ * @return mixed
+ *   Returns NULL or then an og membership object.
+ */
+function uhc_course_collaboration_set_membership($node, $account, $og_role_name) {
+
+  $group_type = 'node';
+  $bundle = 'course_implementation';
+  $gid = $node->nid;
+
+  // We need to pass an $rid when setting up the role for this membership. But
+  // as we have role names given, we need to resolve the role id from it first.
+  $rid = NULL;
+  foreach (og_roles($group_type, $bundle, $gid, FALSE, FALSE) as $key => $name) {
+    if ($name == $og_role_name) {
+      $rid = $key;
+      break;
+    }
+
+  }
+
+  // Now when role id known, then setup membership.
+  if (!is_null($rid)) {
+    // Set membership, if it doesn't already exists.
+    if (!$og_membership = og_get_membership($group_type, $gid, 'user', $account->uid)) {
+      $og_membership = og_membership_create($group_type, $gid, 'user', 0, 'og_user_node', array());
+      $og_membership->etid = $account->uid;
+      $og_membership->state = 1;
+      $og_membership->save();
+    }
+    else {
+      // Membership was already set, do nothing.
+    }
+
+    // In both cases, grant the given role to this membership
+    og_role_grant($group_type, $gid, $account->uid, $rid);
+
+    // Return the membership object
+    return $og_membership;
+  }
+
+  // No membership set, return NULL
+  return NULL;
+}
+
+/**
+ * Implements hook_og_role_grant()
+ */
+function uhc_course_collaboration_og_role_grant($entity_type, $gid, $uid, $rid) {
+  if ($entity_type == 'node') {
+    uhc_course_collaboration_sync_drupal_roles_based_on_og_roles($uid);
+  }
+}
+
+/**
+ * Implements hook_og_role_revoke()
+ */
+function uhc_course_collaboration_og_role_revoke($entity_type, $gid, $uid, $rid) {
+  if ($entity_type == 'node') {
+    uhc_course_collaboration_sync_drupal_roles_based_on_og_roles($uid);
+  }
+}
+
+/**
+ * Implements hook_og_membership_delete().
+ */
+function uhc_course_collaboration_og_membership_delete(OgMembership $og_membership) {
+  uhc_course_collaboration_sync_drupal_roles_based_on_og_roles($og_membership->etid);
+}
+
+/**
+ * Sets or unsets Drupal roles of given user depending on og memberships.
+ *
+ * @param $uid int Drupal user UID.
+ */
+function uhc_course_collaboration_sync_drupal_roles_based_on_og_roles($uid) {
+  uhc_course_collaboration_sync_drupal_role($uid, 'teacher', 'Teacher');
+  uhc_course_collaboration_sync_drupal_role($uid, 'course administrator', 'Course administrator');
+}
+
+/**
+ * Sets or unsets given Drupal role of given user depending whether it has given
+ * memberships left.
+ *
+ * @param $uid int Drupal user UID.
+ * @param $drupal_role_name string Drupal role name.
+ * @param $og_role_name string Organic groups role name.
+ * @throws Exception
+ */
+function uhc_course_collaboration_sync_drupal_role($uid, $drupal_role_name, $og_role_name) {
+  $drupal_role = user_role_load_by_name($drupal_role_name);
+  $account = user_load($uid, TRUE);
+  if (uhc_course_collaboration_has_grants_left($account, $og_role_name)) {
+    // Add role if grants left and it doesn't already have the role
+    if (!user_has_role($drupal_role->rid)) {
+      $account->roles[$drupal_role->rid] = $drupal_role->name;
+      user_save($account);
+    }
+  }
+  else {
+    // Ensure that no role is set
+    if (isset($account->roles)) {
+      foreach ($account->roles as $rid => $role) {
+        // Remove role when no grants are left
+        if ($rid == $drupal_role->rid) {
+          unset($account->roles[$rid]);
+          user_save($account);
+          break;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Determines whether given account has given role memberships in any course
+ * implementation.
+ *
+ * @param $account object Drupal user object.
+ * @param $og_role_name string Organic groups role name.
+ * @return bool TRUE if the user has given Organic groups user role.
+ */
+function uhc_course_collaboration_has_grants_left($account, $og_role_name) {
+  if (isset($account->og_user_node[LANGUAGE_NONE])) {
+    foreach ($account->og_user_node[LANGUAGE_NONE] as $item) {
+      $user_roles = og_get_user_roles('node', $item['target_id'], $account->uid);
+      foreach ($user_roles as $user_role) {
+        if ($user_role == $og_role_name) {
+          return TRUE;
+        }
+      }
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function uhc_course_collaboration_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'course_implementation' && arg(0) == 'node' && user_is_logged_in()) {
+    $modified_teacher = uhc_course_collaboration_set_or_delete_teacher_membership($node);
+    $modified_administrator = uhc_course_collaboration_set_or_delete_course_administrator_membership($node);
+    $modified_student = uhc_course_collaboration_set_or_delete_student_membership($node);
+
+    $modified_membership = $modified_teacher || $modified_administrator || $modified_student;
+
+    // Reload the page if og membership was modified to load the correct
+    // permissions immediately.
+    if ($modified_membership) {
+      drupal_goto(current_path());
+    }
+  }
+}
+
+/**
+ * Handles setting OG course implementation membership or deleting teacher role
+ * from the membership. Sets OG course implementation membership for the current
+ * user (if the membership does not already exist) if the user is a teacher (has
+ * an employee number) and if the employee number is on the list of teacher
+ * numbers related to the course implementation. Deletes the teacher role from
+ * the membership if the employee number is no longer on the list of teacher
+ * numbers. Reloads the page so that the membership changes are active
+ * immediately (without the need to manually reload the course implementation
+ * page).
+ *
+ * @param $node object Course implementation node.
+ * @return bool
+ */
+function uhc_course_collaboration_set_or_delete_teacher_membership($node) {
+  $teacher_numbers = uhc_course_implementation_get_teacher_numbers($node);
+  $modified_membership = FALSE;
+
+  if (!empty($teacher_numbers)) {
+    global $user;
+    $group_type = 'node';
+    $teacher_role_name = 'Teacher';
+    $user_roles = og_get_user_roles($group_type, $node->nid, $user->uid);
+    $has_teacher_membership = in_array($teacher_role_name, $user_roles);
+    $employee_number = uhc_autofill_metadata_get_current_user_employee_number();
+    $course_teacher = in_array($employee_number, $teacher_numbers);
+
+    if ($course_teacher) {
+      if (!$has_teacher_membership) {
+        uhc_course_collaboration_set_membership($node, $user, $teacher_role_name);
+        $modified_membership = TRUE;
+      }
+    }
+    elseif ($has_teacher_membership) {
+      $all_roles = og_roles($group_type, 'course_implementation');
+
+      foreach ($all_roles as $role_id => $role) {
+        if ($all_roles[$role_id] == $teacher_role_name) {
+          og_role_revoke($group_type, $node->nid, $user->uid, $role_id);
+          $modified_membership = TRUE;
+        }
+      }
+    }
+  }
+
+  return $modified_membership;
+}
+
+/**
+ * Handles setting OG course implementation membership or deleting course
+ * administrator role from the membership. Sets OG course implementation
+ * membership for the current user (if the membership does not already exist) if
+ * the user is a course administrator (has an employee number) and if the
+ * employee number is on the list of administrator numbers related to the course
+ * implementation. Deletes the course administrator role from the membership if
+ * the employee number is no longer on the list of administrator numbers.
+ * Reloads the page so that the membership changes are active immediately
+ * (without the need to manually reload the course implementation page).
+ *
+ * @param $node object Course implementation node.
+ * @return bool
+ */
+function uhc_course_collaboration_set_or_delete_course_administrator_membership($node) {
+  $course_administrator_numbers = uhc_course_implementation_get_course_administrator_numbers($node);
+  $modified_membership = FALSE;
+
+  global $user;
+  $group_type = 'node';
+  $course_administrator_role_name = 'Course administrator';
+  $user_roles = og_get_user_roles($group_type, $node->nid, $user->uid);
+  $has_course_administrator_membership = in_array($course_administrator_role_name, $user_roles);
+  $employee_number = uhc_autofill_metadata_get_current_user_employee_number();
+  $course_administrator = in_array($employee_number, $course_administrator_numbers);
+
+  if ($course_administrator) {
+    if (!$has_course_administrator_membership) {
+      uhc_course_collaboration_set_membership($node, $user, $course_administrator_role_name);
+      $modified_membership = TRUE;
+    }
+  }
+  elseif ($has_course_administrator_membership) {
+    $all_roles = og_roles($group_type, 'course_implementation');
+
+    foreach ($all_roles as $role_id => $role) {
+      if ($all_roles[$role_id] == $course_administrator_role_name) {
+        og_role_revoke($group_type, $node->nid, $user->uid, $role_id);
+        $modified_membership = TRUE;
+      }
+    }
+  }
+
+  return $modified_membership;
+}
+
+/**
+ * Handles setting OG course implementation membership or deleting student role
+ * from the membership. Sets OG course implementation membership for the current
+ * user (if the membership does not already exist) if the user is a student (has
+ * one or more enrollments) and if the course implementation id is on the list
+ * of enrollments. Deletes the student role from the membership if the course
+ * implementation id is no longer on the list of enrollments. Reloads the page
+ * so that the membership changes are active immediately (without the need to
+ * manually reload the course implementation page).
+ *
+ * @param $node object Course implementation node.
+ * @return bool
+ */
+function uhc_course_collaboration_set_or_delete_student_membership($node) {
+  global $user;
+
+  $group_type = 'node';
+  $student_role_name = 'Student';
+  $user_roles = og_get_user_roles($group_type, $node->nid, $user->uid);
+  $course_implementation_id = $node->field_imp_id[LANGUAGE_NONE][0]['value'];
+  $enrollments = uhc_autofill_metadata_get_enrollments(uhc_autofill_metadata_get_current_user_personal_unique_code());
+  $course_student = in_array($course_implementation_id, $enrollments);
+  $has_student_membership = in_array($student_role_name, $user_roles);
+  $modified_membership = FALSE;
+
+  if ($course_student) {
+    if (!$has_student_membership) {
+      uhc_course_collaboration_set_membership($node, $user, $student_role_name);
+      $modified_membership = FALSE;
+    }
+  }
+  elseif ($has_student_membership) {
+    $all_roles = og_roles($group_type, 'course_implementation');
+
+    foreach ($all_roles as $role_id => $role) {
+      if ($all_roles[$role_id] == $student_role_name) {
+        og_role_revoke($group_type, $node->nid, $user->uid, $role_id);
+        $modified_membership = FALSE;
+      }
+    }
+  }
+
+  return $modified_membership;
+}
+
+/**
+ * @return bool TRUE if the current user is course teacher, otherwise FALSE.
+ */
+function uhc_course_collaboration_is_current_user_course_teacher($node = NULL) {
+  static $is_course_teacher = FALSE;
+
+  if ($is_course_teacher) {
+    return $is_course_teacher;
+  }
+
+  if (user_is_logged_in()) {
+    if ($node == NULL) {
+      $node = menu_get_object();
+    }
+
+    if (isset($node->nid) && $node->type == 'course_implementation') {
+      $employee_number = uhc_autofill_metadata_get_current_user_employee_number();
+
+      if (!empty($employee_number)) {
+        $teacher_numbers = uhc_course_implementation_get_teacher_numbers($node);
+
+        if (!empty($teacher_numbers)) {
+          $is_course_teacher = in_array($employee_number, $teacher_numbers);
+        }
+      }
+    }
+  }
+
+  return $is_course_teacher;
+}
+
+/**
+ * @return bool TRUE if the current user is course administrator, otherwise FALSE.
+ */
+function uhc_course_collaboration_is_current_user_course_administrator($node = NULL) {
+  static $is_course_administrator = FALSE;
+
+  if ($is_course_administrator) {
+    return $is_course_administrator;
+  }
+
+  if (user_is_logged_in()) {
+    if ($node == NULL) {
+      $node = menu_get_object();
+    }
+
+    if (isset($node->nid) && $node->type == 'course_implementation') {
+      $employee_number = uhc_autofill_metadata_get_current_user_employee_number();
+
+      if (!empty($employee_number)) {
+        $course_administrator_numbers = uhc_course_implementation_get_course_administrator_numbers($node);
+
+        if (!empty($course_administrator_numbers)) {
+          $is_course_administrator = in_array($employee_number, $course_administrator_numbers);
+        }
+      }
+    }
+  }
+
+  return $is_course_administrator;
+}
+
+/**
+ * @return bool TRUE if the current user has teacher role, otherwise FALSE.
+ */
+function uhc_course_collaboration_current_user_has_teacher_role() {
+  return uhc_course_collaboration_current_user_has_role('teacher');
+}
+
+/**
+ * @return bool TRUE if the current user has course administrator role,
+ * otherwise FALSE.
+ */
+function uhc_course_collaboration_current_user_has_course_administrator_role() {
+  return uhc_course_collaboration_current_user_has_role('course administrator');
+}
+
+/**
+ * @param $role_name string Drupal user name.
+ * @return bool TRUE if the current user has the given role, otherwise FALSE.
+ */
+function uhc_course_collaboration_current_user_has_role($role_name) {
+  $has_role = FALSE;
+
+  if (user_is_logged_in()) {
+    $roles = user_roles();
+    $has_role = in_array($role_name, $roles);
+  }
+
+  return $has_role;
+}
+
+/**
+ * @return bool TRUE if the current user is course student, otherwise FALSE.
+ */
+function uhc_course_collaboration_is_current_user_course_student() {
+  static $is_course_student = FALSE;
+
+  if ($is_course_student) {
+    return $is_course_student;
+  }
+
+  if (user_is_logged_in()) {
+    $node = menu_get_object();
+
+    if (isset($node->nid) && $node->type == 'course_implementation') {
+      $personal_unique_code = uhc_autofill_metadata_get_current_user_personal_unique_code();
+
+      if (!empty($personal_unique_code)) {
+        $enrollments = uhc_autofill_metadata_get_enrollments($personal_unique_code);
+
+        if (!empty($enrollments)) {
+          $course_implementation_id = $node->field_imp_id[LANGUAGE_NONE][0]['value'];
+          $is_course_student = in_array($course_implementation_id, $enrollments);
+        }
+      }
+    }
+  }
+
+  return $is_course_student;
+}

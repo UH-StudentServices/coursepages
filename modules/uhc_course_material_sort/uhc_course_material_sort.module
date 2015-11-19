@@ -1,0 +1,96 @@
+<?php
+/**
+ * @file
+ * UHC Course Material Sort module file.
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Add alphabetical sort to course material edit view.
+ */
+function uhc_course_material_sort_form_node_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'course_implementation_node_form') {
+
+    // lets pass our material sections to Drupal.settings so we can do sorting in js
+    $vocabulary = taxonomy_vocabulary_machine_name_load('material_sections');
+    $terms = taxonomy_get_tree($vocabulary->vid);
+    $material_sections = array();
+
+    global $language;
+    foreach ($terms as $term) {
+      $term = taxonomy_term_load($term->tid);
+      $material_sections[] = array('section' => $term->name_field[$language->language][0]['value'], 'title' => $term->name_field[$language->language][0]['value']);
+    }
+    $material_sections[] = array('title' => t('Other'));
+
+    $form['#attached']['js'][] = drupal_get_path('module', 'uhc_course_material_sort') . '/js/material_sort.js';
+    $form['#attached']['js'][] = array(
+      'type' => 'setting',
+      'data' => array(
+        'uhc_course_material_sort' => array(
+          'material_sections' => $material_sections,
+        ),
+      ),
+    );
+
+    // Query whether we have course_implementation_material_manually_sorted messages
+    //referencing this course, which means we disable material auto sort
+    $material_table_auto_sort_value = empty(uhc_course_material_sort_message_already_exists($form)) ? 1 : 0;
+
+    // we use this field for disabling autosort of material
+    // when the user has manually altered the ordering.
+    $form['material_table_auto_sort'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $material_table_auto_sort_value,
+    );
+  }
+  $form['actions']['submit']['#submit'][] = 'uhc_course_material_sort_autosort_sniffer';
+}
+
+
+/**
+ * Submit handler for course implementation node form to check if
+ * user has manually sorted material, and store that information
+ * as a message if needed.
+ */
+function uhc_course_material_sort_autosort_sniffer($form, $form_state) {
+  $manual_sort_selected = isset($form_state['values']['material_table_auto_sort']) && $form_state['values']['material_table_auto_sort'] == 0;
+
+  if ($manual_sort_selected) {
+    // Query whether we have existing messages referencing to this course
+    // implementation. if not, create message
+    if (empty(uhc_course_material_sort_message_already_exists($form))) {
+      global $user;
+      $account = user_load($user->uid);
+      // Create an message and set references and then save it.
+      $message = message_create('course_implementation_material_manually_sorted', array(), $account);
+      $wrapper = entity_metadata_wrapper('message', $message);
+      $wrapper->field_message_ref_to_course_imp->set($form['nid']['#value']);
+      $wrapper->save();
+    }
+  }
+}
+
+/**
+* Helper function to check if course_implementation_material_manually_sorted
+* messages exist
+*/
+function uhc_course_material_sort_message_already_exists($form) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'message')
+    ->entityCondition('bundle', 'course_implementation_material_manually_sorted')
+    ->fieldCondition('field_message_ref_to_course_imp', 'target_id', $form['nid']['#value']);
+  return $query->execute();
+}
+
+/**
+ * Implements hook_ajax_render_alter().
+ * when we add new material, we sort it alphabetically automatically.
+ */
+function uhc_course_material_sort_ajax_render_alter(&$commands) {
+  foreach ($commands as $command) {
+    if(isset($command['settings']['tableDrag']['ief-entity-table-edit-field-section-material-und-entities'])) {
+      $commands[] = array('command' => 'autoOrderMaterialAlphabetically');
+    }
+  }
+}

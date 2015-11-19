@@ -1,0 +1,39 @@
+<?php
+/**
+ * @file
+ * Handle installation tasks for this module.
+ */
+
+/**
+ * Uninstall.
+ */
+function hy_portal_sources_uninstall() {
+  variable_del('hy_portal_sources_base_url');
+  variable_del('hy_portal_sources_examination_type_codes');
+  variable_del('hy_portal_sources_timeout');
+  variable_del('hy_portal_sources_simulate_failure');
+  db_query("DELETE FROM {variable} WHERE name LIKE 'hy_portal_sources_last_requested_%'");
+}
+
+/**
+ * Set last requested timestamps to expected last run.
+ */
+function hy_portal_sources_update_7005() {
+  // We assume that migrations have been run last time at 3:00 last night, which
+  // is the earliest run for migrations between all environments and preivous
+  // cycle.
+  $today_at_three = new DateTime();
+  $today_at_three->setTime(03, 00);
+  if ($today_at_three->getTimestamp() > time()) {
+    // Today at three is actually in future.
+    $last_run = new DateTime('yesterday');
+    $last_run->setTime(03, 00);
+  }
+  else {
+    $last_run = $today_at_three;
+  }
+
+  // Now set last run timestamp
+  variable_set('hy_portal_sources_last_requested_coursenode', $last_run->getTimestamp());
+  variable_set('hy_portal_sources_last_requested_courseimplementationnode', $last_run->getTimestamp());
+}

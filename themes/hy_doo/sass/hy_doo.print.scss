@@ -1,0 +1,53 @@
+// Accordion items should be open by default when printing.
+.field-group-accordion-item,
+.accordion-item,
+.accordion-content-item,
+.ds-teaser-accordion--content {
+  display: block !important;
+}
+
+// Full width content for printing.
+.ds-grid-8 {
+  width: 100% !important;
+}
+
+// Hide unnecessary page elements.
+.l-top-bar-wrapper,
+.l-menu-bar,
+.ds-node-banner img,
+.accordion-item:before,
+.ds-teaser-accordion--title:before,
+.field-name-field-imp-canonical-url,
+.tabs--primary,
+.links--inline,
+.activity,
+#block-hy-content-suffix-hy-content-suffix-up-anchor,
+#block-menu-menu-open-university-footer-link,
+#block-menu-menu-open-university-some-links,
+#block-feedback-form,
+#comments h2,
+#comments form {
+  display: none !important;
+}
+
+// Strong text contrast.
+// Minimal margins and paddings.
+// Do not hide overflows (hiding breaks printing in Firefox).
+* {
+  color: #000000 !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+}
+
+// Do not float these elements (floating breaks printing in Firefox).
+.ds-grid-item,
+.ds-node-content,
+.ds-node-banner {
+  float: none !important;
+}
+
+// Restore margin for some elements for better layout.
+.ds-node-metadata label {
+  margin-right: 0.35em !important;
+}

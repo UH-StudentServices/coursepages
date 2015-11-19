@@ -1,0 +1,184 @@
+<?php
+/**
+ * @file
+ * Code for the uhc_rest_api feature.
+ */
+
+include_once 'uhc_rest_api.features.inc';
+
+/**
+ * Implements hook_services_views_execute_view_alter().
+ */
+function uhc_rest_api_services_views_execute_view_alter(&$output, $view) {
+  // Depending on the view, we alter the output with helper functions determined
+  // below.
+  $langcode = uhc_rest_api_get_langcode($view);
+
+  if ($view->name == 'rest_api_v1_course_implementation_activity') {
+    $output = uhc_rest_api_process_empty_field_values($output);
+    // Messages are generated in all three languages and therefore we want to
+    // fetch it with requested language.
+    $output = uhc_rest_api_process_course_implementation_activity_output($output, $langcode);
+  }
+  elseif ($view->name == 'rest_api_v1_events') {
+    $output = uhc_rest_api_process_empty_field_values($output);
+    // All information here are expected to be language neutral, no language
+    // code filtering here.
+    $output = uhc_rest_api_process_course_implementation_events_output($output);
+  }
+  elseif ($view->name == 'rest_api_v1_course_implementations') {
+    $output = uhc_rest_api_process_empty_field_values($output);
+    // All information here are expected to be language neutral, no language
+    // code filtering here.
+    $output = uhc_rest_api_process_course_implementations_output($output);
+  }
+}
+
+/**
+ * Return language code from request if set, or LANGUAGE_NONE if value is not
+ * available.
+ *
+ * @param $view object View object.
+ * @return string Language code value from request or LANGUAGE_NONE.
+ */
+function uhc_rest_api_get_langcode($view) {
+  return !empty($view->exposed_input['langcode']) ? $view->exposed_input['langcode'] : LANGUAGE_NONE;
+}
+
+/**
+ * Helper function for altering/processing output for result of
+ * "rest_api_v1_course_implementation_activity" view.
+ *
+ * @param $output
+ * @param $langcode string Language code such as "und", "fi", "en" or "sv".
+ * @return mixed
+ * @see uhc_rest_api_services_views_execute_view_alter()
+ */
+function uhc_rest_api_process_course_implementation_activity_output($output, $langcode) {
+  foreach ($output as $result) {
+    $result->id = (int) $result->id;
+    $result->course_imp_id = (int) $result->course_imp_id;
+    $message = message_load($result->message);
+    $result->message = trim($message->getText($langcode));
+    $result->timestamp = uhc_rest_api_format_datetime_from_timestamp($result->timestamp);
+    
+    if (empty($result->oodi_uid)) {
+      unset($result->oodi_uid);
+    } else {
+      $result->oodi_uid = (int) $result->oodi_uid;
+    }
+  }
+
+  return $output;
+}
+
+/**
+ * Helper function for altering/processing output for result of
+ * "rest_api_v1_events" view.
+ *
+ * @param $output
+ * @return mixed
+ * @see uhc_rest_api_services_views_execute_view_alter()
+ */
+function uhc_rest_api_process_course_implementation_events_output($output) {
+  foreach ($output as $result) {
+    $result->begin = uhc_rest_api_format_datetime_from_string($result->begin);
+
+    //add duration to start date to get end date
+    if ($result->end) {
+      $diff = explode(":", $result->end);
+      $diff = "+" . $diff[0] . " hours " . $diff[1] . " minutes";
+      $end_date = new datetime($result->begin, new DateTimeZone('GMT'));
+      $end_date = $end_date->modify($diff);
+      $result->end = $end_date->format(uhc_rest_api_get_datetime_format());
+    }
+
+    $result->exam = (bool) $result->exam;
+
+  }
+
+  return $output;
+}
+
+/**
+ * Helper function for altering/processing output for result of
+ * "rest_api_v1_course_implementations" view.
+ *
+ * @param $output
+ * @return mixed
+ * @see uhc_rest_api_services_views_execute_view_alter()
+ */
+function uhc_rest_api_process_course_implementations_output($output) {
+  $output = empty($output) ? new stdClass() : $output[0];
+
+  if (isset($output->nid)) {
+    $path_alias =  drupal_get_path_alias("node/$output->nid");
+    $output->url = $GLOBALS['base_url'] . '/' . $path_alias;
+
+    $course_implementation_node = node_load($output->nid);
+    $output->has_material = FALSE;
+
+    if (uhc_course_implementation_has_material($course_implementation_node)) {
+      $output->has_material = TRUE;
+    }
+
+    $moodle_url = !empty($course_implementation_node->field_moodle_url[LANGUAGE_NONE][0]['url'])
+      ? $course_implementation_node->field_moodle_url[LANGUAGE_NONE][0]['url']
+      : '';
+
+    if (!empty($moodle_url)) {
+      $output->moodle_url = $moodle_url;
+    }
+  }
+
+  return $output;
+}
+
+/**
+ * Helper function for converting from unix timestamp to datetime format
+ * requested by Opintoni project in DOO-889.
+ *
+ * @param $timestamp
+ * @return string
+ * @see uhc_rest_api_process_course_implementation_activity_output()
+ */
+function uhc_rest_api_format_datetime_from_timestamp($timestamp) {
+  return gmdate(uhc_rest_api_get_datetime_format(), $timestamp);
+}
+
+/**
+ * Helper function for converting time string (which comes from date fields) to
+ * datetime format requested by Opintoni project in DOO-889.
+ *
+ * @param $timeString
+ * @return string
+ */
+function uhc_rest_api_format_datetime_from_string($timeString) {
+  return gmdate(uhc_rest_api_get_datetime_format(), strtotime($timeString));
+}
+
+/**
+ * Returns the Opintoni preferred datetime format for gmdate(). See DOO-889.
+ *
+ * @return string
+ * @see uhc_rest_api_format_datetime_from_timestamp()
+ * @see uhc_rest_api_format_datetime_from_string()
+ */
+function uhc_rest_api_get_datetime_format() {
+  return variable_get('uhc_rest_api_opintoni_datetime_format', 'Y-m-d\TH:i:s\Z');
+}
+
+/**
+ * Replace all empty arrays with an empty string.
+ */
+function uhc_rest_api_process_empty_field_values($output) {
+  foreach ($output as &$row) {
+    foreach ($row as $field_name => $field_value) {
+      if (empty($field_value)) {
+        $row->$field_name = '';
+      }
+    }
+  }
+
+  return $output;
+}

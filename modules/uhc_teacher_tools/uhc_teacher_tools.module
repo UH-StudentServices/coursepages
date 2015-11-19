@@ -1,0 +1,205 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Teacher Tools feature.
+ */
+
+include_once 'uhc_teacher_tools.features.inc';
+
+/**
+ * Implements hook_field_widget_form_alter().
+ *
+ * When attaching "text with format" -field to an form. Identify those who have
+ * no format set or those who have a value and therefore they should have either
+ * filtered_html or full_html (where WYSIWYG editors are in use).
+ *
+ * If no description has been set by Field API, then set this note to teachers
+ * which tend to lack on differences between new paragraph VS new line.
+ *
+ * The empty description -check is done, in case if sometime some field needs to
+ * have different description, therefore the manually set description should
+ * override this default one.
+ */
+function uhc_teacher_tools_field_widget_form_alter(&$element, &$form_state, $context) {
+  $expected_type = 'text_format';
+  $expected_formats = array(NULL, 'filtered_html', 'full_html');
+  if (isset($element['#type']) &&
+      $element['#type'] == $expected_type &&
+      in_array($element['#format'], $expected_formats) &&
+      drupal_strlen($element['#description']) == 0 &&
+      $element['#base_type'] == 'textarea') {
+    $element['#description'] = t('Pressing Enter creates a new paragraph and pressing Shift+Enter creates a new line');
+  }
+}
+
+/**
+ * Implements hook_uh_coursepages_staff_roles().
+ */
+function uhc_teacher_tools_uh_coursepages_staff_roles() {
+  return array(user_role_load_by_name('teacher')->rid, user_role_load_by_name('course administrator')->rid);
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ * Lets put our hook_menu_local_tasks_alter() to be executed AFTER
+ * entity_translation module.
+ */
+function uhc_teacher_tools_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'menu_local_tasks_alter' && isset($implementations['uhc_teacher_tools'])) {
+    // Move it to be the last
+    $group = $implementations['uhc_teacher_tools'];
+    unset($implementations['uhc_teacher_tools']);
+    $implementations['uhc_teacher_tools'] = $group;
+  }
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ *
+ * Hide all language tabs if the active user is course teacher or course
+ * administrator.
+ */
+function uhc_teacher_tools_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  $hide = (uhc_course_collaboration_is_current_user_course_teacher() || uhc_course_collaboration_is_current_user_course_administrator())
+    && isset($data['tabs'][1]['output']);
+
+  if ($hide) {
+    foreach ($data['tabs'][1]['output'] as $key => $item) {
+      if (isset($item['#language_tab']) && $item['#language_tab']) {
+        unset($data['tabs'][1]['output'][$key]);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ *
+ * Add css for theming menu local tasks.
+ */
+function uhc_teacher_tools_node_view($node) {
+  if (user_access('access administration pages') || uhc_course_collaboration_is_current_user_course_teacher($node) || uhc_course_collaboration_is_current_user_course_administrator($node)) {
+    drupal_add_css(drupal_get_path('module', 'uhc_teacher_tools') . '/css/uhc_teacher_tools.css');
+  }
+}
+
+/**
+ * Helper function for fetching Moodle key from course implementation node.
+ * @param $node object Course implementation node.
+ * @return string Moodle key.
+ */
+function uhc_teacher_tools_get_moodle_key($node) {
+  $moodle_key = NULL;
+  $moodle_key_field = field_get_items('node', $node, 'field_moodle_key');
+
+  if (!empty($moodle_key_field[0]['value'])) {
+    $moodle_key = $moodle_key_field[0]['value'];
+  }
+
+  return $moodle_key;
+}
+
+/**
+ * Implements hook_menu().
+ *
+ * Adds a "View demo course" link item to user menu.
+ */
+function uhc_teacher_tools_menu() {
+  $items["demo-course"] = array(
+    'menu_name' => 'user-menu',
+    'title' => 'View demo course',
+    'access callback' => TRUE,
+    'page callback' => '_uhc_teacher_tools_demo_course_page_callback'
+  );
+
+  $teacher_edit_links = array(
+    'Moodle' => 'edit-group_imp_moodle',
+    'Promotion' => 'edit-group_header_promotion',
+    'Messages' => 'group-course-messages',
+    'Timetable' => 'edit-group_timetable',
+    'Material' => 'edit-group_imp_material',
+    'Tasks' => 'edit-group_imp_tasks',
+    'Custom section' => 'edit-group_manual_content',
+    'Conduct of the course' => 'edit-group_imp_conduct_of_course',
+    'Feedback' => 'edit-group_feedback',
+    'Interaction' => 'edit-group_imp_interaction'
+  );
+
+  $weight = 80;
+  foreach ($teacher_edit_links as $key => $value) {
+    $items['node/%node/' . $value] = array(
+      'title' => $key,
+      'access callback' => '_uhc_teacher_tools_menu_edit_links_access_callback',
+      'access arguments' => array(1),
+      'page callback' => '_uhc_teacher_tools_menu_edit_links_menu_callback',
+      'page arguments' => array(1, $value),
+      'weight' => $weight,
+      'type' => MENU_LOCAL_TASK,
+    );
+    $weight++;
+  }
+  return $items;
+}
+
+function _uhc_teacher_tools_demo_course_page_callback() {
+  $demo_course_nid = variable_get('uhc_tour_demo_nid', NULL);
+  drupal_goto("node/$demo_course_nid");
+}
+
+/**
+ * Access callback for teacher menu local task edit links
+ */
+function _uhc_teacher_tools_menu_edit_links_access_callback($node) {
+  return ($node->type == 'course_implementation')
+    && (user_access('access administration pages') || uhc_course_collaboration_is_current_user_course_teacher($node) || uhc_course_collaboration_is_current_user_course_administrator($node));
+}
+
+/**
+ * Page callback for teacher menu local task edit links, needed for
+ * passing query parameters to the url so we can open vertical tabs
+ */
+function _uhc_teacher_tools_menu_edit_links_menu_callback($node, $value) {
+  $path = ($value == 'group-course-messages') ? 'node/' . $node->nid : 'node/' . $node->nid . '/edit';
+  drupal_goto($path, array('query' => array('section' => $value)));
+}
+
+/**
+ * Implements hook_menu_link_alter().
+ *
+ * Hide menu items that have path pointing to user pages (admin still sees
+ * these).
+ */
+function uhc_teacher_tools_menu_link_alter(&$item) {
+  if (substr($item['link_path'], 0, strlen('user')) == 'user') {
+    $item['hidden'] = 1;
+    $item ['options']['alter'] = TRUE;
+  }
+}
+
+/**
+ * Implements template_preprocess_page().
+ *
+ * Remove Menu local tasks in Course implementation node edit.
+ */
+function uhc_teacher_tools_preprocess_page(&$variables) {
+  $node = isset($variables['node']) ? $variables['node'] : null;
+  $uid = isset($variables['user']->uid) ? $variables['user']->uid : null;
+  if(isset($node->type)
+    && $uid !== '1'
+    && isset($variables['page']['content']['system_main']['#node_edit_form'])) {
+    unset($variables['tabs']['#primary']);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Add js to open vertical tabs automatically with url parameters
+ */
+function uhc_teacher_tools_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['#attached']['js'][] = array(
+    'data' => drupal_get_path('module', 'uhc_teacher_tools') . '/js/open_vertical_tabs.js',
+  );
+  $form['#attached']['js'][] = array(
+    'data' => drupal_get_path('module', 'uhc_teacher_tools') . '/js/inline_entity_form_fix.js',
+  );
+}

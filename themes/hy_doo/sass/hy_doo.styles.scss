@@ -1,0 +1,28 @@
+// Import external libraries.
+@import "compass";
+@import "breakpoint";
+@import "susyone";
+@import "toolkit";
+
+// Import variables, abstractions, base styles and components using globbing.
+//
+// Globbing will always import files alphabetically. Optimally, all your
+// components should be self-contained and explicit enough to not have any
+// contained styles leak into unrelated components: The import order should not
+// affect the result.
+//
+// If there are variables, functions or mixins that depend on each other and
+// therefore need to be imported in a specific order you can import them
+// directly. Variables-, function- or mixin providing partials should never
+// output any styles themselves: Importing them multiple times to resolve
+// dependencies shouldn't be a problem.
+@import "../../../../../themes/hy_base_theme/scss/variables/_variables";
+@import "../../../../../themes/hy_base_theme/scss/mixins/_mixins";
+@import "../../../../../themes/hy_base_theme/scss/variables.scss";
+@import "variables/**/*";
+@import "mixins/**/*";
+@import "_base.scss";
+@import "layouts/*";
+@import "components/**/*";
+@import "base_theme/*";
+@import "drupal/**/*";

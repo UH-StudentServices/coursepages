@@ -1,0 +1,6 @@
+name = HY Genetics
+description = Provides ability to have genetics section in the site.
+core = 7.x
+package = HY Portal
+version = 7.x-1.41-dev
+project = hy_genetics

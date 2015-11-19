@@ -1,0 +1,20 @@
+/* This overrides helsinki_yliopisto/sass/components/_box.scss */
+
+.box-story__content {
+  @include font-family-bodytext;
+  line-height: 1.5em;
+  margin-bottom: 0.4em;
+  overflow: hidden;
+
+  /* Some of promotion descriptions are having paragrahps in use which messes up
+     our typography here. */
+  p {
+    font-size: 1em;
+  }
+
+  .more-link {
+    @include font-family-main;
+    float: right;
+    text-align: right;
+  }
+}

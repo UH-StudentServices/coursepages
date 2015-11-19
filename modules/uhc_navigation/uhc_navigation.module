@@ -1,0 +1,53 @@
+<?php
+/**
+ * @file
+ * Code for the Navigation feature.
+ */
+
+include_once 'uhc_navigation.features.inc';
+
+/**
+ * Implements hook_menu_alter().
+ *
+ * We want to allow people administer menu links, but not menus.
+ */
+function uhc_navigation_menu_alter(&$items) {
+  if (isset($items['admin/structure/menu/manage/%menu/edit'])) {
+    $items['admin/structure/menu/manage/%menu/edit']['access callback'] = 'uhc_navigation_menu_manage_access';
+  }
+  if (isset($items['admin/structure/menu/manage/%menu/delete'])) {
+    $items['admin/structure/menu/manage/%menu/delete']['access callback'] = 'uhc_navigation_menu_manage_access';
+  }
+}
+
+/**
+ * Callback function for determining whether user has access to manage the menu.
+ */
+function uhc_navigation_menu_manage_access($permission) {
+  global $user;
+  // If user is admin fallback to original access callback.
+  $admin_rid = variable_get('admin_role', 0);
+  if ($user->uid == 1 || ($admin_rid > 0 && user_has_role($admin_rid))) {
+    return user_access($permission);
+  }
+  else {
+    // In any other cases we deny no matter what.
+    return FALSE;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add default class to Open University footer menu links.
+ */
+function uhc_navigation_form_menu_edit_item_alter(&$form, &$form_state, $form_id) {
+  $open_university_footer_link = isset($form['original_item']['#value']['menu_name'])
+    && $form['original_item']['#value']['menu_name'] == 'menu-open-university-footer-link';
+
+  if ($open_university_footer_link) {
+    if (empty($form['original_item']['#value']['options']['item_attributes']['class'])) {
+      $form['original_item']['#value']['options']['item_attributes']['class'] = 'list-of-links__link';
+    }
+  }
+}

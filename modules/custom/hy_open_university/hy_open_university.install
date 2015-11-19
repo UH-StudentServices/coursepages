@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function hy_open_university_install() {
+  // Create default block content for Open university contact block
+  $translations = array(
+    'fi' => '<h4>Avoin Yliopisto</h4><p>PL 53<br>00014 Helsingin yliopisto</p>',
+    'en' => '<h4>Open University</h4><p>P.O.Box 53<br>00014 University of Helsinki</p>',
+    'sv' => '<h4>Öppna universitetet</h4><p>PB 53<br>00014 Helsingfors universitet</p>',
+  );
+  foreach ($translations as $key => $value) {
+    variable_store_set('language', $key, 'hy_open_university_contact_block', array('value' => $translations[$key], 'format' => 'filtered_html'));
+  }
+}
+
+/**
+ * Open university responsive navigation & fatmenu block settings
+ */
+function hy_open_university_update_7003(&$sandbox) {
+  features_revert_module('hy_portal_open_university');
+  _block_rehash('hy_doo');
+  db_merge('block')
+    ->key(array(
+      'theme' => 'hy_doo',
+      'module' => 'responsive_navigation',
+      'delta' => '2',
+    ))
+    ->fields(array(
+      'title' => '<none>',
+      'css_class' => 'main-menu',
+      'pages' => '',
+    ))
+    ->execute();
+
+  db_merge('block')
+    ->key(array(
+      'theme' => 'hy_doo',
+      'module' => 'menu_block',
+      'delta' => 'open-university-nav-level2',
+    ))
+    ->fields(array(
+      'title' => '<none>',
+      'css_class' => 'fatmenu',
+      'pages' => '',
+    ))
+    ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function hy_open_university_uninstall() {
+  $realm = 'language';
+  $name = 'hy_open_university_contact_block';
+  variable_store_del($realm, 'fi', $name);
+  variable_store_del($realm, 'en', $name);
+  variable_store_del($realm, 'sv', $name);
+}

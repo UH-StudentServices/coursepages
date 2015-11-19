@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Takes care of HY Course Material installation tasks.
+ */
+
+/**
+ * Delete field "field_material_description".
+ */
+function hy_course_material_update_7001() {
+  field_delete_field('field_material_description');
+  field_cache_clear();
+}

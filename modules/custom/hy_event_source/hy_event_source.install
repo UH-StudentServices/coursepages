@@ -1,0 +1,21 @@
+<?php
+/**
+ * Takes care of (un)installation and update tasks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function hy_event_source_uninstall() {
+  variable_del('hy_event_source_path_pattern');
+}
+
+/**
+ * Remove events which are handled by broken migration.
+ */
+function hy_event_source_update_7001(&$sandbox) {
+  $events = node_load_multiple(array(), array('type' => 'event'));
+  if (is_array($events) && count($events) > 0) {
+    node_delete_multiple(array_keys($events));
+  }
+}

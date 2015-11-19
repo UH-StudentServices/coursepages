@@ -1,0 +1,82 @@
+// Header
+
+// Topbar
+.l-top-bar-wrapper {
+  background-color: $white;
+
+  @include at-breakpoint($layout-small) {
+    background-color: $black;
+  }
+}
+
+.l-top-bar {
+  position: relative;
+
+  @include at-breakpoint($layout-small) {
+    height: 70px;
+    @include container;
+  }
+}
+
+.logo-block {
+  background-color: $black;
+  clear: both;
+
+  @include at-breakpoint($layout-small) {
+    clear: none;
+    float: left;
+  }
+}
+
+.site-logo {
+  height: 60px;
+  padding: 10px 0 5px 22px;
+
+  @include at-breakpoint($layout-small) {
+    padding: 10px 0 0;
+  }
+}
+
+.site-name {
+  @include font-weight-bold;
+  @include font-size(17px);
+  color: $white;
+  display: inline-block;
+  padding: 24px 0 0 15px;
+  vertical-align: top;
+
+  @include at-breakpoint($layout-small) {
+    padding-top: 26px;
+  }
+}
+
+// Language links block (language switcher)
+.language {
+  margin: 0;
+  height: 50px;
+
+  @include at-breakpoint($layout-small) {
+    float: right;
+    margin: 10px 0 0;
+    display: block;
+  }
+
+  li {
+    float: left;
+    list-style-type: none;
+
+    &.active {
+      display: none;
+    }
+  }
+}
+
+.disabled,
+.disabled:hover {
+  color: $silver;
+  cursor: default;
+
+  @include at-breakpoint($layout-small) {
+    color: $gray;
+  }
+}

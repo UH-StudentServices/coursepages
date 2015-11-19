@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * UHC Tour's (un)installation and update tasks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_tour_uninstall() {
+  variable_del('uhc_tour_demo_nid');
+}

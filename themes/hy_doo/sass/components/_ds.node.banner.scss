@@ -1,0 +1,60 @@
+/**
+* Expected banner setup consists from a image, possible image caption, hadline text,
+* and promotion text
+*/
+
+.ds-node-banner {
+  @include font-family-bodytext;
+  float: left;
+  width: 100%;
+  h2 {
+    @include font-size(30px);
+    margin: 1.2em 0 0.5em 0;
+    line-height: 1.1em;
+    float: left;
+    width: 100%;
+    @include at-breakpoint($layout-medium) {
+      float: none;
+      width: auto;
+      margin-top: 0;
+    }
+  }
+  .intro-text {
+    @include text-liftup;
+    @include font-family-main;
+  }
+  // image styles
+  img {
+    float: left;
+    width: 100%;
+    
+    @include at-breakpoint($layout-medium) {
+      margin-right: 2rem;
+      max-width: 270px;
+    }
+  }
+  // image caption (element may change)
+  span {
+    display: inline-block;
+    width: 100%;
+    @include text-filter-label();
+    font-size: 0.75em;
+    text-transform: none;
+    @include at-breakpoint($layout-small) {
+      float: left;
+      clear: left;
+      max-width: 270px;
+      margin-right: 2em;
+    }
+    p {
+      font-size: inherit;
+      line-height: inherit;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+  label {
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+}

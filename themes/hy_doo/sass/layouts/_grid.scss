@@ -1,0 +1,47 @@
+/*
+ * DS styles
+*/
+.ds-grid-container {
+  overflow: hidden; // subject to change -> add a clearfix class
+}
+
+.ds-grid-item {
+  display: inline;
+  float: left;
+}
+
+.ds-grid-3 {
+  width: 100%;
+  @include at-breakpoint($layout-small) {
+    width: 24.99999999999999%;
+  }
+}
+
+.ds-grid-7 {
+  width: 100%;
+  @include at-breakpoint($layout-small) {
+    width: 58.33333333333331%;
+  }
+}
+
+.ds-grid-8 {
+  width: 100%;
+  @include at-breakpoint($layout-small) {
+    width: 66.66666666666664%;
+  }
+}
+
+.ds-grid-12 {
+  width: 100%;
+}
+
+// push classes
+[class*="ds-push"] {
+  position: relative;
+}
+
+.ds-push-1 {
+  @include at-breakpoint($layout-small) {
+    left: 8.33333333333333%;
+  }
+}
