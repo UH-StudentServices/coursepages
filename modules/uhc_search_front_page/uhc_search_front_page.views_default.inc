@@ -197,15 +197,8 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['filters']['field_imp_end_date']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['field_imp_end_date']['field'] = 'field_imp_end_date';
   $handler->display->display_options['filters']['field_imp_end_date']['operator'] = '>=';
-  $handler->display->display_options['filters']['field_imp_end_date']['value'] = 'now';
+  $handler->display->display_options['filters']['field_imp_end_date']['value'] = 'today';
   $handler->display->display_options['filters']['field_imp_end_date']['group'] = 1;
-  /* Filter criterion: Indexed Multilingual Node: Begin date */
-  $handler->display->display_options['filters']['field_imp_begin_date']['id'] = 'field_imp_begin_date';
-  $handler->display->display_options['filters']['field_imp_begin_date']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['filters']['field_imp_begin_date']['field'] = 'field_imp_begin_date';
-  $handler->display->display_options['filters']['field_imp_begin_date']['operator'] = '>=';
-  $handler->display->display_options['filters']['field_imp_begin_date']['value'] = 'now -1 day';
-  $handler->display->display_options['filters']['field_imp_begin_date']['group'] = 1;
 
   /* Display: Desktop */
   $handler = $view->new_display('page', 'Desktop', 'desktop');

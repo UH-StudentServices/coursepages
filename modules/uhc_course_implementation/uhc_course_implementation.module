@@ -293,18 +293,51 @@ function uhc_course_implementation_get_faculty_image_and_caption($node) {
 }
 
 /**
+ * Implements hook_node_view().
+ */
+function uhc_course_implementation_node_view($node) {
+
+  if ($node->type == 'course_implementation') {
+    uhc_course_implementation_display_private_content_message($node);
+    uhc_course_implementation_display_view_in_teaching_language_message($node);
+  }
+}
+
+/**
  * Implements hook_preprocess_node().
  */
 function uhc_course_implementation_preprocess_node(&$vars) {
   $node = $vars['node'];
 
   if ($node->type == 'course_implementation') {
-    uhc_course_implementation_display_private_content_message($node);
     uhc_course_implementation_process_sign_up_button_url($vars, $node);
 
     // add class so we can theme exams
     if (in_array($node->field_imp_method_of_study[LANGUAGE_NONE][0]['tid'], variable_get('uhc_migrate_methods_of_study_marked_as_exam'))) {
       $vars['classes_array'][] = 'exam';
+    }
+  }
+}
+
+/**
+ * Display a message if the current language is not one of the teaching
+ * languages.
+ *
+ * @param $node object Course implementation node.
+ */
+function uhc_course_implementation_display_view_in_teaching_language_message($node) {
+  global $language;
+  $teaching_languages = field_get_items('node', $node, 'field_imp_teaching_language');
+
+  if (!empty($teaching_languages)) {
+    $teaching_language_codes = array();
+
+    foreach ($teaching_languages as $teaching_language) {
+      $teaching_language_codes[] = $teaching_language['value'];
+    }
+
+    if (!in_array($language->language, $teaching_language_codes)) {
+      uh_coursepages_set_message(t('Please read this page in teaching language'), 'status', FALSE);
     }
   }
 }
@@ -325,11 +358,21 @@ function uhc_course_implementation_display_private_content_message($node) {
     && !uhc_course_collaboration_is_current_user_course_administrator()
     && uhc_course_implementation_has_private_content($node);
 
+  $private_content_message = t('You need to log in and sign up for the course to view some of the content on this page.');
+
   if ($display_private_content_message) {
-    uh_coursepages_set_message(
-      t('You need to log in and sign up for the course to view some of the content on this page.'),
-      'warning'
+    uh_coursepages_set_message($private_content_message, 'warning');
+  }
+  else {
+    drupal_add_js(
+      array(
+        'uhc_course_implementation' => array(
+          'private_content_message' => $private_content_message,
+        ),
+      ),
+      'setting'
     );
+    drupal_add_js(drupal_get_path("module", "uhc_course_implementation") . "/js/uhc_course_implementation_hide_private_message.js");
   }
 }
 

@@ -75,79 +75,23 @@ fieldset#edit-field-imp-teachersection-und-0 legend,
   padding: 0;
 }
 
-/* Custom theming for menu local tasks */
-ul.tabs.primary,
-ul.tabs--primary  {
-  margin-bottom: 0;
-  border-bottom: 0;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background-color: #0097cd;
-  z-index: 1;
+/* theme submit buttons */
+input[type="submit"]#edit-submit,
+input[type="submit"]#edit-delete  {
+  transition-duration: 0.1s;
+  transition-property: all;
+  background-color: #0098d0;
+  color: #fff;
+  padding: 1.2em 2.5em;
 }
 
-ul.tabs.primary li,
-ul.tabs--primary li  {
-    margin: 0;
-    border-right: 1px solid #0882b3;
-    float: left;
+input[type="submit"]#edit-submit:hover,
+input[type="submit"]#edit-delete:hover {
+  background-color: #005479;
 }
 
-ul.tabs.primary li a:link,
-ul.tabs--primary li a:link {
-  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
-  display: block;
-  text-transform: none;
-  background-color: #0097cd;
-  color: #FFF;
-  height: auto;
-  font-size: 12px;
-  line-height: auto;
-  padding: 0 1em;
-  font-weight: normal;
-  border-width: 0;
-  line-height: 31px;
-  -moz-border-radius: 0;
-  -webkit-border-top-left-radius: 0;
-  -webkit-border-top-right-radius: 0;
-  border-radius: 0;
-}
-
-ul.tabs.primary li a:visited,
-ul.tabs--primary li a:visited  {
-  background-color: inherit;
-  color: #FFF;
-}
-
-ul.tabs.primary li a:link:hover,
-ul.tabs.primary li.active a:hover,
-ul.tabs.primary li.active a.active,
-ul.tabs--primary li a:link.active,
-ul.tabs--primary li a:link:hover {
-  background-color: #0882b3;
-}
-
-.admin-menu ul.tabs.primary,
-.admin-menu ul.tabs--primary {
-  top: 21px;
-}
-
-body {
-  margin-top: 31px !important;
-}
-
-body.admin-menu {
-  margin-top: 52px !important;
-}
-
-@media all and (max-width: 767px) {
-  ul.tabs.primary,
-  ul.tabs--primary {
-    display: none !important;
-  }
-  body.admin-menu {
-    margin-top: 20px !important;
-  }
+input[type="submit"]#edit-cancel {
+  background: #fff;
+  color: #0098d0;
+  padding: 1.2em 2em;
 }

@@ -309,11 +309,11 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
   static function getAdministratorNumbers($value) {
     $numbers = array();
     foreach ($value as $official) {
-      if (!empty($official->henk_id)) {
-        $numbers[] = $official->henk_id;
+      if (!empty($official->teacher_id)) {
+        $numbers[] = $official->teacher_id;
       }
       else {
-        watchdog('uhc_course_implementation_source', "Could not get official's person ID.", array(), WATCHDOG_WARNING);
+        watchdog('uhc_course_implementation_source', "Could not get official's teacher ID.", array(), WATCHDOG_WARNING);
       }
     }
     return implode(', ', $numbers);

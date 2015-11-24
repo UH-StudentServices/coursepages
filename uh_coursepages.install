@@ -807,3 +807,11 @@ function uh_coursepages_install() {
     }
   }
 }
+
+/**
+ * uninstall uhc_course_implementation_language_suggester. a simplified version of
+ * the functionality can be found in uhc_course_implementation.
+ */
+function uh_coursepages_update_7001(&$sandbox) {
+  module_disable(array('uhc_course_implementation_language_suggester'));
+}

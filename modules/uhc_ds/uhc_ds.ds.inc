@@ -1690,6 +1690,39 @@ function uhc_ds_ds_field_settings_info() {
         ),
       ),
     ),
+    'field_related_content_section' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'related-content-section',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+    'field_subject_contact_reference' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'lb-col' => TRUE,
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'sidebar-contact',
+          'ow-def-cl' => FALSE,
+          'ow-at' => '',
+          'ow-def-at' => FALSE,
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'contact-card',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
   );
   $export['node|portal_page|sidebar'] = $ds_fieldsetting;
 
@@ -3350,12 +3383,18 @@ function uhc_ds_ds_layout_settings_info() {
         2 => 'field_portal_promotions',
         3 => 'field_view_attachment',
       ),
+      'course_sidebar' => array(
+        4 => 'field_related_content_section',
+        5 => 'field_subject_contact_reference',
+      ),
     ),
     'fields' => array(
       'field_portal_page_image' => 'course_banner',
       'field_portal_page_description' => 'course_banner',
       'field_portal_promotions' => 'course_content',
       'field_view_attachment' => 'course_content',
+      'field_related_content_section' => 'course_sidebar',
+      'field_subject_contact_reference' => 'course_sidebar',
     ),
     'classes' => array(
       'layout_class' => array(

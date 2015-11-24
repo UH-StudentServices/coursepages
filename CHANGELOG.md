@@ -1,3 +1,26 @@
+# Helsinki University Coursepages v1.43
+Päiväys: 24.11.2015
+
+## Lisäykset
+  - DOO-1558: Lisätty rooli moodi-napin käyttöä varten.
+  - DOO-1240: Lisättiin mahdollisuus lisätä kontaktitietoja ja linkkejä portal page
+    -sisältötyyppiin
+
+## Muutokset
+  - DOO-1472: Opetuskieli kehoite näytetään jos sivua katsotaan muulla
+    kuin opetuskieleksi ilmoitetulla kielellä
+  - DOO-1621: Sininen valikkopalkki näkyviin mobiilinäkymässä
+  - DOO-1623: muokkausnäkymän tallennus- ja muokkauspainikkeiden tyylit muutettu
+  - DOO-1635: Integraation attribuuttien nimimuutoksia
+  - DOO-1594: vaihdettu liitetiedoston maksimi koko = 50M
+
+## Korjaukset
+  - DOO-1461: Kirjautumiskehoitus näytetään nyt tarvittaessa
+  - DOO-1616: Avoimen haun suodatusta on muutettu niin että mukana on myös toteutukset
+    jotka loppuvat tänään
+  - DOO-1631: Etusivun haun suodatusta muokattu sallivammaksi
+
+
 # Helsinki University Coursepages v1.42
 Päiväys: 19.11.2015
 

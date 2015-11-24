@@ -71,7 +71,7 @@ function uhc_page_strongarm() {
           'weight' => '1',
         ),
         'locations' => array(
-          'weight' => '30',
+          'weight' => '7',
         ),
       ),
       'display' => array(),

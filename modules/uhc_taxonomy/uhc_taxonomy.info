@@ -1,7 +1,7 @@
 name = UHC Taxonomy
 core = 7.x
 package = UHC
-version = 7.x-1.42
+version = 7.x-1.43
 project = uhc_taxonomy
 dependencies[] = ctools
 dependencies[] = entity_translation

@@ -35,7 +35,7 @@ class UHCDrupalFieldMapperEvent {
     if (!is_string($this->event_name)) {
       // Default name would be "2015-01-01 @ C130, C-talo Latokartanonkaari 5,
       // 1.kerros"
-      $this->event_name = $start_date . ' @ ' . $source->locations_abbreviated;
+      $this->event_name = $start_date . ' @ ' . $source->room_name_short;
     }
     $destination->title = $this->event_name;
 
@@ -52,13 +52,13 @@ class UHCDrupalFieldMapperEvent {
     if (!empty($duration)) {
       $destination->field_event_duration    = array(LANGUAGE_NONE => array(array('value' => $duration)));
     }
-    if (!empty($source->locations_abbreviated)) {
-      $destination->field_event_loc_name    = array(LANGUAGE_NONE => array(array('value' => $source->locations_abbreviated)));
+    if (!empty($source->room_name_short)) {
+      $destination->field_event_loc_name    = array(LANGUAGE_NONE => array(array('value' => $source->room_name_short)));
     }
     $destination->field_event_location = array(
       LANGUAGE_NONE => array(
         array(
-          'name' => !empty($source->locations_abbreviated) ? $source->locations_abbreviated : NULL,
+          'name' => !empty($source->room_name_short) ? $source->room_name_short : NULL,
           'street' => !empty($source->building_address1) ? $source->building_address1 : NULL,
           'postal_code' => !empty($source->building_zipcode) ? $source->building_zipcode : NULL,
           'country' => !empty($source->building_country) ? $source->building_country : 'FI',

@@ -79,7 +79,7 @@ function uhc_teacher_tools_menu_local_tasks_alter(&$data, $router_item, $root_pa
  */
 function uhc_teacher_tools_node_view($node) {
   if (user_access('access administration pages') || uhc_course_collaboration_is_current_user_course_teacher($node) || uhc_course_collaboration_is_current_user_course_administrator($node)) {
-    drupal_add_css(drupal_get_path('module', 'uhc_teacher_tools') . '/css/uhc_teacher_tools.css');
+    drupal_add_css(drupal_get_path('module', 'uhc_teacher_tools') . '/css/menu_local_tasks.css');
   }
 }
 
@@ -196,6 +196,8 @@ function uhc_teacher_tools_preprocess_page(&$variables) {
  * Add js to open vertical tabs automatically with url parameters
  */
 function uhc_teacher_tools_form_node_form_alter(&$form, &$form_state, $form_id) {
+  drupal_add_css(drupal_get_path('module', 'uhc_teacher_tools') . '/css/uhc_teacher_tools.css');
+
   $form['#attached']['js'][] = array(
     'data' => drupal_get_path('module', 'uhc_teacher_tools') . '/js/open_vertical_tabs.js',
   );

@@ -1,0 +1,72 @@
+/* Custom theming for menu local tasks */
+ul.tabs.primary,
+ul.tabs--primary  {
+  display: inline-block;
+  background-color: #0097cd;
+}
+
+@media all and (min-width: 768px) {
+  ul.tabs.primary,
+  ul.tabs--primary  {
+    margin-bottom: 0;
+    border-bottom: 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  body {
+    margin-top: 31px !important;
+  }
+
+  body.admin-menu {
+    margin-top: 52px !important;
+  }
+}
+
+ul.tabs.primary li,
+ul.tabs--primary li  {
+    margin: 0;
+    border-right: 1px solid #0882b3;
+    float: left;
+}
+
+ul.tabs.primary li a:link,
+ul.tabs--primary li a:link {
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  display: block;
+  text-transform: none;
+  background-color: #0097cd;
+  color: #FFF;
+  height: auto;
+  font-size: 12px;
+  line-height: auto;
+  padding: 0 1em;
+  font-weight: normal;
+  border-width: 0;
+  line-height: 31px;
+  -moz-border-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 0;
+  border-radius: 0;
+}
+
+ul.tabs.primary li a:visited,
+ul.tabs--primary li a:visited  {
+  background-color: inherit;
+  color: #FFF;
+}
+
+ul.tabs.primary li a:link:hover,
+ul.tabs.primary li.active a:hover,
+ul.tabs.primary li.active a.active,
+ul.tabs--primary li a:link.active,
+ul.tabs--primary li a:link:hover {
+  background-color: #0882b3;
+}
+
+.admin-menu ul.tabs.primary,
+.admin-menu ul.tabs--primary {
+  top: 21px;
+}
