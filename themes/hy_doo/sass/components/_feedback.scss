@@ -1,0 +1,91 @@
+#block-feedback-form {
+  bottom: 20px;
+  overflow: visible;
+  form {
+  	background: $black;
+    color: $silver;
+    border: 1px solid #444;
+    min-width: 300px;
+    padding: 1em;
+    opacity: 1;
+    #feedback-submit {
+      @include font-weight-medium;
+      @include font-size(13px);
+      background: transparent;
+      padding: 0;
+      &:hover {
+        background: transparent;
+      }
+    }
+    textarea[name=message] {
+      @include font-size(13px);
+      background: transparent;
+      padding: 0;
+      height: 8em;
+      resize: none;
+      border: none;
+      color: $silver;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .grippie {
+    display: none;
+  }
+  .feedback-link,
+  #feedback-status-message {
+    @include font-size(13px);
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    letter-spacing: initial;
+    display: block;
+    padding: 1em;
+    line-height: 1em;
+    width: 90px;
+    height: 90px;
+    text-align: center;
+    background: $black;
+    color: $white;
+    text-transform: initial;
+    &:before {
+      @include hy-icon($hy-chat);
+      @include font-size(23px);
+      margin: 0.4em auto 0 auto;
+      display: block;
+      width: 60px;
+      height: 30px;
+    }
+  }
+  #feedback-status-message {
+    background: $light-green;
+    &:before {
+      @include hy-icon($hy-done);
+    }
+  }
+  #feedback-form-toggle {
+    position: absolute;
+    right: 1em;
+    margin-bottom: 1em;
+    bottom: 0;
+    visibility: hidden;
+    z-index: 999;
+    color: $white;
+    &:after {
+      @include hy-icon($hy-remove);
+      position: absolute;
+      right: 1em;
+      bottom: 1em;
+    }
+  }
+  &.open {
+    .feedback-link {
+      visibility: hidden;
+    }
+    #feedback-form-toggle:after {
+      display: block;
+      visibility: visible;
+    }
+  }
+}

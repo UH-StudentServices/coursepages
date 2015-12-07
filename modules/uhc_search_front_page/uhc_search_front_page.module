@@ -2,6 +2,10 @@
 /**
  * @file
  * Code for the uhc_search_front_page feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 include_once 'uhc_search_front_page.features.inc';
@@ -16,13 +20,25 @@ function uhc_search_front_page_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Implements hook_block_view_alter().
+ * Implements hook_ds_fields_info().
  */
-function uhc_search_front_page_block_view_alter(&$data, $block) {
-  if ($block->bid == 'views-0580398bf6a2f9d60b32760e9900b13c') {
-	$block->css_class = 'ds-grid-8 ';
-    $data['content']['#suffix'] = '
-      <div class="messages search-info ds-grid-8"><p>' . t('Students are advised to access their active courses via My Studies') . '<a href="https://student.helsinki.fi"></a></br>
-      ' . t('Teachers are advised to access their active courses via My Teaching') . '<a href="https://teacher.helsinki.fi"></a></p></div>';
-  }
+function uhc_search_front_page_ds_fields_info($entity_type) {
+  $fields = array();
+  $fields['front_page_search_exposed_form'] = array(
+      'title' => t('Front page search exposed form'),
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_search_front_page_exposed_form'
+  );
+  return array('node' => $fields);
+}
+
+/**
+ * DS field render function for printing front page search exposed form
+ */
+function uhc_search_front_page_exposed_form($field) {
+  $block = block_load('views', '0580398bf6a2f9d60b32760e9900b13c');
+  $render_array = _block_get_renderable_array(_block_render_blocks(array($block)));
+  $output = render($render_array);
+  $output .= '<div class="messages search-info"><p>' . t('Students are advised to access their active courses via My Studies') . '<a href="https://student.helsinki.fi"></a></br>' . t('Teachers are advised to access their active courses via My Teaching') . '<a href="https://teacher.helsinki.fi"></a></p></div>';
+  return $output;
 }

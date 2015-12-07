@@ -313,17 +313,26 @@ body.search-main-page .views-widget-sort-by {
 }
 
 #autocomplete {
+  @include border;
   z-index: 9999;
+  padding: 0.5em;
+  background: $white;
+  .search-api-autocomplete-suggestion {
+    cursor: pointer;
+  }
 }
 
-.views-exposed-form-uhc-portal-search-front-page--desktop {
-  @include border-top;
-  padding-top: 1em;
-  border-bottom: none !important;
-  .views-exposed-widget {
-    padding: 0;
-    .form-item-search {
-      max-width: none !important;
+.front-page-search-exposed-form {
+  padding: 1em 0 4em 0;
+  .views-exposed-form-uhc-portal-search-front-page--desktop {
+    @include border-top;
+    padding-top: 1em;
+    border-bottom: none !important;
+    .views-exposed-widget {
+      padding: 0;
+      .form-item-search {
+        max-width: none !important;
+      }
     }
   }
 }

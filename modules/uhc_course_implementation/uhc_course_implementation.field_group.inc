@@ -21,7 +21,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Conduct of the course',
-    'weight' => '20',
+    'weight' => '21',
     'children' => array(
       0 => 'field_imp_teacher_se_content',
     ),
@@ -47,7 +47,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course overview',
-    'weight' => '9',
+    'weight' => '11',
     'children' => array(
       0 => 'field_additional_info',
       1 => 'field_conduct',
@@ -84,9 +84,10 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Feedback',
-    'weight' => '10',
+    'weight' => '12',
     'children' => array(
       0 => 'field_feedback_link',
+      1 => 'field_feedback_text',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -113,7 +114,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Promotion',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_imp_header_text',
       1 => 'group_headline_and_intro',
@@ -173,7 +174,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Conduct of the course',
-    'weight' => '8',
+    'weight' => '10',
     'children' => array(
       0 => 'field_imp_teacher_se_content',
     ),
@@ -231,7 +232,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Integration',
-    'weight' => '12',
+    'weight' => '13',
     'children' => array(
       0 => 'field_imp_begin_date',
       1 => 'field_imp_canonical_url',
@@ -252,6 +253,7 @@ function uhc_course_implementation_field_group_info() {
       16 => 'field_imp_administrator_number',
       17 => 'field_imp_keywords',
       18 => 'field_imp_organisation_codes',
+      19 => 'field_imp_status',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -276,10 +278,10 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Interaction',
-    'weight' => '78',
+    'weight' => '16',
     'children' => array(
-      0 => 'field_imp_interactiondescription',
-      1 => 'field_imp_interaction_link',
+      0 => 'field_imp_interaction_link',
+      1 => 'field_imp_interactiondescription',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -302,10 +304,10 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Interaction',
-    'weight' => '11',
+    'weight' => '5',
     'children' => array(
-      0 => 'field_imp_interactiondescription',
-      1 => 'field_imp_interaction_link',
+      0 => 'field_imp_interaction_link',
+      1 => 'field_imp_interactiondescription',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -330,7 +332,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Material',
-    'weight' => '5',
+    'weight' => '7',
     'children' => array(
       0 => 'field_imp_material_description',
       1 => 'field_section_material',
@@ -359,7 +361,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Enrolment',
-    'weight' => '12',
+    'weight' => '14',
     'children' => array(
       0 => 'field_imp_hide_sign_up_button',
     ),
@@ -386,7 +388,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tasks',
-    'weight' => '6',
+    'weight' => '8',
     'children' => array(
       0 => 'field_reference_to_course_tasks',
     ),
@@ -446,7 +448,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Custom section',
-    'weight' => '7',
+    'weight' => '9',
     'children' => array(
       0 => 'field_imp_teachersection',
     ),
@@ -474,7 +476,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Messages',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -501,10 +503,11 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timetable',
-    'weight' => '4',
+    'weight' => '6',
     'children' => array(
       0 => 'field_imp_ref_to_events_oodi',
       1 => 'field_imp_reference_to_events',
+      2 => 'field_imp_events_title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -512,7 +515,7 @@ function uhc_course_implementation_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-timetable field-group-tab',
-        'description' => 'Repeating events are imported from Oodi, one-off events can be maintained here',
+        'description' => 'The teaching schedule is imported from WebOodi. Therefore all updates to the teaching schedule should be done in WebOodi. Other events are updated here.',
         'show_empty_fields' => 1,
       ),
       'formatter' => 'closed',

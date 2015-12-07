@@ -58,6 +58,9 @@ function uhc_page_strongarm() {
       'meta_information' => array(
         'custom_settings' => FALSE,
       ),
+      'search_block_embedded' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(

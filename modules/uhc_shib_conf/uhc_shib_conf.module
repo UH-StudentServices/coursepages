@@ -2,6 +2,10 @@
 /**
  * @file
  * Code for the uhc_shib_conf feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 include_once 'uhc_shib_conf.features.inc';
@@ -98,7 +102,7 @@ function uhc_shib_conf_menu() {
     'title' => t('Logout'),
     'options' => array(
       'attributes' => array(
-        'class' => 'login-link',
+        'class' => 'logout-link',
       ),
     ),
     'access callback' => 'user_is_logged_in',

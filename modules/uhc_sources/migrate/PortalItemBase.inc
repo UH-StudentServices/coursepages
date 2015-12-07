@@ -2,6 +2,10 @@
 /**
  * @file
  * Implementation for loading individual items from portal backend.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 class PortalItemBase extends MigrateItemJSON {
@@ -57,7 +61,7 @@ class PortalItemBase extends MigrateItemJSON {
       // If failed loading JSON
       if (!$json) {
         $this->uhcLogMessage($id, 'Loading of !objecturl failed', array('!objecturl' => $item_url));
-        return NULL;
+        return new SkippableItem();
       }
     }
 
@@ -66,7 +70,7 @@ class PortalItemBase extends MigrateItemJSON {
      */
     if (isset($json->exception)) {
       $this->uhcLogMessage($id, 'Backend responded with exception "!exception" while fetching @id', array('!exception' => $json->exception->message, '!objecturl' => $id));
-      return NULL;
+      return new SkippableItem();
     }
 
     /*
@@ -75,7 +79,7 @@ class PortalItemBase extends MigrateItemJSON {
     $simulate_fail_item = variable_get('uhc_sources_simulate_failure');
     if (!is_null($simulate_fail_item) && $id == $simulate_fail_item) {
       $this->uhcLogMessage($id, 'Failed getting item due to simulated failure in "@id"', array('@id' => $id));
-      return NULL;
+      return new SkippableItem();
     }
 
     /*
@@ -90,7 +94,7 @@ class PortalItemBase extends MigrateItemJSON {
 
     // We do not expect to end up here
     $this->uhcLogMessage($id, 'Malformed response from REST backend while fetching @id', array('@id' => $id));
-    return NULL;
+    return new SkippableItem();
 
   }
 

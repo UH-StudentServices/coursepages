@@ -2,6 +2,10 @@
 /**
  * @file
  * Code for the Portal feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 include_once 'uhc_search_portal_feature.features.inc';
@@ -178,7 +182,9 @@ function uhc_search_portal_feature_default_search_api_server_alter(array &$defau
       "highlight_data" : 0,
       "skip_schema_check" : 0,
       "solr_version" : "",
-      "http_method" : "AUTO"
+      "http_method" : "AUTO",
+      "autocorrect_spell" : 0,
+      "autocorrect_suggest_words" : 0
     },
     "enabled" : "1",
     "rdf_mapping" : []
@@ -318,4 +324,28 @@ function uhc_search_portal_feature_facet_items_alter(&$build, &$settings) {
       $facet['#query']['search'] = '';
     }
   }
+}
+
+/**
+ * Implements hook_search_api_query_alter().
+ */
+function uhc_search_portal_feature_search_api_query_alter(SearchApiQueryInterface $query) {
+  if ($query->getOption('search id') != 'search_api_autocomplete:search_api_views_uhc_search_open_university') {
+    return;
+  }
+  $view = views_get_view('uhc_search_open_university');
+  $view->build();
+  foreach ($view->filter as $id => $filter) {
+    // Get all other filters used in the search view besides the search word
+    if (strpos($id, 'search_api_aggregation') === 0) {
+      continue;
+    }
+    if ($id == 'field_imp_begin_date' || $id == 'field_imp_end_date') {
+      $query->condition($id, strtotime($filter->value), $filter->operator);
+    }
+    else {
+      $query->condition($id, $filter->value, $filter->operator);
+    }
+  }
+  return $query;
 }

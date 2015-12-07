@@ -7,6 +7,10 @@
  * - $title : The title of this group of rows.  May be empty.
  * - $options['type'] will either be ul or ol.
  * @ingroup views_templates
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 ?>
 <?php print $wrapper_prefix; ?>

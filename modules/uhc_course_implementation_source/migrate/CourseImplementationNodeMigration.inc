@@ -3,6 +3,10 @@
  * @file
  * Implements an migration class for migrating course implementations from
  * doo-oodi service over HTTP.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 class CourseImplementationNodeMigration extends PortalMigrationBase {
@@ -96,7 +100,8 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
 
     // Setup field mapping
     $this->addFieldMapping('status', 'status')->defaultValue(0);
-    $this->addFieldMapping('title', 'title');
+    $this->addFieldMapping('field_imp_status', 'courseunitrealisation_status');
+    $this->addFieldMapping('title', 'title')->callbacks(array($this, 'trimOpenUniPrefix'));
     $this->addFieldMapping('field_imp_begin_date', 'start_date')
       ->arguments(array('timezone' => 'Europe/Helsinki'))
       ->callbacks(array($this, 'fixTimeZoneIssue'));
@@ -130,7 +135,8 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
 
     // Handle multilingual field mapping.
     $field_arguments = array('language' => $this->getSupportedLanguages(), 'format' => 'filtered_html');
-    $this->addFieldMapping('title_field', 'realisation_name')->arguments($field_arguments);
+    $this->addFieldMapping('title_field', 'realisation_name')->arguments($field_arguments)
+      ->callbacks(array($this, 'trimOpenUniPrefix'));
 
     $this->addFieldMapping('field_imp_giver_locality', 'providing_locality')
       ->arguments($field_arguments)
@@ -332,6 +338,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     $returns = module_invoke_all('uhc_course_implementation_source_allow_source_row', $row);
     foreach ($returns as $allow) {
       if ($allow === TRUE) {
+        // Return FALSE if row should not be skipped
         return FALSE;
       }
     }

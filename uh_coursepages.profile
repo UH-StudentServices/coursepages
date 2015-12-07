@@ -3,6 +3,14 @@
  * @file
  * Enables modules and site configuration for a helsinki university portal site
  * installation.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
  */
 function uh_coursepages_form_install_configure_form_alter(&$form, $form_state) {
   // Pre-populate the site name with the server name.
@@ -312,7 +320,17 @@ function uh_coursepages_create_terms($terms, $vocabulary_name) {
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function uh_coursepages_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['actions']['submit2'] = $form['actions']['submit'];
   $form['actions']['submit']['#value'] = t('Save & Close');
+  $form['actions']['submit2']['#weight'] = 6;
+  $form['actions']['submit2']['#submit'][] = 'uh_coursepages_save_and_continue';
+}
+
+/**
+ * Submit handler for Save & Continue button
+ */
+function uh_coursepages_save_and_continue($form, &$form_state) {
+ $form_state['redirect'] = 'node/' . $form_state['nid'] . '/edit';
 }
 
 /**

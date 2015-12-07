@@ -2,6 +2,10 @@
 /**
  * @file
  * Implementation for migration base of portal backend API.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 class PortalMigrationBase extends Migration {
@@ -83,6 +87,19 @@ class PortalMigrationBase extends Migration {
   }
 
   /**
+   * Default implementation for checking whether we should skip the row or not.
+   * This gets called from Migration::prepareRow().
+   * @param $row
+   * @return bool
+   * @see CourseNodeMigration::prepareRow()
+   * @see CourseImplementationNodeMigration::prepareRow()
+   */
+  public function shouldRowBeSkipped($row) {
+    // By default, we skip the row if it's skippable item.
+    return ($row instanceof SkippableItem);
+  }
+
+  /**
    * Overrides MigrationBase::processImport().
    */
   public function processImport(array $options = array()) {
@@ -114,6 +131,8 @@ class PortalMigrationBase extends Migration {
     if (count($this->predefined_ids) == 0 && $this->getMap()->errorCount() == 0) {
       $this->setLastRequested();
     }
+    // Sort month terms in chronological order
+    uhc_taxonomy_sort_month_terms();
   }
 
   /**
@@ -183,5 +202,32 @@ class PortalMigrationBase extends Migration {
         $this->systemOfRecord = $systemOfRecord;
         break;
     }
+  }
+
+  /**
+   * Trims Open university prefix from fields. Works with title_field and title.
+   * Handles both single language (string) and multilingual (lang => value) arrays.
+   * @param $value
+   * @return mixed
+   */
+  public static function trimOpenUniPrefix($value) {
+    if (is_array($value)) {
+      foreach ($value as $lang => &$title) {
+        $title = self::_trimPrefix($title);
+      }
+    }
+    else {
+      $value = self::_trimPrefix($value);
+    }
+    return $value;
+  }
+
+  /**
+   * Helper for trimOpenUniPrefix().
+   * @param $value
+   * @return mixed
+   */
+  private static function _trimPrefix($value) {
+    return str_replace(array('Avoin yo: ', 'Open uni: ', 'Öppna uni: '), '', $value);
   }
 }

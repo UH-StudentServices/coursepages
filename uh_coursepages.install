@@ -3,6 +3,10 @@
  * @file
  * Install, update and uninstall functions for the helsinki university portal
  * installation profile.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 /**
@@ -814,4 +818,18 @@ function uh_coursepages_install() {
  */
 function uh_coursepages_update_7001(&$sandbox) {
   module_disable(array('uhc_course_implementation_language_suggester'));
+}
+
+/**
+ * enable uhc_feedback module
+ */
+function uh_coursepages_update_7002(&$sandbox) {
+  module_enable(array('uhc_feedback'));
+}
+
+/**
+ * Enable project contrib "uh_taxonomy_organisations" and its submodules.
+ */
+function uh_coursepages_update_7003(&$sandbox) {
+  module_enable(array('uh_taxonomy_organisations', 'uh_taxonomy_organisations_migrate'));
 }

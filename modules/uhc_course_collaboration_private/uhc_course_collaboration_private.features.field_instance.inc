@@ -41,7 +41,7 @@ function uhc_course_collaboration_private_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'comment',
     'field_name' => 'field_private',
-    'label' => 'Restricted',
+    'label' => 'Restricted to course’s participants only',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -60,7 +60,7 @@ function uhc_course_collaboration_private_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Restricted');
+  t('Restricted to course’s participants only');
 
   return $field_instances;
 }

@@ -27,9 +27,9 @@ function uhc_search_portal_feature_default_search_api_autocomplete_search() {
     "index_id" : "uhc_portal",
     "suggester_id" : "server",
     "type" : "search_api_views",
-    "enabled" : "0",
+    "enabled" : "1",
     "options" : {
-      "suggester_configuration" : { "fields" : [ "search_api_aggregation_1" ] },
+      "suggester_configuration" : { "fields" : [ "search_api_aggregation_2" ] },
       "min_length" : "1",
       "results" : 0,
       "custom" : { "display" : "desktop" },
@@ -68,7 +68,7 @@ function uhc_search_portal_feature_default_search_api_index() {
         "field_imp_organisation_codes" : { "type" : "list\\u003Cstring\\u003E" },
         "field_imp_reference_to_courses:field_course_course_number" : { "type" : "string" },
         "field_imp_reference_to_courses:field_course_faculty" : { "type" : "integer", "entity_type" : "taxonomy_term" },
-        "field_imp_reference_to_courses:field_course_subject" : { "type" : "string" },
+        "field_imp_reference_to_courses:field_course_subject" : { "type" : "list\\u003Cstring\\u003E" },
         "field_imp_reference_to_courses:field_course_theme" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
         "field_imp_reference_to_courses:field_course_type_of_teaching" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_imp_reference_to_courses:field_imp_start_month" : { "type" : "integer", "entity_type" : "taxonomy_term" },
@@ -84,6 +84,7 @@ function uhc_search_portal_feature_default_search_api_index() {
         "language" : { "type" : "string" },
         "nid" : { "type" : "integer" },
         "search_api_aggregation_1" : { "type" : "text" },
+        "search_api_aggregation_2" : { "type" : "text" },
         "search_api_language" : { "type" : "string" },
         "title_field" : { "type" : "string" },
         "type" : { "type" : "string" },
@@ -128,6 +129,12 @@ function uhc_search_portal_feature_default_search_api_index() {
                   "field_imp_reference_to_courses:field_objective:value"
                 ],
                 "description" : "A Fulltext aggregation of the following fields: Teacher, Title, Locality, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Course number, Reference to course(s) \\u00bb Theme, Reference to course(s) \\u00bb Subject, Contents \\u00bb Text, Objective \\u00bb Text, Reference to course(s) \\u00bb Contents \\u00bb Text, Reference to course(s) \\u00bb Objective \\u00bb Text."
+              },
+              "search_api_aggregation_2" : {
+                "name" : "Autocomplete",
+                "type" : "fulltext",
+                "fields" : [ "title_field" ],
+                "description" : "A Fulltext aggregation of the following fields: Title."
               }
             }
           }
@@ -147,9 +154,13 @@ function uhc_search_portal_feature_default_search_api_index() {
           }
         },
         "search_api_tokenizer" : {
-          "status" : 0,
+          "status" : 1,
           "weight" : "20",
-          "settings" : { "fields" : [], "spaces" : "[^[:alnum:]]", "ignorable" : "[\\u0027]" }
+          "settings" : {
+            "fields" : { "search_api_aggregation_2" : true },
+            "spaces" : "[^[:alnum:]]",
+            "ignorable" : "[\\u0027]"
+          }
         },
         "search_api_stopwords" : {
           "status" : 0,

@@ -77,17 +77,17 @@ function uhc_tour_context_default_contexts() {
   $context->description = 'Course implementation tour for teachers';
   $context->tag = 'Tours';
   $context->conditions = array(
-    'uhc_tour_context_condition_demo_content' => array(
-      'values' => array(
-        'uhc_tour_context_condition_demo_content' => 'uhc_tour_context_condition_demo_content',
-      ),
-    ),
     'node' => array(
       'values' => array(
         'course_implementation' => 'course_implementation',
       ),
       'options' => array(
         'node_form' => '0',
+      ),
+    ),
+    'uhc_tour_context_condition_demo_content' => array(
+      'values' => array(
+        'uhc_tour_context_condition_demo_content' => 'uhc_tour_context_condition_demo_content',
       ),
     ),
   );
@@ -145,7 +145,7 @@ function uhc_tour_context_default_contexts() {
   <p>Switch to edit mode.</p>
 </li>
 
-<li class="logout" data-class="block--locale" data-text="Next">
+<li class="logout" data-class="logout-link" data-text="Next">
   <h2>Logout</h2>
   <p>Remember to logout!</p>
 </li>',

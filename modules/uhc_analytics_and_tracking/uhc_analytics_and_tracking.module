@@ -1,7 +1,17 @@
 <?php
 /**
  * @file
+ * Code for the UHC Analytics and Tracking feature.
+ */
+
+include_once 'uhc_analytics_and_tracking.features.inc';
+/**
+ * @file
  * Module implementation code.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 /**
@@ -63,6 +73,29 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
     'selector' => '#edit-sort-by',
     'category' => 'search results',
     'action' => 'sort',
+  );
+
+  //Teacher edit links in menu local tasks
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.tabs--primary .edit-moodle',
+    'category' => 'Teacher edit links',
+    'label' => 'Moodle',
+    'action' => 'click',
+  );
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.tabs--primary .edit-messages',
+    'category' => 'Teacher edit links',
+    'label' => 'Messages',
+    'action' => 'click',
+  );
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.tabs--primary .edit-material',
+    'category' => 'Teacher edit links',
+    'label' => 'Material',
+    'action' => 'click',
   );
 
   return $selectors;
@@ -246,4 +279,13 @@ function uhc_analytics_and_tracking_resolve_filters() {
   }
 
   return is_array($filters) ? $filters : array();
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function uhc_analytics_and_tracking_form_node_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'course_implementation_node_form') {
+    drupal_add_js(drupal_get_path('module', 'uhc_analytics_and_tracking') . '/js/uhc_analytics_and_tracking_vertical_edit_tabs.js');
+  }
 }

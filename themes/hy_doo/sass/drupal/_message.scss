@@ -1,10 +1,14 @@
 .messages {
   @include font-weight-medium;
   @include font-size(12px);
+  @include transition(all 0.3s ease-in-out);
+  @include clearfix;
   text-align: center;
-  padding: 1.3em 0;
-  p {
+  padding: 1.3em 2em;
+  p, ul {
     @include font-family-main;
+    display: inline-block;
+    width: 93%;
     margin: 0;
     padding: 0;
     font-size: inherit;
@@ -12,9 +16,22 @@
   a {
     @include font-weight-bold;
     &:after {
-      @include font-awesome('\f061');
+      @include hy-icon($hy-link-arrow);
       margin-left: 0.5em;
     }
+  }
+  .close {
+    display: inline-block;
+    float: right;
+    &:after{
+      @include hy-icon($hy-remove);
+    }
+  }
+  &.closed {
+    height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
   @each $name, $type in $messages {
     &.#{$name} {

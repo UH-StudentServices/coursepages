@@ -5,6 +5,10 @@
  * Default simple view template to display a list of rows.
  *
  * @ingroup views_templates
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 ?>
 <?php if (!empty($title)): ?>

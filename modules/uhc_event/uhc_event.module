@@ -2,6 +2,10 @@
 /**
  * @file
  * Code for the UHC Event feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 include_once 'uhc_event.features.inc';
@@ -63,6 +67,14 @@ if ($nid = uhc_event_get_course_implementation($form['nid']['#value'])) {
  */
 function uhc_event_preprocess_block(&$variables) {
   $block = $variables['block'];
+
+  // Lets check if we have a custom title for the events listing and use it
+  if ($block->module == 'views' && ($block->delta == 'course_event_references-block')) {
+    $node = menu_get_object();
+    if (!empty($node->field_imp_events_title)) {
+      $block->subject = $node->field_imp_events_title[LANGUAGE_NONE][0]['value'];
+    }
+  }
 
   if ($block->module == 'views' && ($block->delta == 'course_event_references-block' || $block->delta == 'course_event_references-block_2')) {
 

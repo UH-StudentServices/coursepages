@@ -2,6 +2,10 @@
 /**
  * @file
  * Code for the UHC Autofill metadata feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 include_once 'uhc_autofill_metadata.features.inc';
@@ -267,26 +271,35 @@ function uhc_autofill_metadata_get_enrollments($personal_unique_code) {
  * or FALSE if an error occured.
  */
 function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $langcode = 'fi') {
+
+  // Construct enrollment data
   $enrollment_data = NULL;
 
+  // Work only when unique code is given
   if (!empty($personal_unique_code)) {
-    $base_url = variable_get('uhc_enrollments_base_url', 'https://oprek4.it.helsinki.fi:30039/');
-    $path = "students/$personal_unique_code/enrollments?langcode=$langcode";
-    $url = $base_url . $path;
-    $response = drupal_http_request($url, array('timeout' => 2.0));
+    $enrollment_data = &drupal_static(__FUNCTION__ . $personal_unique_code . $langcode);
+    // Enrollment data might be also defined as FALSE, so we let this through
+    // from static storage too. If it's NULL, we assume that this specific case
+    // isn't requested yet.
+    if (is_null($enrollment_data)) {
+      $base_url = variable_get('uhc_enrollments_base_url', 'https://oprek4.it.helsinki.fi:30039/');
+      $path = "students/$personal_unique_code/enrollments?langcode=$langcode";
+      $url = $base_url . $path;
+      $response = drupal_http_request($url, array('timeout' => 2.0));
 
-    if ($response->code == 200) {
-      $enrollment_data = drupal_json_decode($response->data);
-    }
-    else {
-      $enrollment_data = FALSE;
-      $error = isset($response->error) ? $response->error : '';
+      if ($response->code == 200) {
+        $enrollment_data = drupal_json_decode($response->data);
+      }
+      else {
+        $enrollment_data = FALSE;
+        $error = isset($response->error) ? $response->error : '';
 
-      uhc_autofill_metadata_log(
-        'Failed to get enrollments for @personal_unique_code. Error: @error',
-        array('@personal_unique_code' => $personal_unique_code, '@error' => $error),
-        WATCHDOG_WARNING
-      );
+        uhc_autofill_metadata_log(
+          'Failed to get enrollments for @personal_unique_code. Error: @error',
+          array('@personal_unique_code' => $personal_unique_code, '@error' => $error),
+          WATCHDOG_WARNING
+        );
+      }
     }
   }
 

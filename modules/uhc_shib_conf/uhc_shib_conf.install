@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Tasks for (un)installation and update.
+ */
+
+/**
+ * menu rebuild.
+ */
+function uhc_shib_conf_update_7001() {
+  menu_rebuild();
+}

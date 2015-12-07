@@ -1,6 +1,9 @@
 /**
  * @file
  * In some cases we get unnecessary messages, so we remove them here.
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 (function ($) {
   Drupal.behaviors.uhc_hide_logged_in_message = {

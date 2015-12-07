@@ -16,9 +16,9 @@
 // directly. Variables-, function- or mixin providing partials should never
 // output any styles themselves: Importing them multiple times to resolve
 // dependencies shouldn't be a problem.
-@import "../../../../../themes/hy_base_theme/scss/variables/_variables";
-@import "../../../../../themes/hy_base_theme/scss/mixins/_mixins";
-@import "../../../../../themes/hy_base_theme/scss/variables.scss";
+@import "../../../../../../current/sites/all/themes/hy_base_theme/hy_base_theme/scss/variables/_variables";
+@import "../../../../../../current/sites/all/themes/hy_base_theme/hy_base_theme/scss/mixins/_mixins";
+@import "../../../../../../current/sites/all/themes/hy_base_theme/hy_base_theme/scss/variables.scss";
 @import "variables/**/*";
 @import "mixins/**/*";
 @import "_base.scss";

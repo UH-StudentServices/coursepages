@@ -1,6 +1,0 @@
-name = HY Molecular Biosciences
-description = Provides ability to have molecular biosciences section in the site.
-core = 7.x
-package = HY Portal
-version = 7.x-1.41-dev
-project = hy_molecular_biosciences

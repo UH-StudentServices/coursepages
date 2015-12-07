@@ -1,4 +1,9 @@
 <?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
 
 /**
  * Implements hook_preprocess_html().
@@ -56,6 +61,45 @@ function hy_doo_preprocess_html(&$variables) {
 
   if (!empty($registry['html']['mobile-favicons'])) {
     favicon_get_meta_information($registry['html']['mobile-favicons']);
+  }
+
+  // Page title alterations
+  if (!empty($variables['page']['content']['system_main']['nodes'])) {
+    $nodes = $variables['page']['content']['system_main']['nodes'];
+    if (count($nodes) != 2) {
+      return;
+    }
+
+    // Get rid of the unneeded variable so we can reliably pop out the node at whatever index it is
+    unset($nodes['#sorted']);
+    $node = reset($nodes);
+    $node = $node['#node'];
+
+    // Alter the site name when on an open university course or course_imp page
+    $altered_title = explode(' | ', $variables['head_title']);
+    if (uhc_open_university_is_open_university_course_or_implementation($node)) {
+      $altered_title[1] = t('The University of Helsinki Open University');
+    }
+
+    // Add subject(s) and add them to the title. If this is a course imp node, fetch course first.
+    if ($node->type == 'course_implementation') {
+      if ($course_id = field_get_items('node', $node, 'field_imp_reference_to_courses')[0]['target_id']) {
+        $node = node_load($course_id);
+      }
+    }
+    if (!empty($node->field_course_subject)) {
+      // Add subject(s) between the node title and site name
+      $altered_title[2] = $altered_title[1];
+      $course_subjects = field_get_items('node', $node, 'field_course_subject');
+      if (!empty($course_subjects)) {
+        $subjects = array();
+        foreach ($course_subjects as $course_subject) {
+          $subjects[] = $course_subject['value'];
+        }
+        $altered_title[1] = implode(', ', $subjects);
+      }
+    }
+    $variables['head_title'] = implode(' | ', $altered_title);
   }
 }
 

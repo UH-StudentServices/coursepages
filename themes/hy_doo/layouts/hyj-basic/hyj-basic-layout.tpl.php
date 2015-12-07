@@ -1,3 +1,10 @@
+<?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+?>
 <div class="l-page">
   <?php if ($page['top_bar']): ?>
     <div class="l-top-bar-wrapper">
@@ -37,7 +44,11 @@
           <h1 class="page-title"><?php print $title; ?></h1>
         <?php endif; ?>
         <?php print render($title_suffix); ?>
-        <?php print render($tabs); ?>
+        <?php if ($tabs): ?>
+          <div class="tabs-wrapper">
+            <?php print render($tabs); ?>
+          </div>
+        <?php endif; ?>
         <?php if ($action_links): ?>
           <ul class="action-links"><?php print render($action_links); ?></ul>
         <?php endif; ?>

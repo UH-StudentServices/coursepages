@@ -1,3 +1,66 @@
+# Helsinki University Coursepages v1.45
+Päiväys: 07.12.2015
+
+## Lisäykset
+  - DOO-1227: Toteutuksen peruutustiedon näyttäminen toteutussivulla
+  - DOO-1603: Avoimen yliopiston hakusanaehdotukset
+  - DOO-1671: Google event tracking muokkausnäkymän vasempaan palkkiin
+  - DOO-1436: Lisättiin viesteihin mahdollisuus sulkemiseen, ja tilaviesteihin
+    automaattinen sulkeminen.
+  - DOO-1673: Lisättiin toiminnallisuus, jolla voidaan tuoda Helsingin
+    Yliopiston koko organisaatiorakenne.
+
+## Muutokset
+  - DOO-1644: Toteutusten aikataulun otsikot muutettu, kurssisivuilla lisättyjen
+    tapahtumien otsikko on muokattavissa.
+  - DOO-1679: Aikatauluun liittyvien käyttöliittymätekstien muutoksia
+  - DOO-1670: Poistettiin "View" ylävalikosta.
+  - DOO-1587: Palaute-nappi teemattu konseptin mukaisesti.
+
+
+# Helsinki University Coursepages v1.44
+Päiväys: 01.12.2015
+
+## Lisäykset
+  - DOO-1592: Moodlen synkronointitilanteen näyttäminen muokkausnäkymässä
+  - DOO-1520: Lisätty muokkaustilaan 'tallenna ja jatka' -painike
+  - DOO-1602: Lisättiin jaksojen sisäänluku toiminnallisuus, jossa sisäänluvussa
+    epäonnistuneiden jaksojen hakeminen ei keskeytä koko sisäänluku prosessia.
+  - DOO-1643: GA träkkäys sinisen valikkopalkin linkeille (Moodle, Viestit, Materiaali)
+  - DOO-1494: Lisättiin tuki jaksoille usealle oppiaineelle (kuitenkin edelleen
+    vain suomeksi).
+  - DOO-1668: Suorituskykyoptimointia: Haetaan ilmoittautumistiedot vain kerran
+    per sivupyyntö
+
+## Muutokset
+  - DOO-1522: "Muokkaa" -painikkeen teemaus ja siirtäminen oikeaan laitaan
+  - DOO-1625: Avoimen yliopiston sivujen otsikoinnin parannuksia
+  - DOO-1632: Siirrettiin etusivun hakulaatikko otsikon ja ingressin alle
+  - DOO-1598: Tour anonyymeille ohittaa logout -kohdan.
+  - DOO-1642: Palaute -painikkeen teksti muutettu muokattavaksi
+  - DOO-1467: Karttalinkin domainmuutos (google.com - google.fi)
+  - DOO-1626: Muutettu "rajoitettu" -kentän otsikkoa ja kuvaustekstiä
+  - DOO-1620: Interaktio-osio siirretty viestien alle toteutusten katselunäkymässä
+  - DOO-1403: Etuliitteet Avoin yo:, Open uni: ja Öppna uni: poistetaan automaattisesti
+    jaksojen ja toteutusten migraation yhteydessä. Etuliitteet poistettiin
+    myös olemassaolevasta sisällöstä.
+  - DOO-1624: Poistettu sinisestä valikkopalkista kaikki paitsi "Moodle",
+    "Viestit" ja "Materiaali".
+  - DOO-1642: siniselle valikkopalkille maksimileveys
+  - DOO-816:  Kuukaudet tallennetaan aikajärjestykseen migraatioiden yhteydessä.
+
+## Korjaukset
+  - DOO-1589: Poistettiin virheviesti selaimen konsolissa kun kurssiin ei ole vielä
+    liitetty materiaalia
+  - DOO-1652: Korjattu materiaalien automaattinen aakkosjärjestys vaikka käyttäjä on
+    itse muuttanut materiaalien järjestystä
+
+## Muuta
+  - Poistettiin moduuleja, joita ei ole käytetty koodin julkaisun jälke
+  - Siirrettiin pääteema julkiseen repoon ja päivitettiin projektin buildausta
+    siten, että pääteema haetaan julkisesta reposta.
+
+
 # Helsinki University Coursepages v1.43
 Päiväys: 24.11.2015
 

@@ -1,6 +1,0 @@
-name = HY ActiveMQ Connector
-description = Connects to HY's Apache ActiveMQ and deals with queued messages.
-core = 7.x
-package = HY
-version = 7.x-1.41-dev
-project = hy_activemq_connector

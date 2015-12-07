@@ -69,3 +69,49 @@ function _uhc_course_implementation_create_default_image($config) {
 function uhc_course_implementation_uninstall() {
   variable_del('uhc_course_implementation_default_image');
 }
+
+/**
+ * Add default values to course feedback text fields
+ */
+function uhc_course_implementation_update_7001(&$sandbox) {
+  // Revert our feature, just to make sure we have our field
+  features_revert_module('uhc_course_implementation');
+  features_revert_module('uhc_field_base');
+
+  // Query all nids of type 'course implementation' from node table.
+  $query = db_select('node', 'n')
+      ->fields('n', array('nid', 'type'))
+      ->condition('n.type', 'course_implementation')
+      ->execute();
+
+  // Setup insert queries and start looping select query results
+  $insert_data_query = db_insert('field_data_field_feedback_text');
+  $insert_revision_query = db_insert('field_revision_field_feedback_text');
+  while ($nid = $query->fetchField()) {
+
+    // Setup fields and values for insert queries
+    $values = array(
+      'entity_type' => 'node',
+      'bundle' => 'course_implementation',
+      'deleted' => 0,
+      'entity_id' => $nid,
+      'revision_id' => $nid,
+      'language' => LANGUAGE_NONE,
+      'delta' => 0,
+      'field_feedback_text_value' => 'By giving feedback you will help improving the quality of teaching',
+      'field_feedback_text_format' => NULL,
+    );
+
+    // Now append the fields/values for both insert queries
+    $insert_data_query->fields(array_keys($values));
+    $insert_data_query->values(array_values($values));
+    $insert_revision_query->fields(array_keys($values));
+    $insert_revision_query->values(array_values($values));
+
+  }
+
+  // Now execute the queries.
+  $insert_data_query->execute();
+  $insert_revision_query->execute();
+
+}

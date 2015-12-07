@@ -3,6 +3,10 @@
  * @file
  * Template overrides as well as (pre-)process and alter hooks for the
  * Helsingin Yliopisto DOO subtheme.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 /**
@@ -60,10 +64,10 @@ function hy_doo_status_messages($variables) {
       foreach ($messages as $message) {
         $output .= '  <li>' . $message . '</li>';
       }
-      $output .= '</ul>';
+      $output .= '</ul><a class="close" href="#"></a>';
     }
     else {
-      $output .= '<p>' . $messages[0] . '</p>';
+      $output .= '<p>' . $messages[0] . '</p><a class="close" href="#"></a>';
     }
     $output .= '</div>';
   }
@@ -167,4 +171,22 @@ function hy_doo_image_url_formatter($variables) {
   $variables['item']['alt'] = !empty($variables['item']['alt']) ? $variables['item']['alt'] : '';
   $variables['item']['title'] = !empty($variables['item']['title']) ? $variables['item']['title'] : '';
   return theme_image_url_formatter($variables);
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ *
+ * add Class to menu local tasks edit and teach edit links
+ */
+function hy_doo_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  if (!empty($data['tabs'])) {
+    foreach ($data['tabs'][0]['output'] as &$link) {
+      if (!empty($link['#link']['description'])) {
+        $link['#link']['localized_options']['attributes']['class'][] = t($link['#link']['description']);
+      }
+      if($link['#link']['path'] == 'node/%/edit') {
+        $link['#link']['localized_options']['attributes']['class'][] = 'edit-link';
+      }
+    }
+  }
 }

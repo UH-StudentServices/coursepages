@@ -2,6 +2,10 @@
 /**
  * @file
  * Takes care of module's installations tasks.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 /**
@@ -10,5 +14,6 @@
 function uhc_course_source_uninstall() {
   variable_del('uhc_course_source_list_url');
   variable_del('uhc_course_source_item_url');
+  variable_del('uhc_course_source_disciplines_url');
   variable_del('uhc_course_source_ignore_keywords');
 }

@@ -1,0 +1,45 @@
+<?php
+/**
+ * @file
+ * Customizations to feedback module.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add placeholder text to feedback form, Hide certain form elements.
+ * Add JS for adding classes to form block. Replace default submit handler.
+ */
+function uhc_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
+
+  foreach($form['#submit'] as &$submit_handler) {
+    if ($submit_handler == 'feedback_form_submit') {
+      $submit_handler = 'uhc_feedback_form_submit';
+    }
+  }
+
+  $form['#attached']['js'][] = drupal_get_path('module', 'uhc_feedback') . '/js/uhc_feedback.js';
+  $form['message']['#attributes']['placeholder'] = t('Give feedback about the service...');
+  unset($form['message']['#title']);
+  unset($form['messages']);
+  unset($form['help']);
+}
+
+/**
+ * Modified Form submission handler for feedback_form().
+ * Message changed.
+ */
+function uhc_feedback_form_submit($form, &$form_state) {
+
+  $entry = new stdClass();
+  entity_form_submit_build_entity('feedback', $entry, $form, $form_state);
+  $entry->message = $form_state['values']['message'];
+  $entry->location = $form_state['values']['location'];
+  feedback_save($entry);
+
+  drupal_set_message(t('Thank you'));
+}

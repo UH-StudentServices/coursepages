@@ -1,3 +1,8 @@
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
 (function ($) {
   Drupal.behaviors.uhc_search_portal_feature_equal_heights = {
     attach: function (context) {

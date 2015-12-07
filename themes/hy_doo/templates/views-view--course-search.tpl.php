@@ -25,6 +25,10 @@
  * - $more: A link to view more, if any
  *
  * @ingroup views_templates
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 ?>
 <div class="<?php print $classes; ?>">

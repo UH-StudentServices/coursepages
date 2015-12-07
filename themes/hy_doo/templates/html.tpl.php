@@ -39,6 +39,10 @@
  * @see template_preprocess()
  * @see template_preprocess_html()
  * @see template_process()
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 ?><!DOCTYPE html>
 <?php if (omega_extension_enabled('compatibility') && omega_theme_get_setting('omega_conditional_classes_html', TRUE)): ?>

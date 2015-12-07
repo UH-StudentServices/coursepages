@@ -2,6 +2,10 @@
 /**
  * @file
  * Code for the UHC Taxonomy feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 include_once 'uhc_taxonomy.features.inc';
@@ -12,6 +16,21 @@ include_once 'uhc_taxonomy.features.inc';
 function uhc_taxonomy_taxonomy_term_insert($term) {
   if ($term->vocabulary_machine_name == 'months') {
     _uhc_taxonomy_translate_monthyear($term);
+  }
+}
+
+/**
+ * Sorts Month terms to chronological order. This is run after migrations.
+ */
+function uhc_taxonomy_sort_month_terms() {
+  $months = taxonomy_get_tree(10, 0, NULL, TRUE);
+  uasort($months, function($a, $b) {
+    return strtotime($a->name) < strtotime($b->name) ? -1 : 1;
+  });
+  $count = 0;
+  foreach ($months as $month) {
+    $month->weight = $count++;
+    taxonomy_term_save($month);
   }
 }
 

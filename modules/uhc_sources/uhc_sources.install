@@ -2,6 +2,10 @@
 /**
  * @file
  * Handle installation tasks for this module.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 /**
@@ -13,4 +17,68 @@ function uhc_sources_uninstall() {
   variable_del('uhc_sources_timeout');
   variable_del('uhc_sources_simulate_failure');
   db_query("DELETE FROM {variable} WHERE name LIKE 'uhc_sources_last_requested_%'");
+}
+
+/**
+ * Remove Open university prefixes in all languages from every existing node.
+ */
+function uhc_sources_update_7001() {
+  $fields = array(
+    array(
+      'table' => 'field_data_title_field',
+      'column' => 'title_field_value',
+      'id' => 'entity_id',
+    ),
+    array(
+      'table' => 'field_revision_title_field',
+      'column' => 'title_field_value',
+      'id' => 'entity_id',
+    ),
+    array(
+      'table' => 'node',
+      'column' => 'title',
+      'id' => 'nid',
+    ),
+    array(
+      'table' => 'node_revision',
+      'column' => 'title',
+      'id' => 'nid',
+    ),
+  );
+  $prefixes = array(
+    'fi' => 'Avoin yo:',
+    'en' => 'Open uni:',
+    'sv' => 'Öppna uni:',
+  );
+  $replacement_prefixes = array(
+    'fi' => '/Avoin yo:\s*/',
+    'en' => '/Open uni:\s*/',
+    'sv' => '/Öppna uni:\s*/',
+  );
+
+  foreach ($fields as $field) {
+    $results = db_query(
+      'select ' . ($field['table'] != 'node_revision' ? 'language, ' : '') . $field['id'] . ', ' . $field['column'] . ' from {' . $field['table'] . '}
+      where ' . $field['column'] . ' like :prefix_fi
+      or ' . $field['column'] . ' like :prefix_sv
+      or ' . $field['column'] . ' like :prefix_en',
+      array(
+        ':prefix_fi' => '%' . db_like($prefixes['fi']) . '%',
+        ':prefix_en' => '%' . db_like($prefixes['en']) . '%',
+        ':prefix_sv' => '%' . db_like($prefixes['sv']) . '%',
+      )
+    );
+
+    while ($result = $results->fetchAssoc()) {
+      $query = db_update($field['table'])
+        ->fields(array(
+          $field['column'] => preg_replace($replacement_prefixes, '', $result[$field['column']]),
+        ))
+        ->condition($field['id'], $result[$field['id']]);
+      if ($field['table'] != 'node_revision') {
+        $query->condition('language', $result['language']);
+      }
+      $query->execute();
+    }
+  }
 }

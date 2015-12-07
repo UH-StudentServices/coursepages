@@ -318,6 +318,16 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view front_page_search_exposed_form on node'.
+  $permissions['view front_page_search_exposed_form on node'] = array(
+    'name' => 'view front_page_search_exposed_form on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   // Exported permission: 'view links on comment'.
   $permissions['view links on comment'] = array(
     'name' => 'view links on comment',

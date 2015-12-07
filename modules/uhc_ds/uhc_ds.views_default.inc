@@ -74,7 +74,7 @@ function uhc_ds_views_default_views() {
   /* Display: Events added in course page */
   $handler = $view->new_display('block', 'Events added in course page', 'block');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Events added in course page';
+  $handler->display->display_options['title'] = 'Other events';
   $handler->display->display_options['display_description'] = 'A list of events (reverse entity references)';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
@@ -164,7 +164,7 @@ function uhc_ds_views_default_views() {
   /* Display: Events imported from WebOodi */
   $handler = $view->new_display('block', 'Events imported from WebOodi', 'block_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Events imported from WebOodi';
+  $handler->display->display_options['title'] = 'Teaching schedule';
   $handler->display->display_options['display_description'] = 'A list of repeating events (reverse entity references)';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
@@ -188,7 +188,7 @@ function uhc_ds_views_default_views() {
   $handler->display->display_options['header']['system_message']['field'] = 'system_message';
   $handler->display->display_options['header']['system_message']['label'] = 'Repeating events coming from Oodi';
   $handler->display->display_options['header']['system_message']['class'] = 'alternative';
-  $handler->display->display_options['header']['system_message']['text'] = 'Repeating events are coming from Oodi';
+  $handler->display->display_options['header']['system_message']['text'] = 'These events are imported from WebOodi';
   /* Header: Global: Text area */
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';
@@ -240,15 +240,17 @@ function uhc_ds_views_default_views() {
     t('Desc'),
     t('<span class="ds-material-block--content event-list-header"><span class="event-column"><span class="field accordion-content-item--label event-date">Date</span><span class="field accordion-content-item--label event-time">Time</span></span><span class="event-column"><span class="field hide-from-three-column-tables accordion-content-item--label event-title">Title</span><span class="field remove-styles accordion-content-item--label event-location">Location</span></span></span>'),
     t('Events added in course page'),
+    t('Other events'),
     t('A list of events (reverse entity references)'),
     t('Content entity referenced from field_imp_reference_to_events'),
     t('All'),
     t('Event material list'),
     t('A list of event related material'),
     t('Events imported from WebOodi'),
+    t('Teaching schedule'),
     t('A list of repeating events (reverse entity references)'),
     t('Repeating events coming from Oodi'),
-    t('Repeating events are coming from Oodi'),
+    t('These events are imported from WebOodi'),
     t('Content entity referenced from field_imp_ref_to_events_oodi'),
     t('Event begin date (field_event_begin_date)'),
   );

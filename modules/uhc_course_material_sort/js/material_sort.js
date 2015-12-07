@@ -1,18 +1,23 @@
 /**
  * @file
  * Sort material alphabetically with tabledrag and inline entity form
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 (function ($) {
 
   Drupal.behaviors.uhc_course_material_sort = {
     attach: function (context, settings) {
       var base = 'ief-entity-table-edit-field-section-material-und-entities';
+      var tableDrag = Drupal.tableDrag[base];
       var materialSections = Drupal.settings.uhc_course_material_sort.material_sections;
 
       // reorder on load
-      if (typeof ReorderedOnLoad === 'undefined') {
+      if (typeof ReorderedOnLoad === 'undefined' && typeof tableDrag != 'undefined') {
         window.ReorderedOnLoad = true;
-        reorderTable(true);
+        checkAutoSort();
       }
 
       // Add "order alphabetically" link before the table.
@@ -40,20 +45,23 @@
         };
       }
 
-      // when material is added, we trigger the alphabetical ordering automatically
-      // IF the user hasn't done a bit of sorting him/herself.
+      // when material is added, we trigger sorting
       Drupal.ajax.prototype.commands.autoOrderMaterialAlphabetically = function(ajax, response, status) {
+        checkAutoSort();
+      }
+
+      // check if the user has done a bit of sorting him/herself, and if not, sort alphabetically.
+      function checkAutoSort() {
         var canSort = $("input[name='material_table_auto_sort']").val();
         if (canSort == 1) {
           reorderTable(true);
         } else {
           reorderTable(false);
         }
-      }
+      };
 
       // function to reorder table by section. alphabetical order added if needed.
       function reorderTable(sortAlphabetically) {
-        var tableDrag = Drupal.tableDrag[base];
 
         // Loop sections, add corresponding rows alphabetically
         $.each(materialSections, function() {

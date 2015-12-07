@@ -3,6 +3,10 @@
  * @file
  * Implements class for migration which takes care of requesting the item's JSON
  * object and constructing it for migration.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 class CourseImplementationItem extends PortalItemBase {
@@ -42,7 +46,7 @@ class CourseImplementationItem extends PortalItemBase {
       }
       catch (Exception $e) {
         $migration->getMap()->saveMessage(array($id), $e->getMessage(), MigrationBase::MESSAGE_ERROR);
-        return new stdClass();
+        return new SkippableItem();
       }
     }
 
@@ -53,7 +57,7 @@ class CourseImplementationItem extends PortalItemBase {
     $simulate_fail_item = variable_get('uhc_sources_simulate_failure');
     if (!is_null($simulate_fail_item) && $id == $simulate_fail_item) {
       $this->uhcLogMessage($id, 'Failed getting item due to simulated failure in "@id"', array('@id' => $id));
-      return new stdClass();
+      return new SkippableItem();
     }
 
     /*

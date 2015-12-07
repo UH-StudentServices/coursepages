@@ -2,6 +2,10 @@
 /**
  * See http://wiki.helsinki.fi/display/d/Moodi+-+Tekninen+dokumentaatio for
  * Moodi documentation.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 /**
@@ -111,7 +115,7 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
 }
 
 /**
- * Build and return status area markup based on Moodi response.
+ * Builds and returns status area markup based on Moodi response.
  *
  * @param $moodi_response object Moodi response.
  * @return mixed|null|string Status area markup.
@@ -126,10 +130,87 @@ function uhc_moodi_get_status_markup($moodi_response) {
   }
 
   if (!empty($moodle_area_url)) {
-    $status_markup = t('Moodle area exists: @moodle_area_url', array('@moodle_area_url' => $moodle_area_url));
+    $moodle_area_link = l($moodle_area_url, $moodle_area_url);
+    $status_markup = "<div><p>$moodle_area_link</p></div>";
+    $status_markup = uhc_moodi_append_student_enrollment_status_markup($moodi_response_data, $status_markup);
+    $status_markup = uhc_moodi_append_teacher_enrollment_status_markup($moodi_response_data, $status_markup);
   }
 
-  return "<div><pre>$status_markup</pre></div>";
+  return $status_markup;
+}
+
+/**
+ * Builds and returns student enrollment status markup based on Moodi response.
+ *
+ * @param $moodi_response_data object Moodi response data.
+ * @param $status_markup string Status markup.
+ * @return string Status markup.
+ */
+function uhc_moodi_append_student_enrollment_status_markup($moodi_response_data, $status_markup) {
+  if (!empty($moodi_response_data->courseEnrollmentStatus->studentEnrollments)) {
+    $header = array(t('Student number'), t('Status'));
+    $rows = array();
+    foreach ($moodi_response_data->courseEnrollmentStatus->studentEnrollments as $enrollment) {
+
+      // Ensure that we actually have student number and course enrollment
+      // status codes that we're about to create a row for...
+      if (!isset($enrollment->studentNumber) || !isset($enrollment->courseEnrollmentStatusCode)) {
+        // Skip this if we're missing either value
+        continue;
+      }
+
+      // Define cells
+      $cells = array(
+        array('data' => check_plain($enrollment->studentNumber), 'width' => '50%'),
+        array('data' => check_plain($enrollment->courseEnrollmentStatusCode), 'width' => '50%'),
+      );
+
+      // Define row
+      $class = $enrollment->courseEnrollmentStatusCode != 'OK' ? 'warning' : '';
+      $rows[] = array('data' => $cells, 'class' => array($class));
+    }
+
+    $status_markup .= theme('table', array('header' => $header, 'rows' => $rows));
+  }
+
+  return $status_markup;
+}
+
+/**
+ * Builds and returns teacher enrollment status markup based on Moodi response.
+ *
+ * @param $moodi_response_data object Moodi response data.
+ * @param $status_markup string Status markup.
+ * @return string Status markup.
+ */
+function uhc_moodi_append_teacher_enrollment_status_markup($moodi_response_data, $status_markup) {
+  if (!empty($moodi_response_data->courseEnrollmentStatus->teacherEnrollments)) {
+    $header = array(t('Teacher ID'), t('Status'));
+    $rows = array();
+    foreach ($moodi_response_data->courseEnrollmentStatus->teacherEnrollments as $enrollment) {
+
+      // Ensure that we actually have teacher ID and course enrollment status
+      // codes that we're about to create a row for...
+      if (!isset($enrollment->teacherId) || !isset($enrollment->courseEnrollmentStatusCode)) {
+        // Skip this if we're missing either value
+        continue;
+      }
+
+      // Define cells
+      $cells = array(
+        array('data' => check_plain($enrollment->teacherId), 'width' => '50%'),
+        array('data' => check_plain($enrollment->courseEnrollmentStatusCode), 'width' => '50%'),
+      );
+
+      // Define row
+      $class = $enrollment->courseEnrollmentStatusCode != 'OK' ? 'warning' : '';
+      $rows[] = array('data' => $cells, 'class' => array($class));
+    }
+
+    $status_markup .= theme('table', array('header' => $header, 'rows' => $rows));
+  }
+
+  return $status_markup;
 }
 
 /**
@@ -149,11 +230,10 @@ function uhc_moodi_get_data($moodi_response) {
  * @return string CSS classes.
  */
 function uhc_moodi_get_status_classes($moodi_response) {
-  $status_classes = array('messages');
+  $status_classes = array();
 
-  if (in_array($moodi_response->code, array(200, 404))) {
-    $status_classes[] = 'status';
-  } else {
+  if (!in_array($moodi_response->code, array(200, 404))) {
+    $status_classes[] = 'messages';
     $status_classes[] = 'warning';
   }
 

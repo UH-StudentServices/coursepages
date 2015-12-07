@@ -76,6 +76,10 @@
  * @see template_preprocess()
  * @see template_preprocess_node()
  * @see template_process()
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 ?>
 

@@ -1358,6 +1358,111 @@ input[type=text] {
   color: #005479;
 }
 
+#block-feedback-form {
+  bottom: 20px;
+  overflow: visible;
+}
+#block-feedback-form form {
+  background: #222;
+  color: #979797;
+  border: 1px solid #444;
+  min-width: 300px;
+  padding: 1em;
+  opacity: 1;
+}
+#block-feedback-form form #feedback-submit {
+  font-weight: 600;
+  font-style: normal;
+  font-size: 13px;
+  font-size: 0.8125rem;
+  background: transparent;
+  padding: 0;
+}
+#block-feedback-form form #feedback-submit:hover {
+  background: transparent;
+}
+#block-feedback-form form textarea[name=message] {
+  font-size: 13px;
+  font-size: 0.8125rem;
+  background: transparent;
+  padding: 0;
+  height: 8em;
+  resize: none;
+  border: none;
+  color: #979797;
+}
+#block-feedback-form form textarea[name=message]:focus {
+  outline: none;
+}
+#block-feedback-form .grippie {
+  display: none;
+}
+#block-feedback-form .feedback-link,
+#block-feedback-form #feedback-status-message {
+  font-size: 13px;
+  font-size: 0.8125rem;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  letter-spacing: initial;
+  display: block;
+  padding: 1em;
+  line-height: 1em;
+  width: 90px;
+  height: 90px;
+  text-align: center;
+  background: #222;
+  color: #FFF;
+  text-transform: initial;
+}
+#block-feedback-form .feedback-link:before,
+#block-feedback-form #feedback-status-message:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "hy-icons";
+  content: "";
+  font-size: 23px;
+  font-size: 1.4375rem;
+  margin: 0.4em auto 0 auto;
+  display: block;
+  width: 60px;
+  height: 30px;
+}
+#block-feedback-form #feedback-status-message {
+  background: #91C466;
+}
+#block-feedback-form #feedback-status-message:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "hy-icons";
+  content: "";
+}
+#block-feedback-form #feedback-form-toggle {
+  position: absolute;
+  right: 1em;
+  margin-bottom: 1em;
+  bottom: 0;
+  visibility: hidden;
+  z-index: 999;
+  color: #FFF;
+}
+#block-feedback-form #feedback-form-toggle:after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "hy-icons";
+  content: "";
+  position: absolute;
+  right: 1em;
+  bottom: 1em;
+}
+#block-feedback-form.open .feedback-link {
+  visibility: hidden;
+}
+#block-feedback-form.open #feedback-form-toggle:after {
+  display: block;
+  visibility: visible;
+}
+
 #block-hy-shib-conf-hy-login,
 .block--menu-menu-header-links {
   position: absolute;
@@ -1436,7 +1541,7 @@ input[type=text] {
   content: "";
   visibility: visible;
 }
-.block--system-user-menu > ul > li .login-link:before {
+.block--system-user-menu > ul > li .logout-link:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "hy-icons";
@@ -2096,10 +2201,19 @@ body.search-main-page .views-widget-sort-by {
 }
 
 #autocomplete {
+  border: 1px solid #EBEBEB;
   z-index: 9999;
+  padding: 0.5em;
+  background: #FFF;
+}
+#autocomplete .search-api-autocomplete-suggestion {
+  cursor: pointer;
 }
 
-.views-exposed-form-uhc-portal-search-front-page--desktop {
+.front-page-search-exposed-form {
+  padding: 1em 0 4em 0;
+}
+.front-page-search-exposed-form .views-exposed-form-uhc-portal-search-front-page--desktop {
   border-top: 1px solid #EBEBEB;
   border-left: 0;
   border-right: 0;
@@ -2107,10 +2221,10 @@ body.search-main-page .views-widget-sort-by {
   padding-top: 1em;
   border-bottom: none !important;
 }
-.views-exposed-form-uhc-portal-search-front-page--desktop .views-exposed-widget {
+.front-page-search-exposed-form .views-exposed-form-uhc-portal-search-front-page--desktop .views-exposed-widget {
   padding: 0;
 }
-.views-exposed-form-uhc-portal-search-front-page--desktop .views-exposed-widget .form-item-search {
+.front-page-search-exposed-form .views-exposed-form-uhc-portal-search-front-page--desktop .views-exposed-widget .form-item-search {
   max-width: none !important;
 }
 
@@ -2949,11 +3063,19 @@ a:hover .list-of-links__link:after, .list-of-links__link:hover:after {
   font-style: normal;
   font-size: 12px;
   font-size: 0.75rem;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  *zoom: 1;
   text-align: center;
-  padding: 1.3em 0;
+  padding: 1.3em 2em;
 }
-.messages p {
+.messages p, .messages ul {
   font-family: "Open Sans", Helvetica, Arial, sans-serif, Nimbus Sans L;
+  display: inline-block;
+  width: 93%;
   margin: 0;
   padding: 0;
   font-size: inherit;
@@ -2965,9 +3087,25 @@ a:hover .list-of-links__link:after, .list-of-links__link:hover:after {
 .messages a:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "FontAwesome";
-  content: "";
+  font-family: "hy-icons";
+  content: "";
   margin-left: 0.5em;
+}
+.messages .close {
+  display: inline-block;
+  float: right;
+}
+.messages .close:after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "hy-icons";
+  content: "";
+}
+.messages.closed {
+  height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .messages.status {
   background-color: #b2e576;

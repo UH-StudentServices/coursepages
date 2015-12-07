@@ -373,7 +373,7 @@ function uhc_ds_ds_field_settings_info() {
       ),
     ),
     'course_feedback_button' => array(
-      'weight' => '26',
+      'weight' => '27',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -410,7 +410,7 @@ function uhc_ds_ds_field_settings_info() {
       ),
     ),
     'event_reference_block' => array(
-      'weight' => '4',
+      'weight' => '6',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -423,7 +423,7 @@ function uhc_ds_ds_field_settings_info() {
       ),
     ),
     'my_enrollments' => array(
-      'weight' => '23',
+      'weight' => '24',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -891,15 +891,6 @@ function uhc_ds_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_imp_interactiondescription' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item body-text">',
-          'suffix' => '</div>',
-        ),
-      ),
-    ),
     'field_imp_interaction_link' => array(
       'formatter_settings' => array(
         'ft' => array(
@@ -917,6 +908,15 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+    'field_imp_interactiondescription' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'prefix' => '<div class="accordion-content-item body-text">',
+          'suffix' => '</div>',
         ),
       ),
     ),
@@ -1655,6 +1655,51 @@ function uhc_ds_ds_field_settings_info() {
 
   $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'node|portal_page|search_block_embedded';
+  $ds_fieldsetting->entity_type = 'node';
+  $ds_fieldsetting->bundle = 'portal_page';
+  $ds_fieldsetting->view_mode = 'search_block_embedded';
+  $ds_fieldsetting->settings = array(
+    'front_page_search_exposed_form' => array(
+      'weight' => '1',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'ds-grid-8 front-page-search-exposed-form',
+          'ow-def-cl' => FALSE,
+          'ow-at' => '',
+          'ow-def-at' => FALSE,
+        ),
+      ),
+    ),
+    'field_portal_promotions' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'ds-portal-promotion',
+          'ow-def-cl' => FALSE,
+          'ow-at' => '',
+          'ow-def-at' => FALSE,
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'ds-portal-promotion--item',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+  );
+  $export['node|portal_page|search_block_embedded'] = $ds_fieldsetting;
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|portal_page|sidebar';
   $ds_fieldsetting->entity_type = 'node';
   $ds_fieldsetting->bundle = 'portal_page';
@@ -1872,7 +1917,7 @@ function uhc_ds_ds_custom_fields_info() {
     'code' => array(
       'value' => '<?php
 if (!empty($entity->field_feedback_link)) {
-print \'<a class="course-feedback-button" href="[node:field-feedback-link:url]"><h4>[node:field-feedback-link:title]</h4><p>\' . t(\'By giving feedback you will help improving the quality of teaching\') . \'</p></a>\';
+print \'<a class="course-feedback-button" href="[node:field-feedback-link:url]"><h4>[node:field-feedback-link:title]</h4><p>[node:field-feedback-text]</p></a>\';
 }
 ?>',
       'format' => 'ds_code',
@@ -2002,7 +2047,7 @@ if (empty($entity->field_event_link)) {
   if (!empty($entity->field_event_location[LANGUAGE_NONE][0][\'street\']) && !empty($entity->field_event_location[LANGUAGE_NONE][0][\'name\'])) {
     $street = $entity->field_event_location[LANGUAGE_NONE][0][\'street\'];
     $name = $entity->field_event_location[LANGUAGE_NONE][0][\'name\'];
-    print $name . \', \' . "<a href=\'https://www.google.com/maps/place/$street\' target=\'_blank\'>" . $street . \'</a>\';
+    print $name . \', \' . "<a href=\'https://www.google.fi/maps/place/$street\' target=\'_blank\'>" . $street . \'</a>\';
   }
   else {
     print \'[node:field_event_loc_name]\';
@@ -2594,47 +2639,47 @@ function uhc_ds_ds_layout_settings_info() {
   $ds_layout->layout = 'course_page';
   $ds_layout->settings = array(
     'regions' => array(
+      'course_content' => array(
+        0 => 'comments',
+        3 => 'field_reference_to_course_tasks',
+        7 => 'repeating_event_reference_block',
+        10 => 'event_reference_block',
+        18 => 'field_imp_canonical_url',
+        19 => 'group_course_messages',
+        20 => 'group_imp_interaction',
+        21 => 'group_timetable',
+        22 => 'group_imp_material',
+        23 => 'group_course_task_material',
+        24 => 'field_imp_teacher_se_content',
+        25 => 'field_imp_teachersection',
+        26 => 'group_conduct_of_course',
+        27 => 'uhc_content_administration_from_oodi',
+        28 => 'group_description_objectives',
+        29 => 'group_additional_information',
+        30 => 'uhc_ds_target_group',
+        31 => 'uhc_ds_req_prerequisites',
+        33 => 'uhc_ds_objective',
+        36 => 'uhc_ds_contents',
+        38 => 'uhc_ds_conduct',
+        39 => 'uhc_ds_study_materials',
+        40 => 'uhc_ds_evaluation',
+        41 => 'field_imp_fee',
+        42 => 'uhc_ds_additional_info',
+        43 => 'field_imp_material_description',
+        44 => 'course_implementation_material',
+        45 => 'field_imp_interactiondescription',
+        46 => 'field_imp_interaction_link',
+      ),
       'course_metadata' => array(
-        0 => 'uhc_ds_course_number',
+        1 => 'uhc_ds_course_number',
         2 => 'field_imp_method_of_study',
         4 => 'scope',
         5 => 'field_imp_teacher',
         6 => 'course_implementation_timepsan',
         8 => 'field_imp_course_organiser',
-        10 => 'field_imp_locality',
+        9 => 'field_imp_locality',
         11 => 'course_imp_activity',
         12 => 'field_imp_teaching_language',
-      ),
-      'course_content' => array(
-        1 => 'comments',
-        3 => 'field_reference_to_course_tasks',
-        7 => 'event_reference_block',
-        9 => 'repeating_event_reference_block',
-        18 => 'field_imp_canonical_url',
-        19 => 'group_course_messages',
-        20 => 'group_timetable',
-        21 => 'group_imp_material',
-        22 => 'group_course_task_material',
-        23 => 'field_imp_teacher_se_content',
-        24 => 'field_imp_teachersection',
-        25 => 'group_conduct_of_course',
-        26 => 'group_description_objectives',
-        27 => 'group_additional_information',
-        28 => 'uhc_content_administration_from_oodi',
-        29 => 'uhc_ds_target_group',
-        31 => 'uhc_ds_req_prerequisites',
-        33 => 'uhc_ds_objective',
-        35 => 'uhc_ds_contents',
-        37 => 'uhc_ds_conduct',
-        38 => 'uhc_ds_study_materials',
-        39 => 'uhc_ds_evaluation',
-        40 => 'field_imp_fee',
-        41 => 'uhc_ds_additional_info',
-        42 => 'field_imp_material_description',
-        43 => 'course_implementation_material',
-        44 => 'field_imp_interactiondescription',
-        45 => 'field_imp_interaction_link',
-        46 => 'group_imp_interaction',
       ),
       'course_banner' => array(
         13 => 'field_imp_header_image',
@@ -2644,24 +2689,24 @@ function uhc_ds_ds_layout_settings_info() {
         17 => 'field_imp_header_text',
       ),
       'course_sidebar' => array(
-        30 => 'my_enrollments',
-        32 => 'field_moodle_url',
-        34 => 'field_moodle_key',
-        36 => 'course_feedback_button',
+        32 => 'my_enrollments',
+        34 => 'field_moodle_url',
+        35 => 'field_moodle_key',
+        37 => 'course_feedback_button',
       ),
     ),
     'fields' => array(
-      'uhc_ds_course_number' => 'course_metadata',
       'comments' => 'course_content',
+      'uhc_ds_course_number' => 'course_metadata',
       'field_imp_method_of_study' => 'course_metadata',
       'field_reference_to_course_tasks' => 'course_content',
       'scope' => 'course_metadata',
       'field_imp_teacher' => 'course_metadata',
       'course_implementation_timepsan' => 'course_metadata',
-      'event_reference_block' => 'course_content',
-      'field_imp_course_organiser' => 'course_metadata',
       'repeating_event_reference_block' => 'course_content',
+      'field_imp_course_organiser' => 'course_metadata',
       'field_imp_locality' => 'course_metadata',
+      'event_reference_block' => 'course_content',
       'course_imp_activity' => 'course_metadata',
       'field_imp_teaching_language' => 'course_metadata',
       'field_imp_header_image' => 'course_banner',
@@ -2671,20 +2716,21 @@ function uhc_ds_ds_layout_settings_info() {
       'field_imp_header_text' => 'course_banner',
       'field_imp_canonical_url' => 'course_content',
       'group_course_messages' => 'course_content',
+      'group_imp_interaction' => 'course_content',
       'group_timetable' => 'course_content',
       'group_imp_material' => 'course_content',
       'group_course_task_material' => 'course_content',
       'field_imp_teacher_se_content' => 'course_content',
       'field_imp_teachersection' => 'course_content',
       'group_conduct_of_course' => 'course_content',
+      'uhc_content_administration_from_oodi' => 'course_content',
       'group_description_objectives' => 'course_content',
       'group_additional_information' => 'course_content',
-      'uhc_content_administration_from_oodi' => 'course_content',
       'uhc_ds_target_group' => 'course_content',
-      'my_enrollments' => 'course_sidebar',
       'uhc_ds_req_prerequisites' => 'course_content',
-      'field_moodle_url' => 'course_sidebar',
+      'my_enrollments' => 'course_sidebar',
       'uhc_ds_objective' => 'course_content',
+      'field_moodle_url' => 'course_sidebar',
       'field_moodle_key' => 'course_sidebar',
       'uhc_ds_contents' => 'course_content',
       'course_feedback_button' => 'course_sidebar',
@@ -2697,7 +2743,6 @@ function uhc_ds_ds_layout_settings_info() {
       'course_implementation_material' => 'course_content',
       'field_imp_interactiondescription' => 'course_content',
       'field_imp_interaction_link' => 'course_content',
-      'group_imp_interaction' => 'course_content',
     ),
     'classes' => array(
       'layout_class' => array(
@@ -3368,6 +3413,49 @@ function uhc_ds_ds_layout_settings_info() {
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|portal_page|search_block_embedded';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'portal_page';
+  $ds_layout->view_mode = 'search_block_embedded';
+  $ds_layout->layout = 'simple_page';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'simple_page_content' => array(
+        0 => 'field_portal_page_description',
+        1 => 'front_page_search_exposed_form',
+        2 => 'field_portal_promotions',
+        3 => 'field_view_attachment',
+      ),
+    ),
+    'fields' => array(
+      'field_portal_page_description' => 'simple_page_content',
+      'front_page_search_exposed_form' => 'simple_page_content',
+      'field_portal_promotions' => 'simple_page_content',
+      'field_view_attachment' => 'simple_page_content',
+    ),
+    'classes' => array(
+      'layout_class' => array(
+        '' => '',
+      ),
+    ),
+    'wrappers' => array(
+      'simple_page_metadata' => 'div',
+      'simple_page_banner' => 'div',
+      'simple_page_content' => 'div',
+      'ds_hidden' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+    'hide_page_title' => '0',
+    'page_option_title' => '',
+  );
+  $export['node|portal_page|search_block_embedded'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
   $ds_layout->id = 'node|portal_page|sidebar';
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'portal_page';
@@ -3521,6 +3609,15 @@ function uhc_ds_ds_view_modes_info() {
     'node' => 'node',
   );
   $export['meta_information'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'search_block_embedded';
+  $ds_view_mode->label = 'Search block embedded';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['search_block_embedded'] = $ds_view_mode;
 
   $ds_view_mode = new stdClass();
   $ds_view_mode->api_version = 1;

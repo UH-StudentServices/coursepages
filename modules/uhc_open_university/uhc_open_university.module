@@ -2,6 +2,10 @@
 /**
  * @file
  * Code for the § open university feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 include_once 'uhc_open_university.features.inc';
@@ -134,4 +138,40 @@ function uhc_open_university_menu() {
  */
 function uhc_open_university_page() {
   return ' ';
+}
+
+/**
+ * Is the given node Open university course or course implementation?
+ *
+ * @param $node object Node.
+ * @return bool TRUE if the node is Open university course or course
+ * implementation node, otherwise FALSE.
+ */
+function uhc_open_university_is_open_university_course_or_implementation($node) {
+
+  // If node type is course and there's migration source set
+  if ($node->type == 'course') {
+    $results = db_query('select entity_id from {field_data_field_imp_reference_to_courses}
+                         where field_imp_reference_to_courses_target_id = :nid',
+                         array(':nid' => $node->nid))->fetchAllAssoc('entity_id');
+    foreach ($results as $result) {
+      if (uhc_open_university_is_open_university_course_or_implementation(node_load($result->entity_id))) {
+        return TRUE;
+      }
+    }
+
+    // If we get to this, it means that we got a course node which has no
+    // course implementations having open university organisation code listed.
+    return FALSE;
+  }
+  elseif ($node->type == 'course_implementation') {
+    return uhc_sources_is_from_organisation($node, 'H930');
+  }
+  elseif ($node->type == 'portal_page') {
+    return field_get_items('node', $node, 'field_liftup_section')[0]['value'] == 'openuniversity';
+  }
+
+  // If we get to this, it means that we have tried to call this method with a
+  // node from which we can't say whether it's from open university or not.
+  return FALSE;
 }

@@ -1,6 +1,0 @@
-name = HY Portal Comment
-description = Configures comments for this portal.
-core = 7.x
-package = HY Portal
-version = 7.x-1.41-dev
-project = hy_portal_comment

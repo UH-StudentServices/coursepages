@@ -21,7 +21,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional information',
-    'weight' => '22',
+    'weight' => '23',
     'children' => array(),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -70,7 +70,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tasks',
-    'weight' => '18',
+    'weight' => '19',
     'children' => array(
       0 => 'field_reference_to_course_tasks',
     ),
@@ -97,7 +97,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course overview',
-    'weight' => '21',
+    'weight' => '22',
     'children' => array(
       0 => 'field_imp_fee',
       1 => 'uhc_ds_additional_info',
@@ -132,7 +132,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Material',
-    'weight' => '17',
+    'weight' => '18',
     'children' => array(
       0 => 'field_imp_material_description',
       1 => 'course_implementation_material',
@@ -194,7 +194,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timetable',
-    'weight' => '16',
+    'weight' => '17',
     'children' => array(
       0 => 'event_reference_block',
       1 => 'repeating_event_reference_block',

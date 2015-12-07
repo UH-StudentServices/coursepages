@@ -112,6 +112,9 @@ function uhc_course_implementation_strongarm() {
       'meta_information' => array(
         'custom_settings' => FALSE,
       ),
+      'search_block_embedded' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -119,7 +122,7 @@ function uhc_course_implementation_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '14',
+          'weight' => '15',
         ),
         'language' => array(
           'weight' => '19',
@@ -128,7 +131,7 @@ function uhc_course_implementation_strongarm() {
           'weight' => '5',
         ),
         'locations' => array(
-          'weight' => '15',
+          'weight' => '16',
         ),
       ),
       'display' => array(),

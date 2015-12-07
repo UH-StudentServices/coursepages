@@ -77,6 +77,7 @@ fieldset#edit-field-imp-teachersection-und-0 legend,
 
 /* theme submit buttons */
 input[type="submit"]#edit-submit,
+input[type="submit"]#edit-submit2,
 input[type="submit"]#edit-delete  {
   transition-duration: 0.1s;
   transition-property: all;
@@ -86,6 +87,7 @@ input[type="submit"]#edit-delete  {
 }
 
 input[type="submit"]#edit-submit:hover,
+input[type="submit"]#edit-submit2:hover,
 input[type="submit"]#edit-delete:hover {
   background-color: #005479;
 }

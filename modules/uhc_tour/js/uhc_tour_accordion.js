@@ -1,3 +1,8 @@
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
 (function ($) {
   Drupal.behaviors.uhc_tour_accordion = {
     attach: function (context) {
@@ -16,10 +21,6 @@
       // this gets rid of all the extra whitespace when we have joyride enabled
       $('#joyride-tips-content').css('display', 'none');
       //Joyride screws up the positioning of these steps, so lets do some adjustments
-      $('.joyride-tip-guide.logout .joyride-nub').css({
-        'left': 'auto',
-        'right': '75px'
-      });
       $('.joyride-tip-guide.group-description-objectives').css('margin-top', '85px');
     }
   }

@@ -25,13 +25,15 @@ function uhc_page_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'list_default',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 30,
+      ),
+      'search_block_embedded' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 33,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -84,6 +86,16 @@ function uhc_page_field_default_field_instances() {
         'weight' => 0,
       ),
       'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'search_block_embedded' => array(
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(
@@ -158,6 +170,12 @@ function uhc_page_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 29,
+      ),
+      'search_block_embedded' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 32,
       ),
       'sidebar' => array(
         'label' => 'hidden',
@@ -239,6 +257,19 @@ function uhc_page_field_default_field_instances() {
         'type' => 'entityreference_entity_view',
         'weight' => 1,
       ),
+      'search_block_embedded' => array(
+        'label' => 'hidden',
+        'module' => 'entityreference',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+          'links' => 0,
+          'use_content_language' => TRUE,
+          'view_mode' => 'teaser',
+        ),
+        'type' => 'entityreference_entity_view',
+        'weight' => 2,
+      ),
       'sidebar' => array(
         'label' => 'hidden',
         'module' => 'entityreference',
@@ -302,18 +333,15 @@ function uhc_page_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_view',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 31,
+      ),
+      'search_block_embedded' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 34,
       ),
       'sidebar' => array(
         'label' => 'hidden',
@@ -371,14 +399,15 @@ function uhc_page_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 32,
+      ),
+      'search_block_embedded' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 35,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -450,9 +479,23 @@ function uhc_page_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'module' => 'viewreference',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'viewreference_default',
         'weight' => 2,
+      ),
+      'search_block_embedded' => array(
+        'label' => 'above',
+        'module' => 'viewreference',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'viewreference_default',
+        'weight' => 3,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -513,6 +556,12 @@ function uhc_page_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 28,
+      ),
+      'search_block_embedded' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 31,
       ),
       'sidebar' => array(
         'label' => 'above',

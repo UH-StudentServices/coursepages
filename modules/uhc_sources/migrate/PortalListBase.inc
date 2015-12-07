@@ -2,6 +2,10 @@
 /**
  * @file
  * Implementation for listing items from portal backend.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 class PortalListBase extends MigrateListJSON {

@@ -188,6 +188,12 @@ projects[message][version] = 1.10
 
 projects[omega][subdir] = "omega"
 projects[omega][version] = "4.3"
+projects[hy_base_theme][type] = "theme"
+projects[hy_base_theme][subdir] = "hy_base_theme"
+projects[hy_base_theme][download][type] = "git"
+projects[hy_base_theme][download][url] = "https://github.com/UH-StudentServices/hy_base_theme.git"
+projects[hy_base_theme][download][branch] = "7.x-1.x"
+projects[hy_base_theme][download][tag] = "7.x-1.0-beta1"
 projects[adminimal_theme][subdir] = "adminimal_theme"
 projects[adminimal_theme][version] = "1.22"
 
@@ -229,3 +235,8 @@ libraries[stomp_php][download][type] = "get"
 libraries[stomp_php][download][url] = "https://github.com/dejanb/stomp-php/archive/2.1.1.zip"
 libraries[stomp_php][directory_name] = "stomp_php"
 libraries[stomp_php][destination] = "libraries"
+
+; Project contribs
+projects[uh_taxonomy_organisations][type] = "module"
+projects[uh_taxonomy_organisations][download][type] = "get"
+projects[uh_taxonomy_organisations][download][url] = "https://github.com/UH-StudentServices/uh_taxonomy_organisations/archive/7.x-1.0.zip"

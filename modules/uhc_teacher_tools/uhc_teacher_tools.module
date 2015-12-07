@@ -2,6 +2,10 @@
 /**
  * @file
  * Code for the UHC Teacher Tools feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 include_once 'uhc_teacher_tools.features.inc';
@@ -55,11 +59,17 @@ function uhc_teacher_tools_module_implements_alter(&$implementations, $hook) {
 
 /**
  * Implements hook_menu_local_tasks_alter().
- *
+ */
+function uhc_teacher_tools_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  uhc_teacher_tools_hide_language_tabs($data);
+  uhc_teacher_tools_hide_view_tab($data);
+}
+
+/**
  * Hide all language tabs if the active user is course teacher or course
  * administrator.
  */
-function uhc_teacher_tools_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+function uhc_teacher_tools_hide_language_tabs(&$data) {
   $hide = (uhc_course_collaboration_is_current_user_course_teacher() || uhc_course_collaboration_is_current_user_course_administrator())
     && isset($data['tabs'][1]['output']);
 
@@ -67,6 +77,19 @@ function uhc_teacher_tools_menu_local_tasks_alter(&$data, $router_item, $root_pa
     foreach ($data['tabs'][1]['output'] as $key => $item) {
       if (isset($item['#language_tab']) && $item['#language_tab']) {
         unset($data['tabs'][1]['output'][$key]);
+      }
+    }
+  }
+}
+
+/**
+ * Hide "View" tab.
+ */
+function uhc_teacher_tools_hide_view_tab(&$data) {
+  if (isset($data['tabs'][0]['output'])) {
+    foreach ($data['tabs'][0]['output'] as $key => $item) {
+      if ($item['#link']['path'] == 'node/%/view') {
+        unset($data['tabs'][0]['output'][$key]);
       }
     }
   }
@@ -114,18 +137,11 @@ function uhc_teacher_tools_menu() {
 
   $teacher_edit_links = array(
     'Moodle' => 'edit-group_imp_moodle',
-    'Promotion' => 'edit-group_header_promotion',
     'Messages' => 'group-course-messages',
-    'Timetable' => 'edit-group_timetable',
-    'Material' => 'edit-group_imp_material',
-    'Tasks' => 'edit-group_imp_tasks',
-    'Custom section' => 'edit-group_manual_content',
-    'Conduct of the course' => 'edit-group_imp_conduct_of_course',
-    'Feedback' => 'edit-group_feedback',
-    'Interaction' => 'edit-group_imp_interaction'
+    'Material' => 'edit-group_imp_material'
   );
 
-  $weight = 80;
+  $weight = 90;
   foreach ($teacher_edit_links as $key => $value) {
     $items['node/%node/' . $value] = array(
       'title' => $key,
@@ -133,6 +149,7 @@ function uhc_teacher_tools_menu() {
       'access arguments' => array(1),
       'page callback' => '_uhc_teacher_tools_menu_edit_links_menu_callback',
       'page arguments' => array(1, $value),
+      'description' => drupal_html_class('edit-' . $key), //we use this as a class in hy_doo_menu_local_tasks_alter().
       'weight' => $weight,
       'type' => MENU_LOCAL_TASK,
     );

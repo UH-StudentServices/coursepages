@@ -2,6 +2,10 @@
 /**
  * @file
  * Code for the UHC Course implementation feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 include_once 'uhc_course_implementation.features.inc';
@@ -300,6 +304,7 @@ function uhc_course_implementation_node_view($node) {
   if ($node->type == 'course_implementation') {
     uhc_course_implementation_display_private_content_message($node);
     uhc_course_implementation_display_view_in_teaching_language_message($node);
+    uhc_course_implementation_display_course_implementation_status_message($node);
   }
 }
 
@@ -373,6 +378,21 @@ function uhc_course_implementation_display_private_content_message($node) {
       'setting'
     );
     drupal_add_js(drupal_get_path("module", "uhc_course_implementation") . "/js/uhc_course_implementation_hide_private_message.js");
+  }
+}
+
+/**
+ * Display a message if the course implementation has been canceled.
+ *
+ * @param $node object Course implementation node.
+ */
+function uhc_course_implementation_display_course_implementation_status_message($node) {
+  $course_implementation_status = field_get_items('node', $node, 'field_imp_status');
+  $canceled_status = 3;
+  $canceled = !empty($course_implementation_status[0]['value']) && $course_implementation_status[0]['value'] == $canceled_status;
+
+  if ($canceled) {
+    uh_coursepages_set_message(t('Cancelled'), 'error', FALSE);
   }
 }
 

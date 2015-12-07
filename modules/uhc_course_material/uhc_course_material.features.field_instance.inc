@@ -445,7 +445,7 @@ function uhc_course_material_field_default_field_instances() {
       ),
     ),
     'deleted' => 0,
-    'description' => 'Show the link to course\'s participants only. It is not advisable to add private material because it might be accessible through direct links.',
+    'description' => 'It is not advisable to add private material because it might be accessible through direct links.',
     'display' => array(
       'content_suffix' => array(
         'label' => 'above',
@@ -491,7 +491,7 @@ function uhc_course_material_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_private',
-    'label' => 'Visibility restricted',
+    'label' => 'Visibility restricted to course’s participants only.',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -549,15 +549,15 @@ function uhc_course_material_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('<br><br>Please note that you <strong>can not</strong> <em>attach a file</em> and <em>define a link</em> at the same time, the system will prioritize the link if you fill both fields.<br><br>');
   t('Author');
+  t('It is not advisable to add private material because it might be accessible through direct links.');
   t('Material file');
   t('Material link');
   t('Material section');
   t('Nimi');
   t('Please note that you <strong>can not</strong> <em>attach a file</em> and <em>define a link</em> at the same time, the system will prioritize the link if you fill both fields.');
   t('Publication information');
-  t('Show the link to course\'s participants only. It is not advisable to add private material because it might be accessible through direct links.');
   t('The material section is a label which can be used for separating materials of a different kind, eg. lecture slides, literature.');
-  t('Visibility restricted');
+  t('Visibility restricted to course’s participants only.');
 
   return $field_instances;
 }

@@ -6,6 +6,10 @@
  *
  * It renders the comment form before comments, because they are reversed using
  * sort_comments module. See DOO-697.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 ?>
 <div id="comments" class="<?php print $classes; ?>"<?php print $attributes; ?>>

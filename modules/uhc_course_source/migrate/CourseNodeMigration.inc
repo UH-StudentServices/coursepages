@@ -2,6 +2,10 @@
 /**
  * Implements an migration class for migrating course nodes from doo-oodi
  * service over HTTP.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
  */
 
 class CourseNodeMigration extends PortalMigrationBase {
@@ -87,7 +91,7 @@ class CourseNodeMigration extends PortalMigrationBase {
 
     // Setup simple field mapping
     $this->addFieldMapping('status', 'julkisuus')->defaultValue(1);
-    $this->addFieldMapping('title', 'nimi_en');
+    $this->addFieldMapping('title', 'nimi_en')->callbacks(array($this, 'trimOpenUniPrefix'));
     $this->addFieldMapping('field_course_course_number', 'id');
     $this->addFieldMapping('field_study_credit', 'laajuus');
 
@@ -120,7 +124,8 @@ class CourseNodeMigration extends PortalMigrationBase {
 
     // Title has been already mapped, but we need to map the multilingual field
     // too
-    $this->addFieldMapping('title_field', 'nimi_all')->arguments($field_arguments);
+    $this->addFieldMapping('title_field', 'nimi_all')->arguments($field_arguments)
+      ->callbacks(array($this, 'trimOpenUniPrefix'));
 
     $this->addFieldMapping('field_evaluation',  'arviointi_all')
       ->arguments($field_arguments)
@@ -162,9 +167,8 @@ class CourseNodeMigration extends PortalMigrationBase {
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'resolveFacultyTid'));
 
-    $this->addFieldMapping('field_course_subject',  'oppiaine')
-      ->arguments(array('format' => 'filtered_html'))
-      ->callbacks(array($this, 'preprocessString'));
+    $this->addFieldMapping('field_course_subject',  'oppiaineet')
+      ->arguments(array('format' => 'filtered_html'));
 
   }
 
@@ -191,7 +195,7 @@ class CourseNodeMigration extends PortalMigrationBase {
       'tiedekunta_all'      => 'Faculty of course in all languages',
       'oppimateriaali_all'  => 'Study materials in all languages.',
       'suoritustavat_all'   => 'Conduct in all languages',
-      'oppiaine'            => 'Subject of the course',
+      'oppiaineet'          => 'List of subjects',
       'laajuus'             => 'Credit',
       'julkisuus'           => 'Published (0 = unpublished, 1 = published)',
       'md5'                 => 'MD5 checksum of the content',
@@ -207,6 +211,9 @@ class CourseNodeMigration extends PortalMigrationBase {
    *      nicely from the __construct() when setting field mapping.
    */
   public function prepareRow($row) {
+    if ($this->shouldRowBeSkipped($row)) {
+      return FALSE;
+    }
 
     // These are the languages we want to aggregate
     $languages = $this->getSupportedLanguages();
@@ -218,6 +225,14 @@ class CourseNodeMigration extends PortalMigrationBase {
     // Aggregate all course descriptions
     $fields = array('ajoitus', 'arviointi', 'avainsanat', 'ed_opinnot', 'kohderyhma', 'lisatiedot', 'oppimateriaali', 'sisalto', 'suoritustavat', 'tavoite');
     $row->kurssikuvaus = $this->aggregateMultilingualFields($row->kurssikuvaus, $languages, $fields);
+
+    // Aggregate subjects into $row->oppiaineet, so that we can do field mapping
+    // with multiple string values (no entity references so far yet). See
+    // DOO-1494 comments in JIRA.
+    $row->oppiaineet = array();
+    if (isset($row->oppiainelista)) {
+      $row->oppiaineet = $this->aggregateSubjects($row->oppiainelista);
+    }
 
     // Copy all course descriptions to root
     foreach ($row->kurssikuvaus as $key => $value) {
@@ -264,6 +279,48 @@ class CourseNodeMigration extends PortalMigrationBase {
       $object->$all_field_name = $all;
     }
     return $object;
+  }
+
+  /**
+   * Method for aggregating subjects (or disciplines) from list of given IDs.
+   * @param $resolvable_disciplines
+   * @return array
+   */
+  protected function aggregateSubjects($resolvable_disciplines) {
+
+    // Constrcut list of all resolved disciplines
+    $resolved_disciplines = array();
+
+    // Request list of known disciplines. Response should contain all
+    // disciplines with their IDs and names. Response is formatted as JSON.
+    $disciplines_url = variable_get('uhc_course_source_disciplines_url', '');
+    $disciplines_url = PortalMigrationBase::prependHostIfMissing($disciplines_url);
+    $response = drupal_http_request($disciplines_url);
+    $decoded_response = json_decode($response->data);
+
+    // When response is decoded and has data
+    if ($decoded_response && !empty($decoded_response->data)) {
+      $known_disciplines = $decoded_response->data;
+      // Loop over resolvable disciplines
+      foreach ($resolvable_disciplines as $resolvalbe_discipline) {
+        // Loop over known disciplines and look for matching iD
+        foreach ($known_disciplines as $known_discipline) {
+          // When matching ID
+          if ($resolvalbe_discipline->oppiaine_id == $known_discipline->discipline_id) {
+            // Append the name to resolved disciplines and continue to next
+            // resolvable discipline.
+            $resolved_disciplines[] = $known_discipline->discipline_name;
+            continue 2;
+          }
+        }
+      }
+    }
+    else {
+      watchdog('uhc_course_source', 'Could not decode list of disciplines while aggregating subjects. Got following reponse: @response', array('@response' => $response), WATCHDOG_WARNING);
+    }
+
+    // Return resolved disciplines
+    return $resolved_disciplines;
   }
 
   /**
