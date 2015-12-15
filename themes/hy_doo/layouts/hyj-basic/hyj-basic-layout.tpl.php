@@ -6,6 +6,11 @@
  */
 ?>
 <div class="l-page">
+  <?php if ($tabs): ?>
+    <div class="tabs-wrapper">
+      <?php print render($tabs); ?>
+    </div>
+  <?php endif; ?>
   <?php if ($page['top_bar']): ?>
     <div class="l-top-bar-wrapper">
       <div class="l-top-bar">
@@ -13,9 +18,7 @@
       </div>
     </div>
   <?php endif; ?>
-
-  <div
-    class="l-menu-bar<?php if ($page['top_bar']): ?> with-top-bar<?php endif; ?>">
+  <div class="l-menu-bar<?php if ($page['top_bar']): ?> with-top-bar<?php endif; ?>">
     <?php print render($page['menu_bar']); ?>
   </div>
   <?php if ($messages): ?>
@@ -44,11 +47,6 @@
           <h1 class="page-title"><?php print $title; ?></h1>
         <?php endif; ?>
         <?php print render($title_suffix); ?>
-        <?php if ($tabs): ?>
-          <div class="tabs-wrapper">
-            <?php print render($tabs); ?>
-          </div>
-        <?php endif; ?>
         <?php if ($action_links): ?>
           <ul class="action-links"><?php print render($action_links); ?></ul>
         <?php endif; ?>

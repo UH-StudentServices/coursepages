@@ -58,7 +58,7 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
     );
 
     $moodi_response = uhc_moodi_get_controller()->get($course_implementation_id);
-    $status_markup = '<h2>Moodle status</h2>' . uhc_moodi_get_status_markup($moodi_response);
+    $status_markup = '<h4>Moodle status</h4>' . uhc_moodi_get_status_markup($moodi_response);
 
     // Status area.
     $form['uhc_moodi_fieldset']['uhc_moodi_status_area'] = array(
@@ -310,9 +310,9 @@ function uhc_moodi_create_button_ajax_callback($form, &$form_state) {
     $moodi_get_response = uhc_moodi_get_controller()->get($course_implementation_id);
 
     $element['#prefix'] = uhc_moodi_get_status_prefix($moodi_create_response);
-    $element['#markup'] = '<h2>Creation result</h2>';
+    $element['#markup'] = '<h4>Creation result</h4>';
     $element['#markup'] .= uhc_moodi_get_status_markup($moodi_create_response);
-    $element['#markup'] .= '<h2>Moodle status</h2>';
+    $element['#markup'] .= '<h4>Moodle status</h4>';
     $element['#markup'] .= uhc_moodi_get_status_markup($moodi_get_response);
 
     uhc_moodi_handle_create_response($moodi_create_response, $form);

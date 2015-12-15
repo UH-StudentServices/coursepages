@@ -38,11 +38,10 @@ function uhc_page_views_default_views() {
       'rendered_strip' => 0,
     ),
   );
-  $handler->display->display_options['style_options']['row_class'] = 'list-item field-group-accordion-item';
   $handler->display->display_options['style_options']['default_row_class'] = FALSE;
   $handler->display->display_options['style_options']['row_class_special'] = FALSE;
-  $handler->display->display_options['style_options']['class'] = 'ds-node-link-list accordion-content-item';
-  $handler->display->display_options['style_options']['wrapper_class'] = 'views-row';
+  $handler->display->display_options['style_options']['class'] = 'list-of-links--light accordion-content-item field-group-accordion-item';
+  $handler->display->display_options['style_options']['wrapper_class'] = '';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Relationship: Taxonomy term: Content with term */
   $handler->display->display_options['relationships']['nid']['id'] = 'nid';
@@ -63,7 +62,10 @@ function uhc_page_views_default_views() {
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['relationship'] = 'nid';
   $handler->display->display_options['fields']['title_field']['label'] = '';
+  $handler->display->display_options['fields']['title_field']['element_type'] = '0';
   $handler->display->display_options['fields']['title_field']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title_field']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['title_field']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['title_field']['type'] = 'title_linked';
   $handler->display->display_options['fields']['title_field']['settings'] = array(
     'title_style' => '_none',

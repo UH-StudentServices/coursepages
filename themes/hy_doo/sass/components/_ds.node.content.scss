@@ -6,8 +6,11 @@
 .ds-node-content {
   float: left;
   width: 100%;
-  p {
+  p,
+  ul li,
+  ol li {
     @include font-family-bodytext;
+    font-size: inherit;
   }
 }
 .field--name-field-imp-header-image {
@@ -26,160 +29,19 @@
   }
 }
 
-
 // Register button
 [class*="imp-canonical-url"] {
-  float: left;
+  display: inline-block;
   margin-bottom: 1em;
 }
 
-/**
-* Display suite generated link list for siple references (entity reference)
-*/
-.ds-node-link-list {
-  margin-top: 2em;
-
-  // admin links for the whole generated list
-  .field-collection-view-links {
-    display: inline-block;
-    width: 100%;
-    padding: 0.85em;
-    
-    background: rgb(239, 239, 239);
-    font-size: 0.85em;
-    > div > div > div > div > div { // auch, needs template
-      font-weight: bold;
-    }
-    li {
-      float: left;
-    }
-
-    a {
-      float: left;
-      padding: 0 1em;
-
-      font-weight: normal;
-    }
-  }
-  .action-links-field-collection-add {
-    display: none;
-  }
-}
-
-// accordion styles (temp move)
-.accordion-item,
-.field-group-accordion-item {
-  clear: both;
-}
-
-.accordion-item {
-  position: relative;
-  width: 100%;
-  margin: 1em 0 0;
-  padding-left: 2.5em;
-  line-height: 1.438em;
-  padding-bottom: 0;
-  background: $darkblue;
-
-  font-size: 1em;
-  color: $white;
-  overflow: hidden;
-  &:before {
-    content: "\f054";
-    position: absolute;
-    left: 1em;
-    top: 0.65em;
-
-    font-family: "FontAwesome";
-  }
-  &.is-active {
-    background: $darkblue--active;
-    a {
-      background: $blue--active;
-    }
-  }
-  &.is-active:before {
-    content: "\f078";
-    left: 0.75em;
-  }
-  a {
-    display: inline-block;
-    width: 100%;
-    padding: 0.65em;
-
-    background: $blue;
-    color: inherit;
-    letter-spacing: 0;
-    &:hover {
-      color: inherit;
-    }
-  }
-}
-
-.field-group-accordion-item {
-  padding: 2em 0 0;
-  font-size: 1em;
-  .block-title {
-    display: none;
-  }
-}
-
-.accordion-content-label {
-  font-weight: 900;
-}
-
-.accordion-help {
-  @include border-bottom;
-  p {
-    margin-bottom: 0;
-  }
-}
-
-.accordion-content-item {
-  margin: 2em 0 1em;
-  @include at-breakpoint($layout-small) {
-    padding-left: 2.6em;
-  }
-  &.tighten {
-    margin-top: 1em;
-  }
-  // unify font size to paragraphs
-  p,
-  ul li,
-  ol li {
-    font-size: inherit;
-  }
-  // editroial links
-  & ~ .action-links {
-    @include at-breakpoint($layout-small) {
-      margin-left: 2.6em;
-    }
-    a {
-      padding: 1em;
-    }
-  }
-  .field-collection-view-links {
-    padding: 1em 0.3em;
-    background: $lightsilver;
-    overflow: hidden;
-    li {
-      float: left;
-      padding: 0 0.5em;
-    }
-  }
-  // helper
-  &.squeeze-bottom {
-    margin-bottom: 0;
-    ~ .accordion-content-item {
-      margin-top: 0;
-    }
-  }
-}
-
+.accordion-content-label,
 .accordion-content--label,
 .accordion-content-item--label {
+  @include font-family-main;
+  @include font-weight-bold;
+  @include font-size(15px);
   text-transform: uppercase;
-  font-weight: 900;
   display: block;
   margin-bottom: 1em;
 }

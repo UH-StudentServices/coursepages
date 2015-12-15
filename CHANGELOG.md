@@ -1,3 +1,30 @@
+# Helsinki University Coursepages v1.46
+Päiväys: 14.12.2015
+
+## Lisäykset
+  - DOO-1656: Avoimen hakutulokset: Näytetään peruutustieto mikäli toteutus on
+    peruttu.
+  - DOO-1733: Lisättiin mahdollisuus lisätä ylläpitotiedotteita verkkopalvelun
+    yläpalkkiin.
+
+## Muutokset
+  - DOO-1603: Avoimen haun sanaehdottelija tarjoaa nyt muitakin kuin otsikossa
+    esiintyviä hakusanoja.
+  - DOO-1599: Headerin ja valikkojen teemauksen muuttaminen konseptin mukaiseksi
+  - DOO-1665: Avoimen yliopiston sivuilla näkyy uloskirjautumisnappi.
+  - DOO-1600: Ulkoasun konseptinmukaistamista
+  - DOO-1666: Muokkausnäkymän valikosta poistettu Vuorovaikutus ja Integration -kohdista
+    punaiset asteriskit
+  - DOO-1658, DOO-1731, DOO-1732: Muokkausnäkymä muutettu styleguiden mukaiseksi
+  - DOO-1687: Vaihdettu PL avoimen yliopiston footer-tiedoista.
+  - DOO-1605: Etusivun hakua voi tarkentaa hakusanan lisäksi myös muilla rajausehdoilla.
+  - DOO-1675: Otettiin käyttöön hierarkinen organisaatio rakenne
+
+## Korjaukset
+  - DOO-1707: Korjattiin aloituskuukausitiedon duplikoituminen ja käännökset
+  - DOO-1700: Korjattiin genen/molen nostot työpöytänäkymässä
+
+
 # Helsinki University Coursepages v1.45
 Päiväys: 07.12.2015
 

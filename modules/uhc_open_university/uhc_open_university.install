@@ -9,16 +9,21 @@
  * Implements hook_install().
  */
 function uhc_open_university_install() {
+  _uhc_open_university_set_open_uni_contact_block();
+}
+
+/**
+ * Helper function for installation (and update) to update address information.
+ */
+function _uhc_open_university_set_open_uni_contact_block() {
   // Create default block content for Open university contact block
   $translations = array(
-    'fi' => '<h4>Avoin Yliopisto</h4><p>PL 53<br>00014 Helsingin yliopisto</p>',
-    'en' => '<h4>Open University</h4><p>P.O.Box 53<br>00014 University of Helsinki</p>',
-    'sv' => '<h4>Öppna universitetet</h4><p>PB 53<br>00014 Helsingfors universitet</p>',
+    'fi' => '<h4>Avoin Yliopisto</h4><p>PL 9<br>00014 Helsingin yliopisto</p>',
+    'en' => '<h4>Open University</h4><p>P.O.Box 9<br>00014 University of Helsinki</p>',
+    'sv' => '<h4>Öppna universitetet</h4><p>PB 9<br>00014 Helsingfors universitet</p>',
   );
   foreach ($translations as $key => $value) {
-    if (!variable_store_get('language', $key, 'uhc_open_university_contactblock')) {
-      variable_store_set('language', $key, 'uhc_open_university_contactblock', array('value' => $translations[$key], 'format' => 'filtered_html'));
-    }
+    variable_store_set('language', $key, 'uhc_open_university_contactblock', array('value' => $translations[$key], 'format' => 'filtered_html'));
   }
 }
 
@@ -31,4 +36,11 @@ function uhc_open_university_uninstall() {
   variable_store_del($realm, 'fi', $name);
   variable_store_del($realm, 'en', $name);
   variable_store_del($realm, 'sv', $name);
+}
+
+/**
+ * Update open university contact details.
+ */
+function uhc_open_university_update_7001() {
+  _uhc_open_university_set_open_uni_contact_block();
 }

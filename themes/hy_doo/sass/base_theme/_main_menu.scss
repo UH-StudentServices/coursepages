@@ -55,6 +55,40 @@
 }
 
 .responsive-navigation {
+  li.menu-path-og-menu-single-login,
+  li.menu-path-menu-open-university-navigation-login {
+    @include at-breakpoint($layout-small) {
+      float: right;
+      a {
+        padding-right: 0;
+      }
+    }
+  }
+  .home-link {
+    color: $darkblue;
+    visibility: hidden;
+    width: 20px;
+    &:before {
+      @include hy-icon($hy-home);
+      visibility: visible;
+    }
+  }
+  .login-link {
+    background: $blue;
+    color: $white;
+    &:hover {
+      color: $white;
+      background: $blue--active;
+    }
+    @include at-breakpoint($layout-small) {
+      background: transparent;
+      color: $blue;
+      &:hover {
+        color: inherit;
+        background: inherit;
+      }
+    }
+  }
   @include at-breakpoint($layout-mobile-only) {
     border-bottom: 1px solid lighten($silver, 20%);
 
@@ -171,8 +205,6 @@
   }
 
   @include at-breakpoint($layout-small) {
-    @include container;
-
     li {
       display: block;
       float: left;
@@ -188,10 +220,14 @@
         @include link-menu;
         @include font-weight-bold;
         display: block;
-        padding: 1.6em 1.5em;
+        line-height: 60px;
+        padding: 0 1.5em;
 
         @include at-breakpoint($layout-medium) {
-          padding: 1.6em 2em;
+          padding: 0 2em;
+        }
+        .section-open-university & {
+          padding: 0 1.1em;
         }
       }
 

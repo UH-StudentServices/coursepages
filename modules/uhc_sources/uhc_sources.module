@@ -291,11 +291,18 @@ function uhc_sources_is_from_organisation($node, $organisation_code) {
     return FALSE;
   }
 
-  // Now loop over organisation codes until we find a match.
-  $field_imp_organisation_codes = field_get_items('node', $node, 'field_imp_organisation_codes');
-  if (!empty($field_imp_organisation_codes)) {
-    foreach ($field_imp_organisation_codes as $field_imp_organisation_code) {
-      if ($field_imp_organisation_code['value'] == $organisation_code) {
+  // Resolve taxonomy term ID for given organisation code
+  $organisation_term = uh_taxonomy_organisations_load_by_code($organisation_code);
+  if (!$organisation_term) {
+    watchdog('uhc_sources', 'Could not resolve organisation taxonomy term from given organisation code "@code".', array('@code' => $organisation_code), WATCHDOG_WARNING);
+    return FALSE;
+  }
+
+  // Now loop over organisations until we find a match.
+  $field_imp_organisations = field_get_items('node', $node, 'field_imp_organisation');
+  if (!empty($field_imp_organisations)) {
+    foreach ($field_imp_organisations as $field_imp_organisation) {
+      if ($field_imp_organisation['tid'] == $organisation_term->tid) {
         return TRUE;
       }
     }

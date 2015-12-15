@@ -3,7 +3,7 @@
   overflow: visible;
   form {
   	background: $black;
-    color: $silver;
+    color: $white;
     border: 1px solid #444;
     min-width: 300px;
     padding: 1em;
@@ -19,12 +19,15 @@
     }
     textarea[name=message] {
       @include font-size(13px);
+      @include input-placeholder {
+        color: $white;
+      }
+      color: $white;
       background: transparent;
       padding: 0;
       height: 8em;
       resize: none;
       border: none;
-      color: $silver;
       &:focus {
         outline: none;
       }
@@ -75,8 +78,8 @@
     &:after {
       @include hy-icon($hy-remove);
       position: absolute;
-      right: 1em;
-      bottom: 1em;
+      right: 0.4em;
+      bottom: 0.4em;
     }
   }
   &.open {

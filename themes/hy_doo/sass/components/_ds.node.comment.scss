@@ -2,10 +2,6 @@
 *   styles for node comments
 */
 .comment-wrapper {
-  padding: 2em 0 1em;
-  @include at-breakpoint($layout-small) {
-    margin-left: 2.6em;
-  }
   form.comment-form {
     margin-bottom: 3em;
     #edit-author--2,
@@ -34,7 +30,8 @@
     @include span-columns(14 omega, 16);
     .message-header {
       .message-author {
-        font-size: 1.4rem;
+        @include font-size(20px);
+        @include font-weight-medium;
       }
       @include horizontal-rule('bottom');
       font-size: 0.875rem;

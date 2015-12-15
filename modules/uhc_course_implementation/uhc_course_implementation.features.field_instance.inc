@@ -2152,7 +2152,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 44,
+      'weight' => 45,
     ),
   );
 
@@ -2368,12 +2368,12 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_organisation_codes'
-  $field_instances['node-course_implementation-field_imp_organisation_codes'] = array(
+  // Exported field_instance: 'node-course_implementation-field_imp_organisation'
+  $field_instances['node-course_implementation-field_imp_organisation'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'List of organisation codes involved with this course implementation.',
+    'description' => '',
     'display' => array(
       'content_suffix' => array(
         'label' => 'above',
@@ -2383,9 +2383,13 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 70,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 79,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2397,7 +2401,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 42,
+        'weight' => 0,
       ),
       'teaser_accordion' => array(
         'label' => 'above',
@@ -2414,52 +2418,22 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_imp_organisation_codes',
-    'label' => 'Organisation codes',
+    'field_name' => 'field_imp_organisation',
+    'label' => 'Organisation',
     'required' => 0,
     'settings' => array(
-      'better_formats' => array(
-        'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'embed_code' => 'embed_code',
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
-          'plain_text' => 'plain_text',
-        ),
-        'allowed_formats_toggle' => 0,
-        'default_order_toggle' => 0,
-        'default_order_wrapper' => array(
-          'formats' => array(
-            'ds_code' => array(
-              'weight' => 12,
-            ),
-            'embed_code' => array(
-              'weight' => 1,
-            ),
-            'filtered_html' => array(
-              'weight' => 0,
-            ),
-            'full_html' => array(
-              'weight' => 1,
-            ),
-            'plain_text' => array(
-              'weight' => 10,
-            ),
-          ),
-        ),
-      ),
       'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'text',
+      'active' => 0,
+      'module' => 'taxonomy',
       'settings' => array(
-        'size' => 10,
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
       ),
-      'type' => 'text_textfield',
-      'weight' => 42,
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 43,
     ),
   );
 
@@ -2816,7 +2790,7 @@ function uhc_course_implementation_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 45,
+      'weight' => 46,
     ),
   );
 
@@ -3739,7 +3713,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 43,
+      'weight' => 44,
     ),
   );
 
@@ -3939,6 +3913,7 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Method of study');
   t('Name');
   t('Objective');
+  t('Organisation');
   t('Organisation codes');
   t('Please specify how the students are able to interact online in this course. Recommended services are Moodle, Yammer and Presemo but there are other services too. Sometimes it might be a good idea to ask the students for their opinion.');
   t('Reference to course tasks');

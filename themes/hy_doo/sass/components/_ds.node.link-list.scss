@@ -2,6 +2,7 @@
 * Expected content consists of a section title and section content - list
 */
 .ds-node-link-list {
+  margin-top: 2em;
   .ds-node-link-list__section-title {
     text-transform: uppercase;
     a {
@@ -12,6 +13,7 @@
     }
   }
   .list-item {
+    @include font-family-main;
     @include font-weight-bold;
     @include border-bottom;
     padding: 0.8em 3em 0.8em 0;

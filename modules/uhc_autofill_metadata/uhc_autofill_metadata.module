@@ -471,7 +471,10 @@ function _uhc_autofill_metadata_enrollments_block_should_display_enrollment($met
     );
 
     $result = $query->fetch();
-    $should_display_enrollment = !in_array($result->destid1, $exams);
+
+    if (isset($result->destid1)) {
+      $should_display_enrollment = !in_array($result->destid1, $exams);
+    }
   }
 
   return $should_display_enrollment;

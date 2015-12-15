@@ -84,14 +84,10 @@ function uhc_event_preprocess_block(&$variables) {
 
     if($has_one_off_events && $has_repeating_events) {
 
-      // Create title wrapper element
-      $variables['title_prefix'][] = array('#markup' => '<div class="ds-teaser-accordion--title">');
-      $variables['title_suffix'][] = array('#markup' => '</div>');
-
-      // Creates accordiong title and content elements, which will style and
-      // trigger the accordion functionality.
-      $variables['title_attributes_array']['class'][] = 'ds-teaser-accordion--title_header';
-      $variables['content_attributes_array']['class'][] = 'ds-teaser-accordion--content';
+      // Disable contextual links, as they break our accordion. Add classes to enable accordion.
+      unset($variables['title_suffix']['contextual_links']);
+      $variables['title_attributes_array']['class'][] = 'accordion-item__light ds-teaser-accordion--title';
+      $variables['content_attributes_array']['class'][] = 'field-group-accordion-item';
 
     }
     else {

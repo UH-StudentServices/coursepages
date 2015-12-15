@@ -51,13 +51,13 @@
         width: 49%;
       }
     }
-    .table-three-columns & {
-      .hide-from-three-column-tables {
-        display: none !important;
-      }
-      .event-location {
-        width: 100%;
-      }
+  }
+  &.table-three-columns {
+    .hide-from-three-column-tables {
+      display: none !important;
+    }
+    .event-location {
+      width: 100%;
     }
   }
 }

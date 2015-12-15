@@ -223,8 +223,8 @@ function uhc_doo_theme_features_image_default_styles() {
         'module' => 'image',
         'name' => 'image_scale_and_crop',
         'data' => array(
-          'width' => 48,
-          'height' => 48,
+          'width' => 50,
+          'height' => 50,
         ),
         'weight' => 1,
       ),

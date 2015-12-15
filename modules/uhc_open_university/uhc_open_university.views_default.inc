@@ -152,6 +152,27 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'No results';
   $handler->display->display_options['empty']['area']['format'] = 'plain_text';
+  /* Field: Course implementation status value */
+  $handler->display->display_options['fields']['field_imp_status']['id'] = 'field_imp_status';
+  $handler->display->display_options['fields']['field_imp_status']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['field_imp_status']['field'] = 'field_imp_status';
+  $handler->display->display_options['fields']['field_imp_status']['ui_name'] = 'Course implementation status value';
+  $handler->display->display_options['fields']['field_imp_status']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_imp_status']['settings'] = array(
+    'thousand_separator' => '',
+    'prefix_suffix' => 1,
+  );
+  /* Field: Course implementation status text */
+  $handler->display->display_options['fields']['field_imp_status_1']['id'] = 'field_imp_status_1';
+  $handler->display->display_options['fields']['field_imp_status_1']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['field_imp_status_1']['field'] = 'field_imp_status';
+  $handler->display->display_options['fields']['field_imp_status_1']['ui_name'] = 'Course implementation status text';
+  $handler->display->display_options['fields']['field_imp_status_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_imp_status_1']['type'] = 'course_implementation_status';
+  $handler->display->display_options['fields']['field_imp_status_1']['settings'] = array(
+    'thousand_separator' => '',
+    'prefix_suffix' => 1,
+  );
   /* Field: Indexed Multilingual Node: URL */
   $handler->display->display_options['fields']['url']['id'] = 'url';
   $handler->display->display_options['fields']['url']['table'] = 'search_api_index_uhc_portal';
@@ -169,6 +190,7 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['fields']['title_field']['alter']['text'] = '<a href="[field_imp_reference_to_courses_url]">[title_field]</a>';
   $handler->display->display_options['fields']['title_field']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['title_field']['alter']['path'] = '[url]';
+  $handler->display->display_options['fields']['title_field']['alter']['prefix'] = '<span class="course-implementation-status course-implementation-status-[field_imp_status]"><p>[field_imp_status_1]</p></span>';
   /* Field: Indexed Multilingual Node: Credit */
   $handler->display->display_options['fields']['field_study_credit']['id'] = 'field_study_credit';
   $handler->display->display_options['fields']['field_study_credit']['table'] = 'search_api_index_uhc_portal';
@@ -245,11 +267,11 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['filters']['field_imp_begin_date']['operator'] = '>=';
   $handler->display->display_options['filters']['field_imp_begin_date']['value'] = 'now -1 day';
   $handler->display->display_options['filters']['field_imp_begin_date']['group'] = 1;
-  /* Filter criterion: Indexed Multilingual Node: Organisation codes */
-  $handler->display->display_options['filters']['field_imp_organisation_codes']['id'] = 'field_imp_organisation_codes';
-  $handler->display->display_options['filters']['field_imp_organisation_codes']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['filters']['field_imp_organisation_codes']['field'] = 'field_imp_organisation_codes';
-  $handler->display->display_options['filters']['field_imp_organisation_codes']['value'] = 'H930';
+  /* Filter criterion: Organisation: Code (indexed) */
+  $handler->display->display_options['filters']['field_imp_organisation_field_ouh_code']['id'] = 'field_imp_organisation_field_ouh_code';
+  $handler->display->display_options['filters']['field_imp_organisation_field_ouh_code']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['filters']['field_imp_organisation_field_ouh_code']['field'] = 'field_imp_organisation_field_ouh_code';
+  $handler->display->display_options['filters']['field_imp_organisation_field_ouh_code']['value'] = 'H930';
 
   /* Display: Desktop */
   $handler = $view->new_display('page', 'Desktop', 'desktop');
@@ -287,8 +309,10 @@ function uhc_open_university_views_default_views() {
     t('Subject'),
     t('<h2>Results (@total)</h2>'),
     t('No results'),
+    t('Status'),
     t('Name'),
     t('<a href="[field_imp_reference_to_courses_url]">[title_field]</a>'),
+    t('<span class="course-implementation-status course-implementation-status-[field_imp_status]"><p>[field_imp_status_1]</p></span>'),
     t('Cr'),
     t('[field_study_credit-value]  <span class="show-only-in-mobile">Cr</span>'),
     t('Begin date'),

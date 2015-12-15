@@ -65,7 +65,7 @@ function uhc_search_portal_feature_default_search_api_index() {
         "field_imp_keywords" : { "type" : "list\\u003Cstring\\u003E" },
         "field_imp_locality" : { "type" : "string" },
         "field_imp_method_of_study" : { "type" : "integer", "entity_type" : "taxonomy_term" },
-        "field_imp_organisation_codes" : { "type" : "list\\u003Cstring\\u003E" },
+        "field_imp_organisation:field_ouh_code" : { "type" : "list\\u003Cstring\\u003E" },
         "field_imp_reference_to_courses:field_course_course_number" : { "type" : "string" },
         "field_imp_reference_to_courses:field_course_faculty" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_imp_reference_to_courses:field_course_subject" : { "type" : "list\\u003Cstring\\u003E" },
@@ -111,13 +111,16 @@ function uhc_search_portal_feature_default_search_api_index() {
         "search_api_alter_add_aggregation" : {
           "status" : 1,
           "weight" : "0",
-          "settings" : { "fields" : { "search_api_aggregation_1" : {
+          "settings" : { "fields" : {
+              "search_api_aggregation_1" : {
                 "name" : "Combined fulltext",
                 "type" : "fulltext",
                 "fields" : [
-                  "field_imp_teacher",
                   "title_field",
+                  "field_imp_id",
+                  "field_imp_teacher",
                   "field_imp_locality",
+                  "field_course_subject",
                   "field_imp_reference_to_courses:title",
                   "field_imp_reference_to_courses:title_field",
                   "field_imp_reference_to_courses:field_course_course_number",
@@ -125,21 +128,35 @@ function uhc_search_portal_feature_default_search_api_index() {
                   "field_imp_reference_to_courses:field_course_subject",
                   "field_contents:value",
                   "field_objective:value",
-                  "field_imp_reference_to_courses:field_contents:value",
                   "field_imp_reference_to_courses:field_objective:value"
                 ],
-                "description" : "A Fulltext aggregation of the following fields: Teacher, Title, Locality, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Course number, Reference to course(s) \\u00bb Theme, Reference to course(s) \\u00bb Subject, Contents \\u00bb Text, Objective \\u00bb Text, Reference to course(s) \\u00bb Contents \\u00bb Text, Reference to course(s) \\u00bb Objective \\u00bb Text."
+                "description" : "A Fulltext aggregation of the following fields: Title, ID, Teacher, Locality, Subject, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Course number, Reference to course(s) \\u00bb Theme, Reference to course(s) \\u00bb Subject, Contents \\u00bb Text, Objective \\u00bb Text, Reference to course(s) \\u00bb Objective \\u00bb Text."
               },
               "search_api_aggregation_2" : {
                 "name" : "Autocomplete",
                 "type" : "fulltext",
-                "fields" : [ "title_field" ],
-                "description" : "A Fulltext aggregation of the following fields: Title."
+                "fields" : [
+                  "title_field",
+                  "field_imp_id",
+                  "field_imp_teacher",
+                  "field_imp_locality",
+                  "field_course_subject",
+                  "field_imp_reference_to_courses:title_field",
+                  "field_imp_reference_to_courses:field_course_course_number",
+                  "field_imp_reference_to_courses:field_course_subject",
+                  "field_objective:value",
+                  "field_imp_reference_to_courses:field_objective:value"
+                ],
+                "description" : "A Fulltext aggregation of the following fields: Title, ID, Teacher, Locality, Subject, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Course number, Reference to course(s) \\u00bb Subject, Objective \\u00bb Text, Reference to course(s) \\u00bb Objective \\u00bb Text."
               }
             }
           }
         },
-        "search_api_alter_add_hierarchy" : { "status" : 0, "weight" : "0", "settings" : { "fields" : [] } }
+        "search_api_alter_add_hierarchy" : {
+          "status" : 1,
+          "weight" : "0",
+          "settings" : { "fields" : { "field_imp_organisation:parents_all" : "field_imp_organisation:parents_all" } }
+        }
       },
       "processors" : {
         "search_api_case_ignore" : { "status" : 0, "weight" : "0", "settings" : { "fields" : [] } },
@@ -147,7 +164,7 @@ function uhc_search_portal_feature_default_search_api_index() {
           "status" : 1,
           "weight" : "10",
           "settings" : {
-            "fields" : { "search_api_aggregation_1" : true },
+            "fields" : { "search_api_aggregation_1" : true, "field_contents:value" : true },
             "title" : 0,
             "alt" : 1,
             "tags" : "h1 = 5\\r\\nh2 = 3\\r\\nh3 = 2\\r\\nstrong = 2\\r\\nb = 2\\r\\nem = 1.5\\r\\nu = 1.5"
@@ -183,8 +200,7 @@ function uhc_search_portal_feature_default_search_api_index() {
             "highlight" : "always"
           }
         }
-      },
-      "additional fields" : { "field_imp_reference_to_courses:field_contents" : "field_imp_reference_to_courses:field_contents" }
+      }
     },
     "enabled" : "1",
     "read_only" : "0",

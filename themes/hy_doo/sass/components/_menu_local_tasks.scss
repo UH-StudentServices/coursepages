@@ -1,0 +1,43 @@
+/* Custom theming for menu local tasks */
+.tabs-wrapper  {
+  background-color: #1073BF;
+  width: 100%;
+  .tabs {
+    @include container;
+    li {
+      margin: 0;
+      a:link {
+        background-color: #1073BF;
+        color: #FFF;
+        font-size: 13px;
+        line-height: auto;
+        padding: 0 1.2em;
+        line-height: 31px;
+        float: left;
+      }
+      a:visited {
+        background-color: inherit;
+        color: #FFF;
+      }
+      a.edit-link {
+        background-color: #178FEB;
+        font-size: 14px;
+        line-height: 30px;
+        float: right;  
+        &:after {
+          font-family: 'hy-icons';
+          content: "\EA25";
+          margin-left: 5px;      
+        }      
+      }
+    }
+  }
+}
+
+ul.tabs.primary li a:link:hover,
+ul.tabs.primary li.active a:hover,
+ul.tabs.primary li.active a.active,
+ul.tabs--primary li a:link.active,
+ul.tabs--primary li a:link:hover {
+  background-color: #0E64A6;
+}

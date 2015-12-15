@@ -1,0 +1,83 @@
+.block--system-user-menu {
+  position: absolute;
+  top: 0;
+  right: 50px;
+  .logged-in & {
+    right: 100px;
+  }
+  > ul > li {
+    position: relative;
+    margin: 0 1.2em 0 0.5em;
+    width: 1em;
+    line-height: 50px;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    float: left;
+    > span, > a {
+      color: $blue;
+      visibility: hidden;
+      width: 20px;
+    }
+    .info-link {
+      &:before {
+        @include hy-icon($hy-info-stroke);
+        visibility: visible;
+      }
+    }
+    .logout-link {
+      &:before {
+        @include hy-icon($hy-logout);
+        visibility: visible;
+      }
+    }
+  }
+  ul ul.menu {
+    @include dropdown-menu;
+    width: 170px;
+    right: -15px;
+    top: 48px;
+    &.collapsed {
+      padding: 0 10px;
+    }
+    li {
+      @include border-bottom;
+      padding: 10px 0;
+      line-height: initial;
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+  @include at-breakpoint($layout-small) {
+    position: static;
+    right: 0;
+    float: right;
+    > ul > li {
+      margin: 0 0 0 2.5em;
+      line-height: 60px;
+    }
+    ul ul.menu {
+      width: 330px;
+    }
+  }
+}
+
+.block--uhc-avatar {
+  position: absolute;
+  line-height: 50px;
+  right: 50px;
+  top: 0;
+  img {
+    background: $color-user;
+  }
+  @include at-breakpoint($layout-small) {
+    position: static;
+    line-height: 60px;
+    float: right;
+    margin-left: 2.5em;
+    img {
+      width: 42px;
+      vertical-align: middle;
+    }
+  }
+}

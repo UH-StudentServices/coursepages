@@ -17,21 +17,27 @@ function uhc_open_university_context_default_contexts() {
   $context->description = '';
   $context->tag = 'Open university';
   $context->conditions = array(
-    'uhc_open_university_context_condition_open_university_section' => array(
-      'values' => array(
-        'uhc_open_university_context_condition_open_university_section' => 'uhc_open_university_context_condition_open_university_section',
-      ),
-    ),
     'path' => array(
       'values' => array(
         'open-university' => 'open-university',
         'open-university/*' => 'open-university/*',
       ),
     ),
+    'uhc_open_university_context_condition_open_university_section' => array(
+      'values' => array(
+        'uhc_open_university_context_condition_open_university_section' => 'uhc_open_university_context_condition_open_university_section',
+      ),
+    ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'system-user-menu' => array(
+          'module' => 'system',
+          'delta' => 'user-menu',
+          'region' => 'menu_bar',
+          'weight' => '-10',
+        ),
         'responsive_navigation-2' => array(
           'module' => 'responsive_navigation',
           'delta' => '2',
@@ -63,6 +69,9 @@ function uhc_open_university_context_default_contexts() {
           'weight' => '-8',
         ),
       ),
+    ),
+    'theme_html' => array(
+      'class' => 'open-university',
     ),
   );
   $context->condition_mode = 0;

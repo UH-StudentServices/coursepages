@@ -10,18 +10,16 @@
  */
 ?>
 
-<<?php print $layout_wrapper; print $layout_attributes; ?> class="ds-teaser-accordion <?php print $classes;?> clearfix">
+<<?php print $layout_wrapper; print $layout_attributes; ?> class=" <?php print $classes;?> clearfix">
 
   <?php if (isset($title_suffix['contextual_links'])): ?>
   <?php print render($title_suffix['contextual_links']); ?>
   <?php endif; ?>
 
-    <<?php print $teaser_accordion_title_wrapper ?> class="ds-teaser-accordion--title <?php print $teaser_accordion_title_classes; ?>">
-      <?php print $teaser_accordion_title; ?>
-    </<?php print $teaser_accordion_title_wrapper ?>>
+    <?php print $teaser_accordion_title; ?>
 
     <?php if (!empty($teaser_accordion_content)): ?>
-      <<?php print $teaser_accordion_content_wrapper ?> class="ds-teaser-accordion--content <?php print $teaser_accordion_content_classes; ?>">
+      <<?php print $teaser_accordion_content_wrapper ?> class="field-group-accordion-item <?php print $teaser_accordion_content_classes; ?>">
         <?php print $teaser_accordion_content; ?>
       </<?php print $teaser_accordion_content_wrapper ?>>
     <?php endif; ?>

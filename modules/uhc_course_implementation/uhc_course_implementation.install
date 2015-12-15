@@ -115,3 +115,83 @@ function uhc_course_implementation_update_7001(&$sandbox) {
   $insert_revision_query->execute();
 
 }
+
+/**
+ * Migrate field_imp_organisation_codes values to field_imp_organisation values.
+ */
+function uhc_course_implementation_update_7002(&$sandbox) {
+
+  // Ensure that we have fields in place by reverting field base feature
+  features_revert_module('uhc_field_base');
+  features_revert(array('uhc_course_implementation' => array('field_instance')));
+
+  // Process import, so that we ensure having organisations for field  values
+  // we're about to mirate below
+  $migration =  Migration::getInstance('OrganisationsUniversityHelsinkiTaxonomy');
+  $migration->processImport();
+
+  // Ensure that we have completely empty field data table in case of previous
+  // run interruptions or something.
+  db_truncate('field_data_field_imp_organisation')->execute();
+  db_truncate('field_revision_field_imp_organisation')->execute();
+  field_cache_clear();
+
+  // Find out the taxonomy term IDs of existing organisation unit values and
+  // assign them as key of $organisation_field_migrate
+  $query = db_select('field_data_field_imp_organisation_codes', 'oc');
+  $query->condition('entity_type', 'node')
+    ->condition('bundle', 'course_implementation');
+  $deprecated_organisation = $query->fields('oc', array('entity_id', 'field_imp_organisation_codes_value'))->execute();
+  $organisation_codes_by_nid = array();
+  while($organisation_code = $deprecated_organisation->fetchAssoc()) {
+    $organisation_codes_by_nid[$organisation_code['entity_id']][] = $organisation_code['field_imp_organisation_codes_value'];
+  }
+
+  // Insert values manually, as Entity API consumes too much memory here
+  foreach ($organisation_codes_by_nid as $nid => $organisation_codes) {
+
+    // Now prepare query inserts
+    $fields = array(
+      'entity_type' => 'node',
+      'bundle' => 'course_implementation',
+      'deleted' => 0,
+      'entity_id' => $nid,
+      'revision_id' => $nid,
+      'language' => LANGUAGE_NONE,
+      'delta' => 0,
+      'field_imp_organisation_tid' => 0,
+    );
+    $insert_data_query = db_insert('field_data_field_imp_organisation');
+    $insert_revision_query = db_insert('field_revision_field_imp_organisation');
+    $insert_data_query->fields(array_keys($fields));
+    $insert_revision_query->fields(array_keys($fields));
+
+    // Each organisation code has corresponding taxonomy term. Let's resolve it
+    // and then insert to query.
+    foreach ($organisation_codes as $delta => $organisation_code) {
+      // Now find the new vocabulary's terms by the organisation code and resolve
+      // its term ID.
+      $efq_query = new EntityFieldQuery();
+      $efq_query->entityCondition('entity_type', 'taxonomy_term')
+        ->entityCondition('bundle', 'organisations_of_university_of_helsinki');
+      $efq_query->fieldCondition('field_ouh_code', 'value', $organisation_code);
+      $organisation = $efq_query->execute();
+      if (!isset($organisation['taxonomy_term'])) {
+        watchdog('uhc_course_implementation', 'Could not resolve taxonomy term for code "@code"', array('@code' => $organisation_code), WATCHDOG_WARNING);
+        continue;
+      }
+
+      // Set values and insert & execute
+      $fields['delta'] = $delta;
+      $fields['field_imp_organisation_tid'] = reset(array_keys($organisation['taxonomy_term']));
+      $insert_data_query->values(array_values($fields))->execute();
+      $insert_revision_query->values(array_values($fields))->execute();
+
+    }
+  }
+  field_cache_clear();
+
+  // Remove deprecated field
+  field_delete_field('field_imp_organisation_codes');
+
+}

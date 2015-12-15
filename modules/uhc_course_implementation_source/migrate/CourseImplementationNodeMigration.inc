@@ -128,8 +128,9 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_imp_id', 'id');
 
     // These fields determine how we organise our searches
-    $this->addFieldMapping('field_imp_organisation_codes', 'organisations')
-      ->callbacks(array($this, 'parseOrganisationCodesFromOrganisations'));
+    $this->addFieldMapping('field_imp_organisation', 'organisations')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'resolveTidFromOrganisations'));
     $this->addFieldMapping('field_imp_keywords', 'descriptions')
       ->callbacks(array($this, 'parseKeywordsFromDescriptions'));
 
@@ -346,21 +347,23 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
   }
 
   /**
-   * Parses organisation codes out from collection of organisation objects.
+   * Resolves taxonomy term IDs from given organisation objects.
    *
    * @param $values
    * @return array
    */
-  static public function parseOrganisationCodesFromOrganisations($values) {
-    $codes = array();
+  static public function resolveTidFromOrganisations($values) {
+    $tids = array();
     if (!empty($values) && is_array($values)) {
       foreach ($values as $value) {
         if (!empty($value->code)) {
-          $codes[] = $value->code;
+          if ($term = uh_taxonomy_organisations_load_by_code($value->code)) {
+            $tids[] = $term->tid;
+          }
         }
       }
     }
-    return $codes;
+    return $tids;
   }
 
   /**

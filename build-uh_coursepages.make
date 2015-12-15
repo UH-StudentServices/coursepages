@@ -184,10 +184,16 @@ projects[image_url_formatter][version] = 1.4
 ; With message module, we can track down course activity.
 projects[message][version] = 1.10
 
+; Optional supported (themed) module for providing site status messages
+projects[site_status_message][version] = 1.0
+
 ; Themes
 
 projects[omega][subdir] = "omega"
 projects[omega][version] = "4.3"
+; Fix PHP notice related to incorrect language direction detection.
+projects[omega][patch][2364731] = "https://www.drupal.org/files/issues/omega-fix-direction-language-rtl-2364731-7.patch"
+
 projects[hy_base_theme][type] = "theme"
 projects[hy_base_theme][subdir] = "hy_base_theme"
 projects[hy_base_theme][download][type] = "git"
@@ -237,6 +243,8 @@ libraries[stomp_php][directory_name] = "stomp_php"
 libraries[stomp_php][destination] = "libraries"
 
 ; Project contribs
-projects[uh_taxonomy_organisations][type] = "module"
-projects[uh_taxonomy_organisations][download][type] = "get"
-projects[uh_taxonomy_organisations][download][url] = "https://github.com/UH-StudentServices/uh_taxonomy_organisations/archive/7.x-1.0.zip"
+projects[uh_taxonomy_organisations][type] = module
+projects[uh_taxonomy_organisations][download][type] = git
+projects[uh_taxonomy_organisations][download][url] = "git://github.com/UH-StudentServices/uh_taxonomy_organisations.git"
+projects[uh_taxonomy_organisations][download][branch] = 7.x-1.x
+projects[uh_taxonomy_organisations][download][revision] = 6338060ab88805f9110c0d0f13540cbf98f542a8

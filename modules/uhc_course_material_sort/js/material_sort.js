@@ -104,7 +104,7 @@
         $.each(sections, function() {
           // add section title
           $('> tr.draggable, > tbody > tr.draggable', $('#' + base))
-            .find('.field-name-field-material-section:contains(' + this.section + ')')
+            .find('.field--name-field-material-section .field__item:contains(' + this.section + ')')
             .first()
             .closest('.ief-row-entity.draggable')
             .before('<label class="section-title">' + this.title + '</label>');

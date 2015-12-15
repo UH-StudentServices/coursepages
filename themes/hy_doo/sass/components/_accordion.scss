@@ -1,0 +1,65 @@
+.field-group-accordion-item {
+  margin: 2em 0 1em;
+  @include at-breakpoint($layout-small) {
+    padding-left: 2.6em;
+  }
+}
+
+.accordion-content-item {
+	margin-bottom: 2em;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.accordion-item {
+  @include button-accordion--dark;
+  @include font-size(15px);
+  background-color: $accordion-blue;
+  border: 0;
+  padding-left: 4em;
+  margin-bottom: 0.5em;
+  a {
+    color: $white;
+  }
+  &:before {
+    @include hy-icon($hy_arrow);
+    background-color: $accordion-blue-button;
+    left: 0;
+    line-height: 2.8em;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  &:hover,
+  &.is-active {
+    background-color: $accordion-blue--active;
+    a {
+      color: $white;
+    }
+    &:before {
+      background-color: $accordion-blue-button--active;
+    }
+  }
+}
+
+.accordion-item__light {
+  @include button-accordion;
+  @include font-size(15px);
+  text-transform: none;
+  padding-left: 4em;
+  margin-bottom: 0.5em;
+  &:before {
+    @include hy-icon($hy_arrow);
+    background-color: $blue;
+    color: $white;
+    left: 0;
+    line-height: 3em;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  &:hover,
+  &.is-active {
+    background-color: $white;
+    color: $blue;
+  }
+}

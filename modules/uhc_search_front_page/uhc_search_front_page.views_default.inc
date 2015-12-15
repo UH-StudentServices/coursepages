@@ -101,6 +101,42 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['header']['result']['table'] = 'views';
   $handler->display->display_options['header']['result']['field'] = 'result';
   $handler->display->display_options['header']['result']['content'] = '<h2>Results (@total)</h2>';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block']['id'] = 'block';
+  $handler->display->display_options['header']['block']['table'] = 'views';
+  $handler->display->display_options['header']['block']['field'] = 'block';
+  $handler->display->display_options['header']['block']['label'] = 'Method of study';
+  $handler->display->display_options['header']['block']['block_to_insert'] = 'facetapi:do4BdKvyCgpZP4td6B6GmQ8iCUJ40HBx';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_1']['id'] = 'block_1';
+  $handler->display->display_options['header']['block_1']['table'] = 'views';
+  $handler->display->display_options['header']['block_1']['field'] = 'block';
+  $handler->display->display_options['header']['block_1']['label'] = 'Start month';
+  $handler->display->display_options['header']['block_1']['block_to_insert'] = 'facetapi:cEQesYoZJTu7ITT2OD5RXHP0T0bqniOh';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_2']['id'] = 'block_2';
+  $handler->display->display_options['header']['block_2']['table'] = 'views';
+  $handler->display->display_options['header']['block_2']['field'] = 'block';
+  $handler->display->display_options['header']['block_2']['label'] = 'Location';
+  $handler->display->display_options['header']['block_2']['block_to_insert'] = 'facetapi:u1d1Lx0rPaqN5rZzf9O8SX4IxIGxkUQG';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_3']['id'] = 'block_3';
+  $handler->display->display_options['header']['block_3']['table'] = 'views';
+  $handler->display->display_options['header']['block_3']['field'] = 'block';
+  $handler->display->display_options['header']['block_3']['label'] = 'Faculty';
+  $handler->display->display_options['header']['block_3']['block_to_insert'] = 'facetapi:R1BRVcBSjxhf1KDt3dthdTfNu1qhp5en';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_4']['id'] = 'block_4';
+  $handler->display->display_options['header']['block_4']['table'] = 'views';
+  $handler->display->display_options['header']['block_4']['field'] = 'block';
+  $handler->display->display_options['header']['block_4']['label'] = 'Teaching language';
+  $handler->display->display_options['header']['block_4']['block_to_insert'] = 'facetapi:as918Au1kK03VaWu2iPYsRfNZ1iJWE7X';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_5']['id'] = 'block_5';
+  $handler->display->display_options['header']['block_5']['table'] = 'views';
+  $handler->display->display_options['header']['block_5']['field'] = 'block';
+  $handler->display->display_options['header']['block_5']['label'] = 'Subject';
+  $handler->display->display_options['header']['block_5']['block_to_insert'] = 'facetapi:hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -283,13 +319,17 @@ function uhc_search_front_page_views_default_views() {
     t('next ›'),
     t('last »'),
     t('<h2>Results (@total)</h2>'),
+    t('Method of study'),
+    t('Start month'),
+    t('Location'),
+    t('Faculty'),
+    t('Teaching language'),
+    t('Subject'),
     t('No results'),
     t('ID'),
     t('Name'),
     t('<a href="[field_imp_reference_to_courses_url]">[title_field]</a>'),
     t('Type of teaching'),
-    t('Method of study'),
-    t('Location'),
     t('Begin date'),
     t('Search'),
     t('For example name of the course or topic.'),

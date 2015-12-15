@@ -138,6 +138,7 @@ function uhc_dev_feature_views_default_views() {
   $handler->display->display_options['filters']['field_imp_keywords_value']['id'] = 'field_imp_keywords_value';
   $handler->display->display_options['filters']['field_imp_keywords_value']['table'] = 'field_data_field_imp_keywords';
   $handler->display->display_options['filters']['field_imp_keywords_value']['field'] = 'field_imp_keywords_value';
+  $handler->display->display_options['filters']['field_imp_keywords_value']['group'] = 1;
   $handler->display->display_options['filters']['field_imp_keywords_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['operator_id'] = 'field_imp_keywords_value_op';
   $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['label'] = 'Keywords (field_imp_keywords)';
@@ -163,40 +164,36 @@ function uhc_dev_feature_views_default_views() {
       'value' => '',
     ),
   );
-  /* Filter criterion: Content: Organisation codes (field_imp_organisation_codes) */
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['id'] = 'field_imp_organisation_codes_value';
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['table'] = 'field_data_field_imp_organisation_codes';
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['field'] = 'field_imp_organisation_codes_value';
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['expose']['operator_id'] = 'field_imp_organisation_codes_value_op';
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['expose']['label'] = 'Organisation codes (field_imp_organisation_codes)';
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['expose']['operator'] = 'field_imp_organisation_codes_value_op';
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['expose']['identifier'] = 'field_imp_organisation_codes_value';
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['is_grouped'] = TRUE;
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['group_info']['label'] = 'Organisation';
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['group_info']['identifier'] = 'field_imp_organisation_codes_value';
-  $handler->display->display_options['filters']['field_imp_organisation_codes_value']['group_info']['group_items'] = array(
-    1 => array(
-      'title' => 'Department of Philosophy, History, Culture and Art Studies',
-      'operator' => '=',
-      'value' => 'H470',
-    ),
-    2 => array(
-      'title' => 'Open University',
-      'operator' => '=',
-      'value' => 'H930',
-    ),
-    3 => array(
-      'title' => 'Theatre Research',
-      'operator' => '=',
-      'value' => '4325',
-    ),
-    4 => array(
-      'title' => 'Film and Television Studies',
-      'operator' => '=',
-      'value' => '4327',
-    ),
+  /* Filter criterion: Content: Organisation (field_imp_organisation) */
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['id'] = 'field_imp_organisation_tid';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['table'] = 'field_data_field_imp_organisation';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['field'] = 'field_imp_organisation_tid';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['expose']['operator_id'] = 'field_imp_organisation_tid_op';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['expose']['label'] = 'Organisation';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['expose']['operator'] = 'field_imp_organisation_tid_op';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['expose']['identifier'] = 'field_imp_organisation_tid';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
   );
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['group_info']['label'] = 'Organisation (field_imp_organisation)';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['group_info']['identifier'] = 'field_imp_organisation_tid';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['vocabulary'] = 'organisations_of_university_of_helsinki';
+  $handler->display->display_options['filters']['field_imp_organisation_tid']['hierarchy'] = 1;
   /* Filter criterion: Content: ID (field_imp_id) */
   $handler->display->display_options['filters']['field_imp_id_value']['id'] = 'field_imp_id_value';
   $handler->display->display_options['filters']['field_imp_id_value']['table'] = 'field_data_field_imp_id';
@@ -281,8 +278,8 @@ function uhc_dev_feature_views_default_views() {
     t('Begin date'),
     t('Keywords (field_imp_keywords)'),
     t('Keyword'),
-    t('Organisation codes (field_imp_organisation_codes)'),
     t('Organisation'),
+    t('Organisation (field_imp_organisation)'),
     t('Course ID'),
     t('Course name'),
     t('Page'),

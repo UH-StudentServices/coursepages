@@ -1,14 +1,6 @@
 // use Susy v.1 syntax, please note that this version has "soon to be depricated" values
 @import "susyone";
 
-@mixin some-background-color($color) {
-  background-color: $color;
-
-  &:hover {
-    background-color: darken($color, 5%);
-  }
-}
-
 @mixin hyphenate() {
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
@@ -24,4 +16,17 @@
   @if ($unicode) {
     content: $unicode;
   }
+}
+
+/// Map deep get
+/// @author Hugo Giraudel
+/// @access public
+/// @param {Map} $map - Map
+/// @param {Arglist} $keys - Key chain
+/// @return {*} - Desired value
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
 }

@@ -23,7 +23,7 @@ function uhc_ds_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Events';
-  $handler->display->display_options['css_class'] = 'ds-teaser-accordion--content--indented event-list';
+  $handler->display->display_options['css_class'] = 'event-list table-three-columns';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -75,6 +75,8 @@ function uhc_ds_views_default_views() {
   $handler = $view->new_display('block', 'Events added in course page', 'block');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Other events';
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'event-list table-four-columns';
   $handler->display->display_options['display_description'] = 'A list of events (reverse entity references)';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';

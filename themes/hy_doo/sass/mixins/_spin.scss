@@ -1,0 +1,23 @@
+@-webkit-keyframes hy-spin {
+    from   { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes hy-spin {
+    from   { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-o-keyframes hy-spin {
+    from   { -o-transform: rotate(0deg); }
+    to { -o-transform: rotate(360deg); }
+}
+@keyframes hy-spin {
+    from   { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@mixin hy-spin {
+    -webkit-animation: hy-spin 2s infinite linear;
+    -moz-animation: hy-spin 2s infinite linear;
+    -ms-animation: hy-spin 2s infinite linear;
+    -animation: hy-spin 2s infinite linear;
+}

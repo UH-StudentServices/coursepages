@@ -15,8 +15,8 @@
   }
 
   &.is-open {
-    border-bottom: 1px solid lighten($silver, 20%);
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+    border-bottom: none;
   }
   
   @include at-breakpoint($layout-small) {

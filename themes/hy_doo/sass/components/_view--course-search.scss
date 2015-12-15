@@ -263,12 +263,19 @@ body.search-main-page .views-widget-sort-by {
     float: left;
     clear: both;
     padding: 0;
-
+    width: 100%;
     background: $white;
     font-weight: normal;
     @include at-breakpoint($layout-small) {
+      width: initial;
       float: none;
-      padding: 0.6em 0.9em;
+      padding-right: 1em;
+      &.views-field-title-field {
+        > a {
+          padding: 1em 0 1em 1em;
+          display: table-cell;
+        }
+      }
     }
   }
 
@@ -308,6 +315,24 @@ body.search-main-page .views-widget-sort-by {
     display: none;
     @include at-breakpoint($layout-small) {
       display: table-header-group;
+    }
+  }
+
+  // Course implementation status messages. Hide by default. Display for
+  // specific status codes.
+  .course-implementation-status {
+    @extend .messages;
+    @extend .alternative;
+    display: none;
+  }
+  .course-implementation-status-3 {
+    @extend .course-implementation-status;
+    @extend .error;
+    display: block;
+    width: 100%;
+    @include at-breakpoint($layout-small) {
+      display: table-cell;
+      width: auto;
     }
   }
 }

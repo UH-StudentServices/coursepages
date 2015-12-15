@@ -464,9 +464,9 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'create field_imp_organisation_codes'.
-  $permissions['create field_imp_organisation_codes'] = array(
-    'name' => 'create field_imp_organisation_codes',
+  // Exported permission: 'create field_imp_organisation'.
+  $permissions['create field_imp_organisation'] = array(
+    'name' => 'create field_imp_organisation',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -1219,9 +1219,9 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit field_imp_organisation_codes'.
-  $permissions['edit field_imp_organisation_codes'] = array(
-    'name' => 'edit field_imp_organisation_codes',
+  // Exported permission: 'edit field_imp_organisation'.
+  $permissions['edit field_imp_organisation'] = array(
+    'name' => 'edit field_imp_organisation',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -1742,9 +1742,9 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit own field_imp_organisation_codes'.
-  $permissions['edit own field_imp_organisation_codes'] = array(
-    'name' => 'edit own field_imp_organisation_codes',
+  // Exported permission: 'edit own field_imp_organisation'.
+  $permissions['edit own field_imp_organisation'] = array(
+    'name' => 'edit own field_imp_organisation',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -2391,9 +2391,9 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'view field_imp_organisation_codes'.
-  $permissions['view field_imp_organisation_codes'] = array(
-    'name' => 'view field_imp_organisation_codes',
+  // Exported permission: 'view field_imp_organisation'.
+  $permissions['view field_imp_organisation'] = array(
+    'name' => 'view field_imp_organisation',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -2901,9 +2901,9 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'view own field_imp_organisation_codes'.
-  $permissions['view own field_imp_organisation_codes'] = array(
-    'name' => 'view own field_imp_organisation_codes',
+  // Exported permission: 'view own field_imp_organisation'.
+  $permissions['view own field_imp_organisation'] = array(
+    'name' => 'view own field_imp_organisation',
     'roles' => array(
       'administrator' => 'administrator',
     ),

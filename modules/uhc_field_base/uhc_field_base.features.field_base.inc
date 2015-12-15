@@ -1301,37 +1301,42 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_imp_organisation_codes'
-  $field_bases['field_imp_organisation_codes'] = array(
+  // Exported field_base: 'field_imp_organisation'
+  $field_bases['field_imp_organisation'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_imp_organisation_codes',
+    'field_name' => 'field_imp_organisation',
     'field_permissions' => array(
       'type' => 2,
     ),
     'foreign keys' => array(
-      'format' => array(
+      'tid' => array(
         'columns' => array(
-          'format' => 'format',
+          'tid' => 'tid',
         ),
-        'table' => 'filter_format',
+        'table' => 'taxonomy_term_data',
       ),
     ),
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'tid' => array(
+        0 => 'tid',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'taxonomy',
     'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'organisations_of_university_of_helsinki',
+          'parent' => 0,
+        ),
+      ),
       'entity_translation_sync' => FALSE,
-      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'taxonomy_term_reference',
   );
 
   // Exported field_base: 'field_imp_ref_to_events_oodi'

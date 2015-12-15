@@ -252,17 +252,19 @@ function uhc_course_implementation_field_group_info() {
       15 => 'field_timing',
       16 => 'field_imp_administrator_number',
       17 => 'field_imp_keywords',
-      18 => 'field_imp_organisation_codes',
-      19 => 'field_imp_status',
+      18 => 'field_imp_status',
+      19 => 'field_imp_organisation',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Integration',
       'instance_settings' => array(
-        'description' => '',
+        'required_fields' => 0,
         'classes' => 'group-imp-integration field-group-tab',
-        'required_fields' => 1,
+        'description' => '',
+        'show_empty_fields' => 0,
       ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_imp_integration|node|course_implementation|form'] = $field_group;
@@ -311,12 +313,14 @@ function uhc_course_implementation_field_group_info() {
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Interaction',
       'instance_settings' => array(
-        'description' => '',
+        'required_fields' => 0,
         'classes' => 'group-imp-interaction field-group-tab',
-        'required_fields' => 1,
+        'description' => '',
+        'show_empty_fields' => 0,
       ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_imp_interaction|node|course_implementation|form'] = $field_group;

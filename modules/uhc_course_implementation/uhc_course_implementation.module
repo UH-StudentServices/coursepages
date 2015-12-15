@@ -90,10 +90,10 @@ function uhc_course_implementation_get_course_administrator_numbers($node) {
  */
 function uhc_course_implementation_field_group_build_pre_render_alter(&$element) {
   if (isset($element['group_timetable']['#prefix'])) {
-    $element['group_timetable']['#prefix'] .= '<div class="accordion-help accordion-content-item"><p>' . t('Here is the course’s teaching schedule. Check the course overview for possible other schedules.') . '</p></div>';
+    $element['group_timetable']['#prefix'] .= '<p class="bar bar--small">' . t('Here is the course’s teaching schedule. Check the course overview for possible other schedules.') . '</p>';
   }
   if (isset($element['group_course_task_material']['#prefix'])) {
-    $element['group_course_task_material']['#prefix'] .= '<div class="accordion-help accordion-content-item"><p>' . t('In this section you can find the course tasks.') . '</p></div>';
+    $element['group_course_task_material']['#prefix'] .= '<p class="bar bar--small">' . t('In this section you can find the course tasks.') . '</p>';
   }
 }
 
@@ -138,9 +138,12 @@ function uhc_course_implementation_entity_load($entities, $type) {
             $fid = $faculty_term_image_and_caption['fid'];
           }
           else {
-            if (isset($entity->field_imp_organisation_codes['und'][0]['value']) &&
-            $entity->field_imp_organisation_codes['und'][0]['value'] == 'H930') {
-              // Open university default image
+            // Check if node happens to be part of open university. If so, then
+            // use its default image. Otherwise use the global default.
+            $open_university_term = uh_taxonomy_organisations_load_by_code('H930');
+            if ($open_university_term &&
+              isset($entity->field_imp_organisation[LANGUAGE_NONE][0]['tid']) &&
+              $entity->field_imp_organisation[LANGUAGE_NONE][0]['tid'] == $open_university_term->tid) {
               $fid = variable_get('uhc_course_implementation_default_image_open_uni', 0);
             }
             else {
@@ -471,4 +474,40 @@ function uhc_course_implementation_field_access($op, $field, $entity_type, $enti
   if ($field['field_name'] == 'field_moodle_key') {
     return uhc_course_collaboration_private_current_user_has_access_to_private_content();
   }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ *
+ * Field formatter for course implementation status.
+ */
+function uhc_course_implementation_field_formatter_info() {
+  return array(
+    'course_implementation_status' => array(
+      'label' => t('Course implementation status'),
+      'field types' => array('number_integer'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ *
+ * Formats course implementation status value (integer) as translated status
+ * text.
+ */
+function uhc_course_implementation_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  if ($display['type'] == 'course_implementation_status') {
+    $labels = array(1 => 'Planned', 2 => 'Confirmed', 3 => 'Cancelled', 4 => 'Completed');
+
+    foreach ($items as $delta => $item) {
+      $value = $item['value'];
+      $value = in_array($value, array_keys($labels)) ? t($labels[$value]) : $value;
+      $element[$delta] = array('#markup' => $value);
+    }
+  }
+
+  return $element;
 }

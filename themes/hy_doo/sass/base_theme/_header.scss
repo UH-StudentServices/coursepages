@@ -3,7 +3,6 @@
 // Topbar
 .l-top-bar-wrapper {
   background-color: $white;
-
   @include at-breakpoint($layout-small) {
     background-color: $black;
   }
@@ -11,10 +10,17 @@
 
 .l-top-bar {
   position: relative;
-
   @include at-breakpoint($layout-small) {
-    height: 70px;
     @include container;
+  }
+}
+
+.l-menu-bar {
+  @include at-breakpoint($layout-small) {
+    border-bottom: 1px solid lighten($silver, 20%);
+    .l-region--menu-bar {
+      @include container;
+    }
   }
 }
 
@@ -47,36 +53,5 @@
 
   @include at-breakpoint($layout-small) {
     padding-top: 26px;
-  }
-}
-
-// Language links block (language switcher)
-.language {
-  margin: 0;
-  height: 50px;
-
-  @include at-breakpoint($layout-small) {
-    float: right;
-    margin: 10px 0 0;
-    display: block;
-  }
-
-  li {
-    float: left;
-    list-style-type: none;
-
-    &.active {
-      display: none;
-    }
-  }
-}
-
-.disabled,
-.disabled:hover {
-  color: $silver;
-  cursor: default;
-
-  @include at-breakpoint($layout-small) {
-    color: $gray;
   }
 }

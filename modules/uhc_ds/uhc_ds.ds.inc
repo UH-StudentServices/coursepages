@@ -406,6 +406,7 @@ function uhc_ds_ds_field_settings_info() {
         'ft' => array(
           'func' => 'theme_ds_field_expert',
           'lb-col' => TRUE,
+          'suffix' => '</span>',
         ),
       ),
     ),
@@ -415,10 +416,8 @@ function uhc_ds_ds_field_settings_info() {
       'format' => 'default',
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_expert',
+          'func' => 'theme_ds_field_reset',
           'lb-col' => TRUE,
-          'prefix' => '<div class="accordion-content-item tighten table-four-columns clean">',
-          'suffix' => '</div>',
         ),
       ),
     ),
@@ -438,9 +437,7 @@ function uhc_ds_ds_field_settings_info() {
       'format' => 'default',
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item tighten table-three-columns clean">',
-          'suffix' => '</div>',
+          'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
@@ -467,6 +464,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
+          'prefix' => '<span class="course-info">',
           'suffix' => ',  ',
         ),
       ),
@@ -824,7 +822,7 @@ function uhc_ds_ds_field_settings_info() {
           'lb-el' => 'label',
           'lb-col' => TRUE,
           'ow' => TRUE,
-          'ow-el' => 'div',
+          'ow-el' => 'span',
           'ow-cl' => 'teaching-languages',
           'ow-def-cl' => FALSE,
           'ow-at' => '',
@@ -987,7 +985,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'ow' => TRUE,
           'ow-el' => 'h3',
-          'ow-cl' => 'ds-teaser-accordion--title_header',
+          'ow-cl' => 'ds-teaser-accordion--title',
           'ow-def-cl' => FALSE,
           'ow-at' => '',
           'ow-def-at' => FALSE,
@@ -1160,7 +1158,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'link' => '0',
         'wrapper' => 'h4',
-        'class' => 'ds-teaser-accordion--title_header',
+        'class' => 'ds-teaser-accordion--title',
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
           'lb-col' => TRUE,
@@ -1500,7 +1498,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'link' => '0',
         'wrapper' => 'h3',
-        'class' => 'ds-teaser-accordion--title_header',
+        'class' => 'ds-teaser-accordion--title',
         'ft' => array(),
       ),
     ),
@@ -1989,7 +1987,7 @@ print \'<a class="course-feedback-button" href="[node:field-feedback-link:url]">
   $ds_field->ui_limit = '';
   $ds_field->properties = array(
     'block' => 'views|course_node_references-block',
-    'block_render' => '2',
+    'block_render' => '3',
   );
   $export['course_reference_block'] = $ds_field;
 
@@ -2004,7 +2002,7 @@ print \'<a class="course-feedback-button" href="[node:field-feedback-link:url]">
   $ds_field->ui_limit = '';
   $ds_field->properties = array(
     'block' => 'views|course_node_references-block_1',
-    'block_render' => '2',
+    'block_render' => '3',
   );
   $export['course_reference_block_past'] = $ds_field;
 
@@ -2641,8 +2639,8 @@ function uhc_ds_ds_layout_settings_info() {
     'regions' => array(
       'course_content' => array(
         0 => 'comments',
-        3 => 'field_reference_to_course_tasks',
-        7 => 'repeating_event_reference_block',
+        4 => 'field_reference_to_course_tasks',
+        8 => 'repeating_event_reference_block',
         10 => 'event_reference_block',
         18 => 'field_imp_canonical_url',
         19 => 'group_course_messages',
@@ -2653,14 +2651,14 @@ function uhc_ds_ds_layout_settings_info() {
         24 => 'field_imp_teacher_se_content',
         25 => 'field_imp_teachersection',
         26 => 'group_conduct_of_course',
-        27 => 'uhc_content_administration_from_oodi',
-        28 => 'group_description_objectives',
+        27 => 'group_description_objectives',
+        28 => 'uhc_content_administration_from_oodi',
         29 => 'group_additional_information',
         30 => 'uhc_ds_target_group',
         31 => 'uhc_ds_req_prerequisites',
-        33 => 'uhc_ds_objective',
+        34 => 'uhc_ds_objective',
         36 => 'uhc_ds_contents',
-        38 => 'uhc_ds_conduct',
+        37 => 'uhc_ds_conduct',
         39 => 'uhc_ds_study_materials',
         40 => 'uhc_ds_evaluation',
         41 => 'field_imp_fee',
@@ -2673,10 +2671,10 @@ function uhc_ds_ds_layout_settings_info() {
       'course_metadata' => array(
         1 => 'uhc_ds_course_number',
         2 => 'field_imp_method_of_study',
-        4 => 'scope',
+        3 => 'scope',
         5 => 'field_imp_teacher',
         6 => 'course_implementation_timepsan',
-        8 => 'field_imp_course_organiser',
+        7 => 'field_imp_course_organiser',
         9 => 'field_imp_locality',
         11 => 'course_imp_activity',
         12 => 'field_imp_teaching_language',
@@ -2690,21 +2688,21 @@ function uhc_ds_ds_layout_settings_info() {
       ),
       'course_sidebar' => array(
         32 => 'my_enrollments',
-        34 => 'field_moodle_url',
+        33 => 'field_moodle_url',
         35 => 'field_moodle_key',
-        37 => 'course_feedback_button',
+        38 => 'course_feedback_button',
       ),
     ),
     'fields' => array(
       'comments' => 'course_content',
       'uhc_ds_course_number' => 'course_metadata',
       'field_imp_method_of_study' => 'course_metadata',
-      'field_reference_to_course_tasks' => 'course_content',
       'scope' => 'course_metadata',
+      'field_reference_to_course_tasks' => 'course_content',
       'field_imp_teacher' => 'course_metadata',
       'course_implementation_timepsan' => 'course_metadata',
-      'repeating_event_reference_block' => 'course_content',
       'field_imp_course_organiser' => 'course_metadata',
+      'repeating_event_reference_block' => 'course_content',
       'field_imp_locality' => 'course_metadata',
       'event_reference_block' => 'course_content',
       'course_imp_activity' => 'course_metadata',
@@ -2723,18 +2721,18 @@ function uhc_ds_ds_layout_settings_info() {
       'field_imp_teacher_se_content' => 'course_content',
       'field_imp_teachersection' => 'course_content',
       'group_conduct_of_course' => 'course_content',
-      'uhc_content_administration_from_oodi' => 'course_content',
       'group_description_objectives' => 'course_content',
+      'uhc_content_administration_from_oodi' => 'course_content',
       'group_additional_information' => 'course_content',
       'uhc_ds_target_group' => 'course_content',
       'uhc_ds_req_prerequisites' => 'course_content',
       'my_enrollments' => 'course_sidebar',
-      'uhc_ds_objective' => 'course_content',
       'field_moodle_url' => 'course_sidebar',
+      'uhc_ds_objective' => 'course_content',
       'field_moodle_key' => 'course_sidebar',
       'uhc_ds_contents' => 'course_content',
-      'course_feedback_button' => 'course_sidebar',
       'uhc_ds_conduct' => 'course_content',
+      'course_feedback_button' => 'course_sidebar',
       'uhc_ds_study_materials' => 'course_content',
       'uhc_ds_evaluation' => 'course_content',
       'field_imp_fee' => 'course_content',

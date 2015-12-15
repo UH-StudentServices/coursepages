@@ -37,6 +37,7 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
     case 'views-exposed-form-uhc-search-desktop':
     case 'views-exposed-form-uhc-search-open-university-desktop':
     case 'views-exposed-form-uhc-search-biosciences-desktop':
+    case 'views-exposed-form-uhc-portal-search-front-page--desktop':
 
       // Shhh... lets steal the view exposed filters from the view header and
       // print them under the search field. See how header gets hided in

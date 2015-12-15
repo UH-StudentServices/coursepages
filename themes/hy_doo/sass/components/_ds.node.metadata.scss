@@ -14,7 +14,7 @@
   margin-bottom: 2rem;
 
   font-size: 0.875em;
-  line-height: 1.31em;
+  line-height: 2em;
 
   .field {
     margin-right: 1em;
@@ -32,10 +32,15 @@
     margin-right: 0.35em;
   }
   .teaching-languages {
-    float: right;
+    display: block;
     span {
       margin-left: 0.35em;
       font-weight: 900;
+    }
+  }
+  @include at-breakpoint($layout-large) {
+    .teaching-languages {
+      float: right;
     }
   }
 }

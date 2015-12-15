@@ -3,7 +3,6 @@
     display: inline;
     a {
       font-size: 0;
-      @include some-background-color(#547bb9);
       color: $white;
       display: inline-block;
       line-height: 50px;
@@ -13,33 +12,23 @@
       text-align: center;
 
       &:before {
-        @include font-awesome("\f09a");
-        @include font-size(28px);
+        @include font-size(30px);
       }
-
-      &.twitter {
-        @include some-background-color(#5ea9dd);
-
-        &:before {
-          @include font-awesome("\f099");
-        }
-      }
-
-      &.youtube {
-        @include some-background-color(#e6644a);
-
-        &:before {
-          @include font-awesome("\f167");
-        }
-      }
-
-      &.linkedin {
-        @include some-background-color(#1483c4);
-
-        &:before {
-          @include font-awesome("\f0e1");
-        }
+    }
+    &:last-child {
+      a {
         margin-right: 0;
+      }
+    }
+    @each $name, $type in $some-links {
+      a.#{$name} {
+        background-color: map-deep-get($some-links, $name, "bg-color");
+        &:hover {
+          background-color: darken(map-deep-get($some-links, $name, "bg-color"), 5%);
+        }
+        &:before {
+          @include hy-icon(map-deep-get($some-links, $name, "icon"));
+        }
       }
     }
   }
