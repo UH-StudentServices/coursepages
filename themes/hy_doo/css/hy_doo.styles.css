@@ -1850,6 +1850,7 @@ ul.tabs--primary li a:link:hover {
   -moz-osx-font-smoothing: grayscale;
   font-family: "hy-icons";
   content: "";
+  position: absolute;
   visibility: visible;
 }
 .block--system-user-menu > ul > li .logout-link:before {
@@ -1858,6 +1859,7 @@ ul.tabs--primary li a:link:hover {
   font-family: "hy-icons";
   content: "";
   visibility: visible;
+  position: absolute;
 }
 .block--system-user-menu ul ul.menu {
   -moz-transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
@@ -2755,6 +2757,7 @@ body.search-main-page .views-widget-sort-by {
 @media (min-width: 48em) {
   .l-menu-bar {
     border-bottom: 1px solid #cacaca;
+    height: 60px;
   }
   .l-menu-bar .l-region--menu-bar {
     *zoom: 1;
@@ -3067,6 +3070,7 @@ a:hover .list-of-links__link:after, .list-of-links__link:hover:after {
   -moz-osx-font-smoothing: grayscale;
   font-family: "hy-icons";
   content: "";
+  position: absolute;
   visibility: visible;
 }
 .responsive-navigation .login-link {

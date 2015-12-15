@@ -380,96 +380,10 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_feedback_link'
-  $field_instances['node-course_implementation-field_feedback_link'] = array(
+  // Exported field_instance: 'node-course_implementation-field_feedback_description'
+  $field_instances['node-course_implementation-field_feedback_description'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'An absolute URL address to feedback. Example: https://elomake.helsinki.fi/lomakkeet/60586/lomake.html',
-    'display' => array(
-      'content_suffix' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 50,
-      ),
-      'sidebar' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 52,
-      ),
-      'teaser_accordion' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 43,
-      ),
-      'teaser_images' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_feedback_link',
-    'label' => 'Course feedback link',
-    'required' => 0,
-    'settings' => array(
-      'absolute_url' => 1,
-      'attributes' => array(
-        'class' => '',
-        'configurable_class' => 0,
-        'configurable_title' => 0,
-        'rel' => '',
-        'target' => '_blank',
-        'title' => '',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 0,
-      'entity_translation_sync' => FALSE,
-      'rel_remove' => 'default',
-      'title' => 'value',
-      'title_label_use_field_label' => 0,
-      'title_maxlength' => 128,
-      'title_value' => 'Give Feedback',
-      'url' => 0,
-      'user_register_form' => FALSE,
-      'validate_url' => 1,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'link',
-      'settings' => array(),
-      'type' => 'link_field',
-      'weight' => 0,
-    ),
-  );
-
-  // Exported field_instance: 'node-course_implementation-field_feedback_text'
-  $field_instances['node-course_implementation-field_feedback_text'] = array(
-    'bundle' => 'course_implementation',
-    'default_value' => array(
-      0 => array(
-        'value' => 'By giving feedback you will help improving the quality of teaching',
-      ),
-    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -480,10 +394,14 @@ function uhc_course_implementation_field_default_field_instances() {
         'weight' => 0,
       ),
       'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 76,
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'text_default',
+        'weight' => 79,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -512,8 +430,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_feedback_text',
-    'label' => 'Course feedback text',
+    'field_name' => 'field_feedback_description',
+    'label' => 'Description',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
@@ -559,12 +477,105 @@ function uhc_course_implementation_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'maxlength_js' => 0,
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
         'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
-        'size' => 60,
+        'maxlength_js_truncate_html' => 0,
+        'rows' => 5,
       ),
-      'type' => 'text_textfield',
+      'type' => 'text_textarea',
       'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-course_implementation-field_feedback_link'
+  $field_instances['node-course_implementation-field_feedback_link'] = array(
+    'bundle' => 'course_implementation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'An absolute URL address to feedback. Example: https://elomake.helsinki.fi/lomakkeet/60586/lomake.html',
+    'display' => array(
+      'content_suffix' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'link',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'link_default',
+        'weight' => 80,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 52,
+      ),
+      'teaser_accordion' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 43,
+      ),
+      'teaser_images' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_feedback_link',
+    'label' => 'URL',
+    'required' => 0,
+    'settings' => array(
+      'absolute_url' => 1,
+      'attributes' => array(
+        'class' => '',
+        'configurable_class' => 0,
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => '_blank',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 0,
+      'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'rel_remove' => 'default',
+      'title' => 'required',
+      'title_label_use_field_label' => 0,
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 2,
     ),
   );
 
@@ -1093,7 +1104,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 77,
+        'weight' => 75,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2735,17 +2746,9 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
-        'weight' => 78,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 76,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3885,8 +3888,6 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Content');
   t('Contents');
   t('Course conduct');
-  t('Course feedback link');
-  t('Course feedback text');
   t('Course organiser');
   t('Course study materials');
   t('Credit');
@@ -3906,7 +3907,6 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Intro text');
   t('Keywords');
   t('Label');
-  t('List of organisation codes involved with this course implementation.');
   t('Locality');
   t('Material description');
   t('Material will be automatically sorted by section in view mode.');
@@ -3914,7 +3914,6 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Name');
   t('Objective');
   t('Organisation');
-  t('Organisation codes');
   t('Please specify how the students are able to interact online in this course. Recommended services are Moodle, Yammer and Presemo but there are other services too. Sometimes it might be a good idea to ask the students for their opinion.');
   t('Reference to course tasks');
   t('Reference to course(s)');

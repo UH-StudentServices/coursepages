@@ -88,7 +88,7 @@ function uhc_course_collaboration_field_default_field_instances() {
         'og_hide' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 

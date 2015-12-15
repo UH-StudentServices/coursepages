@@ -18,6 +18,7 @@
 .l-menu-bar {
   @include at-breakpoint($layout-small) {
     border-bottom: 1px solid lighten($silver, 20%);
+    height: 60px;
     .l-region--menu-bar {
       @include container;
     }

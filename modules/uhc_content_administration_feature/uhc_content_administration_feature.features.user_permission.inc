@@ -293,6 +293,30 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_feedback_description'.
+  $permissions['create field_feedback_description'] = array(
+    'name' => 'create field_feedback_description',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'create field_feedback_link'.
+  $permissions['create field_feedback_link'] = array(
+    'name' => 'create field_feedback_link',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'create field_imp_administrator_number'.
   $permissions['create field_imp_administrator_number'] = array(
     'name' => 'create field_imp_administrator_number',
@@ -1048,6 +1072,30 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_feedback_description'.
+  $permissions['edit field_feedback_description'] = array(
+    'name' => 'edit field_feedback_description',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit field_feedback_link'.
+  $permissions['edit field_feedback_link'] = array(
+    'name' => 'edit field_feedback_link',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit field_imp_administrator_number'.
   $permissions['edit field_imp_administrator_number'] = array(
     'name' => 'edit field_imp_administrator_number',
@@ -1571,6 +1619,30 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit own field_feedback_description'.
+  $permissions['edit own field_feedback_description'] = array(
+    'name' => 'edit own field_feedback_description',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_feedback_link'.
+  $permissions['edit own field_feedback_link'] = array(
+    'name' => 'edit own field_feedback_link',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit own field_imp_administrator_number'.
   $permissions['edit own field_imp_administrator_number'] = array(
     'name' => 'edit own field_imp_administrator_number',
@@ -2065,16 +2137,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'view_unpublished',
   );
 
-  // Exported permission: 'view course_feedback_button on node'.
-  $permissions['view course_feedback_button on node'] = array(
-    'name' => 'view course_feedback_button on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view field_additional_info'.
   $permissions['view field_additional_info'] = array(
     'name' => 'view field_additional_info',
@@ -2200,6 +2262,26 @@ function uhc_content_administration_feature_user_default_permissions() {
     'name' => 'view field_faculty_image_caption',
     'roles' => array(
       'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view field_feedback_description'.
+  $permissions['view field_feedback_description'] = array(
+    'name' => 'view field_feedback_description',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view field_feedback_link'.
+  $permissions['view field_feedback_link'] = array(
+    'name' => 'view field_feedback_link',
+    'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
     ),
@@ -2713,6 +2795,30 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_feedback_description'.
+  $permissions['view own field_feedback_description'] = array(
+    'name' => 'view own field_feedback_description',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_feedback_link'.
+  $permissions['view own field_feedback_link'] = array(
+    'name' => 'view own field_feedback_link',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'field_permissions',
   );

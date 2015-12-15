@@ -84,18 +84,18 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Feedback',
-    'weight' => '12',
+    'weight' => '10',
     'children' => array(
       0 => 'field_feedback_link',
-      1 => 'field_feedback_text',
+      1 => 'field_feedback_description',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
       'label' => 'Feedback',
       'instance_settings' => array(
-        'required_fields' => 1,
+        'required_fields' => 0,
         'classes' => 'group-imp-feedback field-group-tab',
-        'description' => 'Feedback promotion is shown in the sidebar. Please add the URL address to the form or service used',
+        'description' => 'Please add the URL address to the form or service used.',
         'show_empty_fields' => 0,
       ),
       'formatter' => 'closed',
@@ -114,7 +114,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Promotion',
-    'weight' => '3',
+    'weight' => '2',
     'children' => array(
       0 => 'field_imp_header_text',
       1 => 'group_headline_and_intro',
@@ -174,7 +174,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Conduct of the course',
-    'weight' => '10',
+    'weight' => '9',
     'children' => array(
       0 => 'field_imp_teacher_se_content',
     ),
@@ -190,6 +190,32 @@ function uhc_course_implementation_field_group_info() {
     ),
   );
   $export['group_imp_conduct_of_course|node|course_implementation|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_imp_feedback|node|course_implementation|default';
+  $field_group->group_name = 'group_imp_feedback';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'course_implementation';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Feedback',
+    'weight' => '22',
+    'children' => array(
+      0 => 'field_feedback_link',
+      1 => 'field_feedback_description',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'classes' => 'group-imp-feedback field-group-accordion-item',
+      ),
+    ),
+  );
+  $export['group_imp_feedback|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -232,7 +258,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Integration',
-    'weight' => '13',
+    'weight' => '12',
     'children' => array(
       0 => 'field_imp_begin_date',
       1 => 'field_imp_canonical_url',
@@ -306,7 +332,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Interaction',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_imp_interaction_link',
       1 => 'field_imp_interactiondescription',
@@ -336,7 +362,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Material',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
       0 => 'field_imp_material_description',
       1 => 'field_section_material',
@@ -365,7 +391,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Enrolment',
-    'weight' => '14',
+    'weight' => '13',
     'children' => array(
       0 => 'field_imp_hide_sign_up_button',
     ),
@@ -392,7 +418,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tasks',
-    'weight' => '8',
+    'weight' => '7',
     'children' => array(
       0 => 'field_reference_to_course_tasks',
     ),
@@ -452,7 +478,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Custom section',
-    'weight' => '9',
+    'weight' => '8',
     'children' => array(
       0 => 'field_imp_teachersection',
     ),
@@ -480,7 +506,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Messages',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -507,7 +533,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timetable',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'field_imp_ref_to_events_oodi',
       1 => 'field_imp_reference_to_events',

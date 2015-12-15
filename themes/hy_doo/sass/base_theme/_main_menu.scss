@@ -70,6 +70,7 @@
     width: 20px;
     &:before {
       @include hy-icon($hy-home);
+      position: absolute;
       visibility: visible;
     }
   }

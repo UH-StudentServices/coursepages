@@ -193,5 +193,12 @@ function uhc_course_implementation_update_7002(&$sandbox) {
 
   // Remove deprecated field
   field_delete_field('field_imp_organisation_codes');
+}
 
+ /*
+ * Remove feedback_text field
+ */
+function uhc_course_implementation_update_7003(&$sandbox) {
+  $instance = field_info_instance('node', 'field_feedback_text', 'course_implementation');
+  field_delete_instance($instance);
 }

@@ -184,6 +184,8 @@ and their target parameters are as follows:
 |                       |                              | course_implementation_course_conduct_remove            |
 |                       |                              | course_implementation_course_conduct_update            |
 |-----------------------|------------------------------|--------------------------------------------------------|
+| Feedback              | group-imp-feedback           | course_implementation_feedback_accordion_target        |
+|-----------------------|------------------------------|--------------------------------------------------------|
 | Course overview       | group-description-objectives | course_implementation_course_overview_accordion_target |
 |-----------------------|------------------------------|--------------------------------------------------------|
 | Tasks                 | group-course-task-material   | course_implementation_task_create                      |

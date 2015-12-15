@@ -303,8 +303,9 @@ function uhc_course_implementation_get_faculty_image_and_caption($node) {
  * Implements hook_node_view().
  */
 function uhc_course_implementation_node_view($node) {
-
-  if ($node->type == 'course_implementation') {
+  if (arg(0) == 'node' &&
+      arg(1) == $node->nid &&
+    $node->type == 'course_implementation') {
     uhc_course_implementation_display_private_content_message($node);
     uhc_course_implementation_display_view_in_teaching_language_message($node);
     uhc_course_implementation_display_course_implementation_status_message($node);

@@ -122,7 +122,7 @@ function uhc_course_implementation_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '15',
+          'weight' => '14',
         ),
         'language' => array(
           'weight' => '19',
@@ -131,7 +131,7 @@ function uhc_course_implementation_strongarm() {
           'weight' => '5',
         ),
         'locations' => array(
-          'weight' => '16',
+          'weight' => '15',
         ),
       ),
       'display' => array(),

@@ -114,12 +114,6 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['header']['block_1']['label'] = 'Start month';
   $handler->display->display_options['header']['block_1']['block_to_insert'] = 'facetapi:cEQesYoZJTu7ITT2OD5RXHP0T0bqniOh';
   /* Header: Global: Block area */
-  $handler->display->display_options['header']['block_2']['id'] = 'block_2';
-  $handler->display->display_options['header']['block_2']['table'] = 'views';
-  $handler->display->display_options['header']['block_2']['field'] = 'block';
-  $handler->display->display_options['header']['block_2']['label'] = 'Location';
-  $handler->display->display_options['header']['block_2']['block_to_insert'] = 'facetapi:u1d1Lx0rPaqN5rZzf9O8SX4IxIGxkUQG';
-  /* Header: Global: Block area */
   $handler->display->display_options['header']['block_3']['id'] = 'block_3';
   $handler->display->display_options['header']['block_3']['table'] = 'views';
   $handler->display->display_options['header']['block_3']['field'] = 'block';
@@ -321,7 +315,6 @@ function uhc_search_front_page_views_default_views() {
     t('<h2>Results (@total)</h2>'),
     t('Method of study'),
     t('Start month'),
-    t('Location'),
     t('Faculty'),
     t('Teaching language'),
     t('Subject'),
@@ -330,6 +323,7 @@ function uhc_search_front_page_views_default_views() {
     t('Name'),
     t('<a href="[field_imp_reference_to_courses_url]">[title_field]</a>'),
     t('Type of teaching'),
+    t('Location'),
     t('Begin date'),
     t('Search'),
     t('For example name of the course or topic.'),

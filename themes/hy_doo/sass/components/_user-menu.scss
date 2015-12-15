@@ -21,6 +21,7 @@
     .info-link {
       &:before {
         @include hy-icon($hy-info-stroke);
+        position: absolute;
         visibility: visible;
       }
     }
@@ -28,6 +29,7 @@
       &:before {
         @include hy-icon($hy-logout);
         visibility: visible;
+        position: absolute;
       }
     }
   }

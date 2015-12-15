@@ -1,3 +1,17 @@
+# Helsinki University Coursepages v1.47
+Päiväys: 15.12.2015
+
+## Korjaukset
+  - DOO-1600, DOO-1599: Konseptin mukaistamista
+  - DOO-1745: Korjattiin ongelma, jossa peruttu, yksityissisältö ja
+    opetuskieleen vaihto -kehotukset ilmenivät jaksosivulla, vaikka kuuluivatkin
+    pelkästään toteutus -sivulle.
+
+## Muutokset
+  - DOO-1605: Etusivun haun suodattimista poistettu paikkakunta.
+  - DOO-1647: Palaute on siirretty oikeasta sivupalkista omaksi haitarikseen.
+
+
 # Helsinki University Coursepages v1.46
 Päiväys: 14.12.2015
 
