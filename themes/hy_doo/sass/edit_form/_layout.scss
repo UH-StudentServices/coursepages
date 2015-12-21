@@ -1,0 +1,16 @@
+.node-form  {
+  @include at-breakpoint($layout-small) {
+    .group-imp-header-img {
+      @include span-columns(4, 12);
+    }
+    .group-headline-and-intro {
+      @include span-columns(8 omega, 12);
+    }
+    .group-material-metadata {
+      @include span-columns(6, 12);
+    }
+    .group-material-title-and-section {
+      @include span-columns(6 omega, 12);
+    }
+  }
+}

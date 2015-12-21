@@ -1,3 +1,14 @@
+# Helsinki University Coursepages v1.49
+Päiväys: 21.12.2015
+
+## Muutokset
+  - DOO-1728: Opettajan mökki-ikoni vie Opetukseni-sovellukseen.
+  - DOO-1727: Opettajalle yläpalkkiin Opintoni- linkin tilalle Opetukseni
+  
+## Korjaukset
+  - DOO-1658: Styleguiden mukaiseen muokkausnäkymään on tehty korjauksia
+
+
 # Helsinki University Coursepages v1.48
 Päiväys: 21.12.2015
 

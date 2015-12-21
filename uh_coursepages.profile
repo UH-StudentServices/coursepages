@@ -173,6 +173,59 @@ function uh_coursepages_apply_configuration() {
 }
 
 /**
+ * Implements hook_menu().
+ *
+ * Adds external home links for students and teachers in og-menu-single menu.
+ */
+function uh_coursepages_menu() {
+  $items["student"] = array(
+    'menu_name' => 'og-menu-single',
+    'type' => MENU_NORMAL_ITEM,
+    'title' => 'Home (student)',
+    'access callback' => 'uh_coursepages_student_menu_item_access',
+    'page callback' => 'drupal_goto',
+    'page arguments' => array(variable_get('uhc_student_home_url', 'https://student.helsinki.fi/')),
+    'options' => array('attributes' => array('class' => 'home-link')),
+    'weight' => -50
+  );
+
+  $items["teacher"] = array(
+    'menu_name' => 'og-menu-single',
+    'type' => MENU_NORMAL_ITEM,
+    'title' => 'Home (teacher)',
+    'access callback' => 'uh_coursepages_teacher_menu_item_access',
+    'page callback' => 'drupal_goto',
+    'page arguments' => array(variable_get('uhc_teacher_home_url', 'https://teacher.helsinki.fi/')),
+    'options' => array('attributes' => array('class' => 'home-link')),
+    'weight' => -49
+  );
+
+  return $items;
+}
+
+/**
+ * @return bool TRUE if the user has access to student menu item, otherwise FALSE.
+ */
+function uh_coursepages_student_menu_item_access() {
+  return uh_coursepages_user_has_role('administrator') || !uh_coursepages_user_has_role('teacher');
+}
+
+/**
+ * @return bool TRUE if the user has access to teacher menu item, otherwise FALSE.
+ */
+function uh_coursepages_teacher_menu_item_access() {
+  return uh_coursepages_user_has_role('administrator') || uh_coursepages_user_has_role('teacher');
+}
+
+/**
+ * @param $role string Role name.
+ * @return bool TRUE if the user has the given role, otherwise FALSE.
+ */
+function uh_coursepages_user_has_role($role) {
+  return in_array($role, array_values($GLOBALS['user']->roles));
+}
+
+/**
  * Implements hook_menu_alter().
  */
 function uh_coursepages_menu_alter(&$items) {
@@ -397,32 +450,56 @@ function uh_coursepages_setup_variables() {
       variable_realm_set('language', $lang, $name, $value);
     }
   }
+}
 
-  // logo block content
-  $translations = array(
-    'fi' => array(
-      'title' => 'Opintoni',
-    ),
-    'en' => array(
-      'title' => 'My studies',
-    ),
-    'sv' => array(
-      'title' => 'Mina studier',
-    ),
+/**
+ * Implements hook_block_info().
+ */
+function uh_coursepages_block_info() {
+  $blocks = array();
+  $blocks['uhc_logo_block'] = array(
+    'info' => t('UHC Logo Block'),
   );
+  return $blocks;
+}
 
-  $lang = language_list();
-  foreach ($lang as $key => $value) {
-    $hy_logo_block_content = '
-      <a href="http://www.helsinki.fi/' . $key . '">
+/**
+ * Implements hook_block_view().
+ */
+function uh_coursepages_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'uhc_logo_block':
+      $contexts = context_active_contexts();
+      if (array_key_exists('open_university_header_and_footer', $contexts)) {
+          $block['content'] = '<a href="http://www.helsinki.fi/university/">
+        <svg width="53" height="50" class="site-logo">
+            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg" src="/profiles/uh_coursepages/themes/hy_doo/images/ie/helsinki_university_53x50.png" width="53" height="50"></image>
+        </svg>
+        <h2 class="site-name">'. t("Open University") . '</h2></a>';
+      }
+      else {
+        global $user;
+        if (in_array('teacher', $user->roles)) {
+          $href = 'https://teacher.helsinki.fi';
+          $text = t('My teaching');
+        }
+        else {
+          $href = 'https://student.helsinki.fi';
+          $text = t('My studies');
+        }
+        $block['content'] = '<a href="http://www.helsinki.fi/fi">
         <svg width="45" height="45" class="site-logo">
           <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/profiles/uh_coursepages/themes/hy_doo/logo.svg" src="/profiles/uh_coursepages/themes/hy_doo/logo.png" width="45" height="45"></image>
         </svg>
-      </a>
-      <a href="http://student.helsinki.fi">
-        <h2 class="site-name">'. $translations[$key]['title'] . '</h2>
-      </a>';
-
-    variable_store_set('language', $key, 'hy_logo_block_form_content', array('value' => $hy_logo_block_content, 'format' => 'filtered_html'));
+        </a>
+        <a href="' . $href . '">
+          <h2 class="site-name">' . $text . '</h2>
+        </a>';
+      }
+      $block['css_class'] = 'logo-block';
+      break;
   }
+  return $block;
 }

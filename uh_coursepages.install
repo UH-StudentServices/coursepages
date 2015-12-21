@@ -366,14 +366,6 @@ function uh_coursepages_install() {
   $lang = language_list();
   foreach ($lang as $key => $value) {
 
-    $hy_logo_block_content = '
-      <a href="http://www.helsinki.fi/university/">
-        <svg width="53" height="50" class="site-logo">
-          <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/sites/all/themes/helsingin_yliopisto/images/hy_logo_white.svg" src="/sites/all/themes/helsingin_yliopisto/images/ie/helsinki_university_53x50.png" width="53" height="50"></image>
-        </svg>
-        <h2 class="site-name">'. $translations[$key]['title'] . '</h2>
-      </a>';
-
     $hy_contact_logo_block_content = '
       <div class="logo">
         <a href="http://www.helsinki.fi/university/">
@@ -388,7 +380,6 @@ function uh_coursepages_install() {
         <p>'. $translations[$key]['switchboard'] . ':<br>'. t('+358 (0) 2941 911') . '</p>
       </div>';
 
-    variable_store_set('language', $key, 'hy_logo_block_form_content', array('value' => $hy_logo_block_content, 'format' => 'filtered_html'));
     variable_store_set('language', $key, 'hy_contact_logo_block_form_content', array('value' => $hy_contact_logo_block_content, 'format' => 'filtered_html'));
   }
 
@@ -750,28 +741,7 @@ function uh_coursepages_install() {
   node_access_rebuild(FALSE);
 
   // Configure hy_contact module
-  variable_set('hy_logo_block_form_css_class', 'logo-block');
   $hy_contact_config = array(
-    'hy_logo_block_form_content' => array(
-      'fi' => array(
-        'value' => '<a href="http://www.helsinki.fi/university/">
-        <svg width="53" height="50" class="site-logo">
-          <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/sites/all/themes/helsingin_yliopisto/images/hy_logo_white.svg" src="/sites/all/themes/helsingin_yliopisto/images/ie/helsinki_university_53x50.png" width="53" height="50"></image>
-        </svg>
-        <h2 class="site-name">Helsingin Yliopisto</h2>
-      </a>',
-        'format' => 'filtered_html',
-      ),
-      'sv' => array(
-        'value' => '<a href="http://www.helsinki.fi/university/">
-        <svg width="53" height="50" class="site-logo">
-          <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/sites/all/themes/helsingin_yliopisto/images/hy_logo_white.svg" src="/sites/all/themes/helsingin_yliopisto/images/ie/helsinki_university_53x50.png" width="53" height="50"></image>
-        </svg>
-        <h2 class="site-name">Helsingfors universitet</h2>
-      </a>',
-        'format' => 'filtered_html',
-      )
-    ),
     'hy_contact_logo_block_form_content' => array(
       'fi' => array(
         'value' => '<div class="logo">
@@ -857,6 +827,17 @@ function uh_coursepages_update_7004() {
     }
   }
 
+}
+
+/**
+ * Logo block refactored; delete variables containing settings for old logo blocks
+ */
+function uh_coursepages_update_7005() {
+  variable_del('hy_logo_block_form_css_class');
+  variable_store_del('language', 'en', 'hy_logo_block_form_content');
+  variable_store_del('language', 'fi', 'hy_logo_block_form_content');
+  variable_store_del('language', 'no', 'hy_logo_block_form_content');
+  variable_store_del('language', 'sv', 'hy_logo_block_form_content');
 }
 
 /**

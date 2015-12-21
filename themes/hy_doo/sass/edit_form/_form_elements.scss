@@ -1,0 +1,110 @@
+.node-form  {
+
+  input[type="submit"] {
+    display: inline-block;
+    margin: 0.5em 1em 0.5em 0;
+    &#edit-cancel {
+      background: #fff;
+      color: #0098d0;
+      padding: 1.2em 2em;
+    }
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 0.4em;
+  }
+
+  .form-type-checkbox label:before,
+  .form-type-radio label:before,
+  select {
+    background: $white;
+  }
+
+  .ajax-progress {
+    .throbber {
+      float: left;
+      &:after {
+        @include hy-icon($hy-rotate-right);
+        @include hy-spin;
+      }
+    }
+    .message {
+      padding-left: 30px;
+    }
+  }
+
+  #autocomplete {
+    @include border;
+    overflow: hidden;
+    position: absolute;
+    z-index: 100;
+  }
+
+  .button {
+    display: inline-block;
+  }
+
+  .link-field-subrow {
+    padding: 0.5em 0;
+    .link-field-column {
+      @include at-breakpoint($layout-small) {
+        width: 50%;
+        float: left;
+        &:first-child {
+          padding-right: 1em;
+        }
+      }
+    }
+  }
+
+  legend,
+  .section-title {
+    @include font-family-main;
+    @include font-size(21px);
+    @include font-weight-bold;
+    display: block;
+    color: $darkgray;
+    letter-spacing: -0.05em;
+    line-height: 1.1em;
+    padding-bottom: 0.5em;
+    text-transform: uppercase;
+  }
+
+  .summary,
+  .description,
+  .fieldset-description,
+  .filter-guidelines {
+    font-size: 0.75em;
+  }
+
+  label {
+    @include font-weight-bold;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    margin-top: 1em;
+    position: absolute;
+    & + tr td {
+      padding-top: 4em !important;
+    }
+  }
+
+  .form-item {
+    margin-bottom: 1em;
+  }
+
+  fieldset {
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  .form-wrapper {
+    border: none;
+    margin: 1em 0;
+  }
+
+}

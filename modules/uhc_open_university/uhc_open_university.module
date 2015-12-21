@@ -30,24 +30,6 @@ function uhc_open_university_menu_block_blocks() {
 }
 
 /**
- * Implements hook_preprocess_block().
- *
- * Alter sitename when open uni context active
- */
-function uhc_open_university_preprocess_block(&$vars) {
-  $contexts = context_active_contexts();
-  if (array_key_exists('open_university_header_and_footer', $contexts)) {
-    if ($vars['block_html_id'] == 'block-hy-contact-hy-logo-block') {
-      $vars['content'] = '<a href="http://www.helsinki.fi/university/">
-        <svg width="53" height="50" class="site-logo">
-            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg" src="/profiles/uh_coursepages/themes/hy_doo/images/ie/helsinki_university_53x50.png" width="53" height="50"></image>
-        </svg>
-        <h2 class="site-name">'. t("Open University") . '</h2></a>';
-    }
-  }
-}
-
-/**
  * Implements hook_block_info().
  */
 function uhc_open_university_block_info() {
