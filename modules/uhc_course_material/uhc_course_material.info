@@ -1,7 +1,7 @@
 name = UHC Course material
 core = 7.x
 package = UHC
-version = 7.x-1.47
+version = 7.x-1.48
 project = uhc_course_material
 dependencies[] = ctools
 dependencies[] = entityreference

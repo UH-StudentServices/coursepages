@@ -56,7 +56,7 @@ function uhc_sources_permission() {
 /**
  * Implements hook_menu().
  *
- * Defines node synchronization task and some administrative migration settings.
+ * Defines node synchronization task.
  */
 function uhc_sources_menu() {
   $items['node/%node/sync-status'] = array(
@@ -68,28 +68,6 @@ function uhc_sources_menu() {
     'file' => 'uhc_sources.pages.inc',
     'type' => MENU_LOCAL_TASK,
   );
-
-  $items['admin/config/system/uhc-migrate'] = array(
-    'title' => 'UHC migrate settings',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('uhc_sources_migrate_method_of_study_settings_form'),
-    'access arguments' => array('access administration pages'),
-    'file' => 'uhc_sources.pages.inc',
-  );
-
-  $items['admin/config/system/uhc-migrate/methods-of-study'] = array(
-    'title' => 'Methods of study marked as exam',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'access arguments' => array('access administration pages'),
-  );
-
-  $items['admin/config/system/uhc-migrate/organisational-units'] = array(
-    'title' => 'Organisational units',
-    'type' => MENU_LOCAL_TASK,
-    'access arguments' => array('access administration pages'),
-    'page arguments' => array('uhc_sources_migrate_organisational_units_settings_form'),
-  );
-
   return $items;
 }
 
@@ -310,99 +288,4 @@ function uhc_sources_is_from_organisation($node, $organisation_code) {
 
   // If no match, we fall to returning FALSE
   return FALSE;
-}
-
-/**
- * Implements hook_uhc_course_implementation_source_allow_source_row().
- *
- * Tell course implementation migration which course implementations are allowed
- * to be migrated.
- */
-function uhc_sources_uhc_course_implementation_source_allow_source_row($row) {
-
-  // Allow by organisation
-  // @todo Perhaps do this in uhc_open_univerity module?
-  $allowed_organisation_units = uhc_sources_allowed_organisation_unit_codes();
-  if (empty($allowed_organisation_units)) {
-    // When $allowed_organisation_units is empty, we allow any organisation by
-    // default.
-    $allow_by_organisation = TRUE;
-  }
-  else {
-    $allow_by_organisation = FALSE;
-    if (isset($row->organisations) && is_array($row->organisations)) {
-      foreach ($row->organisations as $organisation) {
-        if (!empty($organisation->code) && in_array($organisation->code, $allowed_organisation_units)) {
-          // If organisation H930 involved, then we want this item to be migrated
-          $allow_by_organisation = TRUE;
-          break;
-        }
-      }
-    }
-  }
-
-  // Allow by keyword and realisation types (only check if
-  // $allow_by_organisation is not TRUE)
-  // @todo Perhaps do this in uhc_genetics and uhc_molecular_biosciences modules?
-  $allow_by_keyword_and_realisation_type = FALSE;
-  if (!$allow_by_organisation) {
-    $allowed_keywords = array('genetiikka', 'molekyylibiotieteet');
-    $denied_realisations = uhc_sources_denied_realisation_type_codes();
-    if (isset($row->descriptions) && isset($row->realisation_type_code)) {
-      $keywords = CourseImplementationNodeMigration::parseKeywordsFromDescriptions($row->descriptions);
-      foreach ($keywords as $keyword) {
-        if (in_array($keyword, $allowed_keywords) && !in_array($row->realisation_type_code, $denied_realisations)) {
-          // When source row has allowed keyword and allowed realistion type, then
-          // allow migrating this item.
-          $allow_by_keyword_and_realisation_type = TRUE;
-          break;
-        }
-      }
-    }
-  }
-
-  return $allow_by_organisation || $allow_by_keyword_and_realisation_type;
-}
-
-/**
- * Helper function for getting configured allowed organisation units.
- *
- * @return array
- * @throws MigrateException
- */
-function uhc_sources_allowed_organisation_unit_codes() {
-  $whitelist_codes = &drupal_static(__FUNCTION__);
-  if (!$whitelist_codes) {
-    $whitelist_codes = array();
-    $whitelist = variable_get('uhc_migrate_selected_organisational_units', array());
-    foreach ($whitelist as $item) {
-      if (!empty($item)) {
-        $whitelist_codes[] = $item;
-      }
-    }
-  }
-  return $whitelist_codes;
-}
-
-/**
- * Helper function for getting configured denied realisation type codes.
- *
- * @return array
- * @throws MigrateException
- */
-function uhc_sources_denied_realisation_type_codes() {
-  $blacklist_codes = &drupal_static(__FUNCTION__);
-  if (!$blacklist_codes) {
-    $blacklist_tids = variable_get('uhc_migrate_methods_of_study_marked_as_exam', array());
-    if ($migration = Migration::getInstance('TaxonomyFormOfTeachingTerm')) {
-      /** @var $migration Migration */
-      foreach ($blacklist_tids as $blacklist_tid) {
-        $source_key = $migration->getMap()->lookupSourceID(array($blacklist_tid));
-        if (!empty($source_key['sourceid1'])) {
-          $blacklist_codes[] = $source_key['sourceid1'];
-        }
-      }
-    }
-  }
-  return $blacklist_codes;
 }

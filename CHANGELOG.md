@@ -1,3 +1,17 @@
+# Helsinki University Coursepages v1.48
+Päiväys: 21.12.2015
+
+## Lisäykset
+  - DOO-1738: Lisättiin mahdollisuus suodattaa kurssien sisäänluku organisaatio-
+    hierarkiaa noudattaen
+  - DOO-417: Kurssisivulle (toteutus) näkyviin kenttä "Toteutus ja työtavat"
+
+## Muutokset
+  - DOO-1688: Avoimen haun tarkentavat rajausehdot ottavat tulosjoukossaan huomioon
+    hakusanan (kun sanahaku on jo suoritettu, jatkokehitys DOO-1691)
+  - DOO-1721: Siirretty ilmoittautumis- ja maksutiedot omaan haitariin.
+
+
 # Helsinki University Coursepages v1.47
 Päiväys: 15.12.2015
 

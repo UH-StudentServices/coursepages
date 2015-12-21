@@ -21,7 +21,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional information',
-    'weight' => '24',
+    'weight' => '25',
     'children' => array(),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -97,9 +97,9 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course overview',
-    'weight' => '23',
+    'weight' => '24',
     'children' => array(
-      0 => 'field_imp_fee',
+      0 => 'field_imp_working_methods',
       1 => 'uhc_ds_additional_info',
       2 => 'uhc_ds_req_prerequisites',
       3 => 'uhc_ds_contents',

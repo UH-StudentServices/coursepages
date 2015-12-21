@@ -187,6 +187,10 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       ->arguments($field_arguments)
       ->callbacks(array($this, 'preprocessString'));
 
+    $this->addFieldMapping('field_imp_working_methods',  'implementation')
+      ->arguments($field_arguments)
+      ->callbacks(array($this, 'preprocessString'));
+
     // Note: Multilingual field mapping is not supported, so
     // field_imp_canonical_url field is handled in
     // CourseImplementationDestinationNode::prepare()
@@ -221,6 +225,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'providing_locality'           => 'Multilingual: City which is giving the course.',
       'instruction_locality'         => 'Multilingual: City where the course is taught',
       'providing_organisation'       => 'Multilingual: Course organiser',
+      'implementation'               => 'Multilingual: Realisation and working methods',
       'languages'                    => 'Teaching languages',
       'teachers'                     => 'Teachers',
       'officials'                    => 'Officials (administrators)',

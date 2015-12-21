@@ -459,6 +459,44 @@ function uhc_course_implementation_activity_default_message_type() {
     },
     "rdf_mapping" : []
   }');
+  $items['course_implementation_fee_accordion_target'] = entity_import('message_type', '{
+    "name" : "course_implementation_fee_accordion_target",
+    "description" : "Course implementation - Fee accordion target",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-fee",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\r\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
   $items['course_implementation_feedback_accordion_target'] = entity_import('message_type', '{
     "name" : "course_implementation_feedback_accordion_target",
     "description" : "Course implementation - Feedback accordion target",

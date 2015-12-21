@@ -331,21 +331,27 @@ function uhc_search_portal_feature_facet_items_alter(&$build, &$settings) {
  * Implements hook_search_api_query_alter().
  */
 function uhc_search_portal_feature_search_api_query_alter(SearchApiQueryInterface $query) {
-  if ($query->getOption('search id') != 'search_api_autocomplete:search_api_views_uhc_search_open_university') {
-    return;
+  // Alter search autocomplete to take filters defined in the view into account
+  if ($query->getOption('search id') == 'search_api_autocomplete:search_api_views_uhc_search_open_university') {
+    $view = views_get_view('uhc_search_open_university');
+    $view->build();
+    foreach ($view->filter as $id => $filter) {
+      // Get all other filters used in the search view besides the search word
+      if (strpos($id, 'search_api_aggregation') === 0) {
+        continue;
+      }
+      if ($id == 'field_imp_begin_date' || $id == 'field_imp_end_date') {
+        $query->condition($id, strtotime($filter->value), $filter->operator);
+      }
+      else {
+        $query->condition($filter->real_field, $filter->value, $filter->operator);
+      }
+    }
   }
-  $view = views_get_view('uhc_search_open_university');
-  $view->build();
-  foreach ($view->filter as $id => $filter) {
-    // Get all other filters used in the search view besides the search word
-    if (strpos($id, 'search_api_aggregation') === 0) {
-      continue;
-    }
-    if ($id == 'field_imp_begin_date' || $id == 'field_imp_end_date') {
-      $query->condition($id, strtotime($filter->value), $filter->operator);
-    }
-    else {
-      $query->condition($id, $filter->value, $filter->operator);
+  // Alter facets to take the search word in the exposed filter into account
+  elseif ($query->getOption('search id') == 'search_api_views:uhc_search_open_university:search_api_views_facets_block_1') {
+    if (isset($_GET['search'])) {
+      $query->condition('search_api_aggregation_1', check_plain($_GET['search']), '=');
     }
   }
   return $query;

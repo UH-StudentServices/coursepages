@@ -833,3 +833,40 @@ function uh_coursepages_update_7002(&$sandbox) {
 function uh_coursepages_update_7003(&$sandbox) {
   module_enable(array('uh_taxonomy_organisations', 'uh_taxonomy_organisations_migrate'));
 }
+
+/**
+ * Enable module and migrate allowed organisation codes into taxonomy term
+ * values.
+ */
+function uh_coursepages_update_7004() {
+
+  // Enable and revert module
+  module_enable(array('uhc_sources_filtering'));
+  features_revert_module('uhc_sources_filtering');
+
+  // Migrate organisation whitelist
+  $organisation_codes = variable_get('uhc_migrate_selected_organisational_units', array());
+  if (!empty($organisation_codes)) {
+    // Migrate allowed organisation codes into taxonomy term values
+    foreach ($organisation_codes as $organisation_code) {
+      $term = uh_taxonomy_organisations_load_by_code($organisation_code);
+      if ($term) {
+        $term->field_migrate_allow[LANGUAGE_NONE][0]['value'] = 1;
+        taxonomy_term_save($term);
+      }
+    }
+  }
+
+}
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function uh_coursepages_update_dependencies() {
+  // Indicate that the uhc_sources_update_7002() must be run after
+  // uh_coursepages_7004().
+  $dependencies['uhc_sources'][7002] = array(
+    'uh_coursepages' => 7004,
+  );
+  return $dependencies;
+}

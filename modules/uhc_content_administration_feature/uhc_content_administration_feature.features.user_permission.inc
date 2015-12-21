@@ -554,6 +554,15 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_imp_working_methods'.
+  $permissions['create field_imp_working_methods'] = array(
+    'name' => 'create field_imp_working_methods',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'create field_material_file'.
   $permissions['create field_material_file'] = array(
     'name' => 'create field_material_file',
@@ -1333,6 +1342,15 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_imp_working_methods'.
+  $permissions['edit field_imp_working_methods'] = array(
+    'name' => 'edit field_imp_working_methods',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit field_material_file'.
   $permissions['edit field_material_file'] = array(
     'name' => 'edit field_material_file',
@@ -1874,6 +1892,15 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'edit own field_imp_teaching_language'.
   $permissions['edit own field_imp_teaching_language'] = array(
     'name' => 'edit own field_imp_teaching_language',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_imp_working_methods'.
+  $permissions['edit own field_imp_working_methods'] = array(
+    'name' => 'edit own field_imp_working_methods',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -2548,6 +2575,17 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_imp_working_methods'.
+  $permissions['view field_imp_working_methods'] = array(
+    'name' => 'view field_imp_working_methods',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view field_material_file'.
   $permissions['view field_material_file'] = array(
     'name' => 'view field_material_file',
@@ -3074,6 +3112,17 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'view own field_imp_teaching_language'.
   $permissions['view own field_imp_teaching_language'] = array(
     'name' => 'view own field_imp_teaching_language',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_imp_working_methods'.
+  $permissions['view own field_imp_working_methods'] = array(
+    'name' => 'view own field_imp_working_methods',
     'roles' => array(
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',

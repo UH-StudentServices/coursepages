@@ -220,6 +220,31 @@ function uhc_course_implementation_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_imp_fee|node|course_implementation|default';
+  $field_group->group_name = 'group_imp_fee';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'course_implementation';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Registration and fee',
+    'weight' => '23',
+    'children' => array(
+      0 => 'field_imp_fee',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'classes' => 'group-imp-fee field-group-accordion-item',
+      ),
+    ),
+  );
+  $export['group_imp_fee|node|course_implementation|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_imp_header_img|node|course_implementation|form';
   $field_group->group_name = 'group_imp_header_img';
   $field_group->entity_type = 'node';
@@ -280,6 +305,7 @@ function uhc_course_implementation_field_group_info() {
       17 => 'field_imp_keywords',
       18 => 'field_imp_status',
       19 => 'field_imp_organisation',
+      20 => 'field_imp_working_methods',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

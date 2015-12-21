@@ -1,0 +1,14 @@
+name = UHC Sources Filtering
+description = Filters course implementations by certain logic and given configuration.
+core = 7.x
+package = UHC
+version = 7.x-1.48
+project = uhc_sources_filtering
+dependencies[] = features
+dependencies[] = list
+dependencies[] = options
+dependencies[] = uh_taxonomy_organisations
+dependencies[] = uhc_sources
+features[features_api][] = api:2
+features[field_base][] = field_migrate_allow
+features[field_instance][] = taxonomy_term-organisations_of_university_of_helsinki-field_migrate_allow

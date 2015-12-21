@@ -186,6 +186,8 @@ and their target parameters are as follows:
 |-----------------------|------------------------------|--------------------------------------------------------|
 | Feedback              | group-imp-feedback           | course_implementation_feedback_accordion_target        |
 |-----------------------|------------------------------|--------------------------------------------------------|
+| Registration and fee  | group-imp-fee                | course_implementation_fee_accordion_target             |
+|-----------------------|------------------------------|--------------------------------------------------------|
 | Course overview       | group-description-objectives | course_implementation_course_overview_accordion_target |
 |-----------------------|------------------------------|--------------------------------------------------------|
 | Tasks                 | group-course-task-material   | course_implementation_task_create                      |

@@ -82,3 +82,11 @@ function uhc_sources_update_7001() {
     }
   }
 }
+
+/**
+ * Remove the variable which will not be used anymore.
+ */
+function uhc_sources_update_7002() {
+  // Remove variable
+  variable_del('uhc_migrate_selected_organisational_units');
+}
