@@ -1,0 +1,32 @@
+.group-imp-moodle {
+  @include border-top;
+  margin-top: 1em;
+  h3 {
+    @include text-label;
+    margin-bottom: 1em;
+  }
+}
+
+.moodle-button {
+  @include font-weight-medium;
+  margin-bottom: 1em;
+  padding-right: 4em;
+  @include at-breakpoint($layout-small) {
+    margin-right: 2em;
+    min-width: 16em;
+    display: inline-block;
+  }
+}
+
+.moodle-key {
+  @include font-size(14px);
+  @include border;
+  padding: 0.9em 2em;
+  &:before {
+    @include hy-icon($hy-info-stroke);
+    margin-right: 0.5em;
+  }
+  @include at-breakpoint($layout-small) {
+    display: inline-block;
+  }
+}

@@ -1,3 +1,13 @@
+# Helsinki University Coursepages v1.50
+Päiväys: 22.12.2015
+
+## Muutokset
+  - DOO-1739: Kurssien tilastointi uuden organisaatiohierarkian mukaisesti.
+  - DOO-1645, DOO-1646: Toteutuksien Moodle-linkki siirretty näkymään ennen
+    haitareita.
+  - DOO-1658: Styleguiden mukaisen muokkausnäkymän käyttöönotto.
+
+
 # Helsinki University Coursepages v1.49
 Päiväys: 21.12.2015
 

@@ -1,41 +1,27 @@
 .node-form  {
-  .vertical-tabs {
-    .vertical-tabs-list {
-      @include span-columns(3, 12);
-      li {
-        background: $blue;
-        padding: 0.5em 1em;
-        margin-bottom: 2px;
+  .vertical-tabs-list {
+    li {
+      background: $blue;
+      padding: 0.5em 1em;
+      margin-bottom: 2px;
+      a {
+        color: $white;
+      }
+      &.selected {
+        background: $white;
         a {
-          color: $white;
+          color: $blue;
         }
-        &.selected {
-          background: $white;
-          a {
-            color: $blue;
-          }
-        }
-        strong {
-          @include font-weight-medium;
-          display: block;
-        }
+      }
+      strong {
+        @include font-weight-medium;
+        display: block;
       }
     }
-    .vertical-tabs-panes {
-      @include span-columns(9 omega, 12);
-      .vertical-tabs-pane {
-        > legend {
-          @include font-size(32px);
-        }
-        .ief-form {
-          background: $lightsilver;
-          margin: 2em 0;
-          padding: 1.5em;
-          > div {
-            margin-bottom: 1em;
-          }
-        }
-      }
+  }
+  .vertical-tabs-pane {
+    > legend {
+      @include font-size(32px);
     }
   }
 }

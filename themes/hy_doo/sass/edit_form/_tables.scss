@@ -37,10 +37,14 @@
     }
   }
 
-  td:not(.ief-tabledrag-handle):not(.field-multiple-drag), {
+  td:not(.ief-tabledrag-handle):not(.field-multiple-drag) {
     @include hyphenate;
     padding: 0.5em 1em;
-    min-width: 160px;
+    display: block;
+    @include at-breakpoint($layout-small) {
+      display: table-cell;
+      min-width: 160px;
+    }
   }
 
   td:last-child {
@@ -48,7 +52,11 @@
   }
 
   th {
-    text-align: left;
-    padding: 0.5em 1em;
+    display: none;
+    @include at-breakpoint($layout-small) {
+      display: table-cell;
+      text-align: left;
+      padding: 0.5em 1em;
+    }
   }
 }

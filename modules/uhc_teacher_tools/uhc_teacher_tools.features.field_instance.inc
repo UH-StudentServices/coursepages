@@ -61,7 +61,7 @@ function uhc_teacher_tools_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_moodle_key',
-    'label' => 'Course key',
+    'label' => 'Moodle key',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
@@ -172,7 +172,7 @@ function uhc_teacher_tools_field_default_field_instances() {
     'settings' => array(
       'absolute_url' => 1,
       'attributes' => array(
-        'class' => '',
+        'class' => 'button-internal--dark moodle-button',
         'configurable_class' => 0,
         'configurable_title' => 0,
         'rel' => '',
@@ -193,7 +193,7 @@ function uhc_teacher_tools_field_default_field_instances() {
       'title' => 'value',
       'title_label_use_field_label' => 0,
       'title_maxlength' => 128,
-      'title_value' => 'Moodle Learning Environment',
+      'title_value' => 'Moodle',
       'url' => 0,
       'user_register_form' => FALSE,
       'validate_url' => 1,
@@ -210,8 +210,8 @@ function uhc_teacher_tools_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Copy and place the Moodle course key here. It\'s visibility will be restricted to logged in participants of the course.');
-  t('Course key');
   t('Example: https://moodle.helsinki.fi/course/view.php?id=754');
+  t('Moodle key');
   t('URL');
 
   return $field_instances;

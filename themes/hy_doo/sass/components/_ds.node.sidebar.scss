@@ -21,42 +21,6 @@
   }
 }
 
-.moodle-link .list-item {
-  a:after {
-    @include hy-icon($hy-link-arrow-offsite);
-  }
-}
-
-.moodle-key {
-  @include font-size(14px);
-  @include font-weight-bold;
-  label {
-    font-weight: initial;
-  }
-}
-
-.course-feedback-button {
-  display: block;
-  padding: 1em;
-  margin: 1em 0;
-  background: $blue;
-  h4 {
-    color: $white;
-    margin-bottom: 0.3em;
-  }
-  p {
-    @include font-family-bodytext;
-    @include font-size(16px);
-    color: $white;
-    line-height: 1.3em;
-    margin: 0;
-    padding: 0;
-  }
-  &:hover {
-    background: $blue--active;
-  }
-}
-
 .sidebar-liftup {
   margin-top: 3em;
   .box-story__title {

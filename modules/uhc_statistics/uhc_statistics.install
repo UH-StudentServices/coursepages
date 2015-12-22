@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Takes care of UHC Statistics installation/update/uninstallation tasks.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Enable shs (Simple hierarchical select) module.
+ */
+function uhc_statistics_update_7001(&$sandbox) {
+  module_enable(array('shs'));
+}

@@ -113,7 +113,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 69,
+        'weight' => 68,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -186,7 +186,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 55,
+        'weight' => 54,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -259,7 +259,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 54,
+        'weight' => 53,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -328,7 +328,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 51,
+        'weight' => 50,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -704,7 +704,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 67,
+        'weight' => 66,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -798,7 +798,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 58,
+        'weight' => 57,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1031,7 +1031,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 59,
+        'weight' => 58,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1104,7 +1104,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 74,
+        'weight' => 73,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1283,7 +1283,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 66,
+        'weight' => 65,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1758,7 +1758,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 73,
+        'weight' => 72,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1822,7 +1822,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 61,
+        'weight' => 60,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2089,7 +2089,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 70,
+        'weight' => 69,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2396,7 +2396,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 77,
+        'weight' => 75,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2461,7 +2461,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 72,
+        'weight' => 71,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2534,7 +2534,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 60,
+        'weight' => 59,
       ),
       'index' => array(
         'label' => 'above',
@@ -2607,7 +2607,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 71,
+        'weight' => 70,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2680,7 +2680,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 65,
+        'weight' => 64,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2744,7 +2744,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 75,
+        'weight' => 74,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2889,7 +2889,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 62,
+        'weight' => 61,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3039,7 +3039,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 20,
+        'weight' => 21,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3280,7 +3280,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 56,
+        'weight' => 55,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3424,7 +3424,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 52,
+        'weight' => 51,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3493,7 +3493,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 49,
+        'weight' => 48,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3566,7 +3566,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 57,
+        'weight' => 56,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3634,7 +3634,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 50,
+        'weight' => 49,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3703,7 +3703,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 53,
+        'weight' => 52,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3772,7 +3772,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 68,
+        'weight' => 67,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3841,7 +3841,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 64,
+        'weight' => 63,
       ),
       'sidebar' => array(
         'label' => 'above',

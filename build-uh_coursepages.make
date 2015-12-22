@@ -103,6 +103,7 @@ projects[search_api_et_solr][download][revision] = a03edb6
 
 ; Others
 
+projects[shs][version] = "1.6"
 projects[special_menu_items][version] = "2.0"
 projects[stringoverrides][version] = "1.8"
 projects[strongarm][version] = "2.0"

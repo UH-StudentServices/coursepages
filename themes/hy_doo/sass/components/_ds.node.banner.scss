@@ -7,6 +7,10 @@
   @include font-family-bodytext;
   float: left;
   width: 100%;
+  text-align: center;
+  @include at-breakpoint($layout-small) {
+    text-align: initial;
+  }
   h2 {
     @include font-size(30px);
     margin: 1.2em 0 0.5em 0;

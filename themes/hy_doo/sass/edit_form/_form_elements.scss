@@ -107,4 +107,16 @@
     margin: 1em 0;
   }
 
+  .ief-form {
+    background: $lightsilver;
+    margin: 2em 0;
+    padding: 1.5em;
+    > div {
+      margin-bottom: 1em;
+    }
+    .ief-form {
+      background: darken($lightsilver, 5%);
+    }
+  }
+
 }

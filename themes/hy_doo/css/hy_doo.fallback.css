@@ -684,6 +684,12 @@ a:hover .accordion-item__light:before, .accordion-item__light:hover:before {
   font-family: Georgia;
   float: left;
   width: 100%;
+  text-align: center;
+}
+@media (min-width: 48em) {
+  .ds-node-banner {
+    text-align: initial;
+  }
 }
 .ds-node-banner h2 {
   font-size: 30px;
@@ -1017,46 +1023,6 @@ a:hover .accordion-item__light:before, .accordion-item__light:hover:before {
   font-style: normal;
   padding: 1em 0;
   font-size: 0.9em;
-}
-
-.moodle-link .list-item a:after {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: "hy-icons";
-  content: "";
-}
-
-.moodle-key {
-  font-size: 14px;
-  font-size: 0.875rem;
-  font-weight: 700;
-  font-style: normal;
-}
-.moodle-key label {
-  font-weight: initial;
-}
-
-.course-feedback-button {
-  display: block;
-  padding: 1em;
-  margin: 1em 0;
-  background: #0098d0;
-}
-.course-feedback-button h4 {
-  color: #FFF;
-  margin-bottom: 0.3em;
-}
-.course-feedback-button p {
-  font-family: Georgia;
-  font-size: 16px;
-  font-size: 1rem;
-  color: #FFF;
-  line-height: 1.3em;
-  margin: 0;
-  padding: 0;
-}
-.course-feedback-button:hover {
-  background: #0882B3;
 }
 
 .sidebar-liftup {
@@ -1528,6 +1494,56 @@ ul.tabs.primary li.active a.active,
 ul.tabs--primary li a:link.active,
 ul.tabs--primary li a:link:hover {
   background-color: #0E64A6;
+}
+
+.group-imp-moodle {
+  border-top: 1px solid #EBEBEB;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  margin-top: 1em;
+}
+.group-imp-moodle h3 {
+  font-size: 18px;
+  font-size: 1.125rem;
+  font-weight: 400;
+  font-style: normal;
+  color: #666;
+  text-transform: none;
+  margin-bottom: 1em;
+}
+
+.moodle-button {
+  font-weight: 600;
+  font-style: normal;
+  margin-bottom: 1em;
+  padding-right: 4em;
+}
+@media (min-width: 48em) {
+  .moodle-button {
+    margin-right: 2em;
+    min-width: 16em;
+    display: inline-block;
+  }
+}
+
+.moodle-key {
+  font-size: 14px;
+  font-size: 0.875rem;
+  border: 1px solid #EBEBEB;
+  padding: 0.9em 2em;
+}
+.moodle-key:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "hy-icons";
+  content: "";
+  margin-right: 0.5em;
+}
+@media (min-width: 48em) {
+  .moodle-key {
+    display: inline-block;
+  }
 }
 
 .node-type-subject .ds-node-content {
@@ -3512,8 +3528,31 @@ a:hover .list-of-links__link:after, .list-of-links__link:hover:after {
   border: none;
   margin: 1em 0;
 }
+.node-form .ief-form {
+  background: #EBEBEB;
+  margin: 2em 0;
+  padding: 1.5em;
+}
+.node-form .ief-form > div {
+  margin-bottom: 1em;
+}
+.node-form .ief-form .ief-form {
+  background: #dedede;
+}
 
 @media (min-width: 48em) {
+  .node-form .vertical-tabs-list {
+    width: 22.85714%;
+    float: left;
+    margin-right: 2.85714%;
+  }
+  .node-form .vertical-tabs-panes {
+    width: 74.28571%;
+    float: right;
+    margin-right: 0;
+  }
+}
+@media (min-width: 62.5em) {
   .node-form .group-imp-header-img {
     width: 31.42857%;
     float: left;
@@ -3580,59 +3619,50 @@ a:hover .list-of-links__link:after, .list-of-links__link:hover:after {
   word-break: break-word;
   -ms-word-break: break-all;
   padding: 0.5em 1em;
-  min-width: 160px;
+  display: block;
+}
+@media (min-width: 48em) {
+  .node-form td:not(.ief-tabledrag-handle):not(.field-multiple-drag) {
+    display: table-cell;
+    min-width: 160px;
+  }
 }
 .node-form td:last-child {
   padding-right: 0;
 }
 .node-form th {
-  text-align: left;
-  padding: 0.5em 1em;
+  display: none;
+}
+@media (min-width: 48em) {
+  .node-form th {
+    display: table-cell;
+    text-align: left;
+    padding: 0.5em 1em;
+  }
 }
 
-.node-form .vertical-tabs .vertical-tabs-list {
-  width: 22.85714%;
-  float: left;
-  margin-right: 2.85714%;
-  display: inline;
-}
-.node-form .vertical-tabs .vertical-tabs-list li {
+.node-form .vertical-tabs-list li {
   background: #0098d0;
   padding: 0.5em 1em;
   margin-bottom: 2px;
 }
-.node-form .vertical-tabs .vertical-tabs-list li a {
+.node-form .vertical-tabs-list li a {
   color: #FFF;
 }
-.node-form .vertical-tabs .vertical-tabs-list li.selected {
+.node-form .vertical-tabs-list li.selected {
   background: #FFF;
 }
-.node-form .vertical-tabs .vertical-tabs-list li.selected a {
+.node-form .vertical-tabs-list li.selected a {
   color: #0098d0;
 }
-.node-form .vertical-tabs .vertical-tabs-list li strong {
+.node-form .vertical-tabs-list li strong {
   font-weight: 600;
   font-style: normal;
   display: block;
 }
-.node-form .vertical-tabs .vertical-tabs-panes {
-  width: 74.28571%;
-  float: right;
-  margin-right: 0;
-  *margin-left: -2em;
-  display: inline;
-}
-.node-form .vertical-tabs .vertical-tabs-panes .vertical-tabs-pane > legend {
+.node-form .vertical-tabs-pane > legend {
   font-size: 32px;
   font-size: 2rem;
-}
-.node-form .vertical-tabs .vertical-tabs-panes .vertical-tabs-pane .ief-form {
-  background: #EBEBEB;
-  margin: 2em 0;
-  padding: 1.5em;
-}
-.node-form .vertical-tabs .vertical-tabs-panes .vertical-tabs-pane .ief-form > div {
-  margin-bottom: 1em;
 }
 
 /* IE 8 issues */
