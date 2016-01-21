@@ -535,16 +535,6 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view title_and_credit on node'.
-  $permissions['view title_and_credit on node'] = array(
-    'name' => 'view title_and_credit on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view uhc_ds_additional_info on node'.
   $permissions['view uhc_ds_additional_info on node'] = array(
     'name' => 'view uhc_ds_additional_info on node',

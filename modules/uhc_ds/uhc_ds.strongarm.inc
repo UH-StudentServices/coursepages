@@ -35,7 +35,9 @@ group-custom-section
 ds-node-sidebar
 horizontal-rule-top
 horizontal-rule-bottom
-list-of-links__link';
+accordion-item__light
+ds-teaser-accordion--title
+button-internal';
   $export['ds_classes_regions'] = $strongarm;
 
   $strongarm = new stdClass();

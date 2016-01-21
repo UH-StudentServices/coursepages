@@ -1,7 +1,7 @@
 name = UHC Teacher Tools
 core = 7.x
 package = UHC
-version = 7.x-1.50
+version = 7.x-1.52
 project = uhc_teacher_tools
 dependencies[] = ctools
 dependencies[] = features
@@ -21,4 +21,4 @@ features[field_instance][] = node-course_implementation-field_moodle_key
 features[field_instance][] = node-course_implementation-field_moodle_url
 features[user_role][] = course administrator
 features[user_role][] = teacher
-mtime = 1450350233
+mtime = 1452609101

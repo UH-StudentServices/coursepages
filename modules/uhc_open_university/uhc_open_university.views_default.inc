@@ -35,18 +35,24 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'input_required';
   $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Show results';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
-  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Clear selections';
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Clear';
   $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Sorting:';
   $handler->display->display_options['exposed_form']['options']['expose_sort_order'] = FALSE;
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['text_input_required'] = '';
   $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'filtered_html';
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '16';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Show:';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 20, 50, 100';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'field_imp_status' => 'field_imp_status',
+    'field_imp_status_1' => 'field_imp_status_1',
     'url' => 'url',
     'title_field' => 'title_field',
     'field_study_credit' => 'field_study_credit',
@@ -56,6 +62,16 @@ function uhc_open_university_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = 'title_field';
   $handler->display->display_options['style_options']['info'] = array(
+    'field_imp_status' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_imp_status_1' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'url' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -64,7 +80,7 @@ function uhc_open_university_views_default_views() {
       'empty_column' => 0,
     ),
     'title_field' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -83,20 +99,21 @@ function uhc_open_university_views_default_views() {
       'empty_column' => 0,
     ),
     'field_imp_locality' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_imp_begin_date' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
   );
+  $handler->display->display_options['style_options']['override'] = FALSE;
   /* Header: Global: Block area */
   $handler->display->display_options['header']['block_2']['id'] = 'block_2';
   $handler->display->display_options['header']['block_2']['table'] = 'views';
@@ -290,11 +307,11 @@ function uhc_open_university_views_default_views() {
     t('Master'),
     t('more'),
     t('Show results'),
-    t('Clear selections'),
+    t('Clear'),
     t('Sorting:'),
     t('Asc'),
     t('Desc'),
-    t('Items per page'),
+    t('Show:'),
     t('- All -'),
     t('Offset'),
     t('« first'),

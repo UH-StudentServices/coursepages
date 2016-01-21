@@ -4,7 +4,7 @@
  * @see README.md how to contribute to this project
  */
 (function ($, Drupal, window, document, undefined) {
-  Drupal.behaviors.premiseSearch = {
+  Drupal.behaviors.courseSearch = {
     attach: function(context, settings) {
 
       // Make sure this happens only once
@@ -56,6 +56,11 @@
           $(elem).attr('href', $(elem).attr('href').replace(/(\?search=)([\w%]*)/, '$1' + event.currentTarget.value));
         });
       });
+
+      // Display sorting and paging controls only when there are search results.
+      if ($('.course-search .view-content').length == 0) {
+        $('.pager-and-sorting-controls').hide();
+      }
 
     }
   };

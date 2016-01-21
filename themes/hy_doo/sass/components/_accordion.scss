@@ -63,3 +63,67 @@
     color: $blue;
   }
 }
+
+.accordion-item__alternative {
+  @include button-accordion;
+  @include font-size(15px);
+  @include border-bottom;
+  @include font-weight-medium;
+  text-transform: none;
+  padding-left: 0;
+  padding-right: 3em;
+  &:before {
+    @include hy-icon($hy_arrow);
+    left: auto;
+    right: 1em;
+  }
+  &:hover,
+  &.is-active {
+    background: transparent;
+    color: $blue--active;
+    &:before {
+      color: $blue--active;
+    }
+  }
+  &.is-active {
+    border-bottom: none;
+  }
+}
+
+.accordion-item-title-link {
+  &:after {
+    @include hy-icon($hy-hy-logo);
+    background: $silver;
+    color: $white;
+    left: 0;
+    top: 0;
+    line-height: 3em;
+    padding-left: 1em;
+    padding-right: 1em;
+    position: absolute;
+  }
+}
+
+.accordion-item-title > h3 {
+  margin-top: 2em;
+  text-transform: uppercase;
+  position: relative;
+  @include font-size(15px);
+  @include border-side('top');
+  @include border-side('bottom');
+  @include font-weight-bold;
+  padding: 0.9em 1em 0.8em 4em;
+
+  &:after {
+    @include hy-icon($hy-hy-logo);
+    background: $silver;
+    color: $white;
+    left: 0;
+    top: 0;
+    font-size: 2em;
+    line-height: 1.5em;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    position: absolute;
+  }
+}

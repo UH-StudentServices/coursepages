@@ -47,8 +47,7 @@
           color: map-get(map-get($messages, $name), "color-alt");
         }
       }
-      p:before,
-      li:before {
+      >:before {
         @include font-awesome(map-get(map-get($messages, $name), "icon"));
         font-size: 1.3em;
         margin-right: 0.7em;

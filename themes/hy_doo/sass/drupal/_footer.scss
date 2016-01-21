@@ -37,6 +37,10 @@
     }
   }
 
+  .block--menu-menu-open-university-footer-link li a {
+    @include button-internal;
+  }
+
   a {
     color: $gray;
   }
@@ -47,9 +51,6 @@
     p {
       font-size: 0.875rem;
     }
-  }
-  .list-of-links__link:after {
-    color: $gray;
   }
 }
 

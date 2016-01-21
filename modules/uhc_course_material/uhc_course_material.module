@@ -183,6 +183,18 @@ function uhc_course_material_inline_entity_form_table_fields_alter(&$fields, $co
 }
 
 /**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ *
+ * In case we are adding material to tasks, hide field_material_section
+ * as it is not used.
+ */
+function uhc_course_material_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if($entity_form['#parents'][0] == 'field_reference_to_course_tasks' && isset($entity_form['field_material_section'])) {
+    $entity_form['field_material_section']['#access'] = FALSE;
+  }
+}
+
+/**
  * Implements hook_node_view_alter(). Remove contextual links from course materials.
  */
 function uhc_course_material_node_view_alter(&$variables) {

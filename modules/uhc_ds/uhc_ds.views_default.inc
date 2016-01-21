@@ -391,6 +391,7 @@ function uhc_ds_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['default_row_class'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'ds';
@@ -495,6 +496,115 @@ function uhc_ds_views_default_views() {
   $handler->display->display_options['filters']['field_imp_end_date_value']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
   $handler->display->display_options['filters']['field_imp_end_date_value']['operator'] = '<';
   $handler->display->display_options['filters']['field_imp_end_date_value']['default_date'] = 'now';
+
+  /* Display: Implementation list accordion */
+  $handler = $view->new_display('block', 'Implementation list accordion', 'block_2');
+  $handler->display->display_options['display_description'] = 'A list of course implementations displayed as an accordion (reverse entity references)';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'ds';
+  $handler->display->display_options['row_options']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
+  $handler->display->display_options['row_options']['view_mode'] = 'teaser_accordion';
+  $handler->display->display_options['row_options']['load_comments'] = 0;
+  $handler->display->display_options['row_options']['grouping'] = 0;
+  $handler->display->display_options['row_options']['advanced'] = 0;
+  $handler->display->display_options['row_options']['delta_fieldset']['delta_fields'] = array();
+  $handler->display->display_options['row_options']['grouping_fieldset']['group_field'] = 'field_data_field_imp_begin_date|field_imp_begin_date_value';
+  $handler->display->display_options['row_options']['default_fieldset']['view_mode'] = 'teaser_accordion';
+  $handler->display->display_options['row_options']['switch_fieldset']['switch'] = TRUE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['default_argument_options']['argument'] = '353';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: End date (field_imp_end_date) */
+  $handler->display->display_options['filters']['field_imp_end_date_value']['id'] = 'field_imp_end_date_value';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['table'] = 'field_data_field_imp_end_date';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['field'] = 'field_imp_end_date_value';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['operator'] = '>=';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['default_date'] = 'now';
+
+  /* Display: Implementation list accordion - past */
+  $handler = $view->new_display('block', 'Implementation list accordion - past', 'block_3');
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'course-node-references-past element-hidden';
+  $handler->display->display_options['display_description'] = 'A list of course implementations displayed as an accordion (reverse entity references)';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'ds';
+  $handler->display->display_options['row_options']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
+  $handler->display->display_options['row_options']['view_mode'] = 'teaser_accordion';
+  $handler->display->display_options['row_options']['load_comments'] = 0;
+  $handler->display->display_options['row_options']['grouping'] = 0;
+  $handler->display->display_options['row_options']['advanced'] = 0;
+  $handler->display->display_options['row_options']['delta_fieldset']['delta_fields'] = array();
+  $handler->display->display_options['row_options']['grouping_fieldset']['group_field'] = 'field_data_field_imp_begin_date|field_imp_begin_date_value';
+  $handler->display->display_options['row_options']['default_fieldset']['view_mode'] = 'teaser_accordion';
+  $handler->display->display_options['row_options']['switch_fieldset']['switch'] = TRUE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Begin date (field_imp_begin_date) */
+  $handler->display->display_options['sorts']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['sorts']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
+  $handler->display->display_options['sorts']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['sorts']['field_imp_begin_date_value']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
+  $handler->display->display_options['sorts']['field_imp_begin_date_value']['order'] = 'DESC';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['default_argument_options']['argument'] = '353';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: End date (field_imp_end_date) */
+  $handler->display->display_options['filters']['field_imp_end_date_value']['id'] = 'field_imp_end_date_value';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['table'] = 'field_data_field_imp_end_date';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['field'] = 'field_imp_end_date_value';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['operator'] = '<';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['default_date'] = 'now';
   $translatables['course_node_references'] = array(
     t('Master'),
     t('more'),
@@ -509,6 +619,9 @@ function uhc_ds_views_default_views() {
     t('A list of course implementations (reverse entity references)'),
     t('Implementation list - past'),
     t('A list of past course implementations (reverse entity references)'),
+    t('Implementation list accordion'),
+    t('A list of course implementations displayed as an accordion (reverse entity references)'),
+    t('Implementation list accordion - past'),
   );
   $export['course_node_references'] = $view;
 

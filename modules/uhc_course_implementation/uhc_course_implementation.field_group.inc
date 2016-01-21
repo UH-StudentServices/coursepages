@@ -13,6 +13,42 @@ function uhc_course_implementation_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_accordion_content|node|course_implementation|teaser_accordion';
+  $field_group->group_name = 'group_accordion_content';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'course_implementation';
+  $field_group->mode = 'teaser_accordion';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Course Information',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_additional_info',
+      1 => 'field_conduct',
+      2 => 'field_imp_fee',
+      3 => 'course_overview_link',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Course Information',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'field-group-accordion-item',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_accordion_content|node|course_implementation|teaser_accordion'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_conduct_of_course|node|course_implementation|default';
   $field_group->group_name = 'group_conduct_of_course';
   $field_group->entity_type = 'node';
@@ -21,7 +57,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Conduct of the course',
-    'weight' => '22',
+    'weight' => '23',
     'children' => array(
       0 => 'field_imp_teacher_se_content',
     ),
@@ -47,7 +83,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course overview',
-    'weight' => '11',
+    'weight' => '12',
     'children' => array(
       0 => 'field_additional_info',
       1 => 'field_conduct',
@@ -84,7 +120,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Feedback',
-    'weight' => '10',
+    'weight' => '11',
     'children' => array(
       0 => 'field_feedback_link',
       1 => 'field_feedback_description',
@@ -174,7 +210,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Conduct of the course',
-    'weight' => '9',
+    'weight' => '10',
     'children' => array(
       0 => 'field_imp_teacher_se_content',
     ),
@@ -202,7 +238,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Feedback',
-    'weight' => '23',
+    'weight' => '24',
     'children' => array(
       0 => 'field_feedback_link',
       1 => 'field_feedback_description',
@@ -228,7 +264,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Registration and fee',
-    'weight' => '24',
+    'weight' => '25',
     'children' => array(
       0 => 'field_imp_fee',
     ),
@@ -283,7 +319,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Integration',
-    'weight' => '12',
+    'weight' => '13',
     'children' => array(
       0 => 'field_imp_begin_date',
       1 => 'field_imp_canonical_url',
@@ -451,7 +487,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Enrolment',
-    'weight' => '13',
+    'weight' => '14',
     'children' => array(
       0 => 'field_imp_hide_sign_up_button',
     ),
@@ -478,7 +514,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tasks',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
       0 => 'field_reference_to_course_tasks',
     ),
@@ -506,7 +542,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course conduct',
-    'weight' => '8',
+    'weight' => '43',
     'children' => array(
       0 => 'field_imp_teacher_se_content',
     ),
@@ -530,6 +566,58 @@ function uhc_course_implementation_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_imp_video|node|course_implementation|default';
+  $field_group->group_name = 'group_imp_video';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'course_implementation';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Video',
+    'weight' => '20',
+    'children' => array(
+      0 => 'field_imp_video',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'classes' => 'group-imp-video field-group-accordion-item',
+      ),
+    ),
+  );
+  $export['group_imp_video|node|course_implementation|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_imp_video|node|course_implementation|form';
+  $field_group->group_name = 'group_imp_video';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'course_implementation';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Video',
+    'weight' => '7',
+    'children' => array(
+      0 => 'field_imp_video',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-imp-video field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_imp_video|node|course_implementation|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_manual_content|node|course_implementation|form';
   $field_group->group_name = 'group_manual_content';
   $field_group->entity_type = 'node';
@@ -538,7 +626,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Custom section',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_imp_teachersection',
     ),

@@ -14,7 +14,7 @@ function uhc_search_portal_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'chosen_disable_search';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['chosen_disable_search'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -63,7 +63,7 @@ function uhc_search_portal_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'chosen_use_theme';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['chosen_use_theme'] = $strongarm;
 
   $strongarm = new stdClass();

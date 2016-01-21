@@ -11,7 +11,7 @@
         $(view).after('<a href="#" class="show-past-imps">' + Drupal.t('Show past') + '</a>');
         $('.show-past-imps').click(function(event){
           event.preventDefault();
-          $(view).slideToggle('slow');
+          $(this).prev().slideToggle('slow');
           ($(this).text() == Drupal.t('Hide past')) ? $(this).text(Drupal.t('Show past')) : $(this).text(Drupal.t('Hide past'));
         });
       });

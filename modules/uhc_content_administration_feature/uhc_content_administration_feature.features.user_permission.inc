@@ -273,26 +273,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'create field_faculty_image'.
-  $permissions['create field_faculty_image'] = array(
-    'name' => 'create field_faculty_image',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'create field_faculty_image_caption'.
-  $permissions['create field_faculty_image_caption'] = array(
-    'name' => 'create field_faculty_image_caption',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'create field_feedback_description'.
   $permissions['create field_feedback_description'] = array(
     'name' => 'create field_feedback_description',
@@ -641,16 +621,6 @@ function uhc_content_administration_feature_user_default_permissions() {
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
       'teacher' => 'teacher',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'create field_subject_study_modules'.
-  $permissions['create field_subject_study_modules'] = array(
-    'name' => 'create field_subject_study_modules',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
     ),
     'module' => 'field_permissions',
   );
@@ -1061,26 +1031,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit field_faculty_image'.
-  $permissions['edit field_faculty_image'] = array(
-    'name' => 'edit field_faculty_image',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'edit field_faculty_image_caption'.
-  $permissions['edit field_faculty_image_caption'] = array(
-    'name' => 'edit field_faculty_image_caption',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit field_feedback_description'.
   $permissions['edit field_feedback_description'] = array(
     'name' => 'edit field_feedback_description',
@@ -1433,16 +1383,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit field_subject_study_modules'.
-  $permissions['edit field_subject_study_modules'] = array(
-    'name' => 'edit field_subject_study_modules',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit field_target_group'.
   $permissions['edit field_target_group'] = array(
     'name' => 'edit field_target_group',
@@ -1613,26 +1553,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'name' => 'edit own field_evaluation',
     'roles' => array(
       'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'edit own field_faculty_image'.
-  $permissions['edit own field_faculty_image'] = array(
-    'name' => 'edit own field_faculty_image',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'edit own field_faculty_image_caption'.
-  $permissions['edit own field_faculty_image_caption'] = array(
-    'name' => 'edit own field_faculty_image_caption',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
     ),
     'module' => 'field_permissions',
   );
@@ -1989,16 +1909,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit own field_subject_study_modules'.
-  $permissions['edit own field_subject_study_modules'] = array(
-    'name' => 'edit own field_subject_study_modules',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit own field_target_group'.
   $permissions['edit own field_target_group'] = array(
     'name' => 'edit own field_target_group',
@@ -2265,28 +2175,6 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'view field_evaluation'.
   $permissions['view field_evaluation'] = array(
     'name' => 'view field_evaluation',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'view field_faculty_image'.
-  $permissions['view field_faculty_image'] = array(
-    'name' => 'view field_faculty_image',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'view field_faculty_image_caption'.
-  $permissions['view field_faculty_image_caption'] = array(
-    'name' => 'view field_faculty_image_caption',
     'roles' => array(
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
@@ -2676,17 +2564,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'view field_subject_study_modules'.
-  $permissions['view field_subject_study_modules'] = array(
-    'name' => 'view field_subject_study_modules',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'view field_target_group'.
   $permissions['view field_target_group'] = array(
     'name' => 'view field_target_group',
@@ -2813,26 +2690,6 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'view own field_faculty_image'.
-  $permissions['view own field_faculty_image'] = array(
-    'name' => 'view own field_faculty_image',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'view own field_faculty_image_caption'.
-  $permissions['view own field_faculty_image_caption'] = array(
-    'name' => 'view own field_faculty_image_caption',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
     ),
     'module' => 'field_permissions',
   );
@@ -3222,17 +3079,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'view own field_subject_study_modules'.
-  $permissions['view own field_subject_study_modules'] = array(
-    'name' => 'view own field_subject_study_modules',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'view own field_target_group'.
   $permissions['view own field_target_group'] = array(
     'name' => 'view own field_target_group',
@@ -3272,6 +3118,38 @@ function uhc_content_administration_feature_user_default_permissions() {
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
       'teacher' => 'teacher',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_course_reference_accordion on node'.
+  $permissions['view uhc_ds_course_reference_accordion on node'] = array(
+    'name' => 'view uhc_ds_course_reference_accordion on node',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_imp_status_org_location_date on node'.
+  $permissions['view uhc_ds_imp_status_org_location_date on node'] = array(
+    'name' => 'view uhc_ds_imp_status_org_location_date on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_title_and_credit on node'.
+  $permissions['view uhc_ds_title_and_credit on node'] = array(
+    'name' => 'view uhc_ds_title_and_credit on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'ds_extras',
   );

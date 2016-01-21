@@ -146,8 +146,14 @@ function uhc_sources_filtering_entity_presave($entity, $type) {
   if ($type == 'taxonomy_term' &&
       $entity->vocabulary_machine_name == 'organisations_of_university_of_helsinki' &&
       menu_get_object('taxonomy_term', 2)) {
-    // Save values recursively
-    if (isset($entity->field_migrate_allow[LANGUAGE_NONE][0]['value'])) {
+
+    // Save values recursively if the value has been changed
+    $value_changed = TRUE;
+    if (isset($entity->field_migrate_allow[LANGUAGE_NONE][0]['value']) &&
+      isset($entity->original->field_migrate_allow[LANGUAGE_NONE][0]['value'])) {
+      $value_changed = ($entity->field_migrate_allow[LANGUAGE_NONE][0]['value'] != $entity->original->field_migrate_allow[LANGUAGE_NONE][0]['value']);
+    }
+    if (isset($entity->field_migrate_allow[LANGUAGE_NONE][0]['value']) && $value_changed) {
       foreach (taxonomy_get_children($entity->tid) as $children) {
         // By copying value from parent and then save it
         $children->field_migrate_allow[LANGUAGE_NONE][0]['value'] = $entity->field_migrate_allow[LANGUAGE_NONE][0]['value'];
@@ -158,5 +164,6 @@ function uhc_sources_filtering_entity_presave($entity, $type) {
 
       }
     }
+
   }
 }

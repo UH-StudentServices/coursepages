@@ -55,6 +55,38 @@ function uhc_course_implementation_inline_entity_form_entity_form_alter(&$entity
   }
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * DOO-1530: Organisation default header image and caption must be both provided
+ * together.
+ */
+function uhc_course_implementation_form_taxonomy_form_term_alter(&$form, &$form_state) {
+  // Add additional validation callback when rendering taxonomy form term on
+  // organisations.
+  if (isset($form['#bundle']) && $form['#bundle'] == 'organisations_of_university_of_helsinki') {
+    $form['#validate'][] = 'uhc_course_implementation_default_header_validate';
+  }
+}
+
+/**
+ * DOO-1530: Validation callback for ensuring that default header image and
+ * caption must are both provided together.
+ */
+function uhc_course_implementation_default_header_validate(&$form, &$form_state) {
+  if (isset($form_state['values']['field_default_header_image'][LANGUAGE_NONE][0]['fid']) &&
+    isset($form_state['values']['field_default_header_image_capti'][LANGUAGE_NONE][0]['value'])) {
+    $image = $form_state['values']['field_default_header_image'][LANGUAGE_NONE][0]['fid'];
+    $caption = $form_state['values']['field_default_header_image_capti'][LANGUAGE_NONE][0]['value'];
+    if ($image && !$caption) {
+      form_set_error('field_default_header_image_capti', t('If you provide an default header image, you need to provide an caption for it too.'));
+    }
+    if (!$image && $caption) {
+      form_set_error('field_default_header_image_capti', t('If you provide an default header image caption, you need to provide an image for it too.'));
+    }
+  }
+}
+
 function uhc_course_implementation_get_teacher_numbers($node) {
   $teacher_numbers = array();
 
@@ -101,68 +133,46 @@ function uhc_course_implementation_field_group_build_pre_render_alter(&$element)
  * Implements hook_entity_load().
  *
  * Problem:
- *   If we would feature export image fields with default image's file id. It
- *   might get wrong or miss completely the file in other environments due to
- *   different file IDs in different environments.
+ *   Default image of course implementation header depends on organisation it
+ *   belongs to.
  *
  * Solution(tm) by Mario Vercelotti:
  *   When loading course implementations which does not have header image set at
- *   all, first try to fetch an image and caption from related faculty term. 
- *   If this fails, fetch default image from variable. This default image is set during
- *   installation or update hook and its copied from default image provided in
- *   this module.
+ *   all, first try to fetch an image and caption from related organisation
+ *   term recursively.
  *
- * @see _uhc_course_implementation_create_default_image().
  * @see uhc_course_implementation_entity_presave().
  */
 function uhc_course_implementation_entity_load($entities, $type) {
+  // Loop each loadable entity if it is an node
   if ($type == 'node') {
-
     foreach ($entities as $entity) {
+      // When node is type of "course_implementation"
       if ($entity->type == 'course_implementation') {
 
-        // When loading course implementation entity and not having header image
-        // set, check if the related faculty term has an image and caption set. if not, (and 
-        // while default file id is set), then attach the default image
-        // into the entity.
+        // When given entity has no header image but has reference to an
+        // organisation term reference.
         $field_imp_header_image = field_get_items('node', $entity, 'field_imp_header_image');
-        if (empty($field_imp_header_image)) {
-          $faculty_term_image_and_caption = array();
+        if (empty($field_imp_header_image) && !empty($entity->field_imp_organisation[LANGUAGE_NONE][0]['tid'])) {
 
-          if (!empty($entity->field_imp_reference_to_courses[LANGUAGE_NONE][0]['target_id'])) {
-            $faculty_term_image_and_caption = uhc_course_implementation_get_faculty_image_and_caption($entity->field_imp_reference_to_courses[LANGUAGE_NONE][0]['target_id']);
+          // Load organisation term and caption
+          $term_image_and_caption = uhc_course_implementation_get_default_header_image($entity->field_imp_organisation[LANGUAGE_NONE][0]['tid']);
+          if(!empty($term_image_and_caption['fid'])) {
+
+            // If image and caption has been found, then load the file entity
+            // and use that object to set it has header image.
+            // TODO: What if we have fid but no caption?
+            $entity->field_imp_header_image_caption = $term_image_and_caption['caption'];
+            $file = file_load($term_image_and_caption['fid']);
+            $entity->field_imp_header_image = array(
+              LANGUAGE_NONE => array(array('fid' => $term_image_and_caption['fid']) + (array) $file),
+            );
+
+            // See uhc_course_implementation_entity_presave(), this is for
+            // telling to form editing process that it should not save this
+            // file.
+            $entity->has_default_image = TRUE;
           }
-
-          if(!empty($faculty_term_image_and_caption['fid'])) {
-            $entity->field_imp_header_image_caption = $faculty_term_image_and_caption['caption'];
-            $fid = $faculty_term_image_and_caption['fid'];
-          }
-          else {
-            // Check if node happens to be part of open university. If so, then
-            // use its default image. Otherwise use the global default.
-            $open_university_term = uh_taxonomy_organisations_load_by_code('H930');
-            if ($open_university_term &&
-              isset($entity->field_imp_organisation[LANGUAGE_NONE][0]['tid']) &&
-              $entity->field_imp_organisation[LANGUAGE_NONE][0]['tid'] == $open_university_term->tid) {
-              $fid = variable_get('uhc_course_implementation_default_image_open_uni', 0);
-            }
-            else {
-              // This value should be set by
-              // _uhc_course_implementation_create_default_image()
-              $fid = variable_get('uhc_course_implementation_default_image', 0);
-              // set default image caption
-              $entity->field_imp_header_image_caption[LANGUAGE_NONE][0]['value'] = t('Social Network Analysis Visualization by MartinGrandjean CC BY-SA 3.0');
-            }
-          }
-          $file = file_load($fid);
-          $entity->field_imp_header_image = array(
-            LANGUAGE_NONE => array(array('fid' => $fid) + (array) $file),
-          );
-
-          // See uhc_course_implementation_entity_presave(), this is for telling
-          // to form editing process that it should not save this file.
-          $entity->has_default_image = TRUE;
-
         }
       }
     }
@@ -174,15 +184,67 @@ function uhc_course_implementation_entity_load($entities, $type) {
  */
 function uhc_course_implementation_entity_presave($entity, $type) {
   // If we've set a default image, remove it before saving, so we don't
-  // accidentally save the default image as actualy image of the field.
+  // accidentally save the default image as actual image of the field.
   if ($type == 'node' && isset($entity->has_default_image) && isset($entity->field_imp_header_image)) {
-    $default_image_fid = variable_get('uhc_course_implementation_default_image', 0);
-    $image_fid = empty($entity->field_imp_header_image[LANGUAGE_NONE][0]['fid']) ? NULL : $entity->field_imp_header_image[LANGUAGE_NONE][0]['fid'];
 
-    if ($image_fid == NULL || ($default_image_fid == $image_fid)) {
+    // Get entity's image fid and default organisation image
+    $image_fid = empty($entity->field_imp_header_image[LANGUAGE_NONE][0]['fid']) ? NULL : $entity->field_imp_header_image[LANGUAGE_NONE][0]['fid'];
+    $term_image_and_caption = uhc_course_implementation_get_default_header_image($entity->field_imp_organisation[LANGUAGE_NONE][0]['tid']);
+
+    // Clear header image field adn caption, when it has been removed or it's
+    // the same as organisation default image.
+    if($image_fid == NULL || (!empty($term_image_and_caption['fid']) && $image_fid == $term_image_and_caption['fid'])) {
       $entity->field_imp_header_image = array();
+      $entity->field_imp_header_image_caption = array();
     }
   }
+}
+
+/**
+ * Helper function for fetching default course image by organisation term. If
+ * organisation term does not have an image, it will check from the parent
+ * recursively till the root term.
+ *
+ * When default image has been found, it will return its fid and caption as an
+ * array. If no default course image can't be found, then function will return
+ * an empty array.
+ *
+ * @param $tid
+ * @return array
+ */
+function uhc_course_implementation_get_default_header_image($tid) {
+  $return = &drupal_static(__FUNCTION__ . $tid, array());
+
+  // Loop until we can't load the term or we're not in root
+  while (empty($return)) {
+
+    // Ensure that we can load the term
+    $term = taxonomy_term_load($tid);
+    if (!$term) {
+      // Break the loop if given term couldn't be loaded.
+      break;
+    }
+
+    // Look out for default header image and caption
+    $field_default_header_image = field_get_items('taxonomy_term', $term, 'field_default_header_image');
+    $field_default_header_image_caption = field_get_items('taxonomy_term', $term, 'field_default_header_image_capti');
+    if (!empty($field_default_header_image[0]['fid']) && !empty($field_default_header_image_caption[0]['value'])) {
+      $return = array('fid' => $field_default_header_image[0]['fid'], 'caption' => array(LANGUAGE_NONE => $field_default_header_image_caption));
+      break;
+    }
+
+    // Look if this term has parents and set new tid for next round.
+    $parents = taxonomy_get_parents($tid);
+    $parent = reset($parents);
+    if (empty($parent)) {
+      // Break the loop if we can't find parents anymore.
+      break;
+    }
+    $tid = $parent->tid;
+  }
+
+
+  return $return;
 }
 
 /**
@@ -268,35 +330,6 @@ function uhc_course_implementation_has_private_material($node) {
  */
 function uhc_course_implementation_has_material($node) {
   return $node->type == 'course_implementation' && !empty($node->field_section_material[LANGUAGE_NONE]);
-}
-
-/**
- * Determines whether given $node has a faculty reference with and image and/or caption set.
- *
- * @param $node object
- *   Course node.
- * @return $values
- *   array with image fid and caption
- */
-function uhc_course_implementation_get_faculty_image_and_caption($node) {
-  $values = array('fid' => NULL, 'caption' => array());
-  if (!empty($node)) {
-    $course = node_load($node);
-    if (!empty($course->field_course_faculty[LANGUAGE_NONE][0]['tid'])) {
-      $faculty = taxonomy_term_load($course->field_course_faculty[LANGUAGE_NONE][0]['tid']);
-      if(!empty($faculty->field_faculty_image)) {
-        $values['fid'] = $faculty->field_faculty_image[LANGUAGE_NONE][0]['fid'];
-        // we want the caption only if image is set
-        if(!empty($faculty->field_faculty_image_caption)) {
-          $values['caption'] = $faculty->field_faculty_image_caption;
-        }
-        else {
-          $values['caption'] = array();
-        }
-      }
-    }
-  }
-  return $values;
 }
 
 /**

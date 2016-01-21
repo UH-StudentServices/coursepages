@@ -234,7 +234,7 @@ function uhc_liftups_field_default_field_bases() {
       'allowed_values' => array(
         'genetics' => 'Genetics',
         'openuniversity' => 'Open University',
-        'biosciences' => 'Biosciences',
+        'biosciences' => 'Molecular biosciences',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,

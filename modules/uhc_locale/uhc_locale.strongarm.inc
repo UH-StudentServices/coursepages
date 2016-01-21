@@ -179,7 +179,7 @@ function uhc_locale_strongarm() {
   $strongarm->name = 'locale_custom_strings_sv';
   $strongarm->value = array(
     '' => array(
-      'Add new comment' => 'Lägg till ny meddelande',
+      'Add new comment' => 'Lägg till ett nytt meddelande',
       'Any replies to this comment will be lost. This action cannot be undone.' => 'Alla svar på denna meddelande kommer att förloras. Denna åtgärd kan inte ångras.',
       'Are you sure you want to delete the comment %title?' => 'Är du säker på att du vill radera meddelandet %title?',
       'Comment permalink' => 'Permanent länk för meddelande',

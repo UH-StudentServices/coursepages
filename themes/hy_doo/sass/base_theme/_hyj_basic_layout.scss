@@ -33,10 +33,6 @@
     margin-left: 2%;
   }
 
-  .l-content-wrapper {
-    overflow: hidden;
-  }
-
   .l-content-sidebar-left {
     @include span-columns(6, 16);
   }

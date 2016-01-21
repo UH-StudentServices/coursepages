@@ -21,7 +21,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional information',
-    'weight' => '26',
+    'weight' => '27',
     'children' => array(),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -70,7 +70,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tasks',
-    'weight' => '20',
+    'weight' => '21',
     'children' => array(
       0 => 'field_reference_to_course_tasks',
     ),
@@ -97,7 +97,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course overview',
-    'weight' => '25',
+    'weight' => '26',
     'children' => array(
       0 => 'field_imp_working_methods',
       1 => 'uhc_ds_additional_info',

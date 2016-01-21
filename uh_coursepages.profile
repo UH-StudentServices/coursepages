@@ -370,23 +370,6 @@ function uh_coursepages_create_terms($terms, $vocabulary_name) {
 }
 
 /**
- * Implements hook_form_BASE_FORM_ID_alter().
- */
-function uh_coursepages_form_node_form_alter(&$form, &$form_state, $form_id) {
-  $form['actions']['submit2'] = $form['actions']['submit'];
-  $form['actions']['submit']['#value'] = t('Save & Close');
-  $form['actions']['submit2']['#weight'] = 6;
-  $form['actions']['submit2']['#submit'][] = 'uh_coursepages_save_and_continue';
-}
-
-/**
- * Submit handler for Save & Continue button
- */
-function uh_coursepages_save_and_continue($form, &$form_state) {
- $form_state['redirect'] = 'node/' . $form_state['nid'] . '/edit';
-}
-
-/**
  * Setup variables
  */
 function uh_coursepages_setup_variables() {
@@ -472,14 +455,19 @@ function uh_coursepages_block_view($delta = '') {
   switch ($delta) {
     case 'uhc_logo_block':
       $contexts = context_active_contexts();
+      global $language;
+      $main_page_href = 'https://www.helsinki.fi/' . check_plain($language->language);
+
+      // Open university
       if (array_key_exists('open_university_header_and_footer', $contexts)) {
-          $block['content'] = '<a href="http://www.helsinki.fi/university/">
-        <svg width="53" height="50" class="site-logo">
-            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg" src="/profiles/uh_coursepages/themes/hy_doo/images/ie/helsinki_university_53x50.png" width="53" height="50"></image>
-        </svg>
-        <h2 class="site-name">'. t("Open University") . '</h2></a>';
+        $image_path = '/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg';
+        $image_fallback_path = '/profiles/uh_coursepages/themes/hy_doo/images/ie/helsinki_university_53x50.png';
+        $href = $main_page_href; // The whole logo section is a link in open uni
+        $text = t("Open University");
       }
       else {
+        $image_path = '/profiles/uh_coursepages/themes/hy_doo/logo.svg';
+        $image_fallback_path = '/profiles/uh_coursepages/themes/hy_doo/logo.png';
         global $user;
         if (in_array('teacher', $user->roles)) {
           $href = 'https://teacher.helsinki.fi';
@@ -489,15 +477,15 @@ function uh_coursepages_block_view($delta = '') {
           $href = 'https://student.helsinki.fi';
           $text = t('My studies');
         }
-        $block['content'] = '<a href="http://www.helsinki.fi/fi">
+      }
+      $block['content'] = '<a href="' . $main_page_href . '">
         <svg width="45" height="45" class="site-logo">
-          <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/profiles/uh_coursepages/themes/hy_doo/logo.svg" src="/profiles/uh_coursepages/themes/hy_doo/logo.png" width="45" height="45"></image>
+          <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $image_path . '" src="' . $image_fallback_path . '" width="45" height="45"></image>
         </svg>
         </a>
         <a href="' . $href . '">
           <h2 class="site-name">' . $text . '</h2>
         </a>';
-      }
       $block['css_class'] = 'logo-block';
       break;
   }

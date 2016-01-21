@@ -1,0 +1,77 @@
+<?php
+/**
+ * @file Takes care of installation/update/uninstallation operations.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */ 
+
+/**
+ * Remove field_subject_study_modules field collection, add field_study_module
+ * field collection directly to subject node
+ */
+function uhc_subject_update_7001(&$sandbox) {
+
+  // revert features so we have our new instance of field_study_modules
+  features_revert_module('uhc_subject');
+
+  // fetch all study module field collections and order them, join them with
+  // field_subject_study_modules so we know which subject nodes they belong to
+  $query = db_select('field_data_field_study_module', 't');
+  $query->join('field_data_field_subject_study_modules', 'n', 'n.field_subject_study_modules_value = t.entity_id');
+
+  $result = $query
+    ->fields('t', array('field_study_module_value', 'field_study_module_revision_id', 'delta'))
+    ->fields('n', array('entity_id', 'revision_id'))
+    ->orderBy('entity_id')
+    ->orderBy('delta')
+    ->execute()
+    ->fetchAll();
+
+  db_truncate('field_revision_field_study_module')->execute();
+  db_truncate('field_data_field_study_module')->execute();
+
+  // Setup insert queries and start looping select query results
+  $insert_data_query = db_insert('field_data_field_study_module');
+  $insert_revision_query = db_insert('field_revision_field_study_module');
+
+  $delta = 0;
+  foreach ($result as $row) {
+    // we increase delta and reset to 0 when entity_id changes.
+    if ($previous_entity_id != $row->entity_id) {
+      $delta = 0;
+    }
+
+    // Setup fields and values for insert queries
+    $values = array(
+      'entity_type' => 'node',
+      'bundle' => 'subject',
+      'deleted' => 0,
+      'entity_id' =>  $row->entity_id,
+      'revision_id' => $row->revision_id,
+      'language' => LANGUAGE_NONE,
+      'delta' => $delta,
+      'field_study_module_value' => $row->field_study_module_value,
+      'field_study_module_revision_id' => $row->field_study_module_revision_id,
+    );
+
+    // Now append the fields/values for both insert queries
+    $insert_data_query->fields(array_keys($values));
+    $insert_data_query->values(array_values($values));
+    $insert_revision_query->fields(array_keys($values));
+    $insert_revision_query->values(array_values($values));
+
+    $delta++;
+    $previous_entity_id = $row->entity_id;
+  }
+
+  // Now execute the queries and clear field caches.
+  $insert_data_query->execute();
+  $insert_revision_query->execute();
+
+  // remove old field collection that we dont need anymore
+  $instance = field_info_instance('node', 'field_subject_study_modules', 'subject');
+  field_delete_instance($instance);
+  field_cache_clear();
+}

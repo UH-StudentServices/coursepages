@@ -8,27 +8,6 @@
  */
 
 /**
- * Implements hook_install().
- */
-function uhc_course_implementation_install() {
-  // If this variable has been already set prior to installing this module...
-  if (!variable_get('uhc_course_implementation_default_image', 0)) {
-    _uhc_course_implementation_create_default_image(array(
-      'filename' => 'default_image.jpg',
-      'title' => 'Default image',
-      'variable' => 'uhc_course_implementation_default_image',
-    ));
-  }
-  if (!variable_get('uhc_course_implementation_default_image_open_uni', 0)) {
-    _uhc_course_implementation_create_default_image(array(
-      'filename' => 'default_image_open_uni.jpg',
-      'title' => 'Default image (Open university)',
-      'variable' => 'uhc_course_implementation_default_image_open_uni',
-    ));
-  }
-}
-
-/**
  * Helper function for creating default images.
  *
  * @return mixed
@@ -65,13 +44,6 @@ function _uhc_course_implementation_create_default_image($config) {
   }
 
   return NULL;
-}
-
-/**
- * Implements hook_uninstall().
- */
-function uhc_course_implementation_uninstall() {
-  variable_del('uhc_course_implementation_default_image');
 }
 
 /**
@@ -199,10 +171,34 @@ function uhc_course_implementation_update_7002(&$sandbox) {
   field_delete_field('field_imp_organisation_codes');
 }
 
- /*
+/**
  * Remove feedback_text field
  */
 function uhc_course_implementation_update_7003(&$sandbox) {
   $instance = field_info_instance('node', 'field_feedback_text', 'course_implementation');
   field_delete_instance($instance);
+}
+
+/**
+ * Remove promotion header default images and default attribution text.
+ */
+function uhc_course_implementation_update_7004() {
+
+  // Load default image and mark is as deleted
+  $vars = array('uhc_course_implementation_default_image', 'uhc_course_implementation_default_image_open_uni');
+  foreach ($vars as $variable) {
+    // If variable contains and file ID
+    if ($fid = variable_get($variable, 0)) {
+      // Remove file
+      $file = file_load($fid);
+      file_delete($file);
+    }
+    // Remove whole variable
+    variable_del($variable);
+  }
+
+  // Remove default attribution texts
+  $value = 'Social Network Analysis Visualization by MartinGrandjean CC BY-SA 3.0';
+  db_delete('field_data_field_imp_header_image_caption')->condition('field_imp_header_image_caption_value', $value)->execute();
+  db_delete('field_revision_field_imp_header_image_caption')->condition('field_imp_header_image_caption_value', $value)->execute();
 }

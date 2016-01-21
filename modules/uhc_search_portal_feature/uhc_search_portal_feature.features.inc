@@ -33,8 +33,8 @@ function uhc_search_portal_feature_default_search_api_autocomplete_search() {
       "min_length" : "1",
       "results" : 0,
       "custom" : { "display" : "desktop" },
-      "submit_button_selector" : ":submit",
-      "autosubmit" : 0
+      "submit_button_selector" : ":submit[id^=\\u0022edit-submit\\u0022]",
+      "autosubmit" : 1
     },
     "rdf_mapping" : []
   }');

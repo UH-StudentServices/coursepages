@@ -13,6 +13,41 @@ function uhc_course_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_accordion_content|node|course|teaser';
+  $field_group->group_name = 'group_accordion_content';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'course';
+  $field_group->mode = 'teaser';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Accordion content',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_objective',
+      1 => 'field_req_prerequisites',
+      2 => 'uhc_ds_course_reference_accordion',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Accordion content',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'field-group-accordion-item',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_accordion_content|node|course|teaser'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_course_additional_info|node|course|default';
   $field_group->group_name = 'group_course_additional_info';
   $field_group->entity_type = 'node';

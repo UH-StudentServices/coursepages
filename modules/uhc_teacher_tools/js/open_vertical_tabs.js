@@ -32,5 +32,16 @@
       }
     });
 
+    // get the active tab and store it in a hidden field for creating the redirect url
+    $('.vertical-tab-button a', '.vertical-tabs-list').click(function() {
+      $('.vertical-tabs-panes .vertical-tabs-pane').each(function() {
+        if ($(this).css('display') != 'none') {
+          var urlParam = $(this).attr('id');
+          $("input[name='form_active_tab']").val(urlParam);
+        };
+      });
+    });
+
+
   });
 })(jQuery);

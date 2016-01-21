@@ -1,0 +1,41 @@
+.node--teaser.node--course-implementation {
+  &.exam {
+    border-left: 3px solid $orange;
+  }
+  .field {
+    padding-left: 1em;
+    @include at-breakpoint($layout-small) {
+      float: left;
+      width: 50%;
+    }
+  }
+}
+
+.node--course-implementation--teaser-accordion {
+  .field-group-accordion-item  {
+    @include border-bottom;
+    > h3 {
+      @extend .accordion-content-label;
+      @include border-bottom;
+    }
+  } 
+  @include at-breakpoint($layout-medium) {
+    .accordion-content-item {
+      @include clearfix;
+      @include border-bottom;
+
+      .label-above {
+        @include span-columns(2, 12);
+        @include hyphenate;
+        margin-top: 0.2em;
+      }
+      > div:last-child {
+        @include span-columns(10 omega, 12);
+      }
+    }
+    .button {
+      display: inline-block;
+      margin-bottom: 2em;
+    }
+  }
+}

@@ -1,3 +1,50 @@
+# Helsinki University Coursepages v1.52
+Päiväys: 19.01.2016
+
+## Lisäykset
+  - DOO-1704: Lisättiin tuki sille, että jaksosivu luodaan toteutusta tuodessa,
+    mikäli sitä ei ole Drupalissa valmiiksi.
+  - DOO-1704: Lisättiin työkalu, jossa listataan jaksottomat kurssit.
+  - DOO-1768: Lisättiin työkalu, jolla voidaan korjata jaksottomat kurssit.
+  - DOO-1356: Avoimen haussa on valittavissa, kuinka monta tulosta näytetään per sivu.
+  - DOO-1473: Lisätty avoimen hakuun pudotusvalikko lajittelua varten.
+  - DOO-1787: Tehtävämateriaalin lomakeen ollessa aktiivinen muut osat muokkausnäkymästä ovat
+    tummennettuna ja ei aktiivisena.
+  - DOO-1662: Lisätty video-osio toteutuksiin.
+  - Parannettiin logitusta silloin kun kurssikuvauksissa on puutteellinen
+    element_id parametri
+  - DOO-1794: Muokkauslomake muistaa aktiivisen tabin tallennuksen jälkeen.
+
+## Muutokset
+  - DOO-1690: Oppiainesivulla näytetään myös toteutukset ja niiden perustiedot
+  - DOO-1691: Hakusanaehdotuksen valitseminen avoimen haussa ajaa haun automaattisesti.
+  - DOO-1478: Muutettu Clear selections -napin teksti.
+  - DOO-1740: Siirretty "näytä menneillä oleva opetus" -painike siirretty "näytä tulokset"
+  	painikkeen alle.
+  - DOO-1183: Ruotsinkielisiä käyttöliittymätekstikäännöksiä.
+  - DOO-1766: Tekstikentät säilyttävät rivinvaihdot.
+  - DOO-1530: Muutettiin oletuskuvan logiikkaa siten, että se perustuu
+    organisaatiohierarkiaan tiedekunnan sijasta.
+
+## Korjaukset
+  - DOO-1742: Korjattu bugi, jonka takia kuukausia ei järjestetty kokonaan
+    oikein.
+  - DOO-1535: Korjattu logon leikkautuminen alareunasta avoimen sivuilla.
+  - DOO-1755: Tapahtumapaikka -kenttä muutettu kielineutraaliksi
+  - DOO-1435: Korjattiin nostojen osiotekstiä "Molecular Biosciences" tekstiksi
+
+
+# Helsinki University Coursepages v1.51
+Päiväys: 22.12.2015
+
+## Muutokset
+  - DOO-1756: "Material section" -kenttä piilotettu tehtävien materiaaleilta
+    muokkausnäkymässä.
+
+## Korjaukset
+  - DOO-1739: Korjattiin ongelma, joka aiheutti ongelmia kurssien sisäänluvussa
+
+
 # Helsinki University Coursepages v1.50
 Päiväys: 22.12.2015
 

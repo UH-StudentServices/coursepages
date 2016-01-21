@@ -49,7 +49,7 @@ function uhc_teacher_tools_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 45,
+        'weight' => 50,
       ),
       'teaser_images' => array(
         'label' => 'above',
@@ -155,7 +155,7 @@ function uhc_teacher_tools_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 46,
+        'weight' => 52,
       ),
       'teaser_images' => array(
         'label' => 'above',

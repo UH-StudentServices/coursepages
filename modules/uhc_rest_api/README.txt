@@ -162,34 +162,36 @@ Messages accordion and scroll the viewport to that accordion. The accordions
 and their target parameters are as follows:
 
 | Accordion name        | Target URL parameter         | Activity message type                                  |
-|-----------------------|------------------------------|--------------------------------------------------------|
+|-----------------------+------------------------------+--------------------------------------------------------|
 | Messages              | group-course-messages        | course_implementation_comment_create                   |
 |                       |                              | course_implementation_comment_remove                   |
 |                       |                              | course_implementation_comment_update                   |
-|-----------------------|------------------------------|--------------------------------------------------------|
+|-----------------------+------------------------------+--------------------------------------------------------|
 | Timetable             | group-timetable              | course_implementation_event_create                     |
 |                       |                              | course_implementation_event_remove                     |
 |                       |                              | course_implementation_event_update                     |
-|-----------------------|------------------------------|--------------------------------------------------------|
+|-----------------------+------------------------------+--------------------------------------------------------|
 | Material              | group-imp-material           | course_implementation_material_create                  |
 |                       |                              | course_implementation_material_description_update      |
 |                       |                              | course_implementation_material_remove                  |
 |                       |                              | course_implementation_material_update                  |
-|-----------------------|------------------------------|--------------------------------------------------------|
+|-----------------------+------------------------------+--------------------------------------------------------|
 | Custom section        | group-custom-section         | course_implementation_teacher_section_create           |
 |                       |                              | course_implementation_teacher_section_remove           |
 |                       |                              | course_implementation_teacher_section_update           |
-|-----------------------|------------------------------|--------------------------------------------------------|
+|-----------------------+------------------------------+--------------------------------------------------------|
 | Conduct of the course | group-conduct-of-course      | course_implementation_course_conduct_create            |
 |                       |                              | course_implementation_course_conduct_remove            |
 |                       |                              | course_implementation_course_conduct_update            |
-|-----------------------|------------------------------|--------------------------------------------------------|
+|-----------------------+------------------------------+--------------------------------------------------------|
 | Feedback              | group-imp-feedback           | course_implementation_feedback_accordion_target        |
-|-----------------------|------------------------------|--------------------------------------------------------|
+|-----------------------+------------------------------+--------------------------------------------------------|
 | Registration and fee  | group-imp-fee                | course_implementation_fee_accordion_target             |
-|-----------------------|------------------------------|--------------------------------------------------------|
+|-----------------------+------------------------------+--------------------------------------------------------|
 | Course overview       | group-description-objectives | course_implementation_course_overview_accordion_target |
-|-----------------------|------------------------------|--------------------------------------------------------|
+|-----------------------+------------------------------+--------------------------------------------------------|
 | Tasks                 | group-course-task-material   | course_implementation_task_create                      |
 |                       |                              | course_implementation_task_remove                      |
 |                       |                              | course_implementation_task_update                      |
+|-----------------------+------------------------------+--------------------------------------------------------|
+| Video                 | group-imp-video              | course_implementation_video_accordion_target           |

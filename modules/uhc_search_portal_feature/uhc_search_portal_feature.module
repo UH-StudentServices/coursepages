@@ -88,11 +88,10 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
           '#type' => 'checkbox',
           '#title' => t('Also show ongoing teaching'),
         );
-
-        // Place the element after "Submit" and "Reset" buttons
-        $form['submit']['#weight'] = 1;
-        $form['reset']['#weight'] = 2;
-        $form['include_ongoing_courses']['#weight'] = 3;
+        // Place the element before "Submit" and "Reset" buttons
+        $form['include_ongoing_courses']['#weight'] = 1;
+        $form['submit']['#weight'] = 2;
+        $form['reset']['#weight'] = 3;
       }
 
       // Wider search box

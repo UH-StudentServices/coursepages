@@ -249,6 +249,46 @@ class CourseNodeMigration extends PortalMigrationBase {
   }
 
   /**
+   * This method create stub course nodes and keeps booking of created stubs. By
+   * creating stub from another migrations, we also take care of finalizing them
+   * by tracking the stubs and then migrating them fully after initial migration
+   * has been completed.
+   *
+   * @see https://www.drupal.org/node/1013506
+   * @param Migration $migration
+   * @param array $source_ids
+   * @return array|bool
+   */
+  public function createStub(Migration $migration, array $source_ids) {
+
+    // Which stubs are up for migration?
+    $migrate_stubs = variable_get('uhc_course_source_migrate_stubs', array());
+
+    // Format stub nids and loop over each source
+    $stub_nids = array();
+    foreach ($source_ids as $source_id) {
+
+      // If node was successfully created, add it to $stub_nids for mapping and
+      // to $migrate_stubs for post migration.
+      $node = _uhc_course_source_create_stub($source_id);
+      if (!empty($node->nid)) {
+        // Append nid to the list and prevent adding existing source_ids to the
+        // list.
+        $stub_nids[] = $node->nid;
+        if (!in_array($source_id, $migrate_stubs)) {
+          $migrate_stubs[] = $source_id;
+        }
+      }
+    }
+
+    // Now save potentially modified $migrate_stubs
+    variable_set('uhc_course_source_migrate_stubs', $migrate_stubs);
+
+    // Returns stub nids if any, or else return FALSE
+    return !empty($stub_nids) ? $stub_nids : FALSE;
+  }
+
+  /**
    * This method takes in an object for loop. It goes through given languages
    * and fields and aggregates properties into arrays as following:
    * nimi_en, nimi_fi, nimi_sv becomes nimi_all => array(nimi_en, nimi_fi,

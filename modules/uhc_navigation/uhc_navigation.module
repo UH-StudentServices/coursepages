@@ -39,19 +39,3 @@ function uhc_navigation_menu_manage_access($permission) {
     return FALSE;
   }
 }
-
-/**
- * Implements hook_form_FORM_ID_alter().
- *
- * Add default class to Open University footer menu links.
- */
-function uhc_navigation_form_menu_edit_item_alter(&$form, &$form_state, $form_id) {
-  $open_university_footer_link = isset($form['original_item']['#value']['menu_name'])
-    && $form['original_item']['#value']['menu_name'] == 'menu-open-university-footer-link';
-
-  if ($open_university_footer_link) {
-    if (empty($form['original_item']['#value']['options']['item_attributes']['class'])) {
-      $form['original_item']['#value']['options']['item_attributes']['class'] = 'list-of-links__link';
-    }
-  }
-}

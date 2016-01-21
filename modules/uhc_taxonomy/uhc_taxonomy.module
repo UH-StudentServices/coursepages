@@ -24,7 +24,7 @@ function uhc_taxonomy_taxonomy_term_insert($term) {
  */
 function uhc_taxonomy_sort_month_terms() {
   $months = taxonomy_get_tree(10, 0, NULL, TRUE);
-  foreach ($months as &$month) {
+  foreach ($months as $month) {
     if (isset($month->name_original)) {
       $month->name = $month->name_original;
     }

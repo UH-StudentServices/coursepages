@@ -199,14 +199,46 @@ function uhc_teacher_tools_preprocess_page(&$variables) {
 
 /**
  * Implements hook_form_FORM_ID_alter().
- * Add js to open vertical tabs automatically with url parameters
+ * Add js to node edit form
  */
 function uhc_teacher_tools_form_node_form_alter(&$form, &$form_state, $form_id) {
 
-  $form['#attached']['js'][] = array(
-    'data' => drupal_get_path('module', 'uhc_teacher_tools') . '/js/open_vertical_tabs.js',
+  $scripts = array(
+    'open_vertical_tabs.js',
+    'inline_entity_form_fix.js',
+    'ief_overlay.js',
   );
-  $form['#attached']['js'][] = array(
-    'data' => drupal_get_path('module', 'uhc_teacher_tools') . '/js/inline_entity_form_fix.js',
+
+  foreach ($scripts as $script) {
+    $form['#attached']['js'][] = array(
+      'data' => drupal_get_path('module', 'uhc_teacher_tools') . '/js/' . $script,
+    );
+  }
+
+  // this field is used for saving the active tab
+  $form['form_active_tab'] = array(
+    '#type' => 'hidden',
+    '#default_value' => NULL,
   );
+
+  $form['actions']['submit2'] = $form['actions']['submit'];
+  $form['actions']['submit']['#value'] = t('Save & Close');
+  $form['actions']['submit2']['#weight'] = 6;
+  $form['actions']['submit2']['#submit'][] = 'uhc_teacher_tools_save_and_continue';
+}
+
+/**
+ * Submit handler for Save & Continue button
+ */
+function uhc_teacher_tools_save_and_continue($form, &$form_state) {
+  $active_tab = isset($form_state['values']['form_active_tab']) ? $form_state['values']['form_active_tab'] : NULL;
+  $form_state['redirect'] = array('node/' . $form_state['nid'] . '/edit');
+
+  if($active_tab) {
+    $form_state['redirect'][] = array(
+      'query' => array(
+        'section' => $active_tab,
+      ),
+    );
+  }
 }

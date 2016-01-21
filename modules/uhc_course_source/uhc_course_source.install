@@ -16,4 +16,5 @@ function uhc_course_source_uninstall() {
   variable_del('uhc_course_source_item_url');
   variable_del('uhc_course_source_disciplines_url');
   variable_del('uhc_course_source_ignore_keywords');
+  variable_del('uhc_course_source_migrate_stubs');
 }

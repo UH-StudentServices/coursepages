@@ -300,9 +300,15 @@ class CourseImplementationItem extends PortalItemBase {
         // element/language.
         if (!empty($json->$lang->data->descriptions)) {
           foreach ($json->$lang->data->descriptions as $json_description) {
-            if ($json_description->element_id == $element_id) {
-              $return[$element][$lang] = $json_description->description;
-              break;
+            if (isset($json_description->element_id)) {
+              if ($json_description->element_id == $element_id) {
+                $return[$element][$lang] = $json_description->description;
+                break;
+              }
+            }
+            else {
+              // Create log entry about missing element id
+              watchdog('uhc_course_implementation_source', 'Could not read element id for course implementation "@course_id" with language "@language"', array('@course_id' => $json->$lang->data->course_id, '@language' => $lang), WATCHDOG_WARNING);
             }
           }
         }

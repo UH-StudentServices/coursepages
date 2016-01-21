@@ -60,6 +60,7 @@
         }
       }
       &.views-reset-button {
+        margin-top: 46px;
         display: inline;
         float: left;
         text-align: center;
@@ -84,7 +85,7 @@
         }
       }
       .form-item-include-ongoing-courses {
-        margin-top: 15px;
+        margin-bottom: 15px;
         input {
           width: auto;
         }
@@ -195,37 +196,8 @@
         }
       }
     }
-    // Placing filters nicely for small width
-    @include at-breakpoint($layout-small) {
-      &#edit-type-wrapper {
-        padding-right: 1em;
-      }
-      &#edit-form-wrapper {
-        padding-left: 1em;
-      }
-      &#edit-theme-wrapper {
-        padding-right: 1em;
-      }
-      &#edit-periods-wrapper {
-        padding-left: 1em;
-      }
-    }
-    // Placing filters nicely for medium and larger width
-    @include at-breakpoint($layout-medium) {
-      &#edit-type-wrapper {
-        padding-right: 1em;
-      }
-      &#edit-form-wrapper {
-        padding: 0 1em;
-      }
-      &#edit-theme-wrapper {
-        padding: 0 1em;
-      }
-      &#edit-periods-wrapper {
-        padding-left: 1em;
-      }
-    }
   }
+
   h2 {
     clear: both;
   }
@@ -272,14 +244,26 @@ body.search-main-page .views-widget-sort-by {
       padding-right: 1em;
       &.views-field-title-field {
         > a {
-          padding: 1em 0 1em 1em;
+          padding: 1em 1em 1em 0;
           display: table-cell;
         }
+        .course-implementation-status-3 {
+          display: table-cell;
+          width: auto;
+          & + a {
+            padding-left: 1em;
+          }
+        }
       }
+    }
+    .course-implementation-status-3 {
+      width: 100%;
     }
   }
 
   th {
+    padding: 1em 1em 1em 0;
+    text-align: left;
     color: $black;
     a, a.active {
       color: $black;
@@ -317,24 +301,6 @@ body.search-main-page .views-widget-sort-by {
       display: table-header-group;
     }
   }
-
-  // Course implementation status messages. Hide by default. Display for
-  // specific status codes.
-  .course-implementation-status {
-    @extend .messages;
-    @extend .alternative;
-    display: none;
-  }
-  .course-implementation-status-3 {
-    @extend .course-implementation-status;
-    @extend .error;
-    display: block;
-    width: 100%;
-    @include at-breakpoint($layout-small) {
-      display: table-cell;
-      width: auto;
-    }
-  }
 }
 
 #autocomplete {
@@ -361,3 +327,21 @@ body.search-main-page .views-widget-sort-by {
     }
   }
 }
+
+//hack for pager control positioning
+.view-uhc-search-open-university {
+  margin-top: -60px;
+  min-height: 100px;
+  @include at-breakpoint($medium) {
+    margin-top: -100px;
+  }
+}
+
+.views-exposed-form-uhc-search-open-university-desktop {
+  position: relative;
+  padding-bottom: 50px;
+  @include at-breakpoint($medium) {
+    padding-bottom: 100px;
+  }
+}
+

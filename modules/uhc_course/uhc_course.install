@@ -1,0 +1,17 @@
+<?php
+/**
+ * @file
+ * Handles module's installation, uninstallation and updates.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Removes deprecated fields from faculty taxonomy vocabulary.
+ */
+function uhc_course_update_7001() {
+  field_delete_field('field_faculty_image');
+  field_delete_field('field_faculty_image_caption');
+}

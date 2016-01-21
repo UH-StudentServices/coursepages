@@ -1,0 +1,22 @@
+<?php
+/**
+ * @file Takes care of installation/update/uninstallation operations.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Remove translatability from location name field
+ */
+function uhc_field_base_update_7001(&$sandbox) {
+  $tables = array('field_data_field_event_loc_name', 'field_revision_field_event_loc_name');
+  foreach ($tables as $table) {
+    db_update($table)
+      ->fields(array('language' => 'und'))
+      ->execute();
+  }
+  // Clear field caches
+  field_cache_clear();
+}

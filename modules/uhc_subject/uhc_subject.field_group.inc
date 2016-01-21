@@ -136,6 +136,7 @@ function uhc_subject_field_group_info() {
       0 => 'field_subject_study_modules',
       1 => 'field_study_modules_description',
       2 => 'field_study_modules_title',
+      3 => 'field_study_module',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

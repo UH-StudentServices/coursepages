@@ -7,6 +7,9 @@ api = 2
 projects[drupal][type] = core
 projects[drupal][version] = 7.41
 
+; Patch: Text field (textarea) with "Default" formatter does not retain newlines
+projects[drupal][patch][1152216] = https://www.drupal.org/files/text-plain-1152216-24.patch
+
 defaults[projects][subdir] = "contrib"
 
 ; Contrib
@@ -104,6 +107,9 @@ projects[search_api_et_solr][download][revision] = a03edb6
 ; Others
 
 projects[shs][version] = "1.6"
+; Patch: Prevent PHP fatal error. Not all terms have parents.
+projects[shs][patch]["https://www.drupal.org/node/1960182"] = https://www.drupal.org/files/issues/checkifparentset-1960182-08-D7.patch
+
 projects[special_menu_items][version] = "2.0"
 projects[stringoverrides][version] = "1.8"
 projects[strongarm][version] = "2.0"

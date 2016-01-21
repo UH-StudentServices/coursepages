@@ -88,7 +88,7 @@ function uhc_course_implementation_views_default_views() {
   $handler->display->display_options['sorts']['field_material_section_target_id']['field'] = 'field_material_section_target_id';
   $handler->display->display_options['sorts']['field_material_section_target_id']['relationship'] = 'field_section_material_target_id';
   $handler->display->display_options['sorts']['field_material_section_target_id']['order'] = 'DESC';
-  /* Sort criterion: Content: Section material (field_section_material:delta) */
+  /* Sort criterion: Content: Material listing (field_section_material:delta) */
   $handler->display->display_options['sorts']['delta']['id'] = 'delta';
   $handler->display->display_options['sorts']['delta']['table'] = 'field_data_field_section_material';
   $handler->display->display_options['sorts']['delta']['field'] = 'delta';

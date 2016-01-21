@@ -66,6 +66,7 @@ function uhc_ds_ds_fields_info($entity_type) {
         'field_name' => 'field_conduct',
         'label' => 'Course implementation or Course: Conduct',
       ),
+
     );
 
     $ds_fields = array();
@@ -83,6 +84,33 @@ function uhc_ds_ds_fields_info($entity_type) {
         );
       }
     }
+
+    $ds_fields['uhc_ds_course_reference_accordion'] = array(
+      'title' => 'Course Reference Accordion Block',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_ds_course_reference_accordion_block',
+      'properties' => array(
+        'field_name' => 'field_course_reference_accordion',
+      ),
+    );
+
+    $ds_fields['uhc_ds_imp_status_org_location_date'] = array(
+      'title' => 'Course Implementation status, organisation, location and date',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_ds_status_org_location_date',
+      'properties' => array(
+        'field_name' => 'field_imp_status_org_location_date',
+      ),
+    );
+
+    $ds_fields['uhc_ds_title_and_credit'] = array(
+      'title' => 'Title and credit',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_ds_title_and_credit',
+      'properties' => array(
+        'field_name' => 'title_and_credit',
+      ),
+    );
 
     return array('node' => $ds_fields);
   }
@@ -209,4 +237,63 @@ function uhc_ds_render_comparable_ds_field($field = NULL) {
   // If no values from active node, then try inheriting it from course
   return uhc_ds_render_inherited_ds_field($field);
 
+}
+
+/**
+ * Callback for rendering course node reference accordion views. Uses node ID as an
+ * argument to make the view's work when displayed on subject nodes.
+ */
+function uhc_ds_course_reference_accordion_block($field) {
+  $output = views_embed_view('course_node_references', 'block_2', $field['entity']->nid);
+  if (views_get_view_result('course_node_references', 'block_3', $field['entity']->nid)) {
+    $output .= views_embed_view('course_node_references', 'block_3', $field['entity']->nid);
+  }
+  return $output;
+}
+
+/**
+* Render status, organization, location, and date for Course implementation nodes.
+*/
+function uhc_ds_status_org_location_date($field) {
+  $node = $field['entity'];
+
+  $imp_fields = array(
+    'field_imp_begin_date',
+    'field_imp_end_date',
+    'field_imp_course_organiser',
+    'field_imp_locality',
+  );
+
+  // extract field values
+  foreach ($imp_fields as $imp_field) {
+    $values[$imp_field] = field_view_field('node', $node, $imp_field, array('label' => 'hidden'));
+  }
+
+  // format status
+  $formatted_status = field_view_field('node', $node, 'field_imp_status', array('type' => 'course_implementation_status'));
+  $class_name = isset($formatted_status['#items'][0]['value']) ? 'course-implementation-status-' . $formatted_status['#items'][0]['value'] : '';
+  $status_text = isset($formatted_status[0]['#markup']) ? $formatted_status[0]['#markup'] : '';
+  $status = '<span class="course-implementation-status ' . $class_name . '"><span>' . $status_text . '</span></span>';
+
+  // format date values
+  $begin_date = isset($values['field_imp_begin_date']['#items'][0]['value']) ? date('j.n.Y', strtotime($values['field_imp_begin_date']['#items'][0]['value'])) : '';
+  $end_date = isset($values['field_imp_end_date']['#items'][0]['value']) ? ' - ' . date('j.n.Y', strtotime($values['field_imp_end_date']['#items'][0]['value'])) : '';
+  $time = ' ' . $begin_date . $end_date;
+
+  $organiser = isset($values['field_imp_course_organiser'][0]['#markup']) ? $values['field_imp_course_organiser'][0]['#markup'] : '';
+  $locality = isset($values['field_imp_locality']) ? render($values['field_imp_locality']) : '';
+
+  return $status . '<span class="island">' . $organiser . $locality . $time . '</span>';
+
+}
+
+function uhc_ds_title_and_credit($field) {
+  $node = $field['entity'];
+  $title_field = field_view_field('node', $node, 'title_field');
+  $credit_field = field_view_field('node', $node, 'field_study_credit');
+
+  $title = isset($title_field[0]['#markup']) ? $title_field[0]['#markup'] : '';
+  $credit = isset($credit_field[0]['#markup']) ? $credit_field[0]['#markup'] : '';
+
+  return $title . ', ' . $credit . ' ' . t('cr');
 }

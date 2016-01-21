@@ -31,7 +31,7 @@ function uhc_course_collaboration_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 63,
+        'weight' => 66,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -49,7 +49,7 @@ function uhc_course_collaboration_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 39,
       ),
       'teaser_images' => array(
         'label' => 'above',

@@ -276,47 +276,6 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_subject_study_modules-field_study_module'
-  $field_instances['field_collection_item-field_subject_study_modules-field_study_module'] = array(
-    'bundle' => 'field_subject_study_modules',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_view',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => 'theme_ds_field_minimal',
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_study_module',
-    'label' => 'Study module',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'field_collection',
-      'settings' => array(),
-      'type' => 'field_collection_embed',
-      'weight' => 1,
-    ),
-  );
-
   // Exported field_instance: 'node-subject-field_imp_header_headline'
   $field_instances['node-subject-field_imp_header_headline'] = array(
     'bundle' => 'subject',
@@ -383,6 +342,47 @@ function uhc_subject_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_related_content_section',
     'label' => 'Related content section',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-subject-field_study_module'
+  $field_instances['node-subject-field_study_module'] = array(
+    'bundle' => 'subject',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => '',
+          'delete' => '',
+          'description' => 1,
+          'edit' => '',
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 5,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_study_module',
+    'label' => 'Study module',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -547,7 +547,7 @@ function uhc_subject_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 37,
+        'weight' => 38,
       ),
     ),
     'ds_extras_field_template' => '',
@@ -582,7 +582,7 @@ function uhc_subject_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'entityreference',
         'settings' => array(
           'field_multiple_limit' => -1,
@@ -592,7 +592,7 @@ function uhc_subject_field_default_field_instances() {
           'view_mode' => 'default',
         ),
         'type' => 'entityreference_entity_view',
-        'weight' => 10,
+        'weight' => 8,
       ),
     ),
     'ds_extras_field_template' => '',
@@ -737,7 +737,7 @@ function uhc_subject_field_default_field_instances() {
           'view_mode' => 'teaser',
         ),
         'type' => 'entityreference_entity_view',
-        'weight' => 9,
+        'weight' => 7,
       ),
     ),
     'ds_extras_field_template' => '',
@@ -768,43 +768,6 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_subject_study_modules'
-  $field_instances['node-subject-field_subject_study_modules'] = array(
-    'bundle' => 'subject',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'field_collection',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_fields',
-        'weight' => 5,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_subject_study_modules',
-    'label' => 'Study modules',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'field_collection',
-      'settings' => array(),
-      'type' => 'field_collection_embed',
-      'weight' => 11,
-    ),
-  );
-
   // Exported field_instance: 'node-subject-title_field'
   $field_instances['node-subject-title_field'] = array(
     'bundle' => 'subject',
@@ -816,7 +779,7 @@ function uhc_subject_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 36,
+        'weight' => 37,
       ),
     ),
     'entity_type' => 'node',
@@ -898,7 +861,6 @@ function uhc_subject_field_default_field_instances() {
   t('Related content title');
   t('Sidebar liftups');
   t('Study module');
-  t('Study modules');
   t('Study modules description');
   t('Study modules title');
   t('Subject category');
