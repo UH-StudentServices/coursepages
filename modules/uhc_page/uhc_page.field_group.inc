@@ -13,6 +13,69 @@ function uhc_page_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_liftup_collections|node|portal_page|form';
+  $field_group->group_name = 'group_liftup_collections';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'portal_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Liftup collections',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_liftup_collection',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'label' => 'Liftup collections',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-liftup-collections field-group-tab',
+        'description' => 'Each liftup collection consists of a title, description and an unlimited number of Portal page Liftups. Liftup collections are shown only when Sidebar view mode is chosen.',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'closed',
+    ),
+  );
+  $export['group_liftup_collections|node|portal_page|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_liftup_colletion_header|field_collection_item|field_liftup_collection|default';
+  $field_group->group_name = 'group_liftup_colletion_header';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_liftup_collection';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Header',
+    'weight' => '0',
+    'children' => array(
+      0 => 'title_field',
+      1 => 'field_intro',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Header',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'tube--large',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_liftup_colletion_header|field_collection_item|field_liftup_collection|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_portal_contact_information|node|portal_page|form';
   $field_group->group_name = 'group_portal_contact_information';
   $field_group->entity_type = 'node';
@@ -21,7 +84,7 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Contact Information',
-    'weight' => '11',
+    'weight' => '5',
     'children' => array(
       0 => 'field_subject_contact_reference',
     ),
@@ -42,6 +105,37 @@ function uhc_page_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_portal_content|node|portal_page|form';
+  $field_group->group_name = 'group_portal_content';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'portal_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Content',
+    'weight' => '0',
+    'children' => array(
+      0 => 'field_portal_page_description',
+      1 => 'title_field',
+      2 => 'field_portal_page_image',
+      3 => 'field_liftup_section',
+      4 => 'language',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-portal-content field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_portal_content|node|portal_page|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_portal_promotions|node|portal_page|form';
   $field_group->group_name = 'group_portal_promotions';
   $field_group->entity_type = 'node';
@@ -50,18 +144,21 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Promoted content',
-    'weight' => '4',
+    'weight' => '1',
     'children' => array(
       0 => 'field_portal_promotions',
+      1 => 'field_view_attachment',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Promoted content',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-portal-promotions field-group-tab',
         'required_fields' => 1,
+        'classes' => 'group-portal-promotions field-group-tab',
+        'description' => 'Portal promotions are shown on both Default and Sidebar view modes. Online Service Promotions and Portal Pages can be selected.',
+        'show_empty_fields' => 0,
       ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_portal_promotions|node|portal_page|form'] = $field_group;
@@ -77,7 +174,7 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related content',
-    'weight' => '9',
+    'weight' => '3',
     'children' => array(
       0 => 'field_related_content_section',
     ),
@@ -94,6 +191,35 @@ function uhc_page_field_group_info() {
     ),
   );
   $export['group_portal_related_content|node|portal_page|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_portal_sidebar_liftups|node|portal_page|form';
+  $field_group->group_name = 'group_portal_sidebar_liftups';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'portal_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Sidebar liftups',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_sidebar_liftups',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'label' => 'Sidebar liftups',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-portal-sidebar-liftups field-group-tab',
+        'description' => 'Sidebar liftups are only visible if the sidebar view mode is selected in Display settings.',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'closed',
+    ),
+  );
+  $export['group_portal_sidebar_liftups|node|portal_page|form'] = $field_group;
 
   return $export;
 }

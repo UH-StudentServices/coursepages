@@ -445,7 +445,7 @@ function uhc_course_material_field_default_field_instances() {
       ),
     ),
     'deleted' => 0,
-    'description' => 'It is not advisable to add private material because it might be accessible through direct links.',
+    'description' => 'It is not advisable to add private material because it might be accessible through direct links. Please attach only material which you have sufficient rights to use!',
     'display' => array(
       'content_suffix' => array(
         'label' => 'above',
@@ -549,7 +549,7 @@ function uhc_course_material_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('<br><br>Please note that you <strong>can not</strong> <em>attach a file</em> and <em>define a link</em> at the same time, the system will prioritize the link if you fill both fields.<br><br>');
   t('Author');
-  t('It is not advisable to add private material because it might be accessible through direct links.');
+  t('It is not advisable to add private material because it might be accessible through direct links. Please attach only material which you have sufficient rights to use!');
   t('Material file');
   t('Material link');
   t('Material section');

@@ -27,8 +27,6 @@ ds-node-content
 ds-node-teaser--course
 accordion-style-clean
 icon-placement-right
-ds-portal-promotion
-ds-portal-promotion--item
 hide-content-title
 field-group-accordion-item
 group-custom-section
@@ -37,7 +35,11 @@ horizontal-rule-top
 horizontal-rule-bottom
 accordion-item__light
 ds-teaser-accordion--title
-button-internal';
+button-internal
+box-story
+tube
+tube--large
+regional-rule-top';
   $export['ds_classes_regions'] = $strongarm;
 
   $strongarm = new stdClass();

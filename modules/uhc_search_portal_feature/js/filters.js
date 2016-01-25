@@ -65,4 +65,21 @@
     }
   };
 
+  // When course search field is rendered, we want to automatically focus on the
+  // keyword search field, so that visitors may start typing immediately after
+  // loading the page. See DOO-1270 ticket.
+  Drupal.behaviors.courseSearchAutofocus = {
+    attach: function(context, settings) {
+      // Do this only once. We don't want to repeat this after behaviours are
+      // triggered again after some events (like AJAX).
+      $('.views-exposed-widgets').once('uhc-coursesearch-autofocus', function() {
+        // Focus to field
+        $("#edit-search").focus();
+        // Set the cursor after the last character.
+        var searchTextLength = $("#edit-search").val().length;
+        $("#edit-search")[0].setSelectionRange(searchTextLength, searchTextLength);
+      });
+    }
+  };
+
 })(jQuery, Drupal, this, this.document);

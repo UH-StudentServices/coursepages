@@ -73,6 +73,12 @@ projects[menu_attributes][version] = "1.0-rc3"
 projects[menu_block][version] = "2.4"
 projects[migrate][version] = "2.5"
 projects[module_filter][version] = 2.0-alpha2
+
+projects[node_edit_protection][download][type] = git
+projects[node_edit_protection][download][url] = http://git.drupal.org/project/node_edit_protection.git
+; Latest dev commit from 2016-01-07 06:43:46 (GMT) since the stable is quite old.
+projects[node_edit_protection][download][revision] = e17dc41f5891689c517b228391b56aa56d391d65
+
 projects[og][version] = "2.7"
 projects[comment_og][version] = "1.0"
 projects[pathauto][version] = "1.2"
@@ -110,6 +116,7 @@ projects[shs][version] = "1.6"
 ; Patch: Prevent PHP fatal error. Not all terms have parents.
 projects[shs][patch]["https://www.drupal.org/node/1960182"] = https://www.drupal.org/files/issues/checkifparentset-1960182-08-D7.patch
 
+projects[smart_trim][version] = "1.5"
 projects[special_menu_items][version] = "2.0"
 projects[stringoverrides][version] = "1.8"
 projects[strongarm][version] = "2.0"

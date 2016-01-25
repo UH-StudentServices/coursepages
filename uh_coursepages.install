@@ -851,3 +851,36 @@ function uh_coursepages_update_dependencies() {
   );
   return $dependencies;
 }
+
+/**
+ * Enable node_edit_protection module.
+ */
+function uh_coursepages_update_7006(&$sandbox) {
+  // This module is not required and therefore not included in info file, but we
+  // enable it here, so we don't need to bother doing it manually after update..
+  module_enable(array('node_edit_protection'));
+}
+
+/**
+ * Rename sidebar liftups field, as it's now used by other content types also.
+ */
+function uh_coursepages_update_7007() {
+
+  // Revert field base and field instance feature components.
+  features_revert(array('uhc_field_base' => array('field_base')));
+  features_revert(array('uhc_page' => array('field_instance')));
+  features_revert(array('uhc_subject' => array('field_instance')));
+
+  // Then migrate field values
+  uh_field_migrate_values('field_subject_sidebar_liftups', 'field_sidebar_liftups');
+
+  // Then delete deprecated field
+  field_delete_field('field_subject_sidebar_liftups');
+}
+
+/**
+ * Enable smart_trim.
+ */
+function uh_coursepages_update_7008(&$sandbox) {
+  module_enable(array('smart_trim'));
+}

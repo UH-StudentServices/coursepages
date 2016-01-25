@@ -3134,6 +3134,16 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view uhc_ds_enrollment_period on node'.
+  $permissions['view uhc_ds_enrollment_period on node'] = array(
+    'name' => 'view uhc_ds_enrollment_period on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   // Exported permission: 'view uhc_ds_imp_status_org_location_date on node'.
   $permissions['view uhc_ds_imp_status_org_location_date on node'] = array(
     'name' => 'view uhc_ds_imp_status_org_location_date on node',

@@ -118,7 +118,9 @@ function uhc_course_implementation_get_course_administrator_numbers($node) {
 /**
  * Implements hook_field_group_build_pre_render_alter().
  *
- * Lets add some help texts to our accordion items
+ * Lets add some help texts to our accordion items.
+ *
+ * @see uhc_course_implementation_is_group_empty()
  */
 function uhc_course_implementation_field_group_build_pre_render_alter(&$element) {
   if (isset($element['group_timetable']['#prefix'])) {
@@ -127,6 +129,46 @@ function uhc_course_implementation_field_group_build_pre_render_alter(&$element)
   if (isset($element['group_course_task_material']['#prefix'])) {
     $element['group_course_task_material']['#prefix'] .= '<p class="bar bar--small">' . t('In this section you can find the course tasks.') . '</p>';
   }
+
+  // If we are at node view page and the group is empty, then print out that
+  // page should be read in teaching language.
+  $node_view = arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL;
+  if (isset($element['group_description_objectives']['#prefix']) &&
+      $node_view &&
+      uhc_course_implementation_is_group_empty($element['group_description_objectives'], array('uhc_content_administration_from_oodi', 'uhc_course_implementation_course_overview_empty'))) {
+    $message = array(
+      'type' => 'status',
+      'class' => ' alternative',
+      'message' => '<p>' . t('Please read this page in teaching language') . '</p>',
+    );
+    $element['group_description_objectives']['#prefix'] .= '<div class="accordion-content-item clean">' . theme('views_system_message', $message) . '</div>';
+  }
+}
+
+/**
+ * Helper function for identifying empty groups from given group provided to
+ * hook_field_group_build_pre_render_alter().
+ *
+ * @see uhc_course_implementation_field_group_build_pre_render_alter()
+ */
+function uhc_course_implementation_is_group_empty($group, $ignore_fields = array()) {
+  foreach ($group as $key => $value) {
+
+    // Always ignore items starting with '#' or is found from $ignore_fields
+    // list.
+    if (substr($key, 0, 1) == '#' || in_array($key, $ignore_fields)) {
+      continue;
+    }
+
+    // Returns immediately FALSE when we find a value not being NULL.
+    if (!is_null($value)) {
+      return FALSE;
+    }
+  }
+
+  // All ignored fields were skipped and no value was found. This must be empty
+  // group.
+  return TRUE;
 }
 
 /**
@@ -464,16 +506,96 @@ function uhc_course_implementation_process_sign_up_button_url(&$vars, $node) {
       }
       $vars['content']['field_imp_canonical_url'][0]['#element']['url'] = $url;
     }
+
+    // Remove the URL if the enrollment period is not active. Only do this when
+    // both the enrollment begin and end date exist. Otherwise assume the
+    // enrollment period is active.
+    $remove_sign_up_url = !empty(uhc_course_implementation_get_enrollment_begin_date($node))
+      && !empty(uhc_course_implementation_get_enrollment_end_date($node))
+      && !uhc_course_implementation_enrollment_period_active($node);
+
+    if ($remove_sign_up_url) {
+      $vars['content']['field_imp_canonical_url'][0]['#element']['url'] = '';
+    }
   }
 }
 
+/**
+ * Determines whether given node is organized by open university.
+ *
+ * @param $node
+ * @return bool
+ * @see uhc_course_implementation_process_sign_up_button_url()
+ */
 function uhc_course_implementation_is_organised_by_open_uni($node) {
   $org = field_get_items('node', $node, 'field_imp_course_organiser')[0]['value'];
   return $org == 'Open university' || $org == 'Avoin yliopisto' || $org == 'Öppna universitet';
 }
 
+/**
+ * Returns sign up button value of given node.
+ *
+ * @param $node
+ * @return mixed
+ * @see uhc_course_implementation_process_sign_up_button_url()
+ */
 function uhc_course_implementation_signup_hidden($node) {
   return field_get_items('node', $node, 'field_imp_hide_sign_up_button')[0]['value'];
+}
+
+/**
+ * Determines whether given node has enrollment active.
+ *
+ * @param $node
+ * @return bool
+ * @see uhc_course_implementation_process_sign_up_button_url()
+ */
+function uhc_course_implementation_enrollment_period_active($node) {
+  $enrollment_begin_time = uhc_course_implementation_get_enrollment_begin_date($node);
+  $enrollment_end_time = uhc_course_implementation_get_enrollment_end_date($node);
+
+  return isset($enrollment_begin_time, $enrollment_end_time)
+    && $enrollment_begin_time < REQUEST_TIME
+    && REQUEST_TIME < $enrollment_end_time;
+}
+
+/**
+ * Returns an unix timestamp of enrollment begin date of given node.
+ *
+ * @param $node
+ * @return int|null
+ * @see uhc_course_implementation_process_sign_up_button_url()
+ * @see uhc_course_implementation_get_date_field_value_as_timestamp()
+ */
+function uhc_course_implementation_get_enrollment_begin_date($node) {
+  return uhc_course_implementation_get_date_field_value_as_timestamp($node, 'field_imp_enrollment_begin_date');
+}
+
+/**
+ * Returns an unix timestamp of enrollment end date of given node.
+ *
+ * @param $node
+ * @return int|null
+ * @see uhc_course_implementation_process_sign_up_button_url()
+ * @see uhc_course_implementation_get_date_field_value_as_timestamp()
+ */
+function uhc_course_implementation_get_enrollment_end_date($node) {
+  return uhc_course_implementation_get_date_field_value_as_timestamp($node, 'field_imp_enrollment_end_date');
+}
+
+/**
+ * Returns an unix timestamp of given node and date field.
+ *
+ * @param $node
+ * @return int|null
+ * @see uhc_course_implementation_process_sign_up_button_url()
+ * @see uhc_course_implementation_get_enrollment_begin_date()
+ * @see uhc_course_implementation_get_enrollment_end_date()
+ */
+function uhc_course_implementation_get_date_field_value_as_timestamp($node, $date_field_name) {
+  $date_field = field_get_items('node', $node, $date_field_name);
+
+  return isset($date_field[0]['value']) ? strtotime($date_field[0]['value']) : NULL;
 }
 
 /**

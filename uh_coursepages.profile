@@ -491,3 +491,86 @@ function uh_coursepages_block_view($delta = '') {
   }
   return $block;
 }
+
+/**
+ * Helper function for renaming fields by migrating its values without
+ * triggering whole entity save process (and its hooks). Very efficient and
+ * works with fields that have no hacky structures.
+ *
+ * @param $deprecated_field_name
+ * @param $new_field_name
+ * @return bool
+ */
+function uh_field_migrate_values($deprecated_field_name, $new_field_name) {
+
+  // Ensure that we find the field information we need
+  $deprecated_field_info = field_info_field($deprecated_field_name);
+  if (is_null($deprecated_field_info)) {
+    watchdog('uh_coursepages', 'Could not gather field information for field @field_name', array('@field_name' => $deprecated_field_name), WATCHDOG_ERROR);
+    return FALSE;
+  }
+  $new_field_info = field_info_field($new_field_name);
+  if (is_null($new_field_info)) {
+    watchdog('uh_coursepages', 'Could not gather field information for field @field_name', array('@field_name' => $new_field_name), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+  // Gather columns and ensure that they match.
+  $deprecated_columns = $deprecated_field_info['columns'];
+  $new_columns = $deprecated_field_info['columns'];
+  if ($deprecated_columns != $new_columns) {
+    watchdog('uh_coursepages', 'Columns of fields did not match!', array(), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+  // Ensure field storage types
+  if ($deprecated_field_info['storage']['type'] != 'field_sql_storage' || !isset($deprecated_field_info['storage']['details']['sql'])) {
+    watchdog('uh_coursepages', 'Unsupported field storage type @field_storage_type for deprecated field', array('@field_storage_type' => $deprecated_field_info['storage']['type']), WATCHDOG_ERROR);
+    return FALSE;
+  }
+  if ($new_field_info['storage']['type'] != 'field_sql_storage' || !isset($new_field_info['storage']['details']['sql'])) {
+    watchdog('uh_coursepages', 'Unsupported field storage type @field_storage_type for new field', array('@field_storage_type' => $new_field_info['storage']['type']), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+  // Now we trust that fields are compatible for SQL migration. Column value
+  // migration should work for fields that:
+  //   - have no funky alterations to field info structure
+  //   - have hacks messing up with field column or revision table naming
+  //   - have multiple tables for storing field value
+  //   - have no equal columns for current and revision tables
+  // ...so it's not fully compatible with everything, but for most cases.
+  $columns = array_keys(reset($deprecated_field_info['storage']['details']['sql'][FIELD_LOAD_CURRENT]));
+  $source_columns = array();
+  $dest_columns = array();
+  foreach($columns as $key => $value) {
+    $source_columns[] = $deprecated_field_name . '_' . $value;
+    $dest_columns[] = $new_field_name . '_' . $value;
+  }
+
+  // Specify sql table entity property fields that are in all field tables.
+  $default_entity_property_fields = array('entity_type', 'bundle', 'deleted', 'entity_id', 'revision_id', 'language', 'delta');
+  $source_fields = array_merge($default_entity_property_fields, $source_columns);
+  $destination_fields = array_merge($default_entity_property_fields, $dest_columns);
+
+  // Data table
+  $data_query = db_select('field_data_' . $deprecated_field_name, 't')->fields('t', $source_fields)->execute();
+  $insert_data_query = db_insert('field_data_' . $new_field_name);
+  while ($item = $data_query->fetchAssoc()) {
+    $insert_data_query->fields($destination_fields)->values(array_values($item));
+  }
+  $data_result = $insert_data_query->execute();
+
+  // Revision table
+  $revision_query = db_select('field_revision_' . $deprecated_field_name, 't')->fields('t', $source_fields)->execute();
+  $insert_revision_query = db_insert('field_revision_' . $new_field_name);
+  while ($item = $revision_query->fetchAssoc()) {
+    $insert_revision_query->fields($destination_fields)->values(array_values($item));
+  }
+  $revision_result = $insert_revision_query->execute();
+
+  // Clear field caches
+  field_cache_clear();
+
+  return $data_result && $revision_result;
+}

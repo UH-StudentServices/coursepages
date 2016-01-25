@@ -79,7 +79,7 @@ function uhc_subject_field_group_info() {
     'label' => 'Liftups',
     'weight' => '5',
     'children' => array(
-      0 => 'field_subject_sidebar_liftups',
+      0 => 'field_sidebar_liftups',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

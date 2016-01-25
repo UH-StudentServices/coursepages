@@ -56,7 +56,7 @@ function uhc_page_views_default_views() {
   $handler->display->display_options['fields']['name_field']['exclude'] = TRUE;
   $handler->display->display_options['fields']['name_field']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['name_field']['link_to_entity'] = 0;
-  /* Field: Content: Title */
+  /* Field: Field: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
@@ -73,7 +73,7 @@ function uhc_page_views_default_views() {
     'title_class' => '',
   );
   $handler->display->display_options['fields']['title_field']['link_to_entity'] = 1;
-  /* Sort criterion: Content: Title (title_field) */
+  /* Sort criterion: Field: Title (title_field) */
   $handler->display->display_options['sorts']['title_field_value']['id'] = 'title_field_value';
   $handler->display->display_options['sorts']['title_field_value']['table'] = 'field_data_title_field';
   $handler->display->display_options['sorts']['title_field_value']['field'] = 'title_field_value';

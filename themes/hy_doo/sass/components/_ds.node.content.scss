@@ -33,6 +33,21 @@
 [class*="imp-canonical-url"] {
   display: inline-block;
   margin-bottom: 1em;
+  margin-right: 2em;
+}
+
+// Enrollment period
+.enrollment-period {
+  @include font-size(14px);
+  @include border;
+  padding: 0.9em 2em;
+  &:before {
+    @include hy-icon($hy-time);
+    margin-right: 0.5em;
+  }
+  @include at-breakpoint($layout-small) {
+    display: inline-block;
+  }
 }
 
 .accordion-content-label,

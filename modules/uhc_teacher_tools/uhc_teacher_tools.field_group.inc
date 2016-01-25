@@ -21,7 +21,7 @@ function uhc_teacher_tools_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Moodle',
-    'weight' => '0',
+    'weight' => '2',
     'children' => array(
       0 => 'field_moodle_key',
       1 => 'field_moodle_url',

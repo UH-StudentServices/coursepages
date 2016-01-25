@@ -2,6 +2,6 @@ name = UHC Feedback
 description = Provides UHC customization to feedback contrib module
 core = 7.x
 package = UHC
-version = 7.x-1.52
+version = 7.x-1.53
 project = uhc_feedback
 dependencies[] = feedback

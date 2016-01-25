@@ -21,7 +21,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional information',
-    'weight' => '27',
+    'weight' => '28',
     'children' => array(),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -44,7 +44,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Messages',
-    'weight' => '16',
+    'weight' => '17',
     'children' => array(
       0 => 'comments',
     ),
@@ -70,7 +70,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tasks',
-    'weight' => '21',
+    'weight' => '22',
     'children' => array(
       0 => 'field_reference_to_course_tasks',
     ),
@@ -97,7 +97,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course overview',
-    'weight' => '26',
+    'weight' => '27',
     'children' => array(
       0 => 'field_imp_working_methods',
       1 => 'uhc_ds_additional_info',
@@ -115,6 +115,7 @@ function uhc_ds_field_group_info() {
       'label' => 'Course overview',
       'instance_settings' => array(
         'classes' => 'group-description-objectives field-group-accordion-item body-text',
+        'show_empty_fields' => 1,
       ),
       'formatter' => 'closed',
     ),
@@ -132,7 +133,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Material',
-    'weight' => '19',
+    'weight' => '20',
     'children' => array(
       0 => 'field_imp_material_description',
       1 => 'course_implementation_material',
@@ -194,7 +195,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timetable',
-    'weight' => '18',
+    'weight' => '19',
     'children' => array(
       0 => 'event_reference_block',
       1 => 'repeating_event_reference_block',

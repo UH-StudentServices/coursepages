@@ -71,7 +71,6 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
 
       // Add some frontend alterations to related to filtering
       $form['#attached']['js'][] = drupal_get_path('module', 'uhc_search_portal_feature') . '/js/filters.js';
-      $form['#attached']['js'][] = drupal_get_path('module', 'uhc_search_portal_feature') . '/js/equal-heights.js';
 
       // Custom field prefix for genetics search box (not for open university).
       if ($form['#id'] == 'views-exposed-form-uhc-search-desktop') {
@@ -88,10 +87,9 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
           '#type' => 'checkbox',
           '#title' => t('Also show ongoing teaching'),
         );
-        // Place the element before "Submit" and "Reset" buttons
-        $form['include_ongoing_courses']['#weight'] = 1;
-        $form['submit']['#weight'] = 2;
-        $form['reset']['#weight'] = 3;
+        $form['#info']['include_ongoing_courses'] = array(
+          'value' => 'include_ongoing_courses',
+        );
       }
 
       // Wider search box

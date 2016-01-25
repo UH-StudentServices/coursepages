@@ -9,7 +9,7 @@
   width: 100%;
   text-align: center;
   @include at-breakpoint($layout-small) {
-    text-align: initial;
+    text-align: left;
   }
   h2 {
     @include font-size(30px);
@@ -22,10 +22,6 @@
       width: auto;
       margin-top: 0;
     }
-  }
-  .intro-text {
-    @include text-liftup;
-    @include font-family-main;
   }
   // image styles
   img {

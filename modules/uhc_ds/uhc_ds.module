@@ -112,6 +112,15 @@ function uhc_ds_ds_fields_info($entity_type) {
       ),
     );
 
+    $ds_fields['uhc_ds_enrollment_period'] = array(
+      'title' => 'Enrolment period',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_ds_enrollment_period',
+      'properties' => array(
+        'field_name' => 'enrollment_period',
+      ),
+    );
+
     return array('node' => $ds_fields);
   }
 }
@@ -296,4 +305,32 @@ function uhc_ds_title_and_credit($field) {
   $credit = isset($credit_field[0]['#markup']) ? $credit_field[0]['#markup'] : '';
 
   return $title . ', ' . $credit . ' ' . t('cr');
+}
+
+function uhc_ds_enrollment_period($field) {
+  $enrollment_period = '';
+  $node = $field['entity'];
+  $enrollment_begin_date = uhc_ds_get_formatted_date_and_time($node, 'field_imp_enrollment_begin_date');
+  $enrollment_end_date = uhc_ds_get_formatted_date_and_time($node, 'field_imp_enrollment_end_date');
+
+  if (!empty($enrollment_begin_date) || !empty($enrollment_end_date)) {
+    $enrollment_period = "$enrollment_begin_date - $enrollment_end_date";
+  }
+
+  return $enrollment_period;
+}
+
+function uhc_ds_get_formatted_date_and_time($node, $date_field_name) {
+  $formatted_date_and_time = '';
+  $field = field_view_field('node', $node, $date_field_name);
+  $unix_timestamp = isset($field['#items'][0]['value']) ? strtotime($field['#items'][0]['value']) : NULL;
+
+  if (isset($unix_timestamp)) {
+    $date = date('j.n.Y', $unix_timestamp);
+    $time = date('H:i', $unix_timestamp);
+    $at = t('at');
+    $formatted_date_and_time = "$date $at $time";
+  }
+
+  return $formatted_date_and_time;
 }

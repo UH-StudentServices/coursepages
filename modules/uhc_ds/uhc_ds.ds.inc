@@ -190,6 +190,60 @@ function uhc_ds_ds_field_settings_info() {
 
   $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'field_collection_item|field_liftup_collection|default';
+  $ds_fieldsetting->entity_type = 'field_collection_item';
+  $ds_fieldsetting->bundle = 'field_liftup_collection';
+  $ds_fieldsetting->view_mode = 'default';
+  $ds_fieldsetting->settings = array(
+    'title_field' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'h2',
+          'fi-cl' => 'is-center',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+    'field_intro' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'p',
+          'fi-cl' => 'is-center intro-text',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+    'field_portal_promotions' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fis' => TRUE,
+          'fis-el' => 'div',
+          'fis-cl' => 'gridder-container-4 clearfix',
+          'fis-at' => '',
+          'fis-def-at' => FALSE,
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'gridder-box',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+  );
+  $export['field_collection_item|field_liftup_collection|default'] = $ds_fieldsetting;
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'field_collection_item|field_related_content_section|default';
   $ds_fieldsetting->entity_type = 'field_collection_item';
   $ds_fieldsetting->bundle = 'field_related_content_section';
@@ -413,7 +467,7 @@ function uhc_ds_ds_field_settings_info() {
       ),
     ),
     'my_enrollments' => array(
-      'weight' => '28',
+      'weight' => '29',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -643,6 +697,22 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+    'uhc_ds_enrollment_period' => array(
+      'weight' => '15',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'enrollment-period',
+          'ow-def-cl' => FALSE,
+          'ow-at' => '',
+          'ow-def-at' => FALSE,
         ),
       ),
     ),
@@ -1273,124 +1343,6 @@ function uhc_ds_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_additional_info' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item">',
-          'suffix' => '</div>',
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'accordion-content-item--content body-text',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
-        ),
-      ),
-    ),
-    'field_conduct' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item">',
-          'suffix' => '</div>',
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'accordion-content-item--content body-text',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
-        ),
-      ),
-    ),
-    'field_contents' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item">',
-          'suffix' => '</div>',
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'accordion-content-item--content body-text',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
-        ),
-      ),
-    ),
-    'field_evaluation' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item">',
-          'suffix' => '</div>',
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'accordion-content-item--content body-text',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
-        ),
-      ),
-    ),
-    'field_imp_header_image' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-        ),
-      ),
-    ),
-    'field_imp_header_image_caption' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'prefix' => '<span>',
-          'suffix' => '</span>',
-        ),
-      ),
-    ),
-    'field_objective' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'body-text',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
-        ),
-      ),
-    ),
-    'field_req_prerequisites' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'lb-el' => 'label',
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'body-text',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
-        ),
-      ),
-    ),
-    'field_study_materials' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item">',
-          'suffix' => '</div>',
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'accordion-content-item--content body-text',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
-        ),
-      ),
-    ),
   );
   $export['node|course|default'] = $ds_fieldsetting;
 
@@ -1570,7 +1522,19 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
-          'fi-first-last' => FALSE,
+        ),
+      ),
+    ),
+    'field_liftup_image' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'box-story__image',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
         ),
       ),
     ),
@@ -1584,7 +1548,6 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
-          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -1598,7 +1561,6 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
-          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -1613,14 +1575,39 @@ function uhc_ds_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
     'title' => array(
-      'weight' => '0',
+      'weight' => '1',
       'label' => 'hidden',
       'format' => 'default',
+      'formatter_settings' => array(
+        'link' => '0',
+        'wrapper' => 'h4',
+        'class' => 'box-story__title',
+        'ft' => array(),
+      ),
+    ),
+    'field_liftup_description' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'box-story__content',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
     ),
     'field_liftup_image' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_minimal',
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'box-story__image',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
         ),
       ),
     ),
@@ -1630,7 +1617,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'promotion-link',
+          'fi-cl' => 'box-story__link button--action icon--next theme-transparent',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
@@ -1666,13 +1653,13 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'ow' => TRUE,
           'ow-el' => 'div',
-          'ow-cl' => 'ds-portal-promotion',
+          'ow-cl' => 'gridder-container-3',
           'ow-def-cl' => FALSE,
           'ow-at' => '',
           'ow-def-at' => FALSE,
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'ds-portal-promotion--item',
+          'fi-cl' => 'gridder-box',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => TRUE,
@@ -1721,13 +1708,13 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'ow' => TRUE,
           'ow-el' => 'div',
-          'ow-cl' => 'ds-portal-promotion',
+          'ow-cl' => 'gridder-container-3',
           'ow-def-cl' => FALSE,
           'ow-at' => '',
           'ow-def-at' => FALSE,
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'ds-portal-promotion--item',
+          'fi-cl' => 'gridder-box',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
@@ -1757,10 +1744,35 @@ function uhc_ds_ds_field_settings_info() {
         ),
       ),
     ),
+    'field_portal_promotions' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'gridder-container-3 regional-rule-top',
+          'ow-def-cl' => FALSE,
+          'ow-at' => '',
+          'ow-def-at' => FALSE,
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'gridder-box',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
     'field_portal_page_image' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_minimal',
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'box-ingress__image',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
         ),
       ),
     ),
@@ -1807,8 +1819,80 @@ function uhc_ds_ds_field_settings_info() {
         ),
       ),
     ),
+    'field_liftup_collection' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'field_sidebar_liftups' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+      ),
+    ),
   );
   $export['node|portal_page|sidebar'] = $ds_fieldsetting;
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'node|portal_page|teaser';
+  $ds_fieldsetting->entity_type = 'node';
+  $ds_fieldsetting->bundle = 'portal_page';
+  $ds_fieldsetting->view_mode = 'teaser';
+  $ds_fieldsetting->settings = array(
+    'title' => array(
+      'weight' => '1',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'link' => '0',
+        'wrapper' => 'h4',
+        'class' => 'box-story__title',
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'node_link' => array(
+      'weight' => '3',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'link text' => 'Read more',
+        'wrapper' => 'div',
+        'class' => 'box-story__link button--action icon--next theme-transparent',
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'field_portal_page_description' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'box-story__content',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+    'field_portal_page_image' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'lb-el' => 'div',
+          'lb-cl' => 'box-story__image',
+        ),
+      ),
+    ),
+  );
+  $export['node|portal_page|teaser'] = $ds_fieldsetting;
 
   $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
@@ -1892,19 +1976,6 @@ function uhc_ds_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_subject_sidebar_liftups' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'sidebar-liftup',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
-        ),
-      ),
-    ),
     'field_related_content_section' => array(
       'formatter_settings' => array(
         'ft' => array(
@@ -1918,9 +1989,11 @@ function uhc_ds_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_study_module' => array(
+    'field_sidebar_liftups' => array(
       'formatter_settings' => array(
-        'ft' => array(),
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
       ),
     ),
   );
@@ -2505,6 +2578,45 @@ function uhc_ds_ds_layout_settings_info() {
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
+  $ds_layout->id = 'field_collection_item|field_liftup_collection|default';
+  $ds_layout->entity_type = 'field_collection_item';
+  $ds_layout->bundle = 'field_liftup_collection';
+  $ds_layout->view_mode = 'default';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'group_liftup_colletion_header',
+        1 => 'title_field',
+        2 => 'field_intro',
+        3 => 'field_portal_promotions',
+      ),
+    ),
+    'fields' => array(
+      'group_liftup_colletion_header' => 'ds_content',
+      'title_field' => 'ds_content',
+      'field_intro' => 'ds_content',
+      'field_portal_promotions' => 'ds_content',
+    ),
+    'classes' => array(
+      'layout_class' => array(
+        'regional-rule-top' => 'regional-rule-top',
+      ),
+    ),
+    'wrappers' => array(
+      'ds_content' => 'div',
+      'ds_hidden' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+  );
+  $export['field_collection_item|field_liftup_collection|default'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
   $ds_layout->id = 'field_collection_item|field_related_content_section|default';
   $ds_layout->entity_type = 'field_collection_item';
   $ds_layout->bundle = 'field_related_content_section';
@@ -2627,57 +2739,58 @@ function uhc_ds_ds_layout_settings_info() {
   $ds_layout->layout = 'course_page';
   $ds_layout->settings = array(
     'regions' => array(
-      'course_content' => array(
-        0 => 'comments',
-        4 => 'field_reference_to_course_tasks',
-        8 => 'repeating_event_reference_block',
-        9 => 'event_reference_block',
-        18 => 'field_imp_canonical_url',
-        19 => 'group_imp_moodle',
-        20 => 'group_course_messages',
-        21 => 'group_imp_interaction',
-        22 => 'group_timetable',
-        23 => 'group_imp_material',
-        24 => 'field_imp_teacher_se_content',
-        25 => 'group_imp_video',
-        26 => 'group_course_task_material',
-        27 => 'uhc_content_administration_from_oodi',
-        28 => 'field_imp_teachersection',
-        29 => 'uhc_ds_target_group',
-        30 => 'group_conduct_of_course',
-        31 => 'uhc_ds_req_prerequisites',
-        32 => 'group_imp_feedback',
-        33 => 'group_imp_fee',
-        34 => 'uhc_ds_objective',
-        35 => 'group_description_objectives',
-        36 => 'field_moodle_url',
-        37 => 'uhc_ds_contents',
-        38 => 'uhc_ds_conduct',
-        39 => 'field_moodle_key',
-        40 => 'group_additional_information',
-        41 => 'uhc_ds_study_materials',
-        43 => 'uhc_ds_evaluation',
-        44 => 'field_imp_fee',
-        45 => 'uhc_ds_additional_info',
-        46 => 'field_imp_working_methods',
-        47 => 'field_imp_material_description',
-        48 => 'course_implementation_material',
-        49 => 'field_imp_interactiondescription',
-        50 => 'field_imp_interaction_link',
-        51 => 'field_imp_video',
-        52 => 'field_feedback_description',
-        53 => 'field_feedback_link',
-      ),
       'course_metadata' => array(
-        1 => 'uhc_ds_course_number',
+        0 => 'uhc_ds_course_number',
         2 => 'field_imp_method_of_study',
-        3 => 'scope',
+        4 => 'scope',
         5 => 'field_imp_teacher',
         6 => 'course_implementation_timepsan',
         7 => 'field_imp_course_organiser',
-        10 => 'field_imp_locality',
+        9 => 'field_imp_locality',
         11 => 'course_imp_activity',
         12 => 'field_imp_teaching_language',
+      ),
+      'course_content' => array(
+        1 => 'comments',
+        3 => 'field_reference_to_course_tasks',
+        8 => 'repeating_event_reference_block',
+        10 => 'event_reference_block',
+        18 => 'field_imp_canonical_url',
+        19 => 'uhc_ds_enrollment_period',
+        20 => 'group_imp_moodle',
+        21 => 'group_course_messages',
+        22 => 'group_imp_interaction',
+        23 => 'group_timetable',
+        24 => 'field_imp_teacher_se_content',
+        25 => 'group_imp_material',
+        26 => 'group_imp_video',
+        27 => 'group_course_task_material',
+        28 => 'uhc_content_administration_from_oodi',
+        29 => 'uhc_ds_target_group',
+        30 => 'field_imp_teachersection',
+        31 => 'group_conduct_of_course',
+        32 => 'uhc_ds_req_prerequisites',
+        33 => 'group_imp_feedback',
+        34 => 'uhc_ds_objective',
+        35 => 'field_moodle_url',
+        36 => 'group_imp_fee',
+        37 => 'uhc_ds_contents',
+        38 => 'group_description_objectives',
+        39 => 'uhc_ds_conduct',
+        40 => 'field_moodle_key',
+        41 => 'group_additional_information',
+        42 => 'uhc_ds_study_materials',
+        44 => 'uhc_ds_evaluation',
+        45 => 'field_imp_fee',
+        46 => 'uhc_ds_additional_info',
+        47 => 'field_imp_working_methods',
+        48 => 'field_imp_material_description',
+        49 => 'course_implementation_material',
+        50 => 'field_imp_interactiondescription',
+        51 => 'field_imp_interaction_link',
+        52 => 'field_imp_video',
+        53 => 'field_feedback_description',
+        54 => 'field_feedback_link',
       ),
       'course_banner' => array(
         13 => 'field_imp_header_image',
@@ -2687,21 +2800,21 @@ function uhc_ds_ds_layout_settings_info() {
         17 => 'field_imp_header_text',
       ),
       'course_sidebar' => array(
-        42 => 'my_enrollments',
+        43 => 'my_enrollments',
       ),
     ),
     'fields' => array(
-      'comments' => 'course_content',
       'uhc_ds_course_number' => 'course_metadata',
+      'comments' => 'course_content',
       'field_imp_method_of_study' => 'course_metadata',
-      'scope' => 'course_metadata',
       'field_reference_to_course_tasks' => 'course_content',
+      'scope' => 'course_metadata',
       'field_imp_teacher' => 'course_metadata',
       'course_implementation_timepsan' => 'course_metadata',
       'field_imp_course_organiser' => 'course_metadata',
       'repeating_event_reference_block' => 'course_content',
-      'event_reference_block' => 'course_content',
       'field_imp_locality' => 'course_metadata',
+      'event_reference_block' => 'course_content',
       'course_imp_activity' => 'course_metadata',
       'field_imp_teaching_language' => 'course_metadata',
       'field_imp_header_image' => 'course_banner',
@@ -2710,25 +2823,26 @@ function uhc_ds_ds_layout_settings_info() {
       'field_field_imp_header_intro_tex' => 'course_banner',
       'field_imp_header_text' => 'course_banner',
       'field_imp_canonical_url' => 'course_content',
+      'uhc_ds_enrollment_period' => 'course_content',
       'group_imp_moodle' => 'course_content',
       'group_course_messages' => 'course_content',
       'group_imp_interaction' => 'course_content',
       'group_timetable' => 'course_content',
-      'group_imp_material' => 'course_content',
       'field_imp_teacher_se_content' => 'course_content',
+      'group_imp_material' => 'course_content',
       'group_imp_video' => 'course_content',
       'group_course_task_material' => 'course_content',
       'uhc_content_administration_from_oodi' => 'course_content',
-      'field_imp_teachersection' => 'course_content',
       'uhc_ds_target_group' => 'course_content',
+      'field_imp_teachersection' => 'course_content',
       'group_conduct_of_course' => 'course_content',
       'uhc_ds_req_prerequisites' => 'course_content',
       'group_imp_feedback' => 'course_content',
-      'group_imp_fee' => 'course_content',
       'uhc_ds_objective' => 'course_content',
-      'group_description_objectives' => 'course_content',
       'field_moodle_url' => 'course_content',
+      'group_imp_fee' => 'course_content',
       'uhc_ds_contents' => 'course_content',
+      'group_description_objectives' => 'course_content',
       'uhc_ds_conduct' => 'course_content',
       'field_moodle_key' => 'course_content',
       'group_additional_information' => 'course_content',
@@ -3008,23 +3122,12 @@ function uhc_ds_ds_layout_settings_info() {
       'course_content' => array(
         1 => 'course_reference_block',
         3 => 'course_reference_block_past',
-        8 => 'group_teaching_and_registration',
-        9 => 'group_course_contents',
-        10 => 'field_contents',
-        11 => 'group_course_study_materials',
-        12 => 'group_course_conduct',
-        13 => 'group_course_evaluation',
-        14 => 'group_course_additional_info',
-        15 => 'field_additional_info',
-        16 => 'field_conduct',
-        17 => 'field_study_materials',
-        18 => 'field_evaluation',
-      ),
-      'course_banner' => array(
-        4 => 'field_imp_header_image',
-        5 => 'field_imp_header_image_caption',
-        6 => 'field_objective',
-        7 => 'field_req_prerequisites',
+        4 => 'group_teaching_and_registration',
+        5 => 'group_course_contents',
+        6 => 'group_course_study_materials',
+        7 => 'group_course_conduct',
+        8 => 'group_course_evaluation',
+        9 => 'group_course_additional_info',
       ),
     ),
     'fields' => array(
@@ -3032,21 +3135,12 @@ function uhc_ds_ds_layout_settings_info() {
       'course_reference_block' => 'course_content',
       'scope' => 'course_metadata',
       'course_reference_block_past' => 'course_content',
-      'field_imp_header_image' => 'course_banner',
-      'field_imp_header_image_caption' => 'course_banner',
-      'field_objective' => 'course_banner',
-      'field_req_prerequisites' => 'course_banner',
       'group_teaching_and_registration' => 'course_content',
       'group_course_contents' => 'course_content',
-      'field_contents' => 'course_content',
       'group_course_study_materials' => 'course_content',
       'group_course_conduct' => 'course_content',
       'group_course_evaluation' => 'course_content',
       'group_course_additional_info' => 'course_content',
-      'field_additional_info' => 'course_content',
-      'field_conduct' => 'course_content',
-      'field_study_materials' => 'course_content',
-      'field_evaluation' => 'course_content',
     ),
     'classes' => array(
       'layout_class' => array(
@@ -3309,7 +3403,8 @@ function uhc_ds_ds_layout_settings_info() {
     ),
     'classes' => array(
       'layout_class' => array(
-        '' => '',
+        'box-story' => 'box-story',
+        'tube' => 'tube',
       ),
     ),
     'wrappers' => array(
@@ -3319,8 +3414,8 @@ function uhc_ds_ds_layout_settings_info() {
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
     'layout_attributes_merge' => 1,
-    'layout_link_attribute' => '',
-    'layout_link_custom' => '',
+    'layout_link_attribute' => 'tokens',
+    'layout_link_custom' => '[node:field-liftup-link-to:url]',
     'hide_page_title' => '0',
     'page_option_title' => '',
   );
@@ -3336,24 +3431,21 @@ function uhc_ds_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'title',
-        1 => 'field_liftup_image',
+        0 => 'field_liftup_image',
+        1 => 'title',
         2 => 'field_liftup_description',
         3 => 'field_link',
       ),
     ),
     'fields' => array(
-      'title' => 'ds_content',
       'field_liftup_image' => 'ds_content',
+      'title' => 'ds_content',
       'field_liftup_description' => 'ds_content',
       'field_link' => 'ds_content',
     ),
     'classes' => array(
       'layout_class' => array(
-        '' => '',
-      ),
-      'ds_content' => array(
-        'ds-portal-promotion--item' => 'ds-portal-promotion--item',
+        'box-story' => 'box-story',
       ),
     ),
     'wrappers' => array(
@@ -3362,9 +3454,9 @@ function uhc_ds_ds_layout_settings_info() {
     ),
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
-    'layout_attributes_merge' => 1,
-    'layout_link_attribute' => '',
-    'layout_link_custom' => '',
+    'layout_attributes_merge' => 0,
+    'layout_link_attribute' => 'tokens',
+    'layout_link_custom' => '[node:field-link:url]',
     'hide_page_title' => '0',
     'page_option_title' => '',
   );
@@ -3460,49 +3552,43 @@ function uhc_ds_ds_layout_settings_info() {
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'portal_page';
   $ds_layout->view_mode = 'sidebar';
-  $ds_layout->layout = 'course_page';
+  $ds_layout->layout = 'portal_page_sidebar';
   $ds_layout->settings = array(
     'regions' => array(
-      'course_banner' => array(
+      'portal_page_content' => array(
         0 => 'field_portal_page_image',
         1 => 'field_portal_page_description',
+        2 => 'field_view_attachment',
       ),
-      'course_content' => array(
-        2 => 'field_portal_promotions',
-        3 => 'field_view_attachment',
-      ),
-      'course_sidebar' => array(
-        4 => 'field_related_content_section',
+      'portal_page_sidebar' => array(
+        3 => 'field_related_content_section',
+        4 => 'field_sidebar_liftups',
         5 => 'field_subject_contact_reference',
+      ),
+      'portal_page_promotion' => array(
+        6 => 'field_portal_promotions',
+        7 => 'field_liftup_collection',
       ),
     ),
     'fields' => array(
-      'field_portal_page_image' => 'course_banner',
-      'field_portal_page_description' => 'course_banner',
-      'field_portal_promotions' => 'course_content',
-      'field_view_attachment' => 'course_content',
-      'field_related_content_section' => 'course_sidebar',
-      'field_subject_contact_reference' => 'course_sidebar',
+      'field_portal_page_image' => 'portal_page_content',
+      'field_portal_page_description' => 'portal_page_content',
+      'field_view_attachment' => 'portal_page_content',
+      'field_related_content_section' => 'portal_page_sidebar',
+      'field_sidebar_liftups' => 'portal_page_sidebar',
+      'field_subject_contact_reference' => 'portal_page_sidebar',
+      'field_portal_promotions' => 'portal_page_promotion',
+      'field_liftup_collection' => 'portal_page_promotion',
     ),
     'classes' => array(
       'layout_class' => array(
         '' => '',
       ),
-      'course_banner' => array(
-        'ds-node-banner' => 'ds-node-banner',
-      ),
-      'course_content' => array(
-        'ds-node-content' => 'ds-node-content',
-      ),
-      'course_sidebar' => array(
-        'ds-node-sidebar' => 'ds-node-sidebar',
-      ),
     ),
     'wrappers' => array(
-      'course_metadata' => 'div',
-      'course_banner' => 'div',
-      'course_content' => 'div',
-      'course_sidebar' => 'div',
+      'portal_page_content' => 'div',
+      'portal_page_sidebar' => 'div',
+      'portal_page_promotion' => 'div',
       'ds_hidden' => 'div',
     ),
     'layout_wrapper' => 'div',
@@ -3514,6 +3600,47 @@ function uhc_ds_ds_layout_settings_info() {
     'page_option_title' => '',
   );
   $export['node|portal_page|sidebar'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|portal_page|teaser';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'portal_page';
+  $ds_layout->view_mode = 'teaser';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'field_portal_page_image',
+        1 => 'title',
+        2 => 'field_portal_page_description',
+        3 => 'node_link',
+      ),
+    ),
+    'fields' => array(
+      'field_portal_page_image' => 'ds_content',
+      'title' => 'ds_content',
+      'field_portal_page_description' => 'ds_content',
+      'node_link' => 'ds_content',
+    ),
+    'classes' => array(
+      'layout_class' => array(
+        'box-story' => 'box-story',
+      ),
+    ),
+    'wrappers' => array(
+      'ds_content' => 'div',
+      'ds_hidden' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => 'content',
+    'layout_link_custom' => '',
+    'hide_page_title' => '0',
+    'page_option_title' => '',
+  );
+  $export['node|portal_page|teaser'] = $ds_layout;
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
@@ -3536,7 +3663,7 @@ function uhc_ds_ds_layout_settings_info() {
       ),
       'course_sidebar' => array(
         6 => 'field_related_content_section',
-        7 => 'field_subject_sidebar_liftups',
+        7 => 'field_sidebar_liftups',
         8 => 'field_subject_contact_reference',
       ),
     ),
@@ -3548,7 +3675,7 @@ function uhc_ds_ds_layout_settings_info() {
       'field_study_modules_description' => 'course_content',
       'field_study_module' => 'course_content',
       'field_related_content_section' => 'course_sidebar',
-      'field_subject_sidebar_liftups' => 'course_sidebar',
+      'field_sidebar_liftups' => 'course_sidebar',
       'field_subject_contact_reference' => 'course_sidebar',
     ),
     'classes' => array(

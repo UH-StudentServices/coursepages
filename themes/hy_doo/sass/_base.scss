@@ -33,6 +33,11 @@
   }
 }
 
+.intro-text {
+  @include text-liftup;
+  @include font-family-main;
+}
+
 // used for hiding certain elements and show it only in mobile
 .show-only-in-mobile {
   @include at-breakpoint($layout-small) {

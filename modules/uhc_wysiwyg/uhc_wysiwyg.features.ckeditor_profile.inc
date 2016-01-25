@@ -14,7 +14,7 @@ function uhc_wysiwyg_ckeditor_profile_defaults() {
       'settings' => array(
         'ss' => 2,
         'toolbar' => '[
-    [\'Bold\',\'Italic\',\'NumberedList\',\'BulletedList\',\'Link\',\'Unlink\',\'Anchor\',\'PasteFromWord\',\'Undo\',\'Redo\']
+    [\'Format\',\'Bold\',\'Italic\',\'NumberedList\',\'BulletedList\',\'Link\',\'Unlink\',\'Anchor\',\'PasteFromWord\',\'Undo\',\'Redo\']
 ]',
         'expand' => 't',
         'default' => 't',
@@ -29,7 +29,7 @@ function uhc_wysiwyg_ckeditor_profile_defaults() {
         'extraAllowedContent' => '',
         'enter_mode' => 'p',
         'shift_enter_mode' => 'br',
-        'font_format' => 'p;h1;h2;h3;h4',
+        'font_format' => 'p;h2;h3;h4',
         'custom_formatting' => 'f',
         'formatting' => array(
           'custom_formatting_options' => array(

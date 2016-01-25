@@ -8,8 +8,7 @@
     attach: function (context) {
 
       equalheight = function(container){
-
-      var currentTallest = 0,
+        var currentTallest = 0,
            currentRowStart = 0,
            rowDivs = new Array(),
            $el,
@@ -39,12 +38,20 @@
       }
 
       equalheight('.block--facetapi');
+      equalheight('.gridder-box');
+
     },
     weight: 100
   }
 
-  window.addEventListener('resize', function() {
-    equalheight('.block--facetapi');
+  // trigger equal heights on these events
+  var events = ['resize', 'load'];
+
+  events.forEach(function(eventlistener) {
+    window.addEventListener(eventlistener, function() {
+      equalheight('.block--facetapi');
+      equalheight('.gridder-box');
+    });
   });
 
 })(jQuery);

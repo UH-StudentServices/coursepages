@@ -57,7 +57,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Conduct of the course',
-    'weight' => '23',
+    'weight' => '24',
     'children' => array(
       0 => 'field_imp_teacher_se_content',
     ),
@@ -150,7 +150,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Promotion',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_imp_header_text',
       1 => 'group_headline_and_intro',
@@ -238,7 +238,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Feedback',
-    'weight' => '24',
+    'weight' => '25',
     'children' => array(
       0 => 'field_feedback_link',
       1 => 'field_feedback_description',
@@ -264,7 +264,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Registration and fee',
-    'weight' => '25',
+    'weight' => '26',
     'children' => array(
       0 => 'field_imp_fee',
     ),
@@ -342,6 +342,8 @@ function uhc_course_implementation_field_group_info() {
       18 => 'field_imp_status',
       19 => 'field_imp_organisation',
       20 => 'field_imp_working_methods',
+      21 => 'field_imp_enrollment_begin_date',
+      22 => 'field_imp_enrollment_end_date',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -368,7 +370,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Interaction',
-    'weight' => '17',
+    'weight' => '18',
     'children' => array(
       0 => 'field_imp_interaction_link',
       1 => 'field_imp_interactiondescription',
@@ -435,7 +437,7 @@ function uhc_course_implementation_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-imp-material field-group-tab',
-        'description' => 'Add lecture notes, literature, links etc. It is not advisable to add private material because it might be accessible through direct links.',
+        'description' => 'Add lecture notes, literature, links etc. It is not advisable to add private material because it might be accessible through direct links. Please attach only material which you have sufficient rights to use!',
       ),
       'formatter' => 'closed',
     ),
@@ -453,7 +455,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Learning environments:',
-    'weight' => '15',
+    'weight' => '16',
     'children' => array(
       0 => 'field_moodle_key',
       1 => 'field_moodle_url',
@@ -574,7 +576,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Video',
-    'weight' => '20',
+    'weight' => '21',
     'children' => array(
       0 => 'field_imp_video',
     ),

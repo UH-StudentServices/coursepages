@@ -1,3 +1,16 @@
 .open-university .info-link {
   display: none;
 }
+
+.box-story {
+  position: relative;
+  padding-bottom: 3em;
+}
+.box-story .box-story__link {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.box-story.node--online-service--teaser, .box-story.node--portal-page--teaser, .box-story.node--liftup--teaser {
+  cursor: pointer;
+}

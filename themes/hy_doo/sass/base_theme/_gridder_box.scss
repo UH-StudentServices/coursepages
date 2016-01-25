@@ -2,28 +2,21 @@
 
 // Gridder
 @mixin gridder-box($gridder-box-width) {
-  $gridder-box-height: 400px;
   margin-bottom: 20px;
   padding: 0 1em;
   overflow: hidden;
 
   @include at-breakpoint($layout-small) {
-    min-height: $gridder-box-height;
     float: left;
     width: 50%;
   }
 
   @include at-breakpoint($layout-medium) {
-    height: $gridder-box-height;
     width: $gridder-box-width;
 
     @for $i from 1 through 4 {
       &.gridder-box-width-#{$i} {
         width: ($gridder-box-width) * $i;
-      }
-
-      &.gridder-box-height-#{$i} {
-        height: ($gridder-box-height) * $i;
       }
     }
   }

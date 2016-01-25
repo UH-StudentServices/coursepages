@@ -48,81 +48,6 @@ function uhc_course_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_course_additional_info|node|course|default';
-  $field_group->group_name = 'group_course_additional_info';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'course';
-  $field_group->mode = 'default';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Additional information',
-    'weight' => '11',
-    'children' => array(
-      0 => 'field_additional_info',
-    ),
-    'format_type' => 'accordion-item',
-    'format_settings' => array(
-      'formatter' => 'closed',
-      'instance_settings' => array(
-        'classes' => 'group-course-additional-info field-group-accordion-item',
-      ),
-    ),
-  );
-  $export['group_course_additional_info|node|course|default'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_course_conduct|node|course|default';
-  $field_group->group_name = 'group_course_conduct';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'course';
-  $field_group->mode = 'default';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Conduct',
-    'weight' => '9',
-    'children' => array(
-      0 => 'field_conduct',
-    ),
-    'format_type' => 'accordion-item',
-    'format_settings' => array(
-      'formatter' => 'closed',
-      'instance_settings' => array(
-        'classes' => 'group-course-conduct field-group-accordion-item',
-      ),
-    ),
-  );
-  $export['group_course_conduct|node|course|default'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_course_contents|node|course|default';
-  $field_group->group_name = 'group_course_contents';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'course';
-  $field_group->mode = 'default';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Contents',
-    'weight' => '7',
-    'children' => array(
-      0 => 'field_contents',
-    ),
-    'format_type' => 'accordion-item',
-    'format_settings' => array(
-      'formatter' => 'closed',
-      'instance_settings' => array(
-        'classes' => 'group-course-contents field-group-accordion-item',
-      ),
-    ),
-  );
-  $export['group_course_contents|node|course|default'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
   $field_group->identifier = 'group_course_drupal|node|course|form';
   $field_group->group_name = 'group_course_drupal';
   $field_group->entity_type = 'node';
@@ -147,31 +72,6 @@ function uhc_course_field_group_info() {
     ),
   );
   $export['group_course_drupal|node|course|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_course_evaluation|node|course|default';
-  $field_group->group_name = 'group_course_evaluation';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'course';
-  $field_group->mode = 'default';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Evaluation',
-    'weight' => '10',
-    'children' => array(
-      0 => 'field_evaluation',
-    ),
-    'format_type' => 'accordion-item',
-    'format_settings' => array(
-      'formatter' => 'closed',
-      'instance_settings' => array(
-        'classes' => 'group-course-evaluation field-group-accordion-item',
-      ),
-    ),
-  );
-  $export['group_course_evaluation|node|course|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -270,32 +170,6 @@ function uhc_course_field_group_info() {
     ),
   );
   $export['group_course_integration|node|course|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_course_study_materials|node|course|default';
-  $field_group->group_name = 'group_course_study_materials';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'course';
-  $field_group->mode = 'default';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Study materials',
-    'weight' => '8',
-    'children' => array(
-      0 => 'field_study_materials',
-    ),
-    'format_type' => 'accordion-item',
-    'format_settings' => array(
-      'label' => 'Study materials',
-      'instance_settings' => array(
-        'classes' => 'group-course-study-materials field-group-accordion-item',
-      ),
-      'formatter' => 'closed',
-    ),
-  );
-  $export['group_course_study_materials|node|course|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */

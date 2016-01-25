@@ -1,3 +1,33 @@
+# Helsinki University Coursepages v1.53
+Päiväys: 25.01.2016
+
+## Lisäykset
+  - DOO-1782: Lisättiin tekijänoikeushuomautus liitetiedostojen
+    lisäystoimintojen yhteyteen.
+  - DOO-1519: Alustava toteutus tallentamattomien muutosten varoituksesta.
+  - DOO-1765: Lisättiin portaalisivuihin tuki sivupalkki nostojen luomiselle
+  - DOO-1764: Lisättiin portaalisivuihin tuki nostokokoelmien luomiselle
+  - DOO-1784: Lisättiin kehotus kurssiesitteeseen opetuskieleen vaihtamisesta,
+    silloin kun haitari on tyhjä.
+  - DOO-1776: Lisättiin otsikkomuotoilut wysiwyg-editoriin.
+  - DOO-1384: Näytetään ilmoittautumisajankohta kurssisivulla.
+  - DOO-1270: Hakukenttä valmiiksi aktiiviseksi.
+  - DOO-1637: Portal pagen muokkausnäkymään lisätty ohjetekstejä.
+
+## Muutokset
+  - DOO-1793: Vaihdettiin Promotion- ja Moodle -välilehtien järjestystä
+    muokkausnäkymässä
+  - DOO-1797: Poistettiin tiedekuntasuodatin etusivun hausta (/search)
+  - DOO-785: Kaikki nostot muutettu styleguiden mukaiseksi
+  - DOO-1808: Poistettiin jaksosivulta muut kentät paitsi nimi, koodi, laajuus
+    ja toteutukset
+
+## Korjaukset
+  - DOO-1753: Korjattu avoimen yliopiston navigaation leviäminen toiselle
+    riville.
+  - DOO-1796: Korjattu virheellinen tekstien keskittyminen IE:llä.
+
+
 # Helsinki University Coursepages v1.52
 Päiväys: 19.01.2016
 

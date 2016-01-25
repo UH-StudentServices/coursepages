@@ -718,8 +718,8 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_subject_sidebar_liftups'
-  $field_instances['node-subject-field_subject_sidebar_liftups'] = array(
+  // Exported field_instance: 'node-subject-field_sidebar_liftups'
+  $field_instances['node-subject-field_sidebar_liftups'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
     'default_value_function' => '',
@@ -742,7 +742,7 @@ function uhc_subject_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_subject_sidebar_liftups',
+    'field_name' => 'field_sidebar_liftups',
     'label' => 'Sidebar liftups',
     'required' => 0,
     'settings' => array(

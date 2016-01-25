@@ -108,6 +108,15 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_imp_end_date', 'end_date')
       ->arguments(array('timezone' => 'Europe/Helsinki'))
       ->callbacks(array($this, 'fixTimeZoneIssue'));
+
+    $this->addFieldMapping('field_imp_enrollment_begin_date', 'enroll_start_date')
+      ->arguments(array('timezone' => 'Europe/Helsinki'))
+      ->callbacks(array($this, 'fixTimeZoneIssue'));
+
+    $this->addFieldMapping('field_imp_enrollment_end_date', 'enroll_end_date')
+      ->arguments(array('timezone' => 'Europe/Helsinki'))
+      ->callbacks(array($this, 'fixTimeZoneIssue'));
+
     $this->addFieldMapping('field_imp_reference_to_courses', 'learningopportunity_id')->sourceMigration('CourseNode');
 
     $this->addFieldMapping('field_imp_locality', 'instruction_locality');
@@ -209,6 +218,8 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'courseunitrealisation_status' => 'State of the course implementation (1=planned, 2=confirmed, 3=cancelled, 4=completed)',
       'start_date'                   => 'Starting date of course implementation',
       'end_date'                     => 'Ending date of course implementation',
+      'enroll_start_date'            => 'Enroll start date',
+      'enroll_end_date'              => 'Enroll end date',
       'realisation_type_code'        => 'Realisation type code / Form of study',
       'credit_points'                => 'Credit',
       'realisation_name'             => 'Multilingual: Name',

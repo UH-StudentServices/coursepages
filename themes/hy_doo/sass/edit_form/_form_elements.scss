@@ -118,5 +118,8 @@
       background: darken($lightsilver, 5%);
     }
   }
+}
 
+.ui-dialog-content {
+  background: $white;
 }

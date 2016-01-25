@@ -20,10 +20,10 @@ function uhc_page_strongarm() {
         'custom_settings' => TRUE,
       ),
       'teaser_images' => array(
-        'custom_settings' => TRUE,
+        'custom_settings' => FALSE,
       ),
       'content_suffix' => array(
-        'custom_settings' => TRUE,
+        'custom_settings' => FALSE,
       ),
       'sidebar' => array(
         'custom_settings' => TRUE,
@@ -68,10 +68,10 @@ function uhc_page_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '8',
         ),
         'language' => array(
-          'weight' => '1',
+          'weight' => '11',
         ),
         'locations' => array(
           'weight' => '7',

@@ -114,12 +114,6 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['header']['block_1']['label'] = 'Start month';
   $handler->display->display_options['header']['block_1']['block_to_insert'] = 'facetapi:cEQesYoZJTu7ITT2OD5RXHP0T0bqniOh';
   /* Header: Global: Block area */
-  $handler->display->display_options['header']['block_3']['id'] = 'block_3';
-  $handler->display->display_options['header']['block_3']['table'] = 'views';
-  $handler->display->display_options['header']['block_3']['field'] = 'block';
-  $handler->display->display_options['header']['block_3']['label'] = 'Faculty';
-  $handler->display->display_options['header']['block_3']['block_to_insert'] = 'facetapi:R1BRVcBSjxhf1KDt3dthdTfNu1qhp5en';
-  /* Header: Global: Block area */
   $handler->display->display_options['header']['block_4']['id'] = 'block_4';
   $handler->display->display_options['header']['block_4']['table'] = 'views';
   $handler->display->display_options['header']['block_4']['field'] = 'block';
@@ -315,7 +309,6 @@ function uhc_search_front_page_views_default_views() {
     t('<h2>Results (@total)</h2>'),
     t('Method of study'),
     t('Start month'),
-    t('Faculty'),
     t('Teaching language'),
     t('Subject'),
     t('No results'),

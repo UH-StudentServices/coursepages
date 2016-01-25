@@ -46,42 +46,35 @@
         }
       }
       &.views-submit-button {
-        display: inline;
         clear: left;
-        float: left;
         input {
-          margin: 0;
-          @include at-breakpoint($layout-mobile-only) {
-            width: 100%;
-          }
+          width: 100%;
+          margin: 0 0 1em 0;
         }
         @include at-breakpoint($layout-mobile-only) {
-          width: 100%;
+          float: none;
         }
       }
       &.views-reset-button {
-        margin-top: 46px;
-        display: inline;
-        float: left;
         text-align: center;
         &:after {
           content: "\f00d";
           font-family: "FontAwesome";
           position: relative;
+          display: inline;
           right: 13px;
           top: 2px;
           color: $blue;
         }
         input {
-          display: inline;
           background: $white;
           color: $blue;
-          margin: 0;
+          display: inline;
+          margin: 0 0 1em 0;
         }
         @include at-breakpoint($layout-mobile-only) {
+          float: none;
           width: 100%;
-          position: relative;
-          top: -1em;
         }
       }
       .form-item-include-ongoing-courses {
@@ -205,13 +198,6 @@
 // On main page we don't want to show sorting
 body.search-main-page .views-widget-sort-by {
   display: none;
-}
-// Switch locations between reset and submit buttons
-.page-genetics-search .block--views.course-search form .views-exposed-form .views-exposed-widget.views-submit-button {
-  @include at-breakpoint($layout-mobile-only) {
-    margin-top: 3em;
-    margin-bottom: -6em;
-  }
 }
 
 // This is the results view (which also includes facet search elements)
