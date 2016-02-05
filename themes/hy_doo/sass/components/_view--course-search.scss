@@ -67,10 +67,11 @@
           color: $blue;
         }
         input {
+          @include button-invert-colors;
           background: $white;
           color: $blue;
           display: inline;
-          margin: 0 0 1em 0;
+          margin: 0;
         }
         @include at-breakpoint($layout-mobile-only) {
           float: none;
@@ -115,82 +116,16 @@
     }
   }
   .filter-help {
-    display: block;
-    margin-top: 2em;
-    cursor: help;
-    .icon-help-circled {
-      color: $blue;
-    }
-  }
-  .block.block--facetapi {
-    position: relative;
-    float: left;
-    margin: 0 1em 1em 0;
-    overflow: visible;
-    width: 100%;
-    @include at-breakpoint($layout-small) {
-      width: 23%;
-    }
-    h2.block__title {
-      display: block;
-      border: 1px solid $lightsilver;
-      padding: 5px 10px;
-      margin-bottom: -1px;
-      color: $blue;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 0.875em;
-      text-transform: uppercase;
-      width: 100%;
-      &:after {
-        content: "\f0d7"; // \f0d7
-        font-family: "FontAwesome";
-        float: right;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-    }
-    // Faux chosen multiselect theming
-    .block__content {
-      display: none;
-      max-height: 200px;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      font-size: 13px;
-      &.collapsed {
-        display: block;
-        border: 1px solid $lightsilver;
-        background: #fff;
-        position: absolute;
-        width: 100%;
-        z-index: 999;
-      }
-      li {
-        padding: 5px;
-        .facetapi-active, input {
-          display: none;
-        }
-      }
-    }
-    .chosen-choices {
-      border: 1px solid $lightsilver;
-      .search-choice {
-        cursor: pointer !important;
-        border: 1px solid $silver;
-        background: $lightsilver;
-        font-size: 13px;
-        padding: 2px;
-        margin: 2px;
-        display: inline-block;
-        &:after {
-          @include hy-icon("\EA2F");
-          @include transform(rotate(-45deg));
-          display: inline-block;
-        }
+    margin: 2em 0 0.5em 0;
+    .icon-help-circled:after {
+      @include at-breakpoint($small){
+        @include hy-icon($hy-question);
+        color: $blue;
+        cursor: help;
+        margin-left: 0.5em;
       }
     }
   }
-
   h2 {
     clear: both;
   }
@@ -233,7 +168,7 @@ body.search-main-page .views-widget-sort-by {
           padding: 1em 1em 1em 0;
           display: table-cell;
         }
-        .course-implementation-status-3 {
+        .cancelled {
           display: table-cell;
           width: auto;
           & + a {
@@ -242,7 +177,7 @@ body.search-main-page .views-widget-sort-by {
         }
       }
     }
-    .course-implementation-status-3 {
+    .cancelled {
       width: 100%;
     }
   }

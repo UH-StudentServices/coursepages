@@ -41,7 +41,6 @@
 }
 
 // Do not float these elements (floating breaks printing in Firefox).
-.ds-grid-item,
 .ds-node-content,
 .ds-node-banner {
   float: none !important;

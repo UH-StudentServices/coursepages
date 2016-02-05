@@ -36,6 +36,76 @@ function uhc_ds_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_content_collection_left|field_collection_item|field_content_collection|default';
+  $field_group->group_name = 'group_content_collection_left';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_content_collection';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Content collection left',
+    'weight' => '0',
+    'children' => array(
+      0 => 'field_content_image',
+      1 => 'field_related_content',
+      2 => 'title_field',
+      3 => 'field_related_content_title',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Content collection left',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'ds-grid-8',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_content_collection_left|field_collection_item|field_content_collection|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_content_collection_right|field_collection_item|field_content_collection|default';
+  $field_group->group_name = 'group_content_collection_right';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_content_collection';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Content collection right',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_body',
+      1 => 'field_link_multiple',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Content collection right',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'ds-grid-14 ds-grid-last',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_content_collection_right|field_collection_item|field_content_collection|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_course_messages|node|course_implementation|default';
   $field_group->group_name = 'group_course_messages';
   $field_group->entity_type = 'node';
@@ -108,7 +178,10 @@ function uhc_ds_field_group_info() {
       6 => 'uhc_ds_target_group',
       7 => 'uhc_ds_study_materials',
       8 => 'uhc_ds_conduct',
-      9 => 'uhc_content_administration_from_oodi',
+      9 => 'uhc_ds_timing',
+      10 => 'uhc_ds_responsible_person',
+      11 => 'uhc_ds_rel_to_other_study_units',
+      12 => 'uhc_content_administration_from_oodi',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(

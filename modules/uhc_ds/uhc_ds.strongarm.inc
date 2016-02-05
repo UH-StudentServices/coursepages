@@ -39,7 +39,15 @@ button-internal
 box-story
 tube
 tube--large
-regional-rule-top';
+regional-rule-top
+spacer-top-1
+spacer-top-2
+spacer-top-3
+spacer-top-4
+spacer-bottom-1
+spacer-bottom-2
+spacer-bottom-3
+spacer-bottom-4';
   $export['ds_classes_regions'] = $strongarm;
 
   $strongarm = new stdClass();

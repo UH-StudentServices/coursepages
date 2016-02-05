@@ -28,10 +28,12 @@ class PortalListBase extends MigrateListJSON {
     $ids = array();
     // If data missing, make a log entry about this.
     if (!isset($data['data'])) {
-      watchdog('uhc_sources', 'Unable to parse IDs from JSON when requesting %url', array('%url' => $this->listUrl), WATCHDOG_ERROR);
+      watchdog('uhc_sources', 'Unable to parse IDs from JSON when requesting %url', array('%url' => $this->listUrl), WATCHDOG_WARNING);
     }
-    foreach ($data['data'] as $item) {
-      $ids[] = $item[$this->idField];
+    else {
+      foreach ($data['data'] as $item) {
+        $ids[] = $item[$this->idField];
+      }
     }
     return $ids;
   }

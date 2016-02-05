@@ -884,3 +884,19 @@ function uh_coursepages_update_7007() {
 function uh_coursepages_update_7008(&$sandbox) {
   module_enable(array('smart_trim'));
 }
+
+/**
+ * Enable google_analytics_reports module.
+ */
+function uh_coursepages_update_7009(&$sandbox) {
+  module_enable(array('google_analytics_reports'));
+}
+
+/**
+ * Delete field base for field_responsible_person and
+ * revert uhc_field_bases to include it there as long text.
+ */
+function uh_coursepages_update_7010(&$sandbox) {
+  field_delete_field('field_responsible_person');
+  features_revert(array('uhc_field_base' => array('field_base')));
+}

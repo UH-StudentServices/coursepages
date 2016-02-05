@@ -69,7 +69,12 @@ function uhc_sources_filtering_uhc_course_implementation_source_allow_source_row
     $allowed_keywords = array('genetiikka', 'molekyylibiotieteet');
     $denied_realisations = uhc_sources_filtering_denied_realisation_type_codes();
     if (isset($row->descriptions) && isset($row->realisation_type_code)) {
-      $keywords = CourseImplementationNodeMigration::parseKeywordsFromDescriptions($row->descriptions);
+      // Important: Clone the row object to avoid modifying the original object
+      // when parsing the keywords.
+      $row_clone = clone $row;
+      $description_elements = variable_get('uhc_course_implementation_source_predefined_description_names', array());
+      CourseImplementationNodeMigration::prepareDescriptions($row_clone, $description_elements);
+      $keywords = CourseImplementationNodeMigration::parseKeywords($row_clone->keywords);
       foreach ($keywords as $keyword) {
         if (in_array($keyword, $allowed_keywords) && !in_array($row->realisation_type_code, $denied_realisations)) {
           // When source row has allowed keyword and allowed realistion type, then

@@ -51,8 +51,6 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 20, 50, 100';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'field_imp_status' => 'field_imp_status',
-    'field_imp_status_1' => 'field_imp_status_1',
     'url' => 'url',
     'title_field' => 'title_field',
     'field_study_credit' => 'field_study_credit',
@@ -62,16 +60,6 @@ function uhc_open_university_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = 'title_field';
   $handler->display->display_options['style_options']['info'] = array(
-    'field_imp_status' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_imp_status_1' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'url' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -115,27 +103,12 @@ function uhc_open_university_views_default_views() {
   );
   $handler->display->display_options['style_options']['override'] = FALSE;
   /* Header: Global: Block area */
-  $handler->display->display_options['header']['block_2']['id'] = 'block_2';
-  $handler->display->display_options['header']['block_2']['table'] = 'views';
-  $handler->display->display_options['header']['block_2']['field'] = 'block';
-  $handler->display->display_options['header']['block_2']['label'] = 'Method of study';
-  $handler->display->display_options['header']['block_2']['empty'] = TRUE;
-  $handler->display->display_options['header']['block_2']['block_to_insert'] = 'facetapi:do4BdKvyCgpZP4td6B6GmQ8iCUJ40HBx';
-  $handler->display->display_options['header']['block_2']['title'] = 'Method of study';
-  /* Header: Global: Block area */
-  $handler->display->display_options['header']['block_4']['id'] = 'block_4';
-  $handler->display->display_options['header']['block_4']['table'] = 'views';
-  $handler->display->display_options['header']['block_4']['field'] = 'block';
-  $handler->display->display_options['header']['block_4']['label'] = 'Start month';
-  $handler->display->display_options['header']['block_4']['block_to_insert'] = 'facetapi:cEQesYoZJTu7ITT2OD5RXHP0T0bqniOh';
-  $handler->display->display_options['header']['block_4']['title'] = 'Start month';
-  /* Header: Global: Block area */
-  $handler->display->display_options['header']['block']['id'] = 'block';
-  $handler->display->display_options['header']['block']['table'] = 'views';
-  $handler->display->display_options['header']['block']['field'] = 'block';
-  $handler->display->display_options['header']['block']['label'] = 'Location';
-  $handler->display->display_options['header']['block']['block_to_insert'] = 'facetapi:u1d1Lx0rPaqN5rZzf9O8SX4IxIGxkUQG';
-  $handler->display->display_options['header']['block']['title'] = 'Location';
+  $handler->display->display_options['header']['block_3']['id'] = 'block_3';
+  $handler->display->display_options['header']['block_3']['table'] = 'views';
+  $handler->display->display_options['header']['block_3']['field'] = 'block';
+  $handler->display->display_options['header']['block_3']['label'] = 'Subject';
+  $handler->display->display_options['header']['block_3']['block_to_insert'] = 'facetapi:hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX';
+  $handler->display->display_options['header']['block_3']['title'] = 'Subject';
   /* Header: Global: Block area */
   $handler->display->display_options['header']['block_1']['id'] = 'block_1';
   $handler->display->display_options['header']['block_1']['table'] = 'views';
@@ -144,24 +117,49 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['header']['block_1']['block_to_insert'] = 'facetapi:R1BRVcBSjxhf1KDt3dthdTfNu1qhp5en';
   $handler->display->display_options['header']['block_1']['title'] = 'Faculty';
   /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_7']['id'] = 'block_7';
+  $handler->display->display_options['header']['block_7']['table'] = 'views';
+  $handler->display->display_options['header']['block_7']['field'] = 'block';
+  $handler->display->display_options['header']['block_7']['label'] = 'Type of teaching';
+  $handler->display->display_options['header']['block_7']['block_to_insert'] = 'facetapi:ebLMT1Egl05afck7AKCq6EMM2B4VuGer';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_4']['id'] = 'block_4';
+  $handler->display->display_options['header']['block_4']['table'] = 'views';
+  $handler->display->display_options['header']['block_4']['field'] = 'block';
+  $handler->display->display_options['header']['block_4']['label'] = 'Start month';
+  $handler->display->display_options['header']['block_4']['block_to_insert'] = 'facetapi:cEQesYoZJTu7ITT2OD5RXHP0T0bqniOh';
+  $handler->display->display_options['header']['block_4']['title'] = 'Start month';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_2']['id'] = 'block_2';
+  $handler->display->display_options['header']['block_2']['table'] = 'views';
+  $handler->display->display_options['header']['block_2']['field'] = 'block';
+  $handler->display->display_options['header']['block_2']['label'] = 'Method of study';
+  $handler->display->display_options['header']['block_2']['empty'] = TRUE;
+  $handler->display->display_options['header']['block_2']['block_to_insert'] = 'facetapi:do4BdKvyCgpZP4td6B6GmQ8iCUJ40HBx';
+  $handler->display->display_options['header']['block_2']['title'] = 'Method of study';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block']['id'] = 'block';
+  $handler->display->display_options['header']['block']['table'] = 'views';
+  $handler->display->display_options['header']['block']['field'] = 'block';
+  $handler->display->display_options['header']['block']['label'] = 'Location';
+  $handler->display->display_options['header']['block']['block_to_insert'] = 'facetapi:u1d1Lx0rPaqN5rZzf9O8SX4IxIGxkUQG';
+  $handler->display->display_options['header']['block']['title'] = 'Location';
+  /* Header: Global: Block area */
   $handler->display->display_options['header']['block_5']['id'] = 'block_5';
   $handler->display->display_options['header']['block_5']['table'] = 'views';
   $handler->display->display_options['header']['block_5']['field'] = 'block';
   $handler->display->display_options['header']['block_5']['label'] = 'Teaching language';
   $handler->display->display_options['header']['block_5']['block_to_insert'] = 'facetapi:as918Au1kK03VaWu2iPYsRfNZ1iJWE7X';
   $handler->display->display_options['header']['block_5']['title'] = 'Teaching language';
-  /* Header: Global: Block area */
-  $handler->display->display_options['header']['block_3']['id'] = 'block_3';
-  $handler->display->display_options['header']['block_3']['table'] = 'views';
-  $handler->display->display_options['header']['block_3']['field'] = 'block';
-  $handler->display->display_options['header']['block_3']['label'] = 'Subject';
-  $handler->display->display_options['header']['block_3']['block_to_insert'] = 'facetapi:hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX';
-  $handler->display->display_options['header']['block_3']['title'] = 'Subject';
   /* Header: Global: Result summary */
   $handler->display->display_options['header']['result']['id'] = 'result';
   $handler->display->display_options['header']['result']['table'] = 'views';
   $handler->display->display_options['header']['result']['field'] = 'result';
   $handler->display->display_options['header']['result']['content'] = '<h2>Results (@total)</h2>';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_6']['id'] = 'block_6';
+  $handler->display->display_options['header']['block_6']['table'] = 'views';
+  $handler->display->display_options['header']['block_6']['field'] = 'block';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -169,27 +167,14 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'No results';
   $handler->display->display_options['empty']['area']['format'] = 'plain_text';
-  /* Field: Course implementation status value */
-  $handler->display->display_options['fields']['field_imp_status']['id'] = 'field_imp_status';
-  $handler->display->display_options['fields']['field_imp_status']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['fields']['field_imp_status']['field'] = 'field_imp_status';
-  $handler->display->display_options['fields']['field_imp_status']['ui_name'] = 'Course implementation status value';
-  $handler->display->display_options['fields']['field_imp_status']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_imp_status']['settings'] = array(
-    'thousand_separator' => '',
-    'prefix_suffix' => 1,
-  );
-  /* Field: Course implementation status text */
-  $handler->display->display_options['fields']['field_imp_status_1']['id'] = 'field_imp_status_1';
-  $handler->display->display_options['fields']['field_imp_status_1']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['fields']['field_imp_status_1']['field'] = 'field_imp_status';
-  $handler->display->display_options['fields']['field_imp_status_1']['ui_name'] = 'Course implementation status text';
-  $handler->display->display_options['fields']['field_imp_status_1']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_imp_status_1']['type'] = 'course_implementation_status';
-  $handler->display->display_options['fields']['field_imp_status_1']['settings'] = array(
-    'thousand_separator' => '',
-    'prefix_suffix' => 1,
-  );
+  /* Field: Indexed Multilingual Node: Cancelled */
+  $handler->display->display_options['fields']['field_cancelled']['id'] = 'field_cancelled';
+  $handler->display->display_options['fields']['field_cancelled']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['field_cancelled']['field'] = 'field_cancelled';
+  $handler->display->display_options['fields']['field_cancelled']['label'] = '';
+  $handler->display->display_options['fields']['field_cancelled']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_cancelled']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_cancelled']['type'] = 'cancelled';
   /* Field: Indexed Multilingual Node: URL */
   $handler->display->display_options['fields']['url']['id'] = 'url';
   $handler->display->display_options['fields']['url']['table'] = 'search_api_index_uhc_portal';
@@ -207,7 +192,7 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['fields']['title_field']['alter']['text'] = '<a href="[field_imp_reference_to_courses_url]">[title_field]</a>';
   $handler->display->display_options['fields']['title_field']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['title_field']['alter']['path'] = '[url]';
-  $handler->display->display_options['fields']['title_field']['alter']['prefix'] = '<span class="course-implementation-status course-implementation-status-[field_imp_status]"><p>[field_imp_status_1]</p></span>';
+  $handler->display->display_options['fields']['title_field']['alter']['prefix'] = '[field_cancelled]';
   /* Field: Indexed Multilingual Node: Credit */
   $handler->display->display_options['fields']['field_study_credit']['id'] = 'field_study_credit';
   $handler->display->display_options['fields']['field_study_credit']['table'] = 'search_api_index_uhc_portal';
@@ -318,18 +303,18 @@ function uhc_open_university_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
-    t('Method of study'),
-    t('Start month'),
-    t('Location'),
-    t('Faculty'),
-    t('Teaching language'),
     t('Subject'),
+    t('Faculty'),
+    t('Type of teaching'),
+    t('Start month'),
+    t('Method of study'),
+    t('Location'),
+    t('Teaching language'),
     t('<h2>Results (@total)</h2>'),
     t('No results'),
-    t('Status'),
     t('Name'),
     t('<a href="[field_imp_reference_to_courses_url]">[title_field]</a>'),
-    t('<span class="course-implementation-status course-implementation-status-[field_imp_status]"><p>[field_imp_status_1]</p></span>'),
+    t('[field_cancelled]'),
     t('Cr'),
     t('[field_study_credit-value]  <span class="show-only-in-mobile">Cr</span>'),
     t('Begin date'),

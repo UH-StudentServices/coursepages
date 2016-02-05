@@ -66,6 +66,21 @@ function uhc_ds_ds_fields_info($entity_type) {
         'field_name' => 'field_conduct',
         'label' => 'Course implementation or Course: Conduct',
       ),
+      'uhc_ds_timing' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_timing',
+        'label' => 'Course implementation or Course: Timing',
+      ),
+      'uhc_ds_responsible_person' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_responsible_person',
+        'label' => 'Course implementation or Course: Responsible person',
+      ),
+      'uhc_ds_rel_to_other_study_units' => array(
+        'function' => 'uhc_ds_render_comparable_ds_field',
+        'field_name' => 'field_rel_to_other_study_units',
+        'label' => 'Course implementation or Course: Relation to other study units',
+      ),
 
     );
 
@@ -118,6 +133,15 @@ function uhc_ds_ds_fields_info($entity_type) {
       'function' => 'uhc_ds_enrollment_period',
       'properties' => array(
         'field_name' => 'enrollment_period',
+      ),
+    );
+
+    $ds_fields['uhc_ds_table_of_contents'] = array(
+      'title' => 'Table of contents',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_ds_table_of_contents',
+      'properties' => array(
+        'field_name' => 'table_of_contents',
       ),
     );
 
@@ -200,20 +224,12 @@ function uhc_ds_render_inherited_ds_field($field = NULL) {
   }
 
   // Find out language code so we know which language value we'll fetch
-  $langcode = function_exists('i18n_langcode') ? i18n_langcode() : LANGUAGE_NONE;
+  $langcode = i18n_langcode();
 
   // Get values and return the first item. TODO: How we handle multiple values?
   $values = field_get_items('node', $course_node, $field_name, $langcode);
-  if (is_array($values)) {
-    foreach ($values as $value) {
-      if (isset($value['safe_value'])) {
-        return $value['safe_value'];
-        break;
-      }
-    }
-  }
-  return NULL;
-
+  $value = field_view_value('node', $course_node, $field_name, $values[0]);
+  return render($value);
 }
 
 /**
@@ -229,23 +245,25 @@ function uhc_ds_render_comparable_ds_field($field = NULL) {
   // This is the field, we want to compare
   $field_name = $field['properties']['field_name'];
 
-  // Find out language code so we know which language value we'll fetch
-  $langcode = function_exists('i18n_langcode') ? i18n_langcode() : LANGUAGE_NONE;
+  $langcode = i18n_langcode();
 
-  // Get values and return the first item. TODO: How we handle multiple values?
+  // if the field has a value, use it
   $values = field_get_items('node', $node, $field_name, $langcode);
-  if (is_array($values)) {
-    foreach ($values as $value) {
-      if (isset($value['safe_value'])) {
-        return $value['safe_value'];
-        break;
+  if($values) {
+    $value = field_view_value('node', $node, $field_name, $values[0]);
+    return render($value);
+  }
+
+  // If the active language is one of the teaching languages and field has no value, we
+  // try to fetch the value from the course node instead.
+  $teaching_languages = field_get_items('node', $node, 'field_imp_teaching_language');
+  if ($teaching_languages) {
+    foreach ($teaching_languages as $teaching_language) {
+      if ($teaching_language['value'] == $langcode) {
+        return uhc_ds_render_inherited_ds_field($field);
       }
     }
   }
-
-  // If no values from active node, then try inheriting it from course
-  return uhc_ds_render_inherited_ds_field($field);
-
 }
 
 /**
@@ -278,11 +296,7 @@ function uhc_ds_status_org_location_date($field) {
     $values[$imp_field] = field_view_field('node', $node, $imp_field, array('label' => 'hidden'));
   }
 
-  // format status
-  $formatted_status = field_view_field('node', $node, 'field_imp_status', array('type' => 'course_implementation_status'));
-  $class_name = isset($formatted_status['#items'][0]['value']) ? 'course-implementation-status-' . $formatted_status['#items'][0]['value'] : '';
-  $status_text = isset($formatted_status[0]['#markup']) ? $formatted_status[0]['#markup'] : '';
-  $status = '<span class="course-implementation-status ' . $class_name . '"><span>' . $status_text . '</span></span>';
+  $status = field_view_field('node', $node, 'field_cancelled', array('type' => 'cancelled', 'label' => 'hidden'));
 
   // format date values
   $begin_date = isset($values['field_imp_begin_date']['#items'][0]['value']) ? date('j.n.Y', strtotime($values['field_imp_begin_date']['#items'][0]['value'])) : '';
@@ -292,7 +306,7 @@ function uhc_ds_status_org_location_date($field) {
   $organiser = isset($values['field_imp_course_organiser'][0]['#markup']) ? $values['field_imp_course_organiser'][0]['#markup'] : '';
   $locality = isset($values['field_imp_locality']) ? render($values['field_imp_locality']) : '';
 
-  return $status . '<span class="island">' . $organiser . $locality . $time . '</span>';
+  return render($status) . '<span class="island">' . $organiser . $locality . $time . '</span>';
 
 }
 
@@ -333,4 +347,25 @@ function uhc_ds_get_formatted_date_and_time($node, $date_field_name) {
   }
 
   return $formatted_date_and_time;
+}
+
+function uhc_ds_table_of_contents($field) {
+  $node = $field['entity'];
+  $content_collections = !empty($node->field_content_collection) ? $node->field_content_collection[LANGUAGE_NONE]: 0;
+  if (count($content_collections) > 1) {
+    $items = array('attributes' => array('class' => 'list-of-links columns-2'));
+
+    foreach ($content_collections as $content_collection) {
+      $entity = field_collection_item_load($content_collection['value']);
+      $title_field_raw = field_get_items('field_collection_item', $entity, 'title_field');
+      $title = field_view_value('field_collection_item', $entity, 'title_field', $title_field_raw[0]);
+
+      $items['items'][] = l(render($title), '',  array(
+        'fragment' => render($title),
+        'external' => TRUE,
+        'attributes' => array('class' => 'button-anchor'),
+      ));
+    }
+    return theme('item_list', $items);
+  }
 }

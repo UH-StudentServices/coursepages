@@ -1,3 +1,43 @@
+# Helsinki University Coursepages v1.54
+Päiväys: 05.02.2016
+
+## Lisäykset
+  - DOO-1765: Lisättiin portaalisivuihin promootioiden linkkituki (esim.
+    koontisivulle).
+  - DOO-1780: Lisättiin opetuksen tyyppi -valinta avoimen hakuun.
+  - DOO-1763: Lisätty portal page -sisältötyyppiin mahdollisuus lisätä
+    sisältökokoelmia ja niille sisällysluettelo.
+  - DOO-1251: Tilastointiin lisättiin mahdollisuus näkymien järjestämiseen,
+    suodattamiseen ja tulosten kokonaismäärän näyttämiseen.
+  - DOO-1815: Kurssisivun analytiikkatietojen näyttäminen (Google Analytics)
+  - DOO-1818: Näytetään materiaalin muokkausnäkymälistalla onko kyseessä
+    julkinen vai rajoitettu materiaali.
+  - DOO-1840: Lisättiin toteuttaja hakuindeksiin.
+  - DOO-661: Lisätty avoimen yliopiston hakuun ohje-tooltip.
+  - DOO-1630: Kurssiesitteesseen lisätty Ajoitus, vastuuhenkilö, ja
+    yhteydet muihin opintojaksoihin.
+  - DOO-1859: Näytetään palveluviesti kun ollaan muokkaamassa toteutusta.
+    
+## Muutokset
+  - DOO-1552: Useamman hakuvalinnan valitseminen suodattimesta yhdellä kertaa.
+  - DOO-1803: Etusivun haussa ei enää pysty hakemaan menneitä kursseja.
+  - DOO-1831: Toteutussivun kuvaustekstejä ei näytetä, mikäli sivua katsellaan muulla
+    kuin opetuskielellä.
+  - DOO-1768: Paranneltiin työkalua, jolla tunnistetaan jaksottomat toteutukset. 
+  - DOO-1844: Jaksosivujen opetustiedot näytetään sellaisenaan ilman haitarielementtiä.
+  - DOO-1847: Näytetään aktiviteettiviestit yksityisten materiaalien lisäämiselle,
+    muokkaamiselle ja poistamiselle (ilman materiaalin otsikkotietoa).
+  - DOO-1421 kuvien pakkausta vähennetty ja profiilikuvan asemointia
+  - DOO-1871: Tuki kurssirajapinnalle v0.1.4
+  - DOO-1859: Muokkausnäkymän pääotsikko pienemmäksi
+  - DOO-1868: Poistettiin hakukenttien automaattinen kohdennus.
+
+## Korjaukset
+  - DOO-1843: Korjattu näytä meneillään oleva opetus -valinnan ja hakutulosten
+    järjestyksen nollautuminen rajausehtojen valitsemisen jälkeen.
+  - DOO-1744: Vaihdettiin avoimen haun rajausehtojen järjestystä.
+
+
 # Helsinki University Coursepages v1.53
 Päiväys: 25.01.2016
 

@@ -862,6 +862,120 @@ function uhc_course_implementation_activity_default_message_type() {
     },
     "rdf_mapping" : []
   }');
+  $items['course_implementation_private_material_create'] = entity_import('message_type', '{
+    "name" : "course_implementation_private_material_create",
+    "description" : "Course implementation - Private material create",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-material",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] has attached a private material\\u003C\\/p\\u003E\\r\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] has attached a private material\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] on liitt\\u00e4nyt yksityisen materiaalin\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] on liitt\\u00e4nyt yksityisen materiaalin\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] har f\\u00e4stat ett privat\\u0026nbsp;material\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] har f\\u00e4stat ett privat\\u00a0material\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_private_material_remove'] = entity_import('message_type', '{
+    "name" : "course_implementation_private_material_remove",
+    "description" : "Course implementation - Private material remove",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-material",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] has removed a private material\\u003C\\/p\\u003E\\r\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] has removed a private material\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] poisti yksityisen materiaalin\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] poisti yksityisen materiaalin\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] raderade ett privat\\u0026nbsp;material\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] raderade ett privat\\u00a0material\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_private_material_update'] = entity_import('message_type', '{
+    "name" : "course_implementation_private_material_update",
+    "description" : "Course implementation - Private material update",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-material",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] has updated private material\\u003C\\/p\\u003E\\r\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] has updated private material\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti yksityist\\u00e4 materiaalia\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti yksityist\\u00e4 materiaalia\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] redigerade ett privat material\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] redigerade ett privat material\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
   $items['course_implementation_task_create'] = entity_import('message_type', '{
     "name" : "course_implementation_task_create",
     "description" : "Course implementation - Task create",

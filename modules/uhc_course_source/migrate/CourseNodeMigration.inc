@@ -89,22 +89,47 @@ class CourseNodeMigration extends PortalMigrationBase {
       'field_imp_header_image_caption',
     ));
 
-    // Setup simple field mapping
-    $this->addFieldMapping('status', 'julkisuus')->defaultValue(1);
-    $this->addFieldMapping('title', 'nimi_en')->callbacks(array($this, 'trimOpenUniPrefix'));
-    $this->addFieldMapping('field_course_course_number', 'id');
-    $this->addFieldMapping('field_study_credit', 'laajuus');
+    // Specify default field arguments for text fields
+    $field_arguments = array('language' => $this->getSupportedLanguages(), 'format' => 'filtered_html');
 
-    // Type of teaching is mapped as term reference
-    $this->addFieldMapping('field_course_type_of_teaching', 'opetustyyppi_id')
+    ############################################################################
+
+    // Text fields that needs some type of processing during mapping: Language neutral
+    $this->addFieldMapping('title', 'title')->callbacks(array($this, 'trimOpenUniPrefix'));
+    // Text fields that needs some type of processing during mapping: Multilingual
+    $this->addFieldMapping('title_field', 'names')->arguments($field_arguments)
+      ->callbacks(array($this, 'trimOpenUniPrefix'));
+
+    // Other types of fields that are computed or prepared in prepare phase
+    $this->addFieldMapping('status', 'status')->defaultValue(0);
+
+    // Language netural text fields that fits *AS IS* to field mapping
+    $this->addFieldMapping('field_course_course_number', 'id');
+
+    // Multilingual text fields that are computed in preprocess
+    $this->addFieldMapping('field_course_subject',  'disciplines')
+      ->arguments(array('format' => 'filtered_html'));
+    $this->addFieldMapping('field_study_credit', 'credit_points');
+    // Multilingual text fields that are computed in preprocess: Descriptions
+    $this->addFieldMapping('field_objective',  'objective')->arguments($field_arguments);
+    $this->addFieldMapping('field_contents',  'contents')->arguments($field_arguments);
+    $this->addFieldMapping('field_study_materials',  'study_materials')->arguments($field_arguments);
+    $this->addFieldMapping('field_responsible_person',  'responsible_person')->arguments($field_arguments);
+    $this->addFieldMapping('field_rel_to_other_study_units',  'relations_to_other_study_units')->arguments($field_arguments);
+    $this->addFieldMapping('field_timing',  'timing')->arguments($field_arguments);
+    $this->addFieldMapping('field_target_group',  'target_group')->arguments($field_arguments);
+    $this->addFieldMapping('field_additional_info',  'other_information')->arguments($field_arguments);
+    $this->addFieldMapping('field_evaluation',  'evaluation')->arguments($field_arguments);
+    $this->addFieldMapping('field_conduct',  'completion')->arguments($field_arguments);
+    $this->addFieldMapping('field_req_prerequisites',  'previous_studies')->arguments($field_arguments);
+
+    // Entity reference fields
+    $this->addFieldMapping('field_course_type_of_teaching', 'learningopportunity_type_code')
       ->arguments(array('source_type' => 'tid'))
       ->sourceMigration('TaxonomyTypeOfTeachingTerm');
-
-    // Course tags are taken in as multilingual terms
-    $this->addFieldMapping('field_course_course_tags', 'avainsanat_all')
+    $this->addFieldMapping('field_course_course_tags', 'keywords')
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'parseCourseTags'));
-
     /* Themes are same as tags, but we define an preset of tags we want to map
      * into "themes".
      *
@@ -115,61 +140,13 @@ class CourseNodeMigration extends PortalMigrationBase {
      *
      * Note that themes are maintained only through Finnish language.
      */
-    $this->addFieldMapping('field_course_theme', 'avainsanat_fi')
+    $this->addFieldMapping('field_course_theme', 'keywords')
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'resolveThemeTids'));
 
-    // Handle multilingual field mapping
-    $field_arguments = array('language' => $this->getSupportedLanguages(), 'format' => 'filtered_html');
-
-    // Title has been already mapped, but we need to map the multilingual field
-    // too
-    $this->addFieldMapping('title_field', 'nimi_all')->arguments($field_arguments)
-      ->callbacks(array($this, 'trimOpenUniPrefix'));
-
-    $this->addFieldMapping('field_evaluation',  'arviointi_all')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_req_prerequisites',  'ed_opinnot_all')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_target_group',  'kohderyhma_all')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_study_materials',  'oppimateriaali_all')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_timing',  'ajoitus_all')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_objective',  'tavoite_all')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_contents',  'sisalto_all')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_additional_info',  'lisatiedot_all')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_conduct',  'suoritustavat_all')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_course_faculty',  'tiedekunta_all')
+    $this->addFieldMapping('field_course_faculty',  'faculties')
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'resolveFacultyTid'));
-
-    $this->addFieldMapping('field_course_subject',  'oppiaineet')
-      ->arguments(array('format' => 'filtered_html'));
-
   }
 
   /**
@@ -178,73 +155,75 @@ class CourseNodeMigration extends PortalMigrationBase {
    */
   static function sourceFields() {
     return array(
-      'id'                  => 'Course ID',
-      'nimi_en'             => 'Name of course in english',
-      'nimi_fi'             => 'Name of course in finnish',
-      'nimi_sv'             => 'Name of course in swedish',
-      'nimi_all'            => 'Name of course in all languages',
-      'opetustyyppi_id'     => 'Form of study',
-      'avainsanat_all'      => 'Keywords of course in all languages',
-      'arviointi_all'       => 'Evaluation information in all languages',
-      'ed_opinnot_all'      => 'Required pre-requisites in all languages',
-      'kohderyhma_all'      => 'Target group in all languages',
-      'ajoitus_all'         => 'Timing in all languages',
-      'tavoite_all'         => 'Objective in all languages',
-      'sisalto_all'         => 'Contents in all languages',
-      'lisatiedot_all'      => 'Additional information in all languages',
-      'tiedekunta_all'      => 'Faculty of course in all languages',
-      'oppimateriaali_all'  => 'Study materials in all languages.',
-      'suoritustavat_all'   => 'Conduct in all languages',
-      'oppiaineet'          => 'List of subjects',
-      'laajuus'             => 'Credit',
-      'julkisuus'           => 'Published (0 = unpublished, 1 = published)',
-      'md5'                 => 'MD5 checksum of the content',
+      'id'                              => 'Learning opportunity ID',
+      'title'                           => 'Language neutral: Title in finnish',
+      'names'                           => 'Multilingual: Title',
+      'hidden'                          => 'Indicates whether this course should be hidden or not.',
+      'status'                          => 'Indicates whether this course should be published or not.',
+      'learningopportunity_type_code'   => 'Learning opportunity type code',
+      'objective'                       => 'Multilingual: Objective',
+      'contents'                        => 'Multilingual: Contents',
+      'study_materials'                 => 'Multilingual: Study materials',
+      'responsible_person'              => 'Multilingual: Resonsible person',
+      'relations_to_other_study_units'  => 'Multilingual: Relations to other study units',
+      'timing'                          => 'Multilingual: Timing',
+      'target_group'                    => 'Multilingual: Target group',
+      'other_information'               => 'Multilingual: Other information',
+      'evaluation'                      => 'Multilingual: Evaluation',
+      'completion'                      => 'Multilingual: Completion/conduct',
+      'previous_studies'                => 'Multilingual: Previous studies',
+      'keywords'                        => 'Multilingual: Keywords',
+      'disciplines'                     => 'List of subjects/disciplines',
+      'credit_points_max'               => 'Maximum credit points',
+      'credit_points_min'               => 'Minimum credit points',
+      'credit_points'                   => 'Computed scale of credit points',
+      'faculties'                       => 'Faculty of course',
     );
   }
 
   /**
-   * Prepare row by doing following things:
-   *   1) Aggregate multilingual fields into _all properties. For example:
-   *      nimi_fi, nimi_en, nimi_sv will generate and array nimi_all. This allows
-   *      us to use that field for multilingual field mapping.
-   *   2) Move all "kurssikuvaus" properties to root, so that we can map them
-   *      nicely from the __construct() when setting field mapping.
+   * Check that should this item be processed and if so, prepare whole row, so
+   * that it is field mappable by Migrate.
    */
   public function prepareRow($row) {
+
+    // If this row should be skipped, then return FALSE indicating that we don't
+    // process this item
     if ($this->shouldRowBeSkipped($row)) {
       return FALSE;
     }
 
-    // These are the languages we want to aggregate
-    $languages = $this->getSupportedLanguages();
+    // From configuration we get list of elements that contains information
+    // about each description name and id. We need that for field proper mapping
+    $description_elements = variable_get('uhc_course_source_predefined_description_names', array());
 
-    // Aggregate all root multilingual fields
-    $fields = array('nimi', 'url', 'tiedekunta');
-    $row = $this->aggregateMultilingualFields($row, $languages, $fields);
+    // Make the $row field mappable \o/
+    PortalMigrationBase::prepareStatus($row);
+    CourseNodeMigration::prepareMultilingualRootTexts($row);
+    CourseNodeMigration::prepareTitle($row);
+    PortalMigrationBase::prepareDescriptions($row, $description_elements);
+    CourseNodeMigration::prepareCreditPoints($row);
 
-    // Aggregate all course descriptions
-    $fields = array('ajoitus', 'arviointi', 'avainsanat', 'ed_opinnot', 'kohderyhma', 'lisatiedot', 'oppimateriaali', 'sisalto', 'suoritustavat', 'tavoite');
-    $row->kurssikuvaus = $this->aggregateMultilingualFields($row->kurssikuvaus, $languages, $fields);
-
-    // Aggregate subjects into $row->oppiaineet, so that we can do field mapping
-    // with multiple string values (no entity references so far yet). See
-    // DOO-1494 comments in JIRA.
-    $row->oppiaineet = array();
-    if (isset($row->oppiainelista)) {
-      $row->oppiaineet = $this->aggregateSubjects($row->oppiainelista);
-    }
-
-    // Copy all course descriptions to root
-    foreach ($row->kurssikuvaus as $key => $value) {
-      if (!isset($row->$key)) {
-        $row->$key = $row->kurssikuvaus->$key;
+    // All these properties may contain problematic string content that needs
+    // some processing to make it nicely renderable in Drupal.
+    $preprocess_strings = array(
+      'objective',
+      'contents',
+      'study_materials',
+      'responsible_person',
+      'relations_to_other_study_units',
+      'timing',
+      'target_group',
+      'other_information',
+      'evaluation',
+      'completion',
+      'previous_studies',
+    );
+    foreach ($preprocess_strings as $property) {
+      if (!empty($row->$property)) {
+        $row->$property = PortalMigrationBase::preprocessString($row->$property);
       }
-      else {
-        // Yes we want to know if this happens!
-        throw new Exception('Unexpected property name "'.$key.'" while moving course description values to root.');
-      }
     }
-    unset($row->kurssikuvaus);
 
   }
 
@@ -289,44 +268,12 @@ class CourseNodeMigration extends PortalMigrationBase {
   }
 
   /**
-   * This method takes in an object for loop. It goes through given languages
-   * and fields and aggregates properties into arrays as following:
-   * nimi_en, nimi_fi, nimi_sv becomes nimi_all => array(nimi_en, nimi_fi,
-   * nimi_sv).
+   * Method for resolving disciplines IDs into names.
    *
-   * @param $object
-   * @param $languages
-   * @param $fields
-   * @return mixed
-   */
-  protected function aggregateMultilingualFields($object, $languages, $fields) {
-    // Loop fields and get their multilingual values and aggregate them to
-    // suffixed _all.
-    foreach ($fields as $field) {
-      $all = array();
-      foreach ($languages as $lang) {
-
-        // Following two lines will specify where to look the value from using
-        // given language and source field.
-        $rest_field = $field . '_' . $lang;
-
-        // Now specify the value by storing it to $all variable
-        $all[$lang] = is_object($object->$rest_field) ? NULL : $object->$rest_field;
-      }
-
-      // Now store the whole aggregated multilingual field
-      $all_field_name = $field . '_all';
-      $object->$all_field_name = $all;
-    }
-    return $object;
-  }
-
-  /**
-   * Method for aggregating subjects (or disciplines) from list of given IDs.
    * @param $resolvable_disciplines
    * @return array
    */
-  protected function aggregateSubjects($resolvable_disciplines) {
+  public static function resolveDisciplines($resolvable_disciplines) {
 
     // Constrcut list of all resolved disciplines
     $resolved_disciplines = array();
@@ -346,10 +293,11 @@ class CourseNodeMigration extends PortalMigrationBase {
         // Loop over known disciplines and look for matching iD
         foreach ($known_disciplines as $known_discipline) {
           // When matching ID
-          if ($resolvalbe_discipline->oppiaine_id == $known_discipline->discipline_id) {
+          if ($resolvalbe_discipline->discipline_id == $known_discipline->discipline_id) {
             // Append the name to resolved disciplines and continue to next
             // resolvable discipline.
-            $resolved_disciplines[] = $known_discipline->discipline_name;
+            $known_discipline->discipline = PortalMigrationBase::convertToMultilingualText($known_discipline->discipline);
+            $resolved_disciplines[] = $known_discipline->discipline['fi'];
             continue 2;
           }
         }
@@ -376,6 +324,7 @@ class CourseNodeMigration extends PortalMigrationBase {
 
     foreach ($tags as $lang => $values) {
       foreach (explode(',', $values) as $value) {
+        $value = strip_tags($value);
         $value = trim($value);
         $value = ucfirst($value);
 
@@ -436,29 +385,30 @@ class CourseNodeMigration extends PortalMigrationBase {
    * @return array
    */
   static function resolveThemeTids($values) {
-
+    $return = array();
     $keywords = array();
-    foreach (explode(',', $values) as $value) {
-      // Yes, we sometimes might get <p>keyword</p>
-      $value = strip_tags($value);
-      // And they might have white space around
-      $value = trim($value);
-      // And they're listed as keywords, so their capitalization is different to
-      // our taxonomy terms.
-      $value = drupal_ucfirst($value);
-      // Gather the list here
-      $keywords[] = $value;
+    if (isset($values['fi'])) {
+      foreach (explode(',', $values['fi']) as $value) {
+        // Yes, we sometimes might get <p>keyword</p>
+        $value = strip_tags($value);
+        // And they might have white space around
+        $value = trim($value);
+        // And they're listed as keywords, so their capitalization is different to
+        // our taxonomy terms.
+        $value = drupal_ucfirst($value);
+        // Gather the list here
+        $keywords[] = $value;
+      }
+
+      // Query these keywords against taxonomy term's name field
+      $query = new EntityFieldQuery();
+      $query->entityCondition('entity_type', 'taxonomy_term')
+        ->entityCondition('bundle', 'course_theme')
+        ->fieldCondition('name_field', 'value', $keywords)
+        ->fieldLanguageCondition('name_field', 'fi');
+      $results = $query->execute();
+      $return = isset($results['taxonomy_term']) && count($results['taxonomy_term']) > 0 ? array_keys($results['taxonomy_term']) : array();
     }
-
-    // Query these keywords against taxonomy term's name field
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'taxonomy_term')
-      ->entityCondition('bundle', 'course_theme')
-      ->fieldCondition('name_field', 'value', $keywords)
-      ->fieldLanguageCondition('name_field', 'fi');
-    $results = $query->execute();
-    $return = isset($results['taxonomy_term']) && count($results['taxonomy_term']) > 0 ? array_keys($results['taxonomy_term']) : array();
-
     return $return;
   }
 
@@ -470,12 +420,18 @@ class CourseNodeMigration extends PortalMigrationBase {
    */
   static function resolveFacultyTid($values) {
 
+    $faculties = array();
+
+    foreach ($values as $value) {
+      $faculties[$value->langcode] = $value->text;
+    }
+
     // Query these keywords against taxonomy term's name field
     $search_by_language = 'en';
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'taxonomy_term')
       ->entityCondition('bundle', 'faculty')
-      ->fieldCondition('name_field', 'value', $values[$search_by_language])
+      ->fieldCondition('name_field', 'value', $faculties[$search_by_language])
       ->fieldLanguageCondition('name_field', $search_by_language);
     $results = $query->execute();
     if (isset($results['taxonomy_term']) && count($results['taxonomy_term']) > 0) {
@@ -488,14 +444,14 @@ class CourseNodeMigration extends PortalMigrationBase {
       $term_values = array(
         'vid' => $faculty_vocabulary->vid,
         'vocabulary_machine_name' => $faculty_vocabulary->machine_name,
-        'name' => $values['en'],
+        'name' => $faculties['en'],
         'description_field' => array(),
         'format' => 'plain_text',
         'weight' => 0,
         'name_field' => array(
-          'en' => array(array('value' => $values['en'])),
-          'fi' => array(array('value' => $values['fi'])),
-          'sv' => array(array('value' => $values['sv'])),
+          'en' => array(array('value' => $faculties['en'])),
+          'fi' => array(array('value' => $faculties['fi'])),
+          'sv' => array(array('value' => $faculties['sv'])),
         ),
       );
       $term = entity_create('taxonomy_term', $term_values);
@@ -536,6 +492,79 @@ class CourseNodeMigration extends PortalMigrationBase {
     }
 
     return $return;
+  }
+
+  ##############################################################################
+  # All following methods are used to prepare the $row and making it field
+  # mappable.
+  ##############################################################################
+
+  /**
+   * Prepares all multilingual root texts that are not having special property
+   * structure.
+   *
+   * @param $row
+   */
+  static public function prepareMultilingualRootTexts(&$row) {
+    // Convert these fields as multilingual values
+    if (!empty($row->names)) {
+      $row->names = PortalMigrationBase::convertToMultilingualText($row->names);
+    }
+
+    // Resolve $row->disciplines, so that we can do field mapping with multiple
+    // string values (no entity references so far yet). See DOO-1494 comments
+    // in JIRA.
+    if (isset($row->disciplines)) {
+      $resolved_disciplines = CourseNodeMigration::resolveDisciplines($row->disciplines);
+      $row->disciplines = $resolved_disciplines;
+    }
+
+  }
+
+  /**
+   * Prepares title field by using finnish title of names field.
+   *
+   * Requires CourseNodeMigration::prepareMultilingualRootTexts() to be called
+   * prior to this call.
+   *
+   * @param $row
+   * @see CourseNodeMigration::prepareMultilingualRootTexts()
+   */
+  static public function prepareTitle(&$row) {
+    $row->title = (!empty($row->names['fi']) ? $row->names['fi'] : NULL);
+  }
+
+  /**
+   * Prepares $row->credit_points value by looking out given min and max values.
+   *
+   * @param $row
+   * @return mixed
+   */
+  static public function prepareCreditPoints(&$row) {
+    // When we have both values
+    if (isset($row->credit_points_min) && isset($row->credit_points_max)) {
+      // If they are the same
+      if ($row->credit_points_max == $row->credit_points_min) {
+        // Set max value (which is same as min)
+        $row->credit_points = $row->credit_points_max;
+      }
+      else {
+        // If they are not the same, then set scale
+        $row->credit_points = $row->credit_points_min . '-' . $row->credit_points_max;
+      }
+    }
+    elseif (isset($row->credit_points_max)) {
+      // We have max value, set that
+      $row->credit_points = $row->credit_points_max;
+    }
+    elseif (isset($row->credit_points_min)) {
+      // We have min value, set that
+      $row->credit_points = $row->credit_points_min;
+    }
+    else {
+      // We don't have either min or max value, set NULL
+      $row->credit_points = NULL;
+    }
   }
 
 }

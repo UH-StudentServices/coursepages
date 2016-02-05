@@ -1,0 +1,16 @@
+.l-action-footer-wrapper {
+  @include line-break($lightsilver);
+  .l-action-footer {
+    .block--hy-content-suffix-hy-content-suffix-last-updated {
+      @include font-size(14px);
+      float: left;
+      line-height: 60px;
+    }
+    .block--hy-content-suffix-hy-content-suffix-up-anchor {
+      float: right;
+      a#up-anchor {
+        @include button-anchor--up;
+      }
+    }
+  }
+}

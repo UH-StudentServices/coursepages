@@ -45,12 +45,7 @@ class CourseDestinationNode extends PortalDestinationNode {
    * @return mixed|null
    */
   static function resolveNid($course_number) {
-    $query = new EntityFieldQuery();
-    $result = $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'course')
-      ->fieldCondition('field_course_course_number', 'value', $course_number)
-      ->execute();
-    return !empty($result['node']) ? reset(array_keys($result['node'])) : NULL;
+    return _uhc_course_source_resolve_nid($course_number);
   }
 
   /**

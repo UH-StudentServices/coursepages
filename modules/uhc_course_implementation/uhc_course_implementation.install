@@ -202,3 +202,64 @@ function uhc_course_implementation_update_7004() {
   db_delete('field_data_field_imp_header_image_caption')->condition('field_imp_header_image_caption_value', $value)->execute();
   db_delete('field_revision_field_imp_header_image_caption')->condition('field_imp_header_image_caption_value', $value)->execute();
 }
+
+/**
+ * Migrate field_imp_status => field_cancelled
+ */
+function uhc_course_implementation_update_7005() {
+
+  // Revert these features to ensure that we have destination fields set up
+  features_revert(array('uhc_field_base' => array('field_base')));
+  features_revert(array('uhc_course_implementation' => array('field_instance')));
+
+  // Prepare insert queries
+  $fields = array(
+    'entity_type' => 'node',
+    'bundle' => 'course_implementation',
+    'deleted' => 0,
+    'entity_id' => 0,
+    'revision_id' => 0,
+    'language' => LANGUAGE_NONE,
+    'delta' => 0,
+    'field_cancelled_value' => 0,
+  );
+  $insert_data_query = db_insert('field_data_field_cancelled')->fields(array_keys($fields));
+  $insert_revision_query = db_insert('field_revision_field_cancelled')->fields(array_keys($fields));
+
+  // Fetch statuses and set cancelled values
+  $query = db_select('field_data_field_imp_status', 's')
+    ->fields('s', array('entity_id', 'field_imp_status_value'))
+    ->condition('entity_type', $fields['entity_type'])
+    ->condition('bundle', $fields['bundle'])
+    ->execute();
+  while ($item = $query->fetchAssoc()) {
+
+    // Specify entity_id
+    $fields['entity_id'] = $item['entity_id'];
+    $fields['revision_id'] = $item['entity_id'];
+
+    // Specify cancelled. When status was "3", it was cancelled
+    $fields['field_cancelled_value'] = 0;
+    if ($item['field_imp_status_value'] == 3) {
+      $fields['field_cancelled_value'] = 1;
+    }
+
+    // Add values to inert queries
+    $insert_data_query->values(array_values($fields));
+    $insert_revision_query->values(array_values($fields));
+  }
+
+  $counts = array('@data_count' => 0, '@revision_count' => 0);
+  $counts['@data_count'] = $insert_data_query->execute();
+  $counts['@revision_count'] = $insert_revision_query->execute();
+  if ($counts['@data_count'] != $counts['@revision_count']) {
+    // We expect to have same count. Create log entry if they were not!
+    watchdog('uhc_course_implementation', 'Count mismatch on cancelled migration (@data_count vs @revision_count).', $counts, WATCHDOG_WARNING);
+  }
+  else {
+    watchdog('uhc_course_implementation', 'Migrated @data_count values.', $counts, WATCHDOG_INFO);
+  }
+
+  // Delete field_imp_status
+  field_delete_field('field_imp_status');
+}

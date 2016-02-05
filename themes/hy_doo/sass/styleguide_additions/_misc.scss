@@ -1,0 +1,75 @@
+// used for hiding certain elements and show it only in mobile
+.show-only-in-mobile {
+  @include at-breakpoint($layout-small) {
+    display: none;
+  }
+}
+
+@for $i from 1 to 4 {
+ .columns-#{$i} {
+    @include at-breakpoint($layout-small) {
+      > li {
+        float: left;
+        padding-right: 2em;
+        width: (100% / $i);
+        &:nth-child(#{$i}n + #{$i + 1}) {
+          clear: left;
+        }
+      }
+    }
+  }
+}
+
+.button-offsite {
+  @include button-internal--dark;
+  &:after {
+    @include hy-icon($hy-link-arrow-offsite);
+  }
+}
+
+input[type=text] {
+  -webkit-appearance: textfield !important;
+}
+
+.element-hidden {
+  display: none;
+}
+
+ul.list-of-links {
+  li > a {
+    @include font-weight-medium;
+    margin-bottom: 2px;
+  }
+}
+
+@for $i from 1 to 5 {
+ .spacer-top-#{$i} {
+    padding-top: #{$i}em;
+  }
+  .spacer-bottom-#{$i} {
+    padding-bottom: #{$i}em;
+  }
+}
+
+.box-story {
+   position: relative;
+   padding-bottom: 3em;
+  .box-story__link {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  &.node--online-service--teaser,
+  &.node--portal-page--teaser,
+  &.node--liftup--teaser {
+    cursor: pointer;
+  }
+}
+
+.button-anchor {
+  height: auto;
+  padding: 0 0 1.5em 1.5em;
+  &:before {
+    height: auto;
+  }
+}

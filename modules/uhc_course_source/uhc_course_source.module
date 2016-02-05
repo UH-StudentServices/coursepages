@@ -66,6 +66,21 @@ function uhc_course_source_import($course_number) {
 }
 
 /**
+ * Helper function for resolving nid for given course number.
+ *
+ * @param $course_number
+ * @return mixed|null
+ */
+function _uhc_course_source_resolve_nid($course_number) {
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'course')
+    ->fieldCondition('field_course_course_number', 'value', $course_number)
+    ->execute();
+  return !empty($result['node']) ? reset(array_keys($result['node'])) : NULL;
+}
+
+/**
  * Helper function for creating a stub node for given course number. Note that
  * if this function is called more than once during a bootstrap, it will return
  * initially created stub for given course number.

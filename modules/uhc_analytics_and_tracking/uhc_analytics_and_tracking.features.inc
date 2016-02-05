@@ -12,3 +12,10 @@ function uhc_analytics_and_tracking_ctools_plugin_api($module = NULL, $api = NUL
     return array("version" => "1");
   }
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function uhc_analytics_and_tracking_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}

@@ -45,13 +45,17 @@ projects[field_group][patch]["https://www.drupal.org/node/1482958"] = "https://w
 projects[field_multiple_limit][version] = "1.0-alpha4"
 projects[field_permissions][version] = "1.0-beta2"
 projects[filefield_paths][version] = "1.0-rc1"
+
+; Support for field mapping on migrate
 projects[languagefield][version] = "1.3"
+projects[languagefield][patch]["https://www.drupal.org/node/2217385"] = "https://www.drupal.org/files/issues/2217385-languagefield_migrate_handler-4.patch"
 
 ; TODO: Check if google_analytics can be updated to 2.0
 ; See docs at https://www.drupal.org/project/google_analytics about Universal Analytics
 projects[google_analytics][version] = "1.4"
 
 projects[google_analytics_et][version] = "1.2"
+projects[google_analytics_reports][version] = "3.0-beta2"
 projects[i18n][version] = "1.11"
 projects[imagemagick][version] = "1.0"
 projects[joyride][version] = "1.0-alpha3"

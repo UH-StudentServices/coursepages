@@ -59,6 +59,18 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'contextual',
   );
 
+  // Exported permission: 'access google analytics reports'.
+  $permissions['access google analytics reports'] = array(
+    'name' => 'access google analytics reports',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'google_analytics_reports',
+  );
+
   // Exported permission: 'access sync status page'.
   $permissions['access sync status page'] = array(
     'name' => 'access sync status page',
@@ -186,6 +198,15 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'create field_additional_info'.
   $permissions['create field_additional_info'] = array(
     'name' => 'create field_additional_info',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'create field_cancelled'.
+  $permissions['create field_cancelled'] = array(
+    'name' => 'create field_cancelled',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -564,9 +585,27 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_rel_to_other_study_units'.
+  $permissions['create field_rel_to_other_study_units'] = array(
+    'name' => 'create field_rel_to_other_study_units',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'create field_req_prerequisites'.
   $permissions['create field_req_prerequisites'] = array(
     'name' => 'create field_req_prerequisites',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'create field_responsible_person'.
+  $permissions['create field_responsible_person'] = array(
+    'name' => 'create field_responsible_person',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -950,6 +989,15 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_cancelled'.
+  $permissions['edit field_cancelled'] = array(
+    'name' => 'edit field_cancelled',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit field_conduct'.
   $permissions['edit field_conduct'] = array(
     'name' => 'edit field_conduct',
@@ -1322,9 +1370,27 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_rel_to_other_study_units'.
+  $permissions['edit field_rel_to_other_study_units'] = array(
+    'name' => 'edit field_rel_to_other_study_units',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit field_req_prerequisites'.
   $permissions['edit field_req_prerequisites'] = array(
     'name' => 'edit field_req_prerequisites',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit field_responsible_person'.
+  $permissions['edit field_responsible_person'] = array(
+    'name' => 'edit field_responsible_person',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -1470,6 +1536,15 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'edit own field_additional_info'.
   $permissions['edit own field_additional_info'] = array(
     'name' => 'edit own field_additional_info',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_cancelled'.
+  $permissions['edit own field_cancelled'] = array(
+    'name' => 'edit own field_cancelled',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -1848,9 +1923,27 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit own field_rel_to_other_study_units'.
+  $permissions['edit own field_rel_to_other_study_units'] = array(
+    'name' => 'edit own field_rel_to_other_study_units',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit own field_req_prerequisites'.
   $permissions['edit own field_req_prerequisites'] = array(
     'name' => 'edit own field_req_prerequisites',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_responsible_person'.
+  $permissions['edit own field_responsible_person'] = array(
+    'name' => 'edit own field_responsible_person',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -2077,6 +2170,17 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'view field_additional_info'.
   $permissions['view field_additional_info'] = array(
     'name' => 'view field_additional_info',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view field_cancelled'.
+  $permissions['view field_cancelled'] = array(
+    'name' => 'view field_cancelled',
     'roles' => array(
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
@@ -2496,10 +2600,32 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_rel_to_other_study_units'.
+  $permissions['view field_rel_to_other_study_units'] = array(
+    'name' => 'view field_rel_to_other_study_units',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view field_req_prerequisites'.
   $permissions['view field_req_prerequisites'] = array(
     'name' => 'view field_req_prerequisites',
     'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view field_responsible_person'.
+  $permissions['view field_responsible_person'] = array(
+    'name' => 'view field_responsible_person',
+    'roles' => array(
+      'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
     ),
@@ -2588,6 +2714,17 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'view own field_additional_info'.
   $permissions['view own field_additional_info'] = array(
     'name' => 'view own field_additional_info',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_cancelled'.
+  $permissions['view own field_cancelled'] = array(
+    'name' => 'view own field_cancelled',
     'roles' => array(
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
@@ -3010,9 +3147,31 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view own field_rel_to_other_study_units'.
+  $permissions['view own field_rel_to_other_study_units'] = array(
+    'name' => 'view own field_rel_to_other_study_units',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view own field_req_prerequisites'.
   $permissions['view own field_req_prerequisites'] = array(
     'name' => 'view own field_req_prerequisites',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_responsible_person'.
+  $permissions['view own field_responsible_person'] = array(
+    'name' => 'view own field_responsible_person',
     'roles' => array(
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
@@ -3151,6 +3310,37 @@ function uhc_content_administration_feature_user_default_permissions() {
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
     ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_rel_to_other_study_units on node'.
+  $permissions['view uhc_ds_rel_to_other_study_units on node'] = array(
+    'name' => 'view uhc_ds_rel_to_other_study_units on node',
+    'roles' => array(),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_responsible_person on node'.
+  $permissions['view uhc_ds_responsible_person on node'] = array(
+    'name' => 'view uhc_ds_responsible_person on node',
+    'roles' => array(),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_table_of_contents on node'.
+  $permissions['view uhc_ds_table_of_contents on node'] = array(
+    'name' => 'view uhc_ds_table_of_contents on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_timing on node'.
+  $permissions['view uhc_ds_timing on node'] = array(
+    'name' => 'view uhc_ds_timing on node',
+    'roles' => array(),
     'module' => 'ds_extras',
   );
 

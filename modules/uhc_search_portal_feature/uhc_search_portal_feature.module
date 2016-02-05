@@ -62,15 +62,30 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
 
       // Render header and prefix it with filter help text
       $header = $view->display_handler->render_header();
-      $filter_help = '<div class="filter-help">' . t('Limit search results') . '<span class="icon-help-circled" title="'. t('Filter your search with the filters below or show all by submitting an empty search.') . '"/></div>';
+      $filter_help = '<div class="filter-help">' . t('Limit search results') . '<span class="icon-help-circled" title="'. t('Please define your search criteria. The number in brackets shows the amount of courses that match your search.') . '"/></div>';
       if (!empty($header)) {
         $form['search']['#suffix'] = $filter_help . $header;
       }
 
       $form['#submit'][] = 'uhc_search_portal_feature_back_to_view_on_reset';
 
+      // Supply the correct base path to the search usability tweak JS
+      $lang_prefix = ($lang == 'fi' || $lang == 'sv') ? $lang . '/' : '';
+      $base_path = array(
+        'views-exposed-form-uhc-search-desktop' => $lang_prefix . 'genetics/search',
+        'views-exposed-form-uhc-search-open-university-desktop' => $lang_prefix . 'open-university/search',
+        'views-exposed-form-uhc-search-biosciences-desktop' => $lang_prefix . 'molecular-biosciences/search',
+        'views-exposed-form-uhc-portal-search-front-page--desktop' => $lang_prefix . 'search',
+      );
+
       // Add some frontend alterations to related to filtering
       $form['#attached']['js'][] = drupal_get_path('module', 'uhc_search_portal_feature') . '/js/filters.js';
+      $form['#attached']['js'][] = array(
+        'data' => array(
+          'search_base_path' => $base_path[$form['#id']],
+        ),
+        'type' => 'setting'
+      );
 
       // Custom field prefix for genetics search box (not for open university).
       if ($form['#id'] == 'views-exposed-form-uhc-search-desktop') {

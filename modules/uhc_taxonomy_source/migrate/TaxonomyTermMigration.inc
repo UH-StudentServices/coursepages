@@ -58,8 +58,8 @@ class TaxonomyTermMigration extends PortalMigrationBase {
     $this->destination = new TaxonomyMigrateDestinationTerm($vocabulary);
 
     // This should be set by UHCMigrateJSONReader
-    $this->addFieldMapping('name', $source_label_field_name);
-    $this->addFieldMapping('name_field', 'name_translations');
+    $this->addFieldMapping('name', $source_label_field_name)->callbacks(array($this, 'getEnglishValue'));
+    $this->addFieldMapping('name_field', $source_label_field_name);
 
     // Way of specifying language for multilingual field value
     $this->addFieldMapping('name_field:language', '')->defaultValue(PortalMigrationBase::getSupportedLanguages());
@@ -69,6 +69,25 @@ class TaxonomyTermMigration extends PortalMigrationBase {
     // $this->addFieldMapping('translate')->defaultValue(true);
     // $this->addFieldMapping('language')->defaultValue('en');
 
+  }
+
+  /**
+   * Callback for preparing the row. This implementation converts the names into
+   * field mappable format.
+   */
+  public function prepareRow($row) {
+    $row->{$this->getSourceFieldName()} = PortalMigrationBase::convertToMultilingualText($row->{$this->getSourceFieldName()});
+    return TRUE;
+  }
+
+  /**
+   * Gets english value of given multilingual array value.
+   *
+   * @param array $value
+   * @return mixed
+   */
+  public static function getEnglishValue(array $value) {
+    return $value['en'];
   }
 
 }

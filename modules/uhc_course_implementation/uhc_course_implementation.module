@@ -130,45 +130,32 @@ function uhc_course_implementation_field_group_build_pre_render_alter(&$element)
     $element['group_course_task_material']['#prefix'] .= '<p class="bar bar--small">' . t('In this section you can find the course tasks.') . '</p>';
   }
 
-  // If we are at node view page and the group is empty, then print out that
-  // page should be read in teaching language.
   $node_view = arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL;
-  if (isset($element['group_description_objectives']['#prefix']) &&
-      $node_view &&
-      uhc_course_implementation_is_group_empty($element['group_description_objectives'], array('uhc_content_administration_from_oodi', 'uhc_course_implementation_course_overview_empty'))) {
-    $message = array(
-      'type' => 'status',
-      'class' => ' alternative',
-      'message' => '<p>' . t('Please read this page in teaching language') . '</p>',
-    );
-    $element['group_description_objectives']['#prefix'] .= '<div class="accordion-content-item clean">' . theme('views_system_message', $message) . '</div>';
-  }
-}
+  if (isset($element['group_description_objectives']['#prefix']) && $node_view) {
 
-/**
- * Helper function for identifying empty groups from given group provided to
- * hook_field_group_build_pre_render_alter().
- *
- * @see uhc_course_implementation_field_group_build_pre_render_alter()
- */
-function uhc_course_implementation_is_group_empty($group, $ignore_fields = array()) {
-  foreach ($group as $key => $value) {
+    // If we are at node view page and the active language is not one of the teaching 
+    // languages, then print out that page should be read in teaching language.
+    $node = $element['#node'];
+    $langcode = i18n_langcode();
+    $teaching_languages = field_get_items('node', $node, 'field_imp_teaching_language');
+    if ($teaching_languages) {
 
-    // Always ignore items starting with '#' or is found from $ignore_fields
-    // list.
-    if (substr($key, 0, 1) == '#' || in_array($key, $ignore_fields)) {
-      continue;
-    }
+      // Compile simpler comparable array from field values
+      foreach ($teaching_languages as $teaching_language) {
+        $teaching_lang_codes[] = $teaching_language['value'];
+      }
 
-    // Returns immediately FALSE when we find a value not being NULL.
-    if (!is_null($value)) {
-      return FALSE;
+      // Now compare and potentially set the message
+      if (!in_array($langcode, $teaching_lang_codes)) {
+        $message = array(
+          'type' => 'status',
+          'class' => ' alternative',
+          'message' => '<p>' . t('Please read this page in teaching language') . '</p>',
+        );
+        $element['group_description_objectives']['#prefix'] .= '<div class="accordion-content-item clean">' . theme('views_system_message', $message) . '</div>';
+      }
     }
   }
-
-  // All ignored fields were skipped and no value was found. This must be empty
-  // group.
-  return TRUE;
 }
 
 /**
@@ -466,11 +453,8 @@ function uhc_course_implementation_display_private_content_message($node) {
  * @param $node object Course implementation node.
  */
 function uhc_course_implementation_display_course_implementation_status_message($node) {
-  $course_implementation_status = field_get_items('node', $node, 'field_imp_status');
-  $canceled_status = 3;
-  $canceled = !empty($course_implementation_status[0]['value']) && $course_implementation_status[0]['value'] == $canceled_status;
-
-  if ($canceled) {
+  $field_cancelled = field_get_items('node', $node, 'field_cancelled');
+  if (!empty($field_cancelled[0]['value']) && $field_cancelled[0]['value']) {
     uh_coursepages_set_message(t('Cancelled'), 'error', FALSE);
   }
 }
@@ -639,9 +623,10 @@ function uhc_course_implementation_field_access($op, $field, $entity_type, $enti
  */
 function uhc_course_implementation_field_formatter_info() {
   return array(
-    'course_implementation_status' => array(
-      'label' => t('Course implementation status'),
-      'field types' => array('number_integer'),
+    'cancelled' => array(
+      'label' => t('Cancelled'),
+      'field types' => array('list_boolean'),
+      'description' => t('Displays a true value as a cancelled message.'),
     ),
   );
 }
@@ -654,16 +639,13 @@ function uhc_course_implementation_field_formatter_info() {
  */
 function uhc_course_implementation_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $element = array();
-
-  if ($display['type'] == 'course_implementation_status') {
-    $labels = array(1 => 'Planned', 2 => 'Confirmed', 3 => 'Cancelled', 4 => 'Completed');
-
+  if ($display['type'] == 'cancelled') {
     foreach ($items as $delta => $item) {
-      $value = $item['value'];
-      $value = in_array($value, array_keys($labels)) ? t($labels[$value]) : $value;
-      $element[$delta] = array('#markup' => $value);
+      if ($item['value']) {
+        $markup = '<span class="cancelled messages alternative error"><span>' . t('Cancelled') . '</span></span>';
+        $element[$delta] = array('#markup' => $markup);
+      }
     }
   }
-
   return $element;
 }

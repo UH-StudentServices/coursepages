@@ -13,6 +13,20 @@ function uhc_doo_theme_features_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'image_jpeg_quality';
+  $strongarm->value = '100';
+  $export['image_jpeg_quality'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'image_toolkit';
+  $strongarm->value = 'gd';
+  $export['image_toolkit'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'node_admin_theme';
   $strongarm->value = 0;
   $export['node_admin_theme'] = $strongarm;

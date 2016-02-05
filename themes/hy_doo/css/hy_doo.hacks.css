@@ -2,15 +2,13 @@
   display: none;
 }
 
-.box-story {
-  position: relative;
-  padding-bottom: 3em;
+.portal-promotions {
+  padding: 4em 0 1em 0;
 }
-.box-story .box-story__link {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+.portal-promotions .button-internal {
+  border-bottom: none;
 }
-.box-story.node--online-service--teaser, .box-story.node--portal-page--teaser, .box-story.node--liftup--teaser {
-  cursor: pointer;
+
+.link-multiple {
+  border-bottom: none !important;
 }

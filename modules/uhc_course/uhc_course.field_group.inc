@@ -149,15 +149,17 @@ function uhc_course_field_group_info() {
       5 => 'field_additional_info',
       6 => 'field_conduct',
       7 => 'field_contents',
-      8 => 'field_course_faculty',
-      9 => 'field_evaluation',
-      10 => 'field_objective',
-      11 => 'field_req_prerequisites',
-      12 => 'field_study_credit',
-      13 => 'field_study_materials',
-      14 => 'field_target_group',
-      15 => 'field_timing',
-      16 => 'field_course_subject',
+      8 => 'field_evaluation',
+      9 => 'field_objective',
+      10 => 'field_req_prerequisites',
+      11 => 'field_study_credit',
+      12 => 'field_study_materials',
+      13 => 'field_target_group',
+      14 => 'field_timing',
+      15 => 'field_course_subject',
+      16 => 'field_course_faculty',
+      17 => 'field_responsible_person',
+      18 => 'field_rel_to_other_study_units',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -170,33 +172,6 @@ function uhc_course_field_group_info() {
     ),
   );
   $export['group_course_integration|node|course|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_teaching_and_registration|node|course|default';
-  $field_group->group_name = 'group_teaching_and_registration';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'course';
-  $field_group->mode = 'default';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Teaching and registration',
-    'weight' => '6',
-    'children' => array(
-      0 => 'course_reference_block',
-      1 => 'course_reference_block_past',
-    ),
-    'format_type' => 'accordion-item',
-    'format_settings' => array(
-      'label' => 'Teaching and registration',
-      'instance_settings' => array(
-        'classes' => 'group-teaching-and-registration field-group-accordion-item',
-      ),
-      'formatter' => 'closed',
-    ),
-  );
-  $export['group_teaching_and_registration|node|course|default'] = $field_group;
 
   return $export;
 }

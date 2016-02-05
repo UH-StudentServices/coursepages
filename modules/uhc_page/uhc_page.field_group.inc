@@ -13,6 +13,33 @@ function uhc_page_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_content_collections|node|portal_page|form';
+  $field_group->group_name = 'group_content_collections';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'portal_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Content collections',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_content_collection',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-content-collections field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_content_collections|node|portal_page|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_liftup_collections|node|portal_page|form';
   $field_group->group_name = 'group_liftup_collections';
   $field_group->entity_type = 'node';
@@ -84,7 +111,7 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Contact Information',
-    'weight' => '5',
+    'weight' => '7',
     'children' => array(
       0 => 'field_subject_contact_reference',
     ),
@@ -136,6 +163,111 @@ function uhc_page_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_portal_page_promotion|node|portal_page|default';
+  $field_group->group_name = 'group_portal_page_promotion';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'portal_page';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Portal promotion',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_portal_promotions',
+      1 => 'field_portal_promotions_link',
+      2 => 'field_portal_promotions_title',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Portal promotion',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_portal_page_promotion|node|portal_page|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_portal_page_promotion|node|portal_page|search_block_embedded';
+  $field_group->group_name = 'group_portal_page_promotion';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'portal_page';
+  $field_group->mode = 'search_block_embedded';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Portal promotion',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_portal_promotions',
+      1 => 'field_portal_promotions_link',
+      2 => 'field_portal_promotions_title',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Portal promotion',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_portal_page_promotion|node|portal_page|search_block_embedded'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_portal_page_promotion|node|portal_page|sidebar';
+  $field_group->group_name = 'group_portal_page_promotion';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'portal_page';
+  $field_group->mode = 'sidebar';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Portal promotion',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_portal_promotions',
+      1 => 'field_portal_promotions_link',
+      2 => 'field_portal_promotions_title',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Portal promotion',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'regional-rule-top portal-promotions',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_portal_page_promotion|node|portal_page|sidebar'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_portal_promotions|node|portal_page|form';
   $field_group->group_name = 'group_portal_promotions';
   $field_group->entity_type = 'node';
@@ -148,6 +280,8 @@ function uhc_page_field_group_info() {
     'children' => array(
       0 => 'field_portal_promotions',
       1 => 'field_view_attachment',
+      2 => 'field_portal_promotions_title',
+      3 => 'field_portal_promotions_link',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -174,7 +308,7 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related content',
-    'weight' => '3',
+    'weight' => '5',
     'children' => array(
       0 => 'field_related_content_section',
     ),
@@ -203,7 +337,7 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Sidebar liftups',
-    'weight' => '4',
+    'weight' => '6',
     'children' => array(
       0 => 'field_sidebar_liftups',
     ),

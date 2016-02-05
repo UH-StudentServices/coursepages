@@ -41,21 +41,29 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'changed' => 'changed',
-    'nid' => 'nid',
+    'title_field' => 'title_field',
+    'timestamp' => 'timestamp',
+    'timestamp_1' => 'timestamp_1',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'changed' => array(
-      'sortable' => 0,
+    'title_field' => array(
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'nid' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+    'timestamp' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'timestamp_1' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -172,6 +180,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['group_type'] = 'count_distinct';
   $handler->display->display_options['fields']['nid']['label'] = 'Course Implementations Created';
+  $handler->display->display_options['fields']['nid']['separator'] = '';
   /* Field: MIN(Content: Post date) */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -284,6 +293,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['group_type'] = 'count_distinct';
   $handler->display->display_options['fields']['nid']['label'] = 'Course Implementations Created';
+  $handler->display->display_options['fields']['nid']['separator'] = '';
   /* Field: MIN(Content: Post date) */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -730,6 +740,12 @@ function uhc_statistics_views_default_views() {
   $handler = $view->new_display('page', 'Edited', 'page_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Course Implementation Edited';
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['id'] = 'result';
+  $handler->display->display_options['header']['result']['table'] = 'views';
+  $handler->display->display_options['header']['result']['field'] = 'result';
+  $handler->display->display_options['header']['result']['content'] = 'Total @total Course implementations edited';
   $handler->display->display_options['defaults']['footer'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Entity Reference: Referenced Entity */
@@ -742,7 +758,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['field'] = 'reverse_field_message_ref_to_course_imp_message';
   $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
+  /* Field: Field: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
@@ -762,6 +778,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['fields']['timestamp_1']['group_type'] = 'max';
   $handler->display->display_options['fields']['timestamp_1']['label'] = 'Last updated';
   $handler->display->display_options['fields']['timestamp_1']['date_format'] = 'short_date_only';
+  $handler->display->display_options['fields']['timestamp_1']['custom_date_format'] = 'Y-m-d';
   $handler->display->display_options['fields']['timestamp_1']['second_date_format'] = 'short_date_only';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Post date */
@@ -855,6 +872,26 @@ function uhc_statistics_views_default_views() {
   );
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Message: Timestamp */
+  $handler->display->display_options['filters']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['filters']['timestamp']['table'] = 'message';
+  $handler->display->display_options['filters']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['filters']['timestamp']['relationship'] = 'reverse_field_message_ref_to_course_imp_message';
+  $handler->display->display_options['filters']['timestamp']['operator'] = 'between';
+  $handler->display->display_options['filters']['timestamp']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['timestamp']['expose']['operator_id'] = 'timestamp_op';
+  $handler->display->display_options['filters']['timestamp']['expose']['label'] = 'Last updated (between)';
+  $handler->display->display_options['filters']['timestamp']['expose']['operator'] = 'timestamp_op';
+  $handler->display->display_options['filters']['timestamp']['expose']['identifier'] = 'timestamp';
+  $handler->display->display_options['filters']['timestamp']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+  );
   $handler->display->display_options['path'] = 'admin/statistics/edits';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Course Implementations edited';
@@ -895,7 +932,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['field'] = 'reverse_field_message_ref_to_course_imp_message';
   $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
+  /* Field: Field: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
@@ -914,7 +951,8 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['fields']['timestamp_1']['relationship'] = 'reverse_field_message_ref_to_course_imp_message';
   $handler->display->display_options['fields']['timestamp_1']['group_type'] = 'max';
   $handler->display->display_options['fields']['timestamp_1']['label'] = 'Last updated';
-  $handler->display->display_options['fields']['timestamp_1']['date_format'] = 'short_date_only';
+  $handler->display->display_options['fields']['timestamp_1']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['timestamp_1']['custom_date_format'] = 'Y-m-d';
   $handler->display->display_options['fields']['timestamp_1']['second_date_format'] = 'short_date_only';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Post date */
@@ -1025,6 +1063,26 @@ function uhc_statistics_views_default_views() {
   );
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Message: Timestamp */
+  $handler->display->display_options['filters']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['filters']['timestamp']['table'] = 'message';
+  $handler->display->display_options['filters']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['filters']['timestamp']['relationship'] = 'reverse_field_message_ref_to_course_imp_message';
+  $handler->display->display_options['filters']['timestamp']['operator'] = 'between';
+  $handler->display->display_options['filters']['timestamp']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['timestamp']['expose']['operator_id'] = 'timestamp_op';
+  $handler->display->display_options['filters']['timestamp']['expose']['label'] = 'Last updated (between)';
+  $handler->display->display_options['filters']['timestamp']['expose']['operator'] = 'timestamp_op';
+  $handler->display->display_options['filters']['timestamp']['expose']['identifier'] = 'timestamp';
+  $handler->display->display_options['filters']['timestamp']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+  );
   $handler->display->display_options['path'] = 'admin/statistics/edited/export';
   $handler->display->display_options['displays'] = array(
     'page_3' => 'page_3',
@@ -1069,9 +1127,11 @@ function uhc_statistics_views_default_views() {
     t('Data Export - Restricted'),
     t('Edited'),
     t('Course Implementation Edited'),
+    t('Total @total Course implementations edited'),
     t('Title'),
     t('Number of edits'),
     t('Last updated'),
+    t('Last updated (between)'),
     t('Data Export - Edited'),
   );
   $export['statistics'] = $view;

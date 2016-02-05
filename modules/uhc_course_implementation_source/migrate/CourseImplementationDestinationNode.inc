@@ -19,16 +19,6 @@ class CourseImplementationDestinationNode extends PortalDestinationNode {
   public function prepare($entity, stdClass $source_row) {
     parent::prepare($entity, $source_row);
 
-    // Teaching language.
-    $entity->field_imp_teaching_language = array();
-    if (is_array($source_row->languages)) {
-      foreach ($source_row->languages as $value) {
-        if (drupal_strlen($value) != 0) {
-          $entity->field_imp_teaching_language[LANGUAGE_NONE][] = array('value' => drupal_strtolower($value));
-        }
-      }
-    }
-
     // All these fields should be text fields which *MAY* contain empty values.
     // Go through these multilingual values and detect whether they're empty or
     // not, so that system will store them correctly.

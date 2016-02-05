@@ -114,7 +114,9 @@ function uhc_teacher_tools_get_moodle_key($node) {
 /**
  * Implements hook_menu().
  *
- * Adds a "View demo course" link item to user menu.
+ * - Adds a "View demo course" link item to user menu.
+ * - Adds menu callback targets for edit links.
+ * - Adds a local task link to analytics data.
  */
 function uhc_teacher_tools_menu() {
   $items["demo-course"] = array(
@@ -144,6 +146,15 @@ function uhc_teacher_tools_menu() {
     );
     $weight++;
   }
+
+  $items['node/%node/analytics'] = array(
+    'title' => 'Analytics',
+    'access callback' => '_uhc_teacher_tools_menu_edit_links_access_callback',
+    'access arguments' => array(1),
+    'page callback' => 'uhc_teacher_tools_analytics_callback',
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $items;
 }
 
@@ -167,6 +178,21 @@ function _uhc_teacher_tools_menu_edit_links_access_callback($node) {
 function _uhc_teacher_tools_menu_edit_links_menu_callback($node, $value) {
   $path = ($value == 'group-course-messages') ? 'node/' . $node->nid : 'node/' . $node->nid . '/edit';
   drupal_goto($path, array('query' => array('section' => $value)));
+}
+
+/**
+ * Page callback for page analytics data.
+ *
+ * @return array Markup for the UHC Google Analytics Reports Page block.
+ */
+function uhc_teacher_tools_analytics_callback() {
+  $view = views_get_view('uhc_google_analytics_reports_page');
+  $view->set_display('block');
+  $analytics_block_title =  '<p>' . $view->get_title() . '</p>';
+  $analytics_block_content = views_embed_view('uhc_google_analytics_reports_page', 'block');
+  $analytics_block_markup = $analytics_block_title . $analytics_block_content;
+
+  return array('#markup' => $analytics_block_markup);
 }
 
 /**
@@ -225,6 +251,17 @@ function uhc_teacher_tools_form_node_form_alter(&$form, &$form_state, $form_id) 
   $form['actions']['submit']['#value'] = t('Save & Close');
   $form['actions']['submit2']['#weight'] = 6;
   $form['actions']['submit2']['#submit'][] = 'uhc_teacher_tools_save_and_continue';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function uhc_teacher_tools_form_course_implementation_node_form_alter(&$form, &$form_state, $form_id) {
+  uhc_teacher_tools_display_editing_message();
+}
+
+function uhc_teacher_tools_display_editing_message() {
+  drupal_set_message(t('You are now editing the course page. Remember to save your changes with choosing "Save" or "Save & Close".'));
 }
 
 /**

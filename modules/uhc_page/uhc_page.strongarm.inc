@@ -68,13 +68,13 @@ function uhc_page_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '8',
+          'weight' => '9',
         ),
         'language' => array(
           'weight' => '11',
         ),
         'locations' => array(
-          'weight' => '7',
+          'weight' => '8',
         ),
       ),
       'display' => array(),

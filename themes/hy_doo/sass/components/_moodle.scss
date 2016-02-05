@@ -1,12 +1,3 @@
-.group-imp-moodle {
-  @include border-top;
-  margin-top: 1em;
-  h3 {
-    @include text-label;
-    margin-bottom: 1em;
-  }
-}
-
 .moodle-button {
   @include font-weight-medium;
   margin-bottom: 1em;

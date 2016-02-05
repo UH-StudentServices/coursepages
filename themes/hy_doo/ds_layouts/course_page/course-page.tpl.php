@@ -10,13 +10,13 @@
  */
 ?>
 
-<<?php print $layout_wrapper; print $layout_attributes; ?> class="ds-grid-container <?php print $classes;?> clearfix">
+<<?php print $layout_wrapper; print $layout_attributes; ?> class="<?php print $classes;?> clearfix">
 
   <?php if (isset($title_suffix['contextual_links'])): ?>
   <?php print render($title_suffix['contextual_links']); ?>
   <?php endif; ?>
 
-    <div class="ds-grid-item ds-grid-8">
+    <div class="ds-grid-18">
       <<?php print $course_metadata_wrapper ?> class="<?php print $course_metadata_classes; ?>">
         <?php print $course_metadata; ?>
       </<?php print $course_metadata_wrapper ?>>
@@ -30,7 +30,7 @@
       </<?php print $course_content_wrapper ?>>
     </div>
 
-    <<?php print $course_sidebar_wrapper ?> class="ds-grid-item ds-grid-3 ds-push-1 <?php print $course_sidebar_classes; ?>">
+    <<?php print $course_sidebar_wrapper ?> class="ds-grid-6 ds-grid-last <?php print $course_sidebar_classes; ?>">
       <?php print $course_sidebar ?>
     </<?php print $course_sidebar_wrapper ?>>
 

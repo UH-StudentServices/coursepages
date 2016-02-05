@@ -1,0 +1,16 @@
+.view-statistics .container-inline-date {
+  display: inline-block;
+}
+
+.view-statistics .container-inline-date .form-item .form-item label {
+  display: none;
+}
+
+.view-statistics .container-inline-date > .form-item > label {
+  float: left;
+  margin-right: 12px;
+}
+
+.view-statistics .container-inline-date .form-item {
+  padding: 0;
+}

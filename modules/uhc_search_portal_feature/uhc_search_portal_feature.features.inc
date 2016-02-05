@@ -119,6 +119,7 @@ function uhc_search_portal_feature_default_search_api_index() {
                   "title_field",
                   "field_imp_id",
                   "field_imp_teacher",
+                  "field_imp_course_organiser",
                   "field_imp_locality",
                   "field_course_subject",
                   "field_imp_reference_to_courses:title",
@@ -130,7 +131,7 @@ function uhc_search_portal_feature_default_search_api_index() {
                   "field_objective:value",
                   "field_imp_reference_to_courses:field_objective:value"
                 ],
-                "description" : "A Fulltext aggregation of the following fields: Title, ID, Teacher, Locality, Subject, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Course number, Reference to course(s) \\u00bb Theme, Reference to course(s) \\u00bb Subject, Contents \\u00bb Text, Objective \\u00bb Text, Reference to course(s) \\u00bb Objective \\u00bb Text."
+                "description" : "A Fulltext aggregation of the following fields: Title, ID, Teacher, Course organiser, Locality, Subject, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Course number, Reference to course(s) \\u00bb Theme, Reference to course(s) \\u00bb Subject, Contents \\u00bb Text, Objective \\u00bb Text, Reference to course(s) \\u00bb Objective \\u00bb Text."
               },
               "search_api_aggregation_2" : {
                 "name" : "Autocomplete",

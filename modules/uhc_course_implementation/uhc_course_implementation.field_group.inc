@@ -339,11 +339,13 @@ function uhc_course_implementation_field_group_info() {
       15 => 'field_timing',
       16 => 'field_imp_administrator_number',
       17 => 'field_imp_keywords',
-      18 => 'field_imp_status',
-      19 => 'field_imp_organisation',
-      20 => 'field_imp_working_methods',
-      21 => 'field_imp_enrollment_begin_date',
-      22 => 'field_imp_enrollment_end_date',
+      18 => 'field_imp_organisation',
+      19 => 'field_imp_working_methods',
+      20 => 'field_imp_enrollment_begin_date',
+      21 => 'field_imp_enrollment_end_date',
+      22 => 'field_cancelled',
+      23 => 'field_responsible_person',
+      24 => 'field_rel_to_other_study_units',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -454,7 +456,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->mode = 'default';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Learning environments:',
+    'label' => 'Learning environments',
     'weight' => '16',
     'children' => array(
       0 => 'field_moodle_key',
@@ -462,12 +464,12 @@ function uhc_course_implementation_field_group_info() {
     ),
     'format_type' => 'div',
     'format_settings' => array(
-      'label' => 'Learning environments:',
+      'label' => 'Learning environments',
       'instance_settings' => array(
         'id' => '',
-        'classes' => 'group-imp-moodle tube--large',
+        'classes' => 'tube--large horizontal-rule-top',
         'description' => '',
-        'show_label' => '1',
+        'show_label' => '0',
         'label_element' => 'h3',
         'effect' => 'none',
         'speed' => 'fast',

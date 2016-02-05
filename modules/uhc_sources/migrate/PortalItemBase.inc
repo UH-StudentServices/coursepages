@@ -60,21 +60,13 @@ class PortalItemBase extends MigrateItemJSON {
 
       // If failed loading JSON
       if (!$json) {
-        $this->uhcLogMessage($id, 'Loading of !objecturl failed', array('!objecturl' => $item_url));
+        $this->uhcLogMessage($id, 'Loading of !objecturl failed', array('!objecturl' => $item_url), WATCHDOG_ERROR);
         return new SkippableItem();
       }
     }
 
     /*
-     * 2. Make sure, no exceptions are set in the object
-     */
-    if (isset($json->exception)) {
-      $this->uhcLogMessage($id, 'Backend responded with exception "!exception" while fetching @id', array('!exception' => $json->exception->message, '!objecturl' => $id));
-      return new SkippableItem();
-    }
-
-    /*
-     * 3. If we want to simulate failure, we do it here now
+     * 2. If we want to simulate failure, we do it here now
      */
     $simulate_fail_item = variable_get('uhc_sources_simulate_failure');
     if (!is_null($simulate_fail_item) && $id == $simulate_fail_item) {
@@ -83,17 +75,21 @@ class PortalItemBase extends MigrateItemJSON {
     }
 
     /*
-     * 4. Perform poor man's object sanity check by ensuring that data property
+     * 3. Perform poor man's object sanity check by ensuring that data property
      *    exists with md5 checksum.
      */
-    if (isset($json->data) && isset($json->md5)) {
-      $return = $json->data;
-      $return->md5 = isset($json->md5) ? $json->md5 : '';
-      return $return;
+    if (isset($json->status)) {
+      if ($json->status == 200) {
+        return $json->data;
+      }
+      else {
+        $this->uhcLogMessage($id, 'REST backend reponsded with status @status while fetching @id', array('@id' => $id, '@status' => $json->status), WATCHDOG_INFO);
+        return new SkippableItem();
+      }
     }
 
     // We do not expect to end up here
-    $this->uhcLogMessage($id, 'Malformed response from REST backend while fetching @id', array('@id' => $id));
+    $this->uhcLogMessage($id, 'Malformed response from REST backend while fetching @id', array('@id' => $id), WATCHDOG_ERROR);
     return new SkippableItem();
 
   }
@@ -103,16 +99,19 @@ class PortalItemBase extends MigrateItemJSON {
    * @param $id
    * @param $message
    * @param $params
+   * @param $level
    */
-  protected function uhcLogMessage($id, $message, $params) {
+  protected function uhcLogMessage($id, $message, $params, $level = WATCHDOG_WARNING) {
 
     // Write to watchdog as alert and update message for mapping messages
-    watchdog('uhc_sources', $message, $params, WATCHDOG_ALERT);
-    $message = t($message, $params);
+    watchdog('uhc_sources', $message, $params, $level);
 
-    // Save as error to mapping messages
-    $migration = Migration::currentMigration();
-    $migration->getMap()->saveMessage(array($id), $message, MigrationBase::MESSAGE_ERROR);
-
+    // If higher severity than waring, save as error to mapping messages
+    if ($level < WATCHDOG_NOTICE) {
+      $message = t($message, $params);
+      $migration = Migration::currentMigration();
+      $migration->getMap()
+        ->saveMessage(array($id), $message, MigrationBase::MESSAGE_ERROR);
+    }
   }
 }

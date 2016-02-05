@@ -230,4 +230,92 @@ class PortalMigrationBase extends Migration {
   private static function _trimPrefix($value) {
     return str_replace(array('Avoin yo: ', 'Open uni: ', 'Öppna uni: '), '', $value);
   }
+
+  /**
+   * Converts given list of values into multilingual array utilizing given field
+   * name.
+   *
+   * @param array $values
+   * @return array
+   */
+  public static function convertToMultilingualText(array $values) {
+    $multilingual_value = array();
+    foreach (PortalMigrationBase::getSupportedLanguages() as $lang) {
+      // Set default value
+      $multilingual_value[$lang] = NULL;
+
+      // Look out for this specific language value and set it
+      foreach ($values as $value) {
+        if ($value->langcode == $lang) {
+          $multilingual_value[$lang] = $value->text;
+          break;
+        }
+      }
+    }
+
+    return $multilingual_value;
+  }
+
+  ##############################################################################
+  # All following methods are used to prepare the $row and making it field
+  # mappable.
+  ##############################################################################
+
+  /**
+   * Prepares status field which basically is negate from "hidden" property.
+   *
+   * @param $row
+   */
+  static public function prepareStatus(&$row) {
+    // Compute status from hidden value. Value seems to be "true" or "false" as
+    // string, so we compare that and give actual value for "status" indicating
+    // whther it should be published or not.
+    $row->status = $row->hidden == 'false' ? 1 : 0;
+  }
+
+  /**
+   * Prepares descriptions into field mappable format. Descriptions are grouped
+   * into descriptions -property and they are using element id as identifiers
+   * which is a problem for field mapping.
+   *
+   * @param object &$row
+   * @param array $description_elements
+   */
+  static public function prepareDescriptions(&$row, array $description_elements) {
+
+    // Loop each given description element
+    foreach (PortalMigrationBase::getSupportedLanguages() as $lang) {
+      foreach ($description_elements as $element_id => $element_name) {
+
+        // At least make empty value. This is important to ensure that we
+        // collect the value multilingually *IN THE RIGHT ORDER*. The
+        // order of which PortalMigrationBase::getSupportedLanguages()
+        // returns should be used.
+        $row->{$element_name}[$lang] = NULL;
+
+        // This loop will loop descriptions until it finds values for each
+        // element/language.
+        foreach ($row->descriptions as $description) {
+          if (isset($description->id)) {
+            if ($description->id == $element_id) {
+
+              // When element matches, convert it to temporal variable for
+              //easier access and set it as property of root object.
+              $converted = PortalMigrationBase::convertToMultilingualText($description->texts);
+              $row->{$element_name}[$lang] = $converted[$lang];
+
+              break;
+            }
+          }
+          else {
+            // Create log entry about not being able to read element
+            watchdog('uhc_sources', 'Could not read element id "@description_id" with language "@language"', array('@description_id' => $description->id, '@language' => $lang), WATCHDOG_WARNING);
+          }
+        }
+
+      }
+    }
+    unset($row->descriptions);
+  }
+
 }

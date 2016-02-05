@@ -1,0 +1,84 @@
+// Wysiwyg styles
+.body-text {
+  @include font-family-bodytext;
+  ol, ul {
+    list-style: outside decimal;
+    li {
+      margin: 0.5em 0 0 2em;
+      font-size: 1.125rem;
+      letter-spacing: 0.01em;
+      line-height: 1.7em;
+      padding: 0 0 1em;
+    }
+    ol, ul {
+      margin-left: 1em;
+    }
+  }
+  ul {
+    list-style: none;
+    li:before {
+      content: '\00b7';
+      display: block;
+      float: left;
+      font-size: 75px;
+      margin-left: -35px;
+      margin-top: -4px;
+      color: $blue;
+    }
+  }
+}
+
+.body-text--small {
+  p,
+  ol li,
+  ul li  {
+    font-size: inherit;
+  }
+}
+
+dl, menu, ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.intro-text {
+  @include text-liftup;
+  @include font-family-main;
+}
+
+h1, h2 {
+  @include hyphenate;
+}
+
+.heading-light {
+  @include text-label;
+  margin-bottom: 1em;
+}
+
+// Headings as classes
+.heading-size-1 {
+  @include font-size(36px);
+  line-height: 1.15em;
+  letter-spacing: -2px;
+
+  @include breakpoint($small) {
+    @include font-size(50px);
+  }
+}
+
+.heading-size-2 {
+  @include font-size(25px);
+
+  @include breakpoint($medium) {
+    @include font-size(38px);
+  }
+}
+
+.heading-size-3 {
+  @include font-size(32px);
+}
+
+.heading-size-4 {
+  @include font-size(21px);
+}

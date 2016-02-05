@@ -21,9 +21,7 @@
 @import "../../../../../../current/sites/all/themes/hy_base_theme/hy_base_theme/scss/variables.scss";
 @import "variables/**/*";
 @import "mixins/**/*";
-@import "_base.scss";
 @import "layouts/*";
 @import "components/**/*";
-@import "base_theme/*";
-@import "drupal/**/*";
 @import "edit_form/**/*";
+@import "styleguide_additions/**/*"

@@ -212,7 +212,7 @@ function uhc_doo_theme_features_image_default_styles() {
     'name' => 'profile_picture_small',
     'label' => 'Profile picture small',
     'effects' => array(
-      1 => array(
+      3 => array(
         'label' => 'Scale and crop',
         'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
         'effect callback' => 'image_scale_and_crop_effect',
@@ -222,8 +222,8 @@ function uhc_doo_theme_features_image_default_styles() {
         'module' => 'image',
         'name' => 'image_scale_and_crop',
         'data' => array(
-          'width' => 50,
-          'height' => 50,
+          'width' => 96,
+          'height' => 96,
         ),
         'weight' => 1,
       ),

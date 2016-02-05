@@ -35,10 +35,9 @@ function _uhc_dev_feature_integration_get_course($id) {
   return _uhc_dev_feature_return_json_response($url);
 }
 
-function _uhc_dev_feature_integration_get_course_implementation($id, $lang = 'fi') {
+function _uhc_dev_feature_integration_get_course_implementation($id) {
   $url = variable_get('uhc_course_implementation_source_item_url', '');
   $url = str_replace(':id', $id, $url);
-  $url = str_replace(':lang', $lang, $url);
   $url = PortalMigrationBase::prependHostIfMissing($url);
   return _uhc_dev_feature_return_json_response($url);
 }

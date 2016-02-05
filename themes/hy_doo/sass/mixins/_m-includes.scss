@@ -31,9 +31,8 @@
   @return $map;
 }
 
-.button-offsite {
-  @include button-internal--dark;
-  &:after {
-    @include hy-icon($hy-link-arrow-offsite);
-  }
+@mixin button-invert-colors {
+  background: $white;
+  color: $blue;
 }
+

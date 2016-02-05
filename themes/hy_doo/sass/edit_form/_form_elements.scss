@@ -1,5 +1,10 @@
-.node-form  {
+.page-node-edit {
+  .page-title {
+    @extend .heading-size-2;
+  }
+}
 
+.node-form  {
   input[type="submit"] {
     display: inline-block;
     margin: 0.5em 1em 0.5em 0;

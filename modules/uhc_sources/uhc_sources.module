@@ -231,9 +231,6 @@ function _uhc_sources_resolve_course_number($course_imp_id) {
   // Construct URL
   $item_url = variable_get('uhc_course_implementation_source_item_url', '');
   $item_url = str_replace(':id', $course_imp_id, $item_url);
-  // Replace language in the URL, use FI as it should not matter. All languages
-  // should have same course id value
-  $item_url = str_replace(':lang', 'fi', $item_url);
   $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
 
   // Fetch contents and JSON decode

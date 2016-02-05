@@ -164,7 +164,7 @@ function _uhc_course_material_resolve_nid_from_course_task($node) {
 
 /**
  * Implements hook_inline_entity_form_table_fields_alter().
- * Remove status column, add material_section column.
+ * Remove status column, add "Filename", "Section" and "Restricted" columns.
  */
 function uhc_course_material_inline_entity_form_table_fields_alter(&$fields, $context) {
   if ($context['field_name'] == 'field_section_material') {
@@ -178,6 +178,11 @@ function uhc_course_material_inline_entity_form_table_fields_alter(&$fields, $co
       'type' => 'field',
       'label' => t('Section'),
       'weight' => 99,
+    );
+    $fields['field_private'] = array(
+      'type' => 'property',
+      'label' => t('Restricted'),
+      'weight' => 100,
     );
   }
 }

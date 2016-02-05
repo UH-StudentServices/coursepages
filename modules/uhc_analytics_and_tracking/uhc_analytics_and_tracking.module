@@ -125,8 +125,10 @@ function uhc_analytics_and_tracking_views_post_execute(&$view) {
     $events = array();
 
     // Track filters
-    foreach ($filters as $label => $value) {
-      uhc_analytics_and_tracking_put_event($events, 'search filter', $label, $value);
+    foreach ($filters as $label => $values) {
+      foreach ($values as $value) {
+        uhc_analytics_and_tracking_put_event($events, 'search filter', $label, $value);
+      }
     }
 
     // Track search type
@@ -273,7 +275,7 @@ function uhc_analytics_and_tracking_resolve_filters() {
           }
         }
 
-        $filters[$filter_label] = $value;
+        $filters[$filter_label][] = $value;
       }
     }
   }

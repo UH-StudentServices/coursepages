@@ -6,6 +6,9 @@
   @include container;
 }
 
+.l-top-bar {
+  position: relative;
+}
 
 // At a given Susy Media Layout, use a given amount of columns.
 // Styles for site when the menu-bar is in slim-mode

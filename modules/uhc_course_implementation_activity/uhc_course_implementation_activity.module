@@ -288,8 +288,13 @@ function _uhc_course_implementation_activity_track_reference_insert($node) {
       // different settings for different node types referenced
       $referenced_node = node_load($added_target_id);
       if ($referenced_node->type == 'course_material') {
-        $arguments = array('@material_title' => $referenced_node->title);
-        $message_type = 'course_implementation_material_create';
+        if (uhc_course_collaboration_private_is_private_course_material($referenced_node)) {
+          $arguments = array();
+          $message_type = 'course_implementation_private_material_create';
+        } else {
+          $arguments = array('@material_title' => $referenced_node->title);
+          $message_type = 'course_implementation_material_create';
+        }
       }
       if ($referenced_node->type == 'event') {
         $arguments = array('@event_title' => $referenced_node->title);
@@ -342,13 +347,20 @@ function _uhc_course_implementation_activity_track_material_update($node) {
 
     // Create an message and set references and then save it.
     $arguments = array('@material_title' => $node->title);
-    $message = message_create('course_implementation_material_update', array('arguments' => $arguments), $account);
+
+    if (uhc_course_collaboration_private_is_private_course_material($node)) {
+      $message = message_create('course_implementation_private_material_update', array(), $account);
+    } else {
+      $message = message_create('course_implementation_material_update', array('arguments' => $arguments), $account);
+    }
+
     $wrapper = entity_metadata_wrapper('message', $message);
+
     if (!is_null($course_implementation_node)) {
       $wrapper->field_message_ref_to_course_imp->set($course_implementation_node);
     }
-    $wrapper->save();
 
+    $wrapper->save();
   }
 }
 
@@ -419,15 +431,22 @@ function _uhc_course_implementation_activity_track_material_delete($node) {
 
     // Create an message and set references and then save it.
     $arguments = array('@material_title' => $node->title);
-    $message = message_create('course_implementation_material_remove', array('arguments' => $arguments), $account);
+
+    if (uhc_course_collaboration_private_is_private_course_material($node)) {
+      $message = message_create('course_implementation_private_material_remove', array(), $account);
+    } else {
+      $message = message_create('course_implementation_material_remove', array('arguments' => $arguments), $account);
+    }
+
     $wrapper = entity_metadata_wrapper('message', $message);
+
     // Here we would setup normally reference to material, but we're removing it
     // at the moment, so no need to bother.
     if (!is_null($course_implementation_node)) {
       $wrapper->field_message_ref_to_course_imp->set($course_implementation_node);
     }
-    $wrapper->save();
 
+    $wrapper->save();
   }
 }
 

@@ -32,7 +32,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       $this->predefined_ids = $ids;
       $this->source = new MigrateSourceList(
         new PortalListPredefined($ids),
-        new CourseImplementationItem($arguments['predefined_item']),
+        new PortalItemBase($arguments['predefined_item']),
         self::sourceFields()
       );
     }
@@ -51,8 +51,9 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       $timeout = variable_get('uhc_sources_timeout', ini_get('default_socket_timeout'));
       $this->source = new MigrateSourceList(
         new PortalListBase('course_id', $list_url, array('timeout' => $timeout)),
-        new CourseImplementationItem($item_url),
-        self::sourceFields()
+        new PortalItemBase($item_url),
+        self::sourceFields(),
+        array('reader_class' => 'UHCMigrateJSONReader')
       );
 
     }
@@ -98,107 +99,65 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'field_imp_teacher_se_content',
     ));
 
-    // Setup field mapping
-    $this->addFieldMapping('status', 'status')->defaultValue(0);
-    $this->addFieldMapping('field_imp_status', 'courseunitrealisation_status');
-    $this->addFieldMapping('title', 'title')->callbacks(array($this, 'trimOpenUniPrefix'));
-    $this->addFieldMapping('field_imp_begin_date', 'start_date')
-      ->arguments(array('timezone' => 'Europe/Helsinki'))
-      ->callbacks(array($this, 'fixTimeZoneIssue'));
-    $this->addFieldMapping('field_imp_end_date', 'end_date')
-      ->arguments(array('timezone' => 'Europe/Helsinki'))
-      ->callbacks(array($this, 'fixTimeZoneIssue'));
+    // Specify default field arguments for text fields
+    $field_arguments = array('language' => $this->getSupportedLanguages(), 'format' => 'filtered_html');
 
-    $this->addFieldMapping('field_imp_enrollment_begin_date', 'enroll_start_date')
-      ->arguments(array('timezone' => 'Europe/Helsinki'))
-      ->callbacks(array($this, 'fixTimeZoneIssue'));
-
-    $this->addFieldMapping('field_imp_enrollment_end_date', 'enroll_end_date')
-      ->arguments(array('timezone' => 'Europe/Helsinki'))
-      ->callbacks(array($this, 'fixTimeZoneIssue'));
-
-    $this->addFieldMapping('field_imp_reference_to_courses', 'learningopportunity_id')->sourceMigration('CourseNode');
-
-    $this->addFieldMapping('field_imp_locality', 'instruction_locality');
-
+    // Language netural text fields that fits *AS IS* to field mapping
+    $this->addFieldMapping('field_imp_id', 'id');
     $this->addFieldMapping('field_study_credit', 'credit_points');
 
-    $this->addFieldMapping('field_imp_method_of_study', 'realisation_type_code')
-      ->arguments(array('source_type' => 'tid'))
-      ->sourceMigration('TaxonomyFormOfTeachingTerm');
-
-    $this->addFieldMapping('field_imp_start_month', 'start_date')
-      ->arguments(array('create_term' => TRUE))
-      ->callbacks(array($this, 'convertToMonthYearName'));
-
+    // Text fields that needs some type of processing during mapping: Language neutral
+    $this->addFieldMapping('title', 'title')->callbacks(array($this, 'trimOpenUniPrefix'));
     $this->addFieldMapping('field_imp_teacher', 'teachers')->callbacks(array($this, 'getTeacherNames'));
     $this->addFieldMapping('field_imp_teacher_number', 'teachers')->callbacks(array($this, 'getTeacherNumbers'));
     $this->addFieldMapping('field_imp_administrator_number', 'officials')->callbacks(array($this, 'getAdministratorNumbers'));
-    $this->addFieldMapping('field_imp_id', 'id');
-
-    // These fields determine how we organise our searches
-    $this->addFieldMapping('field_imp_organisation', 'organisations')
-      ->arguments(array('source_type' => 'tid'))
-      ->callbacks(array($this, 'resolveTidFromOrganisations'));
-    $this->addFieldMapping('field_imp_keywords', 'descriptions')
-      ->callbacks(array($this, 'parseKeywordsFromDescriptions'));
-
-    // Handle multilingual field mapping.
-    $field_arguments = array('language' => $this->getSupportedLanguages(), 'format' => 'filtered_html');
+    // Text fields that needs some type of processing during mapping: Multilingual
     $this->addFieldMapping('title_field', 'realisation_name')->arguments($field_arguments)
       ->callbacks(array($this, 'trimOpenUniPrefix'));
 
-    $this->addFieldMapping('field_imp_giver_locality', 'providing_locality')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
+    // Language neutral text fields that are computed in preprocess
+    $this->addFieldMapping('field_imp_locality', 'instruction_locality');
+    $this->addFieldMapping('field_imp_keywords', 'keywords')->callbacks(array($this, 'parseKeywords'));
 
-    $this->addFieldMapping('field_timing', 'timing')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
+    // Multilingual text fields that are computed in preprocess
+    $this->addFieldMapping('field_imp_giver_locality', 'providing_locality')->arguments($field_arguments);
+    $this->addFieldMapping('field_imp_course_organiser',  'providing_organisation')->arguments($field_arguments);
+    $this->addFieldMapping('field_imp_teaching_language', 'languages');
+    // Multilingual text fields that are computed in preprocess: Descriptions
+    $this->addFieldMapping('field_timing', 'timing')->arguments($field_arguments);
+    $this->addFieldMapping('field_evaluation', 'evaluation')->arguments($field_arguments);
+    $this->addFieldMapping('field_req_prerequisites', 'previous_studies')->arguments($field_arguments);
+    $this->addFieldMapping('field_target_group', 'target_group')->arguments($field_arguments);
+    $this->addFieldMapping('field_additional_info', 'other_information')->arguments($field_arguments);
+    $this->addFieldMapping('field_study_materials', 'study_materials')->arguments($field_arguments);
+    $this->addFieldMapping('field_contents', 'contents')->arguments($field_arguments);
+    $this->addFieldMapping('field_conduct', 'completion')->arguments($field_arguments);
+    $this->addFieldMapping('field_objective', 'objective')->arguments($field_arguments);
+    $this->addFieldMapping('field_imp_fee', 'study_fee')->arguments($field_arguments);
+    $this->addFieldMapping('field_imp_working_methods',  'implementation')->arguments($field_arguments);
 
-    $this->addFieldMapping('field_evaluation', 'evaluation')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
+    // Other types of fields that are computed or prepared in prepare phase
+    $this->addFieldMapping('status', 'status')->defaultValue(0);
+    $this->addFieldMapping('field_cancelled', 'cancelled')->defaultValue(0);
 
-    $this->addFieldMapping('field_req_prerequisites', 'previous_studies')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
+    // Date fields
+    $this->addFieldMapping('field_imp_begin_date', 'start_date')->arguments(array('timezone' => 'Europe/Helsinki'));
+    $this->addFieldMapping('field_imp_end_date', 'end_date')->arguments(array('timezone' => 'Europe/Helsinki'));
+    $this->addFieldMapping('field_imp_enrollment_begin_date', 'enroll_start_date')->arguments(array('timezone' => 'Europe/Helsinki'));
+    $this->addFieldMapping('field_imp_enrollment_end_date', 'enroll_end_date')->arguments(array('timezone' => 'Europe/Helsinki'));
 
-    $this->addFieldMapping('field_target_group', 'target_group')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_additional_info', 'other_information')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_study_materials', 'study_materials')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_contents', 'contents')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_conduct', 'completion')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_objective', 'objective')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_imp_fee', 'study_fee')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_imp_course_organiser',  'providing_organisation')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
-
-    $this->addFieldMapping('field_imp_working_methods',  'implementation')
-      ->arguments($field_arguments)
-      ->callbacks(array($this, 'preprocessString'));
+    // Entity reference fields
+    $this->addFieldMapping('field_imp_reference_to_courses', 'learningopportunity_id')
+      ->sourceMigration('CourseNode');
+    $this->addFieldMapping('field_imp_method_of_study', 'realisation_type_code')
+      ->arguments(array('source_type' => 'tid'))
+      ->sourceMigration('TaxonomyFormOfTeachingTerm');
+    $this->addFieldMapping('field_imp_start_month', 'start_date')
+      ->arguments(array('create_term' => TRUE))
+      ->callbacks(array($this, 'convertToMonthYearName'));
+    $this->addFieldMapping('field_imp_organisation', 'organisations')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'resolveTidFromOrganisations'));
 
     // Note: Multilingual field mapping is not supported, so
     // field_imp_canonical_url field is handled in
@@ -233,67 +192,199 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'contents'                     => 'Multilingual: Contents',
       'completion'                   => 'Multilingual: Completion',
       'objective'                    => 'Multilingual: Objective',
+      'instruction_locality'         => 'City where the course is taught',
       'providing_locality'           => 'Multilingual: City which is giving the course.',
-      'instruction_locality'         => 'Multilingual: City where the course is taught',
       'providing_organisation'       => 'Multilingual: Course organiser',
       'implementation'               => 'Multilingual: Realisation and working methods',
+      'keywords'                     => 'Multilingual: Keywords',
       'languages'                    => 'Teaching languages',
       'teachers'                     => 'Teachers',
       'officials'                    => 'Officials (administrators)',
       'organisations'                => 'Organisations',
       'descriptions'                 => 'Descriptions',
-      'visible'                      => 'Whether the course implementation structure should be visible (webjulk).',
-      'show_to_student'              => 'Whether the course implementation should be visible to students (näytopis).',
+      'hidden'                       => 'Indicates whether this course should be hidden or not.',
+      'status'                       => 'Indicates whether this course should be published or not.',
+      'cancelled'                    => 'Indicates whether this course is cancelled or not.',
     );
   }
 
   /**
-   * Prepare row by checking whether we should skip this and copying locality if
-   * instruction locality is missing.
+   * Check that should this item be processed and if so, prepare whole row, so
+   * that it is field mappable by Migrate.
    */
   public function prepareRow($row) {
+
+    // If this row should be skipped, then return FALSE indicating that we don't
+    // process this item
     if ($this->shouldRowBeSkipped($row)) {
       return FALSE;
     }
 
-    // Compute status from three source properties. The course implementation
-    // is considered published when:
-    //   1) State (courseunitrealisation_status) does not equal to "1" (=planned)
-    //   2) Show to student (show_to_student) equals to "1"
-    //   3) Teaching hiearchy (webjulk) equals to "1"
-    $row->status = ($row->courseunitrealisation_status != 1 && $row->visible == 1 && $row->show_to_student == 1);
+    // From configuration we get list of elements that contains information
+    // about each description name and id. We need that for field proper mapping
+    $description_elements = variable_get('uhc_course_implementation_source_predefined_description_names', array());
 
-    // Use providing_locality as instruction_locality if instruction_locality is
-    // missing.
-    if (empty($row->instruction_locality) && !empty($row->providing_locality['fi'])) {
-      $row->instruction_locality = $row->providing_locality['fi'];
+    // Make the $row field mappable \o/
+    PortalMigrationBase::prepareStatus($row);
+    CourseImplementationNodeMigration::prepareCancelled($row);
+    CourseImplementationNodeMigration::prepareTeachingLanguage($row);
+    CourseImplementationNodeMigration::prepareMultilingualRootTexts($row);
+    CourseImplementationNodeMigration::prepareTitle($row);
+    CourseImplementationNodeMigration::prepareInstructionLocality($row);
+    CourseImplementationNodeMigration::prepareDescriptions($row, $description_elements);
+
+    // All these properties may contain problematic string content that needs
+    // some processing to make it nicely renderable in Drupal.
+    $preprocess_strings = array(
+      'timing',
+      'evaluation',
+      'previous_studies',
+      'target_group',
+      'other_information',
+      'study_materials',
+      'contents',
+      'completion',
+      'objective',
+      'study_fee',
+      'providing_organisation',
+      'implementation',
+    );
+    foreach ($preprocess_strings as $property) {
+      if (!empty($row->$property)) {
+        $row->$property = PortalMigrationBase::preprocessString($row->$property);
+      }
     }
 
     return TRUE;
   }
 
   /**
-   * Converts date/time text to "April 2015" format.
-   * @param $value
-   *   Example expected inputs:
-   *     2015-09-17T00:00:00.000+02:00
-   *     2015-12-12T00:00:00.000+02:00
+   * Decides if a row should be skipped (not migrated) based on hook
+   * implementations written by another modules.
    *
-   * @return string
-   *   An formatted date format like:
-   *     September 2015
-   *     December 2015
+   * @param $row object The current row to be processed.
+   * @return bool TRUE if the row should skip migration, otherwise FALSE.
    */
-  static function convertToMonthYearName($value) {
-    // Convert expected string input to unixtime, so we can then convert it to
-    // our preferred format.
-    $unixtime = strtotime($value);
-    if ($unixtime) {
-      return date('F Y', $unixtime);
+  public function shouldRowBeSkipped($row) {
+    // Invoke "hook_uhc_course_implementation_source_allow_source_row" to see if
+    // any of modules wants to allow this course implementation row.
+    $returns = module_invoke_all('uhc_course_implementation_source_allow_source_row', $row);
+    foreach ($returns as $allow) {
+      if ($allow === TRUE) {
+        // Return FALSE if row should not be skipped
+        return FALSE;
+      }
     }
-    // Fallback to original value, if we couldn't convert it to unix timestamp.
-    return $value;
+    return TRUE;
   }
+
+  ##############################################################################
+  # All following methods are used to prepare the $row and making it field
+  # mappable.
+  ##############################################################################
+
+  /**
+   * Prepares cancelled field which basically is boolean property written as
+   * string: "true"/"false", instead of 0/1 or true/false.
+   *
+   * @param $row
+   */
+  static public function prepareCancelled(&$row) {
+    $row->cancelled = $row->cancelled == 'true' ? 1 : 0;
+  }
+
+  /**
+   * Prepares teaching language values into field mappable structure.
+   * @param $row
+   */
+  static public function prepareTeachingLanguage(&$row) {
+    $replacement = array();
+    if (is_array($row->languages)) {
+      foreach ($row->languages as $value) {
+        if (drupal_strlen($value->langcode) != 0) {
+          $replacement[] = drupal_strtolower($value->langcode);
+        }
+      }
+    }
+    $row->languages = $replacement;
+  }
+
+  /**
+   * Prepares all multilingual root texts that are not having special property
+   * structure.
+   *
+   * @param $row
+   */
+  static public function prepareMultilingualRootTexts(&$row) {
+    // Convert these fields as multilingual values
+    if (!empty($row->realisation_name)) {
+      $row->realisation_name = PortalMigrationBase::convertToMultilingualText($row->realisation_name);
+    }
+    if (!empty($row->providing_organisation->organisation)) {
+      // Note: We conver object into multilingual array
+      $row->providing_organisation = PortalMigrationBase::convertToMultilingualText($row->providing_organisation->organisation);
+    }
+    if (!empty($row->providing_locality)) {
+
+      // Note: We convert object into multilingual array
+      $replacement = array();
+      foreach ($row->providing_locality as $locality) {
+        $replacement[] = PortalMigrationBase::convertToMultilingualText($locality->locality);
+      }
+
+      // If more values was found, source is providing multivalue when we are
+      // reading this value as single value only. Leave log an entry and
+      // conitnue processing.
+      if (count($replacement) > 1) {
+        watchdog('uhc_course_implementation_source', 'Courseunit "@id" has more than one providing locality', array('@id' => $row->course_id), WATCHDOG_WARNING);
+      }
+      $row->providing_locality = $replacement[0];
+    }
+  }
+
+  /**
+   * Prepares title field by using finnish title of realisation_name field.
+   *
+   * Requires CourseImplementationNodeMigration::prepareMultilingualRootTexts()
+   * to be called prior to this call.
+   *
+   * @param $row
+   * @see CourseImplementationNodeMigration::prepareMultilingualRootTexts()
+   */
+  static public function prepareTitle(&$row) {
+    $row->title = (!empty($row->realisation_name['fi']) ? $row->realisation_name['fi'] : NULL);
+  }
+
+  /**
+   * Prepares instruction locality which has some business logic defined.
+   *
+   * If no instruction locality is present, then use providing locality if
+   * provided.
+   *
+   * Requires CourseImplementationNodeMigration::prepareMultilingualRootTexts()
+   * to be called prior to this call.
+   *
+   * @param $row
+   * @see CourseImplementationNodeMigration::prepareMultilingualRootTexts()
+   */
+  static public function prepareInstructionLocality(&$row) {
+
+    // Convert to field mappable multilingual text
+    if (!empty($row->instruction_locality->locality)) {
+      $row->instruction_locality = PortalMigrationBase::convertToMultilingualText($row->instruction_locality->locality);
+    }
+
+    // Use providing_locality as instruction_locality if instruction_locality is
+    // missing.
+    if (empty($row->instruction_locality) && !empty($row->providing_locality['fi'])) {
+      $row->instruction_locality = $row->providing_locality['fi'];
+    }
+  }
+
+  ##############################################################################
+  # All following methods are used for doing simple convertions during field
+  # mapping.
+  ##############################################################################
 
   /**
    * Loops over teacher object and returns a list of teacher names separated by
@@ -343,23 +434,26 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
   }
 
   /**
-   * Decides if a row should be skipped (not migrated) based on hook
-   * implementations written by another modules.
+   * Converts date/time text to "April 2015" format.
+   * @param $value
+   *   Example expected inputs:
+   *     2015-09-17T00:00:00.000Z
+   *     2015-12-12T00:00:00.000Z
    *
-   * @param $row object The current row to be processed.
-   * @return bool TRUE if the row should skip migration, otherwise FALSE.
+   * @return string
+   *   An formatted date format like:
+   *     September 2015
+   *     December 2015
    */
-  public function shouldRowBeSkipped($row) {
-    // Invoke "hook_uhc_course_implementation_source_allow_source_row" to see if
-    // any of modules wants to allow this course implementation row.
-    $returns = module_invoke_all('uhc_course_implementation_source_allow_source_row', $row);
-    foreach ($returns as $allow) {
-      if ($allow === TRUE) {
-        // Return FALSE if row should not be skipped
-        return FALSE;
-      }
+  static function convertToMonthYearName($value) {
+    // Convert expected string input to unixtime, so we can then convert it to
+    // our preferred format.
+    $unixtime = strtotime($value);
+    if ($unixtime) {
+      return date('F Y', $unixtime);
     }
-    return TRUE;
+    // Fallback to original value, if we couldn't convert it to unix timestamp.
+    return $value;
   }
 
   /**
@@ -383,66 +477,23 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
   }
 
   /**
-   * Parses keywords out from collection of descriptions.
+   * Parses keywords out from multilingual field "keywords".
    * @param $values
    * @return array
    */
-  static public function parseKeywordsFromDescriptions($values) {
+  static public function parseKeywords($values) {
     $keywords = array();
-    if (!empty($values) && is_array($values)) {
-      // Find from settings which element_ids are for keywords
-      $description_names = variable_get('uhc_course_implementation_source_predefined_description_names', array());
-      foreach ($description_names as $element_id => $description_name) {
-        if ($description_name == 'keywords') {
-
-          // Loop each value until we match with the current element_id
-          foreach ($values as $value) {
-            if (isset($value->element_id) && $value->element_id == $element_id) {
-
-              // When element_id matches, then strip all tags from the
-              // description, slice it into array strings and trim each keyword
-              // while converting to lower string.
-              $value->description = strip_tags($value->description);
-              foreach (explode(',', $value->description) as $keyword) {
-                $keyword = trim(drupal_strtolower($keyword));
-                if (!empty($keyword)) {
-                  $keywords[] = $keyword;
-                }
-              }
-
-            }
-          }
-
+    if (!empty($values['fi'])) {
+      $values = explode(',', $values['fi']);
+      foreach ($values as $value) {
+        $value = strip_tags($value);
+        $value = trim($value);
+        $value = drupal_strtolower($value);
+        if (!empty($value)) {
+          $keywords[] = $value;
         }
       }
     }
     return $keywords;
-  }
-
-  /**
-   * Ticket DOO-732 appeared after daylight saving time (DST) has applied and
-   * during investigation we concluded that the source system (REST) does not
-   * indicate timezone difference correctly for non DST dates.
-   *
-   * Solution #1 was to fix it there, but as we wanted to save time for the guys
-   * who would worked on it to work on ESB integration instead, so we ended up
-   * fixing it in our end instead (solution #2).
-   *
-   * @link https://jira.it.helsinki.fi/browse/DOO-732
-   * @param $value
-   * @return string
-   */
-  static public function fixTimeZoneIssue($value) {
-
-    // Example: 2015-03-01T00:00:00.000+03:00
-    //                   Replace this: ^^^^^^
-    if ($position = strpos($value, '+')) {
-      // Take string until the '+' sign and append 'Z' making it as following:
-      // 2015-03-01T00:00:00.000Z
-      return substr($value, 0, $position) . 'Z';
-    }
-
-    // If no plus sign position found, return original value
-    return $value;
   }
 }

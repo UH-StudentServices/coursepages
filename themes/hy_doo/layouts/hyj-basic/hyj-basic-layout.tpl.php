@@ -106,9 +106,7 @@
     <?php print render($page['footer']); ?>
 
     <div class="copyright">
-      <p>
         <?php print '&copy; ' . t('University of Helsinki @year', array('@year' => date('Y'))); ?>
-      </p>
     </div>
   </footer>
 </div>
