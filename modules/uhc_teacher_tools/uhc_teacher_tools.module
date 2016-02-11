@@ -211,7 +211,8 @@ function uhc_teacher_tools_menu_link_alter(&$item) {
 /**
  * Implements template_preprocess_page().
  *
- * Remove Menu local tasks in Course implementation node edit.
+ * Remove Menu local tasks in Course implementation node edit. Display a simpler
+ * title.
  */
 function uhc_teacher_tools_preprocess_page(&$variables) {
   $node = isset($variables['node']) ? $variables['node'] : null;
@@ -220,6 +221,15 @@ function uhc_teacher_tools_preprocess_page(&$variables) {
     && $uid !== '1'
     && isset($variables['page']['content']['system_main']['#node_edit_form'])) {
     unset($variables['tabs']['#primary']);
+  }
+
+  // Display a simpler title.
+  $arg = arg();
+  $edit = count($arg) == 3 && $arg[0] == 'node' && $arg[2] == 'edit';
+  $course_implementation_node = isset($node->nid) && $node->type == 'course_implementation';
+
+  if ($edit && $course_implementation_node) {
+    drupal_set_title($node->title);
   }
 }
 
@@ -257,11 +267,14 @@ function uhc_teacher_tools_form_node_form_alter(&$form, &$form_state, $form_id) 
  * Implements hook_form_FORM_ID_alter().
  */
 function uhc_teacher_tools_form_course_implementation_node_form_alter(&$form, &$form_state, $form_id) {
-  uhc_teacher_tools_display_editing_message();
+  // we dont want this to happen when opening/closing inline entity forms
+  if(!$form_state['rebuild']) {
+    uhc_teacher_tools_display_editing_message();
+  }
 }
 
 function uhc_teacher_tools_display_editing_message() {
-  drupal_set_message(t('You are now editing the course page. Remember to save your changes with choosing "Save" or "Save & Close".'));
+  drupal_set_message(t('You are now editing the course page. Remember to save your changes with choosing "Save" or "Save & Close".'), 'warning');
 }
 
 /**

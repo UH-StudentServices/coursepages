@@ -1,6 +1,8 @@
 .ds-node-sidebar {
+  margin: 2em 0;
   @include at-breakpoint($layout-small) {
     @include border-left;
+    margin: 0;
     padding-left: 1.5em;
   }
 }
@@ -9,15 +11,6 @@
   margin-bottom: 2em;
   ul {
     margin-top: 0.5em;
-  }
-}
-
-.block--uhc-autofill-metadata-enrollments-block {
-  li {
-    @include border-bottom;
-    @include font-weight-bold;
-    padding: 1em 0;
-    font-size: 0.9em;
   }
 }
 

@@ -1,3 +1,39 @@
+# Helsinki University Coursepages v1.55
+Päiväys: 10.02.2016
+
+## Lisäykset
+  - DOO-1848: Lisätty toteutussivuille linkki oppiaineen sivulle.
+  - DOO-1630: Kurssiesitteesseen lisätty vastuuhenkilö ja yhteydet muihin
+    opintojaksoihin nyt myös toteutuksen osalta.
+  - DOO-1545: Touriin lisätty Moodle, Interaktio, ja video -osiot.
+  - DOO-1888: Lisättiin tuki poistettujen toteutusten tunnistamiseen (ja
+    paikallisesti poistamiselle)
+  - DOO-1789: Lisätty toteutussivulle linkki, joka vie oppiainesivulle ja avaa valmiiksi
+    näkyville muut jakson toteutukset.
+
+## Muutokset
+  - DOO-1905: Kurssiesitteen kirjautumiseen ja kielenvaihtoon liittyvät viestit
+    yhdistetty.
+  - DOO-1902: muutettu info-pudotusvalikon koko rivit linkeiksi
+  - DOO-1859: Yksinkertaistettu otsikkoa toteutuksen muokkauslomakkeella.
+  - DOO-1904: ylälaidan editointinavigoinnin ulkonäkö muutettu
+  - DOO-1736: Piilotettiin kelluva palaute-elementti muokkausnäkymästä.
+  - DOO-1857: Moodle-napin viereen vihje, että avain näytetään vain
+    kirjautuneille kurssin jäsenille.
+  - DOO-1917: Oppiainesivun jaksojen toteutuslistassa näytetään toteutuksen otsikko ja
+    opintopistemäärä, jos ne poikkeavat jakson vastaavista.
+
+## Korjaukset
+  - DOO-1842: Korjattu kirjautuneilla käyttäjillä läpinäkyvä avoimen alanavigaatio.
+  - Korjattiin ongelma, jossa toteuttaja organisaatio tieto ei sisäänluettu
+    oikein.
+  - DOO-1924: Korjattu: Englanninkielisellä kurssisivulla näkyi suomenkielinen
+    toteutuksen nimi, vaikka toteutuksella oli englanninkielinenkin nimi.
+  - DOO-1919: Korjattiin kurssisivujen oikean palstan kurssilistaus.
+  - DOO-1889: Putsaa toteutukset, joita ei enää tunnisteta kartoitus-aputaululla
+  - DOO-1918: Korjattiin kuvatekstien purkuasetukset
+
+
 # Helsinki University Coursepages v1.54
 Päiväys: 05.02.2016
 

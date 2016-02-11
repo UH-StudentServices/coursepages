@@ -459,8 +459,8 @@ function uhc_course_implementation_field_group_info() {
     'label' => 'Learning environments',
     'weight' => '16',
     'children' => array(
-      0 => 'field_moodle_key',
-      1 => 'field_moodle_url',
+      0 => 'field_moodle_url',
+      1 => 'uhc_ds_moodle_key_or_login',
     ),
     'format_type' => 'div',
     'format_settings' => array(

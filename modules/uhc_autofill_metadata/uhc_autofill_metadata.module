@@ -282,23 +282,26 @@ function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $langc
     // from static storage too. If it's NULL, we assume that this specific case
     // isn't requested yet.
     if (is_null($enrollment_data)) {
-      $base_url = variable_get('uhc_enrollments_base_url', 'https://oprek4.it.helsinki.fi:30039/');
-      $path = "students/$personal_unique_code/enrollments?langcode=$langcode";
-      $url = $base_url . $path;
-      $response = drupal_http_request($url, array('timeout' => 2.0));
+      $base_url = variable_get('uhc_enrollments_base_url');
 
-      if ($response->code == 200) {
-        $enrollment_data = drupal_json_decode($response->data);
-      }
-      else {
-        $enrollment_data = FALSE;
-        $error = isset($response->error) ? $response->error : '';
+      if (!empty($base_url)) {
+        $path = "students/$personal_unique_code/enrollments?langcode=$langcode";
+        $url = $base_url . $path;
+        $response = drupal_http_request($url, array('timeout' => 2.0));
 
-        uhc_autofill_metadata_log(
-          'Failed to get enrollments for @personal_unique_code. Error: @error',
-          array('@personal_unique_code' => $personal_unique_code, '@error' => $error),
-          WATCHDOG_WARNING
-        );
+        if ($response->code == 200) {
+          $enrollment_data = drupal_json_decode($response->data);
+        }
+        else {
+          $enrollment_data = FALSE;
+          $error = isset($response->error) ? $response->error : '';
+
+          uhc_autofill_metadata_log(
+            'Failed to get enrollments for @personal_unique_code. Error: @error',
+            array('@personal_unique_code' => $personal_unique_code, '@error' => $error),
+            WATCHDOG_WARNING
+          );
+        }
       }
     }
   }
@@ -433,32 +436,64 @@ function uhc_autofill_metadata_block_view($delta = '') {
   return $block;
 }
 
-// gets the current users enrollments and displays it as a list
+// Gets the current users enrollments and displays them as a list.
 function _uhc_autofill_metadata_enrollments_block() {
   global $language;
   $langcode = $language->language;
   $personal_unique_code = uhc_autofill_metadata_get_current_user_personal_unique_code();
   $enrollments = uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $langcode);
-  $output = '';
 
   if (!empty($enrollments)) {
-    $output = '<ul>';
+    $items = array('attributes' => array('class' => 'list-of-links--light spacer-bottom-3'));
     $exams = variable_get('uhc_migrate_methods_of_study_marked_as_exam', array());
+
     foreach ($enrollments['data'] as $enrollment) {
+      $learningopportunity_id = $enrollment['learningopportunity_id'];
+      $course_id = $enrollment['course_id'];
+      $enrollment_name = _uhc_autofill_metadata_get_enrollment_name($enrollment, $langcode);
+
       if (_uhc_autofill_metadata_enrollments_block_should_display_enrollment($enrollment['type_code'], $exams)) {
-        if ($langcode == 'en') {
-          $link = '/' . $enrollment['learningopportunity_id'] . '/' .$enrollment['course_id'];
+        $link = "/$learningopportunity_id/$course_id";
+
+        if ($langcode != 'en') {
+          $link = "/$langcode" . $link;
         }
-        else {
-          $link = '/' . $langcode . '/' . $enrollment['learningopportunity_id'] . '/' .$enrollment['course_id'];
-        }
-        $output .= '<li><a href="' . $link . '">' . $enrollment['learningopportunity_id'] . ' ' . $enrollment['name'] . '</a></li>';
+
+        $items['items'][] = l($learningopportunity_id . ' ' . $enrollment_name, $link);
       }
     }
-    $output .= '</ul>';
+    return theme('item_list', $items);
+  }
+}
+
+/**
+ * Returns enrollment name by the given language code. If a name matching the
+ * given language code is not found, fallbacks to known languages ('fi', 'en').
+ *
+ * @param $enrollment object Enrollment object.
+ * @param $langcode string Language code.
+ * @return string Enrollment name matching the language code, if found.
+ */
+function _uhc_autofill_metadata_get_enrollment_name($enrollment, $langcode) {
+  $enrollment_name = '';
+  $enrollment_names = array();
+
+  foreach ($enrollment['name'] as $name) {
+    $enrollment_names[$name['langcode']] = $name['text'];
   }
 
-  return $output;
+  // Primary: Name by given language code. Fallback to 'fi' or 'en'.
+  if (!empty($enrollment_names[$langcode])) {
+    $enrollment_name = $enrollment_names[$langcode];
+  } else {
+    if (!empty($enrollment_names['fi'])) {
+      $enrollment_name = $enrollment_names['fi'];
+    } elseif (!empty($enrollment_names['en'])){
+      $enrollment_name = $enrollment_names['en'];
+    }
+  }
+
+  return $enrollment_name;
 }
 
 function _uhc_autofill_metadata_enrollments_block_should_display_enrollment($method_of_study_id, $exams) {

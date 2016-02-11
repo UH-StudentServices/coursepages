@@ -2,4 +2,4 @@ name = "[Deprecated] UHC Course Implementation Language Suggester"
 description = This module is deprecated and can be disabled, uninstalled and removed.
 core = 7.x
 package = UHC
-version = 7.x-1.54
+version = 7.x-1.55

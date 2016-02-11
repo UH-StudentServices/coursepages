@@ -113,12 +113,6 @@ function uhc_doo_theme_features_context_default_contexts() {
           'region' => 'footer',
           'weight' => '-8',
         ),
-        'hy_links-hy_links_link_block' => array(
-          'module' => 'hy_links',
-          'delta' => 'hy_links_link_block',
-          'region' => 'footer',
-          'weight' => '-10',
-        ),
       ),
     ),
   );

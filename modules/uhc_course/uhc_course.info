@@ -1,13 +1,12 @@
 name = UHC Course
 core = 7.x
 package = UHC
-version = 7.x-1.54
+version = 7.x-1.55
 project = uhc_course
 dependencies[] = ctools
 dependencies[] = entity_token
 dependencies[] = entityreference
 dependencies[] = features
-dependencies[] = field_bases_feature
 dependencies[] = field_group
 dependencies[] = field_permissions
 dependencies[] = hy_display

@@ -15,13 +15,23 @@
           //...and lets open the next accordion item
           $('.' + NextAccordionItem).prev().children('a').trigger('click');
         });
-      });
-      // joyride needs a class to target for the edit button
-      $('.tabs--primary').find('li:nth-child(2)').addClass('joyride-edit');
+      });      
       // this gets rid of all the extra whitespace when we have joyride enabled
       $('#joyride-tips-content').css('display', 'none');
       //Joyride screws up the positioning of these steps, so lets do some adjustments
-      $('.joyride-tip-guide.group-description-objectives').css('margin-top', '85px');
+      $('.joyride-tip-guide.joyride-moodle').css('margin-top', '-10px');
+
+      $('.joyride-tip-guide.joyride-edit-link').css('margin-left', '-230px');
+      $('.joyride-nub', '.joyride-tip-guide.joyride-edit-link').css({
+        'right' : '19px',
+        'left' : 'initial',
+      });
+
+      $('.joyride-tip-guide.joyride-logout-link').css('margin-left', '-260px');
+      $('.joyride-nub', '.joyride-tip-guide.joyride-logout-link').css({
+        'right' : '19px',
+        'left' : 'initial',
+      });
     }
   }
 })(jQuery);

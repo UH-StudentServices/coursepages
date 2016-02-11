@@ -105,14 +105,24 @@ function uhc_tour_context_default_contexts() {
   <p>This information is imported from WebOodi and can not be edited here.</p>
 </li>
 
-<li class="group-course-messages" data-class="ds-node-banner"  data-text="Next">
+<li class="joyride-moodle" data-class="ds-node-banner"  data-text="Next">
   <h2>Promotion</h2>
   <p>Use this area for promoting the course to students. You can also add your own image.</p>
 </li>
 
-<li class="group-timetable" data-class="is-active" data-text="Next">
+<li class="group-course-messages" data-class="moodle-button"  data-text="Next">
+  <h2>moodle</h2>
+  <p>The teacher may add the link to the Moodle course area.</p>
+</li>
+
+<li class="group-imp-interaction" data-class="is-active" data-text="Next">
   <h2>Messages</h2>
   <p>Messages might be public or restricted to course\'s participants only</p>
+</li>
+
+<li class="group-timetable" data-class="is-active"  data-text="Next">
+  <h2>Interaction</h2>
+  <p>The teacher may specify how the students are able to interact online in this course.</p>
 </li>
 
 <li class="group-imp-material" data-class="is-active" data-text="Next">
@@ -120,9 +130,14 @@ function uhc_tour_context_default_contexts() {
   <p>The timetable consists of events imported from WebOodi as well as events added in the course page</p>
 </li>
 
-<li class="group-course-task-material" data-class="is-active" data-text="Next">
+<li class="group-imp-video" data-class="is-active" data-text="Next">
   <h2>Material</h2>
   <p>Material may consist of attachments, links or references, divided into different sections.</p>
+</li>
+
+<li class="group-course-task-material" data-class="is-active" data-text="Next">
+  <h2>Video</h2>
+  <p>Videos can be either linked or embedded.</p>
 </li>
 
 <li class="group-custom-section" data-class="is-active" data-text="Next">
@@ -140,12 +155,12 @@ function uhc_tour_context_default_contexts() {
   <p>The teacher may specify how the course is conducted and how the students are evaluated.</p>
 </li>
 
-<li data-class="joyride-edit"  data-text="Next">
+<li data-class="edit-link" class="joyride-edit-link" data-text="Next">
   <h2>Edit</h2>
   <p>Switch to edit mode.</p>
 </li>
 
-<li class="logout" data-class="logout-link" data-text="Next">
+<li class="joyride-logout-link" data-class="logout-link" data-text="Next">
   <h2>Logout</h2>
   <p>Remember to logout!</p>
 </li>',

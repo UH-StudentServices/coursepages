@@ -31,6 +31,12 @@
             return false;
           }
         });
+
+        // open accordion items with anchors
+        if (window.location.hash.length) {
+          $('a[name*=' + window.location.href.split('#')[1] + ']').click();
+        }
+
       });
     }
   }

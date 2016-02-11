@@ -29,12 +29,10 @@
       min-width: 14px;
     }
     .item-list {
-      @include dropdown-menu;
-      top: 30px;
+      @include dropdown-menu();
+      top: 35px;
+      right: -10px;
       ul {
-        overflow-y: auto;
-        overflow-x: hidden;
-        max-height: 330px;
         li {
           @include border-bottom;
           @include clearfix;

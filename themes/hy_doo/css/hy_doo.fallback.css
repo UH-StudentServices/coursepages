@@ -629,20 +629,22 @@
   min-width: 14px;
 }
 .activity .item-list {
-  -moz-transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
-  -o-transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
-  -webkit-transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1);
+  -moz-transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
+  -o-transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
+  -webkit-transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1);
   -webkit-transition-delay: 0s;
-  transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
+  transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
   z-index: 1;
   font-size: 0.85em;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   background: #FFF;
   position: absolute;
   right: 5px;
-  height: 0;
+  max-height: 0;
   width: 330px;
-  top: 30px;
+  top: 35px;
+  right: -10px;
 }
 .activity .item-list:before {
   width: 0;
@@ -669,12 +671,7 @@
 .activity .item-list.collapsed {
   border: 1px solid #EBEBEB;
   overflow: visible;
-  height: auto;
-}
-.activity .item-list ul {
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 330px;
+  max-height: none;
 }
 .activity .item-list ul li {
   border-bottom: 1px solid #EBEBEB;
@@ -781,8 +778,8 @@
 */
 .ds-node-banner {
   font-family: Georgia;
-  float: left;
-  width: 100%;
+  overflow: hidden;
+  *zoom: 1;
   text-align: center;
 }
 @media (min-width: 48em) {
@@ -907,14 +904,14 @@
 * text, accordion items, and accordion lists
 */
 .ds-node-content {
-  float: left;
-  width: 100%;
+  overflow: hidden;
+  *zoom: 1;
 }
 .ds-node-content p,
 .ds-node-content ul li,
 .ds-node-content ol li {
   font-family: Georgia;
-  font-size: inherit;
+  font-size: inherit !important;
 }
 
 .field--name-field-imp-header-image {
@@ -1025,12 +1022,16 @@
   }
 }
 
+.ds-node-sidebar {
+  margin: 2em 0;
+}
 @media (min-width: 48em) {
   .ds-node-sidebar {
     border-left: 1px solid #EBEBEB;
     border-bottom: 0;
     border-right: 0;
     border-top: 0;
+    margin: 0;
     padding-left: 1.5em;
   }
 }
@@ -1040,17 +1041,6 @@
 }
 .related-content-section ul {
   margin-top: 0.5em;
-}
-
-.block--uhc-autofill-metadata-enrollments-block li {
-  border-bottom: 1px solid #EBEBEB;
-  border-left: 0;
-  border-right: 0;
-  border-top: 0;
-  font-weight: 700;
-  font-style: normal;
-  padding: 1em 0;
-  font-size: 0.9em;
 }
 
 .sidebar-contact {
@@ -1236,15 +1226,15 @@
   width: 100%;
   z-index: 11;
 }
-.logged-in .fatmenu {
-  position: static;
-}
 .stickynav-active .fatmenu {
   position: fixed;
 }
 .fatmenu.is-open {
-  box-shadow: none;
-  border-bottom: none;
+  box-shadow: 0 15px 25px -27px #666;
+  border-bottom: 1px solid #EBEBEB;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
 }
 @media (min-width: 48em) {
   .fatmenu {
@@ -1829,17 +1819,17 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
   }
 }
 .responsive-navigation .home-link {
+  color: #0098d0;
+  font-size: 0;
   color: #005479;
-  visibility: hidden;
-  width: 20px;
+  margin-right: 10px;
 }
 .responsive-navigation .home-link:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "hy-icons";
   content: "";
-  position: absolute;
-  visibility: visible;
+  font-size: 15px;
 }
 .responsive-navigation .login-link {
   background: #0098d0;
@@ -2053,7 +2043,7 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
 }
 /* Custom theming for menu local tasks */
 .tabs-wrapper {
-  background-color: #1073BF;
+  background-color: #0098d0;
   width: 100%;
 }
 .tabs-wrapper .tabs {
@@ -2070,40 +2060,33 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
   display: table;
   clear: both;
 }
-.tabs-wrapper .tabs li {
-  margin: 0;
-}
-.tabs-wrapper .tabs li a:link {
-  background-color: #1073BF;
+.tabs-wrapper .tabs li a {
+  text-transform: uppercase;
   color: #FFF;
-  font-size: 13px;
-  line-height: auto;
-  padding: 0 1.2em;
-  line-height: 31px;
+  font-size: 12px;
+  margin: 3px 0 2px 0;
+  letter-spacing: 0.03em;
+  padding-right: 2em;
+  line-height: 25px;
   float: left;
 }
-.tabs-wrapper .tabs li a:visited {
-  background-color: inherit;
-  color: #FFF;
-}
 .tabs-wrapper .tabs li a.edit-link {
-  background-color: #178FEB;
-  font-size: 14px;
-  line-height: 30px;
+  font-weight: 600;
+  font-style: normal;
+  background-color: #0882B3;
+  padding: 0 1.2em;
   float: right;
 }
-.tabs-wrapper .tabs li a.edit-link:after {
-  font-family: 'hy-icons';
-  content: "\EA25";
-  margin-left: 5px;
+.tabs-wrapper .tabs li a.edit-link:hover {
+  background-color: #005479;
 }
-
-ul.tabs.primary li a:link:hover,
-ul.tabs.primary li.active a:hover,
-ul.tabs.primary li.active a.active,
-ul.tabs--primary li a:link.active,
-ul.tabs--primary li a:link:hover {
-  background-color: #0E64A6;
+.tabs-wrapper .tabs li a.edit-link:after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "hy-icons";
+  content: "";
+  font-size: 16px;
+  margin-left: 0.5em;
 }
 
 .moodle-button {
@@ -2184,18 +2167,19 @@ ul.tabs--primary li a:link:hover {
   right: 10px;
 }
 .pager-and-sorting-controls .form-item .chosen-container .chosen-drop {
-  -moz-transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
-  -o-transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
-  -webkit-transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1);
+  -moz-transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
+  -o-transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
+  -webkit-transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1);
   -webkit-transition-delay: 0s;
-  transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
+  transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
   z-index: 1;
   font-size: 0.85em;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   background: #FFF;
   position: absolute;
   right: 5px;
-  height: 0;
+  max-height: 0;
   width: 330px;
   right: -9px;
   margin-top: 5px;
@@ -2229,7 +2213,7 @@ ul.tabs--primary li a:link:hover {
 .pager-and-sorting-controls .form-item .chosen-container .chosen-drop.collapsed {
   border: 1px solid #EBEBEB;
   overflow: visible;
-  height: auto;
+  max-height: none;
 }
 .pager-and-sorting-controls .form-item .chosen-container .chosen-drop .chosen-search {
   display: none;
@@ -2240,7 +2224,7 @@ ul.tabs--primary li a:link:hover {
 .pager-and-sorting-controls .form-item .chosen-container.chosen-with-drop .chosen-drop {
   border: 1px solid #EBEBEB;
   overflow: visible;
-  height: auto;
+  max-height: none;
 }
 .pager-and-sorting-controls .form-item .chosen-container.chosen-with-drop .chosen-drop li {
   padding: 0.5em 0;
@@ -2404,58 +2388,57 @@ ul.tabs--primary li a:link:hover {
 .block--system-user-menu {
   position: absolute;
   top: 0;
-  right: 50px;
-}
-.logged-in .block--system-user-menu {
-  right: 100px;
+  right: 70px;
 }
 .block--system-user-menu > ul > li {
   position: relative;
-  margin: 0 1.2em 0 0.5em;
-  width: 1em;
   line-height: 48px;
+  height: 48px;
+  margin-left: 2em;
   font-size: 0.9375rem;
   cursor: pointer;
   float: left;
 }
-.block--system-user-menu > ul > li > span, .block--system-user-menu > ul > li > a {
+.block--system-user-menu > ul > li .info-link {
   color: #0098d0;
-  visibility: hidden;
-  width: 20px;
+  font-size: 0;
 }
 .block--system-user-menu > ul > li .info-link:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "hy-icons";
   content: "";
-  position: absolute;
-  visibility: visible;
+  font-size: 15px;
+}
+.block--system-user-menu > ul > li .logout-link {
+  color: #0098d0;
+  font-size: 0;
 }
 .block--system-user-menu > ul > li .logout-link:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "hy-icons";
   content: "";
-  visibility: visible;
-  position: absolute;
+  font-size: 15px;
 }
 .block--system-user-menu ul ul.menu {
-  -moz-transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
-  -o-transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
-  -webkit-transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1);
+  -moz-transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
+  -o-transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
+  -webkit-transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1);
   -webkit-transition-delay: 0s;
-  transition: height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
+  transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
   z-index: 1;
   font-size: 0.85em;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   background: #FFF;
   position: absolute;
   right: 5px;
-  height: 0;
+  max-height: 0;
   width: 330px;
   width: 170px;
   right: -15px;
-  top: 48px;
+  top: 55px;
 }
 .block--system-user-menu ul ul.menu:before {
   width: 0;
@@ -2482,31 +2465,32 @@ ul.tabs--primary li a:link:hover {
 .block--system-user-menu ul ul.menu.collapsed {
   border: 1px solid #EBEBEB;
   overflow: visible;
-  height: auto;
-}
-.block--system-user-menu ul ul.menu.collapsed {
-  padding: 0 10px;
+  max-height: none;
 }
 .block--system-user-menu ul ul.menu li {
   border-bottom: 1px solid #EBEBEB;
   border-left: 0;
   border-right: 0;
   border-top: 0;
-  padding: 10px 0;
-  line-height: initial;
+  margin: 0 10px;
 }
 .block--system-user-menu ul ul.menu li:last-child {
   border-bottom: 0;
 }
+.block--system-user-menu ul ul.menu li a {
+  padding: 10px 0;
+  display: block;
+  line-height: initial;
+}
 @media (min-width: 48em) {
   .block--system-user-menu {
     position: static;
-    right: 0;
     float: right;
   }
   .block--system-user-menu > ul > li {
-    margin: 0 0 0 2.5em;
+    margin-left: 2.5em;
     line-height: 60px;
+    height: 60px;
   }
   .block--system-user-menu ul ul.menu {
     width: 330px;
@@ -3482,6 +3466,12 @@ a:hover .accordion-item__alternative:before, .accordion-item__alternative:hover:
 .accordion-item__alternative.is-active {
   border-bottom: none;
 }
+.accordion-item__alternative a {
+  color: #0098d0;
+}
+.accordion-item__alternative a:hover {
+  color: #0882B3;
+}
 
 .accordion-item-title-link:after {
   -webkit-font-smoothing: antialiased;
@@ -3535,8 +3525,7 @@ a:hover .accordion-item__alternative:before, .accordion-item__alternative:hover:
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  overflow: hidden;
-  *zoom: 1;
+  clear: both;
   text-align: center;
   padding: 1.3em 2em;
 }
@@ -3589,7 +3578,8 @@ a:hover .accordion-item__alternative:before, .accordion-item__alternative:hover:
 .messages.status.alternative * {
   color: #81b43b;
 }
-.messages.status > :before {
+.messages.status li:before,
+.messages.status p:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "FontAwesome";
@@ -3611,7 +3601,8 @@ a:hover .accordion-item__alternative:before, .accordion-item__alternative:hover:
 .messages.warning.alternative * {
   color: #222;
 }
-.messages.warning > :before {
+.messages.warning li:before,
+.messages.warning p:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "FontAwesome";
@@ -3633,7 +3624,8 @@ a:hover .accordion-item__alternative:before, .accordion-item__alternative:hover:
 .messages.error.alternative * {
   color: #964822;
 }
-.messages.error > :before {
+.messages.error li:before,
+.messages.error p:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "FontAwesome";
@@ -3655,7 +3647,8 @@ a:hover .accordion-item__alternative:before, .accordion-item__alternative:hover:
 .messages.search-info.alternative * {
   color: #222;
 }
-.messages.search-info > :before {
+.messages.search-info li:before,
+.messages.search-info p:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "FontAwesome";
@@ -3929,6 +3922,29 @@ h1, h2 {
 .heading-size-4 {
   font-size: 21px;
   font-size: 1.3125rem;
+}
+
+.portal-promotions {
+  padding: 4em 0 1em 0;
+}
+.portal-promotions .button-internal {
+  border-bottom: none;
+}
+
+.link-multiple {
+  border-bottom: none !important;
+}
+
+.field-group-accordion-item .messages li, .field-group-accordion-item .messages p {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif, Nimbus Sans L;
+}
+
+.block--uhc-autofill-metadata-enrollments-block a:after {
+  display: none;
+}
+
+.page-node-edit #block-feedback-form {
+  display: none !important;
 }
 
 /* IE 8 issues */

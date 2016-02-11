@@ -88,6 +88,12 @@
   &.is-active {
     border-bottom: none;
   }
+  a {
+    color: $blue;
+    &:hover {
+      color: $blue--active;
+    }
+  }
 }
 
 .accordion-item-title-link {

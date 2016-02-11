@@ -900,3 +900,19 @@ function uh_coursepages_update_7010(&$sandbox) {
   field_delete_field('field_responsible_person');
   features_revert(array('uhc_field_base' => array('field_base')));
 }
+
+/**
+ * Move title_field form field_bases_feature to uhc_field_base. disable features
+ * we don't need and delete fields that are not used.
+ */
+function uh_coursepages_update_7011(&$sandbox) {
+  features_revert(array('field_bases_feature' => array('field_base')));
+  features_revert(array('uhc_field_base' => array('field_base')));
+  module_disable(array('field_bases_feature', 'menu_translation', 'hy_links'));
+  field_delete_field('field_description');
+  field_delete_field('body');
+  field_delete_field('field_keywords');
+  field_delete_field('field_responsible_person_email');
+  field_delete_field('field_responsible_unit');
+  field_delete_field('field_search_title');
+}

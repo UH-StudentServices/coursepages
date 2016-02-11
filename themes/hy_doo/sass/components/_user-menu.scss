@@ -1,62 +1,47 @@
 .block--system-user-menu {
   position: absolute;
   top: 0;
-  right: 50px;
-  .logged-in & {
-    right: 100px;
-  }
+  right: 70px;
   > ul > li {
     position: relative;
-    margin: 0 1.2em 0 0.5em;
-    width: 1em;
     line-height: 48px;
+    height: 48px;
+    margin-left: 2em;
     font-size: 0.9375rem;
     cursor: pointer;
     float: left;
-    > span, > a {
-      color: $blue;
-      visibility: hidden;
-      width: 20px;
-    }
     .info-link {
-      &:before {
-        @include hy-icon($hy-info-stroke);
-        position: absolute;
-        visibility: visible;
-      }
+      @include menu-item-icon($hy-info-stroke);
     }
     .logout-link {
-      &:before {
-        @include hy-icon($hy-logout);
-        visibility: visible;
-        position: absolute;
-      }
+      @include menu-item-icon($hy-logout);
     }
   }
   ul ul.menu {
-    @include dropdown-menu;
+    @include dropdown-menu();
     width: 170px;
     right: -15px;
-    top: 48px;
-    &.collapsed {
-      padding: 0 10px;
-    }
+    top: 55px;
     li {
       @include border-bottom;
-      padding: 10px 0;
-      line-height: initial;
+      margin: 0 10px;
       &:last-child {
         border-bottom: 0;
+      }
+      a {
+        padding: 10px 0;
+        display: block;
+        line-height: initial;
       }
     }
   }
   @include at-breakpoint($layout-small) {
     position: static;
-    right: 0;
     float: right;
     > ul > li {
-      margin: 0 0 0 2.5em;
+      margin-left: 2.5em;
       line-height: 60px;
+      height: 60px;
     }
     ul ul.menu {
       width: 330px;

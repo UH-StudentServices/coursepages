@@ -2,7 +2,7 @@
   @include font-weight-medium;
   @include font-size(12px);
   @include transition(all 0.3s ease-in-out);
-  @include clearfix;
+  clear: both;
   text-align: center;
   padding: 1.3em 2em;
   p, ul {
@@ -47,7 +47,8 @@
           color: map-get(map-get($messages, $name), "color-alt");
         }
       }
-      >:before {
+      li:before,
+      p:before {
         @include font-awesome(map-get(map-get($messages, $name), "icon"));
         font-size: 1.3em;
         margin-right: 0.7em;

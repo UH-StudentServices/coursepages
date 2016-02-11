@@ -164,7 +164,7 @@ class CourseNodeMigration extends PortalMigrationBase {
       'objective'                       => 'Multilingual: Objective',
       'contents'                        => 'Multilingual: Contents',
       'study_materials'                 => 'Multilingual: Study materials',
-      'responsible_person'              => 'Multilingual: Resonsible person',
+      'responsible_person'              => 'Multilingual: Responsible person',
       'relations_to_other_study_units'  => 'Multilingual: Relations to other study units',
       'timing'                          => 'Multilingual: Timing',
       'target_group'                    => 'Multilingual: Target group',

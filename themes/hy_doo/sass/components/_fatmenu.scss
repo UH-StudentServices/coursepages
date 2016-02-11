@@ -6,17 +6,13 @@
   width: 100%;
   z-index: 11;
 
-  .logged-in & {
-    position: static;
-  }
-
   .stickynav-active & {
     position: fixed;
   }
 
   &.is-open {
-    box-shadow: none;
-    border-bottom: none;
+    @include shadow-under;
+    @include border-bottom;
   }
   
   @include at-breakpoint($layout-small) {

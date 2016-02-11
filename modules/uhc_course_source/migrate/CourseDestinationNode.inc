@@ -34,6 +34,8 @@ class CourseDestinationNode extends PortalDestinationNode {
       'field_conduct',
       'field_study_materials',
       'field_course_subject',
+      'field_responsible_person',
+      'field_rel_to_other_study_units',
     );
     $entity = $this->cleanupEmptyTextFields($entity, $potentially_empty_fields);
   }

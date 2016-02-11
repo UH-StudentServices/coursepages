@@ -132,28 +132,34 @@ function uhc_course_implementation_field_group_build_pre_render_alter(&$element)
 
   $node_view = arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL;
   if (isset($element['group_description_objectives']['#prefix']) && $node_view) {
+    $messages = array(
+      'attributes' => array(
+        'class' => 'messages status alternative accordion-content-item',
+      ),
+    );
+
+    if (user_is_logged_in()) {
+      $messages['items'][] = t('Course overview information comes from Oodi.');
+    }
 
     // If we are at node view page and the active language is not one of the teaching 
     // languages, then print out that page should be read in teaching language.
     $node = $element['#node'];
     $langcode = i18n_langcode();
     $teaching_languages = field_get_items('node', $node, 'field_imp_teaching_language');
-    if ($teaching_languages) {
 
-      // Compile simpler comparable array from field values
+    if ($teaching_languages) {
+      $teaching_lang_codes = array();
+
       foreach ($teaching_languages as $teaching_language) {
         $teaching_lang_codes[] = $teaching_language['value'];
       }
 
-      // Now compare and potentially set the message
-      if (!in_array($langcode, $teaching_lang_codes)) {
-        $message = array(
-          'type' => 'status',
-          'class' => ' alternative',
-          'message' => '<p>' . t('Please read this page in teaching language') . '</p>',
-        );
-        $element['group_description_objectives']['#prefix'] .= '<div class="accordion-content-item clean">' . theme('views_system_message', $message) . '</div>';
+      if(!in_array($langcode, $teaching_lang_codes)) {
+        $messages['items'][] = t('If this section is empty, please read this page in teaching language.');
       }
+
+      $element['group_description_objectives']['#prefix'] .= theme('item_list', $messages);
     }
   }
 }
@@ -605,15 +611,6 @@ function uhc_course_implementation_load_by_id($course_implementation_id) {
   }
 
   return $course_implementation_node;
-}
-
-/**
- * Implements hook_field_access(). Limits Moodle key visibility.
- */
-function uhc_course_implementation_field_access($op, $field, $entity_type, $entity, $account) {
-  if ($field['field_name'] == 'field_moodle_key') {
-    return uhc_course_collaboration_private_current_user_has_access_to_private_content();
-  }
 }
 
 /**

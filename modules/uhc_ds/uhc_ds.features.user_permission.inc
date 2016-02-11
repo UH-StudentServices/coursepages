@@ -585,6 +585,16 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view uhc_ds_link_to_subject on node'.
+  $permissions['view uhc_ds_link_to_subject on node'] = array(
+    'name' => 'view uhc_ds_link_to_subject on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   // Exported permission: 'view uhc_ds_objective on node'.
   $permissions['view uhc_ds_objective on node'] = array(
     'name' => 'view uhc_ds_objective on node',

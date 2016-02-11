@@ -15,4 +15,103 @@ function uhc_course_implementation_source_uninstall() {
   variable_del('uhc_course_implementation_source_list_url');
   variable_del('uhc_course_implementation_source_item_url');
   variable_del('uhc_course_implementation_source_predefined_description_names');
+  variable_del('uhc_course_implementation_source_deleted_last_requested');
+}
+
+/**
+ * Implements hook_install().
+ */
+function uhc_course_implementation_source_install() {
+  // Handle deleted items starting from when this got installed
+  variable_set('uhc_course_implementation_source_deleted_last_requested', REQUEST_TIME);
+}
+
+/**
+ * Fake "delete last requested" variable to 01.01.2016 to ensure that all
+ * deleted items since then will be processed in queue.
+ */
+function uhc_course_implementation_source_update_7001() {
+  // This will ensure that all created items in 2016 will be taken care. All
+  // implementations created prior to that should be handled manually.
+  variable_set('uhc_course_implementation_source_deleted_last_requested', strtotime('2016-01-01 00:00:00'));
+}
+
+/**
+ * Cleanup broken and deprecated mapping records and course implementation nodes
+ * that aren't mapped (with exception for "demo course") and sets last imported
+ * to previous release date.
+ */
+function uhc_course_implementation_source_update_7002() {
+  _uhc_course_implementation_source_cleanup_null_destinations();
+  _uhc_course_implementation_source_cleanup_nonexisting_destinations();
+  _uhc_course_implementation_source_cleanup_nonmapped_nodes();
+  variable_set('uhc_sources_last_requested_courseimplementationnode', strtotime('2016-02-05 00:00:00'));
+}
+
+/**
+ * Function that queries all course implementation map rows that has NULL as
+ * destination id and deletes them.
+ */
+function _uhc_course_implementation_source_cleanup_null_destinations() {
+  $query = db_select('migrate_map_courseimplementationnode', 'm')->isNull('destid1')->fields('m', array('sourceid1'))->execute();
+  $deleted_ids = array();
+  $count = 0;
+  while ($item = $query->fetchAssoc()) {
+    // Delete all except demo
+    if ($item['sourceid1'] != 'demo') {
+      $count++;
+      $deleted_ids[] = $item['sourceid1'];
+
+      // Every 15 items, leave log entry and wait for a while so we don't get
+      // flood the logs too fast.
+      if (count($deleted_ids) == 15) {
+        watchdog('uhc_course_implementation_source', 'Deleted items (@ids) when cleaning up all NULL destination rows.', array('@ids' => implode(',', $deleted_ids)), WATCHDOG_INFO);
+        $deleted_ids = array();
+      }
+      db_delete('migrate_map_courseimplementationnode')->condition('sourceid1', $item['sourceid1'])->isNull('destid1')->execute();
+    }
+  }
+
+  // If there are leftover ids, then print them in log too
+  if (count($deleted_ids) > 0) {
+    watchdog('uhc_course_implementation_source', 'Deleted items (@ids) when cleaning up all NULL destination rows.', array('@ids' => implode(',', $deleted_ids)), WATCHDOG_INFO);
+  }
+
+  // Log about total amount
+  watchdog('uhc_course_implementation_source', 'Deleted @count items in total when cleaning up all NULL destination rows.', array('@count' => $count), WATCHDOG_INFO);
+}
+
+/**
+ * Function that queries all course implementation map rows that has non
+ * existing destination id.
+ */
+function _uhc_course_implementation_source_cleanup_nonexisting_destinations() {
+  $query = db_query("SELECT m.sourceid1, m.destid1 FROM {migrate_map_courseimplementationnode} m LEFT JOIN {node} n ON n.nid = m.destid1 WHERE n.nid IS NULL");
+  $query->execute();
+  $count = 0;
+  while ($item = $query->fetchAssoc()) {
+    if ($item['sourceid1'] != 'demo') {
+      $count++;
+      db_delete('migrate_map_courseimplementationnode')
+        ->condition('destid1', $item['destid1'])
+        ->execute();
+      watchdog('uhc_course_implementation_source', 'Deleted mapping row (@map) when cleaning up all non-existing destination rows.', array('@map' => $item['sourceid1'] . '->' . $item['destid1']), WATCHDOG_INFO);
+    }
+  }
+  watchdog('uhc_course_implementation_source', 'Cleaned up @count items in total when cleaning up all non-existing destination rows.', array('@count' => $count), WATCHDOG_INFO);
+}
+
+/**
+ * Function that queries all course implementations not having mapping row.
+ */
+function _uhc_course_implementation_source_cleanup_nonmapped_nodes() {
+  $query = db_query("SELECT n.nid, n.title FROM {node} n LEFT JOIN {migrate_map_courseimplementationnode} m ON n.nid = m.destid1 WHERE n.type = 'course_implementation' AND n.title != 'demo course' AND m.sourceid1 IS NULL");
+  $query->execute();
+  $count = 0;
+  while ($item = $query->fetchAssoc()) {
+    $count++;
+    node_delete($item['nid']);
+    watchdog('uhc_course_implementation_source', 'Deleted node @nid "@title" when cleaning up all non-mapped nodes.', array('@nid' => $item['nid'], '@title' => $item['title']), WATCHDOG_INFO);
+  }
+  watchdog('uhc_course_implementation_source', 'Cleaned up @count nodes in total when cleaning up all non-mapped nodes.', array('@count' => $count), WATCHDOG_INFO);
 }

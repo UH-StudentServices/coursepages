@@ -60,6 +60,9 @@ function hy_doo_preprocess_node(&$variables) {
 
     }
     $variables['accordion'] = $accordion;
+  }
+
+  if ($variables['type'] == 'course_implementation' || $variables['type'] == 'course') {
     // we add some js to open accordion items when we get an url-parameter (material)
     drupal_add_js(drupal_get_path('theme', 'hy_doo') . '/js/accordion_trigger.js', array('scope' => 'footer'));
   }

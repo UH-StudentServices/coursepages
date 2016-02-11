@@ -1,0 +1,29 @@
+.portal-promotions {
+  padding: 4em 0 1em 0;
+  .button-internal {
+    border-bottom: none;
+  }
+}
+
+.link-multiple {
+  border-bottom: none !important;
+}
+
+.field-group-accordion-item {
+  .messages {
+    li, p {
+      @include font-family-main;
+    }
+  }
+}
+
+.block--uhc-autofill-metadata-enrollments-block {
+  a:after {
+    display: none;
+  }
+}
+
+// Hide feedback form from edit view.
+.page-node-edit #block-feedback-form {
+  display: none !important;
+}

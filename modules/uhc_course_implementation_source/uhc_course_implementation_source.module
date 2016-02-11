@@ -65,3 +65,162 @@ function uhc_course_implementation_source_import($course_imp_id) {
   }
 
 }
+
+/**
+ * Implements hook_cron().
+ *
+ * @see uhc_course_implementation_source_queue_info()
+ * @see _uhc_course_implementation_source_delete_item_from_queue()
+ */
+function uhc_course_implementation_source_cron() {
+  _uhc_course_implementation_source_add_deleted_items_to_queue('uhc_course_implementation_source_delete');
+}
+
+/**
+ * Implements hook_cron_queue_info().
+ *
+ * @see uhc_course_implementation_souce_cron()
+ * @see _uhc_course_implementation_source_add_deleted_items_to_queue()
+ * @see _uhc_course_implementation_source_delete_item_from_queue()
+ */
+function uhc_course_implementation_source_cron_queue_info() {
+
+  // Don't use more than two minutes deleting items.
+  $seconds = 120;
+
+  return array(
+    'uhc_course_implementation_source_delete' => array(
+      'worker callback' => '_uhc_course_implementation_source_delete_item_from_queue',
+      'time' => $seconds,
+    ),
+  );
+}
+
+/**
+ * Add deleted items to given queue since last call.
+ * @param $queue_name
+ */
+function _uhc_course_implementation_source_add_deleted_items_to_queue($queue_name) {
+
+  // Construct list URL
+  $list_url = variable_get('uhc_course_implementation_source_list_url', '');
+  $list_url = PortalMigrationBase::prependHostIfMissing($list_url);
+
+  // Replace :since_date parameter in URL
+  $last_requested = new DateTime();
+  $last_requested->setTimestamp(variable_get('uhc_course_implementation_source_deleted_last_requested', strtotime('-1 month', REQUEST_TIME)));
+  $list_url = str_replace(':since_date', $last_requested->format('dmYHis'), $list_url);
+
+  // Get changed items and filter deleted ids from it and put them to delete
+  // queue.
+  $changed_items = _uhc_course_implementation_source_get_changed_items($list_url);
+  if (is_array($changed_items)) {
+
+    // Filter deleted ids out from changed items and queue them for deletion
+    $deleted_ids = _uhc_course_implementation_source_filter_deleted_ids($changed_items);
+    /** @var DrupalReliableQueueInterface $queue */
+    $queue = DrupalQueue::get($queue_name, TRUE);
+    while ($deleted_id = array_shift($deleted_ids)) {
+      $queue->createItem($deleted_id);
+    }
+
+    // Update last requested timestamp, so next call will be offset from here
+    variable_set('uhc_course_implementation_source_deleted_last_requested', REQUEST_TIME);
+
+  }
+
+}
+
+/**
+ * Helper function for getting changes items.
+ *
+ * @param $list_url
+ *   Absolute URL containing list of changed items.
+ * @return array|bool
+ *   Returns an array (with items or empty) when reponse was valid. When
+ *   response was invalid it will return boolean FALSE.
+ */
+function _uhc_course_implementation_source_get_changed_items($list_url) {
+  // Request given list URL
+  $timeout = variable_get('uhc_sources_timeout', ini_get('default_socket_timeout'));
+  $response = drupal_http_request($list_url, array('timeout' => $timeout));
+  if ($response->code != 200) {
+    watchdog('uhc_course_implementation_source', 'Course implementation changes endpoint responded with status @status', array('@status' => $response->code), WATCHDOG_WARNING);
+    return FALSE;
+  }
+
+  // Ensure we have response payload
+  $payload = $response->data;
+  if (empty($payload)) {
+    // We got 200 but no response contents?
+    watchdog('uhc_course_implementation_source', 'Course implementation changes endpoint responded with status @status while having empty payload', array('@status' => $response->code), WATCHDOG_WARNING);
+    return FALSE;
+  }
+
+  // Expect JSON and decode it
+  $json_decoded = json_decode($payload);
+  if (is_null($json_decoded)) {
+    watchdog('uhc_course_implementation_source', 'Course implementation changes endpoint responded with status @status but could not decode json response @response', array('@status' => $response->code, '@response' => $payload), WATCHDOG_WARNING);
+    return FALSE;
+  }
+
+  // TODO: Check data integrity
+  // As from here, we assume that response is valid, therefore process it.
+  if (!empty($json_decoded->data) && is_array($json_decoded->data)) {
+    return $json_decoded->data;
+  }
+
+  // Response was considered valid but "empty", therefore return empty array
+  // instead boolean FALSE
+  return array();
+
+}
+
+/**
+ * Helper function for filtering deleted IDs out from given changed items.
+ * @param array $changed_items
+ * @return array
+ */
+function _uhc_course_implementation_source_filter_deleted_ids(array $changed_items) {
+  $deleted_ids = array();
+  // Loop each item and filter only deleted items.
+  foreach ($changed_items as $item) {
+    $item = (array) $item;
+    if (PortalListBase::isDeleted($item)) {
+      $deleted_ids[] = $item['course_id'];
+    }
+  }
+  return $deleted_ids;
+}
+
+/**
+ * Process queued item which should remove the item.
+ * @param $id
+ */
+function _uhc_course_implementation_source_delete_item_from_queue($id) {
+  // Utilize MigrateSQLMap class for resolving mapping from given ID
+  $map = new MigrateSQLMap('CourseImplementationNode', array('id'), array('nid'));
+  if ($row = $map->getRowBySource(array($id))) {
+
+    // After following treatment, we'll not end up having mapping row anymore
+    // after this.
+    $map->delete(array($id));
+
+    // If it was in the system before, but has been deleted in Drupal by other
+    // means. We just leave log entry in this case (and clean it up).
+    if (empty($row['destid1'])) {
+      watchdog('uhc_course_implementation_source', 'Resolved ID @id during queue deletion worker process, but no destination was found. Mapping row was deleted.', array('@id' => $id), WATCHDOG_WARNING);
+      return;
+    }
+
+    watchdog('uhc_course_implementation_source', 'Deleting node @nid which was resolved from id @id (and mapping row will be deleted)', array('@nid' => $row['destid1'], '@id' => $row['sourceid1']), WATCHDOG_INFO);
+    node_delete($row['destid1']);
+
+  }
+  else {
+    // We hit here when we can't find corresponding node for given ID. Can
+    // happen if something very old was deleted or it couldn't have a chance to
+    // get imported in the first place.
+    watchdog('uhc_course_implementation_source', 'Failed resolving ID @id during queue deletion worker process. Nothing was done (queue item will be deleted).', array('@id' => $id), WATCHDOG_INFO);
+  }
+}

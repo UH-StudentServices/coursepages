@@ -98,40 +98,6 @@ function _uhc_content_administration_feature_set_frontpage_if_requested($node, $
 }
 
 /**
- * Implements hook_ds_fields_info().
- *
- * Introduce an field which shows an certain message for given roles.
- */
-function uhc_content_administration_feature_ds_fields_info($entity_type) {
-  if ($entity_type == 'node') {
-    return array(
-      'node' => array(
-        'uhc_content_administration_from_oodi' => array(
-          'title' => 'Course overview comes from Oodi -message',
-          'field_type' => DS_FIELD_TYPE_FUNCTION,
-          'ui_limit' => array('course_implementation|*'),
-          'function' => 'uhc_content_administration_feature_ds_from_oodi',
-        ),
-      ),
-    );
-  }
-  return array();
-}
-
-/**
- * Callback for rendering an system message. No staff check needed as its
- * handled by DS field permissions.
- */
-function uhc_content_administration_feature_ds_from_oodi($field = NULL) {
-  $message = array(
-    'type' => 'status',
-    'class' => ' alternative',
-    'message' => '<p>' . t('Course overview information comes from Oodi') . '</p>',
-  );
-  return theme('views_system_message', $message);
-}
-
-/**
  * Implements hook_views_pre_render().
  *
  * In DOO-706 we have added system message from view to let editors know that

@@ -181,13 +181,12 @@ function uhc_ds_field_group_info() {
       9 => 'uhc_ds_timing',
       10 => 'uhc_ds_responsible_person',
       11 => 'uhc_ds_rel_to_other_study_units',
-      12 => 'uhc_content_administration_from_oodi',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
       'label' => 'Course overview',
       'instance_settings' => array(
-        'classes' => 'group-description-objectives field-group-accordion-item body-text',
+        'classes' => 'group-description-objectives field-group-accordion-item',
         'show_empty_fields' => 1,
       ),
       'formatter' => 'closed',

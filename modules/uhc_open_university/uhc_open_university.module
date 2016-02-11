@@ -224,3 +224,20 @@ function uhc_open_university_form_apply_sort(&$form, &$form_state) {
     $_GET['sort'] = $sort[1];
   }
 }
+
+// hide info-link from user menu if in open university section
+function uhc_open_university_translated_menu_link_alter(&$item, $map) {
+  $menu_item_has_info_link_class = $item['menu_name'] == 'user-menu'
+    && isset($item['options']['attributes']['class'][0])
+    && $item['options']['attributes']['class'][0] == 'info-link';
+
+  if ($menu_item_has_info_link_class) {
+    $open_university_path = arg(0) == 'open-university';
+    $node = menu_get_object();
+    $open_university_node = isset($node) && uhc_open_university_is_open_university_course_or_implementation($node);
+
+    if ($open_university_path || $open_university_node) {
+      $item['hidden'] = 1;
+    }
+  }
+}

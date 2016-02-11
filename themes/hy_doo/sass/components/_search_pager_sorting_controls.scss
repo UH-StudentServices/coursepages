@@ -35,7 +35,7 @@
         }
       }
       .chosen-drop {
-        @include dropdown-menu;
+        @include dropdown-menu();
         right: -9px;
         margin-top: 5px;
         font-size: 1em;
@@ -53,7 +53,7 @@
         .chosen-drop {
           @include border;
           overflow: visible;
-          height: auto;
+          max-height: none;
           li {
             padding: 0.5em 0;
             margin: 0 1em;

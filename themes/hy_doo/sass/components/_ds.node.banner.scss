@@ -5,8 +5,7 @@
 
 .ds-node-banner {
   @include font-family-bodytext;
-  float: left;
-  width: 100%;
+  @include clearfix;
   text-align: center;
   @include at-breakpoint($layout-small) {
     text-align: left;

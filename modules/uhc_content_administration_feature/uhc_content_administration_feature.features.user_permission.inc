@@ -3269,18 +3269,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view uhc_content_administration_from_oodi on node'.
-  $permissions['view uhc_content_administration_from_oodi on node'] = array(
-    'name' => 'view uhc_content_administration_from_oodi on node',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'course administrator' => 'course administrator',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-      'teacher' => 'teacher',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view uhc_ds_course_reference_accordion on node'.
   $permissions['view uhc_ds_course_reference_accordion on node'] = array(
     'name' => 'view uhc_ds_course_reference_accordion on node',
@@ -3313,17 +3301,33 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view uhc_ds_moodle_key_or_login on node'.
+  $permissions['view uhc_ds_moodle_key_or_login on node'] = array(
+    'name' => 'view uhc_ds_moodle_key_or_login on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   // Exported permission: 'view uhc_ds_rel_to_other_study_units on node'.
   $permissions['view uhc_ds_rel_to_other_study_units on node'] = array(
     'name' => 'view uhc_ds_rel_to_other_study_units on node',
-    'roles' => array(),
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
     'module' => 'ds_extras',
   );
 
   // Exported permission: 'view uhc_ds_responsible_person on node'.
   $permissions['view uhc_ds_responsible_person on node'] = array(
     'name' => 'view uhc_ds_responsible_person on node',
-    'roles' => array(),
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
     'module' => 'ds_extras',
   );
 
@@ -3340,7 +3344,10 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'view uhc_ds_timing on node'.
   $permissions['view uhc_ds_timing on node'] = array(
     'name' => 'view uhc_ds_timing on node',
-    'roles' => array(),
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
     'module' => 'ds_extras',
   );
 

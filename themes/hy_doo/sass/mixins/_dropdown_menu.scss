@@ -1,12 +1,13 @@
-  @mixin dropdown-menu {
-    @include transition(height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
+  @mixin dropdown-menu($max-height: none) {
+    @include transition(all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
     z-index: 1;
     font-size: 0.85em;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     background: $white;
     position: absolute;
     right: 5px;
-    height: 0;
+    max-height: 0;
     width: 330px;
     &:before {
       @include alternative-arrow($lightsilver, 10px, 'up');
@@ -23,6 +24,6 @@
     &.collapsed {
       @include border;
       overflow: visible;
-      height: auto;
+      max-height: $max-height;
     }
   }

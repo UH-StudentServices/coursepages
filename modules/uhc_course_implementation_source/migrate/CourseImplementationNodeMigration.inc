@@ -134,7 +134,9 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_conduct', 'completion')->arguments($field_arguments);
     $this->addFieldMapping('field_objective', 'objective')->arguments($field_arguments);
     $this->addFieldMapping('field_imp_fee', 'study_fee')->arguments($field_arguments);
-    $this->addFieldMapping('field_imp_working_methods',  'implementation')->arguments($field_arguments);
+    $this->addFieldMapping('field_imp_working_methods', 'implementation')->arguments($field_arguments);
+    $this->addFieldMapping('field_responsible_person', 'responsible_person')->arguments($field_arguments);
+    $this->addFieldMapping('field_rel_to_other_study_units', 'relations_to_other_study_units')->arguments($field_arguments);
 
     // Other types of fields that are computed or prepared in prepare phase
     $this->addFieldMapping('status', 'status')->defaultValue(0);
@@ -171,40 +173,42 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
    */
   static function sourceFields() {
     return array(
-      'id'                           => 'Course Implementation ID',
-      'learningopportunity_id'       => 'Course ID where the implementation belongs to',
-      'title'                        => 'Title from finnish realisation name field',
-      'courseunitrealisation_status' => 'State of the course implementation (1=planned, 2=confirmed, 3=cancelled, 4=completed)',
-      'start_date'                   => 'Starting date of course implementation',
-      'end_date'                     => 'Ending date of course implementation',
-      'enroll_start_date'            => 'Enroll start date',
-      'enroll_end_date'              => 'Enroll end date',
-      'realisation_type_code'        => 'Realisation type code / Form of study',
-      'credit_points'                => 'Credit',
-      'realisation_name'             => 'Multilingual: Name',
-      'evaluation'                   => 'Multilingual: Evaluation',
-      'timing'                       => 'Multilingual: Timing',
-      'previous_studies'             => 'Multilingual: Previous studies',
-      'target_group'                 => 'Multilingual: Target group',
-      'other_information'            => 'Multilingual: Other information',
-      'study_materials'              => 'Multilingual: Study materials',
-      'study_fee'                    => 'Multilingual: Study fee',
-      'contents'                     => 'Multilingual: Contents',
-      'completion'                   => 'Multilingual: Completion',
-      'objective'                    => 'Multilingual: Objective',
-      'instruction_locality'         => 'City where the course is taught',
-      'providing_locality'           => 'Multilingual: City which is giving the course.',
-      'providing_organisation'       => 'Multilingual: Course organiser',
-      'implementation'               => 'Multilingual: Realisation and working methods',
-      'keywords'                     => 'Multilingual: Keywords',
-      'languages'                    => 'Teaching languages',
-      'teachers'                     => 'Teachers',
-      'officials'                    => 'Officials (administrators)',
-      'organisations'                => 'Organisations',
-      'descriptions'                 => 'Descriptions',
-      'hidden'                       => 'Indicates whether this course should be hidden or not.',
-      'status'                       => 'Indicates whether this course should be published or not.',
-      'cancelled'                    => 'Indicates whether this course is cancelled or not.',
+      'id'                             => 'Course Implementation ID',
+      'learningopportunity_id'         => 'Course ID where the implementation belongs to',
+      'title'                          => 'Title from finnish realisation name field',
+      'courseunitrealisation_status'   => 'State of the course implementation (1=planned, 2=confirmed, 3=cancelled, 4=completed)',
+      'start_date'                     => 'Starting date of course implementation',
+      'end_date'                       => 'Ending date of course implementation',
+      'enroll_start_date'              => 'Enroll start date',
+      'enroll_end_date'                => 'Enroll end date',
+      'realisation_type_code'          => 'Realisation type code / Form of study',
+      'credit_points'                  => 'Credit',
+      'realisation_name'               => 'Multilingual: Name',
+      'evaluation'                     => 'Multilingual: Evaluation',
+      'timing'                         => 'Multilingual: Timing',
+      'previous_studies'               => 'Multilingual: Previous studies',
+      'target_group'                   => 'Multilingual: Target group',
+      'other_information'              => 'Multilingual: Other information',
+      'study_materials'                => 'Multilingual: Study materials',
+      'study_fee'                      => 'Multilingual: Study fee',
+      'contents'                       => 'Multilingual: Contents',
+      'completion'                     => 'Multilingual: Completion',
+      'objective'                      => 'Multilingual: Objective',
+      'instruction_locality'           => 'City where the course is taught',
+      'providing_locality'             => 'Multilingual: City which is giving the course.',
+      'providing_organisation'         => 'Multilingual: Course organiser',
+      'implementation'                 => 'Multilingual: Realisation and working methods',
+      'keywords'                       => 'Multilingual: Keywords',
+      'languages'                      => 'Teaching languages',
+      'teachers'                       => 'Teachers',
+      'officials'                      => 'Officials (administrators)',
+      'organisations'                  => 'Organisations',
+      'descriptions'                   => 'Descriptions',
+      'hidden'                         => 'Indicates whether this course should be hidden or not.',
+      'status'                         => 'Indicates whether this course should be published or not.',
+      'cancelled'                      => 'Indicates whether this course is cancelled or not.',
+      'responsible_person'             => 'Multilingual: Responsible person',
+      'relations_to_other_study_units' => 'Multilingual: Relations to other study units',
     );
   }
 
@@ -248,6 +252,8 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'study_fee',
       'providing_organisation',
       'implementation',
+      'responsible_person',
+      'relations_to_other_study_units',
     );
     foreach ($preprocess_strings as $property) {
       if (!empty($row->$property)) {
@@ -320,9 +326,21 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     if (!empty($row->realisation_name)) {
       $row->realisation_name = PortalMigrationBase::convertToMultilingualText($row->realisation_name);
     }
-    if (!empty($row->providing_organisation->organisation)) {
-      // Note: We conver object into multilingual array
-      $row->providing_organisation = PortalMigrationBase::convertToMultilingualText($row->providing_organisation->organisation);
+    if (!empty($row->providing_organisation)) {
+
+      // Note: We convert object into multilingual array
+      $replacement = array();
+      foreach ($row->providing_organisation as $organisation) {
+        $replacement[] = PortalMigrationBase::convertToMultilingualText($organisation->organisation);
+      }
+
+      // If more values was found, source is providing multivalue when we are
+      // reading this value as single value only. Leave log an entry and
+      // conitnue processing.
+      if (count($replacement) > 1) {
+        watchdog('uhc_course_implementation_source', 'Courseunit "@id" has more than one providing organisation', array('@id' => $row->course_id), WATCHDOG_WARNING);
+      }
+      $row->providing_organisation = $replacement[0];
     }
     if (!empty($row->providing_locality)) {
 
@@ -343,7 +361,8 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
   }
 
   /**
-   * Prepares title field by using finnish title of realisation_name field.
+   * Prepares title field by using English title of realisation_name field.
+   * Fallback to Finnish.
    *
    * Requires CourseImplementationNodeMigration::prepareMultilingualRootTexts()
    * to be called prior to this call.
@@ -352,7 +371,15 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
    * @see CourseImplementationNodeMigration::prepareMultilingualRootTexts()
    */
   static public function prepareTitle(&$row) {
-    $row->title = (!empty($row->realisation_name['fi']) ? $row->realisation_name['fi'] : NULL);
+    if (!empty($row->realisation_name['en'])) {
+      $row->title = $row->realisation_name['en'];
+    }
+    elseif (!empty($row->realisation_name['fi'])) {
+      $row->title = $row->realisation_name['fi'];
+    }
+    else {
+      $row->title = NULL;
+    }
   }
 
   /**

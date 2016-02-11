@@ -32,7 +32,10 @@ class PortalListBase extends MigrateListJSON {
     }
     else {
       foreach ($data['data'] as $item) {
-        $ids[] = $item[$this->idField];
+        // Important! If item has been deleted, do not include to the list.
+        if (!self::isDeleted($item)) {
+          $ids[] = $item[$this->idField];
+        }
       }
     }
     return $ids;
@@ -53,10 +56,22 @@ class PortalListBase extends MigrateListJSON {
     if ($json) {
       $data = drupal_json_decode($json);
       if (!empty($data['data'])) {
-        $count = count($data['data']);
+        $ids = $this->getIDsFromJSON($data);
+        $count = count($ids);
       }
     }
     return $count;
+  }
+
+  /**
+   * Determines whether list item is deleted or not. If item has property
+   * 'deleted' and it's "true", then we consider it as deleted item.
+   *
+   * @param array $item
+   * @return bool
+   */
+  public static function isDeleted(array $item) {
+    return isset($item['deleted']) && $item['deleted'] == 'true';
   }
 
 }

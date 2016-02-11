@@ -65,14 +65,9 @@
     }
   }
   .home-link {
+    @include menu-item-icon($hy-home);
     color: $darkblue;
-    visibility: hidden;
-    width: 20px;
-    &:before {
-      @include hy-icon($hy-home);
-      position: absolute;
-      visibility: visible;
-    }
+    margin-right: 10px;
   }
   .login-link {
     background: $blue;

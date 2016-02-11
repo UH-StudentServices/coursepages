@@ -145,6 +145,24 @@ function uhc_ds_ds_fields_info($entity_type) {
       ),
     );
 
+    $ds_fields['uhc_ds_link_to_subject'] = array(
+      'title' => 'Link to subject',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_ds_link_to_subject',
+      'properties' => array(
+        'field_name' => 'link_to_subject',
+      ),
+    );
+
+    $ds_fields['uhc_ds_moodle_key_or_login'] = array(
+      'title' => 'Moodle key or login',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_ds_moodle_key_or_login',
+      'properties' => array(
+        'field_name' => 'moodle_key_or_login',
+      ),
+    );
+
     return array('node' => $ds_fields);
   }
 }
@@ -194,8 +212,10 @@ function _uhc_ds_compare(&$ds_fields, $embeddable_field, $label, $field_name) {
  * @see uhc_ds_ds_fields_info()
  * @see _uhc_ds_inherit_from_source()
  */
-function uhc_ds_render_inherited_ds_field($field = NULL) {
-
+function uhc_ds_render_inherited_ds_field($field = NULL, $langcode = NULL) {
+  if (!$langcode) {
+    $langcode = i18n_langcode();
+  }
   // This is the node we're rendering at the moment.
   $node = $field['entity'];
 
@@ -223,13 +243,12 @@ function uhc_ds_render_inherited_ds_field($field = NULL) {
     return NULL;
   }
 
-  // Find out language code so we know which language value we'll fetch
-  $langcode = i18n_langcode();
-
   // Get values and return the first item. TODO: How we handle multiple values?
   $values = field_get_items('node', $course_node, $field_name, $langcode);
-  $value = field_view_value('node', $course_node, $field_name, $values[0]);
-  return render($value);
+  if ($values) {
+    $value = field_view_value('node', $course_node, $field_name, $values[0]);
+    return render($value);
+  }
 }
 
 /**
@@ -262,6 +281,78 @@ function uhc_ds_render_comparable_ds_field($field = NULL) {
       if ($teaching_language['value'] == $langcode) {
         return uhc_ds_render_inherited_ds_field($field);
       }
+    }
+  }
+}
+
+/**
+ * Fallback logic to make sure we have at least some content to show to the user. Content can be
+ * pulled from different languages and from the referenced course node if necessary.
+ * Currently not in use, we use uhc_ds_render_comparable_ds_field instead.
+ *
+ * @see uhc_ds_ds_fields_info()
+ * @see uhc_ds_render_inherited_ds_field()
+ */
+function uhc_ds_content_fallback($field = NULL) {
+
+  // This is the node we're rendering at the moment.
+  $node = $field['entity'];
+
+  // This is the field, we want to compare
+  $field_name = $field['properties']['field_name'];
+
+  $active_language = i18n_langcode();
+
+  // Language weight is used to determine the order of preference when looping through languages
+  // and can be set at /admin/config/regional/language
+  $enabled_languages = locale_language_list('language');
+
+  $teaching_language_field_items = field_get_items('node', $node, 'field_imp_teaching_language');
+  $teaching_languages = $teaching_language_field_items ? array_column($teaching_language_field_items, 'value') : NULL;
+
+  // Course implementation - try active language
+  $values = field_get_items('node', $node, $field_name, $active_language);
+  if ($values) {
+    $value = field_view_value('node', $node, $field_name, $values[0]);
+    return render($value);
+  }
+
+  // Course implementation - try all teaching languages
+  if ($teaching_languages) {
+    foreach ($enabled_languages as $enabled_language) {
+      if(in_array($enabled_language, $teaching_languages)) {
+        $values = field_get_items('node', $node, $field_name, $enabled_language);
+        if ($values) {
+          $value = field_view_value('node', $node, $field_name, $values[0]);
+          return render($value);
+        }
+      }
+    }
+    // Course - try all teaching languages
+    foreach ($enabled_languages as $enabled_language) {
+      if(in_array($enabled_language, $teaching_languages)) {
+        $values = uhc_ds_render_inherited_ds_field($field, $enabled_language);
+        if ($values) {
+          return $values;
+        }
+      }
+    }
+  }
+
+  // Course implementation - try all enabled languages
+  foreach ($enabled_languages as $enabled_language) {
+    $values = field_get_items('node', $node, $field_name, $enabled_language);
+    if ($values) {
+      $value = field_view_value('node', $node, $field_name, $values[0]);
+      return render($value);
+    }
+  }
+
+  // Course - try all enabled languages
+  foreach ($enabled_languages as $enabled_language) {
+    $values = uhc_ds_render_inherited_ds_field($field, $enabled_language);
+    if ($values) {
+      return $values;
     }
   }
 }
@@ -305,9 +396,29 @@ function uhc_ds_status_org_location_date($field) {
 
   $organiser = isset($values['field_imp_course_organiser'][0]['#markup']) ? $values['field_imp_course_organiser'][0]['#markup'] : '';
   $locality = isset($values['field_imp_locality']) ? render($values['field_imp_locality']) : '';
+  $course = node_load(field_get_items('node', $node, 'field_imp_reference_to_courses')[0]['target_id']);
 
-  return render($status) . '<span class="island">' . $organiser . $locality . $time . '</span>';
+  return render($status) . '<span class="island">' . uhc_dc_render_differing_title_and_credits($course, $node) . $organiser . $locality . $time . '</span>';
 
+}
+
+/**
+ * Returns a comma-separated string with course implementation title and study
+ * credits if they differ from the ones in the course.
+ */
+function uhc_dc_render_differing_title_and_credits($course, $course_implementation) {
+  $course_credit = field_get_items('node', $course, 'field_study_credit');
+  if (isset($course_credit[0]['value'])) {
+    $course_credit = $course_credit[0]['value'];
+  }
+  $imp_credit = field_get_items('node', $course_implementation, 'field_study_credit')[0]['value'];
+  if (isset($imp_credit[0]['value'])) {
+    $imp_credit = $imp_credit[0]['value'];
+  }
+  $output = $course_implementation->title != $course->title ? $course_implementation->title . ', ' : '';
+  $output .= $imp_credit != $course_credit ? $imp_credit . ' ' . t('cr') . ', ' : '';
+
+  return $output;
 }
 
 function uhc_ds_title_and_credit($field) {
@@ -368,4 +479,108 @@ function uhc_ds_table_of_contents($field) {
     }
     return theme('item_list', $items);
   }
+}
+
+/**
+ * Fetches subjects related to current course implementation and renders sidebar links to them
+ */
+function uhc_ds_link_to_subject($field) {
+  if (!uhc_open_university_is_open_university_course_or_implementation($field['entity'])) {
+    return;
+  }
+  $subjects = _uhc_ds_get_imp_subjects($field['entity']->nid);
+  $items = array('attributes' => array('class' => 'list-of-links--dark'));
+
+  // Render links to other implementations
+  foreach ($subjects as $subject) {
+    $course_ref = field_get_items('node', $field['entity'], 'field_imp_reference_to_courses');
+    if (!empty($course_ref[0]['target_id'])) {
+      $course = node_load($course_ref[0]['target_id']);
+      $course_number = field_get_items('node', $course, 'field_course_course_number')[0]['value'];
+    }
+    // If the implementation belongs to more than one subject, specify subject names in links
+    $subject_specifier = count($subjects) > 1 ? ' ' . $subject->title : '';
+    if (!empty($subject->nid) && !empty($course_number)) {
+      $items['items'][] = l(t('All courses') . $subject_specifier, "node/$subject->nid",  array(
+        'fragment' => 'course-number-' . $course_number,
+      ));
+    }
+  }
+
+  // Render plain subject links
+  foreach ($subjects as $subject) {
+    if (!empty($subject->nid)) {
+      $items['items'][] = l($subject->title, "node/$subject->nid",  array(
+      ));
+    }
+  }
+  return theme('item_list', $items);
+}
+
+/**
+ * Helper that returns all subjects related to a course implementation. This
+ * task is complicated by not only multiple references between the entities
+ * but because there are also two possible reference pathways at one point.
+ *
+ *  Subject
+ *    |
+ *    | field_study_module
+ *    v
+ *  Study module (Field Collection)
+ *    |
+ *    | field_subject_ref_to_courses OR
+ *    | field_subject_ref_study_module
+ *    v
+ *  Course
+ *    ∧
+ *    | field_imp_reference_to_courses
+ *    |
+ *  Course implementation
+ *
+ * @param $nid The course implementation node id
+ * @return array containing the resulting subject node objects
+ */
+function _uhc_ds_get_imp_subjects($nid) {
+  $query = db_select('field_data_field_imp_reference_to_courses', 'imp_to_course');
+  // field_subject_ref_to_courses, used for most cases
+  $query->leftJoin('field_data_field_subject_ref_to_courses', 'fc_to_course',
+    'imp_to_course.field_imp_reference_to_courses_target_id = fc_to_course.field_subject_ref_to_courses_target_id');
+  // field_subject_ref_study_module, used when the study module title is also a reference to a course
+  $query->leftJoin('field_data_field_subject_ref_study_module', 'fc_to_course_2',
+    'imp_to_course.field_imp_reference_to_courses_target_id = fc_to_course_2.field_subject_ref_study_module_target_id');
+  $query->leftJoin('field_data_field_study_module', 'sub_to_fc',
+    'fc_to_course.entity_id = sub_to_fc.field_study_module_value');
+  $query->leftJoin('field_data_field_study_module', 'sub_to_fc_2',
+    'fc_to_course_2.entity_id = sub_to_fc_2.field_study_module_value');
+  $query->condition('imp_to_course.entity_id', $nid, '=')
+    ->fields('sub_to_fc', array('entity_id'))
+    ->fields('sub_to_fc_2', array('entity_id'));
+  $query->distinct();
+  $query = $query->execute()->fetchAll();
+  $results = array();
+  foreach ($query as $result) {
+    $entity_id = $result->entity_id ?: $result->sub_to_fc_2_entity_id;
+    $results[] = node_load($entity_id);
+  }
+  return $results;
+}
+
+/**
+ * If user has access, show Moodle key. Otherwise show login link.
+ */
+function uhc_ds_moodle_key_or_login($field) {
+  $node = $field['entity'];
+  $moodle_key = field_get_items('node', $node, 'field_moodle_key');
+  $value = field_view_value('node', $node, 'field_moodle_key', $moodle_key[0]);
+
+  if ($moodle_key) {
+    if (!uhc_course_collaboration_private_current_user_has_access_to_private_content()) {
+      $value['#markup'] = l(t('Log in'), shib_auth_generate_login_url()) . ' ' . t('to view the registration key for Moodle.');
+    }
+    else {
+      $value['#markup'] = t('Moodle key') . ': ' . $value['#markup'];
+    }
+  }
+
+  return render($value);
 }

@@ -1,0 +1,8 @@
+@mixin menu-item-icon($icon) {
+  color: $blue;
+  font-size: 0;
+  &:before {
+    @include hy-icon($icon);
+    font-size: 15px;
+  }
+}

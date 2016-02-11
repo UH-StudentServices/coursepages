@@ -4,13 +4,12 @@
 */
 
 .ds-node-content {
-  float: left;
-  width: 100%;
+  @include clearfix;
   p,
   ul li,
   ol li {
     @include font-family-bodytext;
-    font-size: inherit;
+    font-size: inherit !important;
   }
 }
 .field--name-field-imp-header-image {
