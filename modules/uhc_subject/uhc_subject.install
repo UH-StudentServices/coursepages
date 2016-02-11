@@ -75,3 +75,45 @@ function uhc_subject_update_7001(&$sandbox) {
   field_delete_instance($instance);
   field_cache_clear();
 }
+
+/**
+ * Set course page visibility for existing content wanted to appear there based
+ * on the title in their field collections
+ */
+function uhc_subject_update_7002(&$sandbox) {
+  // We need the new field to be created through Features first
+  features_revert_module('uhc_subject');
+
+  $query = db_select('field_data_field_related_content_section', 'sub_to_fc');
+  $query->join('field_data_field_related_content_title', 'fc_to_title',
+    'sub_to_fc.field_related_content_section_value = fc_to_title.entity_id');
+  $query->fields('fc_to_title', array('entity_id'));
+  $or = db_or();
+  $or->condition('fc_to_title.field_related_content_title_value', 'Sinua voisi kiinnostaa myös', '=');
+  $or->condition('fc_to_title.field_related_content_title_value', 'Du kanske också är intresserad av', '=');
+  $or->condition('fc_to_title.field_related_content_title_value', 'You might also be interested in', '=');
+  $query->condition($or);
+  $query = $query->execute();
+  $results = $query->fetchAll();
+  foreach ($results as $result) {
+    $fc = entity_load('field_collection_item', array($result->entity_id));
+    $fc = reset($fc);
+    if (is_object($fc)) {
+      $fc->field_related_content_visibility = array(
+        LANGUAGE_NONE => array(
+          0 => array(
+            'value' => 1,
+          ),
+        ),
+      );
+      try {
+        $fc->save();
+      }
+      catch (Exception $e) {
+        print $e->getMessage();
+        // The field collection item is missing its hostEntity information. Save it standalone.
+        $fc->save(TRUE);
+      }
+    }
+  }
+}

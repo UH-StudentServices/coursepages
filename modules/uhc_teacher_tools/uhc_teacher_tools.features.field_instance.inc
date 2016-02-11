@@ -31,7 +31,7 @@ function uhc_teacher_tools_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
         ),
         'type' => 'text_plain',
-        'weight' => 31,
+        'weight' => 32,
       ),
       'sidebar' => array(
         'label' => 'above',

@@ -159,7 +159,16 @@ function uhc_ds_ds_fields_info($entity_type) {
       'field_type' => DS_FIELD_TYPE_FUNCTION,
       'function' => 'uhc_ds_moodle_key_or_login',
       'properties' => array(
-        'field_name' => 'moodle_key_or_login',
+          'field_name' => 'moodle_key_or_login',
+      ),
+    );
+
+    $ds_fields['uhc_ds_link_to_related_subjects'] = array(
+      'title' => 'Link to related subjects',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_ds_link_to_related_subjects',
+      'properties' => array(
+        'field_name' => 'link_to_related_subjects',
       ),
     );
 
@@ -398,7 +407,7 @@ function uhc_ds_status_org_location_date($field) {
   $locality = isset($values['field_imp_locality']) ? render($values['field_imp_locality']) : '';
   $course = node_load(field_get_items('node', $node, 'field_imp_reference_to_courses')[0]['target_id']);
 
-  return render($status) . '<span class="island">' . uhc_dc_render_differing_title_and_credits($course, $node) . $organiser . $locality . $time . '</span>';
+  return render($status) . '<div class="org-location-date"><div>' . uhc_dc_render_differing_title_and_credits($course, $node) . '</div><div>' . $organiser . $locality . $time . '</div></div>';
 
 }
 
@@ -415,8 +424,8 @@ function uhc_dc_render_differing_title_and_credits($course, $course_implementati
   if (isset($imp_credit[0]['value'])) {
     $imp_credit = $imp_credit[0]['value'];
   }
-  $output = $course_implementation->title != $course->title ? $course_implementation->title . ', ' : '';
-  $output .= $imp_credit != $course_credit ? $imp_credit . ' ' . t('cr') . ', ' : '';
+  $output = $course_implementation->title != $course->title ? $course_implementation->title : '';
+  $output .= $imp_credit != $course_credit ? ', ' . $imp_credit . ' ' . t('cr') : '';
 
   return $output;
 }
@@ -563,6 +572,37 @@ function _uhc_ds_get_imp_subjects($nid) {
     $results[] = node_load($entity_id);
   }
   return $results;
+}
+
+/**
+ * Fetches related content sections (field collection) from subject nodes
+ * that are marked as "Show also on course page". These will be shown on
+ * the sidebar of course implementations that belong to the same subject.
+ */
+function uhc_ds_link_to_related_subjects($field) {
+  $subjects = _uhc_ds_get_imp_subjects($field['entity']->nid);
+  $items = array('attributes' => array('class' => 'list-of-links--dark'));
+  foreach ($subjects as $subject) {
+    $query = db_select('field_data_field_related_content_section', 'sub_to_fc');
+    $query->join('field_data_field_related_content', 'fc_to_rc',
+      'sub_to_fc.field_related_content_section_value = fc_to_rc.entity_id');
+    $query->join('field_data_field_related_content_visibility', 'fc_to_visibility',
+      'sub_to_fc.field_related_content_section_value = fc_to_visibility.entity_id');
+    // NOTE: field_related_content_title as in the title column in field_related_content, not
+    // the field field_related_content_title
+    $query->condition('sub_to_fc.entity_id', $subject->nid, '=')
+      ->condition('fc_to_visibility.field_related_content_visibility_value', 1, '=')
+      ->fields('fc_to_rc', array(
+        'field_related_content_url',
+        'field_related_content_title'
+      ))
+      ->fields('fc_to_visibility', array('field_related_content_visibility_value'));
+    $query = $query->execute();
+    while ($related_content = $query->fetchObject()) {
+      $items['items'][] = l($related_content->field_related_content_title, $related_content->field_related_content_url);
+    }
+  }
+  return theme('item_list', $items);
 }
 
 /**

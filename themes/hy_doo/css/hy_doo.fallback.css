@@ -2329,18 +2329,12 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
 }
 
 .node--course-implementation--teaser-accordion .cancelled {
-  display: block;
-  float: left;
+  position: absolute;
+  top: 0;
+  height: 100%;
 }
-@media (min-width: 48em) {
-  .node--course-implementation--teaser-accordion .cancelled {
-    display: initial;
-    float: none;
-  }
-}
-.no-query .lt-ie9 .node--course-implementation--teaser-accordion .cancelled {
-  display: initial;
-  float: none;
+.node--course-implementation--teaser-accordion .cancelled + .org-location-date {
+  margin-left: 7em;
 }
 .node--course-implementation--teaser-accordion .field-group-accordion-item {
   border-bottom: 1px solid #EBEBEB;

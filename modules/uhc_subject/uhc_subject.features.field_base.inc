@@ -104,6 +104,36 @@ function uhc_subject_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_related_content_visibility'
+  $field_bases['field_related_content_visibility'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_related_content_visibility',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => '',
+        1 => 'Show this content also on course pages',
+      ),
+      'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
+  );
+
   // Exported field_base: 'field_study_modules_description'
   $field_bases['field_study_modules_description'] = array(
     'active' => 1,

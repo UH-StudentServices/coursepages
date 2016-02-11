@@ -94,6 +94,7 @@ function uhc_course_implementation_field_group_info() {
       6 => 'field_req_prerequisites',
       7 => 'field_study_materials',
       8 => 'field_target_group',
+      9 => 'field_open_uni_registration',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -267,6 +268,7 @@ function uhc_course_implementation_field_group_info() {
     'weight' => '26',
     'children' => array(
       0 => 'field_imp_fee',
+      1 => 'field_open_uni_registration',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -344,8 +346,8 @@ function uhc_course_implementation_field_group_info() {
       20 => 'field_imp_enrollment_begin_date',
       21 => 'field_imp_enrollment_end_date',
       22 => 'field_cancelled',
-      23 => 'field_responsible_person',
-      24 => 'field_rel_to_other_study_units',
+      23 => 'field_rel_to_other_study_units',
+      24 => 'field_responsible_person',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

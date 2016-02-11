@@ -137,6 +137,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_imp_working_methods', 'implementation')->arguments($field_arguments);
     $this->addFieldMapping('field_responsible_person', 'responsible_person')->arguments($field_arguments);
     $this->addFieldMapping('field_rel_to_other_study_units', 'relations_to_other_study_units')->arguments($field_arguments);
+    $this->addFieldMapping('field_open_uni_registration', 'open_university_registration')->arguments($field_arguments);
 
     // Other types of fields that are computed or prepared in prepare phase
     $this->addFieldMapping('status', 'status')->defaultValue(0);
@@ -209,6 +210,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'cancelled'                      => 'Indicates whether this course is cancelled or not.',
       'responsible_person'             => 'Multilingual: Responsible person',
       'relations_to_other_study_units' => 'Multilingual: Relations to other study units',
+      'open_university_registration'   => 'Multilingual: Open university registration',
     );
   }
 
@@ -254,6 +256,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'implementation',
       'responsible_person',
       'relations_to_other_study_units',
+      'open_university_registration',
     );
     foreach ($preprocess_strings as $property) {
       if (!empty($row->$property)) {
@@ -336,7 +339,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
 
       // If more values was found, source is providing multivalue when we are
       // reading this value as single value only. Leave log an entry and
-      // conitnue processing.
+      // continue processing.
       if (count($replacement) > 1) {
         watchdog('uhc_course_implementation_source', 'Courseunit "@id" has more than one providing organisation', array('@id' => $row->course_id), WATCHDOG_WARNING);
       }
@@ -352,11 +355,27 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
 
       // If more values was found, source is providing multivalue when we are
       // reading this value as single value only. Leave log an entry and
-      // conitnue processing.
+      // continue processing.
       if (count($replacement) > 1) {
         watchdog('uhc_course_implementation_source', 'Courseunit "@id" has more than one providing locality', array('@id' => $row->course_id), WATCHDOG_WARNING);
       }
       $row->providing_locality = $replacement[0];
+    }
+    if (!empty($row->instruction_locality)) {
+
+      // Note: We convert object into multilingual array
+      $instruction_locality_replacement = array();
+      foreach ($row->instruction_locality as $instruction_locality) {
+        $instruction_locality_replacement[] = PortalMigrationBase::convertToMultilingualText($instruction_locality->locality);
+      }
+
+      // If more values was found, source is providing multivalue when we are
+      // reading this value as single value only. Leave log an entry and
+      // continue processing.
+      if (count($instruction_locality_replacement) > 1) {
+        watchdog('uhc_course_implementation_source', 'Courseunit "@id" has more than one instruction locality', array('@id' => $row->course_id), WATCHDOG_WARNING);
+      }
+      $row->instruction_locality = $instruction_locality_replacement[0];
     }
   }
 
@@ -396,9 +415,11 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
    */
   static public function prepareInstructionLocality(&$row) {
 
-    // Convert to field mappable multilingual text
-    if (!empty($row->instruction_locality->locality)) {
-      $row->instruction_locality = PortalMigrationBase::convertToMultilingualText($row->instruction_locality->locality);
+    // Use Finnish instruction locality only, otherwise leave as NULL.
+    if (!empty($row->instruction_locality['fi'])) {
+      $row->instruction_locality = $row->instruction_locality['fi'];
+    } else {
+      $row->instruction_locality = NULL;
     }
 
     // Use providing_locality as instruction_locality if instruction_locality is

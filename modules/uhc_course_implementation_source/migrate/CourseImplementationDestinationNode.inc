@@ -42,6 +42,7 @@ class CourseImplementationDestinationNode extends PortalDestinationNode {
       'field_objective',
       'field_responsible_person',
       'field_rel_to_other_study_units',
+      'field_open_uni_registration',
     );
     $entity = $this->cleanupEmptyTextFields($entity, $potentially_empty_fields);
 

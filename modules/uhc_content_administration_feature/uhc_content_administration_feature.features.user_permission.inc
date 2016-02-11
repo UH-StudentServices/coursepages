@@ -585,6 +585,15 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_open_uni_registration'.
+  $permissions['create field_open_uni_registration'] = array(
+    'name' => 'create field_open_uni_registration',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'create field_rel_to_other_study_units'.
   $permissions['create field_rel_to_other_study_units'] = array(
     'name' => 'create field_rel_to_other_study_units',
@@ -1370,6 +1379,15 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_open_uni_registration'.
+  $permissions['edit field_open_uni_registration'] = array(
+    'name' => 'edit field_open_uni_registration',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit field_rel_to_other_study_units'.
   $permissions['edit field_rel_to_other_study_units'] = array(
     'name' => 'edit field_rel_to_other_study_units',
@@ -1917,6 +1935,15 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'edit own field_objective'.
   $permissions['edit own field_objective'] = array(
     'name' => 'edit own field_objective',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_open_uni_registration'.
+  $permissions['edit own field_open_uni_registration'] = array(
+    'name' => 'edit own field_open_uni_registration',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -2600,6 +2627,17 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_open_uni_registration'.
+  $permissions['view field_open_uni_registration'] = array(
+    'name' => 'view field_open_uni_registration',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view field_rel_to_other_study_units'.
   $permissions['view field_rel_to_other_study_units'] = array(
     'name' => 'view field_rel_to_other_study_units',
@@ -3139,6 +3177,17 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'view own field_objective'.
   $permissions['view own field_objective'] = array(
     'name' => 'view own field_objective',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_open_uni_registration'.
+  $permissions['view own field_open_uni_registration'] = array(
+    'name' => 'view own field_open_uni_registration',
     'roles' => array(
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',

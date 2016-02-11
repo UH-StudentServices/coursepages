@@ -34,9 +34,12 @@
 
         // open accordion items with anchors
         if (window.location.hash.length) {
-          $('a[name*=' + window.location.href.split('#')[1] + ']').click();
+          var anchorName = window.location.href.split('#')[1];
+          var anchorSelector = "a[name*='" + anchorName + "']";
+          var anchor = $(anchorSelector);
+          anchor.click();
+          $('html, body').animate({scrollTop: anchor.offset().top}, 'slow');
         }
-
       });
     }
   }

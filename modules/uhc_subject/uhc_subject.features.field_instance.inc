@@ -67,7 +67,7 @@ function uhc_subject_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 4,
+      'weight' => 2,
     ),
   );
 
@@ -140,7 +140,49 @@ function uhc_subject_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_related_content_section-field_related_content_visibility'
+  $field_instances['field_collection_item-field_related_content_section-field_related_content_visibility'] = array(
+    'bundle' => 'field_related_content_section',
+    'default_value' => array(
+      0 => array(
+        'value' => 1,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_related_content_visibility',
+    'label' => 'Show also on course page',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 1,
     ),
   );
 
@@ -353,6 +395,56 @@ function uhc_subject_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-subject-field_sidebar_liftups'
+  $field_instances['node-subject-field_sidebar_liftups'] = array(
+    'bundle' => 'subject',
+    'default_value' => NULL,
+    'default_value_function' => '',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'entityreference',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+          'links' => 0,
+          'use_content_language' => 1,
+          'view_mode' => 'teaser',
+        ),
+        'type' => 'entityreference_entity_view',
+        'weight' => 7,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_sidebar_liftups',
+    'label' => 'Sidebar liftups',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'inline_entity_form',
+      'settings' => array(
+        'fields' => array(),
+        'type_settings' => array(
+          'allow_existing' => 0,
+          'delete_references' => 0,
+          'label_plural' => 'Liftups',
+          'label_singular' => 'Liftup',
+          'match_operator' => 'CONTAINS',
+          'override_labels' => 1,
+        ),
+      ),
+      'type' => 'inline_entity_form',
+      'weight' => 7,
     ),
   );
 
@@ -718,56 +810,6 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_sidebar_liftups'
-  $field_instances['node-subject-field_sidebar_liftups'] = array(
-    'bundle' => 'subject',
-    'default_value' => NULL,
-    'default_value_function' => '',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'links' => 0,
-          'use_content_language' => 1,
-          'view_mode' => 'teaser',
-        ),
-        'type' => 'entityreference_entity_view',
-        'weight' => 7,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_sidebar_liftups',
-    'label' => 'Sidebar liftups',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'inline_entity_form',
-      'settings' => array(
-        'fields' => array(),
-        'type_settings' => array(
-          'allow_existing' => 0,
-          'delete_references' => 0,
-          'label_plural' => 'Liftups',
-          'label_singular' => 'Liftup',
-          'match_operator' => 'CONTAINS',
-          'override_labels' => 1,
-        ),
-      ),
-      'type' => 'inline_entity_form',
-      'weight' => 7,
-    ),
-  );
-
   // Exported field_instance: 'node-subject-title_field'
   $field_instances['node-subject-title_field'] = array(
     'bundle' => 'subject',
@@ -859,6 +901,7 @@ function uhc_subject_field_default_field_instances() {
   t('Related content');
   t('Related content section');
   t('Related content title');
+  t('Show also on course page');
   t('Sidebar liftups');
   t('Study module');
   t('Study modules description');

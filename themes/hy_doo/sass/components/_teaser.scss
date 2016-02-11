@@ -13,11 +13,11 @@
 
 .node--course-implementation--teaser-accordion {
   .cancelled {
-    display: block;
-    float: left;
-    @include at-breakpoint($small) {
-      display: initial;
-      float: none;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    & + .org-location-date {
+      margin-left: 7em;
     }
   }
   .field-group-accordion-item  {

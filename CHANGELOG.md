@@ -1,3 +1,21 @@
+# Helsinki University Coursepages v1.56
+Päiväys: 11.02.2016
+
+## Lisäykset
+  - DOO-1849: Lisätty toteutussivulle linkit muihin mahdollisesti kiinnostaviin oppiaineisiin
+    (samat kuin toteutuksen omalla oppiainesivulla)
+  - DOO-1779: Lisätty toteutuksille avoimen yliopiston ilmoittautuminen -kenttä.
+
+## Muutokset
+  - DOO-1921: Viilattu Toteutusnimen rivittämistä oppiainesivulla
+  
+## Korjaukset
+  - DOO-1789: Paranneltiin selaintukea linkitettäessä toteutussivuilta
+    oppiainesivun haitareihin.
+  - DOO-1948: Korjattiin ongelma, jossa järjestävä paikkakunta aiheutti
+    sisäänluvussa ongelmia.
+
+
 # Helsinki University Coursepages v1.55
 Päiväys: 10.02.2016
 
