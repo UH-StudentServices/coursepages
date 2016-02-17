@@ -131,36 +131,17 @@ function uhc_course_implementation_field_group_build_pre_render_alter(&$element)
   }
 
   $node_view = arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL;
-  if (isset($element['group_description_objectives']['#prefix']) && $node_view) {
+  if (isset($element['group_description_objectives']['#prefix']) && $node_view && user_is_logged_in()) {
     $messages = array(
       'attributes' => array(
         'class' => 'messages status alternative accordion-content-item',
       ),
+      'items' => array(
+        t('Course overview information comes from Oodi.'),
+      ),
     );
 
-    if (user_is_logged_in()) {
-      $messages['items'][] = t('Course overview information comes from Oodi.');
-    }
-
-    // If we are at node view page and the active language is not one of the teaching 
-    // languages, then print out that page should be read in teaching language.
-    $node = $element['#node'];
-    $langcode = i18n_langcode();
-    $teaching_languages = field_get_items('node', $node, 'field_imp_teaching_language');
-
-    if ($teaching_languages) {
-      $teaching_lang_codes = array();
-
-      foreach ($teaching_languages as $teaching_language) {
-        $teaching_lang_codes[] = $teaching_language['value'];
-      }
-
-      if(!in_array($langcode, $teaching_lang_codes)) {
-        $messages['items'][] = t('If this section is empty, please read this page in teaching language.');
-      }
-
-      $element['group_description_objectives']['#prefix'] .= theme('item_list', $messages);
-    }
+    $element['group_description_objectives']['#prefix'] .= theme('item_list', $messages);
   }
 }
 

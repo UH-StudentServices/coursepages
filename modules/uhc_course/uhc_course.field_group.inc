@@ -158,8 +158,9 @@ function uhc_course_field_group_info() {
       14 => 'field_timing',
       15 => 'field_course_subject',
       16 => 'field_course_faculty',
-      17 => 'field_responsible_person',
-      18 => 'field_rel_to_other_study_units',
+      17 => 'field_rel_to_other_study_units',
+      18 => 'field_responsible_person',
+      19 => 'field_working_methods',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

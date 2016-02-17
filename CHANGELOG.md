@@ -1,3 +1,24 @@
+# Helsinki University Coursepages v1.57
+Päiväys: 16.02.2016
+
+## Lisäykset
+  - DOO-1951: Lisätty etusivun hakuun filtteri "Opetustyyppi", ja mahdollisuus
+  	opetustyyppi-termien nimien yliajamiseen.
+  - DOO-1845: Lisätty drush komennot url-aliaksien uudelleenluomiseen säilyttäen kuitenkin
+    käsinsyötetyt aliakset.
+  - DOO-1953: Lisätty "Toteutus ja työtavat" -kenttä jaksoille
+
+## Muutokset
+  - DOO-1922: Muutettiin kurssisivun kurssikuvausten esittelylogiikkaa
+  - DOO-1950: Lisättiin jakson ja toteutuksen tekstisisältöjä hakuindeksiin.
+  - Päivitettiin Drupal versioon 7.42
+  - Nostettiin enrollments kutsuun aikarajaa kahdesta sekunnista viiteen
+    sekuntiin
+
+## Poistot
+  - DOO-1958: Poistettiin opetuskieleen vaihtokehote kurssiesitteestä
+
+
 # Helsinki University Coursepages v1.56
 Päiväys: 11.02.2016
 

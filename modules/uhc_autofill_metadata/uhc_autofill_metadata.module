@@ -287,7 +287,7 @@ function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $langc
       if (!empty($base_url)) {
         $path = "students/$personal_unique_code/enrollments?langcode=$langcode";
         $url = $base_url . $path;
-        $response = drupal_http_request($url, array('timeout' => 2.0));
+        $response = drupal_http_request($url, array('timeout' => 5.0));
 
         if ($response->code == 200) {
           $enrollment_data = drupal_json_decode($response->data);

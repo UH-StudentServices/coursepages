@@ -916,3 +916,19 @@ function uh_coursepages_update_7011(&$sandbox) {
   field_delete_field('field_responsible_unit');
   field_delete_field('field_search_title');
 }
+
+/**
+ * Move field_imp_working_methods to field_working_methods
+ */
+function uh_coursepages_update_7012(&$sandbox) {
+   // Revert field base and field instance feature components.
+  features_revert(array('uhc_field_base' => array('field_base')));
+  features_revert(array('uhc_course' => array('field_instance')));
+  features_revert(array('uhc_course_implementation' => array('field_instance')));
+
+  // Then migrate field values
+  uh_field_migrate_values('field_imp_working_methods', 'field_working_methods');
+
+  // Then delete deprecated field
+  field_delete_field('field_imp_working_methods');
+}

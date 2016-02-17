@@ -134,7 +134,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_conduct', 'completion')->arguments($field_arguments);
     $this->addFieldMapping('field_objective', 'objective')->arguments($field_arguments);
     $this->addFieldMapping('field_imp_fee', 'study_fee')->arguments($field_arguments);
-    $this->addFieldMapping('field_imp_working_methods', 'implementation')->arguments($field_arguments);
+    $this->addFieldMapping('field_working_methods', 'realisation_and_working_methods')->arguments($field_arguments);
     $this->addFieldMapping('field_responsible_person', 'responsible_person')->arguments($field_arguments);
     $this->addFieldMapping('field_rel_to_other_study_units', 'relations_to_other_study_units')->arguments($field_arguments);
     $this->addFieldMapping('field_open_uni_registration', 'open_university_registration')->arguments($field_arguments);
@@ -198,7 +198,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'instruction_locality'           => 'City where the course is taught',
       'providing_locality'             => 'Multilingual: City which is giving the course.',
       'providing_organisation'         => 'Multilingual: Course organiser',
-      'implementation'                 => 'Multilingual: Realisation and working methods',
+      'realisation_and_working_methods'=> 'Multilingual: Realisation and working methods',
       'keywords'                       => 'Multilingual: Keywords',
       'languages'                      => 'Teaching languages',
       'teachers'                       => 'Teachers',
@@ -253,7 +253,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'objective',
       'study_fee',
       'providing_organisation',
-      'implementation',
+      'realisation_and_working_methods',
       'responsible_person',
       'relations_to_other_study_units',
       'open_university_registration',

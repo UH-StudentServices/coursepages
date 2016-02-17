@@ -27,59 +27,64 @@ function uhc_ds_ds_fields_info($entity_type) {
         'label' => 'Course: Course number',
       ),
       'uhc_ds_additional_info' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_additional_info',
         'label' => 'Course implementation or Course: Additional information',
       ),
       'uhc_ds_req_prerequisites' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_req_prerequisites',
         'label' => 'Course implementation or Course: Required pre-requisites',
       ),
       'uhc_ds_contents' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_contents',
         'label' => 'Course implementation or Course: Contents',
       ),
       'uhc_ds_evaluation' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_evaluation',
         'label' => 'Course implementation or Course: Evaluation',
       ),
       'uhc_ds_objective' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_objective',
         'label' => 'Course implementation or Course: Objective',
       ),
       'uhc_ds_target_group' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_target_group',
         'label' => 'Course implementation or Course: Target group',
       ),
       'uhc_ds_study_materials' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_study_materials',
         'label' => 'Course implementation or Course: Study materials',
       ),
       'uhc_ds_conduct' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_conduct',
         'label' => 'Course implementation or Course: Conduct',
       ),
       'uhc_ds_timing' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_timing',
         'label' => 'Course implementation or Course: Timing',
       ),
       'uhc_ds_responsible_person' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_responsible_person',
         'label' => 'Course implementation or Course: Responsible person',
       ),
       'uhc_ds_rel_to_other_study_units' => array(
-        'function' => 'uhc_ds_render_comparable_ds_field',
+        'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_rel_to_other_study_units',
         'label' => 'Course implementation or Course: Relation to other study units',
+      ),
+      'uhc_ds_working_methods' => array(
+        'function' => 'uhc_ds_content_fallback',
+        'field_name' => 'field_working_methods',
+        'label' => 'Course implementation or Course: Realisation and working methods',
       ),
 
     );
@@ -208,7 +213,7 @@ function _uhc_ds_compare(&$ds_fields, $embeddable_field, $label, $field_name) {
     'title' => $label,
     'field_type' => DS_FIELD_TYPE_FUNCTION,
     'ui_limit' => array('course_implementation|*'),
-    'function' => 'uhc_ds_render_comparable_ds_field',
+    'function' => 'uhc_ds_content_fallback',
     'properties' => array(
       'field_name' => $field_name,
       'reference_field' => 'field_imp_reference_to_courses'
@@ -337,15 +342,6 @@ function uhc_ds_content_fallback($field = NULL) {
         }
       }
     }
-    // Course - try all teaching languages
-    foreach ($enabled_languages as $enabled_language) {
-      if(in_array($enabled_language, $teaching_languages)) {
-        $values = uhc_ds_render_inherited_ds_field($field, $enabled_language);
-        if ($values) {
-          return $values;
-        }
-      }
-    }
   }
 
   // Course implementation - try all enabled languages
@@ -354,6 +350,24 @@ function uhc_ds_content_fallback($field = NULL) {
     if ($values) {
       $value = field_view_value('node', $node, $field_name, $values[0]);
       return render($value);
+    }
+  }
+
+  // Course - try active language
+  $values = uhc_ds_render_inherited_ds_field($field);
+  if ($values) {
+    return $values;
+  }
+
+  // Course - try all teaching languages
+  if ($teaching_languages) {
+    foreach ($enabled_languages as $enabled_language) {
+      if(in_array($enabled_language, $teaching_languages)) {
+        $values = uhc_ds_render_inherited_ds_field($field, $enabled_language);
+        if ($values) {
+          return $values;
+        }
+      }
     }
   }
 

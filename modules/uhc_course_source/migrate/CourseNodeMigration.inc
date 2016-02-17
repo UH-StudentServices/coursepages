@@ -122,6 +122,7 @@ class CourseNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_evaluation',  'evaluation')->arguments($field_arguments);
     $this->addFieldMapping('field_conduct',  'completion')->arguments($field_arguments);
     $this->addFieldMapping('field_req_prerequisites',  'previous_studies')->arguments($field_arguments);
+    $this->addFieldMapping('field_working_methods', 'realisation_and_working_methods')->arguments($field_arguments);
 
     // Entity reference fields
     $this->addFieldMapping('field_course_type_of_teaching', 'learningopportunity_type_code')
@@ -178,6 +179,7 @@ class CourseNodeMigration extends PortalMigrationBase {
       'credit_points_min'               => 'Minimum credit points',
       'credit_points'                   => 'Computed scale of credit points',
       'faculties'                       => 'Faculty of course',
+      'realisation_and_working_methods' => 'Multilingual: Realisation and working methods',
     );
   }
 
@@ -218,6 +220,7 @@ class CourseNodeMigration extends PortalMigrationBase {
       'evaluation',
       'completion',
       'previous_studies',
+      'realisation_and_working_methods',
     );
     foreach ($preprocess_strings as $property) {
       if (!empty($row->$property)) {

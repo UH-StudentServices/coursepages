@@ -5,7 +5,7 @@ core = 7.0
 api = 2
 
 projects[drupal][type] = core
-projects[drupal][version] = 7.41
+projects[drupal][version] = 7.42
 
 ; Patch: Text field (textarea) with "Default" formatter does not retain newlines
 projects[drupal][patch][1152216] = https://www.drupal.org/files/text-plain-1152216-24.patch
@@ -85,7 +85,9 @@ projects[node_edit_protection][download][revision] = e17dc41f5891689c517b228391b
 
 projects[og][version] = "2.7"
 projects[comment_og][version] = "1.0"
-projects[pathauto][version] = "1.2"
+projects[pathauto][version] = "1.3"
+; Patch: adds drush commands for deleting & updating aliases
+projects[pathauto][patch]["https://www.drupal.org/node/867578"] = https://www.drupal.org/files/pathauto-add-drush-support-867578-42.patch
 projects[responsive_navigation][version] = "1.0"
 projects[responsive_navigation][patch]["https://www.drupal.org/node/2018335"] = https://www.drupal.org/files/include-once-2018335-3.patch
 

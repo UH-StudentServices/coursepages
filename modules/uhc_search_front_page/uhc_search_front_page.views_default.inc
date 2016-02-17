@@ -125,6 +125,12 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['header']['block_5']['field'] = 'block';
   $handler->display->display_options['header']['block_5']['label'] = 'Subject';
   $handler->display->display_options['header']['block_5']['block_to_insert'] = 'facetapi:hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_2']['id'] = 'block_2';
+  $handler->display->display_options['header']['block_2']['table'] = 'views';
+  $handler->display->display_options['header']['block_2']['field'] = 'block';
+  $handler->display->display_options['header']['block_2']['label'] = 'Type of teaching';
+  $handler->display->display_options['header']['block_2']['block_to_insert'] = 'facetapi:ebLMT1Egl05afck7AKCq6EMM2B4VuGer';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -317,11 +323,11 @@ function uhc_search_front_page_views_default_views() {
     t('Start month'),
     t('Teaching language'),
     t('Subject'),
+    t('Type of teaching'),
     t('No results'),
     t('ID'),
     t('Name'),
     t('<a href="[field_imp_reference_to_courses_url]">[title_field]</a>'),
-    t('Type of teaching'),
     t('Location'),
     t('Begin date'),
     t('Search'),

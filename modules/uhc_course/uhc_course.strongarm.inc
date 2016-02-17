@@ -80,7 +80,7 @@ function uhc_course_strongarm() {
           'weight' => '4',
         ),
         'locations' => array(
-          'weight' => '30',
+          'weight' => '4',
         ),
       ),
       'display' => array(

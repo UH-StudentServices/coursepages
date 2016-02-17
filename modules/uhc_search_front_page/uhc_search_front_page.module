@@ -42,3 +42,22 @@ function uhc_search_front_page_exposed_form($field) {
   $output .= '<div class="messages search-info"><p>' . t('Students are advised to access their active courses via My Studies') . '<a href="https://student.helsinki.fi"></a></br>' . t('Teachers are advised to access their active courses via My Teaching') . '<a href="https://teacher.helsinki.fi"></a></p></div>';
   return $output;
 }
+
+/**
+ * When on front page search, enable alternative titles for type of teaching terms
+ * in facet blocks.
+ */
+function uhc_search_front_page_facet_items_alter(&$build, &$settings) {
+  if ($settings->facet == 'field_imp_reference_to_courses:field_course_type_of_teaching' && arg(0) == 'search') {
+    foreach ($build as $key => $item) {
+      $term = taxonomy_term_load($key);
+      if(!empty($term->field_alternative_title)) {
+        $field_item = field_get_items('taxonomy_term', $term, 'field_alternative_title', $term->field_alternative_title);
+        $field_value = field_view_value('taxonomy_term', $term, 'field_alternative_title', $field_item[0]);
+        if (render($field_value)) {
+          $build[$key]['#markup'] = render($field_value);
+        }
+      }
+    }
+  }
+}

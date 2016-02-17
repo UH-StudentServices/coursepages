@@ -555,15 +555,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'create field_imp_working_methods'.
-  $permissions['create field_imp_working_methods'] = array(
-    'name' => 'create field_imp_working_methods',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'create field_material_file'.
   $permissions['create field_material_file'] = array(
     'name' => 'create field_material_file',
@@ -685,6 +676,15 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'create field_timing'.
   $permissions['create field_timing'] = array(
     'name' => 'create field_timing',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'create field_working_methods'.
+  $permissions['create field_working_methods'] = array(
+    'name' => 'create field_working_methods',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -1349,15 +1349,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit field_imp_working_methods'.
-  $permissions['edit field_imp_working_methods'] = array(
-    'name' => 'edit field_imp_working_methods',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit field_material_file'.
   $permissions['edit field_material_file'] = array(
     'name' => 'edit field_material_file',
@@ -1479,6 +1470,15 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'edit field_timing'.
   $permissions['edit field_timing'] = array(
     'name' => 'edit field_timing',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit field_working_methods'.
+  $permissions['edit field_working_methods'] = array(
+    'name' => 'edit field_working_methods',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -1911,15 +1911,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit own field_imp_working_methods'.
-  $permissions['edit own field_imp_working_methods'] = array(
-    'name' => 'edit own field_imp_working_methods',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit own field_material_file'.
   $permissions['edit own field_material_file'] = array(
     'name' => 'edit own field_material_file',
@@ -2041,6 +2032,15 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'edit own field_timing'.
   $permissions['edit own field_timing'] = array(
     'name' => 'edit own field_timing',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_working_methods'.
+  $permissions['edit own field_working_methods'] = array(
+    'name' => 'edit own field_working_methods',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -2594,17 +2594,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'view field_imp_working_methods'.
-  $permissions['view field_imp_working_methods'] = array(
-    'name' => 'view field_imp_working_methods',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'view field_material_file'.
   $permissions['view field_material_file'] = array(
     'name' => 'view field_material_file',
@@ -2743,6 +2732,17 @@ function uhc_content_administration_feature_user_default_permissions() {
   $permissions['view field_timing'] = array(
     'name' => 'view field_timing',
     'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view field_working_methods'.
+  $permissions['view field_working_methods'] = array(
+    'name' => 'view field_working_methods',
+    'roles' => array(
+      'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
     ),
@@ -3152,17 +3152,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'view own field_imp_working_methods'.
-  $permissions['view own field_imp_working_methods'] = array(
-    'name' => 'view own field_imp_working_methods',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'view own field_material_file'.
   $permissions['view own field_material_file'] = array(
     'name' => 'view own field_material_file',
@@ -3308,6 +3297,17 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view own field_working_methods'.
+  $permissions['view own field_working_methods'] = array(
+    'name' => 'view own field_working_methods',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view title_and_credit_linked on node'.
   $permissions['view title_and_credit_linked on node'] = array(
     'name' => 'view title_and_credit_linked on node',
@@ -3403,6 +3403,16 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'view uhc_ds_title_and_credit on node'.
   $permissions['view uhc_ds_title_and_credit on node'] = array(
     'name' => 'view uhc_ds_title_and_credit on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_working_methods on node'.
+  $permissions['view uhc_ds_working_methods on node'] = array(
+    'name' => 'view uhc_ds_working_methods on node',
     'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',

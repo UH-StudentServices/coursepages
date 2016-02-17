@@ -30,7 +30,7 @@ class CourseImplementationDestinationNode extends PortalDestinationNode {
       'field_imp_locality',
       'field_imp_giver_locality',
       'field_imp_course_organiser',
-      'field_imp_working_methods',
+      'field_working_methods',
       'field_timing',
       'field_evaluation',
       'field_req_prerequisites',
