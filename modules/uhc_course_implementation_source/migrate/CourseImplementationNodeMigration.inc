@@ -102,9 +102,14 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     // Specify default field arguments for text fields
     $field_arguments = array('language' => $this->getSupportedLanguages(), 'format' => 'filtered_html');
 
-    // Language netural text fields that fits *AS IS* to field mapping
+    // Language neutral text fields that fits *AS IS* to field mapping
     $this->addFieldMapping('field_imp_id', 'id');
     $this->addFieldMapping('field_study_credit', 'credit_points');
+
+    // Hierarchy metadata fields.
+    $this->addFieldMapping('field_hierarchy_children', 'child_ids')->sourceMigration('CourseImplementationNode');
+    $this->addFieldMapping('field_hierarchy_parent_id', 'parent_id')->sourceMigration('CourseImplementationNode');
+    $this->addFieldMapping('field_hierarchy_position', 'position');
 
     // Text fields that needs some type of processing during mapping: Language neutral
     $this->addFieldMapping('title', 'title')->callbacks(array($this, 'trimOpenUniPrefix'));
@@ -211,6 +216,9 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'responsible_person'             => 'Multilingual: Responsible person',
       'relations_to_other_study_units' => 'Multilingual: Relations to other study units',
       'open_university_registration'   => 'Multilingual: Open university registration',
+      'child_ids'                      => 'Hierarchy: Child IDs',
+      'parent_id'                      => 'Hierarchy: Parent ID',
+      'position'                       => 'Hierarchy: Position',
     );
   }
 
@@ -238,6 +246,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     CourseImplementationNodeMigration::prepareTitle($row);
     CourseImplementationNodeMigration::prepareInstructionLocality($row);
     CourseImplementationNodeMigration::prepareDescriptions($row, $description_elements);
+    CourseImplementationNodeMigration::prepareHierarchy($row);
 
     // All these properties may contain problematic string content that needs
     // some processing to make it nicely renderable in Drupal.
@@ -285,6 +294,51 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       }
     }
     return TRUE;
+  }
+
+  /**
+   * This method creates a stub course implementation nodes and keeps book of
+   * created stubs. By creating a stub from another migration, we also take
+   * care of finalizing them by tracking the stubs and then migrating them fully
+   * after initial migration has been completed.
+   *
+   * @see https://www.drupal.org/node/1013506
+   * @param Migration $migration
+   * @param array $source_ids
+   * @return array|bool
+   */
+  public function createStub(Migration $migration, array $source_ids) {
+
+    // Keep track of created stubs
+    $created_stubs = array();
+
+    // Format stub nids and loop over each source
+    $stub_nids = array();
+    foreach ($source_ids as $source_id) {
+
+      // If node was successfully created, add it to $stub_nids for mapping and
+      // to $migrate_stubs for post migration.
+      $node = uhc_sources_create_stub_node($source_id, 'course_implementation');
+      if (!empty($node->nid)) {
+        // Append nid to the list and prevent adding existing source_ids to the
+        // list.
+        $stub_nids[] = $node->nid;
+        if (!in_array($source_id, $created_stubs)) {
+          $created_stubs[] = $source_id;
+        }
+      }
+    }
+
+    // Add each stub into stub handling queue
+    /** @var DrupalReliableQueueInterface $queue */
+    $queue = DrupalQueue::get('uhc_sources_stub_handling', TRUE);
+    foreach ($created_stubs as $created_stub) {
+      $item = array('type' => 'courseunitrealisation', 'id' => $created_stub);
+      $queue->createItem($item);
+    }
+
+    // Returns stub nids if any, or else return FALSE
+    return !empty($stub_nids) ? $stub_nids : FALSE;
   }
 
   ##############################################################################
@@ -543,5 +597,22 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       }
     }
     return $keywords;
+  }
+
+  /**
+   * Prepares hierarchy information.
+   *
+   * @param $row
+   */
+  static public function prepareHierarchy(&$row) {
+    if (!empty($row->child_ids)) {
+      $course_implementation_ids = array();
+
+      foreach ($row->child_ids as $child_id) {
+        $course_implementation_ids[] = $child_id->course_id;
+      }
+
+      $row->child_ids = $course_implementation_ids;
+    }
   }
 }

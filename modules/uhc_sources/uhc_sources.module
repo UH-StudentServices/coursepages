@@ -286,3 +286,74 @@ function uhc_sources_is_from_organisation($node, $organisation_code) {
   // If no match, we fall to returning FALSE
   return FALSE;
 }
+
+/**
+ * Helper function for creating a stub node by a given ID of given type
+ * (bundle). Note that if this function is called more than once during a
+ * bootstrap, it will return initially created stub node for given ID and type.
+ *
+ * @see CourseNodeMigration::createStub()
+ * @see uhc_course_source_link_courseless()
+ * @see uhc_course_source_handle_stubs()
+ * @param $id string ID.
+ * @param $node_type string Node type ('course', 'course_implementation').
+ * @return object Node object.
+ */
+function uhc_sources_create_stub_node($id, $node_type) {
+
+  // Return if the node type is not supported.
+  if (!in_array($node_type, array('course', 'course_implementation'))) {
+    return NULL;
+  }
+
+  $created_stubs = &drupal_static('_uhc_sources_created_stubs', array());
+
+  // If it's not created during this bootstrap, then create it.
+  if (!isset($created_stubs[$node_type][$id])) {
+    $id_field_name = NULL;
+
+    if ($node_type == 'course') {
+      $id_field_name = 'field_course_course_number';
+    } elseif ($node_type == 'course_implementation') {
+      $id_field_name = 'field_imp_id';
+    }
+
+    $values = array(
+      'type' => $node_type,
+      'title' => uhc_sources_get_stub_node_title($node_type, $id),
+      'uid' => 1,
+      'status' => 0,
+      $id_field_name => array(LANGUAGE_NONE => array(array('value' => $id)))
+    );
+
+    $node = entity_create('node', $values);
+    node_save($node);
+
+    // For static usage, we store this to static variable if this gets called
+    // more than once for given ID.
+    $created_stubs[$node_type][$id] = $node;
+  }
+
+  return $created_stubs[$node_type][$id];
+}
+
+/**
+ * Returns a stub node title by the given node type and ID.
+ *
+ * @param $node_type string Node type ('course', 'course_implementation').
+ * @param $id string ID.
+ * @return string Stub node title.
+ */
+function uhc_sources_get_stub_node_title($node_type, $id) {
+  return uhc_sources_get_stub_node_title_prefix($node_type) . " $id";
+}
+
+/**
+ * Returns a stub node title prefix by the given node type.
+ *
+ * @param $node_type string Node type ('course', 'course_implementation').
+ * @return string Stub node title prefix.
+ */
+function uhc_sources_get_stub_node_title_prefix($node_type) {
+  return "STUB $node_type for";
+}

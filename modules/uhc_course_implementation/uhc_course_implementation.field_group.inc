@@ -348,6 +348,9 @@ function uhc_course_implementation_field_group_info() {
       22 => 'field_rel_to_other_study_units',
       23 => 'field_responsible_person',
       24 => 'field_working_methods',
+      25 => 'field_hierarchy_position',
+      26 => 'field_hierarchy_parent_id',
+      27 => 'field_hierarchy_children',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

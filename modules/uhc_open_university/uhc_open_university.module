@@ -218,7 +218,7 @@ function uhc_open_university_form_alter(&$form, &$form_state, $form_id) {
  * @see uhc_open_university_form_alter()
  */
 function uhc_open_university_form_apply_sort(&$form, &$form_state) {
-  if (isset($_GET['search'])) {
+  if (isset($_GET['search']) && isset($form_state['values']['sorting'])) {
     $sort = explode(':', $form_state['values']['sorting']);
     $_GET['order'] = $sort[0];
     $_GET['sort'] = $sort[1];

@@ -13,10 +13,6 @@
  */
 function uhc_course_source_drush_command() {
   $items = array();
-  $items['uhc-course-handle-stubs'] = array(
-    'description' => 'Imports all known created course stubs.',
-    'callback' => 'uhc_course_source_handle_stubs',
-  );
   $items['uhc-course-link-courseless'] = array(
     'description' => 'Detects courseless implementations and links them to courses.',
     'options' => array(
@@ -25,51 +21,6 @@ function uhc_course_source_drush_command() {
     'callback' => 'uhc_course_source_link_courseless',
   );
   return $items;
-}
-
-/**
- * Callback for handling course stubs.
- */
-function uhc_course_source_handle_stubs() {
-  /** @var $migration CourseNodeMigration */
-  $migrate_stubs = variable_get('uhc_course_source_migrate_stubs', array());
-  if (!empty($migrate_stubs)) {
-
-    // Migrate
-    $migration = Migration::getInstance('CourseNode', 'CourseNodeMigration', array('predefined_ids' => $migrate_stubs));
-    $migration->processImport(array('idlist' => implode(',', $migrate_stubs), 'force' => TRUE));
-
-    // Identify the stub courses that were handled by querying nodes by course
-    // number, not having title 'Untitled course for...'.
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'course')
-      // If the following property condition is modified, check the comment in
-      // uhc_course_source_create_stub(). The format of the title is important.
-      ->propertyCondition('title', 'Untitled course for%', 'NOT LIKE')
-      ->fieldCondition('field_course_course_number', 'value', $migrate_stubs);
-
-    // Load each node and remove the course numbers from $migrate_stubs
-    $result = $query->execute();
-    if (!empty($result['node'])) {
-      $nodes = node_load_multiple(array_keys($result['node']));
-      foreach ($nodes as $node) {
-        if (isset($node->field_course_course_number[LANGUAGE_NONE][0]['value'])) {
-          // Remove handled course number from the list. Note that the $key
-          // might be "0" properly meaning that the first item of the array is a
-          // match, therefore we do strict condition when deciding whether we
-          // remove the item from the list.
-          $key = array_search($node->field_course_course_number[LANGUAGE_NONE][0]['value'], $migrate_stubs);
-          if ($key !== FALSE) {
-            unset($migrate_stubs[$key]);
-          }
-        }
-      }
-    }
-
-    // Update migrate_stubs variable
-    variable_set('uhc_course_source_migrate_stubs', $migrate_stubs);
-  }
 }
 
 /**
@@ -185,6 +136,6 @@ function _uhc_course_source_get($course_number) {
     return node_load($resolved_nid);
   }
   else {
-    return _uhc_course_source_create_stub($course_number);
+    return uhc_sources_create_stub_node($course_number, 'course');
   }
 }

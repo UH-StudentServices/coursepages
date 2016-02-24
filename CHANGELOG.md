@@ -1,3 +1,17 @@
+# Helsinki University Coursepages v1.58
+Päiväys: 24.02.2016
+
+## Lisäykset
+  - DOO-1906: Luetaan opetustapahtumien hierarkia tieto sisäänluvussa
+
+## Muutokset
+  - DOO-1826: Poistettiin julkaisusta kurssisivut kokoavilta opetustapahtumilta.
+  - DOO-1897: Nostoihin näkyviin linkkityyli.
+
+## Korjaukset
+  - DOO-1969: Korjattu avatarin ja muokkausvalikon päällekkäisyys mobiilinäkymässä.
+
+
 # Helsinki University Coursepages v1.57
 Päiväys: 16.02.2016
 

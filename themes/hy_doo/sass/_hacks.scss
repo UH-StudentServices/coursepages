@@ -27,3 +27,12 @@
 .page-node-edit #block-feedback-form {
   display: none !important;
 }
+
+// Display links in liftup body text. Original style in _box-story.scss
+.box-story__content a {
+  color: $blue;
+
+  &:hover {
+    color: $darkblue;
+  }
+}

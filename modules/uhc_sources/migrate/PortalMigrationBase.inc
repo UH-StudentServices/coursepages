@@ -317,5 +317,4 @@ class PortalMigrationBase extends Migration {
     }
     unset($row->descriptions);
   }
-
 }

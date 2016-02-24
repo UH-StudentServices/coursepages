@@ -49,6 +49,20 @@ function uhc_course_implementation_source_update_7002() {
 }
 
 /**
+ * Migrate stub id list from variable into queue items and delete variable.
+ */
+function uhc_course_implementation_source_update_7003() {
+  $stubs = variable_get('uhc_course_implementation_source_migrate_stubs', array());
+  /** @var DrupalReliableQueueInterface $queue */
+  $queue = DrupalQueue::get('uhc_sources_stub_handling', TRUE);
+  foreach ($stubs as $stub) {
+    $item = array('type' => 'courseunitrealisation', 'id' => $stub);
+    $queue->createItem($item);
+  }
+  variable_del('uhc_course_implementation_source_migrate_stubs');
+}
+
+/**
  * Function that queries all course implementation map rows that has NULL as
  * destination id and deletes them.
  */

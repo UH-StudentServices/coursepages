@@ -243,8 +243,8 @@ class CourseNodeMigration extends PortalMigrationBase {
    */
   public function createStub(Migration $migration, array $source_ids) {
 
-    // Which stubs are up for migration?
-    $migrate_stubs = variable_get('uhc_course_source_migrate_stubs', array());
+    // Keep track of created stubs
+    $created_stubs = array();
 
     // Format stub nids and loop over each source
     $stub_nids = array();
@@ -252,19 +252,24 @@ class CourseNodeMigration extends PortalMigrationBase {
 
       // If node was successfully created, add it to $stub_nids for mapping and
       // to $migrate_stubs for post migration.
-      $node = _uhc_course_source_create_stub($source_id);
+      $node = uhc_sources_create_stub_node($source_id, 'course');
       if (!empty($node->nid)) {
         // Append nid to the list and prevent adding existing source_ids to the
         // list.
         $stub_nids[] = $node->nid;
-        if (!in_array($source_id, $migrate_stubs)) {
-          $migrate_stubs[] = $source_id;
+        if (!in_array($source_id, $created_stubs)) {
+          $created_stubs[] = $source_id;
         }
       }
     }
 
-    // Now save potentially modified $migrate_stubs
-    variable_set('uhc_course_source_migrate_stubs', $migrate_stubs);
+    // Add each stub into stub handling queue
+    /** @var DrupalReliableQueueInterface $queue */
+    $queue = DrupalQueue::get('uhc_sources_stub_handling', TRUE);
+    foreach ($created_stubs as $created_stub) {
+      $item = array('type' => 'learningopportunity', 'id' => $created_stub);
+      $queue->createItem($item);
+    }
 
     // Returns stub nids if any, or else return FALSE
     return !empty($stub_nids) ? $stub_nids : FALSE;

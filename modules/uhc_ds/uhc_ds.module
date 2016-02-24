@@ -583,8 +583,12 @@ function _uhc_ds_get_imp_subjects($nid) {
   $results = array();
   foreach ($query as $result) {
     $entity_id = $result->entity_id ?: $result->sub_to_fc_2_entity_id;
-    $results[] = node_load($entity_id);
+
+    if (isset($entity_id)) {
+      $results[] = node_load($entity_id);
+    }
   }
+
   return $results;
 }
 

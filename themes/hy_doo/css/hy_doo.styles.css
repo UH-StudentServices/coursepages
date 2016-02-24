@@ -468,7 +468,8 @@
   clear: both;
 }
 
-.l-top-bar {
+.l-top-bar,
+.l-page {
   position: relative;
 }
 
@@ -2384,6 +2385,9 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
   top: 0;
   right: 70px;
 }
+.block--uhc-avatar + .block--system-user-menu {
+  right: 120px;
+}
 .block--system-user-menu > ul > li {
   position: relative;
   line-height: 48px;
@@ -2496,6 +2500,9 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
   line-height: 48px;
   right: 50px;
   top: 0;
+  width: 48px;
+  height: 48px;
+  vertical-align: middle;
 }
 .block--uhc-avatar img {
   background: #7A46A2;
@@ -3943,4 +3950,11 @@ h1, h2 {
 
 .page-node-edit #block-feedback-form {
   display: none !important;
+}
+
+.box-story__content a {
+  color: #0098d0;
+}
+.box-story__content a:hover {
+  color: #005479;
 }

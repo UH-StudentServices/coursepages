@@ -263,3 +263,50 @@ function uhc_course_implementation_update_7005() {
   // Delete field_imp_status
   field_delete_field('field_imp_status');
 }
+
+/**
+ * Unpublish course implementation nodes that are defined as studygroupsets in
+ * Oodi (using a predefined list of IDs).
+ */
+function uhc_course_implementation_update_7006() {
+  $course_implementation_ids = array(
+    '107524085', '107637889', '107646678', '107648203', '110501208',
+    '110575664', '108310925', '108287301', '110091589', '110575738',
+    '108620672', '109325810', '108609659', '108166184', '108614245',
+    '108609145', '108903829', '110588312', '110797033', '110797268',
+    '108603902', '108603911', '110803991', '110590931', '110590991',
+    '110805427', '110805328', '110805460', '108010227', '108075145',
+    '111415456', '111727138', '111728585', '108076108', '108076091',
+    '108076120', '108076157', '111412664', '111416606', '111440016',
+    '111430913', '111687283', '108587261', '108289732', '111936029',
+    '108165875', '108581550', '107554110', '107556095', '111000863',
+    '108121277', '108374760', '108712586', '108792476', '108604183',
+    '108599828', '112204600', '108580824', '108146322', '108581413'
+  );
+
+  $query = db_select('field_data_field_imp_id', 'i');
+  $query->fields('i', array('entity_id'));
+  $query->join('node', 'n', 'i.entity_id = n.nid');
+  $query->condition('n.type', 'course_implementation');
+  $query->condition('n.status', 1);
+  $query->condition('i.field_imp_id_value', $course_implementation_ids, 'IN');
+  $results = $query->execute();
+
+  $node_ids = array();
+
+  while ($result = $results->fetchAssoc()) {
+    $node_ids[] = $result['entity_id'];
+  }
+
+  $nodes = array();
+
+  if (!empty($node_ids)) {
+    $nodes = node_load_multiple($node_ids);
+  }
+
+  foreach ($nodes as $node) {
+    $node->status = 0;
+    node_save($node);
+    watchdog('uhc_course_implementation', "Unpublished node $node->nid.");
+  }
+}
