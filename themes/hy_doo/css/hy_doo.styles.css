@@ -727,12 +727,39 @@
 .course-hierarchy a.active {
   color: #005479;
 }
-.course-hierarchy li.root > .item-list {
+.course-hierarchy > li {
   border-bottom: 1px solid #EBEBEB;
-  border-left: 0;
-  border-right: 0;
-  border-top: 0;
-  margin-bottom: 2em;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif, Nimbus Sans L;
+  font-size: 15px;
+  font-size: 0.9375rem;
+  display: block;
+  line-height: normal;
+  overflow: hidden;
+  padding-bottom: 0.8em;
+  padding-left: 0;
+  padding-right: 2em;
+  padding-top: 0.8em;
+  position: relative;
+  padding-right: 0;
+}
+.course-hierarchy > li:after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "hy-icons";
+  content: "";
+  color: inherit;
+  font-weight: 200;
+  height: 100%;
+  margin-top: -0.5em;
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+a:hover .course-hierarchy > li:after, .course-hierarchy > li:hover:after {
+  color: #005479;
+}
+.course-hierarchy > li:after {
+  display: none;
 }
 .course-hierarchy li.root > .item-list ul.root {
   border-left: 1px solid #EBEBEB;
@@ -792,17 +819,16 @@
   border-top: 0;
   content: '';
   display: block;
-  margin-left: 2em;
   margin-top: 1em;
+}
+.course-hierarchy li.root > .item-list ul.root > li.studygroup:after, .course-hierarchy li.root > .item-list ul.root > li.studygroupset:after {
+  margin-left: 2em;
 }
 .course-hierarchy li.root > .item-list ul.root > li:last-child:after {
   border-bottom: none;
 }
 .course-hierarchy li.root > .item-list ul.root > li.show-more {
   padding-top: 1em;
-}
-.course-hierarchy li.root > .item-list ul.root li.studygroup:after {
-  margin-left: 0;
 }
 
 /**
@@ -2134,6 +2160,7 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
   box-shadow: 0 15px 25px -27px #666;
   z-index: 998;
   max-height: 0;
+  height: 0;
   background: #fff;
   position: absolute;
   width: 100%;
@@ -2245,6 +2272,7 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
 .study-module-multiselect.chosen-with-drop .block__content,
 .study-module-multiselect.chosen-with-drop .chosen-drop {
   max-height: 320px;
+  height: auto;
   z-index: 999;
 }
 .block.block--facetapi .chosen-choices,
@@ -3858,22 +3886,22 @@ a:hover .accordion-item__alternative:before, .accordion-item__alternative:hover:
   font-size: 1.3em;
   margin-right: 0.7em;
 }
-.messages.search-info {
+.messages.info {
   background-color: #F8F8F8;
   color: #222;
 }
-.messages.search-info * {
+.messages.info * {
   color: #222;
 }
-.messages.search-info.alternative {
+.messages.info.alternative {
   background-color: #F8F8F8;
   color: #222;
 }
-.messages.search-info.alternative * {
+.messages.info.alternative * {
   color: #222;
 }
-.messages.search-info li:before,
-.messages.search-info p:before {
+.messages.info li:before,
+.messages.info p:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "FontAwesome";
@@ -4181,4 +4209,8 @@ h1, h2 {
 }
 .box-story__content a:hover {
   color: #005479;
+}
+
+.field-group-accordion-item .messages {
+  margin-bottom: 1em;
 }

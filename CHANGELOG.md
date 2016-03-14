@@ -1,5 +1,22 @@
-# Helsinki University Coursepages v1.59
+# Helsinki University Coursepages v1.60
 Päiväys: 08.03.2016
+
+## Lisäykset
+  - DOO-1853: Lisättiin esteettömyys teksti/linkki aikataulu haitariin
+  - DOO-1834: Etusivun haussa voi rajata tuloksia tiedekunnan mukaan
+  - DOO-1995: Lisättiin karttalinkkeihin postinumero (mikäli löytyy)
+
+## Muutokset
+  - DOO-1983: Murupolun koti-ikonin osoitteiden yhtenäistäminen navigaation
+    koti-ikonin kanssa.
+
+## Korjaukset
+  - DOO-2015: Korjattiin jumiutuvat hakusuodattimet (Safari)
+  - DOO-1836: Palautettiin omat ilmoittautumiset hierarkialohkoon.
+
+
+# Helsinki University Coursepages v1.59
+Päiväys: 08.03.2016 peruttu DOO-1836:n takia
 
 ## Lisäykset
   - DOO-1836: Lisättiin sivupalkkiin opetushierarkiaa (pääopetustapahtuma ja

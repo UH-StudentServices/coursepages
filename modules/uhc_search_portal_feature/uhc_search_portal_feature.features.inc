@@ -69,6 +69,7 @@ function uhc_search_portal_feature_default_search_api_index() {
         "field_imp_keywords" : { "type" : "list\\u003Cstring\\u003E" },
         "field_imp_locality" : { "type" : "string" },
         "field_imp_method_of_study" : { "type" : "integer", "entity_type" : "taxonomy_term" },
+        "field_imp_organisation" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
         "field_imp_organisation:field_ouh_code" : { "type" : "list\\u003Cstring\\u003E" },
         "field_imp_reference_to_courses:field_additional_info:value" : { "type" : "text" },
         "field_imp_reference_to_courses:field_conduct:value" : { "type" : "text" },

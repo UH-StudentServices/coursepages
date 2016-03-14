@@ -36,6 +36,7 @@
     @include shadow-under;
     z-index: 998;
     max-height: 0;
+    height: 0;
     background: #fff;
     position: absolute;
     width: 100%;
@@ -100,6 +101,7 @@
     .block__content,
     .chosen-drop {
       max-height: 320px;
+      height: auto;
       z-index: 999;
     }
   }

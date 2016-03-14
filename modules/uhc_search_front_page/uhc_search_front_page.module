@@ -39,16 +39,25 @@ function uhc_search_front_page_exposed_form($field) {
   $block = block_load('views', '0580398bf6a2f9d60b32760e9900b13c');
   $render_array = _block_get_renderable_array(_block_render_blocks(array($block)));
   $output = render($render_array);
-  $output .= '<div class="messages search-info"><p>' . t('Students are advised to access their active courses via My Studies') . '<a href="https://student.helsinki.fi"></a></br>' . t('Teachers are advised to access their active courses via My Teaching') . '<a href="https://teacher.helsinki.fi"></a></p></div>';
+  $output .= '<div class="messages info"><p>' . t('Students are advised to access their active courses via My Studies') . '<a href="https://student.helsinki.fi"></a></br>' . t('Teachers are advised to access their active courses via My Teaching') . '<a href="https://teacher.helsinki.fi"></a></p></div>';
   return $output;
 }
 
 /**
+ * Implements hook_facet_items_alter(). Remove other organisation filters
+ * except the ones belonging in the Faculty subtree.
+ *
  * When on front page search, enable alternative titles for type of teaching terms
  * in facet blocks.
  */
 function uhc_search_front_page_facet_items_alter(&$build, &$settings) {
-  if ($settings->facet == 'field_imp_reference_to_courses:field_course_type_of_teaching' && arg(0) == 'search') {
+  if ($settings->facet == "field_imp_organisation") {
+    $root_tid = array_keys($build)[0];
+    $build[$root_tid]['#item_children'] = array_filter($build[$root_tid]['#item_children'], function ($elem) {
+      return $elem['#markup'] == 'HY, Faculties' || $elem['#markup'] == 'HY, Fakulteterna' || $elem['#markup'] == 'HY, Tiedekunnat (TDK)';
+    });
+  }
+  elseif ($settings->facet == 'field_imp_reference_to_courses:field_course_type_of_teaching' && arg(0) == 'search') {
     foreach ($build as $key => $item) {
       $term = taxonomy_term_load($key);
       if(!empty($term->field_alternative_title)) {

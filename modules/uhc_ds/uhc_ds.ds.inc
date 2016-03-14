@@ -2475,8 +2475,10 @@ if (!empty($entity->field_event_begin_date[\'und\'][0][\'value\'])) {
 if (empty($entity->field_event_link)) {
   if (!empty($entity->field_event_location[LANGUAGE_NONE][0][\'street\']) && !empty($entity->field_event_location[LANGUAGE_NONE][0][\'name\'])) {
     $street = $entity->field_event_location[LANGUAGE_NONE][0][\'street\'];
+    $postal_code = $entity->field_event_location[LANGUAGE_NONE][0][\'postal_code\'];
+    $address = !empty($postal_code) ? "$street, $postal_code" : $street;
     $name = $entity->field_event_location[LANGUAGE_NONE][0][\'name\'];
-    print $name . \', \' . "<a href=\'https://www.google.fi/maps/place/$street\' target=\'_blank\'>" . $street . \'</a>\';
+    print $name . \', \' . "<a href=\'https://www.google.fi/maps/place/$address\' target=\'_blank\'>" . $street . \'</a>\';
   }
   else {
     print \'[node:field_event_loc_name]\';

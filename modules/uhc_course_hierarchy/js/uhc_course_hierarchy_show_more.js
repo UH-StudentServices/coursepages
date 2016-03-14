@@ -29,7 +29,8 @@
           $(this).append(showMoreLink);
 
           // show hidden, toggle link title
-          $('li.show-more a').click(function() {
+          $('li.show-more a').click(function(e) {
+            e.preventDefault();
             hasMore.slideToggle('fast');
             ($(this).text() == showLessText) ? $(this).text(showMoreText) : $(this).text(showLessText);
           });

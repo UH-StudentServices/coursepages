@@ -2,10 +2,15 @@
   a.active {
     color: $darkblue;
   }
+  > li {
+    @include button-internal;
+    padding-right: 0;
+    &:after {
+      display: none;
+    }
+  }
   li.root {
     > .item-list {
-      @include border-bottom;
-      margin-bottom: 2em;
       ul.root {
         @include border-left;
         margin: 1em 0;
@@ -48,8 +53,13 @@
             @include border-bottom;
             content: '';
             display: block;
-            margin-left: 2em;
             margin-top: 1em;
+          }
+          &.studygroup,
+          &.studygroupset {
+            &:after {
+              margin-left: 2em;
+            }
           }
           &:last-child {
             &:after {
@@ -58,11 +68,6 @@
           }
           &.show-more {
             padding-top: 1em;
-          }
-        }
-        li.studygroup {
-          &:after {
-            margin-left: 0;
           }
         }
       }

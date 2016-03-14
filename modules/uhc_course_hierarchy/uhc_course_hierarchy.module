@@ -24,7 +24,29 @@ function uhc_course_hierarchy_preprocess_page(&$vars) {
   if (isset($vars['node']) && $vars['node']->type == 'course_implementation') {
 
     // Format breadcrumb variable having home link as first item
-    $breadcrumb = array(l(t('Home'), '<front>', array('attributes' => array('class' => array('home-link')))));
+    $contexts = context_active_contexts();
+
+    // Home URL: Open university
+    if (array_key_exists('open_university_header_and_footer', $contexts)) {
+      $href = variable_get('uhc_open_university_home_url', 'https://www.helsinki.fi/fi/avoin-yliopisto');
+      $text = t("Open University");
+    }
+    else {
+      global $user;
+
+      // Home URL: Teacher (menu callback, see uh_coursepages_menu())
+      if (in_array('teacher', $user->roles)) {
+        $href = 'teacher';
+        $text = t('My teaching');
+      }
+      // Home URL: Student (menu callback, see uh_coursepages_menu())
+      else {
+        $href = 'student';
+        $text = t('My studies');
+      }
+    }
+
+    $breadcrumb = array(l($text, $href, array('attributes' => array('class' => array('home-link')))));
 
     // Format course hierarchy as empty array, this gets filled by node objects
     $course_hierarchy = array();

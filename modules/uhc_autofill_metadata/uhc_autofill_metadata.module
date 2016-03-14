@@ -405,3 +405,65 @@ function uhc_autofill_metadata_get_current_user_oodi_uid() {
 
   return $oodi_uid;
 }
+
+/**
+ * Returns enrollment name by the given language code. If a name matching the
+ * given language code is not found, fallbacks to known languages ('fi', 'en').
+ *
+ * @param $enrollment object Enrollment object.
+ * @param $langcode string Language code.
+ * @return string Enrollment name matching the language code, if found.
+ */
+function _uhc_autofill_metadata_get_enrollment_name($enrollment, $langcode) {
+  $enrollment_name = '';
+  $enrollment_names = array();
+
+  foreach ($enrollment['name'] as $name) {
+    $enrollment_names[$name['langcode']] = $name['text'];
+  }
+
+  // Primary: Name by given language code. Fallback to 'fi' or 'en'.
+  if (!empty($enrollment_names[$langcode])) {
+    $enrollment_name = $enrollment_names[$langcode];
+  }
+  else {
+    if (!empty($enrollment_names['fi'])) {
+      $enrollment_name = $enrollment_names['fi'];
+    }
+    elseif (!empty($enrollment_names['en'])){
+      $enrollment_name = $enrollment_names['en'];
+    }
+  }
+
+  return $enrollment_name;
+}
+
+function _uhc_autofill_metadata_enrollments_block_should_display_enrollment($method_of_study_id, $exams) {
+  $should_display_enrollment = FALSE;
+
+  if (isset($method_of_study_id)) {
+    $query = db_query(
+      'SELECT destid1 FROM {migrate_map_taxonomyformofteachingterm} WHERE sourceid1=:id',
+      array(':id' => $method_of_study_id)
+    );
+
+    $result = $query->fetch();
+
+    if (isset($result->destid1)) {
+      $should_display_enrollment = !in_array($result->destid1, $exams);
+    }
+  }
+
+  return $should_display_enrollment;
+}
+
+/**
+ * Helper function for writing logs in name of this module.
+ *
+ * @param $message
+ * @param array $variables
+ * @param int $severity
+ */
+function uhc_autofill_metadata_log($message, $variables = array(), $severity = WATCHDOG_NOTICE) {
+  watchdog('uhc_autofill_metadata', $message, $variables, $severity);
+}

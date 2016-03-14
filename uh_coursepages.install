@@ -969,3 +969,10 @@ function uh_coursepages_update_7014(&$sandbox) {
   // Update the menu router information.
   menu_rebuild();
 }
+
+/**
+ * Enable UH Taxonomy Organisations, ET module for multilingual organisations.
+ */
+function uh_coursepages_update_7015(&$sandbox) {
+  module_enable(array('uh_taxonomy_organisations_et'));
+}
