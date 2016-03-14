@@ -29,7 +29,10 @@ function uhc_course_collaboration_private_query_comment_filter_alter(QueryAltera
   // Alter comment query to filter out private comments when active user has no
   // permission to view private items. Alter count query accordingly.
   if ( ($node = $query->getMetaData('node')) && (get_class($query) == 'PagerDefault') ) {
-    if (!og_user_access_entity('view private uhc items', 'node', $node)) {
+    $access = og_user_access_entity('view private uhc items', 'node', $node)
+      || user_has_role(user_role_load_by_name('editor-in-chief of communications')->rid);
+
+    if (!$access) {
       /** @var $query PagerDefault */
       $query->leftJoin('field_data_field_private', 'fp', '(fp.entity_id = c.cid)');
       $query->where('fp.field_private_value != 1');

@@ -5,3 +5,68 @@
  */
 
 include_once 'uhc_subject.features.inc';
+
+/*
+ * Implements template_preprocess_node().
+ * Lets add some data-attributes and js for filtering.
+ */
+function uhc_subject_preprocess_node(&$variables) {
+
+  // we filter only nodes with this class
+  $nodes_to_filter_class = 'filtering-enabled';
+
+  // we pass these settings to js filtering. fields_to_filter is
+  // also used to which fields are used for data-attributes.
+  $settings = array(
+    'fields_to_filter' => array(
+      'field_imp_begin_date' => array(
+        'field_name' => 'field_imp_begin_date',
+        'field_title' => t('Start month'),
+        'placeholder' => t('All months'),
+      ),
+      'field_imp_locality' => array(
+        'field_name' => 'field_imp_locality',
+        'field_title' => t('Location'),
+        'placeholder' => t('All locations'),
+      ),
+      'field_imp_method_of_study' => array(
+        'field_name' => 'field_imp_method_of_study',
+        'field_title' => t('Method of study'),
+        'placeholder' => t('All methods of study'),
+      ),
+    ),
+    'nodes_to_filter' => $nodes_to_filter_class,
+    'select_element' => 'study-module-multiselect',
+    'container' => 'study-modules',
+  );
+
+  // add filtering js for subject nodes
+  if ($variables['type'] == 'subject' && node_is_page($variables['node']) && !empty($variables['field_study_module'])) {
+    drupal_add_js(libraries_get_path('chosen') . '/chosen.jquery.min.js');
+    drupal_add_js(array('uhc_subject_filter_study_modules' => $settings), 'setting');
+    drupal_add_js(drupal_get_path('module', 'uhc_subject') . '/js/filter_study_modules.js');
+  }
+
+  // Add classes and data-attributes to course implementations
+  if ($variables['type'] == 'course_implementation' && $variables['view_mode'] == 'teaser_accordion') {
+    $variables['classes_array'][] = $nodes_to_filter_class;
+
+    // Add data-attributes to nodes
+    foreach (array_keys($settings['fields_to_filter']) as $field) {
+      $field_items = field_get_items('node', $variables['node'], $field, $variables[$field]);
+      if ($field_items) {
+        // different handling for date fields
+        if (isset($field_items[0]['date_type'])) {
+          $rendered_field = format_date(strtotime($field_items[0]['value']), 'custom',  'F Y');
+          // add timestamp for easier date sorting in js
+          $variables['attributes_array']['data-timestamp'] = strtotime($field_items[0]['value']);
+        }
+        else {
+          $field_value = field_view_value('node', $variables['node'], $field, $field_items[0], 'plain_text');
+          $rendered_field = render($field_value);
+        }
+        $variables['attributes_array'][check_plain('data-' . $field)] = check_plain($rendered_field);
+      }
+    }
+  }
+}

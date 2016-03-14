@@ -5,7 +5,7 @@ core = 7.0
 api = 2
 
 projects[drupal][type] = core
-projects[drupal][version] = 7.42
+projects[drupal][version] = 7.43
 
 ; Patch: Text field (textarea) with "Default" formatter does not retain newlines
 projects[drupal][patch][1152216] = https://www.drupal.org/files/text-plain-1152216-24.patch
@@ -56,7 +56,7 @@ projects[google_analytics][version] = "1.4"
 
 projects[google_analytics_et][version] = "1.2"
 projects[google_analytics_reports][version] = "3.0-beta2"
-projects[i18n][version] = "1.11"
+projects[i18n][version] = "1.13"
 projects[imagemagick][version] = "1.0"
 projects[joyride][version] = "1.0-alpha3"
 projects[joyride][patch]["https://www.drupal.org/node/2411447"] = https://www.drupal.org/files/issues/joyride-makefile-core-and-api-version.diff
@@ -216,10 +216,10 @@ projects[omega][patch][2364731] = "https://www.drupal.org/files/issues/omega-fix
 
 projects[hy_base_theme][type] = "theme"
 projects[hy_base_theme][subdir] = "hy_base_theme"
-projects[hy_base_theme][download][type] = "git"
-projects[hy_base_theme][download][url] = "https://github.com/UH-StudentServices/hy_base_theme.git"
-projects[hy_base_theme][download][branch] = "7.x-1.x"
-projects[hy_base_theme][download][tag] = "7.x-1.0-beta1"
+projects[hy_base_theme][download][type] = git
+projects[hy_base_theme][download][url] = "git://github.com/UH-StudentServices/hy_base_theme.git"
+projects[hy_base_theme][download][branch] = 7.x-1.x
+projects[hy_base_theme][download][revision] = a4f3280cde43c286aa9911818e084137576928eb
 projects[adminimal_theme][subdir] = "adminimal_theme"
 projects[adminimal_theme][version] = "1.22"
 

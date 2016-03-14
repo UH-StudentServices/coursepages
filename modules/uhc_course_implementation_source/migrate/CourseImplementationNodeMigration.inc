@@ -121,10 +121,10 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       ->callbacks(array($this, 'trimOpenUniPrefix'));
 
     // Language neutral text fields that are computed in preprocess
-    $this->addFieldMapping('field_imp_locality', 'instruction_locality');
     $this->addFieldMapping('field_imp_keywords', 'keywords')->callbacks(array($this, 'parseKeywords'));
 
     // Multilingual text fields that are computed in preprocess
+    $this->addFieldMapping('field_imp_locality', 'instruction_locality')->arguments($field_arguments);
     $this->addFieldMapping('field_imp_giver_locality', 'providing_locality')->arguments($field_arguments);
     $this->addFieldMapping('field_imp_course_organiser',  'providing_organisation')->arguments($field_arguments);
     $this->addFieldMapping('field_imp_teaching_language', 'languages');
@@ -200,7 +200,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'contents'                       => 'Multilingual: Contents',
       'completion'                     => 'Multilingual: Completion',
       'objective'                      => 'Multilingual: Objective',
-      'instruction_locality'           => 'City where the course is taught',
+      'instruction_locality'           => 'Multilingual: City where the course is taught',
       'providing_locality'             => 'Multilingual: City which is giving the course.',
       'providing_organisation'         => 'Multilingual: Course organiser',
       'realisation_and_working_methods'=> 'Multilingual: Realisation and working methods',
@@ -459,7 +459,8 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
    * Prepares instruction locality which has some business logic defined.
    *
    * If no instruction locality is present, then use providing locality if
-   * provided.
+   * provided. Use the Finnish version of the locality text as English, if the
+   * English version does not exist.
    *
    * Requires CourseImplementationNodeMigration::prepareMultilingualRootTexts()
    * to be called prior to this call.
@@ -469,17 +470,16 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
    */
   static public function prepareInstructionLocality(&$row) {
 
-    // Use Finnish instruction locality only, otherwise leave as NULL.
-    if (!empty($row->instruction_locality['fi'])) {
-      $row->instruction_locality = $row->instruction_locality['fi'];
-    } else {
-      $row->instruction_locality = NULL;
-    }
-
     // Use providing_locality as instruction_locality if instruction_locality is
     // missing.
-    if (empty($row->instruction_locality) && !empty($row->providing_locality['fi'])) {
-      $row->instruction_locality = $row->providing_locality['fi'];
+    if (empty($row->instruction_locality) && !empty($row->providing_locality)) {
+      $row->instruction_locality = $row->providing_locality;
+    }
+
+    // Use the Finnish version of the locality text as English, if the English
+    // version does not exist.
+    if (empty($row->instruction_locality['en']) && !empty($row->instruction_locality['fi'])) {
+      $row->instruction_locality['en'] = $row->instruction_locality['fi'];
     }
   }
 

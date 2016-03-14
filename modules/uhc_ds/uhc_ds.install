@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Installation/update/uninstallation code for the uhc_ds feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Enable UHC Course Hierarchy module.
+ */
+function uhc_ds_update_7001() {
+  module_enable(array('uhc_course_hierarchy'));
+}

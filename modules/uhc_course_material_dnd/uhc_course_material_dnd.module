@@ -221,7 +221,6 @@ function uhc_course_material_dnd_form_validate(&$dnd_form, &$form_state) {
  */
 function uhc_course_material_dnd_form_submit($dnd_form, &$form_state) {
   $ief_id = $dnd_form['#ief_id'];
-  $entity_type = $dnd_form['#entity_type'];
   $form_values = drupal_array_get_nested_value($form_state['values'], $dnd_form['#parents']);
 
   // Load materials

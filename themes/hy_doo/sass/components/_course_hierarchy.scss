@@ -1,0 +1,71 @@
+.course-hierarchy {
+  a.active {
+    color: $darkblue;
+  }
+  li.root {
+    > .item-list {
+      @include border-bottom;
+      margin-bottom: 2em;
+      ul.root {
+        @include border-left;
+        margin: 1em 0;
+        li {
+          padding: 0 1em 1.2em 2em;
+          position: relative;
+          a {
+            @include font-weight-book;
+            @include font-size(15px);
+            color: $silver;
+            &.active {
+              color: $darkgray;
+              &:before {
+                @include alternative-arrow($darkblue, 8px, 'right');
+                position: absolute;
+                left: 0;
+                top: 10%;
+              }
+            }
+          }
+          &.my-enrollment a:after {
+            @include hy-icon($hy-done);
+            color: $green;
+            position: absolute;
+            right: 0;
+            top: 6%;
+          }
+          &:last-child {
+            padding-bottom: 0;
+          }
+        }
+        li.studygroupset {
+          padding: 0;
+          > a {
+            display: none;
+          }
+        }
+        > li {
+          &:after {
+            @include border-bottom;
+            content: '';
+            display: block;
+            margin-left: 2em;
+            margin-top: 1em;
+          }
+          &:last-child {
+            &:after {
+              border-bottom: none;
+            }
+          }
+          &.show-more {
+            padding-top: 1em;
+          }
+        }
+        li.studygroup {
+          &:after {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+}

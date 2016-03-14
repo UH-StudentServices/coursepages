@@ -4,7 +4,7 @@
 */
 
 .ds-node-content {
-  @include clearfix;
+  @include pie-clearfix;
   p,
   ul li,
   ol li {

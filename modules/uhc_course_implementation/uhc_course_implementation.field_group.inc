@@ -23,10 +23,10 @@ function uhc_course_implementation_field_group_info() {
     'label' => 'Course Information',
     'weight' => '1',
     'children' => array(
-      0 => 'field_additional_info',
-      1 => 'field_conduct',
-      2 => 'field_imp_fee',
-      3 => 'course_overview_link',
+      0 => 'field_imp_fee',
+      1 => 'course_overview_link',
+      2 => 'uhc_ds_additional_info',
+      3 => 'uhc_ds_conduct',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -267,8 +267,8 @@ function uhc_course_implementation_field_group_info() {
     'label' => 'Registration and fee',
     'weight' => '26',
     'children' => array(
-      0 => 'field_imp_fee',
-      1 => 'field_open_uni_registration',
+      0 => 'uhc_ds_fee',
+      1 => 'uhc_ds_open_uni_registration',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(

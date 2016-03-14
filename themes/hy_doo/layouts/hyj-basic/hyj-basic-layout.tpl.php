@@ -34,6 +34,11 @@
       <?php endif; ?>
 
       <div class="l-content-wrapper">
+        <?php if ($breadcrumb): ?>
+          <div class="l-breadcrumb">
+            <?php print $breadcrumb; ?>
+          </div>
+        <?php endif; ?>
         <a id="main-content"></a>
 
         <?php if ($page['content_prefix']): ?>

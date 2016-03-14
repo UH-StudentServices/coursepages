@@ -455,13 +455,7 @@ function uhc_course_implementation_display_course_implementation_status_message(
  */
 function uhc_course_implementation_process_sign_up_button_url(&$vars, $node) {
   if ($node->type == 'course_implementation') {
-    $hide_sign_up_button = uhc_course_collaboration_is_current_user_course_student()
-                        || uhc_course_collaboration_is_current_user_course_teacher()
-                        || uhc_course_collaboration_is_current_user_course_administrator()
-                        || (uhc_sources_is_from_organisation($node, 'H930') === TRUE
-                           && !uhc_course_implementation_is_organised_by_open_uni($node))
-                        || uhc_course_implementation_signup_hidden($node);
-
+    $hide_sign_up_button = uhc_course_implementation_should_hide_sign_up($node);
     if ($hide_sign_up_button) {
       if (isset($vars['content']['field_imp_canonical_url']['#access'])) {
         $vars['content']['field_imp_canonical_url']['#access'] = FALSE;
@@ -478,17 +472,27 @@ function uhc_course_implementation_process_sign_up_button_url(&$vars, $node) {
       $vars['content']['field_imp_canonical_url'][0]['#element']['url'] = $url;
     }
 
-    // Remove the URL if the enrollment period is not active. Only do this when
-    // both the enrollment begin and end date exist. Otherwise assume the
-    // enrollment period is active.
-    $remove_sign_up_url = !empty(uhc_course_implementation_get_enrollment_begin_date($node))
-      && !empty(uhc_course_implementation_get_enrollment_end_date($node))
-      && !uhc_course_implementation_enrollment_period_active($node);
+    // Remove the URL if the enrollment period is not active.
+    $remove_sign_up_url = !uhc_course_implementation_enrollment_period_active($node);
 
     if ($remove_sign_up_url) {
       $vars['content']['field_imp_canonical_url'][0]['#element']['url'] = '';
     }
   }
+}
+
+/**
+ * Determines whether given node should hide the signup button.
+ * @param $node
+ * @return bool
+ */
+function uhc_course_implementation_should_hide_sign_up($node) {
+  return uhc_course_collaboration_is_current_user_course_student()
+  || uhc_course_collaboration_is_current_user_course_teacher()
+  || uhc_course_collaboration_is_current_user_course_administrator()
+  || (uhc_sources_is_from_organisation($node, 'H930') === TRUE
+    && !uhc_course_implementation_is_organised_by_open_uni($node))
+  || uhc_course_implementation_signup_hidden($node);
 }
 
 /**
@@ -522,12 +526,21 @@ function uhc_course_implementation_signup_hidden($node) {
  * @see uhc_course_implementation_process_sign_up_button_url()
  */
 function uhc_course_implementation_enrollment_period_active($node) {
+  $enrollment_period_active = FALSE;
   $enrollment_begin_time = uhc_course_implementation_get_enrollment_begin_date($node);
   $enrollment_end_time = uhc_course_implementation_get_enrollment_end_date($node);
 
-  return isset($enrollment_begin_time, $enrollment_end_time)
-    && $enrollment_begin_time < REQUEST_TIME
-    && REQUEST_TIME < $enrollment_end_time;
+  if (isset($enrollment_begin_time, $enrollment_end_time) && $enrollment_begin_time < REQUEST_TIME && REQUEST_TIME < $enrollment_end_time) {
+    $enrollment_period_active = TRUE;
+  }
+  elseif (isset($enrollment_begin_time) && !isset($enrollment_end_time) && $enrollment_begin_time < REQUEST_TIME) {
+    $enrollment_period_active = TRUE;
+  }
+  elseif (!isset($enrollment_begin_time) && !isset($enrollment_end_time)) {
+    $enrollment_period_active = TRUE;
+  }
+
+  return $enrollment_period_active;
 }
 
 /**

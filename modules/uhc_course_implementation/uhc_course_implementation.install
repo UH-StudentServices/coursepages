@@ -310,3 +310,12 @@ function uhc_course_implementation_update_7006() {
     watchdog('uhc_course_implementation', "Unpublished node $node->nid.");
   }
 }
+
+/**
+ * Truncate field_data_field_imp_locality and field_revision_field_imp_locality.
+ */
+function uhc_course_implementation_update_7007() {
+  db_truncate('field_data_field_imp_locality')->execute();
+  db_truncate('field_revision_field_imp_locality')->execute();
+  field_cache_clear();
+}

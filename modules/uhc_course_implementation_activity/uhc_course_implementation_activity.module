@@ -208,7 +208,7 @@ function _uhc_course_implementation_activity_track_private_statistics($node, $me
     // Query whether we have existing message types referencing to this course
     // implementation.
     $query = new EntityFieldQuery();
-    $messages = $query->entityCondition('entity_type', 'message')
+    $query->entityCondition('entity_type', 'message')
       ->entityCondition('bundle', $message_type)
       ->fieldCondition('field_message_ref_to_course_imp', 'target_id', $node->nid);
     $results = $query->execute();

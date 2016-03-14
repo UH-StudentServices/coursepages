@@ -1,0 +1,234 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Course Hierarchy module.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function uhc_course_hierarchy_preprocess_page(&$vars) {
+
+  // By default, clear breadcrumb if we're rendering through hy_doo theme
+  global $theme;
+  if (!empty($theme) && $theme == 'hy_doo') {
+    drupal_set_breadcrumb(array());
+  }
+
+  // When viewing course implementation, set breadcrumb using hierarchy
+  // information
+  if (isset($vars['node']) && $vars['node']->type == 'course_implementation') {
+
+    // Format breadcrumb variable having home link as first item
+    $breadcrumb = array(l(t('Home'), '<front>', array('attributes' => array('class' => array('home-link')))));
+
+    // Format course hierarchy as empty array, this gets filled by node objects
+    $course_hierarchy = array();
+
+    // Find out the root of course hierarchy
+    $course_imp_root = uhc_course_hierarchy_get_course_hierarchy_root($vars['node']);
+
+    // Second level should be course / learningopportunity link
+    $course_node = _uhc_source_load_course_node($course_imp_root);
+    if ($course_node) {
+      $course_hierarchy[] = $course_node;
+    }
+
+    // Third level is the course implementation root node
+    if (!empty($course_imp_root) && $course_imp_root->nid != $vars['node']->nid) {
+      $course_hierarchy[] = $course_imp_root;
+    }
+
+    // Loop over each hierarchy item and get their uri/label. Make them links if
+    // user has permissions to view it.
+    foreach ($course_hierarchy as $course_hierarchy_item) {
+      // Read items' uri and label as breadcrumb item.
+      // Note: This is a intentional content access bypass as users can see node
+      // titles even if not having permissions to view it.
+      $uri = entity_uri('node', $course_hierarchy_item);
+      $label = entity_label('node', $course_hierarchy_item);
+      $breadcrumb[] = node_access('view', $course_hierarchy_item) ? l($label, $uri['path']) : $label;
+    }
+
+    // And finally set the breadcrumb
+    drupal_set_breadcrumb($breadcrumb);
+  }
+}
+
+/**
+ * Helper function for determining whole course hierarchy from given node.
+ *
+ * @param stdClass $node
+ *   Node object of type course_implementation. This will be used to determine
+ *   parents recursively till the root.
+ * @return array()
+ *   Whole hierarchy from root to the given node.
+ */
+function uhc_course_hierarchy_get_course_hierarchy(stdClass $node) {
+
+  // Leave an entry to log and return empty array if node type is missing or
+  // it's not expect type of node.
+  if (!isset($node->type) || $node->type != 'course_implementation') {
+    watchdog('uhc_course_hierarchy', 'uhc_course_hierarchy_get_course_hierarchy() was called with unexpected node object @node', array('@node' => print_r($node, 1)), WATCHDOG_WARNING);
+    return array();
+  }
+
+  // If give node already is an root, then return one item (itself)
+  $tree = array();
+  if (!isset($node->field_hierarchy_position[LANGUAGE_NONE][0]['value']) ||
+    $node->field_hierarchy_position[LANGUAGE_NONE][0]['value'] == 'root') {
+    return array($node);
+  }
+  else {
+    // Loop until we're at root or we hit empty position or we exceed our
+    // maximum depth.
+    $max_depth = 5;
+    $current_depth = 0;
+    do {
+
+      // Set this item to the tree and increase depth
+      $tree[] = $node;
+      $current_depth++;
+
+      // Determine next parent. If can't determine, leave position string empty
+      $position = '';
+      if (isset($node->field_hierarchy_parent_id[LANGUAGE_NONE][0]['target_id'])) {
+
+        // Determine current position
+        if ($node && isset($node->field_hierarchy_position[LANGUAGE_NONE][0]['value'])) {
+          $position = $node->field_hierarchy_position[LANGUAGE_NONE][0]['value'];
+        }
+
+        // If parent is found and can be loaded, then load its parent
+        $parent_id = $node->field_hierarchy_parent_id[LANGUAGE_NONE][0]['target_id'];
+        $node = node_load($parent_id);
+      }
+
+    } while ($position != 'root' && !empty($position) && $current_depth < $max_depth);
+  }
+
+  return $tree;
+}
+
+/**
+ * Function for determining root course implementation from given $node
+ *
+ * @param stdClass $node
+ *   The node that should belong eventually to some root.
+ * @return stdClass|NULL
+ *   The root node of given node or NULL when not found.
+ */
+function uhc_course_hierarchy_get_course_hierarchy_root(stdClass $node) {
+  $hierarchy = uhc_course_hierarchy_get_course_hierarchy($node);
+  if ($hierarchy) {
+    return array_pop($hierarchy);
+  }
+  return NULL;
+}
+
+/**
+ * Function for determining children of current node
+ *
+ * @param stdClass $node
+ *   The node whose childen we are looking up.
+ * @return array()
+ *   Renderable nested item-list with children nodes.
+ */
+function uhc_course_hierarchy_get_course_children(stdClass $node) {
+
+  // Define fallback path that can be used in case of not having permissions on
+  // viewing children content.
+  $fallback_path = '<front>';
+  if (node_access('view', $node)) {
+    $fallback_uri = entity_uri('node', $node);
+    $fallback_path = $fallback_uri['path'];
+  }
+  else {
+    // If no access event on parent, then try root
+    $root_node = uhc_course_hierarchy_get_course_hierarchy_root($node);
+    if ($root_node !== NULL && node_access('view', $root_node)) {
+      $fallback_uri = entity_uri('node', $node);
+      $fallback_path = $fallback_uri['path'];
+    }
+  }
+
+  // Now finally start looping children for generating link tree
+  $children = field_get_items('node', $node, 'field_hierarchy_children');
+  if (!empty($children) && is_array($children)) {
+
+    // First loop, we gather titles and uris for each children
+    foreach ($children as $key => $child) {
+      $children[$key]['node'] = node_load($children[$key]['target_id']);
+      $children[$key]['uri'] = entity_uri('node', $children[$key]['node']);
+      $children[$key]['label'] = entity_label('node', $children[$key]['node']);
+    }
+
+    // Sort by label
+    uasort($children, function($a, $b) {
+      // We can't compare with missing lables
+      if (!isset($a['label']) || !isset($b['label'])) {
+        return 0;
+      }
+      // Same labels are equal
+      if ($a['label'] == $b['label']) {
+        return 0;
+      }
+      return $a['label'] < $b['label'] ? -1 : 1;
+    });
+
+    // Second loop, we generate link items. Use children path if user has
+    // access, otherwise use previously defined fallback path.
+    $items = array();
+    foreach ($children as $child) {
+      // If user has no rights to path, then use fallback path
+      $path = node_access('view', $child['node']) ? $child['uri']['path'] : $fallback_path;
+      $items[] = array(
+        'data' => l($child['label'], $path),
+        'class' => uhc_course_hierarchy_get_attributes($child['node']),
+        'children' => uhc_course_hierarchy_get_course_children($child['node']),
+      );
+    }
+    return $items;
+  }
+  return NULL;
+}
+
+/**
+ * Function for getting attributes related to node position in hierarchy
+ *
+ * @param stdClass $node
+ * @return array()
+ *   Array of class names.
+ */
+function uhc_course_hierarchy_get_attributes(stdClass $node) {
+  $classes = array();
+
+  // active page as class
+  if (node_is_page($node)) {
+    $classes[] = 'active';
+  }
+
+  // hierarchy position as class
+  if ($node->field_hierarchy_position) {
+    $hierarchy_position = $node->field_hierarchy_position[LANGUAGE_NONE][0]['value'];
+    $classes[] = drupal_html_class($hierarchy_position);
+  }
+
+  // my enrollment as class
+  if (user_is_logged_in()) {
+    $personal_unique_code = uhc_autofill_metadata_get_current_user_personal_unique_code();
+    $enrollments = uhc_autofill_metadata_get_enrollment_data($personal_unique_code);
+    if (!empty($enrollments)) {
+      $course_ids = array_column($enrollments['data'], 'course_id');
+      if (isset($node->field_imp_id[LANGUAGE_NONE][0]['value']) && in_array($node->field_imp_id[LANGUAGE_NONE][0]['value'], $course_ids)) {
+        $classes[] = 'my-enrollment';
+      }
+    }
+  }
+
+  return $classes;
+}

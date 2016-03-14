@@ -1,0 +1,52 @@
+
+div.study-module-multiselect {
+  width: 100% !important;
+  @include at-breakpoint($layout-small) {
+    width: 30% !important;
+  }
+
+  ul li {
+    @include font-family-main;
+  }
+
+  .search-field {
+    display: inline-block;
+    input {
+      border: none;
+      color: $silver;
+      padding: 8px;
+      font-size: 13px;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .chosen-choices .search-choice {
+    font-size: 13px !important;
+    &:hover {
+      background: $lightsilver;
+      color: $silver;
+    }
+    &:after {
+      display: none;
+    }
+    .search-choice-close {
+      &:after {
+        @include hy-icon("\EA2F");
+        @include transform(rotate(-45deg));
+        color: $silver;
+        display: inline-block;
+        margin-left: 3px;
+      }
+    }
+  }
+}
+
+// fallback select title for mobile devices
+h2.study-module-select-title {
+  @include font-weight-medium;
+  padding: 8px 0;
+  color: $blue;
+  font-size: 0.875em;
+}

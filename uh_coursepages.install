@@ -932,3 +932,40 @@ function uh_coursepages_update_7012(&$sandbox) {
   // Then delete deprecated field
   field_delete_field('field_imp_working_methods');
 }
+
+/**
+ * Disables non-profile modules and cleans up variables of modules that was
+ * deleted and leaving some trails behind.
+ */
+function uh_coursepages_update_7013() {
+
+  // Disable hy_display, sidebar view was moved to uhc_ds module
+  module_disable(array('hy_display'));
+
+  // Mess from hy_links module
+  $realm = 'language';
+  $realm_keys = array('fi', 'en', 'sv');
+  foreach ($realm_keys as $realm_key) {
+    variable_store_del($realm, $realm_key, 'hy_links_link_block_form_title');
+    variable_store_del($realm, $realm_key, 'hy_links_link_block_form_content');
+  }
+  variable_del('hy_links_link_block_form_css_class');
+
+}
+
+/**
+ * After i18n update, special menu items doesn't work anymore. disable it as we
+ * have a workaround in js. change nolink menu item to normal.
+ */
+function uh_coursepages_update_7014(&$sandbox) {
+  module_disable(array('special_menu_items'));
+
+  // change special menu items to normal items
+  db_update('menu_links')
+    ->fields(array('link_path' => '<front>', 'router_path' => '', 'external' => 1))
+    ->condition('link_path', '<nolink>')
+    ->execute();
+
+  // Update the menu router information.
+  menu_rebuild();
+}

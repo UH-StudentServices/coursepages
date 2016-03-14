@@ -194,8 +194,41 @@ function uhc_course_material_inline_entity_form_table_fields_alter(&$fields, $co
  * as it is not used.
  */
 function uhc_course_material_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
-  if($entity_form['#parents'][0] == 'field_reference_to_course_tasks' && isset($entity_form['field_material_section'])) {
+  if ($entity_form['#parents'][0] == 'field_reference_to_course_tasks' && isset($entity_form['field_material_section'])) {
     $entity_form['field_material_section']['#access'] = FALSE;
+  }
+  if ($entity_form['#bundle'] == 'course_material') {
+    // TODO: Refactor material form for better usability. Disabled Finna links until then
+    $entity_form['field_material_publication_year']['#access'] = FALSE;
+    $entity_form['field_material_show_finna_link']['#access'] = FALSE;
+    $entity_form['#element_validate'][] = 'uhc_course_material_publication_year_validate';
+  }
+}
+
+/**
+ * Validates that the publication year is entered and is in correct format when
+ * the material is a link to Finna.
+ */
+function uhc_course_material_publication_year_validate($form, &$form_state) {
+  $ief = &$form_state['values']['field_section_material'][LANGUAGE_NONE]['form'];
+  if (!$ief) {
+    // This is an edit form so the IEF structure is completely different. Find the IEF form
+    // array.
+    $ief = &$form_state['values']['field_section_material'][LANGUAGE_NONE]['entities'];
+    foreach ($ief as $entity) {
+      if (isset($entity['form'])) {
+        $ief = $entity['form'];
+        break;
+      }
+    }
+  }
+  $enable_link = $ief['field_material_show_finna_link'][LANGUAGE_NONE][0]['value'];
+  $year = $ief['field_material_publication_year'][LANGUAGE_NONE][0]['value'];
+  if ($enable_link && !$year) {
+    form_error($form, t('The publication year is required when the material is a Finna link.'));
+  }
+  if ($year && is_numeric($year) && strlen((string)$year) != 4) {
+    form_error($form, t('The publication year must be entered in YYYY format.'));
   }
 }
 

@@ -3318,6 +3318,16 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view uhc_ds_course_hierarchy on node'.
+  $permissions['view uhc_ds_course_hierarchy on node'] = array(
+    'name' => 'view uhc_ds_course_hierarchy on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   // Exported permission: 'view uhc_ds_course_reference_accordion on node'.
   $permissions['view uhc_ds_course_reference_accordion on node'] = array(
     'name' => 'view uhc_ds_course_reference_accordion on node',
@@ -3340,6 +3350,26 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view uhc_ds_fee on node'.
+  $permissions['view uhc_ds_fee on node'] = array(
+    'name' => 'view uhc_ds_fee on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_finna_link on node'.
+  $permissions['view uhc_ds_finna_link on node'] = array(
+    'name' => 'view uhc_ds_finna_link on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   // Exported permission: 'view uhc_ds_imp_status_org_location_date on node'.
   $permissions['view uhc_ds_imp_status_org_location_date on node'] = array(
     'name' => 'view uhc_ds_imp_status_org_location_date on node',
@@ -3353,6 +3383,16 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'view uhc_ds_moodle_key_or_login on node'.
   $permissions['view uhc_ds_moodle_key_or_login on node'] = array(
     'name' => 'view uhc_ds_moodle_key_or_login on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_open_uni_registration on node'.
+  $permissions['view uhc_ds_open_uni_registration on node'] = array(
+    'name' => 'view uhc_ds_open_uni_registration on node',
     'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',

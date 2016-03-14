@@ -65,7 +65,6 @@ class UHCCourseImplementationNodeHandler extends MigrateDestinationHandler {
    * @param $source_row
    */
   static public function createNewEvents($entity, $source_row) {
-    $events = array();
     if (!empty($source_row->events)) {
       foreach ($source_row->events as $event) {
         $event_entity = entity_create('node', array('type' => 'event', 'comment' => COMMENT_NODE_HIDDEN));

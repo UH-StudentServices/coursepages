@@ -266,18 +266,24 @@ function uhc_autofill_metadata_get_enrollments($personal_unique_code) {
  *
  * @param $personal_unique_code string Personal unique code, typically student
  * number.
- * @param string $langcode Language code. Defaults to 'fi'.
  * @return object|NULL|bool Enrollment information (if found), NULL if not found
  * or FALSE if an error occured.
  */
-function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $langcode = 'fi') {
+function uhc_autofill_metadata_get_enrollment_data($personal_unique_code) {
 
   // Construct enrollment data
   $enrollment_data = NULL;
 
+  // For easier debugging, we can fake our enrollment response by using this
+  // Drupal variable (if it's set).
+  $override_enrollments = variable_get('uhc_autofill_metadata_override_enrollments', array());
+  if (!empty($override_enrollments)) {
+    return $override_enrollments;
+  }
+
   // Work only when unique code is given
   if (!empty($personal_unique_code)) {
-    $enrollment_data = &drupal_static(__FUNCTION__ . $personal_unique_code . $langcode);
+    $enrollment_data = &drupal_static(__FUNCTION__ . $personal_unique_code);
     // Enrollment data might be also defined as FALSE, so we let this through
     // from static storage too. If it's NULL, we assume that this specific case
     // isn't requested yet.
@@ -285,7 +291,7 @@ function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $langc
       $base_url = variable_get('uhc_enrollments_base_url');
 
       if (!empty($base_url)) {
-        $path = "students/$personal_unique_code/enrollments?langcode=$langcode";
+        $path = "students/$personal_unique_code/enrollments";
         $url = $base_url . $path;
         $response = drupal_http_request($url, array('timeout' => 5.0));
 
@@ -398,119 +404,4 @@ function uhc_autofill_metadata_get_current_user_oodi_uid() {
   }
 
   return $oodi_uid;
-}
-
-/**
- * Helper function for writing logs in name of this module.
- *
- * @param $message
- * @param array $variables
- * @param int $severity
- */
-function uhc_autofill_metadata_log($message, $variables = array(), $severity = WATCHDOG_NOTICE) {
-  watchdog('uhc_autofill_metadata', $message, $variables, $severity);
-}
-
-/**
-* Implements hook_block_info().
-*/
-function uhc_autofill_metadata_block_info() {
-  $blocks = array();
-  $blocks['enrollments_block'] = array(
-    'info' => t('enrollments_block'),
-  );
-  return $blocks;
-}
-
-/**
-* Implements hook_block_view().
-*/
-function uhc_autofill_metadata_block_view($delta = '') {
-  $block = array();
-  switch ($delta) {
-    case 'enrollments_block':
-      $block['subject'] = '';
-      $block['content'] = _uhc_autofill_metadata_enrollments_block();
-      break;
-  }
-  return $block;
-}
-
-// Gets the current users enrollments and displays them as a list.
-function _uhc_autofill_metadata_enrollments_block() {
-  global $language;
-  $langcode = $language->language;
-  $personal_unique_code = uhc_autofill_metadata_get_current_user_personal_unique_code();
-  $enrollments = uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $langcode);
-
-  if (!empty($enrollments)) {
-    $items = array('attributes' => array('class' => 'list-of-links--light spacer-bottom-3'));
-    $exams = variable_get('uhc_migrate_methods_of_study_marked_as_exam', array());
-
-    foreach ($enrollments['data'] as $enrollment) {
-      $learningopportunity_id = $enrollment['learningopportunity_id'];
-      $course_id = $enrollment['course_id'];
-      $enrollment_name = _uhc_autofill_metadata_get_enrollment_name($enrollment, $langcode);
-
-      if (_uhc_autofill_metadata_enrollments_block_should_display_enrollment($enrollment['type_code'], $exams)) {
-        $link = "/$learningopportunity_id/$course_id";
-
-        if ($langcode != 'en') {
-          $link = "/$langcode" . $link;
-        }
-
-        $items['items'][] = l($learningopportunity_id . ' ' . $enrollment_name, $link);
-      }
-    }
-    return theme('item_list', $items);
-  }
-}
-
-/**
- * Returns enrollment name by the given language code. If a name matching the
- * given language code is not found, fallbacks to known languages ('fi', 'en').
- *
- * @param $enrollment object Enrollment object.
- * @param $langcode string Language code.
- * @return string Enrollment name matching the language code, if found.
- */
-function _uhc_autofill_metadata_get_enrollment_name($enrollment, $langcode) {
-  $enrollment_name = '';
-  $enrollment_names = array();
-
-  foreach ($enrollment['name'] as $name) {
-    $enrollment_names[$name['langcode']] = $name['text'];
-  }
-
-  // Primary: Name by given language code. Fallback to 'fi' or 'en'.
-  if (!empty($enrollment_names[$langcode])) {
-    $enrollment_name = $enrollment_names[$langcode];
-  } else {
-    if (!empty($enrollment_names['fi'])) {
-      $enrollment_name = $enrollment_names['fi'];
-    } elseif (!empty($enrollment_names['en'])){
-      $enrollment_name = $enrollment_names['en'];
-    }
-  }
-
-  return $enrollment_name;
-}
-
-function _uhc_autofill_metadata_enrollments_block_should_display_enrollment($method_of_study_id, $exams) {
-  $should_display_enrollment = FALSE;
-
-  if (isset($method_of_study_id)) {
-    $query = db_query(
-      'SELECT destid1 FROM {migrate_map_taxonomyformofteachingterm} WHERE sourceid1=:id',
-      array(':id' => $method_of_study_id)
-    );
-
-    $result = $query->fetch();
-
-    if (isset($result->destid1)) {
-      $should_display_enrollment = !in_array($result->destid1, $exams);
-    }
-  }
-
-  return $should_display_enrollment;
 }

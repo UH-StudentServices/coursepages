@@ -86,7 +86,17 @@ function uhc_ds_ds_fields_info($entity_type) {
         'field_name' => 'field_working_methods',
         'label' => 'Course implementation or Course: Realisation and working methods',
       ),
-
+      // Fields that have no Course fallback but need language fallback
+      'uhc_ds_fee' => array(
+        'function' => 'uhc_ds_content_fallback',
+        'field_name' => 'field_imp_fee',
+        'label' => 'Course implementation: Fee',
+      ),
+      'uhc_ds_open_uni_registration' => array(
+        'function' => 'uhc_ds_content_fallback',
+        'field_name' => 'field_open_uni_registration',
+        'label' => 'Course implementation: Open university registration',
+      ),
     );
 
     $ds_fields = array();
@@ -177,7 +187,45 @@ function uhc_ds_ds_fields_info($entity_type) {
       ),
     );
 
+    $ds_fields['uhc_ds_course_hierarchy'] = array(
+      'title' => 'Course hierarchy',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_ds_course_hierarchy',
+      'properties' => array(
+        'field_name' => 'course_hierarchy',
+      ),
+    );
+
+    $ds_fields['uhc_ds_finna_link'] = array(
+      'title' => 'Link to Finna search',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_ds_finna_link',
+      'properties' => array(
+        'field_name' => 'finna_link',
+      ),
+    );
+
     return array('node' => $ds_fields);
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function uhc_ds_entity_info_alter(&$entity_info) {
+  // Add new view mode for showing content on sidebar
+  $entity_info['node']['view modes']['sidebar'] = array(
+    'label' => t('Sidebar'),
+    'custom settings' => TRUE,
+  );
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function uhc_ds_preprocess_node(&$vars) {
+  if ($vars['view_mode'] == 'sidebar') {
+    $vars['theme_hook_suggestions'][] = 'node__' . $vars['node']->type . '__sidebar';
   }
 }
 
@@ -458,10 +506,11 @@ function uhc_ds_title_and_credit($field) {
 function uhc_ds_enrollment_period($field) {
   $enrollment_period = '';
   $node = $field['entity'];
+  $hide_sign_up_button = uhc_course_implementation_should_hide_sign_up($node);
   $enrollment_begin_date = uhc_ds_get_formatted_date_and_time($node, 'field_imp_enrollment_begin_date');
   $enrollment_end_date = uhc_ds_get_formatted_date_and_time($node, 'field_imp_enrollment_end_date');
 
-  if (!empty($enrollment_begin_date) || !empty($enrollment_end_date)) {
+  if (!$hide_sign_up_button && (!empty($enrollment_begin_date) || !empty($enrollment_end_date))) {
     $enrollment_period = "$enrollment_begin_date - $enrollment_end_date";
   }
 
@@ -641,4 +690,49 @@ function uhc_ds_moodle_key_or_login($field) {
   }
 
   return render($value);
+}
+
+/**
+ * Render course hierarchy as a nested item-list.
+ */
+function uhc_ds_course_hierarchy($field) {
+  $node = $field['entity'];
+  $root_node = uhc_course_hierarchy_get_course_hierarchy_root($node);
+  $uri = entity_uri('node', $root_node);
+  $label = entity_label('node', $root_node);
+  $items = array('attributes' => array('class' => 'list-of-links course-hierarchy'));
+
+  // set root as parent and get children
+  $items['items'][] = array(
+    'data' => node_access('view', $root_node) ? l($label, $uri['path']) : l($label, '<front>'),
+    'class' => uhc_course_hierarchy_get_attributes($root_node),
+    'children' => uhc_course_hierarchy_get_course_children($root_node),
+  );
+
+  // add js for "show more" functionality
+  if (user_is_logged_in()) {
+    drupal_add_js(drupal_get_path("module", "uhc_course_hierarchy") . "/js/uhc_course_hierarchy_show_more.js");
+  }
+
+  return theme('item_list', $items);
+}
+
+/**
+ * Renders a link to Finna if showing one has been enabled, using the title
+ * and publication year as search parameters.
+ */
+function uhc_ds_finna_link($field) {
+  $show_link = field_get_items('node', $field['entity'], 'field_material_show_finna_link');
+  $publication_year = field_get_items('node', $field['entity'], 'field_material_publication_year');
+  if (!empty($show_link[0]['value']) && !empty($publication_year[0]['value'])) {
+    $link = 'https://www.finna.fi/Search/Results?lookfor=' . $field['entity']->title .
+    '&prefiltered=-&SearchForm_submit=Hae&sort=relevance&retainFilters=0' .
+    '&sdaterange[]=search_sdaterange_mv&search_sdaterange_mvtype=within' .
+    '&search_sdaterange_mvfrom=' . $publication_year[0]['value'] . '&search_sdaterange_mvto=' . $publication_year[0]['value'];
+    global $language;
+    // Use current language in Finna as well. fi and sv are the same but en is "en-gb".
+    $link .= '&lng=' . ($language->language == 'en' ? 'en-gb' : $language->language);
+    $value = array('#markup' => l(t('Finna'), $link, array('external' => TRUE)));
+    return render($value);
+  }
 }

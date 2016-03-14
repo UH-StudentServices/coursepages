@@ -79,6 +79,8 @@ function uhc_course_material_field_group_info() {
     'children' => array(
       0 => 'field_material_author',
       1 => 'field_material_pub_info',
+      2 => 'field_material_show_finna_link',
+      3 => 'field_material_publication_year',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

@@ -1,3 +1,44 @@
+# Helsinki University Coursepages v1.59
+Päiväys: 08.03.2016
+
+## Lisäykset
+  - DOO-1836: Lisättiin sivupalkkiin opetushierarkiaa (pääopetustapahtuma ja
+    ryhmät kokoavittain)
+  - DOO-1837: Lisättiin murupolkuun opetushierarkiaa (jakso, pääopetustapahtuma,
+    ryhmä)
+  - DOO-1689: Lisätty oppiainesivulle mahdollisuus toteutusten suodatukseen.
+  - DOO-1979: Kirjautuneille käyttäjille näytetään hierarkiassa omat ilmoittautumiset korostettuina.
+  - DOO-1361: Lisättiin menneiden toteutusten listaukselle otsikko
+  - DOO-1975: Oppiainesivulla näytetään suoritustapa ja lisätiedot jaksosta, jos toteutukselle
+    ei ole lisätty niitä
+  - DOO-1823: Paranneltu sovelluksen monitorointitukea (Big Sisteriä silmällä
+    pitäen).
+  - DOO-1961: Ilmoittautuminen ja opintomaksu -haitarin sisältö haetaan toiselta kieleltä, jos
+    sitä ei ole valitulla kielellä.
+  - DOO-1361: Siirrettiin "Näytä menneet" -linkki menneiden listauksen alkuun.
+  - DOO-1960 & DOO-1968: Lisättiin ruotsinnoksia.
+  - DOO-2002: Lisättiin testaustyökalu jaksojen ja toteutusten muutosrajapinnan
+    testaamista helpottamaan.
+
+## Muutokset
+  - DOO-1908: Piilottaa myös ilmoittautumisajan kurssisivuilta, silloin kun
+    ilmoittautumis linkkikin piilotetaan.
+  - DOO-1508: Näytetään rajoitetut viestit myös editor-roolille.
+  - DOO-559: Monikieliset paikkakunnat
+  - DOO-1981: Päivitettiin Drupal core
+
+## Korjaukset
+  - DOO-1946: Poistetaan virheellisesti toteutuksiin tallennetut
+    organisaatioiden oletuskuvat.
+  - DOO-1916: Muokkausnäkymässä korjattu headerin valikkojen näkyminen kaikilla kielillä
+    yhtäaikaa.
+  - DOO-1997: Paranneltu ilmoittautumisajan aktiivisuuden päättelyä.
+
+## Poistot
+  - DOO-1609: Siivottiin käyttämättömiä moduuleja sekä siirrettiin osa
+    toiminnallisuuksista toisiin moduuleihin.
+
+
 # Helsinki University Coursepages v1.58
 Päiväys: 24.02.2016
 

@@ -1,0 +1,129 @@
+.block.block--facetapi,
+.study-module-multiselect {
+  @include font-weight-medium;
+  position: relative;
+  float: left;
+  margin: 0 1em 1em 0;
+  overflow: visible;
+  width: 100%;
+  @include at-breakpoint($layout-small) {
+    width: 23%;
+  }
+  h2.block__title {
+    @include transition(all 0.2s ease-in-out);
+    @include font-weight-medium;
+    @include border;
+    display: block;
+    cursor: pointer;
+    padding: 8px;
+    margin-bottom: -1px;
+    color: $blue;
+    font-size: 0.875em;
+    width: 100%;
+    &:after {
+      content: "\f0d7"; // \f0d7
+      font-family: "FontAwesome";
+      float: right;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+  // Faux chosen multiselect theming
+  .block__content,
+  .chosen-drop {
+    @include transition(max-height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
+    @include border;
+    @include shadow-under;
+    z-index: 998;
+    max-height: 0;
+    background: #fff;
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    font-size: 13px;
+    ul {
+      @include border-bottom;
+      @include box-shadow(0px 1px 5px $lightsilver);
+      overflow-y: scroll;
+      overflow-x: hidden;
+      max-height: 250px;
+      li {
+        @include border-bottom;
+        padding: 10px 0;
+        margin: 0 10px;
+        color: $blue;
+        cursor: pointer;
+        &:last-child {
+          border-bottom: none;
+        }
+        a.facetapi-active {
+          display: block !important;
+          font-size: 0;
+        }
+        a:before {
+          @include transition(all 0.2s ease-in-out);
+          content: '';
+          margin: 2px 8px 0 0;
+          display: block;
+          float: left;
+          height: 15px;
+          width: 15px;
+          border: 1px solid $blue;
+        }
+        input[type="checkbox"] {
+          display: none;
+        }
+        input:checked + a:before {
+          background-color: $darkblue;
+          border: 1px solid $darkblue;
+        }
+      }
+      &.facetapi-disabled {
+        opacity: 1;
+      }
+    }
+    .button {
+      display: inline-block;
+      margin: 1em;
+      padding: 0.7em 1.3em;
+      &.facets-remove {
+        @include button-invert-colors;
+      }
+    }
+  }
+  &.collapsed,
+  &.chosen-with-drop {
+    h2.block__title {
+      color: $white;
+      background: $darkblue;
+    }
+    .block__content,
+    .chosen-drop {
+      max-height: 320px;
+      z-index: 999;
+    }
+  }
+
+  .chosen-choices {
+    @include border;
+    .search-choice {
+      cursor: pointer !important;
+      color: $silver;
+      background: $lightsilver;
+      font-size: 13px;
+      padding: 3px 5px;
+      margin: 1px;
+      display: inline-block;
+      &:hover {
+        background: $silver;
+        color: $lightsilver;
+      }
+      &:after {
+        @include hy-icon("\EA2F");
+        @include transform(rotate(-45deg));
+        display: inline-block;
+        margin-left: 3px;
+      }
+    }
+  }
+}

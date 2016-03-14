@@ -129,13 +129,9 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'teaser_accordion' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'text_default',
-        'weight' => 6,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 4,
       ),
       'teaser_images' => array(
         'label' => 'above',
@@ -274,13 +270,9 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'teaser_accordion' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'text_default',
-        'weight' => 4,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
       ),
       'teaser_images' => array(
         'label' => 'above',
@@ -1664,13 +1656,9 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'text_default',
-        'weight' => 30,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1692,7 +1680,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
         ),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 2,
       ),
       'teaser_images' => array(
         'label' => 'above',
@@ -3737,13 +3725,9 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'text_default',
-        'weight' => 31,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4979,7 +4963,6 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Hide "Enrol" button');
   t('Hierarchy children');
   t('Hierarchy parent');
-  t('Hierarchy parent ID');
   t('Hierarchy position');
   t('ID');
   t('Image attribution');

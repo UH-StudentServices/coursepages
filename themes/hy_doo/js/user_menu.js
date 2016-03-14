@@ -8,18 +8,20 @@
   Drupal.behaviors.hy_portal_user_menu = {
     attach: function (context) {
       $(function() {
+        var infoLink = '.info-link',
+            userMenu = '.block--system-user-menu';
 
         // close when clicking outside menu
     	  $(document).click(function(event) {
-    	  	if (!$(event.target).closest('.nolink', '.block--system-user-menu').length && $('.nolink', '.block--system-user-menu').next('ul.menu').hasClass('collapsed')) {
-    	    	$('.nolink', '.block--system-user-menu').next('ul.menu').removeClass('collapsed');
+          if (!$(event.target).closest(infoLink, userMenu).length && $(infoLink, userMenu).next('ul.menu').hasClass('collapsed')) {
+            $(infoLink, userMenu).next('ul.menu').removeClass('collapsed');
           }
         });
 
-        $('.nolink', '.block--system-user-menu').click(function() {
+      $(infoLink, userMenu).click(function(e) {
+          e.preventDefault();
           $(this).next('ul.menu').toggleClass('collapsed');
         });
-
       });
     }
   }

@@ -95,8 +95,6 @@ function uhc_shib_conf_user_edit_access($account) {
  * correct shib login/logout url's are handled in theme template.php  uhc_doo_menu_link().
  */
 function uhc_shib_conf_menu() {
-  $menus = array('user-menu');
-
   $items['logout'] = array(
     'menu_name' => 'user-menu',
     'title' => t('Logout'),

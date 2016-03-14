@@ -549,6 +549,8 @@ function uhc_ds_views_default_views() {
 
   /* Display: Implementation list accordion - past */
   $handler = $view->new_display('block', 'Implementation list accordion - past', 'block_3');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Past';
   $handler->display->display_options['defaults']['css_class'] = FALSE;
   $handler->display->display_options['css_class'] = 'course-node-references-past element-hidden';
   $handler->display->display_options['display_description'] = 'A list of course implementations displayed as an accordion (reverse entity references)';
@@ -622,6 +624,7 @@ function uhc_ds_views_default_views() {
     t('Implementation list accordion'),
     t('A list of course implementations displayed as an accordion (reverse entity references)'),
     t('Implementation list accordion - past'),
+    t('Past'),
   );
   $export['course_node_references'] = $view;
 

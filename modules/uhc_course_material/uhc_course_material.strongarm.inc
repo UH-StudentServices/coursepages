@@ -70,6 +70,9 @@ function uhc_course_material_strongarm() {
         'title' => array(
           'weight' => '6',
         ),
+        'locations' => array(
+          'weight' => '30',
+        ),
       ),
       'display' => array(),
     ),

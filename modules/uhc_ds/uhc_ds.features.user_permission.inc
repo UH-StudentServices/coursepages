@@ -380,15 +380,6 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view my_enrollments on node'.
-  $permissions['view my_enrollments on node'] = array(
-    'name' => 'view my_enrollments on node',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view name on user'.
   $permissions['view name on user'] = array(
     'name' => 'view name on user',

@@ -19,8 +19,18 @@ function uhc_dev_feature_menu() {
     'delivery callback' => 'drupal_json_output',
     'access callback' => TRUE,
   );
+  $items['test/course/changes'] = array(
+    'page callback' => '_uhc_dev_feature_integration_get_course_changes',
+    'delivery callback' => 'drupal_json_output',
+    'access callback' => TRUE,
+  );
   $items['test/implementation'] = array(
     'page callback' => '_uhc_dev_feature_integration_get_course_implementation',
+    'delivery callback' => 'drupal_json_output',
+    'access callback' => TRUE,
+  );
+  $items['test/implementation/changes'] = array(
+    'page callback' => '_uhc_dev_feature_integration_get_course_implementation_changes',
     'delivery callback' => 'drupal_json_output',
     'access callback' => TRUE,
   );
@@ -35,9 +45,23 @@ function _uhc_dev_feature_integration_get_course($id) {
   return _uhc_dev_feature_return_json_response($url);
 }
 
+function _uhc_dev_feature_integration_get_course_changes($since_date) {
+  $url = variable_get('uhc_course_source_list_url', '');
+  $url = str_replace(':since_date', $since_date, $url);
+  $url = PortalMigrationBase::prependHostIfMissing($url);
+  return _uhc_dev_feature_return_json_response($url);
+}
+
 function _uhc_dev_feature_integration_get_course_implementation($id) {
   $url = variable_get('uhc_course_implementation_source_item_url', '');
   $url = str_replace(':id', $id, $url);
+  $url = PortalMigrationBase::prependHostIfMissing($url);
+  return _uhc_dev_feature_return_json_response($url);
+}
+
+function _uhc_dev_feature_integration_get_course_implementation_changes($since_date) {
+  $url = variable_get('uhc_course_implementation_source_list_url', '');
+  $url = str_replace(':since_date', $since_date, $url);
   $url = PortalMigrationBase::prependHostIfMissing($url);
   return _uhc_dev_feature_return_json_response($url);
 }

@@ -3,6 +3,7 @@
 */
 
 .ds-material-block {
+  @include font-family-main;
   padding: 1em 0;
   border-top: 1px solid $lightsilver;
   @include at-breakpoint($layout-small) {
@@ -15,19 +16,36 @@
   @include at-breakpoint($layout-medium) {
     width: 100%;
   }
+  a {
+    @include font-weight-bold;
+  }
   .field {
     @include at-breakpoint($layout-small) {
       float: left;
-      width: 28%;
+      width: 22%;
+      padding-left: 1em;
       &:first-child {
-        width: 44%;
+        width: 34%;
+        padding-left: 0;
+      }
+    }
+    &.field--name-uhc-ds-finna-link {
+      a:before {
+        @include hy-icon($hy-search);
+        color: $blue;
+        padding-right: 0.5em;
+      }
+      @include at-breakpoint($layout-small) {
+        float: right;
+        text-align: right;
+        padding-right: 1em;
       }
     }
   }
 }
 
 .material-block--title {
-  font-weight: 900;
+  @include font-weight-bold;
 }
 
 // helper

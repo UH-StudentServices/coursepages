@@ -233,8 +233,8 @@ function uhc_open_university_translated_menu_link_alter(&$item, $map) {
 
   if ($menu_item_has_info_link_class) {
     $open_university_path = arg(0) == 'open-university';
-    $node = menu_get_object();
-    $open_university_node = isset($node) && uhc_open_university_is_open_university_course_or_implementation($node);
+    $node = arg(0) == 'node' ? node_load(arg(1)) : NULL;
+    $open_university_node = !empty($node) && uhc_open_university_is_open_university_course_or_implementation($node);
 
     if ($open_university_path || $open_university_node) {
       $item['hidden'] = 1;
