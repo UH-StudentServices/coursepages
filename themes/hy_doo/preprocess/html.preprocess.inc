@@ -24,38 +24,6 @@ function hy_doo_preprocess_html(&$variables) {
     'weight' => 1000,
   ));
 
-  // Load the matchMedia polyfill.
-  $path = drupal_get_path('theme', 'hy_doo');
-  $options = array('group' => JS_THEME);
-
-  drupal_add_js($path . '/js/matchMedia.js', $options);
-  drupal_add_js($path . '/js/matchMedia.addListener.js', $options);
-
-  // Load the mediaquery behavior from Omega. This allows registering media
-  // queries via Drupal.settings to automatically print body classes based on
-  // whether or not they currently apply.
-  $omega = drupal_get_path('theme', 'omega');
-  drupal_add_js($omega . '/js/omega.mediaqueries.min.js', $options);
-
-  // Register the media queries. The array keys will be used to compose the body
-  // class names and the values are the actual media queries.
-  drupal_add_js(array(
-    'omega' => array(
-      'mediaQueries' => array(
-        'layout-mobile' => 'screen and (max-width: 47.99em)',
-        'layout-small' => 'screen and (min-width: 48em)',
-        'layout-medium' => 'screen and (min-width: 62.5em)',
-        'layout-large' => 'screen and (min-width: 75em)',
-      )
-    )
-  ), 'setting');
-
-  // Our own breakpoint behaviors
-  //drupal_add_js($path . '/js/hy.videoembedmobile.js', $options);
-
-  // drupal_add_js($path . '/js/jquery.dotdotdot.min.js', array('scope' => 'header', 'group' => JS_THEME));
-  // drupal_add_js($path . '/js/dotdotdot.js', $options);
-
   // Check for favicons from registry and add them to head after a thorough checkup
   $registry = theme_get_registry(FALSE);
 

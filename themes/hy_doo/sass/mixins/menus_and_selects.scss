@@ -1,0 +1,68 @@
+@mixin dropdown-menu($max-height: none, $side: 'right') {
+  @include transition(all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
+  z-index: 1;
+  font-size: 0.85em;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background: $white;
+  position: absolute;
+  #{$side}: 0;
+  max-height: 0;
+  width: 330px;
+  &:before {
+    @include alternative-arrow($lightsilver, 10px, 'up');
+    position: absolute;
+    top: -11px;
+    #{$side}: 12px;
+  }
+  &:after {
+    @include alternative-arrow($white, 10px, 'up');
+    position: absolute;
+    top: -10px;
+    #{$side}: 12px;
+  }
+  &.collapsed {
+    @include border;
+    overflow: visible;
+    max-height: $max-height;
+  }
+}
+
+@mixin dropdown-list-item() {
+  @include border-bottom;
+  margin: 0 10px;
+  &:last-child {
+    border-bottom: 0;
+  }
+  a {
+    padding: 10px 0;
+    display: block;
+    line-height: initial;
+  }
+}
+
+@mixin select-header() {
+  @include transition(all 0.2s ease-in-out);
+  @include font-weight-medium;
+  @include border;
+  display: block;
+  cursor: pointer;
+  padding: 8px;
+  margin-bottom: -1px;
+  color: $blue;
+  font-size: 0.875em;
+  width: 100%;
+  &:after {
+    content: "\f0d7"; // \f0d7
+    font-family: "FontAwesome";
+    float: right;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  &.collapsed {
+    color: $white;
+    background: $darkblue;
+  }
+}
+

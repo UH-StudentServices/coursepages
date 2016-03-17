@@ -117,3 +117,44 @@ function uhc_subject_update_7002(&$sandbox) {
     }
   }
 }
+
+/**
+ * Remove "You might also be interested in" titles from field collections without
+ * actual content.
+ */
+function uhc_subject_update_7003(&$sandbox) {
+
+  // UHC DS brings some new field and generates some issues while in entity
+  // load/save, so lets revert the module to let it generate proper tables prior
+  // to using Entity API.
+  if (module_exists('uhc_ds')) {
+    features_revert_module('uhc_ds');
+  }
+
+  // Get all field collection entities that does not have links
+  $query = db_select('field_data_field_related_content_title', 'rct');
+  $query->leftJoin('field_data_field_related_content', 'rc',
+    'rc.entity_id = rct.entity_id');
+  $query->leftJoin('field_data_field_related_content_section', 'rcs',
+    'rcs.field_related_content_section_value = rct.entity_id');
+  $query->leftJoin('field_data_field_content_collection', 'cc',
+    'cc.field_content_collection_value = rct.entity_id');
+  $query->fields('rct', array('entity_id', 'field_related_content_title_value'));
+  $query->fields('rc', array('field_related_content_title'));
+  $query->fields('rcs', array('entity_id'));
+  $query->fields('cc', array('entity_id'));
+  $query->isNull('rc.field_related_content_title');
+  $query = $query->execute();
+
+  // Clear title of collection items that does not have links
+  $results = $query->fetchAll();
+  foreach ($results as $result) {
+    $entity = entity_load('field_collection_item', array($result->entity_id));
+    $entity = reset($entity);
+    if (is_object($entity)) {
+      $entity->field_related_content_title = array();
+      $entity->save();
+      watchdog('uhc_subject', 'Removed orphan string from field collection in node @id', array('@id' => $result->rcs_entity_id ?: $result->cc_entity_id), WATCHDOG_INFO);
+    }
+  }
+}

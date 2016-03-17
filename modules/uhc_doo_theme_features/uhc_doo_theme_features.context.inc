@@ -13,42 +13,6 @@ function uhc_doo_theme_features_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'logged_in';
-  $context->description = '';
-  $context->tag = 'User Authenticated';
-  $context->conditions = array(
-    'user' => array(
-      'values' => array(
-        'administrator' => 'administrator',
-        'authenticated user' => 'authenticated user',
-        'course administrator' => 'course administrator',
-        'editor-in-chief of communications' => 'editor-in-chief of communications',
-        'teacher' => 'teacher',
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'uhc_avatar-avatar_block' => array(
-          'module' => 'uhc_avatar',
-          'delta' => 'avatar_block',
-          'region' => 'menu_bar',
-          'weight' => '-99',
-        ),
-      ),
-    ),
-  );
-  $context->condition_mode = 0;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('User Authenticated');
-  $export['logged_in'] = $context;
-
-  $context = new stdClass();
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
   $context->name = 'sitewide';
   $context->description = 'Context triggered sitewide';
   $context->tag = 'Sitewide';
@@ -86,9 +50,9 @@ function uhc_doo_theme_features_context_default_contexts() {
   $context->description = 'Provides theme footer blocks';
   $context->tag = 'Theme';
   $context->conditions = array(
-    'sitewide' => array(
+    'path' => array(
       'values' => array(
-        1 => 1,
+        '~node/*/edit' => '~node/*/edit',
       ),
     ),
   );
@@ -131,9 +95,9 @@ function uhc_doo_theme_features_context_default_contexts() {
   $context->description = 'Provides theme header blocks';
   $context->tag = 'Theme';
   $context->conditions = array(
-    'sitewide' => array(
+    'path' => array(
       'values' => array(
-        1 => 1,
+        '~node/*/edit' => '~node/*/edit',
       ),
     ),
   );
@@ -157,6 +121,12 @@ function uhc_doo_theme_features_context_default_contexts() {
           'delta' => 'menu-header-links',
           'region' => 'top_bar',
           'weight' => '-8',
+        ),
+        'uhc_avatar-avatar_block' => array(
+          'module' => 'uhc_avatar',
+          'delta' => 'avatar_block',
+          'region' => 'menu_bar',
+          'weight' => '-99',
         ),
       ),
     ),

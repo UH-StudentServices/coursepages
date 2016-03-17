@@ -39,6 +39,18 @@ function uhc_course_implementation_field_widget_form_alter(&$element, &$form_sta
 }
 
 /**
+ * Implements hook_preprocess_HOOK().
+ * Gets rid of the unwanted "The link title is limited to X characters maximum" text.
+ */
+function uhc_course_implementation_preprocess_link_field(&$link) {
+  if (!empty($link['element']['#field_name']) &&
+  $link['element']['#field_name'] == 'field_imp_interaction_link') {
+    unset($link['element']['title']['#description']);
+    $link['element']['title']['#title'] = t('Name');
+  }
+}
+
+/**
  * Implements hook_inline_entity_form_entity_form_alter().
  * Change labels of inline entity form when dealing with materials.
  */
@@ -123,7 +135,7 @@ function uhc_course_implementation_get_course_administrator_numbers($node) {
  * @see uhc_course_implementation_is_group_empty()
  */
 function uhc_course_implementation_field_group_build_pre_render_alter(&$element) {
-  if (isset($element['group_timetable']['#prefix'])) {
+  if (isset($element['group_timetable']['#prefix']) && empty($element['field_imp_timetable_additional'][0]['#markup'])) {
     $element['group_timetable']['#prefix'] .= '<p class="bar bar--small">' . t('Here is the course’s teaching schedule. Check the course overview for possible other schedules.') . '</p>';
   }
   if (isset($element['group_course_task_material']['#prefix'])) {
@@ -212,6 +224,25 @@ function uhc_course_implementation_entity_presave($entity, $type) {
     if($image_fid == NULL || (!empty($term_image_and_caption['fid']) && $image_fid == $term_image_and_caption['fid'])) {
       $entity->field_imp_header_image = array();
       $entity->field_imp_header_image_caption = array();
+    }
+  }
+
+  _uhc_course_implementation_wrap_video_embed_url_in_tag($entity);
+}
+
+/**
+ * Wraps video embed URL in a special embed tag to make video embedding work.
+ *
+ * @param $entity object Node.
+ */
+function _uhc_course_implementation_wrap_video_embed_url_in_tag($entity) {
+  if (isset($entity->type) && $entity->type == 'course_implementation') {
+    $video_embed_url = !empty($entity->field_video_embed_url['und'][0]['value'])
+      ? $entity->field_video_embed_url['und'][0]['value']
+      : NULL;
+
+    if (!empty($video_embed_url) && strpos($video_embed_url, '[video:') === FALSE) {
+      $entity->field_video_embed_url['und'][0]['value'] = "[video:$video_embed_url]";
     }
   }
 }

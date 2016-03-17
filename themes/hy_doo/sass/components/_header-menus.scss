@@ -8,9 +8,10 @@
     @include font-size(11px);
     color: $darkgray;
     line-height: 48px;
-    padding-left: 1.2em;
+    padding-left: 1.8em;
     text-transform: uppercase;
     @include at-breakpoint ($layout-small) {
+      padding-left: 1.2em;
       color: $silver;
       line-height: 70px;
     }
@@ -18,7 +19,18 @@
 }
 
 .block--menu-menu-header-links {
-  display: none;
+  @include at-breakpoint ($layout-mobile-only) {
+    background: $black;
+    li {
+      border-bottom: 1px solid $darkgray;
+      display: block;
+      a {
+        color: $white;
+        padding-left: 20px;
+      }
+    }
+  }
+
   @include at-breakpoint ($layout-small) {
     display: block;
     float: right;
@@ -33,10 +45,28 @@
   li.active {
     display: none;
   }
+  @include at-breakpoint ($layout-mobile-only) {
+    position: relative;
+    z-index: 200;
+    background: $white;
+  }
+
+  abbr[title] {
+    border: none;
+  }
+
   @include at-breakpoint ($layout-small) {
     float: right;
     a {
       color: $white;
+    }
+
+    abbr[title] {
+      font-size: 0;
+      &:after {
+        @include font-size(11px);
+        content: attr(title);
+      }
     }
   }
 }

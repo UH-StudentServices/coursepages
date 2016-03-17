@@ -682,6 +682,42 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_video_description'.
+  $permissions['create field_video_description'] = array(
+    'name' => 'create field_video_description',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'create field_video_embed_url'.
+  $permissions['create field_video_embed_url'] = array(
+    'name' => 'create field_video_embed_url',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'create field_video_link'.
+  $permissions['create field_video_link'] = array(
+    'name' => 'create field_video_link',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'create field_working_methods'.
   $permissions['create field_working_methods'] = array(
     'name' => 'create field_working_methods',
@@ -1476,6 +1512,42 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_video_description'.
+  $permissions['edit field_video_description'] = array(
+    'name' => 'edit field_video_description',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit field_video_embed_url'.
+  $permissions['edit field_video_embed_url'] = array(
+    'name' => 'edit field_video_embed_url',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit field_video_link'.
+  $permissions['edit field_video_link'] = array(
+    'name' => 'edit field_video_link',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit field_working_methods'.
   $permissions['edit field_working_methods'] = array(
     'name' => 'edit field_working_methods',
@@ -2034,6 +2106,42 @@ function uhc_content_administration_feature_user_default_permissions() {
     'name' => 'edit own field_timing',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_video_description'.
+  $permissions['edit own field_video_description'] = array(
+    'name' => 'edit own field_video_description',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_video_embed_url'.
+  $permissions['edit own field_video_embed_url'] = array(
+    'name' => 'edit own field_video_embed_url',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_video_link'.
+  $permissions['edit own field_video_link'] = array(
+    'name' => 'edit own field_video_link',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
     ),
     'module' => 'field_permissions',
   );
@@ -2738,6 +2846,39 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_video_description'.
+  $permissions['view field_video_description'] = array(
+    'name' => 'view field_video_description',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view field_video_embed_url'.
+  $permissions['view field_video_embed_url'] = array(
+    'name' => 'view field_video_embed_url',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view field_video_link'.
+  $permissions['view field_video_link'] = array(
+    'name' => 'view field_video_link',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view field_working_methods'.
   $permissions['view field_working_methods'] = array(
     'name' => 'view field_working_methods',
@@ -3291,6 +3432,39 @@ function uhc_content_administration_feature_user_default_permissions() {
   $permissions['view own field_timing'] = array(
     'name' => 'view own field_timing',
     'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_video_description'.
+  $permissions['view own field_video_description'] = array(
+    'name' => 'view own field_video_description',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_video_embed_url'.
+  $permissions['view own field_video_embed_url'] = array(
+    'name' => 'view own field_video_embed_url',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_video_link'.
+  $permissions['view own field_video_link'] = array(
+    'name' => 'view own field_video_link',
+    'roles' => array(
+      'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
     ),

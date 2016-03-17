@@ -700,7 +700,7 @@ function uhc_ds_course_hierarchy($field) {
   $root_node = uhc_course_hierarchy_get_course_hierarchy_root($node);
   $uri = entity_uri('node', $root_node);
   $label = entity_label('node', $root_node);
-  $items = array('attributes' => array('class' => 'list-of-links course-hierarchy spacer-bottom-2'));
+  $items = array('attributes' => array('class' => 'course-hierarchy'));
 
   // Get course id for sorting purposes. If it can't be determined, then set
   // NULL indicating that it's not sortable.
@@ -776,16 +776,12 @@ function uhc_ds_course_hierarchy($field) {
            *   2) Enrollment name is fetched from the enrollment object
            */
 
-          global $language;
-          $langcode = $language->language;
-
           // Generate URL link that should exist in Drupal.
           $link = '/' . $enrollment['learningopportunity_id'] . '/' . $enrollment['course_id'];
-          if ($langcode != 'en') {
-            $link = "/$langcode" . $link;
-          }
 
           // Get enrollment name from $enrollment object
+          global $language;
+          $langcode = $language->language;
           $enrollment_name = _uhc_autofill_metadata_get_enrollment_name($enrollment, $langcode);
 
           // Attach this item to the links hierarchy

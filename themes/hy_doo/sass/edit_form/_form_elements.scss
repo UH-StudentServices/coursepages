@@ -1,9 +1,3 @@
-.page-node-edit {
-  .page-title {
-    @extend .heading-size-2;
-  }
-}
-
 .node-form  {
   input[type="submit"] {
     display: inline-block;
@@ -15,9 +9,13 @@
     }
   }
 
-  input[type="text"] {
+  input[type="text"],
+  textarea {
+    @include font-weight-medium;
+    border: 2px solid $lightsilver;
+    font-size: 14px;
     width: 100%;
-    padding: 0.4em;
+    padding: 0.7em;
   }
 
   .form-type-checkbox label:before,
@@ -50,20 +48,16 @@
     display: inline-block;
   }
 
-  .link-field-subrow {
-    padding: 0.5em 0;
-    .link-field-column {
-      @include at-breakpoint($layout-small) {
-        width: 50%;
-        float: left;
-        &:first-child {
-          padding-right: 1em;
-        }
+  .link-field-column {
+    @include at-breakpoint($layout-small) {
+      width: 50%;
+      float: left;
+      &:first-child {
+        padding-right: 1em;
       }
     }
   }
 
-  legend,
   .section-title {
     @include font-family-main;
     @include font-size(21px);
@@ -83,18 +77,20 @@
     font-size: 0.75em;
   }
 
-  label {
+  .vertical-tabs-pane > legend > .fieldset-legend {
+    @extend .heading-size-3;
     @include font-weight-bold;
-    font-size: 0.85rem;
     text-transform: uppercase;
+    color: $darkgray;
+    letter-spacing: -2px;
+
   }
 
-  .section-title {
-    margin-top: 1em;
-    position: absolute;
-    & + tr td {
-      padding-top: 4em !important;
-    }
+  label,
+  .fieldset-wrapper .fieldset-legend {
+    @include font-weight-book;
+    padding: 1em 0 0.5em 0;
+    display: block;
   }
 
   .form-item {
@@ -109,7 +105,6 @@
 
   .form-wrapper {
     border: none;
-    margin: 1em 0;
   }
 
   .ief-form {

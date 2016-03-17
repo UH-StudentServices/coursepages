@@ -348,9 +348,9 @@ function uhc_course_implementation_field_group_info() {
       22 => 'field_rel_to_other_study_units',
       23 => 'field_responsible_person',
       24 => 'field_working_methods',
-      25 => 'field_hierarchy_position',
+      25 => 'field_hierarchy_children',
       26 => 'field_hierarchy_parent_id',
-      27 => 'field_hierarchy_children',
+      27 => 'field_hierarchy_position',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -585,7 +585,9 @@ function uhc_course_implementation_field_group_info() {
     'label' => 'Video',
     'weight' => '21',
     'children' => array(
-      0 => 'field_imp_video',
+      0 => 'field_video_description',
+      1 => 'field_video_embed_url',
+      2 => 'field_video_link',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -610,16 +612,20 @@ function uhc_course_implementation_field_group_info() {
     'label' => 'Video',
     'weight' => '7',
     'children' => array(
-      0 => 'field_imp_video',
+      0 => 'field_video_description',
+      1 => 'field_video_embed_url',
+      2 => 'field_video_link',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Video',
       'instance_settings' => array(
-        'description' => '',
+        'required_fields' => 0,
         'classes' => 'group-imp-video field-group-tab',
-        'required_fields' => 1,
+        'description' => '',
+        'show_empty_fields' => 0,
       ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_imp_video|node|course_implementation|form'] = $field_group;
@@ -695,6 +701,7 @@ function uhc_course_implementation_field_group_info() {
       0 => 'field_imp_ref_to_events_oodi',
       1 => 'field_imp_reference_to_events',
       2 => 'field_imp_events_title',
+      3 => 'field_imp_timetable_additional',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

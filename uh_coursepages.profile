@@ -181,7 +181,7 @@ function uh_coursepages_menu() {
   $items["student"] = array(
     'menu_name' => 'og-menu-single',
     'type' => MENU_NORMAL_ITEM,
-    'title' => 'Home (student)',
+    'title' => 'Home',
     'access callback' => 'uh_coursepages_student_menu_item_access',
     'page callback' => 'drupal_goto',
     'page arguments' => array(variable_get('uhc_student_home_url', 'https://student.helsinki.fi/')),
@@ -192,7 +192,7 @@ function uh_coursepages_menu() {
   $items["teacher"] = array(
     'menu_name' => 'og-menu-single',
     'type' => MENU_NORMAL_ITEM,
-    'title' => 'Home (teacher)',
+    'title' => 'Home',
     'access callback' => 'uh_coursepages_teacher_menu_item_access',
     'page callback' => 'drupal_goto',
     'page arguments' => array(variable_get('uhc_teacher_home_url', 'https://teacher.helsinki.fi/')),

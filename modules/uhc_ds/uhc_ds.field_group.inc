@@ -269,8 +269,9 @@ function uhc_ds_field_group_info() {
     'label' => 'Timetable',
     'weight' => '19',
     'children' => array(
-      0 => 'event_reference_block',
-      1 => 'repeating_event_reference_block',
+      0 => 'field_imp_timetable_additional',
+      1 => 'event_reference_block',
+      2 => 'repeating_event_reference_block',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(

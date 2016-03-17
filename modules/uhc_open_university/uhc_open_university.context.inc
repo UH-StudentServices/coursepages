@@ -21,6 +21,7 @@ function uhc_open_university_context_default_contexts() {
       'values' => array(
         'open-university' => 'open-university',
         'open-university/*' => 'open-university/*',
+        '~node/*/edit' => '~node/*/edit',
       ),
     ),
     'uhc_open_university_context_condition_open_university_section' => array(
@@ -38,17 +39,17 @@ function uhc_open_university_context_default_contexts() {
           'region' => 'menu_bar',
           'weight' => '-10',
         ),
-        'responsive_navigation-2' => array(
-          'module' => 'responsive_navigation',
-          'delta' => '2',
+        'menu_block-open_university_menu_expanded' => array(
+          'module' => 'menu_block',
+          'delta' => 'open_university_menu_expanded',
           'region' => 'menu_bar',
           'weight' => '-9',
         ),
         'menu_block-open-university-nav-level2' => array(
           'module' => 'menu_block',
           'delta' => 'open-university-nav-level2',
-          'region' => 'menu_bar',
-          'weight' => '-8',
+          'region' => 'navigation',
+          'weight' => '-10',
         ),
         'uhc_open_university-uhc_open_university_contactblock' => array(
           'module' => 'uhc_open_university',

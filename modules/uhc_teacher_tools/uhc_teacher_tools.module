@@ -155,7 +155,21 @@ function uhc_teacher_tools_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
+  $items['node/%node/rss'] = array(
+    'title' => 'Feed',
+    'access callback' => '_uhc_teacher_tools_menu_edit_links_access_callback',
+    'access arguments' => array(1),
+    'page callback' => 'uhc_teacher_tools_rss_callback',
+    'page arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $items;
+}
+
+// Page callback for rss view.
+function uhc_teacher_tools_rss_callback($node) {
+  drupal_goto("course_implementation_activity/rss/" . $node->field_imp_id[LANGUAGE_NONE][0]['value']);
 }
 
 function _uhc_teacher_tools_demo_course_page_callback() {
@@ -257,6 +271,11 @@ function uhc_teacher_tools_form_node_form_alter(&$form, &$form_state, $form_id) 
     '#default_value' => NULL,
   );
 
+  // Add extra validation that when Moodle key is provided, the URL must be
+  // provided also (conditional field). The module conditional field wasn't
+  // working out of the box in our setup, so we end up coding it ourself.
+  $form['#validate'][] = 'uhc_teacher_tools_moodle_conditional_field';
+
   $form['actions']['submit2'] = $form['actions']['submit'];
   $form['actions']['submit']['#value'] = t('Save & Close');
   $form['actions']['submit2']['#weight'] = 6;
@@ -275,6 +294,22 @@ function uhc_teacher_tools_form_course_implementation_node_form_alter(&$form, &$
 
 function uhc_teacher_tools_display_editing_message() {
   drupal_set_message(t('You are now editing the course page. Remember to save your changes with choosing "Save" or "Save & Close".'), 'warning');
+}
+
+/**
+ * Validation callback for conditional required field (Moodle URL must be
+ * provided if key is filled).
+ *
+ * Ideally this would be done through conditional_fields module, but when
+ * testing it in our setup, it did not work out of the box.
+ *
+ * See DOO-1984
+ */
+function uhc_teacher_tools_moodle_conditional_field(&$form, &$form_state) {
+  $values = $form_state['values'];
+  if (!empty($values['field_moodle_key'][LANGUAGE_NONE][0]['value']) && empty($values['field_moodle_url'][LANGUAGE_NONE][0]['url'])) {
+    form_set_error('field_moodle_url][und][0][url', t('You must provide both Moodle URL and Moodle key.'));
+  }
 }
 
 /**

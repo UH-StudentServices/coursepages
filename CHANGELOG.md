@@ -1,3 +1,33 @@
+# Helsinki University Coursepages v1.61
+Päiväys: 17.03.2016
+
+## Lisäykset
+  - DOO-1978: Lisättiin etusivun haulle oma landing page
+  - DOO-1601: Mobiilivalikkoon lisätty mustan yläpalkin linkit, ja käyttäjävalikko.
+  - DOO-1892: Opetushierarkia lisätty mobiilinavigaatioon.
+  - DOO-1813: Lisättiin toteutuksille RSS-syöte.
+  - DOO-1852: Lisättiin aikatauluosioon lisätietokenttä joka korvaa entisen kiinteän
+  selitetekstin.
+  - DOO-1984: Tehtiin Moodle URL -kentästä pakollinen silloin kuin Moodle-avain
+    on syötetty.
+
+## Muutokset
+  - DOO-2009: Muokkausnäkymästä poistettu header ja footer.
+  - DOO-2019: Video-haitarin muutoksia (kuvaus-, upotus-, ja linkkikentät)
+  - DOO-1834: Englannin kielen tiedekunta suodatuksen otsikko muutos
+  - DOO-2010: Muutettiin muokkausnäkymän vertical tabien teemaus konseptin mukaiseksi.
+  - DOO-2018: Selkeytettiin toteutusten vuorovaikutuslomaketta.
+  - DOO-2029: RSS-syötteeseen tunnisteeksi vaihdettu opetustapahtuman nimi.
+  - DOO-2006, DOO-2016: Parannettiin muokkausnäkymiä konseptin mukaiseksi
+
+## Korjaukset
+  - DOO-1992: Related content title -kenttiä ei täytetä enää oletusarvolla
+  (aiheutti turhien otsikoiden näkymistä, kun linkkisisältöjä ei ole)
+  - DOO-2036: Avoimen etusivulta tehty haku ei muodosta enää virheellistä URLia
+  - DOO-2040: Korjattiin kurssihierarkialinkkien ajoittain virheelliset URL:t
+  - DOO-2028: Kurssinostojen oletusteema näkyy oikein eikä ole aina genetiikka.
+
+
 # Helsinki University Coursepages v1.60
 Päiväys: 08.03.2016
 

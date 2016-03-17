@@ -1,61 +1,66 @@
 .block--system-user-menu {
-  position: absolute;
-  top: 0;
-  right: 70px;
-  .block--uhc-avatar + & {
-    right: 120px;
-  }
   > ul > li {
-    position: relative;
-    line-height: 48px;
-    height: 48px;
-    margin-left: 2em;
-    font-size: 0.9375rem;
     cursor: pointer;
-    float: left;
     .info-link {
       @include menu-item-icon($hy-info-stroke);
     }
     .logout-link {
       @include menu-item-icon($hy-logout);
     }
-  }
-  ul ul.menu {
-    @include dropdown-menu();
-    width: 170px;
-    right: -15px;
-    top: 55px;
-    li {
-      @include border-bottom;
-      margin: 0 10px;
-      &:last-child {
-        border-bottom: 0;
-      }
-      a {
-        padding: 10px 0;
-        display: block;
-        line-height: initial;
-      }
+    .login-link {
+      @include menu-item-icon($hy-login);
     }
   }
+
+  @include at-breakpoint($layout-mobile-only) {
+    background: $white;
+    ul ul.menu li a {
+      @include menu-item-icon($hy-info-stroke);
+    }
+    a {
+      @include link-menu;
+      @include border-bottom;
+      padding: 20px;
+    }
+    .info-link {
+      display: none;
+    }
+  }
+
   @include at-breakpoint($layout-small) {
-    position: static;
     float: right;
     > ul > li {
+      position: relative;
+      float: left;
       margin-left: 2.5em;
       line-height: 60px;
       height: 60px;
+      .login-link {
+        @include link-menu;
+        line-height: 60px;
+        &:before {
+          display: none;
+        }
+      }
     }
+    // dropdown menu
     ul ul.menu {
+      @include dropdown-menu();
       width: 330px;
+      right: -15px;
+      top: 55px;
+      li {
+        @include dropdown-list-item;
+      }
     }
   }
 }
 
 .block--uhc-avatar {
+  z-index: 250;
   position: absolute;
   line-height: 48px;
-  right: 50px;
+  right: 48px;
   top: 0;
   width: 48px;
   height: 48px;

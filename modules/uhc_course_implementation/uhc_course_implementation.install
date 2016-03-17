@@ -319,3 +319,55 @@ function uhc_course_implementation_update_7007() {
   db_truncate('field_revision_field_imp_locality')->execute();
   field_cache_clear();
 }
+
+/**
+ * Migrate and delete field_imp_video.
+ */
+function uhc_course_implementation_update_7008() {
+
+  // Revert field base and instances, so we have tables to migrate into.
+  features_revert(array('uhc_field_base' => array('field_base'), 'uhc_course_implementation' => array('field_instance')));
+
+  // Fetch all existing video tags available and migrate to new field
+  $query = db_select('field_data_field_imp_video', 'v')
+    ->fields('v', array('entity_id', 'field_imp_video_value'))
+    ->condition('v.entity_type', 'node')
+    ->condition('v.bundle', 'course_implementation')
+    ->execute();
+
+  // Setup insert queries and start looping select query results
+  $insert_data_query = db_insert('field_data_field_video_embed_url');
+  $insert_revision_query = db_insert('field_revision_field_video_embed_url');
+  while ($item = $query->fetchAssoc()) {
+
+    // Setup fields and values for insert queries
+    $values = array(
+      'entity_type' => 'node',
+      'bundle' => 'course_implementation',
+      'deleted' => 0,
+      'entity_id' => $item['entity_id'],
+      'revision_id' => $item['entity_id'],
+      'language' => LANGUAGE_NONE,
+      'delta' => 0,
+      'field_video_embed_url_value' => trim(strip_tags($item['field_imp_video_value'])),
+      'field_video_embed_url_format' => 'filtered_html',
+    );
+
+    // Now append the fields/values for both insert queries
+    $insert_data_query->fields(array_keys($values));
+    $insert_data_query->values(array_values($values));
+    $insert_revision_query->fields(array_keys($values));
+    $insert_revision_query->values(array_values($values));
+
+  }
+
+  // Now execute the queries.
+  $insert_data_query->execute();
+  $insert_revision_query->execute();
+
+  // Finally delete instance
+  field_delete_field('field_imp_video');
+
+  // Clear field caches
+  field_cache_clear();
+}

@@ -1,6 +1,8 @@
 /* Custom theming for menu local tasks */
 .tabs-wrapper  {
   background-color: $blue;
+  position: relative;
+  z-index: 999;
   width: 100%;
   .tabs {
     @include container;

@@ -300,13 +300,13 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['fields']['field_imp_teacher']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['field_imp_teacher']['field'] = 'field_imp_teacher';
   $handler->display->display_options['fields']['field_imp_teacher']['label'] = 'Teacher(s)';
-  $handler->display->display_options['path'] = 'search';
+  $handler->display->display_options['path'] = 'search/results';
 
   /* Display: Facets block */
   $handler = $view->new_display('search_api_views_facets_block', 'Facets block', 'search_api_views_facets_block_1');
   $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['block_description'] = 'Open university search facets';
-  $handler->display->display_options['linked_path'] = 'open-university/search';
+  $handler->display->display_options['block_description'] = 'Front page search facets';
+  $handler->display->display_options['linked_path'] = 'search/results';
   $handler->display->display_options['facet_field'] = 'nid';
   $handler->display->display_options['hide_block'] = 1;
   $translatables['uhc_portal_search_front_page_'] = array(
@@ -343,7 +343,7 @@ function uhc_search_front_page_views_default_views() {
     t('Table'),
     t('Teacher(s)'),
     t('Facets block'),
-    t('Open university search facets'),
+    t('Front page search facets'),
   );
   $export['uhc_portal_search_front_page_'] = $view;
 

@@ -116,26 +116,15 @@ function hy_doo_theme_registry_alter(&$registry) {
   }
 }
 
-
-/**
- * Implements theme_css_alter()
- */
-function hy_doo_css_alter(&$css) {
-  // We don't want to load responsive-navigation default css file.
-  unset($css[libraries_get_path('responsive_navigation') . '/responsive-nav.css']);
-}
-
 function hy_doo_menu_link(&$variables) {
   $element = $variables['element'];
 
   // let's create shibboleth login / logout urls
-  $logout_urls = array('logout');
-  $login_urls = array('og-menu-single/login', 'menu-open-university-navigation/login');
-  if (in_array($element['#href'], $logout_urls)) {
+  if ($element['#href'] == 'logout') {
     $logout_return_url = shib_auth_config('logout_url') . request_uri();
     $element['#href'] = url(shib_auth_get_handler_base() . '/Logout?return=' . $logout_return_url);
   }
-  if (in_array($element['#href'], $login_urls)) {
+  if ($element['#href'] == 'login') {
     $element['#href'] = shib_auth_generate_login_url();
   }
   /**
@@ -188,5 +177,15 @@ function hy_doo_menu_local_tasks_alter(&$data, $router_item, $root_path) {
         $link['#link']['localized_options']['attributes']['class'][] = 'edit-link';
       }
     }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ * Add JS for mobile vertical tabs.
+ */
+function hy_doo_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['#node_edit_form']) && $form['#node_edit_form'] == TRUE) {
+    $form['#attached']['js'][] = drupal_get_path('theme', 'hy_doo') . '/js/vertical_tabs.js';
   }
 }

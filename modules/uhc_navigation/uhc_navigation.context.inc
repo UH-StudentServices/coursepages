@@ -22,26 +22,26 @@ function uhc_navigation_context_default_contexts() {
         '~open_university_header_and_footer' => '~open_university_header_and_footer',
       ),
     ),
-    'sitewide' => array(
+    'path' => array(
       'values' => array(
-        1 => 1,
+        '~node/*/edit' => '~node/*/edit',
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'responsive_navigation-1' => array(
-          'module' => 'responsive_navigation',
-          'delta' => '1',
-          'region' => 'menu_bar',
-          'weight' => '-10',
-        ),
         'system-user-menu' => array(
           'module' => 'system',
           'delta' => 'user-menu',
           'region' => 'menu_bar',
-          'weight' => '-98',
+          'weight' => '-10',
+        ),
+        'menu-og-menu-single' => array(
+          'module' => 'menu',
+          'delta' => 'og-menu-single',
+          'region' => 'menu_bar',
+          'weight' => '-9',
         ),
       ),
     ),

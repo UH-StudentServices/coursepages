@@ -1,0 +1,40 @@
+<?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Create landing page for front page search. Make sure searchbox doesn't
+ * disappear from front page.
+ */
+function uhc_search_front_page_update_7001() {
+  features_revert_module('uhc_field_base');
+  features_revert_module('uhc_page');
+
+  $node = new stdClass();
+  $node->type = 'portal_page';
+  $node->language = LANGUAGE_NONE;
+  node_object_prepare($node);
+
+  $node->title = 'Search for courses';
+  $node->path = array('alias' => 'search', 'pathauto' => 0);
+  $node->field_show_search_box[$node->language][0]['value'] = 1;
+  $node->field_show_search_filters[$node->language][0]['value'] = 1;
+  node_save($node);
+
+  // change view mode to sidebar
+  db_update('node_revision')
+    ->fields(array('ds_switch' => 'sidebar'))
+    ->condition('nid', $node->nid)
+    ->execute();
+
+  // add search box to front page
+  $front_page = variable_get('site_frontpage');
+  $front_page_nid = explode('/', $front_page);
+  $node = node_load($front_page_nid[1]);
+  $node_wrapper = entity_metadata_wrapper('node', $node);
+  $node_wrapper->field_show_search_box->set(1);
+  $node_wrapper->save();
+}

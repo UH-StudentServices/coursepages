@@ -1,0 +1,31 @@
+// Susy Media Layouts
+$layout-mobile-only: 0em 12 49em; // Mobile only.
+$layout-small: 49em 12; // At 48em use 12 columns.
+$layout-medium: 62.5em 16; // At 62.5em use 12 columns.
+$layout-large: 75em 16; // At 75em use 16 columns.
+
+/**
+ * These values will not show up in content, but can be 
+ * queried by JavaScript to know which breakpoint is active.
+ */
+body:before {
+  content: "mobile";
+  display: none;
+}
+
+@include at-breakpoint($layout-small) {
+  body:before {
+    content: "small";
+  }
+}
+@include at-breakpoint($layout-medium) {
+  body:before {
+    content: "medium";
+  }
+}
+
+@include at-breakpoint($layout-large) {
+  body:before {
+    content: "large";
+  }
+}

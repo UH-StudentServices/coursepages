@@ -976,3 +976,13 @@ function uh_coursepages_update_7014(&$sandbox) {
 function uh_coursepages_update_7015(&$sandbox) {
   module_enable(array('uh_taxonomy_organisations_et'));
 }
+
+/**
+ * disable responsive_navigation and hy_navigation modules
+ */
+function uh_coursepages_update_7016(&$sandbox) {
+  module_disable(array('responsive_navigation', 'hy_navigation'));
+
+  // rebuild menu to get new home link title
+  menu_rebuild();
+}

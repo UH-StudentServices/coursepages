@@ -5,3 +5,16 @@
  */
 
 include_once 'uhc_locale.features.inc';
+
+/**
+ * Implements hook_language_switch_links_alter().
+ * Add language abbreviations for use in mobile.
+ */
+function uhc_locale_language_switch_links_alter(array &$links, $type, $path) {
+  foreach ($links as $langcode => $lang_info) {
+    $abbr = $lang_info['language']->language;
+    $name = $lang_info['language']->native;
+    $links[$langcode]['title'] = '<abbr title="' . $name . '">' . $abbr . '</abbr>';
+    $links[$langcode]['html'] = TRUE;
+  }
+}

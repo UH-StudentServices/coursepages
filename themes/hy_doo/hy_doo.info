@@ -4,18 +4,19 @@ base theme = hy_base_theme
 screenshot = screenshot.png
 engine = phptemplate
 core = 7.x
-version = 7.x-1.60
+version = 7.x-1.61
 
 ; Scripts
 scripts[] = js/ds_accordion.js
 scripts[] = js/jquery.browser.min.js
 scripts[] = js/jquery.hoverIntent.r6.js
 scripts[] = js/masonry.pkgd.min.js
-scripts[] = js/menu.js
+scripts[] = js/fatmenu.js
 scripts[] = js/messages.js
 scripts[] = js/user_menu.js
 scripts[] = js/anchor.js
 scripts[] = js/equal-heights.js
+scripts[] = js/mobile_menu.js
 
 ; Stylesheets
 stylesheets[all][] = css/hy_doo.styles.css

@@ -19,8 +19,8 @@ function uhc_search_front_page_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'search' => 'search',
-        'search/*' => 'search/*',
+        'search/results' => 'search/results',
+        'search/results/*' => 'search/results/*',
       ),
     ),
   );

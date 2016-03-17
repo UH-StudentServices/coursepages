@@ -64,9 +64,6 @@ function uhc_course_strongarm() {
       'meta_information' => array(
         'custom_settings' => FALSE,
       ),
-      'search_block_embedded' => array(
-        'custom_settings' => FALSE,
-      ),
     ),
     'extra_fields' => array(
       'form' => array(

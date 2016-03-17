@@ -32,11 +32,6 @@
     padding-top: 30px;
   }
 
-  .l-navigation {
-    @include span-columns(4 omega, 16);
-    margin-left: 2%;
-  }
-
   .l-content-sidebar-left {
     @include span-columns(6, 16);
   }
@@ -44,6 +39,22 @@
   .l-content-sidebar-right {
     @include span-columns(4 omega, 16);
     margin-left: 4%;
+  }
+
+  .l-top-bar-wrapper {
+    z-index: 100;
+    position: relative;
+  }
+
+  .l-menu-bar {
+    z-index: 200;
+    position: relative;
+    background: $white;
+  }
+
+  .l-navigation {
+    z-index: 50;
+    position: relative;
   }
 }
 

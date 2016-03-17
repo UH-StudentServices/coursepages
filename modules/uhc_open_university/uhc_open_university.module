@@ -26,6 +26,17 @@ function uhc_open_university_menu_block_blocks() {
       'sort'        => TRUE,
       'title_link'  => FALSE,
     ),
+    'open_university_menu_expanded' => array(
+      'menu_name' => 'menu-open-university-navigation',
+      'parent_mlid' => 0,
+      'title_link' => 0,
+      'admin_title' => 'Open university menu expanded',
+      'level' => 0,
+      'follow' => 0,
+      'depth' => 0,
+      'expanded' => 1,
+      'sort' => 0,
+    ),
   );
 }
 
@@ -239,5 +250,17 @@ function uhc_open_university_translated_menu_link_alter(&$item, $map) {
     if ($open_university_path || $open_university_node) {
       $item['hidden'] = 1;
     }
+  }
+}
+
+/**
+ * Implements hook_block_info_alter().
+ * add class and to open university menu and hide title.
+ */
+function uhc_open_university_block_info_alter(&$blocks, $theme, $code_blocks) {
+  // Set main-menu navigation title and class
+  if (isset($blocks['menu_block']['open_university_menu_expanded'])) {
+    $blocks['menu_block']['open_university_menu_expanded']['title'] = '<none>';
+    $blocks['menu_block']['open_university_menu_expanded']['css_class'] = 'main-menu';
   }
 }

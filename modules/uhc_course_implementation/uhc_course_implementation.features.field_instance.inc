@@ -2326,7 +2326,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'bundle' => 'course_implementation',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '<strong>Add the URL address of the service and short description</strong>',
+    'description' => '',
     'display' => array(
       'content_suffix' => array(
         'label' => 'above',
@@ -2372,7 +2372,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_imp_interaction_link',
-    'label' => 'URL',
+    'label' => 'Services',
     'required' => 0,
     'settings' => array(
       'absolute_url' => 1,
@@ -3533,19 +3533,17 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_video'
-  $field_instances['node-course_implementation-field_imp_video'] = array(
+  // Exported field_instance: 'node-course_implementation-field_imp_timetable_additional'
+  $field_instances['node-course_implementation-field_imp_timetable_additional'] = array(
     'bundle' => 'course_implementation',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 'Here is the course’s teaching schedule. Check the course overview for possible other schedules.',
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'content_suffix' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -3554,7 +3552,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
         ),
         'type' => 'text_default',
-        'weight' => 79,
+        'weight' => 4,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3574,17 +3572,11 @@ function uhc_course_implementation_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'teaser_images' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_imp_video',
-    'label' => 'Video',
+    'field_name' => 'field_imp_timetable_additional',
+    'label' => 'Additional timetable information',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
@@ -3623,7 +3615,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'enable' => 0,
         'profile' => '',
       ),
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -3637,7 +3629,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 17,
+      'weight' => 45,
     ),
   );
 
@@ -4522,6 +4514,275 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-course_implementation-field_video_description'
+  $field_instances['node-course_implementation-field_video_description'] = array(
+    'bundle' => 'course_implementation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'text_default',
+        'weight' => 80,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_accordion' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_video_description',
+    'label' => 'Video description',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 'ds_code',
+          'embed_code' => 'embed_code',
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'embed_code' => array(
+              'weight' => 1,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_truncate_html' => 0,
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 18,
+    ),
+  );
+
+  // Exported field_instance: 'node-course_implementation-field_video_embed_url'
+  $field_instances['node-course_implementation-field_video_embed_url'] = array(
+    'bundle' => 'course_implementation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'text_default',
+        'weight' => 81,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_accordion' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_video_embed_url',
+    'label' => 'Video embed URL',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 'filtered_html',
+          'full_html' => 0,
+          'plain_text' => 0,
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'embed_code' => array(
+              'weight' => 1,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'maxlength_js' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 19,
+    ),
+  );
+
+  // Exported field_instance: 'node-course_implementation-field_video_link'
+  $field_instances['node-course_implementation-field_video_link'] = array(
+    'bundle' => 'course_implementation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'link',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'link_default',
+        'weight' => 82,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_accordion' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_video_link',
+    'label' => 'Video link',
+    'required' => 0,
+    'settings' => array(
+      'absolute_url' => 1,
+      'attributes' => array(
+        'class' => '',
+        'configurable_class' => 0,
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => '_blank',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 0,
+      'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'rel_remove' => 'default',
+      'title' => 'required',
+      'title_label_use_field_label' => 0,
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 20,
+    ),
+  );
+
   // Exported field_instance: 'node-course_implementation-field_working_methods'
   $field_instances['node-course_implementation-field_working_methods'] = array(
     'bundle' => 'course_implementation',
@@ -4930,8 +5191,8 @@ function uhc_course_implementation_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('"Other Events" will be used by default');
-  t('<strong>Add the URL address of the service and short description</strong>');
   t('Additional information');
+  t('Additional timetable information');
   t('Administrator number');
   t('An absolute URL address to feedback. Example: https://elomake.helsinki.fi/lomakkeet/60586/lomake.html');
   t('Attach tasks to this course');
@@ -4986,6 +5247,7 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Relations to other study units');
   t('Required prerequisites');
   t('Responsible person');
+  t('Services');
   t('Start month');
   t('Target group');
   t('Teacher');
@@ -5000,7 +5262,9 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Title for events added on course page');
   t('URL');
   t('Unique ID for course implementation, imported from Oodi.');
-  t('Video');
+  t('Video description');
+  t('Video embed URL');
+  t('Video link');
 
   return $field_instances;
 }

@@ -39,3 +39,14 @@ function uhc_navigation_menu_manage_access($permission) {
     return FALSE;
   }
 }
+
+/**
+ * Implements hook_block_info_alter().
+ */
+function uhc_navigation_block_info_alter(&$blocks, $theme, $code_blocks) {
+  // Set main-menu navigation title and class
+  if (isset($blocks['menu']['og-menu-single'])) {
+    $blocks['menu']['og-menu-single']['title'] = '<none>';
+    $blocks['menu']['og-menu-single']['css_class'] = 'main-menu';
+  }
+}

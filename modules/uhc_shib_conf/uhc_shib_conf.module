@@ -108,22 +108,19 @@ function uhc_shib_conf_menu() {
     //but the menu item doesn't work without it
     'page callback' => 'uhc_shib_conf_blank_callback'
   );
-  $menus = array('og-menu-single', 'menu-open-university-navigation');
-  foreach ($menus as $menu) {
-      $items[$menu . '/login'] = array(
-      'menu_name' => $menu,
-      'title' => t('Login'),
-      'options' => array(
-        'attributes' => array(
-          'class' => 'login-link',
-        ),
+  $items['login'] = array(
+    'menu_name' => 'user-menu',
+    'title' => t('Login'),
+    'options' => array(
+      'attributes' => array(
+        'class' => 'login-link',
       ),
-      'access callback' => 'user_is_anonymous',
-      // we don't use this callback as the url is changed later
-      //but the menu item doesn't work without it
-      'page callback' => 'uhc_shib_conf_blank_callback'
-    );
-  }
+    ),
+    'access callback' => 'user_is_anonymous',
+    // we don't use this callback as the url is changed later
+    //but the menu item doesn't work without it
+    'page callback' => 'uhc_shib_conf_blank_callback'
+  );
 
   return $items;
 }

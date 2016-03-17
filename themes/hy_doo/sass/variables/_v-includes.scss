@@ -17,12 +17,6 @@ $debug-grid: true;
 $vert-spacing-unit: 0.938em;
 $horz-spacing-unit: 0.938em;
 
-// Susy Media Layouts
-$layout-mobile-only: 0em 12 48em; // Mobile only.
-$layout-small: 48em 12; // At 48em use 12 columns.
-$layout-medium: 62.5em 16; // At 62.5em use 12 columns.
-$layout-large: 75em 16; // At 75em use 16 columns.
-
 // Legacy support.
 $legacy-support-for-ie6: false;
 $legacy-support-for-ie7: true;

@@ -5,6 +5,10 @@
   > li {
     @include button-internal;
     padding-right: 0;
+    > a {
+      @include link-menu;
+      text-transform: none;
+    }
     &:after {
       display: none;
     }
@@ -18,7 +22,6 @@
           padding: 0 1em 1.2em 2em;
           position: relative;
           a {
-            @include font-weight-book;
             @include font-size(15px);
             color: $silver;
             &.active {
@@ -68,6 +71,54 @@
           }
           &.show-more {
             padding-top: 1em;
+          }
+        }
+      }
+    }
+  }
+
+  @include at-breakpoint($layout-small) {
+    padding-bottom: 2em;
+  }
+
+  @include at-breakpoint($layout-mobile-only) {
+    background: $lightsilver;
+    border-top: 1px solid darken($lightsilver, 10%);
+    > li {
+      padding: 0;
+      > a {
+        border-bottom: 1px solid darken($lightsilver, 10%);
+        text-transform: uppercase;
+        padding: 20px 20px 20px 55px;
+      }
+      &.root {
+        > a {
+          /*
+          @include menu-item-icon($hy-arrow);
+          padding-left: 20px;
+          &:before {
+            @include transform(rotate(90deg));
+            display: inline-block;
+          }
+          */
+        }
+        & > .item-list {
+          margin-bottom: 0;
+          ul.root {
+            margin: 1em 1em 1em 1.7em;
+            border-left: 1px solid darken($lightsilver, 10%);
+            li {
+              padding-left: 3em;
+            }
+            > li {
+              &:after {
+                border-bottom: 1px solid darken($lightsilver, 10%);
+              }
+              &.last:after {
+                margin-top: 0;
+                border-bottom: none;
+              }
+            }
           }
         }
       }

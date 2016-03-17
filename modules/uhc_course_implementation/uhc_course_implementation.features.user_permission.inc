@@ -41,6 +41,18 @@ function uhc_course_implementation_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_imp_timetable_additional'.
+  $permissions['create field_imp_timetable_additional'] = array(
+    'name' => 'create field_imp_timetable_additional',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit field_default_header_image'.
   $permissions['edit field_default_header_image'] = array(
     'name' => 'edit field_default_header_image',
@@ -72,6 +84,18 @@ function uhc_course_implementation_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_imp_timetable_additional'.
+  $permissions['edit field_imp_timetable_additional'] = array(
+    'name' => 'edit field_imp_timetable_additional',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit own field_default_header_image'.
   $permissions['edit own field_default_header_image'] = array(
     'name' => 'edit own field_default_header_image',
@@ -99,6 +123,18 @@ function uhc_course_implementation_user_default_permissions() {
       'administrator' => 'administrator',
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_imp_timetable_additional'.
+  $permissions['edit own field_imp_timetable_additional'] = array(
+    'name' => 'edit own field_imp_timetable_additional',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
     ),
     'module' => 'field_permissions',
   );
@@ -138,6 +174,17 @@ function uhc_course_implementation_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_imp_timetable_additional'.
+  $permissions['view field_imp_timetable_additional'] = array(
+    'name' => 'view field_imp_timetable_additional',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view own field_default_header_image'.
   $permissions['view own field_default_header_image'] = array(
     'name' => 'view own field_default_header_image',
@@ -169,6 +216,17 @@ function uhc_course_implementation_user_default_permissions() {
       'administrator' => 'administrator',
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_imp_timetable_additional'.
+  $permissions['view own field_imp_timetable_additional'] = array(
+    'name' => 'view own field_imp_timetable_additional',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'field_permissions',
   );

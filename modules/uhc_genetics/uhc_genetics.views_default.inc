@@ -274,6 +274,14 @@ function uhc_genetics_views_default_views() {
   $handler->display->display_options['display_description'] = 'Table';
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['path'] = 'genetics/search';
+
+  /* Display: Facets block */
+  $handler = $view->new_display('search_api_views_facets_block', 'Facets block', 'search_api_views_facets_block_1');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['block_description'] = 'Genetics search facets';
+  $handler->display->display_options['linked_path'] = 'genetics/search';
+  $handler->display->display_options['facet_field'] = 'nid';
+  $handler->display->display_options['hide_block'] = 1;
   $translatables['uhc_search'] = array(
     t('Master'),
     t('more'),
@@ -308,6 +316,8 @@ function uhc_genetics_views_default_views() {
     t('For example name of the course or topic.'),
     t('Desktop'),
     t('Table'),
+    t('Facets block'),
+    t('Genetics search facets'),
   );
   $export['uhc_search'] = $view;
 

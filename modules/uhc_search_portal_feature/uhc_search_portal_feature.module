@@ -75,7 +75,7 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
         'views-exposed-form-uhc-search-desktop' => $lang_prefix . 'genetics/search',
         'views-exposed-form-uhc-search-open-university-desktop' => $lang_prefix . 'open-university/search',
         'views-exposed-form-uhc-search-biosciences-desktop' => $lang_prefix . 'molecular-biosciences/search',
-        'views-exposed-form-uhc-portal-search-front-page--desktop' => $lang_prefix . 'search',
+        'views-exposed-form-uhc-portal-search-front-page--desktop' => $lang_prefix . 'search/results',
       );
 
       // Add some frontend alterations to related to filtering
@@ -242,7 +242,7 @@ function _uhc_search_portal_feature_translate_facet_block_title(&$data, $block) 
       'R1BRVcBSjxhf1KDt3dthdTfNu1qhp5en' => t('Faculty'),
       'as918Au1kK03VaWu2iPYsRfNZ1iJWE7X' => t('Teaching language'),
       'hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX' => t('Subject'),
-      'UHyOu2m5IufOONBzgYtqiXaxReuk8K7e' => t('Organisation', array(), array('context' => 'facet label')),
+      'UHyOu2m5IufOONBzgYtqiXaxReuk8K7e' => t('Faculty', array(), array('context' => 'facet label')),
     );
     _uhc_search_portal_feature_set_block_titles($block, $translate_block_titles);
   }
@@ -368,4 +368,81 @@ function uhc_search_portal_feature_search_api_query_alter(SearchApiQueryInterfac
     }
   }
   return $query;
+}
+
+/**
+ * Implements hook_ds_fields_info().
+ */
+function uhc_search_portal_feature_ds_fields_info($entity_type) {
+  $fields = array();
+  $fields['section_search_form'] = array(
+      'title' => t('Section search form'),
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'uhc_search_portal_feature_section_search_form'
+  );
+  return array('node' => $fields);
+}
+
+/**
+ * DS field render function for printing section search form
+ */
+function uhc_search_portal_feature_section_search_form($field) {
+  $node = $field['entity'];
+
+  if ($node->field_show_search_box[LANGUAGE_NONE][0]['value'] == 1) {
+
+    $show_filters = $node->field_show_search_filters[LANGUAGE_NONE][0]['value'];
+
+    // load correct search block and facet block according to section.
+    if (!empty($node->field_liftup_section)) {
+      $section = $node->field_liftup_section[LANGUAGE_NONE][0]['value'];
+
+      if ($section == 'genetics') {
+        $exposed_form = block_load('views', '-exp-uhc_search-desktop');
+        $facet_block = $show_filters ? block_load('views', '5dfb76ba1ce9809077d9d525bbf50f2c') : NULL;
+      }
+      if ($section == 'openuniversity') {
+        $exposed_form = block_load('views', '6e81312883288ad7f0d23af96a88ead6');
+        $facet_block = $show_filters ? block_load('views', 'c2214b19d79a77c1c1558fab6eb67c87') : NULL;
+      }
+      if ($section == 'biosciences') {
+        $exposed_form = block_load('views', 'ddc12e0f6574edc3850aacc947821543');
+        $facet_block = $show_filters ? block_load('views', '1f9eeaa6dc7b5053fb2ed2e1936d239c') : NULL;
+      }
+    }
+    else {
+      // If no section is set, show front page search.
+      $facet_block = $show_filters ? block_load('views', '8e1bcc9ace0a8e252a5c6a87e71ad978') : NULL;
+      $exposed_form = block_load('views', '0580398bf6a2f9d60b32760e9900b13c');
+    }
+
+    // This needs to be called, to make facets visible (attached in
+    // uhc_search_portal_feature_form_alter() function). Don't ask why, it just
+    // took too much time to dig and try to understand, so we let you to find it
+    // out maybe some day :)
+    // @see uhc_search_portal_feature_form_alter()
+    if ($facet_block) {
+      _block_get_renderable_array(_block_render_blocks(array($facet_block)));
+    }
+
+    $exposed_form_render_array = _block_get_renderable_array(_block_render_blocks(array($exposed_form)));
+    // If Image and description are empty, hide searchbox title
+    if (empty($node->field_portal_page_image) && empty($node->field_portal_page_description)) {
+      foreach($exposed_form_render_array as $block) {
+        if ($block['#block']) {
+          $block['#block']->subject = '';
+        }
+      }
+    }
+
+    // NOTE: we don't have to render the facet block, but we need to load it
+    // in order to get it rendered in uhc_search_portal_feature_form_alter().
+    // why? Black magic.
+    $output = render($exposed_form_render_array);
+
+    if (empty($node->field_liftup_section)) {
+      $output .= '<div class="messages info"><p>' . t('Students are advised to access their active courses via My Studies') . '<a href="https://student.helsinki.fi"></a></br>' . t('Teachers are advised to access their active courses via My Teaching') . '<a href="https://teacher.helsinki.fi"></a></p></div>';
+    }
+    return $output;
+  }
 }

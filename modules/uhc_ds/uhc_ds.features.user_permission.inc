@@ -318,16 +318,6 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view front_page_search_exposed_form on node'.
-  $permissions['view front_page_search_exposed_form on node'] = array(
-    'name' => 'view front_page_search_exposed_form on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view links on comment'.
   $permissions['view links on comment'] = array(
     'name' => 'view links on comment',
@@ -456,6 +446,16 @@ function uhc_ds_user_default_permissions() {
   // Exported permission: 'view scope on node'.
   $permissions['view scope on node'] = array(
     'name' => 'view scope on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view section_search_form on node'.
+  $permissions['view section_search_form on node'] = array(
+    'name' => 'view section_search_form on node',
     'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',

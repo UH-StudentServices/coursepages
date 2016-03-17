@@ -88,8 +88,6 @@ projects[comment_og][version] = "1.0"
 projects[pathauto][version] = "1.3"
 ; Patch: adds drush commands for deleting & updating aliases
 projects[pathauto][patch]["https://www.drupal.org/node/867578"] = https://www.drupal.org/files/pathauto-add-drush-support-867578-42.patch
-projects[responsive_navigation][version] = "1.0"
-projects[responsive_navigation][patch]["https://www.drupal.org/node/2018335"] = https://www.drupal.org/files/include-once-2018335-3.patch
 
 ; Search
 
@@ -223,7 +221,7 @@ projects[hy_base_theme][subdir] = "hy_base_theme"
 projects[hy_base_theme][download][type] = git
 projects[hy_base_theme][download][url] = "git://github.com/UH-StudentServices/hy_base_theme.git"
 projects[hy_base_theme][download][branch] = 7.x-1.x
-projects[hy_base_theme][download][revision] = a4f3280cde43c286aa9911818e084137576928eb
+projects[hy_base_theme][download][revision] = d84b0d1ae4bcfac4ade20a4fa526d1f18a6aeb90
 projects[adminimal_theme][subdir] = "adminimal_theme"
 projects[adminimal_theme][version] = "1.22"
 
@@ -256,10 +254,6 @@ libraries[wvega-timepicker][directory_name] = "wvega-timepicker"
 libraries[timeago][download][type] = file
 libraries[timeago][download][url] = https://github.com/rmm5t/jquery-timeago/archive/v1.4.1.zip
 libraries[timeago][directory_name] = "timeago"
-
-libraries[responsive_navigation][download][type] = file
-libraries[responsive_navigation][download][url] = https://github.com/viljamis/responsive-nav.js/archive/1.0.20.zip
-libraries[responsive_navigation][directory_name] = "responsive_navigation"
 
 libraries[stomp_php][download][type] = "get"
 libraries[stomp_php][download][url] = "https://github.com/dejanb/stomp-php/archive/2.1.1.zip"

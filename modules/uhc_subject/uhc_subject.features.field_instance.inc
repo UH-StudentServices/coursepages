@@ -74,13 +74,9 @@ function uhc_subject_field_default_field_instances() {
   // Exported field_instance: 'field_collection_item-field_related_content_section-field_related_content_title'
   $field_instances['field_collection_item-field_related_content_section-field_related_content_title'] = array(
     'bundle' => 'field_related_content_section',
-    'default_value' => array(
-      0 => array(
-        'value' => 'You might also be interested in',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'For example: "You might also be interested in"',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -130,6 +126,11 @@ function uhc_subject_field_default_field_instances() {
         ),
       ),
       'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -137,6 +138,8 @@ function uhc_subject_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         'size' => 60,
       ),
       'type' => 'text_textfield',
@@ -156,13 +159,9 @@ function uhc_subject_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'list_default',
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 2,
       ),
     ),
@@ -893,6 +892,7 @@ function uhc_subject_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Contact Information');
   t('Description');
+  t('For example: "You might also be interested in"');
   t('Header headline');
   t('Image');
   t('Name');

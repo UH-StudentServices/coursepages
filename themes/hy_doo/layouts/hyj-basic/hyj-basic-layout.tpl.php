@@ -18,21 +18,21 @@
       </div>
     </div>
   <?php endif; ?>
-  <div class="l-menu-bar<?php if ($page['top_bar']): ?> with-top-bar<?php endif; ?>">
-    <?php print render($page['menu_bar']); ?>
-  </div>
+  <?php if ($page['menu_bar']): ?>
+    <div class="l-menu-bar<?php if ($page['top_bar']): ?> with-top-bar<?php endif; ?>">
+      <?php print render($page['menu_bar']); ?>
+    </div>
+  <?php endif; ?>
+  <?php if ($page['navigation']): ?>
+    <div class="l-navigation">
+      <?php print render($page['navigation']); ?>
+    </div>
+  <?php endif; ?>
   <?php if ($messages): ?>
     <?php print $messages; ?>
   <?php endif; ?>
   <div class="l-main-wrapper">
     <div class="l-main">
-
-      <?php if ($page['navigation']): ?>
-        <div class="l-navigation">
-          <?php print render($page['navigation']); ?>
-        </div>
-      <?php endif; ?>
-
       <div class="l-content-wrapper">
         <?php if ($breadcrumb): ?>
           <div class="l-breadcrumb">
@@ -107,11 +107,13 @@
     </div>
   <?php endif; ?>
 
-  <footer class="l-footer" role="contentinfo">
-    <?php print render($page['footer']); ?>
+  <?php if ($page['footer']): ?>
+    <footer class="l-footer" role="contentinfo">
+      <?php print render($page['footer']); ?>
 
-    <div class="copyright">
-        <?php print '&copy; ' . t('University of Helsinki @year', array('@year' => date('Y'))); ?>
-    </div>
-  </footer>
+      <div class="copyright">
+          <?php print '&copy; ' . t('University of Helsinki @year', array('@year' => date('Y'))); ?>
+      </div>
+    </footer>
+  <?php endif; ?>
 </div>

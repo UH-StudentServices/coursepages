@@ -83,7 +83,7 @@ class PortalItemBase extends MigrateItemJSON {
         return $json->data;
       }
       else {
-        $this->uhcLogMessage($id, 'REST backend reponsded with status @status while fetching @id', array('@id' => $id, '@status' => $json->status), WATCHDOG_INFO);
+        $this->uhcLogMessage($id, 'REST backend responded with status @status while fetching @id', array('@id' => $id, '@status' => $json->status), WATCHDOG_INFO);
         return new SkippableItem();
       }
     }

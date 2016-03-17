@@ -16,7 +16,7 @@
           myEnrollment = '.my-enrollment',
           studyGroupSet = '.studygroupset',
           hasMore = $('li:not(' + studyGroupSet + '):not(' + myEnrollment + '):not(.active)', container),
-          showMoreLink = '<li class="show-more"><a href="#">' + Drupal.t('Show more...') + '</a></li>',
+          showMoreLink = '<li class="show-more last"><a href="#">' + Drupal.t('Show more...') + '</a></li>',
           showMoreText = Drupal.t('Show more...'),
           showLessText = Drupal.t('Show less...');
 

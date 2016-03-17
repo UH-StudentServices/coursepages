@@ -283,13 +283,9 @@ function uhc_page_field_default_field_instances() {
   // Exported field_instance: 'field_collection_item-field_content_collection-field_related_content_title'
   $field_instances['field_collection_item-field_content_collection-field_related_content_title'] = array(
     'bundle' => 'field_content_collection',
-    'default_value' => array(
-      0 => array(
-        'value' => 'You might also be interested in',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'For example: "You might also be interested in"',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -683,24 +679,9 @@ function uhc_page_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_view',
-        'weight' => 44,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 46,
       ),
       'sidebar' => array(
         'label' => 'hidden',
@@ -715,7 +696,7 @@ function uhc_page_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
-        'weight' => 7,
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -751,23 +732,9 @@ function uhc_page_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'field_collection_list',
-        'weight' => 43,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 36,
+        'weight' => 45,
       ),
       'sidebar' => array(
         'label' => 'hidden',
@@ -782,7 +749,7 @@ function uhc_page_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
-        'weight' => 9,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -824,25 +791,15 @@ function uhc_page_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'i18n_field',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'i18n_list_default',
-        'weight' => 39,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 40,
+        'weight' => 41,
       ),
       'sidebar' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 40,
+        'weight' => 45,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -889,16 +846,6 @@ function uhc_page_field_default_field_instances() {
         'weight' => 0,
       ),
       'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'search_block_embedded' => array(
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(
@@ -985,21 +932,9 @@ function uhc_page_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'image',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'image_link' => '',
-          'image_style' => '',
-        ),
-        'type' => 'image',
-        'weight' => 38,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 39,
+        'weight' => 40,
       ),
       'sidebar' => array(
         'label' => 'hidden',
@@ -1087,19 +1022,6 @@ function uhc_page_field_default_field_instances() {
         'type' => 'entityreference_entity_view',
         'weight' => 4,
       ),
-      'search_block_embedded' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'links' => 0,
-          'use_content_language' => 1,
-          'view_mode' => 'teaser',
-        ),
-        'type' => 'entityreference_entity_view',
-        'weight' => 5,
-      ),
       'sidebar' => array(
         'label' => 'hidden',
         'module' => 'entityreference',
@@ -1174,16 +1096,6 @@ function uhc_page_field_default_field_instances() {
         ),
         'type' => 'link_default',
         'weight' => 3,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'hidden',
-        'module' => 'link',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'link_default',
-        'weight' => 4,
       ),
       'sidebar' => array(
         'label' => 'hidden',
@@ -1261,16 +1173,6 @@ function uhc_page_field_default_field_instances() {
         ),
         'type' => 'text_plain',
         'weight' => 2,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'text_plain',
-        'weight' => 3,
       ),
       'sidebar' => array(
         'label' => 'hidden',
@@ -1362,23 +1264,9 @@ function uhc_page_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'field_collection_list',
-        'weight' => 40,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 41,
+        'weight' => 42,
       ),
       'sidebar' => array(
         'label' => 'hidden',
@@ -1389,7 +1277,7 @@ function uhc_page_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1422,6 +1310,110 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-portal_page-field_show_search_box'
+  $field_instances['node-portal_page-field_show_search_box'] = array(
+    'bundle' => 'portal_page',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Show search box on page. Section defines what search is shown.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 47,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 34,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_show_search_box',
+    'label' => 'Show search box',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-portal_page-field_show_search_filters'
+  $field_instances['node-portal_page-field_show_search_filters'] = array(
+    'bundle' => 'portal_page',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Show search filters when "show search box" is enabled.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+        ),
+        'type' => 'list_default',
+        'weight' => 48,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_show_search_filters',
+    'label' => 'Show search filters',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'node-portal_page-field_sidebar_liftups'
   $field_instances['node-portal_page-field_sidebar_liftups'] = array(
     'bundle' => 'portal_page',
@@ -1436,20 +1428,9 @@ function uhc_page_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 42,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 37,
+        'weight' => 44,
       ),
       'sidebar' => array(
         'label' => 'hidden',
@@ -1462,7 +1443,7 @@ function uhc_page_field_default_field_instances() {
           'view_mode' => 'teaser',
         ),
         'type' => 'entityreference_entity_view',
-        'weight' => 5,
+        'weight' => 6,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1520,20 +1501,9 @@ function uhc_page_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 41,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 42,
+        'weight' => 43,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1546,7 +1516,7 @@ function uhc_page_field_default_field_instances() {
           'view_mode' => 'default',
         ),
         'type' => 'entityreference_entity_view',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1611,17 +1581,7 @@ function uhc_page_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
         ),
         'type' => 'viewreference_default',
-        'weight' => 5,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'above',
-        'module' => 'viewreference',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'viewreference_default',
-        'weight' => 6,
+        'weight' => 3,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1631,7 +1591,7 @@ function uhc_page_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
         ),
         'type' => 'viewreference_default',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1679,28 +1639,15 @@ function uhc_page_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'title',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'title_class' => '',
-          'title_link' => '',
-          'title_style' => '',
-        ),
-        'type' => 'title_linked',
-        'weight' => 37,
-      ),
-      'search_block_embedded' => array(
-        'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 38,
+        'weight' => 39,
       ),
       'sidebar' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 41,
+        'weight' => 46,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -1752,6 +1699,7 @@ function uhc_page_field_default_field_instances() {
   t('Content collection');
   t('Description');
   t('Display the Open University header & footer when Open University section is chosen.');
+  t('For example: "You might also be interested in"');
   t('Image');
   t('Intro');
   t('Liftup collection');
@@ -1764,6 +1712,10 @@ function uhc_page_field_default_field_instances() {
   t('Related content title');
   t('Section');
   t('Select which pages/content you would like to promote on this page.');
+  t('Show search box');
+  t('Show search box on page. Section defines what search is shown.');
+  t('Show search filters');
+  t('Show search filters when "show search box" is enabled.');
   t('Sidebar liftups');
   t('Title');
   t('View attachment');

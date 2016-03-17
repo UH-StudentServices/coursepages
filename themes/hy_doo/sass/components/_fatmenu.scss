@@ -2,75 +2,31 @@
   background-color: $white;
   display: none;
   position: absolute;
-  left: 0;
   width: 100%;
+  padding-bottom: 1em;
   z-index: 11;
 
-  .stickynav-active & {
-    position: fixed;
+  @include at-breakpoint($layout-small) {
+    @include transition(transform 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
+    @include transform(translateY(-100%));
+    display: block;
   }
 
-  &.is-open {
+  &.collapsed {
+    @include transform(translateY(0));
     @include shadow-under;
     @include border-bottom;
   }
   
-  @include at-breakpoint($layout-small) {
-    display: block;
-  }
-
   .menu-block-wrapper {
-    // @include set-container-width;
     @include container;
-    height: 0;
-    overflow: hidden;
-    position: relative;
-
-    p.exit {
-      @include font-weight-medium;
-      @include font-size(16px);
-      color: $darkblue;
-      cursor: pointer;
-      display: none;
-      position: absolute;
-      right: 10px;
-      top: 15px;
-      text-transform: uppercase;
-
-      &:hover {
-        color: darken($darkblue, 10%);
-      }
-
-      &:before {
-        @include font-awesome("\f00d");
-        padding-right: 5px;
-      }
-    }
-  }
-
-  a {
-    @include font-weight-bold;
-    @include font-size(15px);
-    color: $blue;
-    display: block;
-    line-height: 1.25em;
-    letter-spacing: 0.01em;
-    text-decoration: none;
-    padding: ($vert-spacing-unit)/2 0 0;
   }
 
   .level-1 {
-    float: left;
-    margin-right: -100%;
-    visibility: hidden;
+    display: none;
     padding: 5px 0 10px;
-    width: 100%;
-
     &.is-open {
-      visibility: visible;
-      display: block !important;
-      margin-right: 0;
-
+      display: block;
       > a {
         display: none;
       }
@@ -85,17 +41,7 @@
 
     > .menu {
       margin: 0.5em 0 0 0;
-      padding: 0;
       position: relative;
-
-      &:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-      }
     }
 
     &.last {
@@ -103,25 +49,17 @@
     }
 
     > a {
+      @include font-weight-bold;
+      @include font-size(15px);
+      display: block;
+      line-height: 1.25em;
       color: $blue;
       letter-spacing: 0;
-      position: relative;
       text-transform: uppercase;
+      padding: ($vert-spacing-unit)/2 0 0;
 
-      &:hover {
-        color: $darkblue;
-      }
-
-      &:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-      }
-
-      &.active-trail {
+      &:hover,
+      .active-trail {
         color: $darkblue;
       }
     }
@@ -133,8 +71,8 @@
       @include font-weight-book;
       color: $gray;
       padding: ($vert-spacing-unit)/7 0 ($vert-spacing-unit)/7 0;
-      position: relative;
-      text-transform: none;
+      display: block;
+      line-height: 1.25em;
 
       &:hover,
       &.active-trail {
@@ -145,41 +83,5 @@
 
   .level-4 {
     display: none;
-  }
-}
-
-.close-fatmenu {
-  @include font-size(14px);
-  color: $blue;
-  cursor: pointer;
-  height: 100%;
-  padding: 0 0.8em;
-  position: absolute;
-  text-align: center;
-  right: -5%;
-  top: 0;
-  z-index: 11;
-  
-  @include at-breakpoint($layout-medium) {
-    right: -2%;
-  }
-
-  &:before {
-    @include font-awesome("\f00d");
-    @include transition-duration(0.1s);
-    @include transition-property(transform);
-    //@include vertically-center;
-    color: $silver;
-    left: 0;
-    width: 100%;
-  }
-
-  &:hover:before {
-    @include transform(translateY(-50%) translateZ(0) scale(1.2));
-    color: $gray;
-  }
-
-  &:hover {
-    color: $darkblue;
   }
 }

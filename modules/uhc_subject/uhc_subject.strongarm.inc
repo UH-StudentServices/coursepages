@@ -120,9 +120,6 @@ function uhc_subject_strongarm() {
       'teaser_accordion' => array(
         'custom_settings' => FALSE,
       ),
-      'search_block_embedded' => array(
-        'custom_settings' => FALSE,
-      ),
     ),
     'extra_fields' => array(
       'form' => array(

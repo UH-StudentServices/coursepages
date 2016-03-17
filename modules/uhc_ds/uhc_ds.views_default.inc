@@ -260,8 +260,7 @@ function uhc_ds_views_default_views() {
     t('Teaching schedule'),
     t('A list of repeating events (reverse entity references)'),
     t('Accessibility text'),
-    t('<p>Check out the classrooms accessibility and facilities <a href="http://www.helsinki.fi/teknos/opetustilat/index.htm">here</a> (in Finnish)</p>
-'),
+    t('<p>Check out the classrooms accessibility and facilities <a href="http://www.helsinki.fi/teknos/opetustilat/index.htm">here</a> (in Finnish)</p>'),
     t('Repeating events coming from Oodi'),
     t('These events are imported from WebOodi'),
     t('Content entity referenced from field_imp_ref_to_events_oodi'),

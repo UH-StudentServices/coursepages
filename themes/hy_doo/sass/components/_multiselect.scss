@@ -8,32 +8,17 @@
   width: 100%;
   @include at-breakpoint($layout-small) {
     width: 23%;
+    .node--sidebar & {
+      width: 31%;
+    }
   }
   h2.block__title {
-    @include transition(all 0.2s ease-in-out);
-    @include font-weight-medium;
-    @include border;
-    display: block;
-    cursor: pointer;
-    padding: 8px;
-    margin-bottom: -1px;
-    color: $blue;
-    font-size: 0.875em;
-    width: 100%;
-    &:after {
-      content: "\f0d7"; // \f0d7
-      font-family: "FontAwesome";
-      float: right;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+    @include select-header;
   }
   // Faux chosen multiselect theming
   .block__content,
   .chosen-drop {
     @include transition(max-height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
-    @include border;
-    @include shadow-under;
     z-index: 998;
     max-height: 0;
     height: 0;
@@ -100,9 +85,11 @@
     }
     .block__content,
     .chosen-drop {
+      @include border;
+      @include shadow-under;
       max-height: 320px;
       height: auto;
-      z-index: 999;
+      z-index: 10;
     }
   }
 

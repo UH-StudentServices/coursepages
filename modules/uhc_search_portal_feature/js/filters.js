@@ -151,6 +151,14 @@
       function extractPathElems(str, base_path) {
         var filter_match = /(?:\/*)([^\/]*\/[^\/]*)(?:\/*)/g;
         var matches = [];
+
+        // If current path doesn't have base_path in it, just return base_path to prevent adding the current path
+        // to matches.
+        if (str.indexOf(base_path) == -1) {
+          matches.push(base_path);
+          return matches;
+        }
+
         str = str.replace('/' + base_path, '');
         while (match = filter_match.exec(str)) {
           matches.push(match[1]);

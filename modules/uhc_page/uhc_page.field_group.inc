@@ -21,7 +21,7 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Content collections',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_content_collection',
     ),
@@ -48,7 +48,7 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Liftup collections',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_liftup_collection',
     ),
@@ -146,7 +146,9 @@ function uhc_page_field_group_info() {
       1 => 'title_field',
       2 => 'field_portal_page_image',
       3 => 'field_liftup_section',
-      4 => 'language',
+      4 => 'field_show_search_box',
+      5 => 'field_show_search_filters',
+      6 => 'language',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -171,7 +173,7 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Portal promotion',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_portal_promotions',
       1 => 'field_portal_promotions_link',
@@ -198,41 +200,6 @@ function uhc_page_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_portal_page_promotion|node|portal_page|search_block_embedded';
-  $field_group->group_name = 'group_portal_page_promotion';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'portal_page';
-  $field_group->mode = 'search_block_embedded';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Portal promotion',
-    'weight' => '2',
-    'children' => array(
-      0 => 'field_portal_promotions',
-      1 => 'field_portal_promotions_link',
-      2 => 'field_portal_promotions_title',
-    ),
-    'format_type' => 'div',
-    'format_settings' => array(
-      'label' => 'Portal promotion',
-      'instance_settings' => array(
-        'id' => '',
-        'classes' => '',
-        'description' => '',
-        'show_label' => '0',
-        'label_element' => 'h3',
-        'effect' => 'none',
-        'speed' => 'fast',
-        'show_empty_fields' => 0,
-      ),
-      'formatter' => 'open',
-    ),
-  );
-  $export['group_portal_page_promotion|node|portal_page|search_block_embedded'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
   $field_group->identifier = 'group_portal_page_promotion|node|portal_page|sidebar';
   $field_group->group_name = 'group_portal_page_promotion';
   $field_group->entity_type = 'node';
@@ -241,7 +208,7 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Portal promotion',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_portal_promotions',
       1 => 'field_portal_promotions_link',
@@ -276,12 +243,12 @@ function uhc_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Promoted content',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_portal_promotions',
       1 => 'field_view_attachment',
-      2 => 'field_portal_promotions_title',
-      3 => 'field_portal_promotions_link',
+      2 => 'field_portal_promotions_link',
+      3 => 'field_portal_promotions_title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
