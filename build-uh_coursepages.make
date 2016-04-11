@@ -75,7 +75,7 @@ projects[mb][download][url] = http://git.drupal.org/project/mb.git
 projects[mb][download][revision] = cf380cf23801c41bc6a3712b0775483ab553c920
 projects[menu_attributes][version] = "1.0-rc3"
 projects[menu_block][version] = "2.4"
-projects[migrate][version] = "2.5"
+projects[migrate][version] = "2.8"
 projects[module_filter][version] = 2.0-alpha2
 
 projects[node_edit_protection][download][type] = git
@@ -133,6 +133,7 @@ projects[timeago][version] = "2.3"
 projects[title][version] = "1.0-alpha7"
 projects[title][patch]["https://www.drupal.org/node/1772116"] = https://www.drupal.org/files/title-1772116-auto-menu-title-bug-1772116-3.patch
 projects[token][version] = "1.5"
+projects[url_alias_permissions][version] = "1.0"
 projects[variable][version] = "2.5"
 projects[varnish][version] = "1.0-beta3"
 ; FIX theme call related error on varnish admin page.
@@ -265,4 +266,4 @@ projects[uh_taxonomy_organisations][type] = module
 projects[uh_taxonomy_organisations][download][type] = git
 projects[uh_taxonomy_organisations][download][url] = "git://github.com/UH-StudentServices/uh_taxonomy_organisations.git"
 projects[uh_taxonomy_organisations][download][branch] = 7.x-1.x
-projects[uh_taxonomy_organisations][download][revision] = 868219f995dbf8b2fc1d8269cd75901278f41949
+projects[uh_taxonomy_organisations][download][revision] = 41a4c8bff50272c8a2311e481ec2f55d17d0ed65

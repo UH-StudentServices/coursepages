@@ -9,7 +9,7 @@
   ul li,
   ol li {
     @include font-family-bodytext;
-    font-size: inherit !important;
+    font-size: inherit;
   }
 }
 .field--name-field-imp-header-image {

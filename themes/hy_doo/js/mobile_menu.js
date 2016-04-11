@@ -10,6 +10,11 @@
       var selectors = ['#block-menu-menu-header-links', '.main-menu', '.course-hierarchy', '#block-system-user-menu'];
       var mobileMenuElements = [];
 
+      // if no menus are available, do nothing
+      if (!$(selectors.toString()).length) {
+        return;
+      }
+
       // get parents for selectors to store their original location
       $.each(selectors, function(key, value){
         mobileMenuElements.push({

@@ -9,10 +9,10 @@ module_load_include('inc', 'uhc_taxonomy_source', 'migrate/TaxonomyTermMigration
 
 class TaxonomyTypeOfTeachingTermMigration extends TaxonomyTermMigration {
 
-  function __construct() {
+  function __construct($arguments = array()) {
     $list_url = variable_get('uhc_taxonomy_source_taxonomy_type_of_teaching_term_source_url', '');
     $list_url = PortalMigrationBase::prependHostIfMissing($list_url);
-    parent::__construct($list_url, 'type_code', 'type_of_teaching', 'description');
+    parent::__construct($arguments, $list_url, 'code', 'type_of_teaching', 'name');
   }
 
 }

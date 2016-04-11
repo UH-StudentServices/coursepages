@@ -111,13 +111,14 @@ function uhc_tour_form_alter(&$form, &$form_state, $form_id) {
       }
 
       // Define the checkbox element
-      $form['actions']['uhc_tour_trigger'] = array(
+      $form['uhc_tour_trigger'] = array(
         '#type' => 'checkbox',
         '#title' => t('Trigger tour'),
         '#default_value' => $default_value,
         '#description' => t('Check this if you want to trigger tour for teachers about how to maintain the course page.'),
       );
       $form['#submit'][] = 'uhc_tour_submit_node_form';
+      $form['#group_children']['uhc_tour_trigger'] = 'group_tour';
     }
 
   }

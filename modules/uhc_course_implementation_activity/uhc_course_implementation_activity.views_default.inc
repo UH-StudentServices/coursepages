@@ -294,7 +294,7 @@ function uhc_course_implementation_activity_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'rss';
   $handler->display->display_options['row_plugin'] = 'rss_fields';
   $handler->display->display_options['row_options']['title_field'] = 'title_field';
-  $handler->display->display_options['row_options']['link_field'] = 'path';
+  $handler->display->display_options['row_options']['link_field'] = 'nid';
   $handler->display->display_options['row_options']['description_field'] = 'message_render';
   $handler->display->display_options['row_options']['creator_field'] = 'name';
   $handler->display->display_options['row_options']['date_field'] = 'timestamp';
@@ -303,6 +303,14 @@ function uhc_course_implementation_activity_views_default_views() {
     'guid_field_is_permalink' => 0,
   );
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['relationship'] = 'field_message_ref_to_course_imp_target_id';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = 'node/[nid]';
   /* Field: Message: Message ID */
   $handler->display->display_options['fields']['mid_1']['id'] = 'mid_1';
   $handler->display->display_options['fields']['mid_1']['table'] = 'message';
@@ -394,6 +402,8 @@ function uhc_course_implementation_activity_views_default_views() {
     t('All'),
     t('Timestamp'),
     t('Feed'),
+    t('Nid'),
+    t('node/[nid]'),
   );
   $export['rss_course_implementation_activity'] = $view;
 

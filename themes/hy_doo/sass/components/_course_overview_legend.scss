@@ -1,0 +1,52 @@
+.group-description-objectives {
+  .course-overview-source-legend {
+    text-align: center;
+    li {
+      @include font-family-main;
+      @include font-size(13px);
+      display: inline-block;
+      margin: 1em;
+      &:before {
+        content: '';
+        height: 10px;
+        width: 10px;
+        display: inline-block;
+        margin-right: 0.5em;
+      }
+    }
+    .study-object {
+      &:before {
+        background: $color-legend-study-object;
+      }
+    }
+    .course {
+      &:before {
+        background: $color-legend-course;
+      }
+    }
+  }
+
+  .label-above {
+    &.legend:after {
+      @include font-size(10px);
+      @include font-weight-medium;
+      color: $white;
+      height: 18px;
+      width: 18px;
+      line-height: 18px;
+      text-align: center;
+      vertical-align: top;
+      margin-top: 1px;
+      display: inline-block;
+      margin-left: 1em;
+    }
+    &.study-object:after {
+      content: 'K';
+      background: $color-legend-study-object;
+    }
+    &.course:after {
+      content: 'J';
+      background: $color-legend-course;
+    }
+  }
+}

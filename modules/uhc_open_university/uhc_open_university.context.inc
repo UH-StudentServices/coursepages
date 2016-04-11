@@ -93,7 +93,6 @@ function uhc_open_university_context_default_contexts() {
       'values' => array(
         'open-university' => 'open-university',
         'open-university/search' => 'open-university/search',
-        'open-university/search/*' => 'open-university/search/*',
       ),
     ),
   );

@@ -92,8 +92,6 @@ function uhc_page_field_default_field_bases() {
         'comments_recent:page' => 0,
         'course_event_references:block' => 0,
         'course_event_references:block_1' => 0,
-        'course_event_references:block_2' => 0,
-        'course_event_references_light:block' => 0,
         'course_implementation_activity:block_1' => 0,
         'course_node_references:block' => 0,
         'feedback_messages:attachment_1' => 0,

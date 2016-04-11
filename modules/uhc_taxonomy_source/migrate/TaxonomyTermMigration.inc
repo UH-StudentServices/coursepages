@@ -24,8 +24,8 @@ class TaxonomyTermMigration extends PortalMigrationBase {
     return $this->sourceLabelFieldName;
   }
 
-  function __construct($url, $id, $vocabulary, $source_label_field_name = 'name') {
-    parent::__construct();
+  function __construct($arguments = array(), $url, $id, $vocabulary, $source_label_field_name = 'name') {
+    parent::__construct($arguments);
 
     $this->description = 'Migrates terms from the REST API backend.';
     $this->map = new MigrateSQLMap(
@@ -51,7 +51,7 @@ class TaxonomyTermMigration extends PortalMigrationBase {
     $this->sourceLabelFieldName = $source_label_field_name;
 
     // Setup entity mapping
-    $this->source = new MigrateSourceJSON($url, $id, $fields, array('reader_class' => 'UHCMigrateJSONReader'));
+    $this->source = new MigrateSourceJSON($url, $id, $fields, array('reader_class' => 'UHCMigrateJSONReader', 'track_changes' => TRUE));
     
     // To enable translations to work properly we'll use TaxonomyMigrateDestinationTerm
     // which extends MigrateDestinationTerm

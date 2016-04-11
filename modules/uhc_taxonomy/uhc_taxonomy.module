@@ -20,22 +20,57 @@ function uhc_taxonomy_taxonomy_term_insert($term) {
 }
 
 /**
- * Sorts Month terms to chronological order. This is run after migrations.
+ * Sorts Month terms to chronological order. This is run after migrations. Each
+ * term is saved only if the name or the weight of the term has changed. The
+ * original name and the current name of the term differ when the migration is
+ * done using admin UI and any other UI language than English.
  */
 function uhc_taxonomy_sort_month_terms() {
-  $months = taxonomy_get_tree(10, 0, NULL, TRUE);
-  foreach ($months as $month) {
-    if (isset($month->name_original)) {
-      $month->name = $month->name_original;
+  $vocabulary = taxonomy_vocabulary_machine_name_load('months');
+  if (isset($vocabulary->vid)) {
+
+    // Load months that are inspected for sorting
+    $months = taxonomy_get_tree($vocabulary->vid, 0, NULL, TRUE);
+
+    // Loop months and set their name from original name when original name is
+    // available. Original name should be in english, because it is imported
+    // in drush having english as default language.
+    foreach ($months as $month) {
+      $month->needs_to_be_saved = FALSE;
+      if (isset($month->name_original)) {
+        if ($month->name != $month->name_original) {
+          // Month name is different from original, probably because we're
+          // calling this function from non-english interface. Therefore it
+          // needs saving as we don't want to let non-english $month->name's to
+          // be stored.
+          $month->needs_to_be_saved = TRUE;
+        }
+        $month->name = $month->name_original;
+      }
     }
-  }
-  uasort($months, function($a, $b) {
-    return strtotime($a->name) < strtotime($b->name) ? -1 : 1;
-  });
-  $count = 0;
-  foreach ($months as $month) {
-    $month->weight = $count++;
-    taxonomy_term_save($month);
+
+    // Sort months by date/time that is computed from the name (that should be
+    // in english).
+    uasort($months, function ($a, $b) {
+      return strtotime($a->name) < strtotime($b->name) ? -1 : 1;
+    });
+
+    // Loop month and detect which months deviates from original weight and if
+    // so, then tag it as needs_to_be_saved. Otherwise if the month weights
+    // matches the current sorting, then we don't tag it. Months may need saving
+    // due to weight deviation determined in the loop below or name deviation
+    // that is determined above.
+    $count = 0;
+    foreach ($months as $month) {
+      if ($month->weight != $count) {
+        $month->needs_to_be_saved = TRUE;
+      }
+      $month->weight = $count;
+      if ($month->needs_to_be_saved) {
+        taxonomy_term_save($month);
+      }
+      $count++;
+    }
   }
 }
 

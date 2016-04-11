@@ -797,3 +797,21 @@ function _uhc_course_implementation_activity_generate_section_url_param($target_
   $target_accordion_class = str_replace(' ', '-', $target_accordion_class);
   return preg_replace('/[^A-Za-z0-9\-]/', '', $target_accordion_class);
 }
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * Remove troublesome characters from RSS feed item titles. These are removed to
+ * avoid encoding issues that cause the final title to contain ugly entities.
+ */
+function uhc_course_implementation_activity_views_pre_render(&$view) {
+  if ($view->name == 'rss_course_implementation_activity' && !empty($view->result)) {
+    foreach ($view->result as &$result) {
+      if (isset($result->field_title_field[0]['raw']['value'])) {
+        $raw_value = $result->field_title_field[0]['raw']['value'];
+        $sanitized_title = str_replace("'", '', $raw_value);
+        $result->field_title_field[0]['rendered']['#markup'] = $sanitized_title;
+      }
+    }
+  }
+}

@@ -14,6 +14,12 @@
           $(this).toggleClass('is-active');
           return false;
         }).next().hide();
+
+        // edit links don't work unless we stop triggering the parent click
+        $( ".accordion-edit-link" ).click(function(e) {
+          e.stopPropagation();
+        });
+
       });
     }
   }

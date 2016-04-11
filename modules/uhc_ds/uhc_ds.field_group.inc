@@ -21,7 +21,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional information',
-    'weight' => '28',
+    'weight' => '29',
     'children' => array(),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -149,7 +149,7 @@ function uhc_ds_field_group_info() {
       'label' => 'Tasks',
       'instance_settings' => array(
         'classes' => 'group-course-task-material field-group-accordion-item',
-        'show_empty_fields' => 0,
+        'show_empty_fields' => 1,
       ),
       'formatter' => 'closed',
     ),
@@ -167,7 +167,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course overview',
-    'weight' => '27',
+    'weight' => '28',
     'children' => array(
       0 => 'uhc_ds_additional_info',
       1 => 'uhc_ds_req_prerequisites',
@@ -215,6 +215,7 @@ function uhc_ds_field_group_info() {
       'label' => 'Material',
       'instance_settings' => array(
         'classes' => 'group-imp-material field-group-accordion-item',
+        'show_empty_fields' => 1,
       ),
       'formatter' => 'closed',
     ),
@@ -271,7 +272,7 @@ function uhc_ds_field_group_info() {
     'children' => array(
       0 => 'field_imp_timetable_additional',
       1 => 'event_reference_block',
-      2 => 'repeating_event_reference_block',
+      2 => 'uhc_event_teaching_schedule',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(

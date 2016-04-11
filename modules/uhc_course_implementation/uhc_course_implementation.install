@@ -371,3 +371,75 @@ function uhc_course_implementation_update_7008() {
   // Clear field caches
   field_cache_clear();
 }
+
+/**
+ * Add plain_text as input format for course implementation text areas
+ */
+function uhc_course_implementation_update_7009(&$sandbox) {
+  $fields = array(
+    'comment_body',
+    'field_course_task_description',
+    'field_default_header_image_capti',
+    'field_imp_header_image_caption',
+    'field_imp_header_headline',
+    'field_field_imp_header_intro_tex',
+    'field_imp_header_text',
+    'field_imp_interactiondescription',
+    'field_imp_timetable_additional',
+    'field_imp_material_description',
+    'field_video_description',
+    'field_feedback_description',
+    'field_imp_teacher_se_content',
+    'field_imp_teachersection_content'
+  );
+
+  foreach ($fields as $field) {
+    $tables = array(
+     'field_data_' . $field,
+     'field_revision_' . $field
+    );
+
+    foreach($tables as $table) {
+      db_update($table)
+        ->fields(array($field . '_format' => 'plain_text'))
+        ->execute();
+    }
+  }
+
+  field_cache_clear();
+}
+
+/**
+ * Delete all oodi event nodes and delete reference field.
+ */
+function uhc_course_implementation_update_7010(&$sandbox) {
+  // Delete all nodes that are referenced by field_imp_ref_to_events_oodi
+  $query = db_select('field_data_field_imp_ref_to_events_oodi', 'eo')
+    ->fields('eo', array('field_imp_ref_to_events_oodi_target_id'))
+    ->execute();
+  while ($item = $query->fetchAssoc()) {
+    node_delete($item['field_imp_ref_to_events_oodi_target_id']);
+  }
+
+  // Delete field itself
+  field_delete_field('field_imp_ref_to_events_oodi');
+  field_cache_clear();
+}
+
+/**
+ * Remove default values from field additional info to make translations work
+ */
+function uhc_course_implementation_update_7011(&$sandbox) {
+  $tables = array(
+    'field_data_field_imp_timetable_additional',
+    'field_revision_field_imp_timetable_additional'
+  );
+
+  $default_value = 'Here is the course’s teaching schedule. Check the course overview for possible other schedules.';
+
+  foreach ($tables as $table) {
+    db_delete($table)
+      ->condition('field_imp_timetable_additional_value', $default_value)
+      ->execute();
+  }
+}

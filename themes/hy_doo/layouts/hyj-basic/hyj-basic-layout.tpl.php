@@ -5,11 +5,6 @@
  * @see README.md how to contribute to this project
  */
 ?>
-<?php if ($tabs): ?>
-  <div class="tabs-wrapper">
-    <?php print render($tabs); ?>
-  </div>
-<?php endif; ?>
 <div class="l-page">
   <?php if ($page['top_bar']): ?>
     <div class="l-top-bar-wrapper">
@@ -26,6 +21,11 @@
   <?php if ($page['navigation']): ?>
     <div class="l-navigation">
       <?php print render($page['navigation']); ?>
+    </div>
+  <?php endif; ?>
+  <?php if ($tabs): ?>
+    <div class="tabs-wrapper">
+      <?php print render($tabs); ?>
     </div>
   <?php endif; ?>
   <?php if ($messages): ?>

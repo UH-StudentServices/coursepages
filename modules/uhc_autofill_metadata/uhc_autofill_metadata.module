@@ -230,7 +230,7 @@ function _uhc_autofill_metadata_prefill(&$form, $field, $value) {
   if (isset($form[$field])) {
     $lang = $form[$field]['#language'];
     $column = $form[$field][$lang][0]['#columns'][0];
-    if (!$form[$field][$lang][0][$column]['#default_value']) {
+    if (!isset($form[$field][$lang][0][$column]['#default_value'])) {
       $form[$field][$lang][0][$column]['#default_value'] = $value;
     }
   }

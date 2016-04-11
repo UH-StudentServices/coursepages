@@ -1,3 +1,69 @@
+# Helsinki University Coursepages v1.63
+Päiväys: 08.04.2016
+
+## Lisäykset
+  - DOO-2057: Toteutuksen katselunäkymään lisätty haamuakkordiot.
+  - DOO-2017: Lisätty toteutusten muokkausnäkymän syöttökenttiin placeholder-tekstejä.
+  - DOO-2000: Lisättiin sisäänkirjautuneille kurssiesitteeseen tieto tuleeko kentät jaksolta vai toteutukselta.
+
+## Muutokset
+  - DOO-2045: Muutettiin palaute-painike pienemmäksi mobiilinäkymässä.
+  - DOO-2112: Muokkausnäkymän Moodle-osiota järjestelty konseptinmukaiseksi.
+  - DOO-2111: Kasvatettiin Moodle-alueen luomisoperaation aikakatkaisuaikaa.
+
+## Korjaukset
+  - DOO-2084: Tekninen: Herjojen siivousta sovelluksen lokeilta.
+  - DOO-2029: Kurssin aktiviteettisyötteen viilauksia (otsikko, linkit).
+  - DOO-2123: lisättiin editor-roolille oikeus url aliasten muokkausoikeukseen portal- ja subject nodeissa.
+    Poistettiin administratorilta oikeus muuttaa jakso ja toteutus nodejen url aliakset.
+  - DOO-2121: Aikataulun lisätietojen oletusarvon käännös korjattu.
+  - DOO-2122: Aikatauluhaitari näkyi vaikka aikatauluja ei ollut.
+  - DOO-2141: Korjattiin sisältölomakkeen navigaatiovalikon hajoaminen mobiilinäkymässä materiaalia lisättäessä.
+  - DOO-2120: Korjattu ongelma, jossa Moodle-integraation virhevastaus
+    saattoi rikkoa muokkausnäkymän asettelun.
+  - DOO-2119: Korjattiin organisaatioiden hierarkia ongelmat lisäämällä orvoksi
+    jääneiden termien siivoaminen ja niiden kurssien päivittäminen sekä
+    hierarkia tieto perustuu nyt organisaatio koodeihin
+  - DOO-2154: Korjattiin ongelma, jossa ei voinut lähettää vietiä kurssiin
+
+
+# Helsinki University Coursepages v1.62
+Päiväys: 07.04.2016
+
+## Lisäykset
+  - DOO-2031: Tehtiin jaksojen ja toteutusten sisäänlukulogiikkaan lisäys: Jos
+    otsikolta puuttuu jonkin kielen arvo, käytetään toisen kielen otsikkoa
+    annetussa kielijärjestyksessä, jota ylläpidetään Drupalin kieliasetuksissa.
+  - DOO-2060: Toteutuksen katselunäkymään on lisätty accordioihin muokkauslinkit.
+  - DOO-908:  Lisättiin kaikkiin hakuihin analytiikkatoiminnot (oli ainoastaan genetiikan haussa).
+  - DOO-2014: Lisättiin sisältölomakkeiden alalaidan nappiriviin erotinviiva.
+
+## Muutokset
+  - DOO-2034: Muutettiin oppiainesivun rajaustyökalujen järjestys.
+  - DOO-2037: Tekstikentissä URL:t näytetään aina linkkeinä.
+  - DOO-1955: Wysiwyg otettu pois käytöstä kaikista opettajille tarkoitetuista tekstikentistä.
+  - DOO-2052: Suorituskykyoptimointia kuukausitermien tallentamiseen
+    toteutusten tuonnin yhteydessä (tallennetaan vain tarvittaessa).
+  - DOO-2013: Sisältölomakkeiden ohjetekstit näytetään osoittamalla hiirellä "infopalloa"
+  - DOO-1834: Tiedekunnat suodatus aakkosjärjestykseen
+  - DOO-2021: Esteettömyystietoteksti on kokonaisuudessaan klikattava linkki.
+  - DOO-2003: Jakso pois murupolusta. Toteutuksen metatiedoissa jakson id muutettu linkiksi.
+  - DOO-2092: Muokkausnäkymän kuvauskenttien tyyli muutettu konseptin mukaiseksi.
+  - DOO-2066: Otettiin käyttöön tehokkaampi muuttuneen sisällön tunnistaminen
+    sisältöjen tuonnissa (suorituskykyoptimointia).
+  - DOO-2091: Murupolku poistettu muokkausnäkymästä.
+  - DOO-1585: Huoltokatko- ja virhesivut muutettu konseptin mukaiseksi.
+  - DOO-2090: Muokkausvalikko siirretty päävalikon jälkeen ja lisätty sticky-ominaisuus.
+  - DOO-2012: Muutettiin lomakkeiden nappien ulkoasu konseptin mukaiseksi.
+  - DOO-2126: Otettiin käyttöön integraation v0.1.15 uudet nimimuutokset
+  - DOO-2132: Otettiin käyttöön integraation v0.1.16 uusi päiväysformaatti
+  - DOO-2053: Optimoitiin Oodi tapahtumien käsittelyä
+
+## Korjaukset
+  - DOO-2084: Tekninen: Herjojen siivousta sovelluksen lokeilta.
+  - DOO-2029: Kurssin aktiviteettisyötteen viilauksia (otsikko, linkit).
+
+
 # Helsinki University Coursepages v1.61
 Päiväys: 17.03.2016
 

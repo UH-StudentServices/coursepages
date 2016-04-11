@@ -98,27 +98,6 @@ function _uhc_content_administration_feature_set_frontpage_if_requested($node, $
 }
 
 /**
- * Implements hook_views_pre_render().
- *
- * In DOO-706 we have added system message from view to let editors know that
- * the information is out of their control. However, Views does not allow to
- * control when to show certain handler areas, so we need to implement this hook
- * to control it from code.
- */
-function uhc_content_administration_feature_views_pre_render(&$view) {
-  if ($view->name == 'course_event_references' && $view->current_display == 'block_2') {
-    /*
-     * Render course event references' block_2 without system message header
-     * handler area, when user does not belong to staff. The view/display is
-     * defined by uhc_event module.
-     */
-    if (!uh_coursepages_has_staff_role()) {
-      unset($view->header['system_message']);
-    }
-  }
-}
-
-/**
  * Implements hook_form_alter().
  *
  * Attach an generic "actions" JS file which modifies some elements using jQuery

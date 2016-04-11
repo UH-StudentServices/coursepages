@@ -298,16 +298,6 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view event_reference__light_view_blok on node'.
-  $permissions['view event_reference__light_view_blok on node'] = array(
-    'name' => 'view event_reference__light_view_blok on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view event_reference_block on node'.
   $permissions['view event_reference_block on node'] = array(
     'name' => 'view event_reference_block on node',
@@ -427,16 +417,6 @@ function uhc_ds_user_default_permissions() {
     'name' => 'view post_date on node',
     'roles' => array(
       'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
-  // Exported permission: 'view repeating_event_reference_block on node'.
-  $permissions['view repeating_event_reference_block on node'] = array(
-    'name' => 'view repeating_event_reference_block on node',
-    'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
     ),
@@ -629,6 +609,16 @@ function uhc_ds_user_default_permissions() {
   // Exported permission: 'view uhc_ds_target_group on node'.
   $permissions['view uhc_ds_target_group on node'] = array(
     'name' => 'view uhc_ds_target_group on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_event_teaching_schedule on node'.
+  $permissions['view uhc_event_teaching_schedule on node'] = array(
+    'name' => 'view uhc_event_teaching_schedule on node',
     'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',

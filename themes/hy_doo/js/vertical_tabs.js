@@ -6,38 +6,40 @@
 (function ($) {
   Drupal.behaviors.hy_doo_vertical_tabs = {
     attach: function (context) {
-      var header = '.vertical-tabs-header';
-      var list = '.vertical-tabs-list';
 
-      $(list).once('vertical_tabs', function () {
+      $('.vertical-tabs-list').once('vertical_tabs', function () {
+        var list = this;
 
         // add header
-        $(this).before('<div class="vertical-tabs-header"></div>');
-        update_header();
+        var header = $(list).before('<div class="vertical-tabs-header"></div>').siblings('.vertical-tabs-header');
+        update_header(list, header);
 
         // open menu when clicking header
         $(header).click(function(){
-          $(list + ',' + header).toggleClass('collapsed');
+          $(header).toggleClass('collapsed');
+          $(list).toggleClass('collapsed');
         });
-
         // update header and close menu when clicking an item
         $('.vertical-tab-button a', list).click(function(){
-          update_header();
+          update_header(list, header);
           if ($(list).hasClass('collapsed')) {
-            $(list + ',' + header).removeClass('collapsed');
+            $(header).removeClass('collapsed');
+            $(list).removeClass('collapsed');
           }
         });
       });
 
-      // close when clicking outside menu
+      // close any open vertical tabs when clicking outside menu
       $(document).click(function(event) {
+        var header = '.vertical-tabs-header';
+        var list = '.vertical-tabs-list';
         if (!$(event.target).closest(header).length && $(header).next(list).hasClass('collapsed')) {
           $(list + ',' + header).removeClass('collapsed');
         }
       });
 
       // update header with selected tab
-      function update_header() {
+      function update_header(list, header) {
         var selected = $('.selected strong', list).text();
         $(header).text(selected);
       }

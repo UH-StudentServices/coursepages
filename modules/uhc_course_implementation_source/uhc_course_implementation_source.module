@@ -37,7 +37,7 @@ function uhc_course_implementation_source_import($course_imp_id) {
   $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
 
   /** @var $migration CourseImplementationNodeMigration */
-  $migration = Migration::getInstance('CourseImplementationNode', 'CourseImplementationNodeMigration', array('predefined_ids' => $course_imp_id, 'predefined_item' => $item_url));
+  $migration = new CourseImplementationNodeMigration(array('predefined_ids' => $course_imp_id, 'predefined_item' => $item_url));
   $migration->prepareUpdate();
   $result = $migration->processImport();
   if ($result == Migration::RESULT_COMPLETED) {
@@ -106,10 +106,12 @@ function _uhc_course_implementation_source_add_deleted_items_to_queue($queue_nam
   $list_url = variable_get('uhc_course_implementation_source_list_url', '');
   $list_url = PortalMigrationBase::prependHostIfMissing($list_url);
 
-  // Replace :since_date parameter in URL
+  // Replace :since_date parameter in URL. Our timestamps are in local time, but
+  // requests must be converted to Zulu time.
   $last_requested = new DateTime();
   $last_requested->setTimestamp(variable_get('uhc_course_implementation_source_deleted_last_requested', strtotime('-1 month', REQUEST_TIME)));
-  $list_url = str_replace(':since_date', $last_requested->format('dmYHis'), $list_url);
+  $last_requested->setTimezone(new DateTimeZone('Etc/Zulu'));
+  $list_url = str_replace(':since_date', $last_requested->format('Y-m-d\TH:i:s\.000\Z'), $list_url);
 
   // Get changed items and filter deleted ids from it and put them to delete
   // queue.

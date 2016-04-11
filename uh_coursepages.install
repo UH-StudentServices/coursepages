@@ -986,3 +986,26 @@ function uh_coursepages_update_7016(&$sandbox) {
   // rebuild menu to get new home link title
   menu_rebuild();
 }
+
+/**
+ * Disable UHC Event Source module.
+ */
+function uh_coursepages_update_7017(&$sandbox) {
+  module_disable(array('uhc_event_source'));
+}
+
+/**
+ * Enable url alias permissions because we want to
+ * deny editing of course and implementation aliases.
+ */
+function uh_coursepages_update_7018(&$sandbox) {
+  module_enable(array('url_alias_permissions'));
+}
+
+/**
+ * Enable perform_post_cleanup on organisation migration.
+ */
+function uh_coursepages_update_7019(&$sandbox) {
+  $arguments = array('perform_post_cleanup' => TRUE);
+  db_update('migrate_status')->fields(array('arguments' => serialize($arguments)))->condition('machine_name', 'OrganisationsUniversityHelsinkiTaxonomy')->execute();
+}

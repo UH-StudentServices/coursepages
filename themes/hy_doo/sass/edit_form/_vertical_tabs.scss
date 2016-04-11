@@ -1,56 +1,61 @@
-.vertical-tabs {
-  position: relative;
-}
-
-.vertical-tabs-header {
-  @include select-header;
-  @include at-breakpoint($layout-small) {
-    display: none;
+.node-form {
+  .vertical-tabs {
+    position: relative;
   }
-}
 
-.vertical-tabs-list {
-  @include at-breakpoint($layout-mobile-only) {
-    @include dropdown-menu(none, 'left');
-    top: 50px;
-    li {
-      @include dropdown-list-item;
-      strong {
-        @include font-weight-book;
-      }
+  .vertical-tabs-header {
+    @include select-header;
+    @include at-breakpoint($layout-small) {
+      display: none;
     }
   }
 
-  .summary {
-    display: none;
-  }
-
-  .selected a {
-    color: $darkblue;
-  }
-
-  @include at-breakpoint($layout-small) {
-    li {
-      @include border;
-      border-bottom: none;
-      outline: none;
-      a  {
-        text-transform: uppercase;
-        padding: 1em 2em;
-        display: block;
+  .vertical-tabs-list {
+    @include at-breakpoint($layout-mobile-only) {
+      @include dropdown-menu(none, 'left');
+      top: 50px;
+      li {
+        @include dropdown-list-item;
+        strong {
+          @include font-weight-book;
+        }
       }
-      &.selected {
-        @include box-shadow(-7px 0px 20px -3px $lightsilver);
-        border-right: none;
-      }
-      &.last {
-        border-bottom: 1px solid $lightsilver;
+    }
+
+    .summary {
+      display: none;
+    }
+
+    .selected a {
+      color: $darkblue;
+    }
+
+    @include at-breakpoint($layout-small) {
+      li {
+        @include border;
+        border-bottom: none;
+        outline: none;
+        a  {
+          text-transform: uppercase;
+          padding: 1em 2em;
+          display: block;
+        }
+        &.selected {
+          @include box-shadow(-7px 0px 20px -3px $lightsilver);
+          border-right: none;
+        }
+        &.last {
+          border-bottom: 1px solid $lightsilver;
+        }
       }
     }
   }
-}
-.vertical-tabs-pane {
-  > legend {
-    @include font-size(32px);
+  .vertical-tabs-pane {
+    @include at-breakpoint($layout-mobile-only) {
+      margin: 1em;
+    }
+    > legend {
+      @include font-size(32px);
+    }
   }
 }

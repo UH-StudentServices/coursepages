@@ -45,7 +45,6 @@ function uhc_course_implementation_field_widget_form_alter(&$element, &$form_sta
 function uhc_course_implementation_preprocess_link_field(&$link) {
   if (!empty($link['element']['#field_name']) &&
   $link['element']['#field_name'] == 'field_imp_interaction_link') {
-    unset($link['element']['title']['#description']);
     $link['element']['title']['#title'] = t('Name');
   }
 }
@@ -138,7 +137,7 @@ function uhc_course_implementation_field_group_build_pre_render_alter(&$element)
   if (isset($element['group_timetable']['#prefix']) && empty($element['field_imp_timetable_additional'][0]['#markup'])) {
     $element['group_timetable']['#prefix'] .= '<p class="bar bar--small">' . t('Here is the course’s teaching schedule. Check the course overview for possible other schedules.') . '</p>';
   }
-  if (isset($element['group_course_task_material']['#prefix'])) {
+  if (isset($element['group_course_task_material']['#prefix']) && !empty($element['field_reference_to_course_tasks'])) {
     $element['group_course_task_material']['#prefix'] .= '<p class="bar bar--small">' . t('In this section you can find the course tasks.') . '</p>';
   }
 
@@ -153,7 +152,43 @@ function uhc_course_implementation_field_group_build_pre_render_alter(&$element)
       ),
     );
 
+    $source_legend = array(
+      'attributes' => array(
+        'class' => 'course-overview-source-legend tube',
+      ),
+      'items' => array(
+        1 => array(
+          'data' => t("study object's information"),
+          'class' => 'study-object',
+        ),
+        2 => array(
+          'data' => t("course's information"),
+          'class' => 'course',
+        ),
+      ),
+    );
+
     $element['group_description_objectives']['#prefix'] .= theme('item_list', $messages);
+    $element['group_description_objectives']['#prefix'] .= theme('item_list', $source_legend);
+  }
+}
+
+/**
+ * Implements hook_field_group_pre_render_alter().
+ * Change custom section label. prefix markup mimics the one produced by
+ * field_group_pre_render_accordion_item().
+ */
+function uhc_course_implementation_field_group_pre_render_alter(&$element, $group, &$form) {
+  $fid = isset($element['field_imp_teachersection']['#items'][0]['value']) ? $element['field_imp_teachersection']['#items'][0]['value'] : NULL;
+
+  if ($group->group_name == 'group_manual_content' && $fid) {
+    // let's fetch the label
+    $field_collection = field_collection_item_load($fid);
+    $label_field = field_get_items('field_collection_item', $field_collection, 'field_imp_teachersection_label');
+    $label = field_view_value('field_collection_item', $field_collection, 'field_imp_teachersection_label', $label_field[0]);
+
+    // We need to reconstruct the whole prefix in order to change the label
+    $element['#prefix'] = '<h3 class="field-group-format-toggler ' . $group->format_type . ($group->collapsed ? '' : ' field-group-accordion-active') . '"><a href="#">' . render($label) . '</a></h3><div class="field-group-format-wrapper ' . $group->classes . '">';
   }
 }
 
@@ -494,7 +529,7 @@ function uhc_course_implementation_process_sign_up_button_url(&$vars, $node) {
       }
     }
     elseif (uhc_sources_is_from_organisation($node, 'H930') === TRUE) {
-      $id = field_get_items('node', $node, 'field_imp_id')[0]['value'];
+      $id = _uhc_sources_resolve_course_imp($node->nid);
       $url = 'https://www.avoin.helsinki.fi/palvelut/esittely.aspx?o=' . $id;
       global $language;
       if ($language->language != 'fi') {
@@ -670,4 +705,40 @@ function uhc_course_implementation_field_formatter_view($entity_type, $entity, $
     }
   }
   return $element;
+}
+
+/**
+ * Implements hook_taxonomy_term_delete().
+ *
+ * Respond to term deletion by putting course implementations to post update
+ * queue that refers to deletable term.
+ */
+function uhc_course_implementation_taxonomy_term_delete($term) {
+  $organisation_vocabulary = taxonomy_vocabulary_machine_name_load('organisations_of_university_of_helsinki');
+  if (!empty($organisation_vocabulary->vid) && $term->vid == $organisation_vocabulary->vid) {
+
+    /** @var DrupalReliableQueueInterface $queue */
+    $queue = DrupalQueue::get('uhc_sources_postupdate_handling', TRUE);
+
+    // Find nodes that refers to this deletable node
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node');
+    $query->entityCondition('bundle', 'course_implementation');
+    $query->fieldCondition('field_imp_organisation', 'tid', $term->tid);
+    $result = $query->execute();
+    if (!empty($result['node'])) {
+      foreach ($result['node'] as $item) {
+        // For each found node, we need to resolve its course id for the post
+        // update queue (it supports course ids, no nids).
+        $id = _uhc_sources_resolve_course_imp($item->nid);
+        if ($id) {
+          $item = array(
+            'type' => 'courseunitrealisation',
+            'id' => $id,
+          );
+          $queue->createItem($item);
+        }
+      }
+    }
+  }
 }

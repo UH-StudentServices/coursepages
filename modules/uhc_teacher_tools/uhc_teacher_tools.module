@@ -181,7 +181,7 @@ function _uhc_teacher_tools_demo_course_page_callback() {
  * Access callback for teacher menu local task edit links
  */
 function _uhc_teacher_tools_menu_edit_links_access_callback($node) {
-  return ($node->type == 'course_implementation')
+  return isset($node) && ($node->type == 'course_implementation')
     && (user_access('access administration pages') || uhc_course_collaboration_is_current_user_course_teacher($node) || uhc_course_collaboration_is_current_user_course_administrator($node));
 }
 
@@ -280,6 +280,7 @@ function uhc_teacher_tools_form_node_form_alter(&$form, &$form_state, $form_id) 
   $form['actions']['submit']['#value'] = t('Save & Close');
   $form['actions']['submit2']['#weight'] = 6;
   $form['actions']['submit2']['#submit'][] = 'uhc_teacher_tools_save_and_continue';
+  $form['actions']['cancel']['#value'] = t('Cancel') . '  ×';
 }
 
 /**
@@ -290,6 +291,38 @@ function uhc_teacher_tools_form_course_implementation_node_form_alter(&$form, &$
   if(!$form_state['rebuild']) {
     uhc_teacher_tools_display_editing_message();
   }
+
+  // link field placeholders work only if set in after build
+  $form['#after_build'][] = 'uhc_teacher_tools_form_placeholders';
+}
+
+/*
+ * After build function for course implementation node form for adding placeholders.
+ */
+function uhc_teacher_tools_form_placeholders(&$form, &$form_state) {
+  $prefix = t('e.g.') . ' ';
+
+  $text_fields = array(
+    'field_moodle_key' => t('132143F'),
+    'field_video_embed_url' => t('https://youtu.be/rU232NPDVtQ'),
+  );
+
+  foreach ($text_fields as $field => $placeholder) {
+    $form[$field][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = $prefix . $placeholder;
+  }
+
+  $link_fields = array(
+    'field_moodle_url' => t(' https://moodle.helsinki.fi/course/view.php?id=754'),
+    'field_feedback_link' => t('http://example.com'),
+    'field_video_link' => t('https://youtu.be/rU232NPDVtQ'),
+    'field_imp_interaction_link' => t('http://example.com'),
+  );
+
+  foreach ($link_fields as $field => $placeholder) {
+    $form[$field][LANGUAGE_NONE][0]['url']['#attributes']['placeholder'] = $prefix . $placeholder;
+  }
+
+  return $form;
 }
 
 function uhc_teacher_tools_display_editing_message() {
@@ -325,5 +358,70 @@ function uhc_teacher_tools_save_and_continue($form, &$form_state) {
         'section' => $active_tab,
       ),
     );
+  }
+}
+
+/**
+ * Implements hook_field_group_pre_render_alter().
+ * In field display settings, accordions are visible even if they are empty.
+ * For anonymous users we hide them. If user has access to edit mode, add
+ * direct links to edit mode tabs for each accordion, and if accordion has
+ * no content, create a ghost accordion.
+ */
+function uhc_teacher_tools_field_group_pre_render_alter(&$element, $group, &$form) {
+  $node = menu_get_object();
+  if (is_null($node)) {
+    // Disregard if we're not rendering this group in node page
+    return;
+  }
+  $access = _uhc_teacher_tools_menu_edit_links_access_callback($node);
+
+  // no edit links for the accordions that are not editable
+  $no_edit = in_array($group->group_name, array('group_imp_fee', 'group_course_messages', 'group_description_objectives'));
+
+  if ($group->format_type == 'accordion-item' && !$no_edit && node_is_page($node)) {
+
+    // check if accordion has any content
+    $empty = TRUE;
+    foreach($element as $field) {
+      if (is_array($field) && !empty($field)) {
+        $empty = FALSE;
+        break;
+      }
+    }
+
+    // if no access and no content, then hide accordion
+    if (!$access && $empty) {
+      $element = array();
+      return;
+    }
+
+    if ($access) {
+      // create ghost accordion if no content
+      if ($empty) {
+        if ($group->group_name == 'group_manual_content') {
+          $label = '<i>' . check_plain(t($group->label)) . '</i>';
+        }
+        else {
+          $label = check_plain(t($group->label));
+        }
+
+        $element['#prefix'] = '<h3 class="ghost-accordion">' . $label . '</h3>';
+        $element['#suffix'] = '';
+      }
+
+      // construct edit link
+      $url = '/node/' . $node->nid . '/edit';
+      $param = 'edit-' . $group->group_name;
+      $attributes = array(
+        'attributes' => array('class' => 'accordion-edit-link'),
+        'query' => array('section' => $param),
+      );
+      $link = l('', $url, $attributes);
+
+      // place link at the end of accordion title
+      $position = strpos($element['#prefix'], '</h3>');
+      $element['#prefix'] = substr_replace($element['#prefix'], $link, $position, 0);
+    }
   }
 }

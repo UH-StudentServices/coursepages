@@ -113,18 +113,22 @@ function uhc_wysiwyg_filter_default_formats() {
     ),
   );
 
-  // Exported format: Plain text.
+  // Exported format: Plain text (almost).
   $formats['plain_text'] = array(
     'format' => 'plain_text',
-    'name' => 'Plain text',
+    'name' => 'Plain text (almost)',
     'cache' => 1,
     'status' => 1,
     'weight' => 10,
     'filters' => array(
-      'filter_html_escape' => array(
-        'weight' => 0,
+      'filter_html' => array(
+        'weight' => -10,
         'status' => 1,
-        'settings' => array(),
+        'settings' => array(
+          'allowed_html' => '<a>',
+          'filter_html_help' => 1,
+          'filter_html_nofollow' => 0,
+        ),
       ),
       'filter_url' => array(
         'weight' => 1,

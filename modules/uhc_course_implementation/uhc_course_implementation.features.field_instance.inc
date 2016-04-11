@@ -25,7 +25,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
         ),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'ds_extras_field_template' => '',
@@ -34,11 +34,42 @@ function uhc_course_implementation_field_default_field_instances() {
     'label' => 'Content',
     'required' => 0,
     'settings' => array(
-      'context' => 'debug',
-      'context_default' => 'sdl_editor_representation',
-      'dnd_enabled' => 0,
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'embed_code' => array(
+              'weight' => 1,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'entity_translation_sync' => FALSE,
-      'mee_enabled' => 0,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -46,6 +77,10 @@ function uhc_course_implementation_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_truncate_html' => 0,
         'rows' => 5,
       ),
       'type' => 'text_textarea',
@@ -62,13 +97,9 @@ function uhc_course_implementation_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'text_plain',
-        'weight' => 0,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
       ),
     ),
     'ds_extras_field_template' => '',
@@ -161,7 +192,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 16,
+      'weight' => 17,
     ),
   );
 
@@ -233,7 +264,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 49,
+      'weight' => 50,
     ),
   );
 
@@ -500,13 +531,13 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'embed_code' => 'embed_code',
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
           'plain_text' => 'plain_text',
         ),
-        'allowed_formats_toggle' => 0,
+        'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
@@ -534,7 +565,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'enable' => 0,
         'profile' => '',
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -639,7 +670,7 @@ function uhc_course_implementation_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -699,13 +730,13 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'embed_code' => 'embed_code',
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
           'plain_text' => 'plain_text',
         ),
-        'allowed_formats_toggle' => 0,
+        'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
@@ -733,7 +764,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'enable' => 0,
         'profile' => '',
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -766,13 +797,8 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 93,
       ),
       'sidebar' => array(
@@ -818,7 +844,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 55,
+      'weight' => 54,
     ),
   );
 
@@ -837,13 +863,8 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 92,
       ),
       'sidebar' => array(
@@ -908,12 +929,8 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'text_default',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 89,
       ),
       'sidebar' => array(
@@ -995,7 +1012,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 51,
+      'weight' => 52,
     ),
   );
 
@@ -1090,7 +1107,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 37,
+      'weight' => 38,
     ),
   );
 
@@ -1319,7 +1336,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 43,
+      'weight' => 44,
     ),
   );
 
@@ -1463,7 +1480,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 33,
+      'weight' => 34,
     ),
   );
 
@@ -1535,7 +1552,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 34,
+      'weight' => 35,
     ),
   );
 
@@ -1637,7 +1654,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 47,
+      'weight' => 48,
     ),
   );
 
@@ -1779,7 +1796,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 41,
+      'weight' => 42,
     ),
   );
 
@@ -1839,13 +1856,13 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'embed_code' => 'embed_code',
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
           'plain_text' => 'plain_text',
         ),
-        'allowed_formats_toggle' => 0,
+        'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
@@ -1868,13 +1885,20 @@ function uhc_course_implementation_field_default_field_instances() {
         ),
       ),
       'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         'size' => 60,
       ),
       'type' => 'text_textfield',
@@ -2038,13 +2062,13 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'embed_code' => 'embed_code',
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
           'plain_text' => 'plain_text',
         ),
-        'allowed_formats_toggle' => 0,
+        'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
@@ -2072,13 +2096,15 @@ function uhc_course_implementation_field_default_field_instances() {
         'enable' => 0,
         'profile' => '',
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         'size' => 60,
       ),
       'type' => 'text_textfield',
@@ -2142,13 +2168,13 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'embed_code' => 'embed_code',
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
           'plain_text' => 'plain_text',
         ),
-        'allowed_formats_toggle' => 0,
+        'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
@@ -2171,6 +2197,11 @@ function uhc_course_implementation_field_default_field_instances() {
         ),
       ),
       'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -2178,6 +2209,10 @@ function uhc_course_implementation_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_truncate_html' => 0,
         'rows' => 3,
       ),
       'type' => 'text_textarea',
@@ -2468,13 +2503,13 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'embed_code' => 'embed_code',
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
           'plain_text' => 'plain_text',
         ),
-        'allowed_formats_toggle' => 0,
+        'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
@@ -2502,7 +2537,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'enable' => 0,
         'profile' => '',
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2611,7 +2646,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 48,
+      'weight' => 49,
     ),
   );
 
@@ -2683,7 +2718,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 39,
+      'weight' => 40,
     ),
   );
 
@@ -2741,11 +2776,42 @@ function uhc_course_implementation_field_default_field_instances() {
     'label' => 'Material description',
     'required' => 0,
     'settings' => array(
-      'context' => 'debug',
-      'context_default' => 'sdl_editor_representation',
-      'dnd_enabled' => 0,
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'embed_code' => array(
+              'weight' => 1,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'entity_translation_sync' => FALSE,
-      'mee_enabled' => 0,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -2753,6 +2819,10 @@ function uhc_course_implementation_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_truncate_html' => 0,
         'rows' => 5,
       ),
       'type' => 'text_textarea',
@@ -2888,80 +2958,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 44,
-    ),
-  );
-
-  // Exported field_instance: 'node-course_implementation-field_imp_ref_to_events_oodi'
-  $field_instances['node-course_implementation-field_imp_ref_to_events_oodi'] = array(
-    'bundle' => 'course_implementation',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'These events are automatically synchronized from Oodi. Do not bother changing these.',
-    'display' => array(
-      'content_suffix' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 80,
-      ),
-      'sidebar' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 41,
-      ),
-      'teaser_accordion' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 48,
-      ),
-      'teaser_images' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_imp_ref_to_events_oodi',
-    'label' => 'Events from Oodi',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'inline_entity_form',
-      'settings' => array(
-        'fields' => array(),
-        'type_settings' => array(
-          'allow_existing' => 0,
-          'allow_new' => 0,
-          'delete_references' => 0,
-          'label_plural' => 'events',
-          'label_singular' => 'event',
-          'match_operator' => 'CONTAINS',
-          'override_labels' => 1,
-        ),
-      ),
-      'type' => 'inline_entity_form',
-      'weight' => 46,
+      'weight' => 45,
     ),
   );
 
@@ -3107,7 +3104,7 @@ function uhc_course_implementation_field_default_field_instances() {
         ),
       ),
       'type' => 'inline_entity_form',
-      'weight' => 48,
+      'weight' => 49,
     ),
   );
 
@@ -3171,7 +3168,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 40,
+      'weight' => 41,
     ),
   );
 
@@ -3246,7 +3243,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 35,
+      'weight' => 36,
     ),
   );
 
@@ -3314,7 +3311,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 36,
+      'weight' => 37,
     ),
   );
 
@@ -3376,11 +3373,42 @@ function uhc_course_implementation_field_default_field_instances() {
     'label' => 'Content',
     'required' => 0,
     'settings' => array(
-      'context' => 'debug',
-      'context_default' => 'sdl_editor_representation',
-      'dnd_enabled' => 0,
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'embed_code' => array(
+              'weight' => 1,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'entity_translation_sync' => FALSE,
-      'mee_enabled' => 0,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -3388,6 +3416,10 @@ function uhc_course_implementation_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_truncate_html' => 0,
         'rows' => 5,
       ),
       'type' => 'text_textarea',
@@ -3529,18 +3561,14 @@ function uhc_course_implementation_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 42,
+      'weight' => 43,
     ),
   );
 
   // Exported field_instance: 'node-course_implementation-field_imp_timetable_additional'
   $field_instances['node-course_implementation-field_imp_timetable_additional'] = array(
     'bundle' => 'course_implementation',
-    'default_value' => array(
-      0 => array(
-        'value' => 'Here is the course’s teaching schedule. Check the course overview for possible other schedules.',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -3581,13 +3609,13 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'embed_code' => 'embed_code',
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
           'plain_text' => 'plain_text',
         ),
-        'allowed_formats_toggle' => 0,
+        'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
@@ -3615,7 +3643,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'enable' => 0,
         'profile' => '',
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -3802,7 +3830,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 15,
+      'weight' => 16,
     ),
   );
 
@@ -3985,7 +4013,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 47,
+      'weight' => 48,
     ),
   );
 
@@ -4162,7 +4190,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 46,
+      'weight' => 47,
     ),
   );
 
@@ -4235,7 +4263,7 @@ function uhc_course_implementation_field_default_field_instances() {
         ),
       ),
       'type' => 'inline_entity_form',
-      'weight' => 27,
+      'weight' => 28,
     ),
   );
 
@@ -4303,7 +4331,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 8,
       ),
       'type' => 'text_textfield',
-      'weight' => 38,
+      'weight' => 39,
     ),
   );
 
@@ -4510,7 +4538,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 45,
+      'weight' => 46,
     ),
   );
 
@@ -4558,13 +4586,13 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'embed_code' => 'embed_code',
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
           'plain_text' => 'plain_text',
         ),
-        'allowed_formats_toggle' => 0,
+        'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
@@ -4592,7 +4620,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'enable' => 0,
         'profile' => '',
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -4883,7 +4911,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 50,
+      'weight' => 51,
     ),
   );
 
@@ -5138,13 +5166,13 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'embed_code' => 'embed_code',
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
+          'ds_code' => 0,
+          'embed_code' => 0,
+          'filtered_html' => 0,
+          'full_html' => 0,
           'plain_text' => 'plain_text',
         ),
-        'allowed_formats_toggle' => 0,
+        'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
@@ -5172,7 +5200,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'enable' => 0,
         'profile' => '',
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(

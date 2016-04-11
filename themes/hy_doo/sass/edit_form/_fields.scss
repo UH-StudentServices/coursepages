@@ -13,8 +13,7 @@
 
   fieldset#edit-field-imp-teachersection-und-0 legend,
   label[for=edit-field-imp-header-image-und-0-upload],
-  .form-item-field-imp-header-image-und-0 .image-widget-data span,
-  .filter-wrapper {
+  .form-item-field-imp-header-image-und-0 .image-widget-data span {
     display: none;
   }
 
@@ -46,4 +45,40 @@
     padding: 1em 0;
   }
 
+  .description-toggle {
+    @include font-size(18px);
+    display: inline-block;
+    position: relative;
+    cursor: help;
+    &:after {
+      @include hy-icon($hy-question);
+      padding-bottom: 2px;
+      vertical-align: middle;
+      display: inline-block;
+      color: $blue;
+    }
+    @include at-breakpoint($layout-mobile-only) {
+      float: left;
+      padding-right: 0.5em;
+    }
+  }
+
+  .description {
+    @include dropdown-menu(none, 'left', $darkgray);
+    @include border-radius(6px);
+    @include hyphenate;
+    font-size: 0.75em;
+    left: -15px;
+    top: 30px;
+    color: $white;
+    position: absolute;
+    padding: 0 1em;
+    &.collapsed {
+      padding: 1em;
+    }
+  }
+}
+
+.filter-wrapper {
+  display: none;
 }

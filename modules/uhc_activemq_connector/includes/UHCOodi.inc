@@ -15,7 +15,7 @@ class UHCOodi extends UHCESB {
    *
    * Known methods are reported by Hannu-Pekka Rajaniemi (05.06.2015):
    *   "doo.kurssisivu.course.changes.all”
-   *     - headerit: since_date (formaatti ddMMyyyyhhmmss)
+   *     - headerit: since_date (ISO 8601 formaatti yyyy-mm-ddThh:mm:ss.000Z)
    *   "doo.kurssisivu.course.changes.ids”
    *     - headerit: since_date
    *   "doo.kurssisivu.course”

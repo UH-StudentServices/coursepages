@@ -15,11 +15,10 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
 
   /**
    * @param $arguments array
-   * @param $group
    * @throws Exception
    */
-  function __construct($arguments = array(), $group = NULL) {
-    parent::__construct($arguments, $group);
+  function __construct($arguments = array()) {
+    parent::__construct($arguments);
 
     // Determine source for this migration. We have option to use predefined ids
     // and item (when this migration is used for mapping and entity handling
@@ -33,7 +32,8 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       $this->source = new MigrateSourceList(
         new PortalListPredefined($ids),
         new PortalItemBase($arguments['predefined_item']),
-        self::sourceFields()
+        self::sourceFields(),
+        array('track_changes' => TRUE)
       );
     }
     else {
@@ -53,7 +53,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
         new PortalListBase('course_id', $list_url, array('timeout' => $timeout)),
         new PortalItemBase($item_url),
         self::sourceFields(),
-        array('reader_class' => 'UHCMigrateJSONReader')
+        array('reader_class' => 'UHCMigrateJSONReader', 'track_changes' => TRUE)
       );
 
     }
@@ -118,10 +118,13 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_imp_administrator_number', 'officials')->callbacks(array($this, 'getAdministratorNumbers'));
     // Text fields that needs some type of processing during mapping: Multilingual
     $this->addFieldMapping('title_field', 'realisation_name')->arguments($field_arguments)
-      ->callbacks(array($this, 'trimOpenUniPrefix'));
+      ->callbacks(array($this, 'ensureValueForAllLanguages'), array($this, 'trimOpenUniPrefix'));
 
     // Language neutral text fields that are computed in preprocess
     $this->addFieldMapping('field_imp_keywords', 'keywords')->callbacks(array($this, 'parseKeywords'));
+    if (module_exists('uhc_event')) {
+      $this->addFieldMapping('field_imp_events_json', 'events')->callbacks(array($this, 'encodeToJSONIfNotEmpty'));
+    }
 
     // Multilingual text fields that are computed in preprocess
     $this->addFieldMapping('field_imp_locality', 'instruction_locality')->arguments($field_arguments);
@@ -329,9 +332,9 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       }
     }
 
-    // Add each stub into stub handling queue
+    // Add each stub into handling queue
     /** @var DrupalReliableQueueInterface $queue */
-    $queue = DrupalQueue::get('uhc_sources_stub_handling', TRUE);
+    $queue = DrupalQueue::get('uhc_sources_postupdate_handling', TRUE);
     foreach ($created_stubs as $created_stub) {
       $item = array('type' => 'courseunitrealisation', 'id' => $created_stub);
       $queue->createItem($item);
@@ -614,5 +617,15 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
 
       $row->child_ids = $course_implementation_ids;
     }
+  }
+
+  /**
+   * Encodes value to JSON if it's not empty.
+   *
+   * @param $value
+   * @return string
+   */
+  static public function encodeToJSONIfNotEmpty($value) {
+    return empty($value) ? '' : drupal_json_encode($value);
   }
 }

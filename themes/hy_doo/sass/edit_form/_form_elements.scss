@@ -1,7 +1,15 @@
 .node-form  {
   input[type="submit"] {
+    @include font-weight-medium;
+    @include font-size(14px);
     display: inline-block;
     margin: 0.5em 1em 0.5em 0;
+    padding: 1em 3em;
+    width: 100%;
+    @include at-breakpoint($layout-small) {
+      min-width: 220px;
+      width: auto;
+    }
     &#edit-cancel {
       background: #fff;
       color: #0098d0;
@@ -18,8 +26,18 @@
     padding: 0.7em;
   }
 
-  .form-type-checkbox label:before,
-  .form-type-radio label:before,
+  .form-type-checkbox label,
+  .form-type-radio label {
+    margin: 0;
+    padding: 0;
+    &:before {
+      background: $white;
+      position: static;
+      vertical-align: middle;
+      margin-bottom: 2px;
+    }
+  }
+
   select {
     background: $white;
   }
@@ -56,6 +74,9 @@
         padding-right: 1em;
       }
     }
+    label {
+      padding-top: 0;
+    }
   }
 
   .section-title {
@@ -70,27 +91,36 @@
     text-transform: uppercase;
   }
 
-  .summary,
-  .description,
-  .fieldset-description,
-  .filter-guidelines {
-    font-size: 0.75em;
+  .fieldset-description {
+    @include font-family-bodytext;
+    @include text-paragraph;
+    margin-top: 1em;
   }
 
-  .vertical-tabs-pane > legend > .fieldset-legend {
-    @extend .heading-size-3;
-    @include font-weight-bold;
-    text-transform: uppercase;
-    color: $darkgray;
-    letter-spacing: -2px;
-
+  .vertical-tabs-pane {
+    & > legend > .fieldset-legend {
+      @extend .heading-size-3;
+      @include font-weight-bold;
+      padding-top: 0;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      color: $darkgray;
+    }
+    & > .fieldset-wrapper > .form-wrapper > legend > .fieldset-legend {
+      @extend .heading-size-4; 
+      @include font-weight-bold;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      color: $darkgray;  
+    }
   }
 
   label,
-  .fieldset-wrapper .fieldset-legend {
+  .fieldset-legend {
     @include font-weight-book;
+    @include font-size(18px);
     padding: 1em 0 0.5em 0;
-    display: block;
+    display: inline-block;
   }
 
   .form-item {
@@ -116,6 +146,14 @@
     }
     .ief-form {
       background: darken($lightsilver, 5%);
+    }
+  }
+  .form-actions {
+    border-top: 2px solid $lightsilver;
+    padding-top: 10px;
+    @include at-breakpoint($layout-small) {
+      margin-top: 40px;
+      padding-top: 30px;
     }
   }
 }

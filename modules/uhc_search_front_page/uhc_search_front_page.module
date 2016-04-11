@@ -27,20 +27,22 @@ function uhc_search_front_page_form_alter(&$form, &$form_state, $form_id) {
  * in facet blocks.
  */
 function uhc_search_front_page_facet_items_alter(&$build, &$settings) {
-  if ($settings->facet == "field_imp_organisation") {
-    $root_tid = array_keys($build)[0];
-    $build[$root_tid]['#item_children'] = array_filter($build[$root_tid]['#item_children'], function ($elem) {
-      return $elem['#markup'] == 'HY, Faculties' || $elem['#markup'] == 'HY, Fakulteterna' || $elem['#markup'] == 'HY, Tiedekunnat (TDK)';
-    });
-  }
-  elseif ($settings->facet == 'field_imp_reference_to_courses:field_course_type_of_teaching' && arg(0) == 'search') {
-    foreach ($build as $key => $item) {
-      $term = taxonomy_term_load($key);
-      if(!empty($term->field_alternative_title)) {
-        $field_item = field_get_items('taxonomy_term', $term, 'field_alternative_title', $term->field_alternative_title);
-        $field_value = field_view_value('taxonomy_term', $term, 'field_alternative_title', $field_item[0]);
-        if (render($field_value)) {
-          $build[$key]['#markup'] = render($field_value);
+  if (!empty($build)) {
+    if ($settings->facet == "field_imp_organisation") {
+      $root_tid = array_keys($build)[0];
+      $build[$root_tid]['#item_children'] = array_filter($build[$root_tid]['#item_children'], function ($elem) {
+        return $elem['#markup'] == 'HY, Faculties' || $elem['#markup'] == 'HY, Fakulteterna' || $elem['#markup'] == 'HY, Tiedekunnat (TDK)';
+      });
+    }
+    elseif ($settings->facet == 'field_imp_reference_to_courses:field_course_type_of_teaching' && arg(0) == 'search') {
+      foreach ($build as $key => $item) {
+        $term = taxonomy_term_load($key);
+        if(!empty($term->field_alternative_title)) {
+          $field_item = field_get_items('taxonomy_term', $term, 'field_alternative_title', $term->field_alternative_title);
+          $field_value = field_view_value('taxonomy_term', $term, 'field_alternative_title', $field_item[0]);
+          if (render($field_value)) {
+            $build[$key]['#markup'] = render($field_value);
+          }
         }
       }
     }

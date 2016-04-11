@@ -29,9 +29,9 @@ function uhc_sources_drush_command() {
       'drush uhc-sync 107694052 --course_number="590155" --source="esb-oodi"' => dt('Synchronizes course implementation 107694052 using esb-oodi. Creates it if does not exist.'),
     ),
   );
-  $items['uhc-sources-handle-stubs'] = array(
-    'description' => 'Imports all known created course stubs.',
-    'callback' => 'uhc_sources_handle_stubs',
+  $items['uhc-sources-handle-postupdates'] = array(
+    'description' => 'Imports all course and course implementations in the queue.',
+    'callback' => 'uhc_sources_handle_postupdates',
   );
 
   return $items;
@@ -64,12 +64,12 @@ function drush_uhc_sources_uhc_sync($course_implementation_id) {
 }
 
 /**
- * Callback for handling course and course implementation stubs.
+ * Callback for handling course and course implementation postupdates queue.
  *
  * @param int $calls
  *   Number of calls for self-protecting for infinite recursion.
  */
-function uhc_sources_handle_stubs($calls = 0) {
+function uhc_sources_handle_postupdates($calls = 0) {
   // Always increase number of calls.
   $calls++;
 
@@ -101,9 +101,10 @@ function uhc_sources_handle_stubs($calls = 0) {
     }
   }
 
-  // Get stub handling queue, so we can loop them through and aggregate them
+  // Get postupdate handling queue, so we can loop them through and aggregate
+  // them.
   /** @var DrupalReliableQueueInterface $queue */
-  $queue = DrupalQueue::get('uhc_sources_stub_handling', TRUE);
+  $queue = DrupalQueue::get('uhc_sources_postupdate_handling', TRUE);
 
   // Aggregate items and ensure they're valid
   while ($item = $queue->claimItem(300)) {
@@ -163,6 +164,6 @@ function uhc_sources_handle_stubs($calls = 0) {
   // Do extra round looking for potentially added stubs until we don't have no
   // items processed or we have called ourself more than five times.
   if ($count != 0 && $calls <= 5) {
-    uhc_sources_handle_stubs($calls);
+    uhc_sources_handle_postupdates($calls);
   }
 }

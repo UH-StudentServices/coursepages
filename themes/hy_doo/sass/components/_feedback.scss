@@ -38,7 +38,7 @@
   }
   .feedback-link,
   #feedback-status-message {
-    @include font-size(13px);
+    font-size: 0;
     position: fixed;
     right: 20px;
     bottom: 20px;
@@ -46,19 +46,29 @@
     display: block;
     padding: 1em;
     line-height: 1em;
-    width: 90px;
-    height: 90px;
+    width: 50px;
+    height: 50px;
     text-align: center;
     background: $black;
     color: $white;
     text-transform: initial;
     &:before {
       @include hy-icon($hy-chat);
-      @include font-size(23px);
-      margin: 0.4em auto 0 auto;
+      @include font-size(32px);
       display: block;
-      width: 60px;
-      height: 30px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+    }
+    @include at-breakpoint($layout-small) {
+      @include font-size(14px);
+      width: 90px;
+      height: 90px;
+      &:before {
+        width: 60px;
+        line-height: 40px;
+        height: 45px;
+      }
     }
   }
   #feedback-status-message {

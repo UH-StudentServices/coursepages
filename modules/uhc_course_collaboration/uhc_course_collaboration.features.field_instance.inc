@@ -31,7 +31,7 @@ function uhc_course_collaboration_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 72,
+        'weight' => 76,
       ),
       'sidebar' => array(
         'label' => 'above',

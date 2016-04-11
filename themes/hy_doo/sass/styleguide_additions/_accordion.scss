@@ -133,3 +133,44 @@
     position: absolute;
   }
 }
+
+.accordion-edit-link {
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 2.9em;
+  padding-left: 1em;
+  padding-right: 1em;
+  &:before {
+    @include hy-icon($hy-modify);
+    display: block;
+  }
+  &:hover {
+    @include hy-spin;
+  }
+}
+
+.ghost-accordion {
+  @include font-size(15px);
+  position: relative;
+  background: $white;
+  border: 2px dashed $lightsilver;
+  padding: 0.8em 0 0.8em 4em;
+  margin-bottom: 0.5em;
+  .accordion-edit-link {
+    @include hy-icon($hy_plus);
+    color: $white;
+    background-color: $accordion-blue;
+    left: -2px;
+    top: -2px;
+    right: initial;
+    &:before {
+      @include hy-icon($hy-plus);
+      display: block;
+    }
+    &:hover {
+      @include animation(none);
+      background-color: $accordion-blue--active;
+    }
+  }
+}

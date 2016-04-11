@@ -51,10 +51,19 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
     // Fieldset for Moodi input elements.
     $form['uhc_moodi_fieldset'] = array(
       '#type' => 'fieldset',
-      '#title' => t('Moodle integration'),
-      '#weight' => 100,
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
+      '#title' => t('Create a new Moodle course area and synchronize students from WebOodi'),
+      '#description' => t('This creates a new Moodle-area and adds the course students and teachers from WebOodi as members using automatic synchronization. This is the primary and recommended way to create Moodle-areas. The URL created for the moodle-area will be automatically added as a button to the course page. The URL is also visible to students in the My Studies -page.'),
+      '#weight' => -99,
+      '#collapsible' => FALSE,
+      '#collapsed' => TRUE,
+    );
+
+    //fieldset info, shown as a info bubble
+    $form['uhc_moodi_fieldset']['uhc_moodi_fieldset_info'] = array(
+      '#type' => 'markup',
+      '#prefix' => '<div class="description fieldset-info">',
+      '#suffix' => '</div>',
+      '#markup' => t('Automatic synchronization means that students with confirmed enrollments are moved to a new moodle-area from the learning opportunity found in WebOodi that corresponds this course. Enrollments are synchronized every 10 minutes, but unfortunately at this point cancellations and removals are not taken into account. Teachers and responsible teachers are given the same treatment as students.'),
     );
 
     $moodi_response = uhc_moodi_get_controller()->get($course_implementation_id);
@@ -71,7 +80,7 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
     // Moodi create button.
     $form['uhc_moodi_fieldset']['uhc_moodi_create_button'] = array(
       '#type' => 'submit',
-      '#value' => t('Create Moodle'),
+      '#value' => t('Create Moodle course area'),
       '#access' => uhc_moodi_create_button_access($moodi_response),
       '#ajax' => array(
         'callback' => 'uhc_moodi_create_button_ajax_callback',
@@ -121,13 +130,21 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
  * @return mixed|null|string Status area markup.
  */
 function uhc_moodi_get_status_markup($moodi_response) {
-  $status_markup = print_r($moodi_response, TRUE);
   $moodi_response_data = uhc_moodi_get_data($moodi_response);
-  $moodle_area_url = !empty($moodi_response_data->url) ? $moodi_response_data->url : '';
 
-  if (!empty($moodi_response->data)) {
-    $status_markup = $moodi_response->data;
+  if (!empty($moodi_response_data->message)) {
+    $status_markup = check_plain($moodi_response_data->message);
   }
+  else {
+    $status_markup = t('Something went wrong.');
+
+    if (!empty($moodi_response->error)) {
+      $error = check_plain($moodi_response->error);
+      $status_markup .= " ($error)";
+    }
+  }
+
+  $moodle_area_url = !empty($moodi_response_data->url) ? $moodi_response_data->url : '';
 
   if (!empty($moodle_area_url)) {
     $moodle_area_link = l($moodle_area_url, $moodle_area_url);
@@ -231,10 +248,14 @@ function uhc_moodi_get_data($moodi_response) {
  */
 function uhc_moodi_get_status_classes($moodi_response) {
   $status_classes = array();
+  $status_classes[] = 'messages';
+  $status_classes[] = 'alternative';
 
   if (!in_array($moodi_response->code, array(200, 404))) {
-    $status_classes[] = 'messages';
-    $status_classes[] = 'warning';
+    $status_classes[] = 'error';
+  }
+  else {
+    $status_classes[] = 'status';
   }
 
   return implode(' ', $status_classes);
@@ -306,7 +327,8 @@ function uhc_moodi_create_button_ajax_callback($form, &$form_state) {
   $course_implementation_id = !empty($form['uhc_moodi_fieldset']['course_implementation_id']['#value']) ? $form['uhc_moodi_fieldset']['course_implementation_id']['#value'] : NULL;
 
   if (!empty($course_implementation_id)) {
-    $moodi_create_response = uhc_moodi_get_controller()->create($course_implementation_id);
+    $request_timeout_seconds = variable_get('uhc_moodi_create_timeout', 10);
+    $moodi_create_response = uhc_moodi_get_controller($request_timeout_seconds)->create($course_implementation_id);
     $moodi_get_response = uhc_moodi_get_controller()->get($course_implementation_id);
 
     $element['#prefix'] = uhc_moodi_get_status_prefix($moodi_create_response);
@@ -352,9 +374,11 @@ function uhc_moodi_redirect($path) {
 }
 
 /**
+ * @param float $request_timeout_seconds Timeout seconds for request operations.
+ *
  * @return UHCMoodiController
  */
-function uhc_moodi_get_controller() {
+function uhc_moodi_get_controller($request_timeout_seconds = 3.0) {
   static $uhcMoodiController = FALSE;
 
   if (!$uhcMoodiController) {
@@ -362,7 +386,8 @@ function uhc_moodi_get_controller() {
       new UHCMoodiService(
         uhc_moodi_get_base_url(),
         uhc_moodi_get_client_id(),
-        uhc_moodi_get_client_token()
+        uhc_moodi_get_client_token(),
+        $request_timeout_seconds
       )
     );
   }

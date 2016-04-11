@@ -187,5 +187,35 @@ function hy_doo_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 function hy_doo_form_alter(&$form, &$form_state, $form_id) {
   if (isset($form['#node_edit_form']) && $form['#node_edit_form'] == TRUE) {
     $form['#attached']['js'][] = drupal_get_path('theme', 'hy_doo') . '/js/vertical_tabs.js';
+    $form['#attached']['js'][] = drupal_get_path('theme', 'hy_doo') . '/js/help-widgets.js';
+  }
+}
+
+/**
+ * Override of theme_breadcrumb().
+ *
+ * Remove trailing slash.
+ * @TODO Do this same change to the base theme after it's been tested together
+ * with other changes: https://github.com/UH-StudentServices/hy_base_theme
+ */
+function hy_doo_breadcrumb($variables) {
+  $breadcrumb = $variables['breadcrumb'];
+
+  if (!empty($breadcrumb)) {
+
+    // Provide a navigational heading to give context for breadcrumb links to
+    // screen-reader users. Make the heading invisible with .element-invisible.
+    $output = '<h2 class="element-invisible">' . t('You are here') . '</h2>';
+    $output .= '<div class="breadcrumbs">';
+
+    $last = end($breadcrumb);
+    foreach ($breadcrumb as $breadcrumb_item) {
+      $output .= '<span class="breadcrumbs__item">' . $breadcrumb_item . ' </span>';
+      if ($breadcrumb_item != $last) {
+        $output .= '<span class="breadcrumbs__divider">/</span>';
+      }
+    }
+    $output .= '</div>';
+    return $output;
   }
 }

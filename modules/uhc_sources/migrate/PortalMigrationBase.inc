@@ -23,10 +23,9 @@ class PortalMigrationBase extends Migration {
    * @param array $arguments
    *   Array of arguments. I this class we're interested in:
    *     - machine_name: Given machine name for the migration.
-   * @param null $group
    */
-  public function __construct($arguments = array(), $group = NULL) {
-    parent::__construct($group);
+  public function __construct($arguments = array()) {
+    parent::__construct($arguments);
     if (!empty($arguments['machine_name'])) {
       $this->machineName = $arguments['machine_name'];
     }
@@ -80,8 +79,11 @@ class PortalMigrationBase extends Migration {
    * @return mixed
    */
   protected function constructLastRequested($list_url) {
+    // Our timestamps are kept as local time, but requests must be done in Zulu
+    // timezone.
     $last_requested = $this->getLastRequested();
-    $list_url = str_replace(':since_date', $last_requested->format('dmYHis'), $list_url);
+    $last_requested->setTimezone(new DateTimeZone('Etc/Zulu'));
+    $list_url = str_replace(':since_date', $last_requested->format('Y-m-d\TH:i:s\.000\Z'), $list_url);
     MigrationBase::displayMessage('Requesting using list URL: ' . $list_url, 'status');
     return $list_url;
   }
@@ -181,7 +183,7 @@ class PortalMigrationBase extends Migration {
    * @return array
    */
   public static function getSupportedLanguages() {
-    return array('en', 'fi', 'sv');
+    return array_values(locale_language_list('language'));
   }
 
   /**
@@ -202,6 +204,51 @@ class PortalMigrationBase extends Migration {
         $this->systemOfRecord = $systemOfRecord;
         break;
     }
+  }
+
+  /**
+   * Makes sure that we have a value for every enabled language.
+   *
+   * @param array $values
+   * @return array
+   * @throws MigrateException
+   */
+  public static function ensureValueForAllLanguages(array $values) {
+
+    // Gather all values into this variable that will be returned
+    $ensured_values = array();
+
+    // Loop enabled languages in preferred order
+    foreach (self::getSupportedLanguages() as $lang) {
+      if (isset($values[$lang])) {
+        $ensured_values[$lang] = $values[$lang];
+      }
+      else {
+        $ensured_values[$lang] = self::getValueInPreferredLanguageOrder($values);
+      }
+    }
+
+    return $ensured_values;
+  }
+
+  /**
+   * Gets an value in preferred language order.
+   *
+   * @param array $values
+   * @return string
+   */
+  public static function getValueInPreferredLanguageOrder(array $values) {
+    $preferred_languages = self::getSupportedLanguages();
+    foreach ($preferred_languages as $lang) {
+      if (isset($values[$lang])) {
+        return $values[$lang];
+      }
+    }
+
+    // If we end up here, it means that none of values has values in given
+    // preferred language.
+    watchdog('uhc_sources', 'Could not get value in preferred language order.');
+    return '';
   }
 
   /**

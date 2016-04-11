@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Controls installation/update/uninstallation tasks.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_moodi_uninstall() {
+  variable_del('uhc_moodi_create_timeout');
+}

@@ -42,9 +42,22 @@ dl, menu, ol, ul {
   list-style: none;
 }
 
-.intro-text {
+.intro-text p {
   @include text-liftup;
   @include font-family-main;
+}
+
+.headline p {
+  @include font-weight-bold;
+  @include font-family-main;
+  @include font-size(28px);
+  color: $darkgray;
+  letter-spacing: -0.05em;
+  line-height: 1.1em;
+  margin: 0;
+  padding-bottom: 0.4em;
+  text-transform: uppercase;
+  word-wrap: break-word;
 }
 
 h1, h2 {

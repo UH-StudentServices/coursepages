@@ -21,9 +21,9 @@ function uhc_sources_sync_status_form($form, &$form_state) {
   if (isset($form_state['build_info']['args'][0])) {
     // Specify what is the course implementation ID
     $node = $form_state['build_info']['args'][0];
-    $field_imp_id = field_get_items('node', $node, 'field_imp_id');
-    if (isset($field_imp_id[0]['value'])) {
-      $form_state['build_info']['args']['field_imp_id'] = $field_imp_id[0]['value'];
+    $field_imp_id = _uhc_sources_resolve_course_imp($node->nid);
+    if ($field_imp_id) {
+      $form_state['build_info']['args']['field_imp_id'] = $field_imp_id;
     }
   }
 

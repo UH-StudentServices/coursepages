@@ -11,8 +11,9 @@
 
 class CourseThemeTermMigration extends TaxonomyTermMigration {
 
-  function __construct() {
+  function __construct($arguments = array()) {
     parent::__construct(
+      $arguments,
       drupal_get_path('module', 'uhc_course_source') . '/migrate/coursethemes.json',
       'id',
       'course_theme',

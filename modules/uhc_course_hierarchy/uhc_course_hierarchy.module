@@ -20,8 +20,10 @@ function uhc_course_hierarchy_preprocess_page(&$vars) {
   }
 
   // When viewing course implementation, set breadcrumb using hierarchy
-  // information
-  if (isset($vars['node']) && $vars['node']->type == 'course_implementation') {
+  // information, if we are not in edit mode
+  $node_edit = arg(0) == 'node' && arg(2) == 'edit';
+
+  if (isset($vars['node']) && $vars['node']->type == 'course_implementation' && !$node_edit) {
 
     // Format breadcrumb variable having home link as first item
     $contexts = context_active_contexts();
@@ -54,13 +56,7 @@ function uhc_course_hierarchy_preprocess_page(&$vars) {
     // Find out the root of course hierarchy
     $course_imp_root = uhc_course_hierarchy_get_course_hierarchy_root($vars['node']);
 
-    // Second level should be course / learningopportunity link
-    $course_node = _uhc_source_load_course_node($course_imp_root);
-    if ($course_node) {
-      $course_hierarchy[] = $course_node;
-    }
-
-    // Third level is the course implementation root node
+    // Second level is the course implementation root node
     if (!empty($course_imp_root) && $course_imp_root->nid != $vars['node']->nid) {
       $course_hierarchy[] = $course_imp_root;
     }

@@ -19,6 +19,11 @@ function uhc_subject_preprocess_node(&$variables) {
   // also used to which fields are used for data-attributes.
   $settings = array(
     'fields_to_filter' => array(
+      'field_imp_method_of_study' => array(
+        'field_name' => 'field_imp_method_of_study',
+        'field_title' => t('Method of study'),
+        'placeholder' => t('All methods of study'),
+      ),
       'field_imp_begin_date' => array(
         'field_name' => 'field_imp_begin_date',
         'field_title' => t('Start month'),
@@ -28,11 +33,6 @@ function uhc_subject_preprocess_node(&$variables) {
         'field_name' => 'field_imp_locality',
         'field_title' => t('Location'),
         'placeholder' => t('All locations'),
-      ),
-      'field_imp_method_of_study' => array(
-        'field_name' => 'field_imp_method_of_study',
-        'field_title' => t('Method of study'),
-        'placeholder' => t('All methods of study'),
       ),
     ),
     'nodes_to_filter' => $nodes_to_filter_class,

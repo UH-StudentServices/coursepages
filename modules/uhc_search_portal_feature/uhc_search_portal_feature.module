@@ -389,9 +389,10 @@ function uhc_search_portal_feature_ds_fields_info($entity_type) {
 function uhc_search_portal_feature_section_search_form($field) {
   $node = $field['entity'];
 
-  if ($node->field_show_search_box[LANGUAGE_NONE][0]['value'] == 1) {
+  if (isset($node->field_show_search_box[LANGUAGE_NONE][0]) && $node->field_show_search_box[LANGUAGE_NONE][0]['value'] == 1) {
 
-    $show_filters = $node->field_show_search_filters[LANGUAGE_NONE][0]['value'];
+    $show_filters = isset($node->field_show_search_filters[LANGUAGE_NONE][0])
+      && $node->field_show_search_filters[LANGUAGE_NONE][0]['value'];
 
     // load correct search block and facet block according to section.
     if (!empty($node->field_liftup_section)) {
@@ -427,7 +428,9 @@ function uhc_search_portal_feature_section_search_form($field) {
 
     $exposed_form_render_array = _block_get_renderable_array(_block_render_blocks(array($exposed_form)));
     // If Image and description are empty, hide searchbox title
-    if (empty($node->field_portal_page_image) && empty($node->field_portal_page_description)) {
+    $description = field_get_items('node', $node, 'field_portal_page_description');
+    $image = field_get_items('node', $node, 'field_portal_page_image');
+    if (!$image && !$description) {
       foreach($exposed_form_render_array as $block) {
         if ($block['#block']) {
           $block['#block']->subject = '';

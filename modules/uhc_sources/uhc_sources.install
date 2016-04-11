@@ -9,6 +9,16 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function uhc_sources_update_dependencies() {
+  $dependencies['migrate'][7203] = array(
+    'uhc_sources' => 7003,
+  );
+  return $dependencies;
+}
+
+/**
  * Uninstall.
  */
 function uhc_sources_uninstall() {
@@ -89,4 +99,21 @@ function uhc_sources_update_7001() {
 function uhc_sources_update_7002() {
   // Remove variable
   variable_del('uhc_migrate_selected_organisational_units');
+}
+
+/**
+ * Surpress Migrate deprecation warnings (field mappings should use subfield
+ * notation instead of passing arguments as an array, but the old way is still
+ * fully supported).
+ */
+function uhc_sources_update_7003() {
+  variable_set('migrate_deprecation_warnings', 0);
+}
+
+/**
+ * Update queue name from "uhc_sources_stub_handling" to
+ * "uhc_sources_postupdate_handling".
+ */
+function uhc_sources_update_7004() {
+  db_update('queue')->fields(array('name' => 'uhc_sources_postupdate_handling'))->condition('name', 'uhc_sources_stub_handling')->execute();
 }

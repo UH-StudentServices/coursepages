@@ -1,10 +1,6 @@
 name = UHC Event Source
-description = Event integration migration
+description = Event integration migration (deprecated module).
 core = 7.x
 package = UHC
-version = 7.x-1.61
+version = 7.x-1.63
 project = uhc_event_source
-files[] = migrate/UHCCourseImplementationNodeHandler.inc
-files[] = includes/UHCDrupalFieldMapperEvent.inc
-dependencies[] = migrate
-dependencies[] = uhc_sources

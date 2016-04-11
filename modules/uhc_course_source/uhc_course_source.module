@@ -36,7 +36,7 @@ function uhc_course_source_import($course_number) {
   $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
 
   /** @var $migration CourseNodeMigration */
-  $migration = Migration::getInstance('CourseNode', 'CourseNodeMigration', array('predefined_ids' => $course_number, 'predefined_item' => $item_url));
+  $migration = new CourseNodeMigration(array('predefined_ids' => $course_number, 'predefined_item' => $item_url));
   $migration->prepareUpdate();
   $result = $migration->processImport();
   if ($result == Migration::RESULT_COMPLETED) {

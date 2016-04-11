@@ -252,6 +252,23 @@ function _uhc_sources_resolve_course_number($course_imp_id) {
 }
 
 /**
+ * Helper function for resolving course implementation ID from given nid.
+ *
+ * @param $nid
+ * @return integer|bool
+ */
+function _uhc_sources_resolve_course_imp($nid) {
+  $node = node_load($nid);
+  if ($node) {
+    $field_imp_id = field_get_items('node', $node, 'field_imp_id');
+    if (isset($field_imp_id[0]['value'])) {
+      return (int) $field_imp_id[0]['value'];
+    }
+  }
+  return FALSE;
+}
+
+/**
  * Does given course implementation node belong to given organisation code.
  *
  * @param $node

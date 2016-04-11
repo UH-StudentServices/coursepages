@@ -31,7 +31,8 @@ class CourseNodeMigration extends PortalMigrationBase {
       $this->source = new MigrateSourceList(
         new PortalListPredefined($ids),
         new PortalItemBase($arguments['predefined_item']),
-        self::sourceFields()
+        self::sourceFields(),
+        array('track_changes' => TRUE)
       );
     }
     else {
@@ -50,7 +51,8 @@ class CourseNodeMigration extends PortalMigrationBase {
       $this->source = new MigrateSourceList(
         new PortalListBase('learningopportunity_id', $list_url, array('timeout' => $timeout)),
         new PortalItemBase($item_url),
-        self::sourceFields()
+        self::sourceFields(),
+        array('track_changes' => TRUE)
       );
 
     }
@@ -98,7 +100,7 @@ class CourseNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('title', 'title')->callbacks(array($this, 'trimOpenUniPrefix'));
     // Text fields that needs some type of processing during mapping: Multilingual
     $this->addFieldMapping('title_field', 'names')->arguments($field_arguments)
-      ->callbacks(array($this, 'trimOpenUniPrefix'));
+      ->callbacks(array($this, 'ensureValueForAllLanguages'), array($this, 'trimOpenUniPrefix'));
 
     // Other types of fields that are computed or prepared in prepare phase
     $this->addFieldMapping('status', 'status')->defaultValue(0);
@@ -263,9 +265,9 @@ class CourseNodeMigration extends PortalMigrationBase {
       }
     }
 
-    // Add each stub into stub handling queue
+    // Add each stub into handling queue
     /** @var DrupalReliableQueueInterface $queue */
-    $queue = DrupalQueue::get('uhc_sources_stub_handling', TRUE);
+    $queue = DrupalQueue::get('uhc_sources_postupdate_handling', TRUE);
     foreach ($created_stubs as $created_stub) {
       $item = array('type' => 'learningopportunity', 'id' => $created_stub);
       $queue->createItem($item);
@@ -304,8 +306,8 @@ class CourseNodeMigration extends PortalMigrationBase {
           if ($resolvalbe_discipline->discipline_id == $known_discipline->discipline_id) {
             // Append the name to resolved disciplines and continue to next
             // resolvable discipline.
-            $known_discipline->discipline = PortalMigrationBase::convertToMultilingualText($known_discipline->discipline);
-            $resolved_disciplines[] = $known_discipline->discipline['fi'];
+            $known_discipline->name = PortalMigrationBase::convertToMultilingualText($known_discipline->name);
+            $resolved_disciplines[] = $known_discipline->name['fi'];
             continue 2;
           }
         }

@@ -2,7 +2,7 @@
 .tabs-wrapper  {
   background-color: $blue;
   position: relative;
-  z-index: 999;
+  z-index: 30;
   width: 100%;
   .tabs {
     @include container;

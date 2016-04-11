@@ -747,6 +747,16 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'create url aliases'.
+  $permissions['create url aliases'] = array(
+    'name' => 'create url aliases',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'path',
+  );
+
   // Exported permission: 'delete any contact_card content'.
   $permissions['delete any contact_card content'] = array(
     'name' => 'delete any contact_card content',
@@ -1023,6 +1033,65 @@ function uhc_content_administration_feature_user_default_permissions() {
       'editor-in-chief of communications' => 'editor-in-chief of communications',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'edit contact_card URL alias'.
+  $permissions['edit contact_card URL alias'] = array(
+    'name' => 'edit contact_card URL alias',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'url_alias_permissions',
+  );
+
+  // Exported permission: 'edit course URL alias'.
+  $permissions['edit course URL alias'] = array(
+    'name' => 'edit course URL alias',
+    'roles' => array(),
+    'module' => 'url_alias_permissions',
+  );
+
+  // Exported permission: 'edit course_implementation URL alias'.
+  $permissions['edit course_implementation URL alias'] = array(
+    'name' => 'edit course_implementation URL alias',
+    'roles' => array(),
+    'module' => 'url_alias_permissions',
+  );
+
+  // Exported permission: 'edit course_liftup URL alias'.
+  $permissions['edit course_liftup URL alias'] = array(
+    'name' => 'edit course_liftup URL alias',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'url_alias_permissions',
+  );
+
+  // Exported permission: 'edit course_material URL alias'.
+  $permissions['edit course_material URL alias'] = array(
+    'name' => 'edit course_material URL alias',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'url_alias_permissions',
+  );
+
+  // Exported permission: 'edit course_task URL alias'.
+  $permissions['edit course_task URL alias'] = array(
+    'name' => 'edit course_task URL alias',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'url_alias_permissions',
+  );
+
+  // Exported permission: 'edit event URL alias'.
+  $permissions['edit event URL alias'] = array(
+    'name' => 'edit event URL alias',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'url_alias_permissions',
   );
 
   // Exported permission: 'edit field_additional_info'.
@@ -1555,6 +1624,24 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit liftup URL alias'.
+  $permissions['edit liftup URL alias'] = array(
+    'name' => 'edit liftup URL alias',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'url_alias_permissions',
+  );
+
+  // Exported permission: 'edit online_service URL alias'.
+  $permissions['edit online_service URL alias'] = array(
+    'name' => 'edit online_service URL alias',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'url_alias_permissions',
   );
 
   // Exported permission: 'edit own contact_card content'.
@@ -2173,6 +2260,26 @@ function uhc_content_administration_feature_user_default_permissions() {
       'editor-in-chief of communications' => 'editor-in-chief of communications',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'edit portal_page URL alias'.
+  $permissions['edit portal_page URL alias'] = array(
+    'name' => 'edit portal_page URL alias',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'url_alias_permissions',
+  );
+
+  // Exported permission: 'edit subject URL alias'.
+  $permissions['edit subject URL alias'] = array(
+    'name' => 'edit subject URL alias',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'url_alias_permissions',
   );
 
   // Exported permission: 'edit terms in course_theme'.
