@@ -370,10 +370,6 @@ function uhc_teacher_tools_save_and_continue($form, &$form_state) {
  */
 function uhc_teacher_tools_field_group_pre_render_alter(&$element, $group, &$form) {
   $node = menu_get_object();
-  if (is_null($node)) {
-    // Disregard if we're not rendering this group in node page
-    return;
-  }
   $access = _uhc_teacher_tools_menu_edit_links_access_callback($node);
 
   // no edit links for the accordions that are not editable

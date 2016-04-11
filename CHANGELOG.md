@@ -24,7 +24,6 @@ Päiväys: 08.04.2016
   - DOO-2119: Korjattiin organisaatioiden hierarkia ongelmat lisäämällä orvoksi
     jääneiden termien siivoaminen ja niiden kurssien päivittäminen sekä
     hierarkia tieto perustuu nyt organisaatio koodeihin
-  - DOO-2154: Korjattiin ongelma, jossa ei voinut lähettää vietiä kurssiin
 
 
 # Helsinki University Coursepages v1.62

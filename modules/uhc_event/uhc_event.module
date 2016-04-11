@@ -183,28 +183,28 @@ function uhc_event_preprocess_block(&$variables) {
   $block = $variables['block'];
   if ($block->module == 'views' && $block->delta == 'course_event_references-block') {
 
-    // Get the course implementation node from URL
+    // Get the course implementation node
     $node = menu_get_object();
-    if (!is_null($node)) {
-      // Check if we have a custom title for the events listing and use it
-      if (!empty($node->field_imp_events_title)) {
-        $block->subject = $node->field_imp_events_title[LANGUAGE_NONE][0]['value'];
-      }
 
-      // Set accordion classes when we have events from both sources
-      if (uhc_event_has_events_from_both_sources($node)) {
-
-        // Disable contextual links, as they break our accordion. Add classes to enable accordion.
-        unset($variables['title_suffix']['contextual_links']);
-        $variables['title_attributes_array']['class'][] = 'accordion-item__light ds-teaser-accordion--title';
-        $variables['content_attributes_array']['class'][] = 'field-group-accordion-item';
-
-      }
-      else {
-        //lets hide the title if no accordion is needed
-        $variables['title_attributes_array']['class'][] = 'element-invisible';
-      }
+    // Check if we have a custom title for the events listing and use it
+    if (!empty($node->field_imp_events_title)) {
+      $block->subject = $node->field_imp_events_title[LANGUAGE_NONE][0]['value'];
     }
+
+    // Set accordion classes when we have events from both sources
+    if(uhc_event_has_events_from_both_sources($node)) {
+
+      // Disable contextual links, as they break our accordion. Add classes to enable accordion.
+      unset($variables['title_suffix']['contextual_links']);
+      $variables['title_attributes_array']['class'][] = 'accordion-item__light ds-teaser-accordion--title';
+      $variables['content_attributes_array']['class'][] = 'field-group-accordion-item';
+
+    }
+    else {
+      //lets hide the title if no accordion is needed
+       $variables['title_attributes_array']['class'][] = 'element-invisible';
+    }
+
   }
 }
 
