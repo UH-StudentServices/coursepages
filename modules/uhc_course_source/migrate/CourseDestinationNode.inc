@@ -68,8 +68,8 @@ class CourseDestinationNode extends PortalDestinationNode {
    * @param $entity
    */
   public function log($entity) {
-    $course_number = !empty($entity->field_course_course_number['und'][0]['value'])
-      ? $entity->field_course_course_number['und'][0]['value']
+    $course_number = !empty($entity->field_course_course_number[LANGUAGE_NONE][0]['value'])
+      ? $entity->field_course_course_number[LANGUAGE_NONE][0]['value']
       : '';
 
     if (!empty($course_number)) {

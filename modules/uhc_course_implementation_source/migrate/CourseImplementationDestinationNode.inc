@@ -95,7 +95,7 @@ class CourseImplementationDestinationNode extends PortalDestinationNode {
    * @param $entity
    */
   public function log($entity) {
-    $implementation_id = !empty($entity->field_imp_id['und'][0]['value']) ? $entity->field_imp_id['und'][0]['value'] : '';
+    $implementation_id = !empty($entity->field_imp_id[LANGUAGE_NONE][0]['value']) ? $entity->field_imp_id[LANGUAGE_NONE][0]['value'] : '';
 
     if (!empty($implementation_id)) {
       $message = t('Migrated course implementation @implementation_id.', array('@implementation_id' => $implementation_id));

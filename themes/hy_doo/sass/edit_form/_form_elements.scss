@@ -1,4 +1,11 @@
 .node-form  {
+  padding-bottom: 260px;
+  @include at-breakpoint($layout-small) {
+    padding-bottom: 170px;
+  }
+  @include at-breakpoint($layout-medium) {
+    padding-bottom: 110px;
+  }
   input[type="submit"] {
     @include font-weight-medium;
     @include font-size(14px);
@@ -13,7 +20,6 @@
     &#edit-cancel {
       background: #fff;
       color: #0098d0;
-      padding: 1.2em 2em;
     }
   }
 
@@ -24,6 +30,10 @@
     font-size: 14px;
     width: 100%;
     padding: 0.7em;
+  }
+
+  textarea {
+    line-height: 1.5em;
   }
 
   .form-type-checkbox label,
@@ -42,16 +52,25 @@
     background: $white;
   }
 
-  .ajax-progress {
+  .ajax-progress-throbber {
+    display: inline-block;
+    position: relative;
+    left: -45px;
+    @include at-breakpoint($layout-mobile-only) {
+      float: right;
+      top: -58px;
+      left: -10px;
+    }
     .throbber {
-      float: left;
       &:after {
-        @include hy-icon($hy-rotate-right);
+        @include hy-icon($hy-spinner);
         @include hy-spin;
+        color: $white;
+        display: block;
       }
     }
     .message {
-      padding-left: 30px;
+      display: none;
     }
   }
 
@@ -83,11 +102,12 @@
     @include font-family-main;
     @include font-size(21px);
     @include font-weight-bold;
+    width: 30px;
     display: block;
     color: $darkgray;
     letter-spacing: -0.05em;
     line-height: 1.1em;
-    padding-bottom: 0.5em;
+    padding: 1em 0 0 0;
     text-transform: uppercase;
   }
 
@@ -138,21 +158,54 @@
   }
 
   .ief-form {
-    background: $lightsilver;
+    background: lighten($lightsilver, 5%);
+    border: 2px solid $lightsilver;
     margin: 2em 0;
     padding: 1.5em;
     > div {
       margin-bottom: 1em;
+      clear: both;
+    }
+    > legend {
+      float: left;
+      & > .fieldset-legend {
+        @extend .heading-size-4;
+        @include font-weight-bold;
+        padding-top: 0;
+        letter-spacing: -2px;
+        text-transform: uppercase;
+      }
     }
     .ief-form {
-      background: darken($lightsilver, 5%);
+      background: $lightsilver;
     }
   }
   .form-actions {
+    position: fixed;
+    width: 100%;
+    padding-right: 2em;
+    bottom: 0;
+    background: $white;
     border-top: 2px solid $lightsilver;
     padding-top: 10px;
+    padding-bottom: 20px;
+    @include at-breakpoint($layout-mobile-only) {
+      left: 0;
+      padding: 0.5em;
+      input[type="submit"] {
+        width: auto;
+        font-size: 12px;
+        min-width: 65px;
+        padding: 0.8em 1em;
+        margin: 0 1em 0 0;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
     @include at-breakpoint($layout-small) {
-      margin-top: 40px;
+      max-width: 71em;
+      margin: 40px auto 0;
       padding-top: 30px;
     }
   }
@@ -160,4 +213,24 @@
 
 .ui-dialog-content {
   background: $white;
+}
+
+.ui-datepicker {
+  @include shadow-under;
+  background: $white !important;
+  border: 2px solid $lightsilver !important;
+  .ui-datepicker-next,
+  .ui-datepicker-prev {
+    .ui-icon {
+      font-size: 0;
+      &:after {
+        @include hy-icon($hy-arrow);
+        display: block;
+        font-size: initial;
+      }
+    }
+  }
+  .ui-datepicker-prev .ui-icon:after {
+    @include transform(rotate(180deg));
+  }
 }

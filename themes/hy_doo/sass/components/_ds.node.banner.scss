@@ -24,10 +24,10 @@
   }
   // image styles
   img {
-    float: left;
     width: 100%;
     
     @include at-breakpoint($layout-medium) {
+      float: left;
       margin-right: 2rem;
       max-width: 270px;
     }

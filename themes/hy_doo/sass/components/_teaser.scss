@@ -35,6 +35,9 @@
       .label-above {
         @include span-columns(2, 12);
         @include hyphenate;
+        @include font-weight-book;
+        text-transform: none;
+        font-size: inherit;
         margin-top: 0.2em;
       }
       > div:last-child {

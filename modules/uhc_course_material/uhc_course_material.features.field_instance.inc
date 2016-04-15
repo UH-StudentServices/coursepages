@@ -650,7 +650,7 @@ function uhc_course_material_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 6,
+      'weight' => 3,
     ),
   );
 

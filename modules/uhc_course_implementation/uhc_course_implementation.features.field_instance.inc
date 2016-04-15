@@ -1691,13 +1691,9 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'teaser_accordion' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'text_default',
-        'weight' => 2,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 9,
       ),
       'teaser_images' => array(
         'label' => 'above',
@@ -2952,12 +2948,13 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'options_select',
       'weight' => 45,
     ),
   );
@@ -5245,7 +5242,6 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Enrolment end date');
   t('Evaluation');
   t('Events');
-  t('Events from Oodi');
   t('Fee');
   t('Giver locality');
   t('Headline');
@@ -5283,7 +5279,6 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Teaching language');
   t('Text');
   t('The default image will always be used if no new image has been uploaded.');
-  t('These events are automatically synchronized from Oodi. Do not bother changing these.');
   t('This is the URL address of this content.');
   t('Timing');
   t('Title');

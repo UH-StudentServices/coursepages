@@ -53,7 +53,7 @@
       });
 
       // hide when clicking outside event list
-      $(document).click(function(event) {
+      $(document).bind('touchstart click', function(event) {
         if (!$(event.target).closest('.activity').length &&  $('.activity .item-list').hasClass('collapsed')) {
           $('.activity .item-list').removeClass('collapsed');
         }

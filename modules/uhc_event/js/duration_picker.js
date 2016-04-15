@@ -8,9 +8,8 @@
   Drupal.ajax.prototype.commands.timepickerinit = function(ajax, response, status) {
     startTimePicker = $(".field-name-field-event-begin-date input").not("[id*='datepicker']");
     durationPicker = $(".field-name-field-event-duration input");
-    if (startTimePicker.length && durationPicker.length) {
-      //start timepicker init
-      $(startTimePicker).timepicker({
+
+    var startTimePickerSettings = {
           startTime: new Date(0,0,0,0,0,0),
           dynamic: false,
           interval: 15,
@@ -20,17 +19,35 @@
           change: function(time) {
             adjustMaxDuration(time);
           }
-      });
-
-      // duration timepicker init
-      $(durationPicker).timepicker({
+        },
+        durationPickerSettings = {
           startTime: new Date(0,0,0,0,0,0),
-          interval: 15,
           dynamic: false,
+          interval: 15,
           timeFormat: 'HH:mm',
           minTime: '00:00',
-          maxTime: '23:45',
-      });
+          maxTime: '23:45'
+        };
+
+    //Get current CSS breakpoint
+    var breakpoint = {};
+    breakpoint.refreshValue = function () {
+      this.value = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '');
+    };
+    breakpoint.refreshValue();
+
+    // no dropdown if mobile
+    if (breakpoint.value == 'mobile') {
+      durationPickerSettings.dropdown = false;
+      startTimePickerSettings.dropdown = false;
+    }
+
+    if (startTimePicker.length && durationPicker.length) {
+      //start timepicker init
+      $(startTimePicker).timepicker(startTimePickerSettings);
+
+      // duration timepicker init
+      $(durationPicker).timepicker(durationPickerSettings);
 
       function adjustMaxDuration(time) {
         // set max duration to end at 23:45 of the same day

@@ -276,10 +276,12 @@ function uhc_ds_field_group_info() {
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Timetable',
       'instance_settings' => array(
         'classes' => 'group-timetable field-group-accordion-item',
+        'show_empty_fields' => 1,
       ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_timetable|node|course_implementation|default'] = $field_group;

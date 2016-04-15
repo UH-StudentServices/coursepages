@@ -1,3 +1,28 @@
+# Helsinki University Coursepages v1.64
+Päiväys: 15.04.2016
+
+## Lisäykset
+  - DOO-1998: Lisättiin tuki organisaatiokohtaisten virkailijoiden muokkausoikeuksille.
+  - DOO-2042: Lisättiin avoimen osion yläosan logon linkitys avoimen etusivulle
+
+## Muutokset
+  - DOO-2119: Päivitettin apuscriptiä, jolla generoitiin massapäivitys script
+  - DOO-2099: Muokkausnäkymän tallennus ym. -painikkeet koko ajan näkyvillä.
+  - DOO-2085: Muokkausnäkymässä promootio-välilehti vaihdettiin esittelyksi.
+  - DOO-2140: Muokkausnäkymästä otettu date popup ja timepicker -widgetit pois
+    käytöstä mobiilitilassa.
+  - DOO-2139: Info-pallot, aktiviteettilistaus, ja hakufiltterit sulkeutuvat kun mobiilissa
+    koskee alueen ulkopuolelle
+
+## Korjaukset
+  - DOO-2142: Muokkausnäkymän mobiilissa tabledrag ei toiminut, joten se piilotettiin.
+  - DOO-2138: Korjattiin Materiaalin lisäyksen mobiilinäkymää selkeämmäksi.
+  - DOO-2000: Korjattiin maksun, suoritustavan, ilmoittautuminen ja lisätiedot
+    kuvaustekstien otsikoiden näyttölogiikkaa
+  - DOO-2125: Korjattiin ongelma, jossa editori/opettaja/virkailijan kurssia
+    tallennettaessa suomen kielellä hävitti organisaatio tiedont kurssista
+
+
 # Helsinki University Coursepages v1.63
 Päiväys: 08.04.2016
 
@@ -24,6 +49,7 @@ Päiväys: 08.04.2016
   - DOO-2119: Korjattiin organisaatioiden hierarkia ongelmat lisäämällä orvoksi
     jääneiden termien siivoaminen ja niiden kurssien päivittäminen sekä
     hierarkia tieto perustuu nyt organisaatio koodeihin
+  - DOO-2154: Korjattiin ongelma, jossa ei voinut lähettää vietiä kurssiin
 
 
 # Helsinki University Coursepages v1.62

@@ -16,3 +16,10 @@ function uhc_autofill_metadata_uninstall() {
   variable_del('uhc_refresh_enrollments');
   variable_del('uhc_autofill_metadata_override_enrollments');
 }
+
+/**
+ * Revert uhc_field_base module's field bases.
+ */
+function uhc_autofill_metadata_update_7001() {
+  features_revert(array('uhc_field_base' => array('field_base')));
+}

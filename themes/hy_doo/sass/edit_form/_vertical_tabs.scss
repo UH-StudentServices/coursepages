@@ -57,5 +57,50 @@
     > legend {
       @include font-size(32px);
     }
+
+    // ief form vertical tabs
+    .vertical-tabs {
+      background: $white;
+      margin-bottom: 2em;
+
+      @include at-breakpoint($layout-small) {
+        border: 2px solid $lightsilver;
+        .vertical-tabs-list li {
+          a {
+            background: lighten($lightsilver, 5%);
+            color: $silver;
+          }
+          &.selected a {
+            border: none;
+            background: $white;
+            color: $gray;
+          }
+          &:last-child {
+            border-bottom: none;
+          }
+          &:first-child {
+            border-top: none;
+          }
+        }
+      }
+
+      .vertical-tabs-panes {
+        padding-right: 1.5em;
+        border: 2px solid $lightsilver;
+        @include at-breakpoint($layout-small) {
+          border: none;
+        }
+      }
+      .vertical-tabs-header {
+        @include at-breakpoint($layout-mobile-only) {
+          background: $blue;
+          color: $white;
+          &.collapsed {
+            background: $darkblue;
+          }
+        }
+      }
+    }
+
   }
 }

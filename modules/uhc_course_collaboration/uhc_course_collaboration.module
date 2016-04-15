@@ -249,10 +249,20 @@ function uhc_course_collaboration_set_or_delete_teacher_membership($node) {
  * Handles setting OG course implementation membership or deleting course
  * administrator role from the membership. Sets OG course implementation
  * membership for the current user (if the membership does not already exist) if
- * the user is a course administrator (has an employee number) and if the
+ *
+ * 1) the user is a course administrator (has an employee number) and if the
  * employee number is on the list of administrator numbers related to the course
- * implementation. Deletes the course administrator role from the membership if
- * the employee number is no longer on the list of administrator numbers.
+ * implementation or
+ *
+ * 2) the user has organisation modify rights matching the current organisation
+ * of the course.
+ *
+ * Deletes the course administrator role from the membership if
+ *
+ * 1) the employee number is no longer on the list of administrator numbers and
+ *
+ * 2) the user no longer has matching organisation modify rights.
+ *
  * Reloads the page so that the membership changes are active immediately
  * (without the need to manually reload the course implementation page).
  *
@@ -260,7 +270,7 @@ function uhc_course_collaboration_set_or_delete_teacher_membership($node) {
  * @return bool
  */
 function uhc_course_collaboration_set_or_delete_course_administrator_membership($node) {
-  $course_administrator_numbers = uhc_course_implementation_get_course_administrator_numbers($node);
+  $has_organisation_modify_right = uhc_course_collaboration_current_user_has_organisation_modify_right($node);
   $modified_membership = FALSE;
 
   global $user;
@@ -269,7 +279,8 @@ function uhc_course_collaboration_set_or_delete_course_administrator_membership(
   $user_roles = og_get_user_roles($group_type, $node->nid, $user->uid);
   $has_course_administrator_membership = in_array($course_administrator_role_name, $user_roles);
   $employee_number = uhc_autofill_metadata_get_current_user_employee_number();
-  $course_administrator = in_array($employee_number, $course_administrator_numbers);
+  $course_administrator_numbers = uhc_course_implementation_get_course_administrator_numbers($node);
+  $course_administrator = in_array($employee_number, $course_administrator_numbers) || $has_organisation_modify_right;
 
   if ($course_administrator) {
     if (!$has_course_administrator_membership) {
@@ -289,6 +300,28 @@ function uhc_course_collaboration_set_or_delete_course_administrator_membership(
   }
 
   return $modified_membership;
+}
+
+/**
+ * Checks if the current user has organisation modify rights for the current
+ * course implementation.
+ *
+ * @param $node object Course implementation node.
+ * @return bool TRUE if has organisation modify right for the given course
+ * implementation, otherwise FALSE.
+ */
+function uhc_course_collaboration_current_user_has_organisation_modify_right($node) {
+  $has_organisation_modify_right = FALSE;
+  $organisation_modify_rights = uhc_autofill_metadata_get_current_user_organisation_modify_rights();
+
+  foreach ($organisation_modify_rights as $organisation_modify_right) {
+    if (uhc_sources_is_from_organisation($node, $organisation_modify_right)) {
+      $has_organisation_modify_right = TRUE;
+      break;
+    }
+  }
+
+  return $has_organisation_modify_right;
 }
 
 /**
@@ -390,6 +423,10 @@ function uhc_course_collaboration_is_current_user_course_administrator($node = N
 
         if (!empty($course_administrator_numbers)) {
           $is_course_administrator = in_array($employee_number, $course_administrator_numbers);
+        }
+
+        if (!$is_course_administrator) {
+          $is_course_administrator = uhc_course_collaboration_current_user_has_organisation_modify_right($node);
         }
       }
     }

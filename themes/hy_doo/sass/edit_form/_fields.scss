@@ -3,28 +3,26 @@
   .group-headline-and-intro,
   .group-material-title-and-section,
   .group-material-metadata {
-    float: left;
     box-sizing: border-box;
     input {
       width: 100%;
       box-sizing: border-box;
     }
+    @include at-breakpoint($layout-small) {
+      float: left;
+    }
   }
 
-  fieldset#edit-field-imp-teachersection-und-0 legend,
-  label[for=edit-field-imp-header-image-und-0-upload],
-  .form-item-field-imp-header-image-und-0 .image-widget-data span {
-    display: none;
-  }
+  @include at-breakpoint($layout-small) {
+    #edit-field-imp-header-headline-und-0-value {
+      @include font-size(32px);
+      font-weight: bold;
+      text-transform: uppercase;
+    }
 
-  #edit-field-imp-header-headline-und-0-value {
-    @include font-size(32px);
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  #edit-field-field-imp-header-intro-tex-und-0-value {
-    @include font-size(21px);
+    #edit-field-field-imp-header-intro-tex-und-0-value {
+      @include font-size(21px);
+    }
   }
 
   .field-name-field-event-duration input[type="text"],
@@ -39,10 +37,6 @@
 
   .field-name-field-private label {
     font-weight: bold;
-  }
-
-  .field-widget-link-field td {
-    padding: 1em 0;
   }
 
   .description-toggle {
@@ -81,4 +75,12 @@
 
 .filter-wrapper {
   display: none;
+}
+
+// hide section from material table, we still need it for material sort js
+#ief-entity-table-edit-field-section-material-und-entities {
+  th:nth-child(5),
+  .inline-entity-form-node-field_material_section {
+    display: none;
+  }
 }

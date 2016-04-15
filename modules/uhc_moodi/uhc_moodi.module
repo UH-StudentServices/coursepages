@@ -16,7 +16,7 @@
 function uhc_moodi_form_course_implementation_node_form_alter(&$form, &$form_state, $form_id) {
   $course_implementation_node_id = isset($_SESSION['og_context']['gid']) ? $_SESSION['og_context']['gid'] : NULL;
 
-  if (uhc_moodi_access() && !empty($course_implementation_node_id)) {
+  if (!empty($course_implementation_node_id)) {
     $course_implementation_node = node_load($course_implementation_node_id);
     $course_implementation_id = $course_implementation_node->field_imp_id[LANGUAGE_NONE][0]['value'];
     $form = uhc_moodi_add_moodi_widget($form, $course_implementation_id);
@@ -58,35 +58,45 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
       '#collapsed' => TRUE,
     );
 
-    //fieldset info, shown as a info bubble
-    $form['uhc_moodi_fieldset']['uhc_moodi_fieldset_info'] = array(
-      '#type' => 'markup',
-      '#prefix' => '<div class="description fieldset-info">',
-      '#suffix' => '</div>',
-      '#markup' => t('Automatic synchronization means that students with confirmed enrollments are moved to a new moodle-area from the learning opportunity found in WebOodi that corresponds this course. Enrollments are synchronized every 10 minutes, but unfortunately at this point cancellations and removals are not taken into account. Teachers and responsible teachers are given the same treatment as students.'),
-    );
-
     $moodi_response = uhc_moodi_get_controller()->get($course_implementation_id);
     $status_markup = '<h4>Moodle status</h4>' . uhc_moodi_get_status_markup($moodi_response);
 
-    // Status area.
-    $form['uhc_moodi_fieldset']['uhc_moodi_status_area'] = array(
-      '#type' => 'markup',
-      '#prefix' => uhc_moodi_get_status_prefix($moodi_response),
-      '#suffix' => '</div>',
-      '#markup' => $status_markup,
-    );
+    if (uhc_moodi_access()) {
+      // Moodi create button.
+      $form['uhc_moodi_fieldset']['uhc_moodi_create_button'] = array(
+        '#type' => 'submit',
+        '#value' => t('Create Moodle course area'),
+        '#access' => uhc_moodi_create_button_access($moodi_response),
+        '#ajax' => array(
+          'callback' => 'uhc_moodi_create_button_ajax_callback',
+          'wrapper' => 'uhc-moodi-status-area',
+        ),
+      );
 
-    // Moodi create button.
-    $form['uhc_moodi_fieldset']['uhc_moodi_create_button'] = array(
-      '#type' => 'submit',
-      '#value' => t('Create Moodle course area'),
-      '#access' => uhc_moodi_create_button_access($moodi_response),
-      '#ajax' => array(
-        'callback' => 'uhc_moodi_create_button_ajax_callback',
-        'wrapper' => 'uhc-moodi-status-area',
-      ),
-    );
+      //fieldset info, shown as a info bubble
+      $form['uhc_moodi_fieldset']['uhc_moodi_fieldset_info'] = array(
+        '#type' => 'markup',
+        '#prefix' => '<div class="description fieldset-info">',
+        '#suffix' => '</div>',
+        '#markup' => t('Automatic synchronization means that students with confirmed enrollments are moved to a new moodle-area from the learning opportunity found in WebOodi that corresponds this course. Enrollments are synchronized every 10 minutes, but unfortunately at this point cancellations and removals are not taken into account. Teachers and responsible teachers are given the same treatment as students.'),
+      );
+
+      // Status area.
+      $form['uhc_moodi_fieldset']['uhc_moodi_status_area'] = array(
+        '#type' => 'markup',
+        '#prefix' => uhc_moodi_get_status_prefix($moodi_response),
+        '#suffix' => '</div>',
+        '#markup' => $status_markup,
+      );
+    }
+    else {
+      $form['uhc_moodi_fieldset']['uhc_moodi_not_available'] = array(
+        '#type' => 'markup',
+        '#prefix' => '<div class="tube"><div class="messages info">',
+        '#suffix' => '</div></div>',
+        '#markup' => '<p>' . t('This function is not yet available.') . '</p>',
+      );
+    }
 
     // Moodi copy URL link.
     $form['uhc_moodi_fieldset']['uhc_moodi_copy_url_link'] = array(

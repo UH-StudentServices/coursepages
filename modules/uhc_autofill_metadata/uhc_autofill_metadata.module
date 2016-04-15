@@ -116,7 +116,7 @@ function uhc_autofill_metadata_user_login(&$edit, $account) {
   if (isset($_SERVER[$ou_attr])) {
     $terms = explode(';', $_SERVER[$ou_attr]);
     $account->field_organisational_unit = array(
-      'und' => array(),
+      LANGUAGE_NONE => array(),
     );
     foreach ($terms as $name) {
       if (!$name) {
@@ -128,12 +128,12 @@ function uhc_autofill_metadata_user_login(&$edit, $account) {
         $term->name = $name;
         $term->vid = taxonomy_vocabulary_machine_name_load('organisational_units')->vid;
         taxonomy_term_save($term);
-        $account->field_organisational_unit['und'][] = array(
+        $account->field_organisational_unit[LANGUAGE_NONE][] = array(
           'tid' => $term->tid,
         );
       }
       else {
-        $account->field_organisational_unit['und'][] = array(
+        $account->field_organisational_unit[LANGUAGE_NONE][] = array(
           'tid' => reset($term)->tid,
         );
       }
@@ -143,7 +143,7 @@ function uhc_autofill_metadata_user_login(&$edit, $account) {
   // When real name attribute found
   if (isset($_SERVER[$realname_attr])) {
     $account->field_user_real_name = array(
-      'und' => array(
+      LANGUAGE_NONE => array(
         0 => array(
           'value' => $_SERVER[$realname_attr],
         ),
@@ -157,7 +157,7 @@ function uhc_autofill_metadata_user_login(&$edit, $account) {
     $personal_unique_code = array_pop($personal_unique_code_parts);
 
     $account->field_personal_unique_code = array(
-      'und' => array(
+      LANGUAGE_NONE => array(
         0 => array(
           'value' => $personal_unique_code,
         ),
@@ -171,7 +171,7 @@ function uhc_autofill_metadata_user_login(&$edit, $account) {
   // When employee number attribute found
   if (isset($_SERVER[$en_attr])) {
     $account->field_employee_number = array(
-      'und' => array(
+      LANGUAGE_NONE => array(
         0 => array(
           'value' => $_SERVER[$en_attr],
         ),
@@ -182,7 +182,7 @@ function uhc_autofill_metadata_user_login(&$edit, $account) {
   // When Oodi UID attribute found
   if (isset($_SERVER[$ouid_attr])) {
     $account->field_oodi_uid = array(
-      'und' => array(
+      LANGUAGE_NONE => array(
         0 => array(
           'value' => $_SERVER[$ouid_attr],
         ),
@@ -317,10 +317,22 @@ function uhc_autofill_metadata_get_enrollment_data($personal_unique_code) {
 
 function uhc_autofill_metadata_set_enrollments($account, $enrollments) {
   if ($enrollments !== FALSE) {
-    $account->field_enrollments['und'] = array();
+    $account->field_enrollments[LANGUAGE_NONE] = array();
 
     foreach ($enrollments as $index => $value) {
-      $account->field_enrollments['und'][$index]['value'] = $value;
+      $account->field_enrollments[LANGUAGE_NONE][$index]['value'] = $value;
+    }
+  }
+
+  return $account;
+}
+
+function uhc_autofill_metadata_set_organisation_modify_rights($account, $organisation_modify_rights) {
+  if ($organisation_modify_rights !== FALSE) {
+    $account->field_organisation_modify_rights[LANGUAGE_NONE] = array();
+
+    foreach ($organisation_modify_rights as $index => $value) {
+      $account->field_organisation_modify_rights[LANGUAGE_NONE][$index]['value'] = $value;
     }
   }
 
@@ -333,6 +345,7 @@ function uhc_autofill_metadata_set_enrollments($account, $enrollments) {
 function uhc_autofill_metadata_node_view($node, $view_mode, $langcode) {
   if ($node->type == 'course_implementation' && arg(0) == 'node') {
     uhc_autofill_metadata_refresh_enrollments_for_current_user();
+    uhc_autofill_metadata_refresh_organisation_modify_rights_for_current_user();
   }
 }
 
@@ -354,6 +367,31 @@ function uhc_autofill_metadata_refresh_enrollments_for_current_user() {
         if ($enrollments !== FALSE) {
           $account = uhc_autofill_metadata_set_enrollments($account, $enrollments);
           user_save($account, array('field_personal_unique_code' => $account->field_personal_unique_code));
+          cache_set($cid, TRUE, 'cache', REQUEST_TIME + 60);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Refreshes organisation modify_rights for the current authenticated user if
+ * the user has an employee number. The refresh is cached for one minute.
+ */
+function uhc_autofill_metadata_refresh_organisation_modify_rights_for_current_user() {
+  if (user_is_logged_in() && variable_get('uhc_refresh_organisation_modify_rights', TRUE)) {
+    global $user;
+    $account = user_load($user->uid);
+
+    if (!empty($account->field_employee_number[LANGUAGE_NONE][0]['value'])) {
+      $cid = 'uhc-organisation-modify-rights-refresh-' . $user->uid;
+
+      if (!cache_get($cid)) {
+        $organisation_modify_rights = uhc_autofill_metadata_get_organisation_modify_rights($account->name);
+
+        if ($organisation_modify_rights !== FALSE) {
+          $account = uhc_autofill_metadata_set_organisation_modify_rights($account, $organisation_modify_rights);
+          user_save($account, array('name' => $account->name));
           cache_set($cid, TRUE, 'cache', REQUEST_TIME + 60);
         }
       }
@@ -406,6 +444,23 @@ function uhc_autofill_metadata_get_current_user_oodi_uid() {
   return $oodi_uid;
 }
 
+function uhc_autofill_metadata_get_current_user_organisation_modify_rights() {
+  $organisation_modify_rights = array();
+
+  if (user_is_logged_in()) {
+    global $user;
+    $account = user_load($user->uid);
+
+    if (!empty($account->field_organisation_modify_rights[LANGUAGE_NONE])) {
+      foreach ($account->field_organisation_modify_rights[LANGUAGE_NONE] as $organisation_modify_right) {
+        $organisation_modify_rights[] = $organisation_modify_right['value'];
+      }
+    }
+  }
+
+  return $organisation_modify_rights;
+}
+
 /**
  * Returns enrollment name by the given language code. If a name matching the
  * given language code is not found, fallbacks to known languages ('fi', 'en').
@@ -455,6 +510,82 @@ function _uhc_autofill_metadata_enrollments_block_should_display_enrollment($met
   }
 
   return $should_display_enrollment;
+}
+
+/**
+ * Returns organisation modify rights (organisation codes) for the given user
+ * identified by email address.
+ *
+ * @param $email string Email address.
+ * @return array|bool 0-n Organisation modify rights (organisation codes) or
+ * FALSE if an error occured.
+ */
+function uhc_autofill_metadata_get_organisation_modify_rights($email) {
+  $organisation_modify_rights = array();
+  $organisation_modify_rights_data = uhc_autofill_metadata_get_organisation_modify_rights_data($email);
+
+  if (isset($organisation_modify_rights_data['status']) && $organisation_modify_rights_data['status'] == 200 && !empty($organisation_modify_rights_data['data'])) {
+    foreach ($organisation_modify_rights_data['data'] as $modify_right) {
+      if (isset($modify_right['organisation_code'])) {
+        $organisation_modify_rights[] = $modify_right['organisation_code'];
+      }
+    }
+  }
+
+  return $organisation_modify_rights;
+}
+
+/**
+ * Returns organisation modify rights (a list of organisation codes) for the
+ * given user identified by email address.
+ *
+ * @param $email string Email address
+ * @return object|NULL|bool Modify rights (if found), NULL if not found or FALSE
+ * if an error occured.
+ */
+function uhc_autofill_metadata_get_organisation_modify_rights_data($email) {
+  $organisation_modify_rights = NULL;
+
+  // For easier debugging, we can fake our organisation modify rights response
+  // by using this Drupal variable (if it's set).
+  $override_organisation_modify_rights = variable_get('uhc_autofill_metadata_override_organisation_modify_rights', array());
+
+  if (!empty($override_organisation_modify_rights)) {
+    return $override_organisation_modify_rights;
+  }
+
+  // Continue only when email is given.
+  if (!empty($email)) {
+    $organisation_modify_rights = &drupal_static(__FUNCTION__ . $email);
+    // Organisation modify rights data might be also defined as FALSE, so we let
+    // this through from static storage too. If it's NULL, we assume that this
+    // specific case isn't requested yet.
+    if (is_null($organisation_modify_rights)) {
+      $base_url = variable_get('uhc_organisation_modify_rights_base_url');
+
+      if (!empty($base_url)) {
+        $path = "teachers/$email/modifyrights";
+        $url = $base_url . $path;
+        $response = drupal_http_request($url, array('timeout' => 5.0));
+
+        if ($response->code == 200) {
+          $organisation_modify_rights = drupal_json_decode($response->data);
+        }
+        else {
+          $organisation_modify_rights = FALSE;
+          $error = isset($response->error) ? $response->error : '';
+
+          uhc_autofill_metadata_log(
+            'Failed to get organisation modify rights for @email. Error: @error',
+            array('@email' => $email, '@error' => $error),
+            WATCHDOG_WARNING
+          );
+        }
+      }
+    }
+  }
+
+  return $organisation_modify_rights;
 }
 
 /**

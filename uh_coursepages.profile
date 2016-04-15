@@ -455,17 +455,23 @@ function uh_coursepages_block_view($delta = '') {
   switch ($delta) {
     case 'uhc_logo_block':
       $contexts = context_active_contexts();
+      $open_university_home_paths = array(
+        'fi' => 'fi/avoin-yliopisto',
+        'en' => 'en/open-university',
+        'sv' => 'sv/oppna-universitetet'
+      );
       global $language;
-      $main_page_href = 'https://www.helsinki.fi/' . check_plain($language->language);
 
       // Open university
-      if (array_key_exists('open_university_header_and_footer', $contexts)) {
+      if (array_key_exists('open_university_header_and_footer', $contexts) && isset($open_university_home_paths[$language->language])) {
+        $main_page_href = 'https://www.helsinki.fi/' . $open_university_home_paths[$language->language];
         $image_path = '/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg';
         $image_fallback_path = '/profiles/uh_coursepages/themes/hy_doo/images/ie/helsinki_university_53x50.png';
         $href = $main_page_href; // The whole logo section is a link in open uni
         $text = t("Open University");
       }
       else {
+        $main_page_href = 'https://www.helsinki.fi/' . check_plain($language->language);
         $image_path = '/profiles/uh_coursepages/themes/hy_doo/logo.svg';
         $image_fallback_path = '/profiles/uh_coursepages/themes/hy_doo/logo.png';
         global $user;

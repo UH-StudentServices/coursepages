@@ -23,10 +23,10 @@ function uhc_course_implementation_field_group_info() {
     'label' => 'Course Information',
     'weight' => '1',
     'children' => array(
-      0 => 'field_imp_fee',
-      1 => 'course_overview_link',
-      2 => 'uhc_ds_additional_info',
-      3 => 'uhc_ds_conduct',
+      0 => 'course_overview_link',
+      1 => 'uhc_ds_additional_info',
+      2 => 'uhc_ds_conduct',
+      3 => 'uhc_ds_fee',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -177,7 +177,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Promotion',
+    'label' => 'Introduction',
     'weight' => '1',
     'children' => array(
       0 => 'field_imp_header_text',
@@ -186,11 +186,12 @@ function uhc_course_implementation_field_group_info() {
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'label' => 'Promotion',
+      'label' => 'Introduction',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-header-promotion field-group-tab',
         'description' => 'Add an image, headline and text',
+        'show_empty_fields' => 0,
       ),
       'formatter' => 'closed',
     ),
@@ -207,7 +208,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_header_promotion';
   $field_group->data = array(
-    'label' => 'Headline and Intro text',
+    'label' => '',
     'weight' => '22',
     'children' => array(
       0 => 'field_imp_header_headline',
@@ -215,7 +216,7 @@ function uhc_course_implementation_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Headline and Intro text',
+      'label' => '',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-headline-and-intro field-group-fieldset',
@@ -305,7 +306,7 @@ function uhc_course_implementation_field_group_info() {
     'format_settings' => array(
       'label' => 'Registration and fee',
       'instance_settings' => array(
-        'classes' => 'group-imp-fee field-group-accordion-item',
+        'classes' => 'group-imp-fee field-group-accordion-item hide-labels',
         'show_empty_fields' => 0,
       ),
       'formatter' => 'closed',
@@ -323,7 +324,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_header_promotion';
   $field_group->data = array(
-    'label' => 'Image',
+    'label' => '',
     'weight' => '21',
     'children' => array(
       0 => 'field_imp_header_image',
@@ -331,7 +332,7 @@ function uhc_course_implementation_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Image',
+      'label' => '',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-imp-header-img field-group-fieldset',

@@ -292,8 +292,8 @@ function uhc_course_material_get_file_names($course_implementation_node) {
       $material_nodes = node_load_multiple($material_node_ids);
 
       foreach ($material_nodes as $material_node) {
-        $file_name = !empty($material_node->field_material_file['und'][0]['filename'])
-          ? $material_node->field_material_file['und'][0]['filename']
+        $file_name = !empty($material_node->field_material_file[LANGUAGE_NONE][0]['filename'])
+          ? $material_node->field_material_file[LANGUAGE_NONE][0]['filename']
           : '';
 
         if (!empty($file_name)) {

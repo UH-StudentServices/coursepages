@@ -106,7 +106,7 @@ function uhc_tour_context_default_contexts() {
 </li>
 
 <li class="joyride-moodle" data-class="ds-node-banner"  data-text="Next">
-  <h2>Promotion</h2>
+  <h2>Introduction</h2>
   <p>Use this area for promoting the course to students. You can also add your own image.</p>
 </li>
 

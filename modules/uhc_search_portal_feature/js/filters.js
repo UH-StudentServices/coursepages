@@ -123,7 +123,7 @@
       });
 
       // close dropdown when clicking outside it
-      $(document).click(function (event) {
+      $(document).bind('touchstart click', function(event) {
         var collapsed = $('.block--facetapi.collapsed');
         // Any facets opened?
         if (collapsed.length > 0) {

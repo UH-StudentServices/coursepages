@@ -30,6 +30,7 @@
     &.legend:after {
       @include font-size(10px);
       @include font-weight-medium;
+      content: '';
       color: $white;
       height: 18px;
       width: 18px;
@@ -41,11 +42,9 @@
       margin-left: 1em;
     }
     &.study-object:after {
-      content: 'K';
       background: $color-legend-study-object;
     }
     &.course:after {
-      content: 'J';
       background: $color-legend-course;
     }
   }

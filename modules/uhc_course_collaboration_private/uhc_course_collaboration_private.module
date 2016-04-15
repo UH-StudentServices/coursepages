@@ -90,8 +90,8 @@ function uhc_course_collaboration_private_entity_metadata_no_hook_node_access($o
  */
 function uhc_course_collaboration_private_is_private_course_material($entity) {
   return $entity->type == 'course_material'
-    && isset($entity->field_private['und'][0]['value'])
-    && $entity->field_private['und'][0]['value'] == 1;
+    && isset($entity->field_private[LANGUAGE_NONE][0]['value'])
+    && $entity->field_private[LANGUAGE_NONE][0]['value'] == 1;
 }
 
 /**

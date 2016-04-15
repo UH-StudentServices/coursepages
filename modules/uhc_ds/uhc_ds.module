@@ -90,12 +90,12 @@ function uhc_ds_ds_fields_info($entity_type) {
       'uhc_ds_fee' => array(
         'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_imp_fee',
-        'label' => 'Course implementation: Fee',
+        'label' => t('Fee'),
       ),
       'uhc_ds_open_uni_registration' => array(
         'function' => 'uhc_ds_content_fallback',
         'field_name' => 'field_open_uni_registration',
-        'label' => 'Course implementation: Open university registration',
+        'label' => t('Registration'),
       ),
     );
 
@@ -865,7 +865,7 @@ function uhc_ds_render_fallback_with_source($value, $label, $source) {
   $output = '<div class="accordion-content-item">';
 
   if (user_is_logged_in()) {
-     $output .= '<label class="accordion-content-item--label label-above legend ' . $source .  '">' . $label . '</label>';
+    $output .= '<label class="accordion-content-item--label label-above legend ' . $source .  '">' . $label . '</label>';
   }
   else {
     $output .= '<label class="accordion-content-item--label label-above">' . $label . '</label>';

@@ -183,28 +183,28 @@ function uhc_event_preprocess_block(&$variables) {
   $block = $variables['block'];
   if ($block->module == 'views' && $block->delta == 'course_event_references-block') {
 
-    // Get the course implementation node
+    // Get the course implementation node from URL
     $node = menu_get_object();
+    if (!is_null($node)) {
+      // Check if we have a custom title for the events listing and use it
+      if (!empty($node->field_imp_events_title)) {
+        $block->subject = $node->field_imp_events_title[LANGUAGE_NONE][0]['value'];
+      }
 
-    // Check if we have a custom title for the events listing and use it
-    if (!empty($node->field_imp_events_title)) {
-      $block->subject = $node->field_imp_events_title[LANGUAGE_NONE][0]['value'];
+      // Set accordion classes when we have events from both sources
+      if (uhc_event_has_events_from_both_sources($node)) {
+
+        // Disable contextual links, as they break our accordion. Add classes to enable accordion.
+        unset($variables['title_suffix']['contextual_links']);
+        $variables['title_attributes_array']['class'][] = 'accordion-item__light ds-teaser-accordion--title';
+        $variables['content_attributes_array']['class'][] = 'field-group-accordion-item';
+
+      }
+      else {
+        //lets hide the title if no accordion is needed
+        $variables['title_attributes_array']['class'][] = 'element-invisible';
+      }
     }
-
-    // Set accordion classes when we have events from both sources
-    if(uhc_event_has_events_from_both_sources($node)) {
-
-      // Disable contextual links, as they break our accordion. Add classes to enable accordion.
-      unset($variables['title_suffix']['contextual_links']);
-      $variables['title_attributes_array']['class'][] = 'accordion-item__light ds-teaser-accordion--title';
-      $variables['content_attributes_array']['class'][] = 'field-group-accordion-item';
-
-    }
-    else {
-      //lets hide the title if no accordion is needed
-       $variables['title_attributes_array']['class'][] = 'element-invisible';
-    }
-
   }
 }
 
@@ -247,6 +247,50 @@ function uhc_event_ajax_render_alter(&$commands) {
   foreach ($commands as $command) {
     if(isset($command['settings']['datePopup'])) {
       $commands[] = array('command' => 'timepickerinit');
+    }
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ *
+ * Adds a custom duration validator to event form.
+ */
+function uhc_event_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if ($entity_form['#bundle'] == 'event') {
+    $entity_form['#element_validate'][] = 'uhc_event_event_form_validate_duration';
+  }
+}
+
+/**
+ * Custom duration validator. Validates the duration format and that the event
+ * ends at 23:45 the same day at the latest.
+ */
+function uhc_event_event_form_validate_duration($element, &$form_state, $form) {
+  if (!empty($form_state['values']['field_imp_reference_to_events']['und']['form']['field_event_duration']['und'][0]['value'])
+    && !empty($form_state['values']['field_imp_reference_to_events']['und']['form']['field_event_begin_date']['und'][0]['value'])) {
+
+    $duration_value = $form_state['values']['field_imp_reference_to_events']['und']['form']['field_event_duration']['und'][0]['value'];
+
+    // Validate duration format.
+    if (!preg_match('#^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$#', $duration_value)) {
+      form_error($element, t('Duration is not in valid format. Use for example 01:30 for duration of one hour and thirty minutes.'));
+      return;
+    }
+
+    // Validate end time.
+    $duration_hours_and_minutes = explode(':', $duration_value);
+    $start_time_value = $form_state['values']['field_imp_reference_to_events']['und']['form']['field_event_begin_date']['und'][0]['value'];
+    $start_time = new DateTime($start_time_value);
+    $max_start_time = clone $start_time;
+    $max_start_time->setTime(23, 45);
+    $duration_hours = (int) $duration_hours_and_minutes[0];
+    $duration_minutes = (int) $duration_hours_and_minutes[1];
+    $start_time->add(new DateInterval("PT{$duration_hours}H"));
+    $start_time->add(new DateInterval("PT{$duration_minutes}M"));
+
+    if ($start_time > $max_start_time) {
+      form_error($element, t('The event must end at 23:45 the same day at the latest.'));
     }
   }
 }

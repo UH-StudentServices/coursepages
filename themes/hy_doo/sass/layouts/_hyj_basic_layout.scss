@@ -28,10 +28,6 @@
     @include container;
   }
 
-  .l-main {
-    padding-top: 30px;
-  }
-
   .l-content-sidebar-left {
     @include span-columns(6, 16);
   }
@@ -58,8 +54,11 @@
   }
 }
 
+.l-main {
+  padding-top: 30px;
+}
+
 .l-content {
-  padding: 1em 0;
 
   p:first-child {
     margin-top: 0.2em;

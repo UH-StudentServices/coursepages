@@ -21,7 +21,7 @@ function uhc_course_material_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attach a file',
-    'weight' => '8',
+    'weight' => '4',
     'children' => array(
       0 => 'field_material_file',
     ),
@@ -48,7 +48,7 @@ function uhc_course_material_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Create a link',
-    'weight' => '7',
+    'weight' => '5',
     'children' => array(
       0 => 'field_material_link',
     ),
@@ -75,12 +75,12 @@ function uhc_course_material_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => '',
-    'weight' => '3',
+    'weight' => '1',
     'children' => array(
       0 => 'field_material_author',
       1 => 'field_material_pub_info',
-      2 => 'field_material_show_finna_link',
-      3 => 'field_material_publication_year',
+      2 => 'field_material_publication_year',
+      3 => 'field_material_show_finna_link',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

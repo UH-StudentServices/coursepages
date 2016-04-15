@@ -32,7 +32,7 @@
       });
 
       // close description when clicking outside
-      $(document).click(function(event) {
+      $(document).bind('touchstart click', function(event) {
         if (!$(event.target).closest('.description-toggle').length) {
           $('.description').removeClass('collapsed');
         }
