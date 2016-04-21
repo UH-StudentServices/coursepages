@@ -1,3 +1,11 @@
+# Helsinki University Coursepages v1.65
+Päiväys: 21.04.2016
+
+## Päivitykset
+  - DRUPAL-SA-CONTRIB-2016-022: Päivitettiin Search API moduuli
+  - DRUPAL-SA-CONTRIB-2016-023: Päivitettiin Organic Groups moduuli
+
+
 # Helsinki University Coursepages v1.64
 Päiväys: 15.04.2016
 

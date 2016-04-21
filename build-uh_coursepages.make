@@ -83,7 +83,7 @@ projects[node_edit_protection][download][url] = http://git.drupal.org/project/no
 ; Latest dev commit from 2016-01-07 06:43:46 (GMT) since the stable is quite old.
 projects[node_edit_protection][download][revision] = e17dc41f5891689c517b228391b56aa56d391d65
 
-projects[og][version] = "2.7"
+projects[og][version] = "2.9"
 projects[comment_og][version] = "1.0"
 projects[pathauto][version] = "1.3"
 ; Patch: adds drush commands for deleting & updating aliases
@@ -92,7 +92,7 @@ projects[pathauto][patch]["https://www.drupal.org/node/867578"] = https://www.dr
 ; Search
 
 ; drush make does not know where to place this by default
-projects[search_api][version] = "1.13"
+projects[search_api][version] = "1.18"
 projects[search_api][subdir] = "contrib"
 projects[search_api_autocomplete][version] = "1.4"
 ; Temporary fix for download not working for facetapi
