@@ -130,7 +130,14 @@ function uhc_open_university_menu() {
  * Implementation of hook_page().
  */
 function uhc_open_university_page() {
-  return ' ';
+  // This callback should only be used for the landing page. Return 404 for any
+  // invalid args.
+  if (func_get_args()) {
+    return MENU_NOT_FOUND;
+  }
+  else {
+    return ' ';
+  }
 }
 
 /**
@@ -183,12 +190,26 @@ function uhc_open_university_is_open_university_course_or_implementation($node) 
  * @see uhc_open_university_form_apply_sort()
  */
 function uhc_open_university_form_alter(&$form, &$form_state, $form_id) {
-  if ($form['#id'] != 'views-exposed-form-uhc-search-open-university-desktop') {
+  if ($form['#id'] != 'views-exposed-form-uhc-search-open-university-desktop' &&
+      $form['#id'] != 'views-exposed-form-uhc-portal-search-front-page--desktop' &&
+      $form['#id'] != 'views-exposed-form-uhc-search-desktop' &&
+      $form['#id'] != 'views-exposed-form-uhc-search-biosciences-desktop') {
     return;
   }
 
   $submit_on_change_script = 'this.form.submit();';
   $form['items_per_page']['#attributes']['onchange'][] = $submit_on_change_script;
+  $sort_options = array(
+    'title_field:asc' => t('By name A-Ö'),
+    'title_field:desc' => t('By name Ö-A'),
+  );
+  // Only show location options in open uni search
+  if ($form['#id'] == 'views-exposed-form-uhc-search-open-university-desktop') {
+    $sort_options['field_imp_locality:asc'] = t('By location A-Ö');
+    $sort_options['field_imp_locality:desc'] = t('By location Ö-A');
+  }
+  $sort_options['field_imp_begin_date:asc'] = t('Ascending by begin date');
+  $sort_options['field_imp_begin_date:desc'] = t('Descending by begin date');
 
   $form['contact'] = array(
     '#type' => 'container',
@@ -200,14 +221,7 @@ function uhc_open_university_form_alter(&$form, &$form_state, $form_id) {
     ),
     'sorting' => array(
       '#type' => 'select',
-      '#options' => array(
-        'title_field:asc' => t('By name A-Ö'),
-        'title_field:desc' => t('By name Ö-A'),
-        'field_imp_locality:asc' => t('By location A-Ö'),
-        'field_imp_locality:desc' => t('By location Ö-A'),
-        'field_imp_begin_date:asc' => t('Ascending by begin date'),
-        'field_imp_begin_date:desc' => t('Descending by begin date'),
-      ),
+      '#options' => $sort_options,
       '#default_value' => 'title_field:asc',
       '#title' => t('Sort:'),
       '#attributes' => array('onchange' => $submit_on_change_script),

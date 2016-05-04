@@ -1,3 +1,41 @@
+# Helsinki University Coursepages v1.66
+Päiväys: 04.05.2016
+
+## Lisäykset
+  - DOO-185:  Lisättiin mahdollisuus lähettää lisätyt viestit myös kurssille ilmoittautuneille
+    opiskelijoille.
+  - DOO-2175: Lisättiin moduuli, jolla voidaan kirjata enemmän tietoa
+    virhetilanteista
+  - DOO-2094: Lisättiin kaikkiin hakuihin poista valinnat -nappi.
+  - DOO-2095: Lisättiin kaikkiin hakuihin toiminnot, joilla voi valita hakutulosten järjestyksen ja määrän
+    per sivu.
+  - DOO-2178: Lisättiin koulutussuunnittelijarooli, jolla on käyttöoikeudet oppiainesivujen ylläpitoon.
+
+## Muutokset
+  - DOO-2022: Lisättiin oppiaineiden ja portaalisivujen lomakkeille peruuta-nappi ja poistettiin näytä
+    muutokset -nappi.
+  - DOO-2151: Muutettiin opetusaikataulun paikkakunta-otsikko opetuspaikaksi.
+  - DOO-1390: Siistittiin kurssisivun tulostusnäkymää.
+  - DOO-2093: Muutettiin kurssihaun suodattimien järjestyksessä oppiaine ja tiedekunta ensimmäisiksi.
+
+## Korjaukset
+  - DOO-2074: Sivupyynnöt open-university/*-polkuihin, joissa ei ole sisältöä,
+    palauttavat 404-sivun tyhjän sivun sijaan.
+  - DOO-2044: Korjattiin ongelma, jossa jakson sivuilla paikkakunta ei kääntynyt
+    ollenkaan englannin ja ruotsin kielelle.
+  - DOO-1925: Pienennettiin listaelementtien fonttikokoa ja välistystä konseptin mukaiseksi.
+  - DOO-2153: Korjattiin ongelma, jossa tietyissä olosuhteissa sisäänluvun
+    aikaleima päivittyy tilanteessa, jossa sen ei pitäisi 
+  - DOO-1962: Korjattiin opinto-ohjelma-napin leveys mobiilinäkymässä.
+  - DOO-1965: Korjattiin hakujen pudotusvalintojen nappien näkyvyysongelma.
+  - DOO-2170: Toteutusten tiedot päivitetään hakutuloksiin, kun niiden jakson tiedot muuttuvat.
+  - DOO-2159: Piilotettiin tyhjä Tour-valinta muokkauslomakkeelta, kun käyttäjällä ei ole tarvittavia
+    käyttöoikeuksia tour-asetusten valintaan.
+  - DOO-2156: Korjattiin analytiikkasivun mobiilinäkymä.
+  - DOO-2175: Korjattiin ongelma, jossa tietyissä tilanteissa kurssisivuilla
+    tuli huoltosivu/odottamaton virhetilanne
+
+
 # Helsinki University Coursepages v1.65
 Päiväys: 21.04.2016
 

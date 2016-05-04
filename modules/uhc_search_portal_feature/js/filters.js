@@ -52,11 +52,12 @@
     attach: function (context, settings) {
 
       // Add "buttons" for applying changes and removing all filters
-      $('.block--facetapi .block__content').append('<span class="facets-apply button">OK</span>')
+      $('.block--facetapi .block__content').append('<div class="facet-buttons"></div>');
+      $('.facet-buttons').append('<span class="facets-apply button">OK</span>')
         .append('<span class="facets-remove button">' + Drupal.t('Remove selections') + '</span>');
       $('.facets-apply').click(applyChanges);
       $('.facets-remove').click(function() {
-        $(this).siblings('ul').find('input[type="checkbox"]:checked').parent().trigger('click');
+        $(this).parent().siblings('ul').find('input[type="checkbox"]:checked').parent().trigger('click');
       });
 
       // Extract filter keys and values from current path

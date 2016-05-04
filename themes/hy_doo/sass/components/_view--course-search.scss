@@ -135,6 +135,10 @@ body.search-main-page .views-widget-sort-by {
   display: none;
 }
 
+.block.course-search {
+  position: relative;
+}
+
 // This is the results view (which also includes facet search elements)
 .view.course-search {
   .view-header {

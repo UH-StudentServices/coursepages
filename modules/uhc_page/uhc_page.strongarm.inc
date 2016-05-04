@@ -13,6 +13,13 @@ function uhc_page_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'diff_show_preview_changes_node_portal_page';
+  $strongarm->value = 0;
+  $export['diff_show_preview_changes_node_portal_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__portal_page';
   $strongarm->value = array(
     'view_modes' => array(
@@ -85,6 +92,13 @@ function uhc_page_strongarm() {
   $strongarm->name = 'language_content_type_portal_page';
   $strongarm->value = '4';
   $export['language_content_type_portal_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mb_content_cancel_portal_page';
+  $strongarm->value = '2';
+  $export['mb_content_cancel_portal_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

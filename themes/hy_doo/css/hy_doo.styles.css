@@ -754,6 +754,17 @@ body:before {
   font-style: normal;
 }
 
+.view.course-search.view-uhc-google-analytics-reports-page thead {
+  display: table-header-group;
+}
+.view.course-search.view-uhc-google-analytics-reports-page tr {
+  display: table-row;
+}
+.view.course-search.view-uhc-google-analytics-reports-page th, .view.course-search.view-uhc-google-analytics-reports-page td {
+  float: none;
+  width: 33%;
+}
+
 .course-hierarchy a.active {
   color: #005479;
 }
@@ -2358,13 +2369,18 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
 .study-module-multiselect .chosen-drop ul.facetapi-disabled {
   opacity: 1;
 }
+.block.block--facetapi .block__content .facet-buttons,
+.block.block--facetapi .chosen-drop .facet-buttons,
+.study-module-multiselect .block__content .facet-buttons,
+.study-module-multiselect .chosen-drop .facet-buttons {
+  padding: 1em;
+  text-align: center;
+}
 .block.block--facetapi .block__content .button,
 .block.block--facetapi .chosen-drop .button,
 .study-module-multiselect .block__content .button,
 .study-module-multiselect .chosen-drop .button {
   display: inline-block;
-  margin: 1em;
-  padding: 0.7em 1.3em;
 }
 .block.block--facetapi .block__content .button.facets-remove,
 .block.block--facetapi .chosen-drop .button.facets-remove,
@@ -2372,6 +2388,14 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
 .study-module-multiselect .chosen-drop .button.facets-remove {
   background: #FFF;
   color: #0098d0;
+  padding: 0.7em 0;
+}
+.block.block--facetapi .block__content .button.facets-apply,
+.block.block--facetapi .chosen-drop .button.facets-apply,
+.study-module-multiselect .block__content .button.facets-apply,
+.study-module-multiselect .chosen-drop .button.facets-apply {
+  float: left;
+  padding: 0.7em 1.3em;
 }
 .block.block--facetapi.collapsed h2.block__title, .block.block--facetapi.chosen-with-drop h2.block__title,
 .study-module-multiselect.collapsed h2.block__title,
@@ -2706,6 +2730,10 @@ h2.study-module-select-title {
   border-right: 0;
   border-top: 0;
 }
+.node--course-implementation--teaser-accordion .button {
+  display: inline-block;
+  margin-bottom: 2em;
+}
 @media (min-width: 62.5em) {
   .node--course-implementation--teaser-accordion .accordion-content-item {
     overflow: hidden;
@@ -2734,10 +2762,6 @@ h2.study-module-select-title {
     width: 82.85714%;
     float: right;
     margin-right: 0;
-  }
-  .node--course-implementation--teaser-accordion .button {
-    display: inline-block;
-    margin-bottom: 2em;
   }
 }
 
@@ -3147,6 +3171,10 @@ h2.study-module-select-title {
 
 body.search-main-page .views-widget-sort-by {
   display: none;
+}
+
+.block.course-search {
+  position: relative;
 }
 
 .view.course-search .view-header h2 {
@@ -4740,33 +4768,34 @@ ul.list-of-links li > a {
   height: auto;
 }
 
-.body-text {
-  font-family: Georgia;
-}
-.body-text ol, .body-text ul {
+.body-text ol, .body-text ul, .field-collection-view ol, .field-collection-view ul {
   list-style: outside decimal;
 }
-.body-text ol li, .body-text ul li {
+.body-text ol li, .body-text ul li, .field-collection-view ol li, .field-collection-view ul li {
   margin: 0.5em 0 0 2em;
-  font-size: 1.125rem;
+  font-size: 1rem;
   letter-spacing: 0.01em;
-  line-height: 1.7em;
+  line-height: 1.5em;
   padding: 0 0 1em;
 }
-.body-text ol ol, .body-text ol ul, .body-text ul ol, .body-text ul ul {
+.body-text ol ol, .body-text ol ul, .body-text ul ol, .body-text ul ul, .field-collection-view ol ol, .field-collection-view ol ul, .field-collection-view ul ol, .field-collection-view ul ul {
   margin-left: 1em;
 }
-.body-text ul {
+.body-text ul, .field-collection-view ul {
   list-style: none;
 }
-.body-text ul li:before {
+.body-text ul li:before, .field-collection-view ul li:before {
   content: '\00b7';
   display: block;
   float: left;
-  font-size: 75px;
+  font-size: 55px;
   margin-left: -35px;
   margin-top: -4px;
   color: #0098d0;
+}
+
+.body-text {
+  font-family: Georgia;
 }
 
 .body-text--small p,

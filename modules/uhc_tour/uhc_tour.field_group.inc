@@ -30,7 +30,7 @@ function uhc_tour_field_group_info() {
         'required_fields' => 1,
         'classes' => '',
         'description' => '',
-        'show_empty_fields' => 1,
+        'show_empty_fields' => 0,
       ),
       'formatter' => 'closed',
     ),

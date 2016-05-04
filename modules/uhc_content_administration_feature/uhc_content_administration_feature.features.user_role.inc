@@ -16,5 +16,11 @@ function uhc_content_administration_feature_user_default_roles() {
     'weight' => 6,
   );
 
+  // Exported role: open university editor.
+  $roles['open university editor'] = array(
+    'name' => 'open university editor',
+    'weight' => 7,
+  );
+
   return $roles;
 }

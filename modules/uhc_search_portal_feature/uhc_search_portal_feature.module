@@ -449,3 +449,26 @@ function uhc_search_portal_feature_section_search_form($field) {
     return $output;
   }
 }
+
+/**
+ * Implements hook_entity_presave(). When saving a course, mark all its
+ * implementations for reindexing in Search API.
+ */
+function uhc_search_portal_feature_entity_presave($entity, $type) {
+  if ($type != 'node' || $entity->type != 'course') {
+    return;
+  }
+  $query = db_query(
+    'SELECT entity_id
+    FROM {field_data_field_imp_reference_to_courses}
+    WHERE field_imp_reference_to_courses_target_id = :nid',
+    array(':nid' => $entity->nid)
+  );
+  // Make array of entity IDs to mark for reindexing
+  $results = array_filter(array_map(function($elem) {
+    return !empty($elem->entity_id) ? $elem->entity_id : NULL;
+  }, $query->fetchAllAssoc('entity_id')));
+  if ($results) {
+    search_api_track_item_change('search_api_et_node', $results);
+  }
+}

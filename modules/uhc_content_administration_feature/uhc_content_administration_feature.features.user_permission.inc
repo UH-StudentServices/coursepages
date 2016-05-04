@@ -743,6 +743,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'node',
   );
@@ -839,6 +840,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'node',
   );
@@ -925,6 +927,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'node',
   );
@@ -1031,6 +1034,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'node',
   );
@@ -2258,6 +2262,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'node',
   );
@@ -2344,6 +2349,15 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'override_node_options',
   );
 
+  // Exported permission: 'override subject published option'.
+  $permissions['override subject published option'] = array(
+    'name' => 'override subject published option',
+    'roles' => array(
+      'open university editor' => 'open university editor',
+    ),
+    'module' => 'override_node_options',
+  );
+
   // Exported permission: 'translate interface'.
   $permissions['translate interface'] = array(
     'name' => 'translate interface',
@@ -2405,6 +2419,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'name' => 'view any unpublished subject content',
     'roles' => array(
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'view_unpublished',
   );

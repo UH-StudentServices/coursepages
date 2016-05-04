@@ -863,6 +863,11 @@ function uhc_ds_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
+    'uhc_ds_leiki' => array(
+      'weight' => '33',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'field_imp_canonical_url' => array(
       'formatter_settings' => array(
         'ft' => array(
@@ -1161,7 +1166,7 @@ function uhc_ds_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'course_implementation';
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
-    'location_and_time' => array(
+    'uhc_ds_location_and_time' => array(
       'weight' => '2',
       'label' => 'hidden',
       'format' => 'default',
@@ -2388,24 +2393,6 @@ print "<a href=\'[node:field-event-link:url]\' target=\'_blank\'>[node:field_eve
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
-  $ds_field->field = 'location_and_time';
-  $ds_field->label = 'Location and time';
-  $ds_field->field_type = 5;
-  $ds_field->entities = array(
-    'node' => 'node',
-  );
-  $ds_field->ui_limit = '';
-  $ds_field->properties = array(
-    'code' => array(
-      'value' => '[node:field-imp-locality] [node:field-imp-begin-date:custom:j.n.Y] - [node:field-imp-end-date:custom:j.n.Y]',
-      'format' => 'ds_code',
-    ),
-    'use_token' => 1,
-  );
-  $export['location_and_time'] = $ds_field;
-
-  $ds_field = new stdClass();
-  $ds_field->api_version = 1;
   $ds_field->field = 'message_header';
   $ds_field->label = 'Message header';
   $ds_field->field_type = 5;
@@ -2570,13 +2557,17 @@ function uhc_ds_ds_layout_settings_info() {
     'regions' => array(
       'ds_content' => array(
         0 => 'comment_body',
+        1 => 'field_private',
+        2 => 'field_send_email',
       ),
       'hidden' => array(
-        1 => '_add_existing_field',
+        3 => '_add_existing_field',
       ),
     ),
     'fields' => array(
       'comment_body' => 'ds_content',
+      'field_private' => 'ds_content',
+      'field_send_email' => 'ds_content',
       '_add_existing_field' => 'hidden',
     ),
     'classes' => array(
@@ -3027,9 +3018,10 @@ function uhc_ds_ds_layout_settings_info() {
         20 => 'field_imp_header_text',
       ),
       'course_sidebar' => array(
-        47 => 'uhc_ds_course_hierarchy',
-        50 => 'uhc_ds_link_to_subject',
-        51 => 'uhc_ds_link_to_related_subjects',
+        46 => 'uhc_ds_course_hierarchy',
+        49 => 'uhc_ds_link_to_subject',
+        50 => 'uhc_ds_link_to_related_subjects',
+        52 => 'uhc_ds_leiki',
       ),
       'ds_hidden' => array(
         54 => 'field_moodle_key',
@@ -3089,6 +3081,7 @@ function uhc_ds_ds_layout_settings_info() {
       'uhc_ds_additional_info' => 'course_content',
       'uhc_ds_link_to_subject' => 'course_sidebar',
       'uhc_ds_link_to_related_subjects' => 'course_sidebar',
+      'uhc_ds_leiki' => 'course_sidebar',
       'uhc_ds_working_methods' => 'course_content',
       'uhc_ds_responsible_person' => 'course_content',
       'field_moodle_key' => 'ds_hidden',
@@ -3149,12 +3142,12 @@ function uhc_ds_ds_layout_settings_info() {
     'regions' => array(
       'ds_content' => array(
         0 => 'title_and_credit_linked',
-        1 => 'location_and_time',
+        1 => 'uhc_ds_location_and_time',
       ),
     ),
     'fields' => array(
       'title_and_credit_linked' => 'ds_content',
-      'location_and_time' => 'ds_content',
+      'uhc_ds_location_and_time' => 'ds_content',
     ),
     'classes' => array(
       'layout_class' => array(

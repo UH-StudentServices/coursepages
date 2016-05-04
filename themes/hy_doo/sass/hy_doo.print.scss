@@ -7,13 +7,15 @@
 }
 
 // Full width content for printing.
-.ds-grid-8 {
+.ds-grid-8, .ds-grid-18 {
   width: 100% !important;
 }
 
 // Hide unnecessary page elements.
+.messages,
 .l-top-bar-wrapper,
 .l-menu-bar,
+.l-breadcrumb,
 .ds-node-banner img,
 .accordion-item:before,
 .ds-teaser-accordion--title:before,
@@ -26,7 +28,20 @@
 #block-menu-menu-open-university-some-links,
 #block-feedback-form,
 #comments h2,
-#comments form {
+#comments form,
+.moodle-button,
+.group-course-messages,
+.group-imp-material,
+.group-imp-feedback,
+.ghost-accordion,
+.group-imp-video,
+.print-hidden,
+.joyride-tip-guide,
+footer,
+.l-region--info-footer,
+.ds-node-sidebar,
+.ds-node-banner
+{
   display: none !important;
 }
 
@@ -49,4 +64,41 @@
 // Restore margin for some elements for better layout.
 .ds-node-metadata label {
   margin-right: 0.35em !important;
+}
+
+.ds-node-content {
+  font-size: 0.7rem;
+}
+
+p {
+  line-height: 1.4em;
+}
+
+li {
+  font-size: 0.7rem !important;
+}
+
+.event-list .event-column {
+  width: 50% !important;
+}
+
+.event-list .field {
+  width: 50%;
+}
+
+.tube--large {
+  padding: 0 !important;
+}
+
+.l-main {
+  padding-top: 0;
+}
+
+.accordion-item__light, .accordion-item {
+  clear: both;
+  padding: inherit;
+}
+
+h1 {
+  font-size: 1.5rem;
 }

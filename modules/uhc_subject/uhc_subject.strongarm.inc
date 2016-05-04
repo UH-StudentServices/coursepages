@@ -62,6 +62,13 @@ function uhc_subject_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'diff_show_preview_changes_node_subject';
+  $strongarm->value = 0;
+  $export['diff_show_preview_changes_node_subject'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'entity_translation_settings_node__subject';
   $strongarm->value = array(
     'default_language' => 'und',
@@ -144,6 +151,13 @@ function uhc_subject_strongarm() {
   $strongarm->name = 'language_content_type_subject';
   $strongarm->value = '4';
   $export['language_content_type_subject'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mb_content_cancel_subject';
+  $strongarm->value = '2';
+  $export['mb_content_cancel_subject'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

@@ -26,7 +26,11 @@
       @extend .accordion-content-label;
       @include border-bottom;
     }
-  } 
+  }
+  .button {
+    display: inline-block;
+    margin-bottom: 2em;
+  }
   @include at-breakpoint($layout-medium) {
     .accordion-content-item {
       @include clearfix;
@@ -43,10 +47,6 @@
       > div:last-child {
         @include span-columns(10 omega, 12);
       }
-    }
-    .button {
-      display: inline-block;
-      margin-bottom: 2em;
     }
   }
 }

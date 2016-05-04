@@ -28,7 +28,7 @@ function uhc_search_portal_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'chosen_jquery_selector';
-  $strongarm->value = '#views-exposed-form-uhc-search-desktop select:visible,#views-exposed-form-uhc-search-open-university-desktop select:visible, .block--facetapi select';
+  $strongarm->value = '#views-exposed-form-uhc-search-desktop select:visible,#views-exposed-form-uhc-search-open-university-desktop select:visible, .block--facetapi select, #views-exposed-form-uhc-portal-search-front-page--desktop select:visible, #views-exposed-form-uhc-search-biosciences-desktop select:visible';
   $export['chosen_jquery_selector'] = $strongarm;
 
   $strongarm = new stdClass();

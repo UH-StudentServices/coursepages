@@ -139,22 +139,34 @@ function uhc_sources_handle_postupdates($calls = 0) {
   // Migrate aggregated items/ids
   $count = 0;
   foreach ($migration_attributes as $type => $attributes) {
+
+    // Gather all ids for given migration type
     /** @var Migration $migration */
     $ids = array();
     foreach ($items[$type] as $item) {
       $ids[] = $item->data['id'];
     }
-    $migration = Migration::getInstance($attributes['machine_name'], $attributes['class_name'], array('predefined_ids' => $ids));
-    $status = $migration->processImport(array('idlist' => implode(',', $ids), 'force' => TRUE));
-    if ($status == MigrationBase::RESULT_COMPLETED) {
-      // Delete items from queue after we confirmed that batch is completed.
-      foreach ($items[$type] as $item) {
-        $count++;
-        $queue->deleteItem($item);
+
+    // Process import if we have ids to process
+    if (count($ids) > 0) {
+      $migration = Migration::getInstance($attributes['machine_name'], $attributes['class_name'], array('predefined_ids' => $ids));
+      $status = $migration->processImport(array(
+        'idlist' => implode(',', $ids),
+        'force' => TRUE
+      ));
+      if ($status == MigrationBase::RESULT_COMPLETED) {
+        // Delete items from queue after we confirmed that batch is completed.
+        foreach ($items[$type] as $item) {
+          $count++;
+          $queue->deleteItem($item);
+        }
       }
-    }
-    else {
-      watchdog('uhc_sources', 'Was not able to migrate handled stubs for type @type. Got migration status @status', array('@type' => $type, '@status' => $status), WATCHDOG_WARNING);
+      else {
+        watchdog('uhc_sources', 'Was not able to migrate handled stubs for type @type. Got migration status @status', array(
+          '@type' => $type,
+          '@status' => $status
+        ), WATCHDOG_WARNING);
+      }
     }
   }
 

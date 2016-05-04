@@ -187,12 +187,23 @@ function uhc_course_implementation_field_group_build_pre_render_alter(&$element)
 
 /**
  * Implements hook_field_group_pre_render_alter().
- * Change custom section label. prefix markup mimics the one produced by
- * field_group_pre_render_accordion_item().
  */
 function uhc_course_implementation_field_group_pre_render_alter(&$element, $group, &$form) {
-  $fid = isset($element['field_imp_teachersection']['#items'][0]['value']) ? $element['field_imp_teachersection']['#items'][0]['value'] : NULL;
 
+  // Prepend some classes for label
+  if (in_array($group->group_name, array(
+    'group_course_messages',
+    'group_imp_material',
+    'group_imp_feedback',
+    'group_course_task_material',
+    'group_imp_video',
+  )) && isset($element['#prefix'])) {
+    $element['#prefix'] = str_replace('h3 class="', 'h3 class="print-hidden ', $element['#prefix']);
+  }
+
+  // Reconstruct whole prefix when rendering manual content and a file has been
+  // uploaded.
+  $fid = isset($element['field_imp_teachersection']['#items'][0]['value']) ? $element['field_imp_teachersection']['#items'][0]['value'] : NULL;
   if ($group->group_name == 'group_manual_content' && $fid) {
     // let's fetch the label
     $field_collection = field_collection_item_load($fid);

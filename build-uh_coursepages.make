@@ -83,7 +83,11 @@ projects[node_edit_protection][download][url] = http://git.drupal.org/project/no
 ; Latest dev commit from 2016-01-07 06:43:46 (GMT) since the stable is quite old.
 projects[node_edit_protection][download][revision] = e17dc41f5891689c517b228391b56aa56d391d65
 
+; OG is used for providing node/course specific permissions, patch is used for
+; fixing issue where in some cases we end up with PDOException, see DOO-2175
 projects[og][version] = "2.9"
+projects[og][patch]["https://www.drupal.org/node/2272583"] = https://www.drupal.org/files/issues/og-roles_for_blocked_users-2272583-3.patch
+
 projects[comment_og][version] = "1.0"
 projects[pathauto][version] = "1.3"
 ; Patch: adds drush commands for deleting & updating aliases
@@ -209,6 +213,10 @@ projects[message][version] = 1.10
 
 ; Optional supported (themed) module for providing site status messages
 projects[site_status_message][version] = 1.0
+
+; Optional module for gathering more information about PHP exceptions
+projects[past][version] = 1.0-alpha3
+projects[rules][version] = 2.9
 
 ; Themes
 

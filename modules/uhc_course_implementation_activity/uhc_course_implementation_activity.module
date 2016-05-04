@@ -43,7 +43,12 @@ function uhc_course_implementation_activity_form_message_type_form_alter(&$form,
  * @see uhc_course_implementation_activity_comment_modify()
  */
 function uhc_course_implementation_activity_comment_insert($comment) {
-  uhc_course_implementation_activity_comment_modify($comment, 'create');
+  if (isset($comment->node_type) && $comment->node_type == 'comment_node_course_implementation') {
+    if (uhc_course_implementation_activity_should_send_notify_mail($comment)) {
+      uhc_course_implementation_activity_send_notify_mail($comment);
+    }
+    uhc_course_implementation_activity_comment_modify($comment, 'create');
+  }
 }
 
 /**
@@ -51,7 +56,9 @@ function uhc_course_implementation_activity_comment_insert($comment) {
  * @see uhc_course_implementation_activity_comment_modify()
  */
 function uhc_course_implementation_activity_comment_update($comment) {
-  uhc_course_implementation_activity_comment_modify($comment, 'update');
+  if (isset($comment->node_type) && $comment->node_type == 'comment_node_course_implementation') {
+    uhc_course_implementation_activity_comment_modify($comment, 'update');
+  }
 }
 
 /**
@@ -59,7 +66,99 @@ function uhc_course_implementation_activity_comment_update($comment) {
  * @see uhc_course_implementation_activity_comment_modify()
  */
 function uhc_course_implementation_activity_comment_delete($comment) {
-  uhc_course_implementation_activity_comment_modify($comment, 'remove');
+  if (isset($comment->node_type) && $comment->node_type == 'comment_node_course_implementation') {
+    uhc_course_implementation_activity_comment_modify($comment, 'remove');
+  }
+}
+
+/**
+ * Helper function for determining from $comment that should we send notify
+ * email or not.
+ *
+ * @param $comment
+ * @return bool
+ */
+function uhc_course_implementation_activity_should_send_notify_mail($comment) {
+  $send_email = field_get_items('comment', $comment, 'field_send_email');
+  return !empty($send_email[0]['value']);
+}
+
+/**
+ * Sends the notify email from given comment.
+ *
+ * @param $comment
+ *   Comment that contains contents for the notify email. Expected to be bundle
+ *   "course_implementation" of "node" entity.
+ */
+function uhc_course_implementation_activity_send_notify_mail($comment) {
+  $node = node_load($comment->nid);
+
+  // Fetch enrolled students' emails. Abort if none found.
+  $students = uhc_course_collaboration_get_course_students(field_get_items('node', $node, 'field_imp_id')[0]['value']);
+  $to = '';
+  foreach ($students as $student) {
+    if (!empty($student['email'])) {
+      $to .= $student['email'] . ', ';
+    }
+  }
+  if (!$to) {
+    return;
+  }
+  else {
+    // Remove trailing separator
+    $to = substr($to, 0, -2);
+  }
+
+  // Get teaching language (determines the language of sent emails)
+  $field_imp_teaching_language = field_get_items('node', $node, 'field_imp_teaching_language');
+  $teaching_langs = array();
+  if (!empty($field_imp_teaching_language) && is_array($field_imp_teaching_language)) {
+    $teaching_langs = array_map(function ($elem) {
+      return $elem['value'];
+    }, $field_imp_teaching_language);
+  }
+  $selected_lang = language_default('language');
+  foreach (locale_language_list('language') as $lang) {
+    if (in_array($lang, $teaching_langs)) {
+      $selected_lang = $lang;
+      break;
+    }
+  }
+
+  // "From" header
+  $from = field_get_items('node', $node, 'field_imp_teacher')[0]['safe_value'] . ' <' . variable_get('site_mail', '') . '>';
+
+  // Set message metadata and content
+  $title = !empty($node->title_field[$selected_lang][0]['safe_value']) ?
+    $node->title_field[$selected_lang][0]['safe_value'] : $node->title;
+  $url = url('node/' . $node->nid, array(
+    'absolute' => TRUE,
+    'language' => language_list()[$selected_lang]
+  ));
+  $subject = t('A new message from course page @title @url', array(
+    '@title' => $title,
+    '@url' => $url,
+  ), array('langcode' => $selected_lang));
+  $params = array(
+    'subject' => $subject,
+    'message' => $comment->comment_body[LANGUAGE_NONE][0]['value'],
+    'from' => $from,
+  );
+
+  drupal_mail('uhc_course_implementation_activity', 'notification', $to, $selected_lang, $params, $from, TRUE);
+}
+
+/**
+ * Implements hook_mail().
+ */
+function uhc_course_implementation_activity_mail($key, &$message, $params) {
+  if ($key == 'notification') {
+    // Set headers etc
+    $message['subject'] = $params['subject'];
+    $message['body'][] = $params['message'];
+    $message['headers']['Return-Path'] = variable_get('site_mail', '');
+    $message['headers']['Sender'] = $params['from'];
+  }
 }
 
 /**

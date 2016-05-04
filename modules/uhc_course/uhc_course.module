@@ -13,5 +13,21 @@ include_once 'uhc_course.features.inc';
 function uhc_course_views_post_execute(&$view) {
   if($view->name == 'course_node_references') {
     drupal_add_js(drupal_get_path('module', 'uhc_course') . '/js/show_past_imps.js', array('scope' => 'footer'));
+
+    // These are added, because for mysterious reason Drupal.t() does not appear
+    // to work in unknown conditions. We have tested different scenarios and
+    // validated whether issue #2182265 is the case, but so far we think its not
+    // related to that. Ticket description has tested scenarios described in the
+    // comments. See: https://jira.it.helsinki.fi/browse/DOO-1405
+    drupal_add_js(
+      array(
+        'show_past_imps' => array(
+          'show_past_text' => t('Show past'),
+          'hide_past_text' => t('Hide past'),
+        ),
+      ),
+      array('type' => 'setting')
+    );
+
   }
 }

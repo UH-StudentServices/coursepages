@@ -26,11 +26,7 @@ function uhc_molecular_biosciences_views_default_views() {
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['link_display'] = 'desktop';
   $handler->display->display_options['access']['type'] = 'none';
-  $handler->display->display_options['cache']['type'] = 'search_api_views_cache';
-  $handler->display->display_options['cache']['results_lifespan'] = '300';
-  $handler->display->display_options['cache']['results_lifespan_custom'] = '0';
-  $handler->display->display_options['cache']['output_lifespan'] = '300';
-  $handler->display->display_options['cache']['output_lifespan_custom'] = '0';
+  $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'input_required';
   $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Show results';
@@ -272,6 +268,15 @@ function uhc_molecular_biosciences_views_default_views() {
   /* Display: Desktop */
   $handler = $view->new_display('page', 'Desktop', 'desktop');
   $handler->display->display_options['display_description'] = 'Table';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Show:';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 20, 50, 100';
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['path'] = 'molecular-biosciences/search';
 
@@ -316,6 +321,7 @@ function uhc_molecular_biosciences_views_default_views() {
     t('For example name of the course or topic.'),
     t('Desktop'),
     t('Table'),
+    t('Show:'),
     t('Facets block'),
     t('Biosciences search facets'),
   );

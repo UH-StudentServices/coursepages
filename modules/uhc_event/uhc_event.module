@@ -124,7 +124,7 @@ function uhc_event_teaching_schedule($field) {
       // Table header
       $content .= '<span class="event-list-header">';
       $content .= '<span class="event-column"><span class="field accordion-content-item--label event-date">' . t('Date') . '</span><span class="field accordion-content-item--label event-time">' . t('Time') . '</span></span>';
-      $content .= '<span class="event-column"><span class="field remove-styles accordion-content-item--label event-location">' . t('Location') . '</span></span>';
+      $content .= '<span class="event-column"><span class="field remove-styles accordion-content-item--label event-location">' . t('Location', array(), array('context' => 'event')) . '</span></span>';
       $content .= '</span>';
 
       // Table contents
