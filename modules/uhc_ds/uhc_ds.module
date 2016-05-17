@@ -214,15 +214,6 @@ function uhc_ds_ds_fields_info($entity_type) {
       ),
     );
 
-    $ds_fields['uhc_ds_leiki'] = array(
-      'title' => 'Leiki',
-      'field_type' => DS_FIELD_TYPE_FUNCTION,
-      'function' => 'uhc_ds_leiki',
-      'properties' => array(
-        'field_name' => 'leiki',
-      ),
-    );
-
     return array('node' => $ds_fields);
   }
 }
@@ -828,11 +819,6 @@ function uhc_ds_course_hierarchy($field) {
     unset($item['title']);
   }
 
-  // Add js for "show more" functionality
-  if (user_is_logged_in()) {
-    drupal_add_js(drupal_get_path('module', 'uhc_course_hierarchy') . '/js/uhc_course_hierarchy_show_more.js');
-  }
-
   // Don't bother rendering one link without hierarchy and not even being
   // enrolled to it..
   $has_children = isset($items['items'][0]['children']) && count($items['items'][0]['children']) > 0;
@@ -917,44 +903,5 @@ function uhc_ds_render_fallback_with_source($value, $label, $source) {
 
   $output.= '<div class="body-text">' . $value . '</div>';
   $output .= '</div>';
-  return $output;
-}
-
-/**
- * Renders Leiki suggestions
- */
-function uhc_ds_leiki($field) {
-  $leiki_embed_mode = variable_get('leiki_embed_mode', FALSE);
-  $leiki_configs = variable_get('uhc_ds_leiki_config', array());
-  if (empty($leiki_configs)) {
-    return NULL;
-  }
-
-  // Sanitize $path if we would render this with extra URL arguments
-  // containing XSS.
-  $path = check_url(request_path());
-
-  // Process paths to relevant configurations
-  if (isset($leiki_configs['referer'])) {
-    $leiki_configs['referer'] = str_replace(':path', $path, $leiki_configs['referer']);
-  }
-  if (isset($leiki_configs['cid'])) {
-    $leiki_configs['cid'] = str_replace(':path', $path, $leiki_configs['cid']);
-  }
-
-  // Convet to JSON configuration object
-  $leiki_configs_json = json_encode((object) $leiki_configs, JSON_UNESCAPED_SLASHES);
-
-  $output = "<div id=\"leiki_kurssi1\"></div>
-<script>
-var _leikiw = _leikiw || [];
-_leikiw.push($leiki_configs_json);
-(function() {
-  var t = new Date().getTime(); t -= t % (1000*60*60*24*2);
-  var l = document.createElement('script'); l.type = 'text/javascript'; l.async = true;
-  l.src = '//suositukset.student.helsinki.fi/focus/widgets/loader/loader-min.js?t='+t;
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(l, s);
-})();
-</script>";
   return $output;
 }

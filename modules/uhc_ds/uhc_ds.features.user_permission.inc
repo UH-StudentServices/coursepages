@@ -546,16 +546,6 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view uhc_ds_leiki on node'.
-  $permissions['view uhc_ds_leiki on node'] = array(
-    'name' => 'view uhc_ds_leiki on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view uhc_ds_link_to_related_subjects on node'.
   $permissions['view uhc_ds_link_to_related_subjects on node'] = array(
     'name' => 'view uhc_ds_link_to_related_subjects on node',
@@ -566,9 +556,9 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view uhc_ds_location_and_time on node'.
-  $permissions['view uhc_ds_location_and_time on node'] = array(
-    'name' => 'view uhc_ds_location_and_time on node',
+  // Exported permission: 'view uhc_ds_link_to_subject on node'.
+  $permissions['view uhc_ds_link_to_subject on node'] = array(
+    'name' => 'view uhc_ds_link_to_subject on node',
     'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
@@ -576,9 +566,9 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view uhc_ds_link_to_subject on node'.
-  $permissions['view uhc_ds_link_to_subject on node'] = array(
-    'name' => 'view uhc_ds_link_to_subject on node',
+  // Exported permission: 'view uhc_ds_location_and_time on node'.
+  $permissions['view uhc_ds_location_and_time on node'] = array(
+    'name' => 'view uhc_ds_location_and_time on node',
     'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',

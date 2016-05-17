@@ -52,6 +52,7 @@
           }
         }
         > li {
+          margin-bottom: 1em;
           &:after {
             @include border-bottom;
             content: '';
@@ -68,9 +69,6 @@
             &:after {
               border-bottom: none;
             }
-          }
-          &.show-more {
-            padding-top: 1em;
           }
         }
       }

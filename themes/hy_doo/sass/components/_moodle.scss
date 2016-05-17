@@ -13,9 +13,18 @@
   @include font-size(14px);
   @include border;
   padding: 0.9em 2em;
+  @include at-breakpoint($layout-large) {
+    margin-right: 2em;
+  }
+  @include at-breakpoint($layout-medium) {
+    margin-right: 2em;
+  }
   &:before {
     @include hy-icon($hy-info-stroke);
     margin-right: 0.5em;
+  }
+  @include at-breakpoint($layout-mobile-only) {
+    margin-bottom: 1em;
   }
   @include at-breakpoint($layout-small) {
     display: inline-block;

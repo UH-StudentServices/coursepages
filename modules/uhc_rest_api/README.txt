@@ -12,7 +12,8 @@ curl -H "Accept: application/json" http://example.com/api/v1/course_implementati
     "header_text": "Description Test 06018fc576ac\r\n",
     "url": "http://example.com/courses/815058/101472950",
     "has_material": true,
-    "moodle_url": "http://example.com"
+    "moodle_url": "http://example.com",
+    "wiki_url": "https://wiki.helsinki.fi/display/support/Perustoiminnot"
   }
 
 
@@ -31,6 +32,7 @@ curl -H "Accept: application/xml" http://example.com/api/v1/course_implementatio
     <url>http://example.com/courses/815058/101472950</url>
     <has_material>1</has_material>
     <moodle_url>http://example.com</moodle_url>
+    <wiki_url>https://wiki.helsinki.fi/display/support/Perustoiminnot</wiki_url>
   </result>
 
 

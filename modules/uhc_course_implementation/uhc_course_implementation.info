@@ -2,7 +2,7 @@ name = UHC Course implementation
 description = This feature provides content type for course implementations
 core = 7.x
 package = UHC
-version = 7.x-1.66
+version = 7.x-1.67
 project = uhc_course_implementation
 dependencies[] = ctools
 dependencies[] = date
@@ -185,4 +185,4 @@ features_exclude[field_instance][node-course_implementation-field_feedback_text]
 features_exclude[field_instance][node-course_implementation-field_mark_all_material_private] = node-course_implementation-field_mark_all_material_private
 features_exclude[field_instance][node-course_implementation-field_imp_video] = node-course_implementation-field_imp_video
 features_exclude[taxonomy][months] = months
-mtime = 1460531614
+mtime = 1462533857

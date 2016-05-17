@@ -778,7 +778,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 24,
+      'weight' => 25,
     ),
   );
 
@@ -1179,7 +1179,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 31,
+      'weight' => 32,
     ),
   );
 
@@ -1263,7 +1263,7 @@ function uhc_course_implementation_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 28,
+      'weight' => 29,
     ),
   );
 
@@ -1408,7 +1408,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 32,
+      'weight' => 33,
     ),
   );
 
@@ -2439,7 +2439,7 @@ function uhc_course_implementation_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 48,
+      'weight' => 49,
     ),
   );
 
@@ -2889,7 +2889,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 29,
+      'weight' => 30,
     ),
   );
 
@@ -3027,7 +3027,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete_tags',
-      'weight' => 30,
+      'weight' => 31,
     ),
   );
 
@@ -3446,7 +3446,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 23,
+        'weight' => 29,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4725,7 +4725,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 19,
+      'weight' => 20,
     ),
   );
 
@@ -4804,7 +4804,7 @@ function uhc_course_implementation_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 20,
+      'weight' => 21,
     ),
   );
 

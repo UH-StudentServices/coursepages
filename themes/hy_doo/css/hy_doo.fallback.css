@@ -867,6 +867,9 @@ a:hover .course-hierarchy > li:after, .course-hierarchy > li:hover:after {
 .course-hierarchy li.root > .item-list ul.root li.studygroupset > a {
   display: none;
 }
+.course-hierarchy li.root > .item-list ul.root > li {
+  margin-bottom: 1em;
+}
 .course-hierarchy li.root > .item-list ul.root > li:after {
   border-bottom: 1px solid #EBEBEB;
   border-left: 0;
@@ -881,9 +884,6 @@ a:hover .course-hierarchy > li:after, .course-hierarchy > li:hover:after {
 }
 .course-hierarchy li.root > .item-list ul.root > li:last-child:after {
   border-bottom: none;
-}
-.course-hierarchy li.root > .item-list ul.root > li.show-more {
-  padding-top: 1em;
 }
 @media (min-width: 49em) {
   .course-hierarchy {
@@ -2212,12 +2212,27 @@ a:hover .l-info-footer .block--menu-menu-open-university-footer-link li a:after,
   border: 1px solid #EBEBEB;
   padding: 0.9em 2em;
 }
+@media (min-width: 75em) {
+  .moodle-key {
+    margin-right: 2em;
+  }
+}
+@media (min-width: 62.5em) {
+  .moodle-key {
+    margin-right: 2em;
+  }
+}
 .moodle-key:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "hy-icons";
   content: "";
   margin-right: 0.5em;
+}
+@media (min-width: 0em) and (max-width: 49em) {
+  .moodle-key {
+    margin-bottom: 1em;
+  }
 }
 @media (min-width: 49em) {
   .moodle-key {
@@ -3312,6 +3327,20 @@ body.search-main-page .views-widget-sort-by {
 }
 .no-query .lt-ie9 .views-exposed-form-uhc-search-open-university-desktop {
   padding-bottom: 100px;
+}
+
+.wiki-button {
+  font-weight: 600;
+  font-style: normal;
+  margin-bottom: 1em;
+  padding-right: 4em;
+}
+@media (min-width: 49em) {
+  .wiki-button {
+    margin-right: 2em;
+    min-width: 16em;
+    display: inline-block;
+  }
 }
 
 .node-form .group-imp-header-img,

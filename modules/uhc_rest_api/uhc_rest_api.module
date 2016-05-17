@@ -133,6 +133,14 @@ function uhc_rest_api_process_course_implementations_output($output) {
     if (!empty($moodle_url)) {
       $output->moodle_url = $moodle_url;
     }
+
+    $wiki_url = !empty($course_implementation_node->field_wiki_url[LANGUAGE_NONE][0]['url'])
+      ? $course_implementation_node->field_wiki_url[LANGUAGE_NONE][0]['url']
+      : '';
+
+    if (!empty($wiki_url)) {
+      $output->wiki_url = $wiki_url;
+    }
   }
 
   return $output;

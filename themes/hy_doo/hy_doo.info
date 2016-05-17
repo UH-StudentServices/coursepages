@@ -4,7 +4,7 @@ base theme = hy_base_theme
 screenshot = screenshot.png
 engine = phptemplate
 core = 7.x
-version = 7.x-1.66
+version = 7.x-1.67
 
 ; Scripts
 scripts[] = js/ds_accordion.js

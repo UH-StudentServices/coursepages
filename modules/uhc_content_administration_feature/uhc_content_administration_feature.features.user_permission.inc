@@ -26,6 +26,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'admin_menu',
   );
@@ -612,6 +613,16 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_sidebar_liftups'.
+  $permissions['create field_sidebar_liftups'] = array(
+    'name' => 'create field_sidebar_liftups',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'create field_study_credit'.
   $permissions['create field_study_credit'] = array(
     'name' => 'create field_study_credit',
@@ -636,6 +647,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'field_permissions',
   );
@@ -647,6 +659,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
       'teacher' => 'teacher',
     ),
     'module' => 'field_permissions',
@@ -659,6 +672,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
       'teacher' => 'teacher',
     ),
     'module' => 'field_permissions',
@@ -1515,6 +1529,16 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_sidebar_liftups'.
+  $permissions['edit field_sidebar_liftups'] = array(
+    'name' => 'edit field_sidebar_liftups',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit field_study_credit'.
   $permissions['edit field_study_credit'] = array(
     'name' => 'edit field_study_credit',
@@ -1539,6 +1563,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'field_permissions',
   );
@@ -1550,6 +1575,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
       'teacher' => 'teacher',
     ),
     'module' => 'field_permissions',
@@ -1562,6 +1588,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
       'teacher' => 'teacher',
     ),
     'module' => 'field_permissions',
@@ -2131,6 +2158,16 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit own field_sidebar_liftups'.
+  $permissions['edit own field_sidebar_liftups'] = array(
+    'name' => 'edit own field_sidebar_liftups',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit own field_study_credit'.
   $permissions['edit own field_study_credit'] = array(
     'name' => 'edit own field_study_credit',
@@ -2155,6 +2192,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'field_permissions',
   );
@@ -2166,6 +2204,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
       'teacher' => 'teacher',
     ),
     'module' => 'field_permissions',
@@ -2178,6 +2217,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
       'teacher' => 'teacher',
     ),
     'module' => 'field_permissions',
@@ -2889,6 +2929,17 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_sidebar_liftups'.
+  $permissions['view field_sidebar_liftups'] = array(
+    'name' => 'view field_sidebar_liftups',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view field_study_credit'.
   $permissions['view field_study_credit'] = array(
     'name' => 'view field_study_credit',
@@ -2919,6 +2970,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'field_permissions',
   );
@@ -2943,6 +2995,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'field_permissions',
   );
@@ -3481,6 +3534,17 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view own field_sidebar_liftups'.
+  $permissions['view own field_sidebar_liftups'] = array(
+    'name' => 'view own field_sidebar_liftups',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view own field_study_credit'.
   $permissions['view own field_study_credit'] = array(
     'name' => 'view own field_study_credit',
@@ -3511,6 +3575,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'field_permissions',
   );
@@ -3535,6 +3600,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'field_permissions',
   );

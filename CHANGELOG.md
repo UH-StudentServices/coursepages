@@ -1,3 +1,35 @@
+# Helsinki University Coursepages v1.67
+Päiväys: 17.05.2016
+
+## Lisäykset
+  - DOO-2041: Lisättiin mahdollisuus etusivun haulle saada hakutulokset RSS
+    syötteenä
+  - DOO-2081: Lisättiin kurssisivuille osio, josta voidaan muodostaa Wiki
+    linkitys samalla tavalla kuin Moodle nappi
+  - DOO-2167: Parannettiin oppiaine sivujen suorituskykyä lisäämällä
+    välimuistitusta opintomoduuleihin
+  - DOO-2187: Lisättiin REST API:iin Wiki URL
+  - DOO-2178: Lisättiin käyttöoikeuksia avoimen editorille
+
+## Muutokset
+  - DOO-1506: Muutettiin oppiaine sivun julkisuuden oletusarvoa ei-julkiseksi
+
+## Korjaukset
+  - DOO-2185: Korjattiin ongelma, jossa jäsenyystietoja tarkistettiin kurssista,
+    jota ei ollut enää järjestelmässä aiheuttaen odottamattoman virhetilanteen
+
+## Poistot
+  - DOO-1201: Siivottiin Leiki suosituksiin liittyvä kokeilu
+  - DOO-2062: Poistettiin sivupalkin kurssihierarkian "Näytä lisää/vähemmän"
+    toiminnallisuus kirjautuneilta käyttäjiltä
+
+## Päivitykset
+  - Päivitettiin Block Class moduuli
+  - Päivitettiin CTools moduuli
+  - Päivitettiin Entity Translation moduuli
+  - Päivitettiin Features moduuli
+
+
 # Helsinki University Coursepages v1.66
 Päiväys: 04.05.2016
 

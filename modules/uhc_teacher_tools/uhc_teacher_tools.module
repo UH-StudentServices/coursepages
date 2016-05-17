@@ -128,6 +128,7 @@ function uhc_teacher_tools_menu() {
 
   $teacher_edit_links = array(
     'Moodle' => 'edit-group_imp_moodle',
+    'Wiki' => 'edit-group_wiki',
     'Messages' => 'group-course-messages',
     'Material' => 'edit-group_imp_material'
   );
@@ -316,6 +317,7 @@ function uhc_teacher_tools_form_placeholders(&$form, &$form_state) {
     'field_feedback_link' => t('http://example.com'),
     'field_video_link' => t('https://youtu.be/rU232NPDVtQ'),
     'field_imp_interaction_link' => t('http://example.com'),
+    'field_wiki_url' => t('https://wiki.helsinki.fi/display/support/Perustoiminnot'),
   );
 
   foreach ($link_fields as $field => $placeholder) {

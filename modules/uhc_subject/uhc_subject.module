@@ -6,6 +6,276 @@
 
 include_once 'uhc_subject.features.inc';
 
+/**
+ * Implements hook_field_formatter_info().
+ *
+ * Introduce a formatter for field collections that requires so much resources,
+ * that we prefer to cache it and clear it ourself.
+ *
+ * @see uhc_subject_field_formatter_view()
+ * @see uhc_subject_entity_update()
+ * @see uhc_subject_entity_delete()
+ */
+function uhc_subject_field_formatter_info() {
+  return array(
+    'uhc_subject_field_collection_view_cached' => array(
+      'label' => t('Field collection items (cached)'),
+      'field types' => array('field_collection'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ *
+ * This will mimic original field_collection_field_formatter_view(), but has
+ * just the part and settings that was originally used for this specific case.
+ *
+ * On top of that, we introduce our caching layer that is handled and cleared
+ * separately on 'subject' node update/deletion.
+ *
+ * @see uhc_subject_field_formatter_info()
+ */
+function uhc_subject_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  global $language;
+
+  if ($display['type'] == 'uhc_subject_field_collection_view_cached') {
+    $cid = _uhc_subject_get_field_formatter_view_cid($entity_type, $entity, $field['field_name'], $language->language);
+    $cache = cache_get($cid);
+    if ($cache === FALSE) {
+
+      // Get field collection entities and build renderable element. This bunch
+      // of code has been originally copied over from formatter view callback
+      // field_collection_field_formatter_view().
+      $view_mode = 'full';
+      foreach ($items as $delta => $item) {
+        if ($field_collection = field_collection_field_get_entity($item)) {
+          $element[$delta]['entity'] = $field_collection->view($view_mode);
+          $element[$delta]['#theme_wrappers'] = array('field_collection_view');
+          $element[$delta]['#attributes']['class'][] = 'field-collection-view';
+          $element[$delta]['#attributes']['class'][] = 'clearfix';
+          $element[$delta]['#attributes']['class'][] = drupal_clean_css_identifier('view-mode-' . $view_mode);
+        }
+      }
+
+      cache_set($cid, $element, 'cache', _uhc_subject_get_cache_expire());
+    }
+    else {
+      $element = $cache->data;
+    }
+  }
+
+  return $element;
+}
+
+/**
+ * Helper function for fetching cache id of given entity, field and language
+ * combination.
+ *
+ * @param $entity_type
+ * @param $entity
+ * @param $field_name
+ * @param $langcode
+ * @return string
+ */
+function _uhc_subject_get_field_formatter_view_cid($entity_type, $entity, $field_name, $langcode) {
+  list($nid, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+  return implode(':', array('uhc_subject_field_collection_view_cached', $entity_type, $bundle, $field_name, $nid, $revision_id, $langcode));
+}
+
+/**
+ * Returns an unix timestamp when formatter's caches should expire.
+ *
+ * @return int
+ */
+function _uhc_subject_get_cache_expire() {
+  // Subject field collection formatter caches should expire tomorrow at 00:00,
+  // because there might be some couse implementations that gets moved under
+  // "Show past" list (and we don't want to actually calculate when is the next
+  // course implementaiton that goes under past)
+  $datetime = new DateTime('+1 day');
+  $datetime->setTime(00, 00);
+  return $datetime->getTimestamp();
+}
+
+/**
+ * Implements hook_entity_update().
+ * Handle cache clearing when updating entities.
+ *
+ * @see uhc_subject_field_formatter_info()
+ * @see _uhc_subject_handle_cache_clearing()
+ */
+function uhc_subject_entity_update($entity, $entity_type) {
+  _uhc_subject_handle_cache_clearing($entity, $entity_type);
+}
+
+/**
+ * Implements hook_entity_delete().
+ * Handle cache clearing when deleting entities.
+ *
+ * @see uhc_subject_field_formatter_info()
+ * @see _uhc_subject_handle_cache_clearing()
+ */
+function uhc_subject_entity_delete($entity, $entity_type) {
+  _uhc_subject_handle_cache_clearing($entity, $entity_type);
+}
+
+/**
+ * Handles cache clearing for subject's field_study_module field collection
+ * formatting. See uhc_subject_field_formatter_view().
+ *
+ * @see uhc_subject_field_formatter_view()
+ * @see uhc_subject_entity_update()
+ * @see uhc_subject_entity_delete()
+ * @param $entity
+ * @param $entity_type
+ */
+function _uhc_subject_handle_cache_clearing($entity, $entity_type) {
+  list(,,$bundle) = entity_extract_ids($entity_type, $entity);
+  if ($entity_type == 'node') {
+
+    // Depending on updated node, we gather list of subjects that we should
+    // clear caches from.
+    $subjects = array();
+    switch ($bundle) {
+
+      // When handling course_implementation, resolve all subjects that are
+      // potentially rendering information of this course implementation.
+      case 'course_implementation':
+        $courses = _uhc_subject_resolve_courses_from_entities(array($entity), 'field_imp_reference_to_courses');
+        $study_modules = _uhc_subject_resolve_study_modules_from_entities($courses, 'node');
+        $subjects = _uhc_subject_resolve_subjects_from_entities($study_modules, 'field_collection_item');
+        break;
+
+      // When handling course, resolve all subjects that are potentially
+      // rendering information of this course.
+      case 'course':
+        $study_modules = _uhc_subject_resolve_study_modules_from_entities(array($entity), 'node');
+        $subjects = _uhc_subject_resolve_subjects_from_entities($study_modules, 'field_collection_item');
+        break;
+
+      // When subject is handled, that's the entity itself
+      case 'subject':
+        $subjects = array($entity);
+        break;
+    }
+
+    // Loop each subject and clear its field study module caches
+    foreach ($subjects as $subject) {
+      _uhc_subject_clear_field_study_module_cache($subject);
+    }
+  }
+}
+
+/**
+ * Resolves which course entities are referenced by given entities and reference
+ * field name.
+ *
+ * @param array $entities
+ * @param string $field_name
+ * @return array
+ */
+function _uhc_subject_resolve_courses_from_entities(array $entities, $field_name) {
+  $courses = array();
+  foreach ($entities as $entity) {
+    if (isset($entity->{$field_name}[LANGUAGE_NONE])) {
+      $target_ids = array_column($entity->{$field_name}[LANGUAGE_NONE], 'target_id');
+      if (!empty($target_ids)) {
+        $courses += node_load_multiple($target_ids);
+      }
+    }
+  }
+  return $courses;
+}
+
+/**
+ * Resolves which study modules entities are referenced by given entities.
+ *
+ * @param array $entities
+ * @param string $entity_type
+ * @return array
+ */
+function _uhc_subject_resolve_study_modules_from_entities(array $entities, $entity_type) {
+
+  // Loop each entity for gathering $target_ids
+  $target_ids = array();
+  foreach ($entities as $entity) {
+    list($id,,) = entity_extract_ids($entity_type, $entity);
+    $target_ids[] = $id;
+  }
+
+  // Get all study module ids that refers to given entities
+  $results = array();
+  if (!empty($target_ids)) {
+    $field = 'field_subject_ref_to_courses';
+    $query = new EntityFieldQuery();
+    $results = $query->entityCondition('entity_type', 'field_collection_item')
+      ->entityCondition('bundle', 'field_study_module')
+      ->fieldCondition($field, 'target_id', $target_ids)
+      ->execute();
+  }
+
+  // Load study modules
+  $study_modules = array();
+  if (isset($results['field_collection_item'])) {
+    $ids = array_keys($results['field_collection_item']);
+    $study_modules = field_collection_item_load_multiple($ids);
+  }
+
+  return $study_modules;
+}
+
+/**
+ * Resolves which subject entities are referenced by given entities.
+ *
+ * @param array $entities
+ * @param string $entity_type
+ * @return array
+ */
+function _uhc_subject_resolve_subjects_from_entities(array $entities, $entity_type) {
+
+  // Loop each entity for gathering $target_ids
+  $target_ids = array();
+  foreach ($entities as $entity) {
+    list($id,,) = entity_extract_ids($entity_type, $entity);
+    $target_ids[] = $id;
+  }
+
+  // Get all subject ids that refers to given entities
+  $results = array();
+  if (!empty($target_ids)) {
+    $field = 'field_study_module';
+    $query = new EntityFieldQuery();
+    $results = $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'subject')
+      ->fieldCondition($field, 'value', $target_ids)
+      ->execute();
+  }
+
+  // Load study modules
+  $subjects = array();
+  if (isset($results['node'])) {
+    $nids = array_keys($results['node']);
+    $subjects = node_load_multiple($nids);
+  }
+
+  return $subjects;
+}
+
+/**
+ * Helper function for clearing relevant cached field_collection_view formatted
+ * items.
+ *
+ * @param $entity
+ */
+function _uhc_subject_clear_field_study_module_cache($entity) {
+  foreach (locale_language_list('language') as $langcode) {
+    $cid = _uhc_subject_get_field_formatter_view_cid('node', $entity, 'field_study_module', $langcode);
+    cache_clear_all($cid, 'cache');
+  }
+}
+
 /*
  * Implements template_preprocess_node().
  * Lets add some data-attributes and js for filtering.
