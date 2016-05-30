@@ -10,8 +10,12 @@
 
 include_once 'uhc_course.features.inc';
 
-function uhc_course_views_post_execute(&$view) {
-  if($view->name == 'course_node_references') {
+/*
+ * Implements template_preprocess_node().
+ */
+function uhc_course_preprocess_node(&$variables) {
+  // Attach "Show past" / "Hide past" JS functionality
+  if ($variables['type'] == 'course') {
     drupal_add_js(drupal_get_path('module', 'uhc_course') . '/js/show_past_imps.js', array('scope' => 'footer'));
 
     // These are added, because for mysterious reason Drupal.t() does not appear
@@ -28,6 +32,5 @@ function uhc_course_views_post_execute(&$view) {
       ),
       array('type' => 'setting')
     );
-
   }
 }

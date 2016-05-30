@@ -231,9 +231,6 @@ function uh_coursepages_user_has_role($role) {
 function uh_coursepages_menu_alter(&$items) {
   $items['node/add/course']['access callback'] = 'user_access';
   $items['node/add/course']['access arguments'] = array('administer content');
-
-  $items['node/add/course-implementation']['access callback'] = 'user_access';
-  $items['node/add/course-implementation']['access arguments'] = array('administer content');
 }
 
 /**

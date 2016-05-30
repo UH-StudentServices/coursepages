@@ -1,3 +1,26 @@
+# Helsinki University Coursepages v1.68
+Päiväys: 30.05.2016
+
+## Lisäykset
+  - DOO-2079: Lisättiin toiminnallisuus, joka lähettää kaikki aktiviteetti
+    viestit viestikeskukseen.
+
+## Muutokset
+  - DOO-2191: Parannettiin Moodle alueen luomisen uudelleenlatausta siten, että
+    se ohjaa takaisin Moodle haitariin esittely haitarin sijasta
+  - DOO-2070: Korvattiin Drupalin oma kurssisivun luomislomake työkalulla, joka
+    tuo annetun kurssin numeron kurssin ja ohjaa sen jälkeen sivulle
+  - DOO-2147: Päivitettiin organisaatiorakenne sisäänluku ja konfiguroitiin se
+    siivoamaan vain tunnistamattomat organisaatiot (jotka eivät ole tulleet
+    sisäänluvusta)
+  - DOO-2147: Suorituskykyä parannettiin toteutus ID selvittelyssä, mikä
+    aiheutti organisaatio siivouksissa muistinkäyttö ongelmia
+
+## Korjaukset
+  - DOO-2202: Korjattiin ongelma, jossa menneitä opetuksia ei saatu näkyville
+    oppiaine sivuilla.
+
+
 # Helsinki University Coursepages v1.67
 Päiväys: 17.05.2016
 

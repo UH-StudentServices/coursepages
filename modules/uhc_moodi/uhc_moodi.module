@@ -377,7 +377,7 @@ function uhc_moodi_redirect($path) {
   if (!empty($path)) {
     ctools_include('ajax');
     ctools_add_js('ajax-responder');
-    $commands[] = ctools_ajax_command_redirect($path);
+    $commands[] = ctools_ajax_command_redirect($path, 0, array('query' => array('section' => 'edit-group_imp_moodle')));
     print ajax_render($commands);
     exit;
   }

@@ -1,0 +1,169 @@
+<?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_entity_insert().
+ *
+ * @param Message $entity
+ * @param string $entity_type
+ */
+function uhc_course_implementation_activity_mece_entity_insert($entity, $entity_type) {
+  if ($entity_type == 'message' && $entity instanceof Message) {
+
+    // Setup notification message
+    $notification = uh_mece_notifications_get_instance();
+    if (is_null($notification)) {
+      watchdog('uhc_course_implementation_activity_mece', 'Notification message build was cancelled because of missing library.', array(), WATCHDOG_ERROR);
+      return;
+    }
+    $notification->setSourceId($entity_type . ':mid:' . $entity->mid);
+
+    // If reference to course implementation is found, then load the nodes
+    $field_message_ref_to_course_imp = field_get_items($entity_type, $entity, 'field_message_ref_to_course_imp');
+    $nids = array();
+    if (!empty($field_message_ref_to_course_imp) && is_array($field_message_ref_to_course_imp)) {
+      foreach ($field_message_ref_to_course_imp as $value) {
+        if (!empty($value['target_id'])) {
+          $nids[] = $value['target_id'];
+        }
+      }
+    }
+    $nodes = node_load_multiple($nids);
+
+    // Loop each node, and resolve their students and generate link and text
+    $link_text = uh_mece_notifications_get_multilingual_value();
+    $link = uh_mece_notifications_get_multilingual_value();
+    $heading = uh_mece_notifications_get_multilingual_value();
+    $languages = language_list('enabled');
+    $languages = $languages[1];
+    foreach ($nodes as $node) {
+
+      // Get course students from given node
+      if ($course_students = uhc_course_implementation_activity_mece_get_students($node, 'userid')) {
+        foreach ($course_students as $course_student) {
+          $notification->appendRecipient($course_student);
+        }
+      }
+
+      // If link text and link are empty, then define them from first node
+      $uri = entity_uri('node', $node);
+      if (empty($link_text->getValues()) && empty($link->getValues())) {
+        foreach ($languages as $langcode => $language) {
+
+          // Set linkText from title_field
+          $title_field = field_get_items('node', $node, 'title_field', $langcode);
+          if (!empty($title_field[0]['value'])) {
+            $link_text->setValue($title_field[0]['value'], $langcode);
+            $heading->setValue($title_field[0]['value'], $langcode);
+          }
+
+          // Set link from entity_uri
+          if (!empty($uri['path'])) {
+            $link->setValue(url($uri['path'], array('language' => $language, 'absolute' => TRUE)), $langcode);
+          }
+
+        }
+      }
+    }
+
+    // Cancel notification sending if we don't have recipients
+    if (empty($notification->getRecipients())) {
+      watchdog('uhc_course_implementation_activity_mece', 'Notification message build (id "@id") was cancelled because recipients was missing.', array('@id' => $notification->getSourceId()), WATCHDOG_WARNING);
+      return;
+    }
+
+    // Generate message text
+    $message_text = uh_mece_notifications_get_multilingual_value();
+    foreach ($languages as $langcode => $language) {
+      $message_text->setValue($entity->getText($langcode), $langcode);
+    }
+    $notification->setMessage($message_text);
+
+    // Set heading, linkText and link
+    $notification->setLinkText($link_text);
+    $notification->setLink($link);
+    $notification->setHeading($heading);
+
+    // Send notification message
+    $response = uh_mece_notifications_send($notification);
+    if ($response->code != 200) {
+      watchdog('uhc_course_implementation_activity_mece', 'Notification message send failed with response status @code: @error', array('@code' => $response->code, '@error' => $response->error), WATCHDOG_ERROR);
+    }
+    else {
+      watchdog('uhc_course_implementation_activity_mece', 'Sent notification message (id "@id") to @recipients', array('@id' => $notification->getSourceId(), '@recipients' => implode(', ', $notification->getRecipients())), WATCHDOG_INFO);
+    }
+
+  }
+}
+
+/**
+ * Get list of students from given course implementation ID.
+ * @param $node
+ * @param NULL|string $field
+ *   Optional argument for specifying which field of student you want to get. If
+ *   not provided (or NULL), then get whole object of the student.
+ * @return array
+ */
+function uhc_course_implementation_activity_mece_get_students($node, $field = NULL) {
+
+  // Figure out course imp and request it
+  $course_imp = _uhc_sources_resolve_course_imp($node->nid);
+  $courseunitrealisation = uhc_course_implementation_activity_mece_get_courseunitrealisation($course_imp);
+  if (empty($courseunitrealisation->data)) {
+    return array();
+  }
+
+  // Loop students and gather result list
+  $students = array();
+  if (!empty($courseunitrealisation->data->students) && is_array($courseunitrealisation->data->students)) {
+    if (is_null($field)) {
+      $students = $courseunitrealisation->data->students;
+    }
+    else {
+      foreach ($courseunitrealisation->data->students as $student) {
+        if (!empty($student->$field)) {
+          $students[] = $student->$field;
+        }
+      }
+    }
+  }
+  return $students;
+}
+
+/**
+ * Retrieves and returns JSON response of courseunitrealisation from an external
+ * API.
+ *
+ * @param int $course_imp_id
+ * @return NULL|object Response object on success, otherwise NULL.
+ */
+function uhc_course_implementation_activity_mece_get_courseunitrealisation($course_imp_id) {
+  $json = &drupal_static(__FUNCTION__ . $course_imp_id);
+  if ($json) {
+    return $json;
+  }
+
+  // Construct request URL
+  $base_url = variable_get('uhc_sources_base_url', '');
+  $path = variable_get('uhc_course_implementation_source_item_url', '');
+  $path = str_replace(':id', $course_imp_id, $path);
+  $request_url = $base_url . $path;
+  if (empty($request_url)) {
+    return NULL;
+  }
+
+  // Request
+  $response = drupal_http_request($request_url, array('timeout' => 2.0));
+  if ($response->code == 200) {
+    $json = json_decode($response->data);
+    if (json_last_error() == JSON_ERROR_NONE) {
+      return $json;
+    }
+  }
+
+  return NULL;
+}

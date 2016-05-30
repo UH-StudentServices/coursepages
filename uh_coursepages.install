@@ -1009,3 +1009,26 @@ function uh_coursepages_update_7019(&$sandbox) {
   $arguments = array('perform_post_cleanup' => TRUE);
   db_update('migrate_status')->fields(array('arguments' => serialize($arguments)))->condition('machine_name', 'OrganisationsUniversityHelsinkiTaxonomy')->execute();
 }
+
+/**
+ * Enable uhc_course_implementation_activity_mece module for sending
+ * notification messages to Message Center.
+ */
+function uh_course_pages_update_7020(&$sandbox) {
+  module_enable(array('uhc_course_implementation_activity_mece'));
+}
+
+/**
+ * Enable perform_post_cleanup with threshold on organisation migration.
+ */
+function uh_coursepages_update_7021(&$sandbox) {
+  $arguments = array(
+    // 1 = CLEANUP_MINIMAL
+    'perform_post_cleanup' => 1,
+    'threshold_filtering_enabled' => FALSE
+  );
+  db_update('migrate_status')
+    ->fields(array('arguments' => serialize($arguments)))
+    ->condition('machine_name', 'OrganisationsUniversityHelsinkiTaxonomy')
+    ->execute();
+}

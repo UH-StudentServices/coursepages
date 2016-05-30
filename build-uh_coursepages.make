@@ -274,4 +274,10 @@ projects[uh_taxonomy_organisations][type] = module
 projects[uh_taxonomy_organisations][download][type] = git
 projects[uh_taxonomy_organisations][download][url] = "git://github.com/UH-StudentServices/uh_taxonomy_organisations.git"
 projects[uh_taxonomy_organisations][download][branch] = 7.x-1.x
-projects[uh_taxonomy_organisations][download][revision] = 41a4c8bff50272c8a2311e481ec2f55d17d0ed65
+projects[uh_taxonomy_organisations][download][revision] = 65de86f4615e22f565fec2fe1bafbbb6aef43d89
+
+projects[uh_mece][type] = module
+projects[uh_mece][download][type] = git
+projects[uh_mece][download][url] = "git://github.com/UH-StudentServices/uh-mece.git"
+projects[uh_mece][download][branch] = 7.x-1.x
+projects[uh_mece][download][revision] = 970720544859ff6753231c1842d0887ce4fd422c

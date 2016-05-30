@@ -228,27 +228,51 @@ function _uhc_sources_resolve_course_number($course_imp_id) {
     return FALSE;
   }
 
-  // Construct URL
-  $item_url = variable_get('uhc_course_implementation_source_item_url', '');
-  $item_url = str_replace(':id', $course_imp_id, $item_url);
-  $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
-
-  // Fetch contents and JSON decode
-  $response = drupal_http_request($item_url);
-  if ($response->code != 200) {
-    // Failed to connect and get the contents :(
-    watchdog('uhc_sources', 'Failed to request @url as response reports HTTP @code, @response', array('@response' => print_r($response,1),'@url' => $item_url, '@code' => $response->code), WATCHDOG_ERROR);
-    return FALSE;
-  }
-  $json = json_decode($response->data);
-  if (!is_object($json) || !$json) {
-    // Return FALSE if we're not dealing with JSON here!
-    watchdog('uhc_sources', 'Response turned out not to be an JSON response.', array(), WATCHDOG_ERROR);
+  // Fetch JSON object. If FALSE state given, then return FALSE
+  if (!$json = _uhc_sources_get_json_object($course_imp_id)) {
     return FALSE;
   }
 
   // Course number should be located here:
   return isset($json->data->learningopportunity_id) ? $json->data->learningopportunity_id : FALSE;
+}
+
+/**
+ * Request a JSON object from given course implementation id.
+ *
+ * @param $course_imp_id
+ * @return bool|object
+ */
+function _uhc_sources_get_json_object($course_imp_id) {
+  $json = &drupal_static(__FUNCTION__ . $course_imp_id);
+  if (is_null($json)) {
+    // Construct URL
+    $item_url = variable_get('uhc_course_implementation_source_item_url', '');
+    $item_url = str_replace(':id', $course_imp_id, $item_url);
+    $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
+
+    // Fetch contents and JSON decode
+    $response = drupal_http_request($item_url);
+    if ($response->code != 200) {
+      // Failed to connect and get the contents :(
+      watchdog('uhc_sources', 'Failed to request @url as response reports HTTP @code, @response', array(
+        '@response' => print_r($response, 1),
+        '@url' => $item_url,
+        '@code' => $response->code
+      ), WATCHDOG_ERROR);
+      $json = FALSE;
+      return FALSE;
+    }
+    $json = json_decode($response->data);
+    if (!is_object($json) || !$json) {
+      // Return FALSE if we're not dealing with JSON here!
+      watchdog('uhc_sources', 'Response turned out not to be an JSON response.', array(), WATCHDOG_ERROR);
+      $json = FALSE;
+      return FALSE;
+    }
+  }
+
+  return $json;
 }
 
 /**
@@ -258,14 +282,14 @@ function _uhc_sources_resolve_course_number($course_imp_id) {
  * @return integer|bool
  */
 function _uhc_sources_resolve_course_imp($nid) {
-  $node = node_load($nid);
-  if ($node) {
-    $field_imp_id = field_get_items('node', $node, 'field_imp_id');
-    if (isset($field_imp_id[0]['value'])) {
-      return (int) $field_imp_id[0]['value'];
-    }
-  }
-  return FALSE;
+  $query = db_select('field_data_field_imp_id', 'id')
+            ->condition('entity_type', 'node')
+            ->condition('bundle', 'course_implementation')
+            ->condition('entity_id', $nid)
+            ->fields('id', array('field_imp_id_value'))
+            ->execute();
+  $value = $query->fetchField();
+  return !empty($value) ? $value : FALSE;
 }
 
 /**

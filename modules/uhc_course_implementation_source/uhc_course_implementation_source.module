@@ -8,6 +8,91 @@
  * @see README.md how to contribute to this project
  */
 
+/**
+ * Implements hook_menu_alter().
+ */
+function uhc_course_implementation_source_menu_alter(&$items) {
+  if ($items['node/add/course-implementation']) {
+    $items['node/add/course-implementation']['page callback'] = 'drupal_get_form';
+    $items['node/add/course-implementation']['page arguments'] = array('uhc_course_implementation_source_add_course_implementation');
+    $items['node/add/course-implementation']['module'] = 'uhc_course_implementation_source';
+    unset($items['node/add/course-implementation']['file']);
+  }
+}
+
+/**
+ * Menu callback for starting importing specified course implementation.
+ */
+function uhc_course_implementation_source_add_course_implementation() {
+  return array(
+    'container' => array(
+      '#type' => 'fieldset',
+      '#title' => t('Course implementation'),
+      '#description' => t('Type in the course id which you want to import.'),
+      'course_imp_id' => array('#type' => 'textfield', '#title' => t('Course implementation ID'), '#required' => TRUE, '#size' => 10),
+    ),
+    'submit' => array('#type' => 'submit', '#value' => t('Import')),
+  );
+}
+
+/**
+ * Validation callback for
+ * uhc_course_implementation_source_add_course_implementation()
+ * @param $form
+ * @param $form_state
+ */
+function uhc_course_implementation_source_add_course_implementation_validate(&$form, &$form_state) {
+
+  // Ensure that course implementation json object can be fetched
+  $course_imp_id = $form_state['values']['course_imp_id'];
+  $course_imp_json = _uhc_sources_get_json_object($course_imp_id);
+  if (!$course_imp_json) {
+    form_set_error('course_imp_id', t('Failed to fetch'));
+  }
+
+  // Resolve course number, so we know that which course we need to import too
+  if (!$course_number = _uhc_sources_resolve_course_number($course_imp_id)) {
+    form_set_error('course_imp_id', t('Could not resolve course number from course implementation id'));
+  }
+  $form_state['values']['course_number'] = $course_number;
+
+}
+
+/**
+ * Submission callback for
+ * uhc_course_implementation_source_add_course_implementation()
+ * @param $form
+ * @param $form_state
+ */
+function uhc_course_implementation_source_add_course_implementation_submit(&$form, &$form_state) {
+
+  $course_imp_id = $form_state['values']['course_imp_id'];
+  $course_number = $form_state['values']['course_number'];
+
+  // Now ensure that course node exists. If it fails, then log and return
+  // FALSE.
+  if (!$course_node = uhc_course_source_import($course_number)) {
+    watchdog('uhc_course_implementation_sources', 'Failed to ensure @course_number course presence.', array('@course_number' => $course_number), WATCHDOG_ERROR);
+    drupal_set_message(t('Could not import course'), 'error');
+    return;
+  }
+
+  // After we have ensured that we have referenced entity in the system we may
+  // now import course implementation.
+  if (!$node = uhc_course_implementation_source_import($course_imp_id)) {
+    watchdog('uhc_course_implementation_sources', 'Failed to import @course_imp_id course implementation.', array('@course_imp_id' => $course_imp_id), WATCHDOG_ERROR);
+    drupal_set_message(t('Could not import course implementation'), 'error');
+    return;
+  }
+
+  $entity_uri = entity_uri('node', $node);
+  if (!empty($entity_uri['path'])) {
+    drupal_goto($entity_uri['path']);
+  }
+  else {
+    drupal_set_message(t('Could import node, but could not find path to redirect.'));
+  }
+}
 
 /**
  * Implements hook_uhc_activemq_connector_message_processor_info().
