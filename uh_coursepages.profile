@@ -496,6 +496,42 @@ function uh_coursepages_block_view($delta = '') {
 }
 
 /**
+ * Get value of given $field_name from given $node in language that has a
+ * specified logic by DOO-1922 ticket.
+ *
+ * @param string $node
+ * @param string $field_name
+ * @return NULL|string
+ * @see https://jira.it.helsinki.fi/browse/DOO-1922
+ */
+function uh_coursepages_render_field_value($node, $field_name) {
+  // Ensure that we have given field available
+  if (empty($node->{$field_name})) {
+    return NULL;
+  }
+
+  // Resolve teaching languages and enabled languages
+  $teaching_languages = _uhc_course_implementation_get_teaching_languages($node);
+  $enabled_languages = array_values(locale_language_list('language'));
+
+  // Calculate that in which order languages should be checked for value. Origin
+  // of the logic is found in ticket description: DOO-1922
+  $languages = array_merge(array(i18n_langcode()), $teaching_languages, $enabled_languages);
+  $languages = array_unique($languages);
+
+  // Loop languages array and return first hit
+  foreach ($languages as $langcode) {
+    $values = field_get_items('node', $node, $field_name, $langcode);
+    // If values found, then render and return
+    if (!empty($values[0])) {
+      $value = field_view_value('node', $node, $field_name, $values[0]);
+      return render($value);
+    }
+  }
+  return NULL;
+}
+
+/**
  * Helper function for renaming fields by migrating its values without
  * triggering whole entity save process (and its hooks). Very efficient and
  * works with fields that have no hacky structures.

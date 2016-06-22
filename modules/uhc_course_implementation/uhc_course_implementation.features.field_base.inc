@@ -10,7 +10,7 @@
 function uhc_course_implementation_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_default_header_image'
+  // Exported field_base: 'field_default_header_image'.
   $field_bases['field_default_header_image'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -19,14 +19,6 @@ function uhc_course_implementation_field_default_field_bases() {
     'field_name' => 'field_default_header_image',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
     ),
     'indexes' => array(
       'fid' => array(
@@ -46,7 +38,7 @@ function uhc_course_implementation_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_default_header_image_capti'
+  // Exported field_base: 'field_default_header_image_capti'.
   $field_bases['field_default_header_image_capti'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -55,14 +47,6 @@ function uhc_course_implementation_field_default_field_bases() {
     'field_name' => 'field_default_header_image_capti',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -79,7 +63,7 @@ function uhc_course_implementation_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_field_imp_header_intro_tex'
+  // Exported field_base: 'field_field_imp_header_intro_tex'.
   $field_bases['field_field_imp_header_intro_tex'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -88,14 +72,6 @@ function uhc_course_implementation_field_default_field_bases() {
     'field_name' => 'field_field_imp_header_intro_tex',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -112,7 +88,7 @@ function uhc_course_implementation_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_imp_hide_sign_up_button'
+  // Exported field_base: 'field_imp_hide_sign_up_button'.
   $field_bases['field_imp_hide_sign_up_button'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -122,7 +98,6 @@ function uhc_course_implementation_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -142,7 +117,7 @@ function uhc_course_implementation_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_imp_timetable_additional'
+  // Exported field_base: 'field_imp_timetable_additional'.
   $field_bases['field_imp_timetable_additional'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -151,14 +126,6 @@ function uhc_course_implementation_field_default_field_bases() {
     'field_name' => 'field_imp_timetable_additional',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(

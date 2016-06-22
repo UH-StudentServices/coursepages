@@ -114,7 +114,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Messages',
-    'weight' => '17',
+    'weight' => '18',
     'children' => array(
       0 => 'comments',
     ),
@@ -140,7 +140,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tasks',
-    'weight' => '22',
+    'weight' => '23',
     'children' => array(
       0 => 'field_reference_to_course_tasks',
     ),
@@ -169,18 +169,18 @@ function uhc_ds_field_group_info() {
     'label' => 'Course overview',
     'weight' => '28',
     'children' => array(
-      0 => 'uhc_ds_additional_info',
-      1 => 'uhc_ds_req_prerequisites',
-      2 => 'uhc_ds_contents',
-      3 => 'uhc_ds_evaluation',
-      4 => 'uhc_ds_objective',
-      5 => 'uhc_ds_target_group',
-      6 => 'uhc_ds_study_materials',
-      7 => 'uhc_ds_conduct',
-      8 => 'uhc_ds_timing',
-      9 => 'uhc_ds_responsible_person',
-      10 => 'uhc_ds_rel_to_other_study_units',
-      11 => 'uhc_ds_working_methods',
+      0 => 'uhc_course_implementation_inherited_fields_additional_info',
+      1 => 'uhc_course_implementation_inherited_fields_conduct',
+      2 => 'uhc_course_implementation_inherited_fields_contents',
+      3 => 'uhc_course_implementation_inherited_fields_evaluation',
+      4 => 'uhc_course_implementation_inherited_fields_objective',
+      5 => 'uhc_course_implementation_inherited_fields_rel_to_other_study_units',
+      6 => 'uhc_course_implementation_inherited_fields_req_prerequisites',
+      7 => 'uhc_course_implementation_inherited_fields_responsible_person',
+      8 => 'uhc_course_implementation_inherited_fields_study_materials',
+      9 => 'uhc_course_implementation_inherited_fields_target_group',
+      10 => 'uhc_course_implementation_inherited_fields_timing',
+      11 => 'uhc_course_implementation_inherited_fields_working_methods',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -205,7 +205,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Material',
-    'weight' => '20',
+    'weight' => '21',
     'children' => array(
       0 => 'field_imp_material_description',
       1 => 'course_implementation_material',
@@ -268,7 +268,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timetable',
-    'weight' => '19',
+    'weight' => '20',
     'children' => array(
       0 => 'field_imp_timetable_additional',
       1 => 'event_reference_block',

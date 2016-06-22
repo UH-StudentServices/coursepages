@@ -10,7 +10,7 @@
 function uhc_teacher_tools_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-course_implementation-field_moodle_key'
+  // Exported field_instance: 'node-course_implementation-field_moodle_key'.
   $field_instances['node-course_implementation-field_moodle_key'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -116,7 +116,7 @@ function uhc_teacher_tools_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_moodle_url'
+  // Exported field_instance: 'node-course_implementation-field_moodle_url'.
   $field_instances['node-course_implementation-field_moodle_url'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -207,7 +207,7 @@ function uhc_teacher_tools_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_wiki_url'
+  // Exported field_instance: 'node-course_implementation-field_wiki_url'.
   $field_instances['node-course_implementation-field_wiki_url'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,

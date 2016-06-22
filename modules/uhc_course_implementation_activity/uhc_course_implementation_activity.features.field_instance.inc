@@ -10,7 +10,8 @@
 function uhc_course_implementation_activity_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'message-course_implementation_comment_create-field_message_ref_to_comment'
+  // Exported field_instance:
+  // 'message-course_implementation_comment_create-field_message_ref_to_comment'.
   $field_instances['message-course_implementation_comment_create-field_message_ref_to_comment'] = array(
     'bundle' => 'course_implementation_comment_create',
     'default_value' => NULL,
@@ -53,7 +54,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_comment_create-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_comment_create-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_comment_create-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_comment_create',
     'default_value' => NULL,
@@ -96,7 +98,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_comment_remove-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_comment_remove-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_comment_remove-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_comment_remove',
     'default_value' => NULL,
@@ -139,7 +142,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_comment_update-field_message_ref_to_comment'
+  // Exported field_instance:
+  // 'message-course_implementation_comment_update-field_message_ref_to_comment'.
   $field_instances['message-course_implementation_comment_update-field_message_ref_to_comment'] = array(
     'bundle' => 'course_implementation_comment_update',
     'default_value' => NULL,
@@ -182,7 +186,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_comment_update-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_comment_update-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_comment_update-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_comment_update',
     'default_value' => NULL,
@@ -225,7 +230,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_course_conduct_create-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_course_conduct_create-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_course_conduct_create-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_course_conduct_create',
     'default_value' => NULL,
@@ -268,7 +274,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_course_conduct_remove-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_course_conduct_remove-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_course_conduct_remove-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_course_conduct_remove',
     'default_value' => NULL,
@@ -311,7 +318,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_course_conduct_update-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_course_conduct_update-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_course_conduct_update-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_course_conduct_update',
     'default_value' => NULL,
@@ -354,7 +362,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_event_create-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_event_create-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_event_create-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_event_create',
     'default_value' => NULL,
@@ -397,7 +406,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_event_remove-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_event_remove-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_event_remove-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_event_remove',
     'default_value' => NULL,
@@ -440,7 +450,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_event_update-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_event_update-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_event_update-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_event_update',
     'default_value' => NULL,
@@ -483,7 +494,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_material_create-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_material_create-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_material_create-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_material_create',
     'default_value' => NULL,
@@ -526,7 +538,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_material_description_update-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_material_description_update-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_material_description_update-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_material_description_update',
     'default_value' => NULL,
@@ -569,7 +582,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_material_manually_sorted-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_material_manually_sorted-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_material_manually_sorted-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_material_manually_sorted',
     'default_value' => NULL,
@@ -617,7 +631,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_material_remove-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_material_remove-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_material_remove-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_material_remove',
     'default_value' => NULL,
@@ -660,7 +675,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_material_update-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_material_update-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_material_update-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_material_update',
     'default_value' => NULL,
@@ -703,7 +719,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_private_comment_create-field_message_ref_to_comment'
+  // Exported field_instance:
+  // 'message-course_implementation_private_comment_create-field_message_ref_to_comment'.
   $field_instances['message-course_implementation_private_comment_create-field_message_ref_to_comment'] = array(
     'bundle' => 'course_implementation_private_comment_create',
     'default_value' => NULL,
@@ -746,7 +763,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_private_comment_create-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_private_comment_create-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_private_comment_create-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_private_comment_create',
     'default_value' => NULL,
@@ -789,7 +807,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_private_comment_remove-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_private_comment_remove-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_private_comment_remove-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_private_comment_remove',
     'default_value' => NULL,
@@ -832,7 +851,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_private_comment_update-field_message_ref_to_comment'
+  // Exported field_instance:
+  // 'message-course_implementation_private_comment_update-field_message_ref_to_comment'.
   $field_instances['message-course_implementation_private_comment_update-field_message_ref_to_comment'] = array(
     'bundle' => 'course_implementation_private_comment_update',
     'default_value' => NULL,
@@ -875,7 +895,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_private_comment_update-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_private_comment_update-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_private_comment_update-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_private_comment_update',
     'default_value' => NULL,
@@ -918,7 +939,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_private_material_create-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_private_material_create-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_private_material_create-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_private_material_create',
     'default_value' => NULL,
@@ -959,7 +981,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_private_material_remove-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_private_material_remove-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_private_material_remove-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_private_material_remove',
     'default_value' => NULL,
@@ -1000,7 +1023,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_private_material_update-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_private_material_update-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_private_material_update-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_private_material_update',
     'default_value' => NULL,
@@ -1041,7 +1065,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_task_create-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_task_create-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_task_create-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_task_create',
     'default_value' => NULL,
@@ -1084,7 +1109,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_task_create-field_message_ref_to_task'
+  // Exported field_instance:
+  // 'message-course_implementation_task_create-field_message_ref_to_task'.
   $field_instances['message-course_implementation_task_create-field_message_ref_to_task'] = array(
     'bundle' => 'course_implementation_task_create',
     'default_value' => NULL,
@@ -1127,7 +1153,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_task_remove-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_task_remove-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_task_remove-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_task_remove',
     'default_value' => NULL,
@@ -1170,7 +1197,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_task_update-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_task_update-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_task_update-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_task_update',
     'default_value' => NULL,
@@ -1213,7 +1241,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_task_update-field_message_ref_to_task'
+  // Exported field_instance:
+  // 'message-course_implementation_task_update-field_message_ref_to_task'.
   $field_instances['message-course_implementation_task_update-field_message_ref_to_task'] = array(
     'bundle' => 'course_implementation_task_update',
     'default_value' => NULL,
@@ -1256,7 +1285,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_teacher_section_create-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_teacher_section_create-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_teacher_section_create-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_teacher_section_create',
     'default_value' => NULL,
@@ -1299,7 +1329,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_teacher_section_remove-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_teacher_section_remove-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_teacher_section_remove-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_teacher_section_remove',
     'default_value' => NULL,
@@ -1342,7 +1373,8 @@ function uhc_course_implementation_activity_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_teacher_section_update-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_teacher_section_update-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_teacher_section_update-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_teacher_section_update',
     'default_value' => NULL,

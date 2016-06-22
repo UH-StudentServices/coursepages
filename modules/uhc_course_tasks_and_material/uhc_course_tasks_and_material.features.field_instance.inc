@@ -10,7 +10,7 @@
 function uhc_course_tasks_and_material_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-course_task-field_course_task_description'
+  // Exported field_instance: 'node-course_task-field_course_task_description'.
   $field_instances['node-course_task-field_course_task_description'] = array(
     'bundle' => 'course_task',
     'default_value' => NULL,
@@ -126,7 +126,7 @@ function uhc_course_tasks_and_material_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_task-field_event_ref_to_material'
+  // Exported field_instance: 'node-course_task-field_event_ref_to_material'.
   $field_instances['node-course_task-field_event_ref_to_material'] = array(
     'bundle' => 'course_task',
     'deleted' => 0,

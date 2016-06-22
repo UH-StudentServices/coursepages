@@ -11,6 +11,45 @@
 include_once 'uhc_ds.features.inc';
 
 /**
+ * Implements hook_theme().
+ */
+function uhc_ds_theme($existing, $type, $theme, $path) {
+  return array(
+    'uhc_ds_accordion_field' => array(
+      'variables' => array('value' => '', 'label' => '', 'source' => ''),
+    ),
+  );
+}
+
+/**
+ * Preprocessing CSS classes for theme('uhc_ds_accordion_field').
+ * @param $variables
+ */
+function template_preprocess_uhc_ds_accordion_field(&$variables) {
+  $variables['label_css_classes'] = '';
+  // When user is logged in, we want to specify what is the source of the value
+  if (user_is_logged_in()) {
+    $variables['label_css_classes'] = 'accordion-content-item--label label-above legend ' . $variables['source'];
+  }
+  else {
+    $variables['label_css_classes'] = 'accordion-content-item--label label-above';
+  }
+}
+
+/**
+ * Default theme('uhc_ds_accordion_field') callback for rendering course inherited field label-values.
+ * @param $variables
+ * @return string
+ */
+function theme_uhc_ds_accordion_field($variables) {
+  $output = '<div class="accordion-content-item">';
+  $output .= '<label class="' . $variables['label_css_classes'] . '">' . $variables['label'] . '</label>';
+  $output .= '<div class="body-text">' . $variables['value'] . '</div>';
+  $output .= '</div>';
+  return $output;
+}
+
+/**
  * Implements hook_ds_fields_info().
  *
  * Introduce fields for bringing course fields to course implementation.
@@ -26,74 +65,14 @@ function uhc_ds_ds_fields_info($entity_type) {
         'field_name' => 'field_course_course_number',
         'label' => t('Course number'),
       ),
-      'uhc_ds_additional_info' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_additional_info',
-        'label' => t('Additional information'),
-      ),
-      'uhc_ds_req_prerequisites' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_req_prerequisites',
-        'label' => t('Required pre-requisites'),
-      ),
-      'uhc_ds_contents' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_contents',
-        'label' => t('Contents'),
-      ),
-      'uhc_ds_evaluation' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_evaluation',
-        'label' => t('Evaluation'),
-      ),
-      'uhc_ds_objective' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_objective',
-        'label' => t('Objective'),
-      ),
-      'uhc_ds_target_group' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_target_group',
-        'label' => t('Target group'),
-      ),
-      'uhc_ds_study_materials' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_study_materials',
-        'label' => t('Study materials'),
-      ),
-      'uhc_ds_conduct' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_conduct',
-        'label' => t('Conduct'),
-      ),
-      'uhc_ds_timing' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_timing',
-        'label' => t('Timing'),
-      ),
-      'uhc_ds_responsible_person' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_responsible_person',
-        'label' => t('Responsible person'),
-      ),
-      'uhc_ds_rel_to_other_study_units' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_rel_to_other_study_units',
-        'label' => t('Relation to other study units'),
-      ),
-      'uhc_ds_working_methods' => array(
-        'function' => 'uhc_ds_content_fallback',
-        'field_name' => 'field_working_methods',
-        'label' => t('Realisation and working methods'),
-      ),
       // Fields that have no Course fallback but need language fallback
       'uhc_ds_fee' => array(
-        'function' => 'uhc_ds_content_fallback',
+        'function' => 'uhc_ds_content_with_specific_langsort',
         'field_name' => 'field_imp_fee',
         'label' => t('Fee'),
       ),
       'uhc_ds_open_uni_registration' => array(
-        'function' => 'uhc_ds_content_fallback',
+        'function' => 'uhc_ds_content_with_specific_langsort',
         'field_name' => 'field_open_uni_registration',
         'label' => t('Registration'),
       ),
@@ -239,49 +218,25 @@ function uhc_ds_preprocess_node(&$vars) {
 }
 
 /**
- * Helper function for introducing an inherited field.
- * @param $ds_fields
- * @param $embeddable_field
- * @param $label
- * @param $field_name
+ * Renders inherited field as link to course node.
  */
-function _uhc_ds_inherit_from_source(&$ds_fields, $embeddable_field, $label, $field_name) {
-  $ds_fields[$embeddable_field] = array(
-    'title' => $label,
-    'field_type' => DS_FIELD_TYPE_FUNCTION,
-    'ui_limit' => array('course_implementation|*'),
-    'function' => 'uhc_ds_render_inherited_ds_field',
-    'properties' => array(
-      'field_name' => $field_name,
-      'reference_field' => 'field_imp_reference_to_courses'
-    ),
-  );
-}
+function uhc_ds_render_inherited_as_link($field) {
+  $node = $field['entity'];
 
-/**
- * Helper function for introducing an comparable field.
- * @param $ds_fields
- * @param $embeddable_field
- * @param $label
- * @param $field_name
- */
-function _uhc_ds_compare(&$ds_fields, $embeddable_field, $label, $field_name) {
-  $ds_fields[$embeddable_field] = array(
-    'title' => $label,
-    'field_type' => DS_FIELD_TYPE_FUNCTION,
-    'ui_limit' => array('course_implementation|*'),
-    'function' => 'uhc_ds_content_fallback',
-    'properties' => array(
-      'field_name' => $field_name,
-      'reference_field' => 'field_imp_reference_to_courses'
-    ),
-  );
+  $course_nid = isset($node->field_imp_reference_to_courses[LANGUAGE_NONE][0]['target_id'])
+    ? $node->field_imp_reference_to_courses[LANGUAGE_NONE][0]['target_id']
+    : NULL;
+
+  if ($course_nid) {
+    $value = uhc_ds_render_inherited_ds_field($field);
+    $uri = entity_uri('node', node_load($course_nid));
+    return l($value, $uri['path']);
+  }
 }
 
 /**
  * This is an callback for rendering an display suite field.
  * @see uhc_ds_ds_fields_info()
- * @see _uhc_ds_inherit_from_source()
  */
 function uhc_ds_render_inherited_ds_field($field = NULL, $langcode = NULL) {
   if (!$langcode) {
@@ -323,117 +278,20 @@ function uhc_ds_render_inherited_ds_field($field = NULL, $langcode = NULL) {
 }
 
 /**
- * This is an callback for rendering an comparable DS field.
- * @see uhc_ds_ds_fields_info()
- * @see uhc_ds_render_inherited_ds_field()
- */
-function uhc_ds_render_comparable_ds_field($field = NULL) {
-
-  // This is the node we're rendering at the moment.
-  $node = $field['entity'];
-
-  // This is the field, we want to compare
-  $field_name = $field['properties']['field_name'];
-
-  $langcode = i18n_langcode();
-
-  // if the field has a value, use it
-  $values = field_get_items('node', $node, $field_name, $langcode);
-  if($values) {
-    $value = field_view_value('node', $node, $field_name, $values[0]);
-    return render($value);
-  }
-
-  // If the active language is one of the teaching languages and field has no value, we
-  // try to fetch the value from the course node instead.
-  $teaching_languages = field_get_items('node', $node, 'field_imp_teaching_language');
-  if ($teaching_languages) {
-    foreach ($teaching_languages as $teaching_language) {
-      if ($teaching_language['value'] == $langcode) {
-        return uhc_ds_render_inherited_ds_field($field);
-      }
-    }
-  }
-}
-
-/**
- * Fallback logic to make sure we have at least some content to show to the user. Content can be
- * pulled from different languages and from the referenced course node if necessary.
- * Currently not in use, we use uhc_ds_render_comparable_ds_field instead.
+ * DS callback function for rendering specified field in a specific language
+ * sorting that is done in uh_coursepages_render_field_value().
  *
  * @see uhc_ds_ds_fields_info()
- * @see uhc_ds_render_inherited_ds_field()
+ * @see uh_coursepages_render_field_value()
  */
-function uhc_ds_content_fallback($field = NULL) {
-
-  // This is the node we're rendering at the moment.
-  $node = $field['entity'];
-
-  // This is the field, we want to compare
-  $field_name = $field['properties']['field_name'];
-
-  $active_language = i18n_langcode();
-
-  // Language weight is used to determine the order of preference when looping through languages
-  // and can be set at /admin/config/regional/language
-  $enabled_languages = locale_language_list('language');
-
-  $teaching_language_field_items = field_get_items('node', $node, 'field_imp_teaching_language');
-  $teaching_languages = $teaching_language_field_items ? array_column($teaching_language_field_items, 'value') : NULL;
-
-  // Course implementation - try active language
-  $values = field_get_items('node', $node, $field_name, $active_language);
-  if ($values) {
-    $value = field_view_value('node', $node, $field_name, $values[0]);
-    return uhc_ds_render_fallback_with_source(render($value), $field['title'], 'course');
-  }
-
-  // Course implementation - try all teaching languages
-  if ($teaching_languages) {
-    foreach ($enabled_languages as $enabled_language) {
-      if(in_array($enabled_language, $teaching_languages)) {
-        $values = field_get_items('node', $node, $field_name, $enabled_language);
-        if ($values) {
-          $value = field_view_value('node', $node, $field_name, $values[0]);
-          return uhc_ds_render_fallback_with_source(render($value), $field['title'], 'course');
-        }
-      }
-    }
-  }
-
-  // Course implementation - try all enabled languages
-  foreach ($enabled_languages as $enabled_language) {
-    $values = field_get_items('node', $node, $field_name, $enabled_language);
-    if ($values) {
-      $value = field_view_value('node', $node, $field_name, $values[0]);
-      return uhc_ds_render_fallback_with_source(render($value), $field['title'], 'course');
-    }
-  }
-
-  // Course - try active language
-  $values = uhc_ds_render_inherited_ds_field($field);
-  if ($values) {
-    return uhc_ds_render_fallback_with_source($values, $field['title'], 'study-object');
-  }
-
-  // Course - try all teaching languages
-  if ($teaching_languages) {
-    foreach ($enabled_languages as $enabled_language) {
-      if(in_array($enabled_language, $teaching_languages)) {
-        $values = uhc_ds_render_inherited_ds_field($field, $enabled_language);
-        if ($values) {
-          return uhc_ds_render_fallback_with_source($values, $field['title'], 'study-object');
-        }
-      }
-    }
-  }
-
-  // Course - try all enabled languages
-  foreach ($enabled_languages as $enabled_language) {
-    $values = uhc_ds_render_inherited_ds_field($field, $enabled_language);
-    if ($values) {
-      return uhc_ds_render_fallback_with_source($values, $field['title'], 'study-object');
-    }
+function uhc_ds_content_with_specific_langsort($field = NULL) {
+  $value = uh_coursepages_render_field_value($field['entity'], $field['properties']['field_name']);
+  if (!is_null($value)) {
+    return theme('uhc_ds_accordion_field', array(
+      'value' => $value,
+      'label' => $field['title'],
+      'source' => 'course',
+    ));
   }
 }
 
@@ -736,7 +594,7 @@ function uhc_ds_course_hierarchy($field) {
 
   // Add personal enrollments too
   $personal_unique_code = uhc_autofill_metadata_get_current_user_personal_unique_code();
-  $enrollments = uhc_autofill_metadata_get_enrollment_data($personal_unique_code);
+  $enrollments = uhc_autofill_metadata_get_enrollment_data($personal_unique_code, TRUE);
   if (!empty($enrollments)) {
     $exams = variable_get('uhc_migrate_methods_of_study_marked_as_exam', array());
 
@@ -869,39 +727,4 @@ function uhc_ds_location_and_time($field) {
 
   // Return locality and date range
   return "$locality $date";
-}
-
-/**
- * Renders inherited field as link to course node.
- */
-function uhc_ds_render_inherited_as_link($field) {
-  $node = $field['entity'];
-
-  $course_nid = isset($node->field_imp_reference_to_courses[LANGUAGE_NONE][0]['target_id'])
-    ? $node->field_imp_reference_to_courses[LANGUAGE_NONE][0]['target_id']
-    : NULL;
-
-  if ($course_nid) {
-    $value = uhc_ds_render_inherited_ds_field($field);
-    $uri = entity_uri('node', node_load($course_nid));
-    return l($value, $uri['path']);
-  }
-}
-
-/**
- * Renders fallback content with wrappers and source as a label class.
- */
-function uhc_ds_render_fallback_with_source($value, $label, $source) {
-  $output = '<div class="accordion-content-item">';
-
-  if (user_is_logged_in()) {
-    $output .= '<label class="accordion-content-item--label label-above legend ' . $source .  '">' . $label . '</label>';
-  }
-  else {
-    $output .= '<label class="accordion-content-item--label label-above">' . $label . '</label>';
-  }
-
-  $output.= '<div class="body-text">' . $value . '</div>';
-  $output .= '</div>';
-  return $output;
 }

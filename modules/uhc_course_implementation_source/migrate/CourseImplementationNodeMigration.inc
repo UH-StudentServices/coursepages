@@ -124,6 +124,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_imp_keywords', 'keywords')->callbacks(array($this, 'parseKeywords'));
     if (module_exists('uhc_event')) {
       $this->addFieldMapping('field_imp_events_json', 'events')->callbacks(array($this, 'encodeToJSONIfNotEmpty'));
+      $this->addFieldMapping('field_imp_events_raw', 'raw_events')->callbacks(array($this, 'parseEvents'));
     }
 
     // Multilingual text fields that are computed in preprocess
@@ -169,10 +170,6 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_imp_organisation', 'organisations')
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'resolveTidFromOrganisations'));
-
-    // Note: Multilingual field mapping is not supported, so
-    // field_imp_canonical_url field is handled in
-    // CourseImplementationDestinationNode::prepare()
   }
 
   /**
@@ -208,6 +205,8 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'providing_organisation'         => 'Multilingual: Course organiser',
       'realisation_and_working_methods'=> 'Multilingual: Realisation and working methods',
       'keywords'                       => 'Multilingual: Keywords',
+      'events'                         => 'Strucuted list of events',
+      'raw_events'                     => 'Unstrucuted list of events',
       'languages'                      => 'Teaching languages',
       'teachers'                       => 'Teachers',
       'officials'                      => 'Officials (administrators)',
@@ -627,5 +626,28 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
    */
   static public function encodeToJSONIfNotEmpty($value) {
     return empty($value) ? '' : drupal_json_encode($value);
+  }
+
+  /**
+   * Parses events value that has a list of objects. Each object having an
+   * property called 'event' that is a string.
+   *
+   * This method will parse the list of objects and return their event values
+   * separated by end of line.
+   *
+   * @param $value
+   * @return null|string
+   */
+  static public function parseEvents($value) {
+    if (!empty($value) && is_array($value)) {
+      $return = array();
+      foreach ($value as $row) {
+        if (!empty($row->event)) {
+          $return[] = $row->event;
+        }
+      }
+      return implode(PHP_EOL, $return);
+    }
+    return NULL;
   }
 }

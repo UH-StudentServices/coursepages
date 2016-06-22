@@ -443,3 +443,11 @@ function uhc_course_implementation_update_7011(&$sandbox) {
       ->execute();
   }
 }
+
+/**
+ * Remove field_imp_canonical_url that gets replaced by entity propety + DS
+ * field.
+ */
+function uhc_courses_implementation_update_7012(&$sandbox) {
+  field_delete_field('field_imp_canonical_url');
+}

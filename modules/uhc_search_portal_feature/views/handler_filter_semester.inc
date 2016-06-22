@@ -32,6 +32,7 @@ class UHCSearchPortalFeatureViewsHandlerFilterSemester extends SearchApiViewsHan
    *
    * @param $timestamp
    * @return int
+   * @see _uhc_course_implementation_inherited_fields_get_academic_year_end_date()
    */
   function getCurrentSemester($timestamp = NULL) {
     $timestamp = !is_int($timestamp) ? time() : $timestamp;

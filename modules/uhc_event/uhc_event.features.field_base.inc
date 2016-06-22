@@ -10,7 +10,7 @@
 function uhc_event_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_event_location'
+  // Exported field_base: 'field_event_location'.
   $field_bases['field_event_location'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -20,7 +20,6 @@ function uhc_event_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'lid' => array(
         0 => 'lid',
@@ -99,7 +98,7 @@ function uhc_event_field_default_field_bases() {
     'type' => 'location',
   );
 
-  // Exported field_base: 'field_imp_events_json'
+  // Exported field_base: 'field_imp_events_json'.
   $field_bases['field_imp_events_json'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -109,13 +108,29 @@ function uhc_event_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
+    'indexes' => array(
       'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
+        0 => 'format',
       ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'text_long',
+  );
+
+  // Exported field_base: 'field_imp_events_raw'.
+  $field_bases['field_imp_events_raw'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_imp_events_raw',
+    'field_permissions' => array(
+      'type' => 2,
     ),
     'indexes' => array(
       'format' => array(

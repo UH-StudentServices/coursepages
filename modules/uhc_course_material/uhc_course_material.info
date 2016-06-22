@@ -1,7 +1,7 @@
 name = UHC Course material
 core = 7.x
 package = UHC
-version = 7.x-1.68
+version = 7.x-1.69
 project = uhc_course_material
 dependencies[] = ctools
 dependencies[] = entityreference
@@ -53,4 +53,3 @@ features_exclude[field_base][field_material_link] = field_material_link
 features_exclude[field_base][field_material_author] = field_material_author
 features_exclude[field_base][field_material_pub_info] = field_material_pub_info
 features_exclude[field_base][field_material_description] = field_material_description
-mtime = 1460381658

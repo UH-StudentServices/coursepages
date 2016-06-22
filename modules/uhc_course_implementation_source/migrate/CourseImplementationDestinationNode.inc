@@ -46,21 +46,6 @@ class CourseImplementationDestinationNode extends PortalDestinationNode {
       'field_imp_events_json',
     );
     $entity = $this->cleanupEmptyTextFields($entity, $potentially_empty_fields);
-
-    // Generate URLs for each language/course by using language codes and id
-    $lang_codes = array(
-      'fi' => '1',
-      'sv' => '2',
-      'en' => '6',
-    );
-    $id = $source_row->id;
-    foreach (PortalMigrationBase::getSupportedLanguages() as $lang) {
-      $lang_code = $lang_codes[$lang];
-      $url = 'https://weboodi.helsinki.fi/hy/alkusivu.jsp?Kieli=:langcode&avattavaSivu=opettaptied&OpetTap=:id';
-      $url = preg_replace(array_fill(0, count($lang_code), '/:langcode/'), $lang_code, $url, 1);
-      $url = preg_replace(array_fill(0, count($id), '/:id/'), $id, $url, 1);
-      $entity->field_imp_canonical_url[$lang][0]['url'] = $url;
-    }
   }
 
   /**

@@ -10,7 +10,8 @@
 function uhc_course_implementation_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'field_collection_item-field_imp_teachersection-field_imp_teachersection_content'
+  // Exported field_instance:
+  // 'field_collection_item-field_imp_teachersection-field_imp_teachersection_content'.
   $field_instances['field_collection_item-field_imp_teachersection-field_imp_teachersection_content'] = array(
     'bundle' => 'field_imp_teachersection',
     'default_value' => NULL,
@@ -88,7 +89,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_imp_teachersection-field_imp_teachersection_label'
+  // Exported field_instance:
+  // 'field_collection_item-field_imp_teachersection-field_imp_teachersection_label'.
   $field_instances['field_collection_item-field_imp_teachersection-field_imp_teachersection_label'] = array(
     'bundle' => 'field_imp_teachersection',
     'default_value' => NULL,
@@ -127,7 +129,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_additional_info'
+  // Exported field_instance:
+  // 'node-course_implementation-field_additional_info'.
   $field_instances['node-course_implementation-field_additional_info'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -144,7 +147,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 77,
+        'weight' => 81,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -196,7 +199,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_cancelled'
+  // Exported field_instance: 'node-course_implementation-field_cancelled'.
   $field_instances['node-course_implementation-field_cancelled'] = array(
     'bundle' => 'course_implementation',
     'default_value' => array(
@@ -264,11 +267,11 @@ function uhc_course_implementation_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 50,
+      'weight' => 49,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_conduct'
+  // Exported field_instance: 'node-course_implementation-field_conduct'.
   $field_instances['node-course_implementation-field_conduct'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -285,7 +288,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 63,
+        'weight' => 67,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -337,7 +340,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_contents'
+  // Exported field_instance: 'node-course_implementation-field_contents'.
   $field_instances['node-course_implementation-field_contents'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -354,7 +357,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 62,
+        'weight' => 66,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -406,7 +409,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_evaluation'
+  // Exported field_instance: 'node-course_implementation-field_evaluation'.
   $field_instances['node-course_implementation-field_evaluation'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -423,7 +426,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 59,
+        'weight' => 63,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -475,7 +478,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_feedback_description'
+  // Exported field_instance:
+  // 'node-course_implementation-field_feedback_description'.
   $field_instances['node-course_implementation-field_feedback_description'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -583,7 +587,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_feedback_link'
+  // Exported field_instance: 'node-course_implementation-field_feedback_link'.
   $field_instances['node-course_implementation-field_feedback_link'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -674,7 +678,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_field_imp_header_intro_tex'
+  // Exported field_instance:
+  // 'node-course_implementation-field_field_imp_header_intro_tex'.
   $field_instances['node-course_implementation-field_field_imp_header_intro_tex'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -695,7 +700,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
         ),
         'type' => 'text_default',
-        'weight' => 12,
+        'weight' => 13,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -782,7 +787,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_hierarchy_children'
+  // Exported field_instance:
+  // 'node-course_implementation-field_hierarchy_children'.
   $field_instances['node-course_implementation-field_hierarchy_children'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -799,7 +805,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 93,
+        'weight' => 94,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -844,11 +850,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 54,
+      'weight' => 53,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_hierarchy_parent_id'
+  // Exported field_instance:
+  // 'node-course_implementation-field_hierarchy_parent_id'.
   $field_instances['node-course_implementation-field_hierarchy_parent_id'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -865,7 +872,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 92,
+        'weight' => 93,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -910,11 +917,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 53,
+      'weight' => 52,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_hierarchy_position'
+  // Exported field_instance:
+  // 'node-course_implementation-field_hierarchy_position'.
   $field_instances['node-course_implementation-field_hierarchy_position'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -931,7 +939,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 89,
+        'weight' => 92,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1012,11 +1020,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 52,
+      'weight' => 51,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_administrator_number'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_administrator_number'.
   $field_instances['node-course_implementation-field_imp_administrator_number'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -1033,7 +1042,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 75,
+        'weight' => 78,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1107,11 +1116,11 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 38,
+      'weight' => 37,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_begin_date'
+  // Exported field_instance: 'node-course_implementation-field_imp_begin_date'.
   $field_instances['node-course_implementation-field_imp_begin_date'] = array(
     'bundle' => 'course_implementation',
     'deleted' => 0,
@@ -1127,7 +1136,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 66,
+        'weight' => 70,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1179,95 +1188,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 32,
+      'weight' => 31,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_canonical_url'
-  $field_instances['node-course_implementation-field_imp_canonical_url'] = array(
-    'bundle' => 'course_implementation',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'This is the URL address of this content.',
-    'display' => array(
-      'content_suffix' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'link',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'link_default',
-        'weight' => 14,
-      ),
-      'sidebar' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 77,
-      ),
-      'teaser_accordion' => array(
-        'label' => 'hidden',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 80,
-      ),
-      'teaser_images' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_imp_canonical_url',
-    'label' => 'Canonical URL',
-    'required' => 0,
-    'settings' => array(
-      'absolute_url' => 1,
-      'attributes' => array(
-        'class' => 'button',
-        'configurable_title' => 0,
-        'rel' => '',
-        'target' => 'default',
-        'title' => '',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 0,
-      'entity_translation_sync' => FALSE,
-      'rel_remove' => 'default',
-      'title' => 'value',
-      'title_label_use_field_label' => FALSE,
-      'title_maxlength' => 128,
-      'title_value' => 'Enrol',
-      'url' => 0,
-      'user_register_form' => FALSE,
-      'validate_url' => 1,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'link',
-      'settings' => array(),
-      'type' => 'link_field',
-      'weight' => 29,
-    ),
-  );
-
-  // Exported field_instance: 'node-course_implementation-field_imp_course_organiser'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_course_organiser'.
   $field_instances['node-course_implementation-field_imp_course_organiser'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -1336,11 +1262,11 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 44,
+      'weight' => 43,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_end_date'
+  // Exported field_instance: 'node-course_implementation-field_imp_end_date'.
   $field_instances['node-course_implementation-field_imp_end_date'] = array(
     'bundle' => 'course_implementation',
     'deleted' => 0,
@@ -1356,7 +1282,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 67,
+        'weight' => 71,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1408,11 +1334,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 33,
+      'weight' => 32,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_enrollment_begin_date'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_enrollment_begin_date'.
   $field_instances['node-course_implementation-field_imp_enrollment_begin_date'] = array(
     'bundle' => 'course_implementation',
     'deleted' => 0,
@@ -1428,7 +1355,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 84,
+        'weight' => 87,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1480,11 +1407,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 34,
+      'weight' => 33,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_enrollment_end_date'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_enrollment_end_date'.
   $field_instances['node-course_implementation-field_imp_enrollment_end_date'] = array(
     'bundle' => 'course_implementation',
     'deleted' => 0,
@@ -1500,7 +1428,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 85,
+        'weight' => 88,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1552,11 +1480,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 35,
+      'weight' => 34,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_events_title'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_events_title'.
   $field_instances['node-course_implementation-field_imp_events_title'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -1573,7 +1502,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 82,
+        'weight' => 85,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1658,7 +1587,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_fee'
+  // Exported field_instance: 'node-course_implementation-field_imp_fee'.
   $field_instances['node-course_implementation-field_imp_fee'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -1675,7 +1604,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 1,
+        'weight' => 58,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1727,7 +1656,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_giver_locality'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_giver_locality'.
   $field_instances['node-course_implementation-field_imp_giver_locality'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -1744,7 +1674,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 74,
+        'weight' => 77,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1792,11 +1722,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 42,
+      'weight' => 41,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_header_headline'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_header_headline'.
   $field_instances['node-course_implementation-field_imp_header_headline'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -1817,7 +1748,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
         ),
         'type' => 'text_default',
-        'weight' => 11,
+        'weight' => 12,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1902,7 +1833,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_header_image'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_header_image'.
   $field_instances['node-course_implementation-field_imp_header_image'] = array(
     'bundle' => 'course_implementation',
     'deleted' => 0,
@@ -1924,7 +1856,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'image_style' => 'large',
         ),
         'type' => 'image',
-        'weight' => 9,
+        'weight' => 10,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2002,7 +1934,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_header_image_caption'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_header_image_caption'.
   $field_instances['node-course_implementation-field_imp_header_image_caption'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2023,7 +1956,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
         ),
         'type' => 'text_default',
-        'weight' => 10,
+        'weight' => 11,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2108,7 +2041,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_header_text'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_header_text'.
   $field_instances['node-course_implementation-field_imp_header_text'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2129,7 +2063,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
         ),
         'type' => 'text_default',
-        'weight' => 13,
+        'weight' => 14,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2216,7 +2150,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_hide_sign_up_button'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_hide_sign_up_button'.
   $field_instances['node-course_implementation-field_imp_hide_sign_up_button'] = array(
     'bundle' => 'course_implementation',
     'default_value' => array(
@@ -2237,7 +2172,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 81,
+        'weight' => 84,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2284,7 +2219,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_id'
+  // Exported field_instance: 'node-course_implementation-field_imp_id'.
   $field_instances['node-course_implementation-field_imp_id'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2301,7 +2236,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 69,
+        'weight' => 73,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2352,7 +2287,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_interaction_link'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_interaction_link'.
   $field_instances['node-course_implementation-field_imp_interaction_link'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2443,7 +2379,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_interactiondescription'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_interactiondescription'.
   $field_instances['node-course_implementation-field_imp_interactiondescription'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2551,7 +2488,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_keywords'
+  // Exported field_instance: 'node-course_implementation-field_imp_keywords'.
   $field_instances['node-course_implementation-field_imp_keywords'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2568,7 +2505,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 78,
+        'weight' => 82,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2642,11 +2579,11 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 49,
+      'weight' => 48,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_locality'
+  // Exported field_instance: 'node-course_implementation-field_imp_locality'.
   $field_instances['node-course_implementation-field_imp_locality'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2714,11 +2651,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 40,
+      'weight' => 39,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_material_description'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_material_description'.
   $field_instances['node-course_implementation-field_imp_material_description'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2826,7 +2764,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_method_of_study'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_method_of_study'.
   $field_instances['node-course_implementation-field_imp_method_of_study'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2889,11 +2828,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 30,
+      'weight' => 29,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_organisation'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_organisation'.
   $field_instances['node-course_implementation-field_imp_organisation'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2910,7 +2850,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 83,
+        'weight' => 86,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2955,11 +2895,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'options_select',
-      'weight' => 45,
+      'weight' => 44,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_reference_to_courses'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_reference_to_courses'.
   $field_instances['node-course_implementation-field_imp_reference_to_courses'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -2976,7 +2917,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 68,
+        'weight' => 72,
       ),
       'index' => array(
         'label' => 'above',
@@ -3027,11 +2968,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete_tags',
-      'weight' => 31,
+      'weight' => 30,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_reference_to_events'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_reference_to_events'.
   $field_instances['node-course_implementation-field_imp_reference_to_events'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3049,7 +2991,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 79,
+        'weight' => 83,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3105,7 +3047,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_start_month'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_start_month'.
   $field_instances['node-course_implementation-field_imp_start_month'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3122,7 +3065,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 73,
+        'weight' => 76,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3165,11 +3108,11 @@ function uhc_course_implementation_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 41,
+      'weight' => 40,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_teacher'
+  // Exported field_instance: 'node-course_implementation-field_imp_teacher'.
   $field_instances['node-course_implementation-field_imp_teacher'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3240,11 +3183,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 36,
+      'weight' => 35,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_teacher_number'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_teacher_number'.
   $field_instances['node-course_implementation-field_imp_teacher_number'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3261,7 +3205,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 70,
+        'weight' => 74,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3308,11 +3252,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 37,
+      'weight' => 36,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_teacher_se_content'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_teacher_se_content'.
   $field_instances['node-course_implementation-field_imp_teacher_se_content'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3424,7 +3369,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_teachersection'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_teachersection'.
   $field_instances['node-course_implementation-field_imp_teachersection'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3491,7 +3437,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_teaching_language'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_teaching_language'.
   $field_instances['node-course_implementation-field_imp_teaching_language'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3517,7 +3464,7 @@ function uhc_course_implementation_field_default_field_instances() {
           ),
         ),
         'type' => 'language_default',
-        'weight' => 8,
+        'weight' => 9,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3558,11 +3505,12 @@ function uhc_course_implementation_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 43,
+      'weight' => 42,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_imp_timetable_additional'
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_timetable_additional'.
   $field_instances['node-course_implementation-field_imp_timetable_additional'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3658,7 +3606,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_objective'
+  // Exported field_instance: 'node-course_implementation-field_objective'.
   $field_instances['node-course_implementation-field_objective'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3675,7 +3623,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 64,
+        'weight' => 68,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3727,7 +3675,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_open_uni_registration'
+  // Exported field_instance:
+  // 'node-course_implementation-field_open_uni_registration'.
   $field_instances['node-course_implementation-field_open_uni_registration'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3744,7 +3693,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 59,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3831,7 +3780,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_reference_to_course_tasks'
+  // Exported field_instance:
+  // 'node-course_implementation-field_reference_to_course_tasks'.
   $field_instances['node-course_implementation-field_reference_to_course_tasks'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3906,7 +3856,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_rel_to_other_study_units'
+  // Exported field_instance:
+  // 'node-course_implementation-field_rel_to_other_study_units'.
   $field_instances['node-course_implementation-field_rel_to_other_study_units'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -3923,7 +3874,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 87,
+        'weight' => 90,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4010,11 +3961,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 48,
+      'weight' => 47,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_req_prerequisites'
+  // Exported field_instance:
+  // 'node-course_implementation-field_req_prerequisites'.
   $field_instances['node-course_implementation-field_req_prerequisites'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4031,7 +3983,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 60,
+        'weight' => 64,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4083,7 +4035,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_responsible_person'
+  // Exported field_instance:
+  // 'node-course_implementation-field_responsible_person'.
   $field_instances['node-course_implementation-field_responsible_person'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4100,7 +4053,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 86,
+        'weight' => 89,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4187,11 +4140,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 47,
+      'weight' => 46,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_section_material'
+  // Exported field_instance:
+  // 'node-course_implementation-field_section_material'.
   $field_instances['node-course_implementation-field_section_material'] = array(
     'bundle' => 'course_implementation',
     'default_value_function' => '',
@@ -4208,7 +4162,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 57,
+        'weight' => 61,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4264,7 +4218,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_study_credit'
+  // Exported field_instance: 'node-course_implementation-field_study_credit'.
   $field_instances['node-course_implementation-field_study_credit'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4281,7 +4235,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 65,
+        'weight' => 69,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4328,11 +4282,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 8,
       ),
       'type' => 'text_textfield',
-      'weight' => 39,
+      'weight' => 38,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_study_materials'
+  // Exported field_instance:
+  // 'node-course_implementation-field_study_materials'.
   $field_instances['node-course_implementation-field_study_materials'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4349,7 +4304,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 58,
+        'weight' => 62,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4401,7 +4356,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_target_group'
+  // Exported field_instance: 'node-course_implementation-field_target_group'.
   $field_instances['node-course_implementation-field_target_group'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4418,7 +4373,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 61,
+        'weight' => 65,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4470,7 +4425,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_timing'
+  // Exported field_instance: 'node-course_implementation-field_timing'.
   $field_instances['node-course_implementation-field_timing'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4487,7 +4442,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 76,
+        'weight' => 80,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4535,11 +4490,12 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 46,
+      'weight' => 45,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_video_description'
+  // Exported field_instance:
+  // 'node-course_implementation-field_video_description'.
   $field_instances['node-course_implementation-field_video_description'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4635,7 +4591,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_video_embed_url'
+  // Exported field_instance:
+  // 'node-course_implementation-field_video_embed_url'.
   $field_instances['node-course_implementation-field_video_embed_url'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4729,7 +4686,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_video_link'
+  // Exported field_instance: 'node-course_implementation-field_video_link'.
   $field_instances['node-course_implementation-field_video_link'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4808,7 +4765,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-field_working_methods'
+  // Exported field_instance:
+  // 'node-course_implementation-field_working_methods'.
   $field_instances['node-course_implementation-field_working_methods'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4825,7 +4783,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 88,
+        'weight' => 91,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4908,11 +4866,11 @@ function uhc_course_implementation_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 51,
+      'weight' => 50,
     ),
   );
 
-  // Exported field_instance: 'node-course_implementation-title_field'
+  // Exported field_instance: 'node-course_implementation-title_field'.
   $field_instances['node-course_implementation-title_field'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
@@ -4929,7 +4887,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 71,
+        'weight' => 75,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4985,7 +4943,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-months-description_field'
+  // Exported field_instance: 'taxonomy_term-months-description_field'.
   $field_instances['taxonomy_term-months-description_field'] = array(
     'bundle' => 'months',
     'default_value' => NULL,
@@ -5027,7 +4985,7 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-months-name_field'
+  // Exported field_instance: 'taxonomy_term-months-name_field'.
   $field_instances['taxonomy_term-months-name_field'] = array(
     'bundle' => 'months',
     'default_value' => NULL,
@@ -5067,7 +5025,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-organisations_of_university_of_helsinki-field_default_header_image'
+  // Exported field_instance:
+  // 'taxonomy_term-organisations_of_university_of_helsinki-field_default_header_image'.
   $field_instances['taxonomy_term-organisations_of_university_of_helsinki-field_default_header_image'] = array(
     'bundle' => 'organisations_of_university_of_helsinki',
     'deleted' => 0,
@@ -5137,7 +5096,8 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-organisations_of_university_of_helsinki-field_default_header_image_capti'
+  // Exported field_instance:
+  // 'taxonomy_term-organisations_of_university_of_helsinki-field_default_header_image_capti'.
   $field_instances['taxonomy_term-organisations_of_university_of_helsinki-field_default_header_image_capti'] = array(
     'bundle' => 'organisations_of_university_of_helsinki',
     'default_value' => NULL,

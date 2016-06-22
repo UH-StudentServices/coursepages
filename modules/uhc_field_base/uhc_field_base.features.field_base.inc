@@ -10,7 +10,7 @@
 function uhc_field_base_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_additional_info'
+  // Exported field_base: 'field_additional_info'.
   $field_bases['field_additional_info'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -19,14 +19,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_additional_info',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -42,7 +34,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_alternative_title'
+  // Exported field_base: 'field_alternative_title'.
   $field_bases['field_alternative_title'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -51,14 +43,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_alternative_title',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -75,7 +59,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_body'
+  // Exported field_base: 'field_body'.
   $field_bases['field_body'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -84,14 +68,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_body',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -107,7 +83,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_cancelled'
+  // Exported field_base: 'field_cancelled'.
   $field_bases['field_cancelled'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -117,7 +93,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -137,7 +112,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_conduct'
+  // Exported field_base: 'field_conduct'.
   $field_bases['field_conduct'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -146,14 +121,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_conduct',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -169,7 +136,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_content_collection'
+  // Exported field_base: 'field_content_collection'.
   $field_bases['field_content_collection'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -179,7 +146,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'revision_id' => array(
         0 => 'revision_id',
@@ -196,7 +162,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_content_image'
+  // Exported field_base: 'field_content_image'.
   $field_bases['field_content_image'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -205,14 +171,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_content_image',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
     ),
     'indexes' => array(
       'fid' => array(
@@ -232,7 +190,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_contents'
+  // Exported field_base: 'field_contents'.
   $field_bases['field_contents'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -241,14 +199,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_contents',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -264,7 +214,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_course_course_number'
+  // Exported field_base: 'field_course_course_number'.
   $field_bases['field_course_course_number'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -273,14 +223,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_course_course_number',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -297,7 +239,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_course_course_tags'
+  // Exported field_base: 'field_course_course_tags'.
   $field_bases['field_course_course_tags'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -306,14 +248,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_course_course_tags',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
     ),
     'indexes' => array(
       'tid' => array(
@@ -335,7 +269,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_course_faculty'
+  // Exported field_base: 'field_course_faculty'.
   $field_bases['field_course_faculty'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -344,14 +278,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_course_faculty',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
     ),
     'indexes' => array(
       'tid' => array(
@@ -373,7 +299,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_course_subject'
+  // Exported field_base: 'field_course_subject'.
   $field_bases['field_course_subject'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -382,14 +308,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_course_subject',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -406,7 +324,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_course_task_description'
+  // Exported field_base: 'field_course_task_description'.
   $field_bases['field_course_task_description'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -415,14 +333,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_course_task_description',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -438,7 +348,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_course_theme'
+  // Exported field_base: 'field_course_theme'.
   $field_bases['field_course_theme'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -447,14 +357,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_course_theme',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
     ),
     'indexes' => array(
       'tid' => array(
@@ -476,7 +378,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_course_type_of_teaching'
+  // Exported field_base: 'field_course_type_of_teaching'.
   $field_bases['field_course_type_of_teaching'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -485,14 +387,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_course_type_of_teaching',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
     ),
     'indexes' => array(
       'tid' => array(
@@ -514,7 +408,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_evaluation'
+  // Exported field_base: 'field_evaluation'.
   $field_bases['field_evaluation'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -523,14 +417,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_evaluation',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -546,7 +432,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_event_begin_date'
+  // Exported field_base: 'field_event_begin_date'.
   $field_bases['field_event_begin_date'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -556,7 +442,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'date',
@@ -580,7 +465,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'datetime',
   );
 
-  // Exported field_base: 'field_event_duration'
+  // Exported field_base: 'field_event_duration'.
   $field_bases['field_event_duration'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -589,14 +474,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_event_duration',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -613,7 +490,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_event_is_exam'
+  // Exported field_base: 'field_event_is_exam'.
   $field_bases['field_event_is_exam'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -623,7 +500,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -643,7 +519,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_event_link'
+  // Exported field_base: 'field_event_link'.
   $field_bases['field_event_link'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -653,7 +529,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -677,7 +552,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_event_loc_name'
+  // Exported field_base: 'field_event_loc_name'.
   $field_bases['field_event_loc_name'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -686,14 +561,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_event_loc_name',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -710,7 +577,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_event_ref_to_material'
+  // Exported field_base: 'field_event_ref_to_material'.
   $field_bases['field_event_ref_to_material'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -719,14 +586,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_event_ref_to_material',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -757,7 +616,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_feedback_description'
+  // Exported field_base: 'field_feedback_description'.
   $field_bases['field_feedback_description'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -767,14 +626,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -789,7 +640,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_feedback_link'
+  // Exported field_base: 'field_feedback_link'.
   $field_bases['field_feedback_link'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -799,7 +650,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -823,7 +673,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_hierarchy_children'
+  // Exported field_base: 'field_hierarchy_children'.
   $field_bases['field_hierarchy_children'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -833,14 +683,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -870,7 +712,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_hierarchy_parent_id'
+  // Exported field_base: 'field_hierarchy_parent_id'.
   $field_bases['field_hierarchy_parent_id'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -880,14 +722,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -917,7 +751,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_hierarchy_position'
+  // Exported field_base: 'field_hierarchy_position'.
   $field_bases['field_hierarchy_position'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -927,14 +761,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 1,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -950,7 +776,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_administrator_number'
+  // Exported field_base: 'field_imp_administrator_number'.
   $field_bases['field_imp_administrator_number'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -960,14 +786,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -983,7 +801,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_begin_date'
+  // Exported field_base: 'field_imp_begin_date'.
   $field_bases['field_imp_begin_date'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -993,7 +811,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'date',
@@ -1017,41 +834,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'datetime',
   );
 
-  // Exported field_base: 'field_imp_canonical_url'
-  $field_bases['field_imp_canonical_url'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_imp_canonical_url',
-    'field_permissions' => array(
-      'type' => 2,
-    ),
-    'foreign keys' => array(),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'link',
-    'settings' => array(
-      'attributes' => array(
-        'class' => '',
-        'rel' => '',
-        'target' => 'default',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 1,
-      'entity_translation_sync' => FALSE,
-      'title' => 'optional',
-      'title_maxlength' => 128,
-      'title_value' => '',
-      'url' => 0,
-    ),
-    'translatable' => 1,
-    'type' => 'link_field',
-  );
-
-  // Exported field_base: 'field_imp_course_organiser'
+  // Exported field_base: 'field_imp_course_organiser'.
   $field_bases['field_imp_course_organiser'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1061,14 +844,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -1084,7 +859,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_end_date'
+  // Exported field_base: 'field_imp_end_date'.
   $field_bases['field_imp_end_date'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1094,7 +869,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'date',
@@ -1118,7 +892,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'datetime',
   );
 
-  // Exported field_base: 'field_imp_enrollment_begin_date'
+  // Exported field_base: 'field_imp_enrollment_begin_date'.
   $field_bases['field_imp_enrollment_begin_date'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1128,7 +902,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'date',
@@ -1152,7 +925,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'datetime',
   );
 
-  // Exported field_base: 'field_imp_enrollment_end_date'
+  // Exported field_base: 'field_imp_enrollment_end_date'.
   $field_bases['field_imp_enrollment_end_date'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1162,7 +935,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'date',
@@ -1186,7 +958,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'datetime',
   );
 
-  // Exported field_base: 'field_imp_events_title'
+  // Exported field_base: 'field_imp_events_title'.
   $field_bases['field_imp_events_title'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1195,14 +967,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_events_title',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1219,7 +983,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_fee'
+  // Exported field_base: 'field_imp_fee'.
   $field_bases['field_imp_fee'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1228,14 +992,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_fee',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1251,7 +1007,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_imp_giver_locality'
+  // Exported field_base: 'field_imp_giver_locality'.
   $field_bases['field_imp_giver_locality'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1260,14 +1016,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_giver_locality',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1284,7 +1032,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_header_headline'
+  // Exported field_base: 'field_imp_header_headline'.
   $field_bases['field_imp_header_headline'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1293,14 +1041,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_header_headline',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1317,7 +1057,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_header_image'
+  // Exported field_base: 'field_imp_header_image'.
   $field_bases['field_imp_header_image'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1326,14 +1066,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_header_image',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
     ),
     'indexes' => array(
       'fid' => array(
@@ -1353,7 +1085,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_imp_header_image_caption'
+  // Exported field_base: 'field_imp_header_image_caption'.
   $field_bases['field_imp_header_image_caption'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1362,14 +1094,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_header_image_caption',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1386,7 +1110,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_header_text'
+  // Exported field_base: 'field_imp_header_text'.
   $field_bases['field_imp_header_text'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1395,14 +1119,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_header_text',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1418,7 +1134,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_imp_id'
+  // Exported field_base: 'field_imp_id'.
   $field_bases['field_imp_id'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1427,14 +1143,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_id',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1451,7 +1159,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_interaction_link'
+  // Exported field_base: 'field_imp_interaction_link'.
   $field_bases['field_imp_interaction_link'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -1461,7 +1169,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -1485,7 +1192,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_imp_interactiondescription'
+  // Exported field_base: 'field_imp_interactiondescription'.
   $field_bases['field_imp_interactiondescription'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1494,14 +1201,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_interactiondescription',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1517,7 +1216,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_imp_keywords'
+  // Exported field_base: 'field_imp_keywords'.
   $field_bases['field_imp_keywords'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -1526,14 +1225,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_keywords',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1550,7 +1241,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_locality'
+  // Exported field_base: 'field_imp_locality'.
   $field_bases['field_imp_locality'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1559,14 +1250,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_locality',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1583,7 +1266,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_material_description'
+  // Exported field_base: 'field_imp_material_description'.
   $field_bases['field_imp_material_description'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1592,14 +1275,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_material_description',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1615,7 +1290,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_imp_method_of_study'
+  // Exported field_base: 'field_imp_method_of_study'.
   $field_bases['field_imp_method_of_study'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1624,14 +1299,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_method_of_study',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
     ),
     'indexes' => array(
       'tid' => array(
@@ -1653,7 +1320,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_imp_organisation'
+  // Exported field_base: 'field_imp_organisation'.
   $field_bases['field_imp_organisation'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -1662,14 +1329,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_organisation',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
     ),
     'indexes' => array(
       'tid' => array(
@@ -1691,7 +1350,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_imp_reference_to_courses'
+  // Exported field_base: 'field_imp_reference_to_courses'.
   $field_bases['field_imp_reference_to_courses'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1700,14 +1359,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_reference_to_courses',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -1738,7 +1389,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_imp_reference_to_events'
+  // Exported field_base: 'field_imp_reference_to_events'.
   $field_bases['field_imp_reference_to_events'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -1747,14 +1398,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_reference_to_events',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -1785,7 +1428,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_imp_start_month'
+  // Exported field_base: 'field_imp_start_month'.
   $field_bases['field_imp_start_month'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1794,14 +1437,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_start_month',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
     ),
     'indexes' => array(
       'tid' => array(
@@ -1823,7 +1458,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_imp_teacher'
+  // Exported field_base: 'field_imp_teacher'.
   $field_bases['field_imp_teacher'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1833,14 +1468,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -1856,7 +1483,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_teacher_number'
+  // Exported field_base: 'field_imp_teacher_number'.
   $field_bases['field_imp_teacher_number'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1866,14 +1493,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -1889,7 +1508,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_teacher_se_content'
+  // Exported field_base: 'field_imp_teacher_se_content'.
   $field_bases['field_imp_teacher_se_content'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1898,14 +1517,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_teacher_se_content',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1921,7 +1532,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_imp_teachersection'
+  // Exported field_base: 'field_imp_teachersection'.
   $field_bases['field_imp_teachersection'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1931,7 +1542,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'revision_id' => array(
         0 => 'revision_id',
@@ -1948,7 +1558,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_imp_teachersection_content'
+  // Exported field_base: 'field_imp_teachersection_content'.
   $field_bases['field_imp_teachersection_content'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1957,14 +1567,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_teachersection_content',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -1980,7 +1582,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_imp_teachersection_label'
+  // Exported field_base: 'field_imp_teachersection_label'.
   $field_bases['field_imp_teachersection_label'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -1989,14 +1591,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_imp_teachersection_label',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -2013,7 +1607,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_imp_teaching_language'
+  // Exported field_base: 'field_imp_teaching_language'.
   $field_bases['field_imp_teaching_language'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -2023,7 +1617,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -2058,7 +1651,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'language_field',
   );
 
-  // Exported field_base: 'field_intro'
+  // Exported field_base: 'field_intro'.
   $field_bases['field_intro'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2067,14 +1660,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_intro',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -2090,7 +1675,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_liftup_collection'
+  // Exported field_base: 'field_liftup_collection'.
   $field_bases['field_liftup_collection'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -2100,7 +1685,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'revision_id' => array(
         0 => 'revision_id',
@@ -2117,7 +1701,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_link'
+  // Exported field_base: 'field_link'.
   $field_bases['field_link'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2127,7 +1711,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -2151,7 +1734,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_link_multiple'
+  // Exported field_base: 'field_link_multiple'.
   $field_bases['field_link_multiple'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -2161,7 +1744,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -2185,7 +1767,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_material_author'
+  // Exported field_base: 'field_material_author'.
   $field_bases['field_material_author'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2194,14 +1776,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_material_author',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -2218,7 +1792,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_material_description'
+  // Exported field_base: 'field_material_description'.
   $field_bases['field_material_description'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2227,14 +1801,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_material_description',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -2250,7 +1816,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_material_file'
+  // Exported field_base: 'field_material_file'.
   $field_bases['field_material_file'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2259,14 +1825,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_material_file',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
     ),
     'indexes' => array(
       'fid' => array(
@@ -2287,7 +1845,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'file',
   );
 
-  // Exported field_base: 'field_material_link'
+  // Exported field_base: 'field_material_link'.
   $field_bases['field_material_link'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2297,7 +1855,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -2321,7 +1878,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_material_pub_info'
+  // Exported field_base: 'field_material_pub_info'.
   $field_bases['field_material_pub_info'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2331,14 +1888,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -2354,7 +1903,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_objective'
+  // Exported field_base: 'field_objective'.
   $field_bases['field_objective'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2364,14 +1913,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -2386,7 +1927,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_open_uni_registration'
+  // Exported field_base: 'field_open_uni_registration'.
   $field_bases['field_open_uni_registration'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2396,14 +1937,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -2418,7 +1951,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_organisation_modify_rights'
+  // Exported field_base: 'field_organisation_modify_rights'.
   $field_bases['field_organisation_modify_rights'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -2427,14 +1960,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_organisation_modify_rights',
     'field_permissions' => array(
       'type' => 1,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -2451,7 +1976,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_portal_page_description'
+  // Exported field_base: 'field_portal_page_description'.
   $field_bases['field_portal_page_description'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2460,14 +1985,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_portal_page_description',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -2483,7 +2000,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_portal_promotions'
+  // Exported field_base: 'field_portal_promotions'.
   $field_bases['field_portal_promotions'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -2492,14 +2009,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_portal_promotions',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -2531,7 +2040,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_portal_promotions_link'
+  // Exported field_base: 'field_portal_promotions_link'.
   $field_bases['field_portal_promotions_link'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2541,7 +2050,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -2565,7 +2073,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_portal_promotions_title'
+  // Exported field_base: 'field_portal_promotions_title'.
   $field_bases['field_portal_promotions_title'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2574,14 +2082,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_portal_promotions_title',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -2598,7 +2098,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_reference_to_course_tasks'
+  // Exported field_base: 'field_reference_to_course_tasks'.
   $field_bases['field_reference_to_course_tasks'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -2607,14 +2107,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_reference_to_course_tasks',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -2645,7 +2137,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_rel_to_other_study_units'
+  // Exported field_base: 'field_rel_to_other_study_units'.
   $field_bases['field_rel_to_other_study_units'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2655,14 +2147,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -2677,7 +2161,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_req_prerequisites'
+  // Exported field_base: 'field_req_prerequisites'.
   $field_bases['field_req_prerequisites'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2687,14 +2171,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -2709,7 +2185,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_responsible_person'
+  // Exported field_base: 'field_responsible_person'.
   $field_bases['field_responsible_person'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2719,14 +2195,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -2741,7 +2209,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_section_material'
+  // Exported field_base: 'field_section_material'.
   $field_bases['field_section_material'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -2750,14 +2218,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_section_material',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -2788,7 +2248,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_show_search_box'
+  // Exported field_base: 'field_show_search_box'.
   $field_bases['field_show_search_box'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2798,7 +2258,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -2818,7 +2277,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_show_search_filters'
+  // Exported field_base: 'field_show_search_filters'.
   $field_bases['field_show_search_filters'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2828,7 +2287,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -2848,7 +2306,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_sidebar_liftups'
+  // Exported field_base: 'field_sidebar_liftups'.
   $field_bases['field_sidebar_liftups'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -2857,14 +2315,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_sidebar_liftups',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -2895,7 +2345,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_study_credit'
+  // Exported field_base: 'field_study_credit'.
   $field_bases['field_study_credit'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2904,14 +2354,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_study_credit',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -2928,7 +2370,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_study_materials'
+  // Exported field_base: 'field_study_materials'.
   $field_bases['field_study_materials'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2937,14 +2379,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_study_materials',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -2960,7 +2394,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_study_module'
+  // Exported field_base: 'field_study_module'.
   $field_bases['field_study_module'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -2970,7 +2404,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'revision_id' => array(
         0 => 'revision_id',
@@ -2987,7 +2420,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_study_module_title'
+  // Exported field_base: 'field_study_module_title'.
   $field_bases['field_study_module_title'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -2996,14 +2429,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_study_module_title',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -3020,7 +2445,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_subject_description'
+  // Exported field_base: 'field_subject_description'.
   $field_bases['field_subject_description'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -3029,14 +2454,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_subject_description',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -3052,7 +2469,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_subject_image'
+  // Exported field_base: 'field_subject_image'.
   $field_bases['field_subject_image'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -3061,14 +2478,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_subject_image',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
     ),
     'indexes' => array(
       'fid' => array(
@@ -3088,7 +2497,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_subject_ref_to_courses'
+  // Exported field_base: 'field_subject_ref_to_courses'.
   $field_bases['field_subject_ref_to_courses'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -3097,14 +2506,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_subject_ref_to_courses',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -3134,7 +2535,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_target_group'
+  // Exported field_base: 'field_target_group'.
   $field_bases['field_target_group'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -3144,14 +2545,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -3166,7 +2559,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_timing'
+  // Exported field_base: 'field_timing'.
   $field_bases['field_timing'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -3176,14 +2569,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -3198,7 +2583,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_video_description'
+  // Exported field_base: 'field_video_description'.
   $field_bases['field_video_description'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -3207,14 +2592,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_video_description',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -3230,7 +2607,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_video_embed_url'
+  // Exported field_base: 'field_video_embed_url'.
   $field_bases['field_video_embed_url'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -3239,14 +2616,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_video_embed_url',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -3263,7 +2632,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_video_link'
+  // Exported field_base: 'field_video_link'.
   $field_bases['field_video_link'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -3273,7 +2642,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 2,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -3297,7 +2665,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_working_methods'
+  // Exported field_base: 'field_working_methods'.
   $field_bases['field_working_methods'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -3306,14 +2674,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'field_working_methods',
     'field_permissions' => array(
       'type' => 2,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -3329,7 +2689,7 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'title_field'
+  // Exported field_base: 'title_field'.
   $field_bases['title_field'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -3338,14 +2698,6 @@ function uhc_field_base_field_default_field_bases() {
     'field_name' => 'title_field',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(

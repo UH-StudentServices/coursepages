@@ -5,7 +5,7 @@ core = 7.0
 api = 2
 
 projects[drupal][type] = core
-projects[drupal][version] = 7.43
+projects[drupal][version] = 7.44
 
 ; Patch: Text field (textarea) with "Default" formatter does not retain newlines
 projects[drupal][patch][1152216] = https://www.drupal.org/files/text-plain-1152216-24.patch
@@ -139,9 +139,7 @@ projects[title][patch]["https://www.drupal.org/node/1772116"] = https://www.drup
 projects[token][version] = "1.5"
 projects[url_alias_permissions][version] = "1.0"
 projects[variable][version] = "2.5"
-projects[varnish][version] = "1.0-beta3"
-; FIX theme call related error on varnish admin page.
-projects[varnish][patch]["https://www.drupal.org/node/2371907"] = "https://www.drupal.org/files/issues/varnish-2371907-9.patch"
+projects[varnish][version] = "1.1"
 projects[views][version] = "3.11"
 projects[views_bulk_operations][version] = "3.2"
 projects[views_block_area][version] = "1.1"
@@ -274,7 +272,7 @@ projects[uh_taxonomy_organisations][type] = module
 projects[uh_taxonomy_organisations][download][type] = git
 projects[uh_taxonomy_organisations][download][url] = "git://github.com/UH-StudentServices/uh_taxonomy_organisations.git"
 projects[uh_taxonomy_organisations][download][branch] = 7.x-1.x
-projects[uh_taxonomy_organisations][download][revision] = 65de86f4615e22f565fec2fe1bafbbb6aef43d89
+projects[uh_taxonomy_organisations][download][revision] = 26c91c9b9621bacf5d4baaaa1d3e48e43c0da61e
 
 projects[uh_mece][type] = module
 projects[uh_mece][download][type] = git

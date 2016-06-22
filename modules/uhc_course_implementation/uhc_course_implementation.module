@@ -266,6 +266,124 @@ function uhc_course_implementation_entity_load($entities, $type) {
 }
 
 /**
+ * Implements hook_entity_property_info().
+ */
+function uhc_course_implementation_entity_property_info() {
+  $info = array();
+  $properties = &$info['node']['bundles']['course_implementation']['properties'];
+  $properties['enrollment_url'] = array(
+    'label' => t('Enrollment URL'),
+    'type' => 'uri',
+    'getter callback' => 'uhc_course_implementation_get_enrollment_url',
+    'computed' => TRUE,
+    'entity views field' => TRUE,
+    'translatable' => TRUE,
+  );
+  return $info;
+}
+
+/**
+ * Callback function for getting enrollment URL for given course implementation.
+ */
+function uhc_course_implementation_get_enrollment_url($node, array $options, $name, $type, $info) {
+  // This callback should only cover enrollment_url field in node
+  if ($name != 'enrollment_url' || $type != 'node') {
+    return NULL;
+  }
+
+  // Specify URL attributes
+  $language = !empty($options['language']->language) ? $options['language']->language : 'fi';
+  $lang_nums = array(
+    'fi' => '1',
+    'sv' => '2',
+    'en' => '6',
+  );
+  $lang_num = $lang_nums[$language];
+  $nid = $node->nid;
+  if (function_exists('uhc_course_hierarchy_get_course_hierarchy')) {
+    // For dependency reasons check if course hiearchy is available before
+    // calling it.
+    $root_node = uhc_course_hierarchy_get_course_hierarchy_root($node);
+    if ($root_node) {
+      $nid = $root_node->nid;
+    }
+  }
+  $id = _uhc_sources_resolve_course_imp($nid);
+
+  // Define URL pattern depending on organisation
+  if (uhc_sources_is_from_organisation($node, 'H930') === TRUE) {
+    $url = 'https://www.avoin.helsinki.fi/palvelut/esittely.aspx?o=:id';
+    if ($language != 'fi') {
+      // When language is not 'fi', then append also language parameter
+      $url .= '&lang=:language';
+    }
+  }
+  else {
+    // Standard URL
+    $url = 'https://weboodi.helsinki.fi/hy/alkusivu.jsp?Kieli=:langnum&avattavaSivu=opettaptied&OpetTap=:id';
+  }
+
+  // Construct absolute URL with attributes
+  $url = preg_replace(array_fill(0, count($language), '/:language/'), $language, $url, 1);
+  $url = preg_replace(array_fill(0, count($lang_num), '/:langnum/'), $lang_num, $url, 1);
+  $url = preg_replace(array_fill(0, count($id), '/:id/'), $id, $url, 1);
+
+  // Force absolute
+  $options['absolute'] = TRUE;
+
+  return url($url, $options);
+}
+
+/**
+ * Implements hook_ds_fields_info().
+ */
+function uhc_course_implementation_ds_fields_info($entity_type) {
+  $ds_fields = array();
+  if ($entity_type == 'node') {
+    $ds_fields['node']['uhc_course_implementation_enrollment_button'] = array(
+      'function' => 'uhc_course_implementation_enrollment_button',
+      'title' => 'Enrollment link/button',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course_implementation|*'),
+    );
+  }
+  return $ds_fields;
+}
+
+/**
+ * Callback for DS field that renders enrollment button.
+ */
+function uhc_course_implementation_enrollment_button($field) {
+  $node = $field['entity'];
+  if ($node->type != 'course_implementation') {
+    return NULL;
+  }
+
+  // If we should hide the button completely, return nothing
+  if (uhc_course_implementation_should_hide_sign_up($node)) {
+    return NULL;
+  }
+
+  // If we should remove the link, but still have the label, just return label
+  // itself.
+  $label = t('Enrol');
+  if (!uhc_course_implementation_enrollment_period_active($node)) {
+    return $label;
+  }
+
+  // Otherwise, return it as a link
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $options = array(
+    'absolute' => TRUE,
+    'external' => TRUE,
+    'attributes' => array('class' => 'button'),
+    'html' => TRUE,
+  );
+  global $language;
+  return theme('link', array('text' => $label, 'path' => $wrapper->language($language->language)->enrollment_url->value(), 'options' => $options));
+}
+
+/**
  * Implements hook_entity_presave().
  */
 function uhc_course_implementation_entity_presave($entity, $type) {
@@ -457,8 +575,6 @@ function uhc_course_implementation_preprocess_node(&$vars) {
   $node = $vars['node'];
 
   if ($node->type == 'course_implementation') {
-    uhc_course_implementation_process_sign_up_button_url($vars, $node);
-
     // add class so we can theme exams
     if (in_array($node->field_imp_method_of_study[LANGUAGE_NONE][0]['tid'], variable_get('uhc_migrate_methods_of_study_marked_as_exam'))) {
       $vars['classes_array'][] = 'exam';
@@ -536,41 +652,6 @@ function uhc_course_implementation_display_course_implementation_status_message(
 }
 
 /**
- * Helper function for hiding button url from node template from preprocessing
- * variables.
- *
- * @param $vars array Variables.
- * @param $node object Course implementation node.
- */
-function uhc_course_implementation_process_sign_up_button_url(&$vars, $node) {
-  if ($node->type == 'course_implementation') {
-    $hide_sign_up_button = uhc_course_implementation_should_hide_sign_up($node);
-    if ($hide_sign_up_button) {
-      if (isset($vars['content']['field_imp_canonical_url']['#access'])) {
-        $vars['content']['field_imp_canonical_url']['#access'] = FALSE;
-
-      }
-    }
-    elseif (uhc_sources_is_from_organisation($node, 'H930') === TRUE) {
-      $id = _uhc_sources_resolve_course_imp($node->nid);
-      $url = 'https://www.avoin.helsinki.fi/palvelut/esittely.aspx?o=' . $id;
-      global $language;
-      if ($language->language != 'fi') {
-        $url .= '&lang=' . $language->language;
-      }
-      $vars['content']['field_imp_canonical_url'][0]['#element']['url'] = $url;
-    }
-
-    // Remove the URL if the enrollment period is not active.
-    $remove_sign_up_url = !uhc_course_implementation_enrollment_period_active($node);
-
-    if ($remove_sign_up_url) {
-      $vars['content']['field_imp_canonical_url'][0]['#element']['url'] = '';
-    }
-  }
-}
-
-/**
  * Determines whether given node should hide the signup button.
  * @param $node
  * @return bool
@@ -589,7 +670,6 @@ function uhc_course_implementation_should_hide_sign_up($node) {
  *
  * @param $node
  * @return bool
- * @see uhc_course_implementation_process_sign_up_button_url()
  */
 function uhc_course_implementation_is_organised_by_open_uni($node) {
   $org = field_get_items('node', $node, 'field_imp_course_organiser')[0]['value'];
@@ -601,7 +681,6 @@ function uhc_course_implementation_is_organised_by_open_uni($node) {
  *
  * @param $node
  * @return mixed
- * @see uhc_course_implementation_process_sign_up_button_url()
  */
 function uhc_course_implementation_signup_hidden($node) {
   return field_get_items('node', $node, 'field_imp_hide_sign_up_button')[0]['value'];
@@ -612,7 +691,6 @@ function uhc_course_implementation_signup_hidden($node) {
  *
  * @param $node
  * @return bool
- * @see uhc_course_implementation_process_sign_up_button_url()
  */
 function uhc_course_implementation_enrollment_period_active($node) {
   $enrollment_period_active = FALSE;
@@ -637,7 +715,6 @@ function uhc_course_implementation_enrollment_period_active($node) {
  *
  * @param $node
  * @return int|null
- * @see uhc_course_implementation_process_sign_up_button_url()
  * @see uhc_course_implementation_get_date_field_value_as_timestamp()
  */
 function uhc_course_implementation_get_enrollment_begin_date($node) {
@@ -649,7 +726,6 @@ function uhc_course_implementation_get_enrollment_begin_date($node) {
  *
  * @param $node
  * @return int|null
- * @see uhc_course_implementation_process_sign_up_button_url()
  * @see uhc_course_implementation_get_date_field_value_as_timestamp()
  */
 function uhc_course_implementation_get_enrollment_end_date($node) {
@@ -661,7 +737,6 @@ function uhc_course_implementation_get_enrollment_end_date($node) {
  *
  * @param $node
  * @return int|null
- * @see uhc_course_implementation_process_sign_up_button_url()
  * @see uhc_course_implementation_get_enrollment_begin_date()
  * @see uhc_course_implementation_get_enrollment_end_date()
  */
@@ -764,4 +839,15 @@ function uhc_course_implementation_taxonomy_term_delete($term) {
       }
     }
   }
+}
+
+/**
+ * Helper function for getting teaching language from given $node.
+ * @param $node
+ * @return array
+ * @see _uhc_course_implementation_inherited_fields_get_value()
+ */
+function _uhc_course_implementation_get_teaching_languages($node) {
+  $teaching_language_field_items = field_get_items('node', $node, 'field_imp_teaching_language');
+  return $teaching_language_field_items ? array_column($teaching_language_field_items, 'value') : array();
 }

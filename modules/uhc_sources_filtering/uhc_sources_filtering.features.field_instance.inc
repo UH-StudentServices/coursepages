@@ -10,7 +10,8 @@
 function uhc_sources_filtering_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'taxonomy_term-organisations_of_university_of_helsinki-field_migrate_allow'
+  // Exported field_instance:
+  // 'taxonomy_term-organisations_of_university_of_helsinki-field_migrate_allow'.
   $field_instances['taxonomy_term-organisations_of_university_of_helsinki-field_migrate_allow'] = array(
     'bundle' => 'organisations_of_university_of_helsinki',
     'default_value' => array(
@@ -19,7 +20,7 @@ function uhc_sources_filtering_field_default_field_instances() {
       ),
     ),
     'deleted' => 0,
-    'description' => 'Check this if you want this organisation\'s (and its children) course unit realisations to be imported.',
+    'description' => 'Check this if you want this organisation\'s (and its children) course unit realisations to be imported. Note that this will be set automatically from parent when creating new organisation.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -55,7 +56,7 @@ function uhc_sources_filtering_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Allow on migration');
-  t('Check this if you want this organisation\'s (and its children) course unit realisations to be imported.');
+  t('Check this if you want this organisation\'s (and its children) course unit realisations to be imported. Note that this will be set automatically from parent when creating new organisation.');
 
   return $field_instances;
 }

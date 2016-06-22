@@ -10,7 +10,7 @@
 function uhc_course_material_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-course_material-field_material_author'
+  // Exported field_instance: 'node-course_material-field_material_author'.
   $field_instances['node-course_material-field_material_author'] = array(
     'bundle' => 'course_material',
     'default_value' => NULL,
@@ -86,7 +86,7 @@ function uhc_course_material_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_material-field_material_file'
+  // Exported field_instance: 'node-course_material-field_material_file'.
   $field_instances['node-course_material-field_material_file'] = array(
     'bundle' => 'course_material',
     'deleted' => 0,
@@ -146,7 +146,7 @@ function uhc_course_material_field_default_field_instances() {
       'description_field' => 0,
       'entity_translation_sync' => FALSE,
       'file_directory' => 'course-material',
-      'file_extensions' => 'txt pdf doc docx ppt pptx xls xlsx jpg jpeg png gif avi mov',
+      'file_extensions' => 'txt pdf doc docx ppt pptx xls xlsx jpg jpeg png gif svg bmp avi mov csv xml por sas sav ascii dta r rmd aif m4a mp3 ogg wav wma mpeg4 mpegps mp4 wmv flv mxf shp dbf geotiff netcdf warc',
       'filefield_paths' => array(
         'active_updating' => 0,
         'file_name' => array(
@@ -183,7 +183,7 @@ function uhc_course_material_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_material-field_material_link'
+  // Exported field_instance: 'node-course_material-field_material_link'.
   $field_instances['node-course_material-field_material_link'] = array(
     'bundle' => 'course_material',
     'default_value' => NULL,
@@ -273,7 +273,7 @@ function uhc_course_material_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_material-field_material_pub_info'
+  // Exported field_instance: 'node-course_material-field_material_pub_info'.
   $field_instances['node-course_material-field_material_pub_info'] = array(
     'bundle' => 'course_material',
     'default_value' => NULL,
@@ -349,7 +349,8 @@ function uhc_course_material_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_material-field_material_publication_year'
+  // Exported field_instance:
+  // 'node-course_material-field_material_publication_year'.
   $field_instances['node-course_material-field_material_publication_year'] = array(
     'bundle' => 'course_material',
     'default_value' => NULL,
@@ -423,7 +424,7 @@ function uhc_course_material_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_material-field_material_section'
+  // Exported field_instance: 'node-course_material-field_material_section'.
   $field_instances['node-course_material-field_material_section'] = array(
     'bundle' => 'course_material',
     'default_value' => NULL,
@@ -510,7 +511,8 @@ function uhc_course_material_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_material-field_material_show_finna_link'
+  // Exported field_instance:
+  // 'node-course_material-field_material_show_finna_link'.
   $field_instances['node-course_material-field_material_show_finna_link'] = array(
     'bundle' => 'course_material',
     'default_value' => array(
@@ -582,7 +584,7 @@ function uhc_course_material_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_material-field_private'
+  // Exported field_instance: 'node-course_material-field_private'.
   $field_instances['node-course_material-field_private'] = array(
     'bundle' => 'course_material',
     'default_value' => array(
@@ -654,7 +656,7 @@ function uhc_course_material_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-material_sections-name_field'
+  // Exported field_instance: 'taxonomy_term-material_sections-name_field'.
   $field_instances['taxonomy_term-material_sections-name_field'] = array(
     'bundle' => 'material_sections',
     'default_value' => NULL,

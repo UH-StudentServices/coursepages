@@ -1032,3 +1032,10 @@ function uh_coursepages_update_7021(&$sandbox) {
     ->condition('machine_name', 'OrganisationsUniversityHelsinkiTaxonomy')
     ->execute();
 }
+
+/**
+ * Enable UHC Course Implementation Inherited Fields module.
+ */
+function uh_coursepages_update_7022(&$sandbox) {
+  module_enable(array('uhc_course_implementation_inherited_fields'));
+}

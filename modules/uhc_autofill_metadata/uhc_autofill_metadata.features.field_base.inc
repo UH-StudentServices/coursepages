@@ -10,7 +10,7 @@
 function uhc_autofill_metadata_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_employee_number'
+  // Exported field_base: 'field_employee_number'.
   $field_bases['field_employee_number'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -20,14 +20,6 @@ function uhc_autofill_metadata_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -43,7 +35,7 @@ function uhc_autofill_metadata_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_enrollments'
+  // Exported field_base: 'field_enrollments'.
   $field_bases['field_enrollments'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -53,14 +45,6 @@ function uhc_autofill_metadata_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -76,21 +60,13 @@ function uhc_autofill_metadata_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_oodi_uid'
+  // Exported field_base: 'field_oodi_uid'.
   $field_bases['field_oodi_uid'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_oodi_uid',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -106,21 +82,13 @@ function uhc_autofill_metadata_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_organisational_unit'
+  // Exported field_base: 'field_organisational_unit'.
   $field_bases['field_organisational_unit'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_organisational_unit',
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
-    ),
     'indexes' => array(
       'tid' => array(
         0 => 'tid',
@@ -142,7 +110,7 @@ function uhc_autofill_metadata_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_personal_unique_code'
+  // Exported field_base: 'field_personal_unique_code'.
   $field_bases['field_personal_unique_code'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -151,14 +119,6 @@ function uhc_autofill_metadata_field_default_field_bases() {
     'field_name' => 'field_personal_unique_code',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -175,21 +135,13 @@ function uhc_autofill_metadata_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_user_real_name'
+  // Exported field_base: 'field_user_real_name'.
   $field_bases['field_user_real_name'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_user_real_name',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',

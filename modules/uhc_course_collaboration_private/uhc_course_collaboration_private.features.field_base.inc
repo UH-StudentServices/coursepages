@@ -10,7 +10,7 @@
 function uhc_course_collaboration_private_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_private'
+  // Exported field_base: 'field_private'.
   $field_bases['field_private'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -20,7 +20,6 @@ function uhc_course_collaboration_private_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -40,7 +39,7 @@ function uhc_course_collaboration_private_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_send_email'
+  // Exported field_base: 'field_send_email'.
   $field_bases['field_send_email'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -50,7 +49,6 @@ function uhc_course_collaboration_private_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',

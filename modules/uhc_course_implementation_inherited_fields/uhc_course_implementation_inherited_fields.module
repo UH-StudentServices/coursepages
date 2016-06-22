@@ -1,0 +1,356 @@
+<?php
+/**
+ * @file
+ * Code for the uhc_course_implementation_inherited_fields feature.
+ */
+
+include_once 'uhc_course_implementation_inherited_fields.features.inc';
+
+/**
+ * Implements hook_ds_fields_info().
+ */
+function uhc_course_implementation_inherited_fields_ds_fields_info($entity_type) {
+  $ds_fields = array();
+  if ($entity_type == 'node') {
+    // Introduce each field from the list to DS and define callback function.
+    foreach (uhc_course_implementation_inherited_fields_get_field_list() as $key => $field) {
+      $ds_fields['node'][$key] = array(
+        'function' => 'uhc_course_implementation_inherited_fields_ds_field',
+        'title' => $field['label'],
+        'field_type' => DS_FIELD_TYPE_FUNCTION,
+        'ui_limit' => array('course_implementation|*'),
+        'properties' => array(
+          'original_field_name' => $field['original_field'],
+          'inherited_field_name' => $field['inherited_field'],
+        ),
+      );
+    }
+  }
+  return $ds_fields;
+}
+
+/**
+ * Gets specified list of fields that are paired as "original field" and
+ * "inherited field".
+ *
+ * Array should contain:
+ *   key:
+ *     Machine name for DS field.
+ *   ...and array values with:
+ *     'original_field':
+ *       Field that is attached to course_implementation and is the primary
+ *       field to show.
+ *     'inherited_field':
+ *       Field that is attached to course, but its contents are copied from
+ *       course JSON source. This is the fallback field to show.
+ *     'json_description_property'
+ *       JSON description field that is copied to inherited_field. Mapping is
+ *       done using PortalMigrationBase::prepareDescriptions().
+ *     'label':
+ *       Label that is used as DS title of the field.
+ *
+ * @return array
+ */
+function uhc_course_implementation_inherited_fields_get_field_list() {
+  // All fields are expected to be long text fields.
+  return array(
+    'uhc_course_implementation_inherited_fields_additional_info' => array(
+      'original_field' => 'field_additional_info',
+      'inherited_field' => 'field_inherited_additional_info',
+      'json_description_property' => 'other_information',
+      'label' => t('Additional information'),
+    ),
+    'uhc_course_implementation_inherited_fields_conduct' => array(
+      'original_field' => 'field_conduct',
+      'inherited_field' => 'field_inherited_conduct',
+      'json_description_property' => 'completion',
+      'label' => t('Conduct'),
+    ),
+    'uhc_course_implementation_inherited_fields_contents' => array(
+      'original_field' => 'field_contents',
+      'inherited_field' => 'field_inherited_contents',
+      'json_description_property' => 'contents',
+      'label' => t('Contents'),
+    ),
+    'uhc_course_implementation_inherited_fields_evaluation' => array(
+      'original_field' => 'field_evaluation',
+      'inherited_field' => 'field_inherited_evaluation',
+      'json_description_property' => 'evaluation',
+      'label' => t('Evaluation'),
+    ),
+    'uhc_course_implementation_inherited_fields_objective' => array(
+      'original_field' => 'field_objective',
+      'inherited_field' => 'field_inherited_objective',
+      'json_description_property' => 'objective',
+      'label' => t('Objective'),
+    ),
+    'uhc_course_implementation_inherited_fields_rel_to_other_study_units' => array(
+      'original_field' => 'field_rel_to_other_study_units',
+      'inherited_field' => 'field_inherited_rel_to_other_stu',
+      'json_description_property' => 'relations_to_other_study_units',
+      'label' => t('Relation to other study units'),
+    ),
+    'uhc_course_implementation_inherited_fields_req_prerequisites' => array(
+      'original_field' => 'field_req_prerequisites',
+      'inherited_field' => 'field_inherited_req_prerequisite',
+      'json_description_property' => 'previous_studies',
+      'label' => t('Required pre-requisites'),
+    ),
+    'uhc_course_implementation_inherited_fields_responsible_person' => array(
+      'original_field' => 'field_responsible_person',
+      'inherited_field' => 'field_inherited_responsible_pers',
+      'json_description_property' => 'responsible_person',
+      'label' => t('Responsible person'),
+    ),
+    'uhc_course_implementation_inherited_fields_study_materials' => array(
+      'original_field' => 'field_study_materials',
+      'inherited_field' => 'field_inherited_study_materials',
+      'json_description_property' => 'study_materials',
+      'label' => t('Study materials'),
+    ),
+    'uhc_course_implementation_inherited_fields_target_group' => array(
+      'original_field' => 'field_target_group',
+      'inherited_field' => 'field_inherited_target_group',
+      'json_description_property' => 'target_group',
+      'label' => t('Target group'),
+    ),
+    'uhc_course_implementation_inherited_fields_timing' => array(
+      'original_field' => 'field_timing',
+      'inherited_field' => 'field_inherited_timing',
+      'json_description_property' => 'timing',
+      'label' => t('Timing'),
+    ),
+    'uhc_course_implementation_inherited_fields_working_methods' => array(
+      'original_field' => 'field_working_methods',
+      'inherited_field' => 'field_inherited_working_methods',
+      'json_description_property' => 'realisation_and_working_methods',
+      'label' => t('Realisation and working methods'),
+    ),
+  );
+}
+
+/**
+ * Callback for DS field that gets the value of given DS field that has primary
+ * field and inherited field specified.
+ *
+ * @param $field
+ * @return null|string
+ */
+function uhc_course_implementation_inherited_fields_ds_field($field) {
+  $node = $field['entity'];
+  $field_name = $field['properties']['original_field_name'];
+  $inherited_field_name = $field['properties']['inherited_field_name'];
+  if (is_null($node) || is_null($field_name) || is_null($inherited_field_name)) {
+    return NULL;
+  }
+
+  // If "anylingual" value found from course implementation, then render that.
+  $value = uh_coursepages_render_field_value($node, $field_name);
+  if (!is_null($value)) {
+    return theme('uhc_ds_accordion_field', array(
+      'value' => $value,
+      'label' => $field['title'],
+      'source' => 'course',
+    ));
+  }
+
+  // If "anylingual" value found from course, then render value from that
+  $value = uh_coursepages_render_field_value($node, $inherited_field_name);
+  if (!is_null($value)) {
+    return theme('uhc_ds_accordion_field', array(
+      'value' => $value,
+      'label' => $field['title'],
+      'source' => 'study-object',
+    ));
+  }
+
+  // Or else no value found for given field.
+  return NULL;
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function uhc_course_implementation_inherited_fields_node_presave($node) {
+  if ($node->type == 'course_implementation') {
+    // Copy fields from JSON
+    $json = _uhc_course_implementation_inherited_fields_get_json($node);
+    if (!is_null($json)) {
+      _uhc_course_implementation_inherited_fields_copy_from_json($node, $json);
+    }
+  }
+}
+
+/**
+ * Gets the JSON and decodes it for return. If can't get expected response or
+ * can't decode the response, function will return NULL.
+ *
+ * @param $node
+ * @return mixed|null
+ */
+function _uhc_course_implementation_inherited_fields_get_json($node) {
+  $resource_url = _uhc_course_implementation_inherited_fields_get_resource_url($node);
+  if (empty($resource_url)) {
+    watchdog('uhc_course_implementation_inherited_fields', 'Could not determine $resource_url for node "@nid".', array('@nid' => $node->nid), WATCHDOG_WARNING);
+    return NULL;
+  }
+  $response = drupal_http_request($resource_url);
+  if ($response->code == 200) {
+    $json = json_decode($response->data);
+    if (json_last_error() == JSON_ERROR_NONE) {
+      return $json;
+    }
+    else {
+      watchdog('uhc_course_implementation_inherited_fields', 'Failed (code @json_error) to decode JSON content from "@url".', array('@json_error' => json_last_error(), '@url' => $resource_url), WATCHDOG_ERROR);
+    }
+    return NULL;
+  }
+  else {
+    watchdog('uhc_course_implementation_inherited_fields', 'Request responded with status code "@status" while getting JSON content from "@url".', array('@status' => $response->code, '@url' => $resource_url), WATCHDOG_ERROR);
+  }
+  return NULL;
+}
+
+/**
+ * Returns the resource URL where copyable fields should be. Returns NULL if
+ * could not determine the resource URL.
+ *
+ * This should handle appending the proper end date as argument.
+ *
+ * @param $node
+ * @return null|string
+ */
+function _uhc_course_implementation_inherited_fields_get_resource_url($node) {
+  if (!empty($node->field_imp_id[LANGUAGE_NONE][0]['value'])) {
+
+    $base_url = variable_get('uhc_sources_base_url', '');
+    $path = variable_get('uhc_course_source_item_url', '');
+
+    // Construct URL with course number
+    $course_number = _uhc_sources_resolve_course_number($node->field_imp_id[LANGUAGE_NONE][0]['value']);
+    $resource_url = str_replace(':id', $course_number, $base_url . $path);
+
+    // Ensure that we have a resource URL to work with
+    if (empty($resource_url)) {
+      return NULL;
+    }
+
+    // Then append academic year's end date, do not return resource URL if we
+    // can't specify the date.
+    $date = _uhc_course_implementation_inherited_fields_get_academic_year_end_date($node);
+    if (is_null($date)) {
+      return NULL;
+    }
+    return $resource_url . '?date=' . $date->format('Y-m-d\TH:i:s\.000\Z');
+
+  }
+  return NULL;
+}
+
+/**
+ * Helper function for determining the academic years´ end date for given $node
+ * that has begin date set.
+ *
+ * @param $node
+ * @return DateTime|null
+ * @see UHCSearchPortalFeatureViewsHandlerFilterSemester::getCurrentSemester()
+ */
+function _uhc_course_implementation_inherited_fields_get_academic_year_end_date($node) {
+  $date = _uhc_course_implementation_inherited_fields_get_begin_date($node);
+  if ($date) {
+
+    // Specify two testable values
+    $date->modify('last day of this month');
+    $academic_years_last_day = '31.07.';
+
+    // Add one day and modify it to last day of that month, until it matches the
+    // last academic years´ day
+    while ($date->format('d.m.') != $academic_years_last_day) {
+      $date->add(new DateInterval('P1D'));
+      $date->modify('last day of this month');
+    }
+
+    // Convert timezone to Etc/Zulu if it's not already
+    if ($date->getTimezone()->getName() != 'Etc/Zulu') {
+      $date->setTimezone(new DateTimeZone('Etc/Zulu'));
+    }
+
+    return $date;
+  }
+  return NULL;
+}
+
+/**
+ * Gets start date as DateTime object if given $node has one set.
+ * @param $node
+ * @return DateTime|NULL
+ */
+function _uhc_course_implementation_inherited_fields_get_begin_date($node) {
+  $field_values = field_get_items('node', $node, 'field_imp_begin_date');
+  if (!empty($field_values)) {
+    return new DateTime($field_values[0]['value'], new DateTimeZone($field_values[0]['timezone']));
+  }
+  return NULL;
+}
+
+/**
+ * Copies values from given $json object to given $node.
+ * @param $node
+ * @param $json
+ */
+function _uhc_course_implementation_inherited_fields_copy_from_json($node, $json) {
+  $descriptions = _uhc_course_implementation_inherited_fields_get_descriptions($json);
+
+  // Loop each field that we expect to copy
+  foreach (uhc_course_implementation_inherited_fields_get_field_list() as $field) {
+
+    // Keep tracking of whether value was set for this field or not.
+    $has_value = FALSE;
+
+    // When description property exists from source
+    if (!empty($descriptions->{$field['json_description_property']})) {
+      // Loop each language
+      foreach ($descriptions->{$field['json_description_property']} as $langcode => $description) {
+        // If non-empty value found from
+        if (!empty($descriptions->{$field['json_description_property']}[$langcode])) {
+          // Set the value and keep track in the loop whether it has an value
+          // set or not.
+          $node->{$field['inherited_field']}[$langcode][0]['value'] = $descriptions->{$field['json_description_property']}[$langcode];
+          $node->{$field['inherited_field']}[$langcode][0]['format'] = 'filtered_html';
+          $has_value = TRUE;
+        }
+        else {
+          // Ensure that no value is set for this specific language
+          unset($node->{$field['inherited_field']}[$langcode]);
+        }
+      }
+    }
+
+    // If no value was set in any langauge, set empty value to ensure that we
+    // remove potentially previous value.
+    if ($has_value === FALSE) {
+      $node->{$field['inherited_field']} = array();
+    }
+
+  }
+
+}
+
+/**
+ * Gets description values from given $json.
+ * @param $json
+ * @return object
+ */
+function _uhc_course_implementation_inherited_fields_get_descriptions($json) {
+  $descriptions = (object) array();
+
+  // Use UHC Course Source description configuration and use static prepare
+  // method that does the same job as we want here.
+  $description_elements = variable_get('uhc_course_source_predefined_description_names', array());
+  PortalMigrationBase::prepareDescriptions($json->data, $description_elements);
+  foreach ($description_elements as $id => $description) {
+    $descriptions->{$description} = $json->data->{$description};
+  }
+
+  return $descriptions;
+}

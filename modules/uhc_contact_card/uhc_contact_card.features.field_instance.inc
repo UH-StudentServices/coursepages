@@ -10,7 +10,7 @@
 function uhc_contact_card_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-contact_card-field_contact_email'
+  // Exported field_instance: 'node-contact_card-field_contact_email'.
   $field_instances['node-contact_card-field_contact_email'] = array(
     'bundle' => 'contact_card',
     'default_value' => NULL,
@@ -72,7 +72,7 @@ function uhc_contact_card_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-contact_card-field_contact_link'
+  // Exported field_instance: 'node-contact_card-field_contact_link'.
   $field_instances['node-contact_card-field_contact_link'] = array(
     'bundle' => 'contact_card',
     'default_value' => NULL,
@@ -152,7 +152,7 @@ function uhc_contact_card_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-contact_card-field_contact_phone'
+  // Exported field_instance: 'node-contact_card-field_contact_phone'.
   $field_instances['node-contact_card-field_contact_phone'] = array(
     'bundle' => 'contact_card',
     'default_value' => NULL,
@@ -245,7 +245,7 @@ function uhc_contact_card_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-contact_card-field_contant_name'
+  // Exported field_instance: 'node-contact_card-field_contant_name'.
   $field_instances['node-contact_card-field_contant_name'] = array(
     'bundle' => 'contact_card',
     'default_value' => NULL,

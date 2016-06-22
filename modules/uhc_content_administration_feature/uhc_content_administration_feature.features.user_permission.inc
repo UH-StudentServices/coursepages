@@ -337,15 +337,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'create field_imp_canonical_url'.
-  $permissions['create field_imp_canonical_url'] = array(
-    'name' => 'create field_imp_canonical_url',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'create field_imp_course_organiser'.
   $permissions['create field_imp_course_organiser'] = array(
     'name' => 'create field_imp_course_organiser',
@@ -1253,15 +1244,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'edit field_imp_canonical_url'.
-  $permissions['edit field_imp_canonical_url'] = array(
-    'name' => 'edit field_imp_canonical_url',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit field_imp_course_organiser'.
   $permissions['edit field_imp_course_organiser'] = array(
     'name' => 'edit field_imp_course_organiser',
@@ -1876,15 +1858,6 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'edit own field_imp_begin_date'.
   $permissions['edit own field_imp_begin_date'] = array(
     'name' => 'edit own field_imp_begin_date',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
-  // Exported permission: 'edit own field_imp_canonical_url'.
-  $permissions['edit own field_imp_canonical_url'] = array(
-    'name' => 'edit own field_imp_canonical_url',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -2625,17 +2598,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'view field_imp_canonical_url'.
-  $permissions['view field_imp_canonical_url'] = array(
-    'name' => 'view field_imp_canonical_url',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'view field_imp_course_organiser'.
   $permissions['view field_imp_course_organiser'] = array(
     'name' => 'view field_imp_course_organiser',
@@ -3230,17 +3192,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'view own field_imp_canonical_url'.
-  $permissions['view own field_imp_canonical_url'] = array(
-    'name' => 'view own field_imp_canonical_url',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'view own field_imp_course_organiser'.
   $permissions['view own field_imp_course_organiser'] = array(
     'name' => 'view own field_imp_course_organiser',
@@ -3762,26 +3713,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view uhc_ds_rel_to_other_study_units on node'.
-  $permissions['view uhc_ds_rel_to_other_study_units on node'] = array(
-    'name' => 'view uhc_ds_rel_to_other_study_units on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
-  // Exported permission: 'view uhc_ds_responsible_person on node'.
-  $permissions['view uhc_ds_responsible_person on node'] = array(
-    'name' => 'view uhc_ds_responsible_person on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view uhc_ds_table_of_contents on node'.
   $permissions['view uhc_ds_table_of_contents on node'] = array(
     'name' => 'view uhc_ds_table_of_contents on node',
@@ -3792,29 +3723,9 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view uhc_ds_timing on node'.
-  $permissions['view uhc_ds_timing on node'] = array(
-    'name' => 'view uhc_ds_timing on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view uhc_ds_title_and_credit on node'.
   $permissions['view uhc_ds_title_and_credit on node'] = array(
     'name' => 'view uhc_ds_title_and_credit on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
-  // Exported permission: 'view uhc_ds_working_methods on node'.
-  $permissions['view uhc_ds_working_methods on node'] = array(
-    'name' => 'view uhc_ds_working_methods on node',
     'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',

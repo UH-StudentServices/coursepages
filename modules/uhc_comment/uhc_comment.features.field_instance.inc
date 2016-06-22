@@ -10,7 +10,8 @@
 function uhc_comment_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'comment-comment_node_course_implementation-comment_body'
+  // Exported field_instance:
+  // 'comment-comment_node_course_implementation-comment_body'.
   $field_instances['comment-comment_node_course_implementation-comment_body'] = array(
     'bundle' => 'comment_node_course_implementation',
     'default_value' => NULL,

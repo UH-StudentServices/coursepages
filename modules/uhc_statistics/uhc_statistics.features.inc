@@ -38,6 +38,7 @@ function uhc_statistics_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : "",
+    "send_mece_notification" : "0",
     "message_text" : { "en" : [
         {
           "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\r\\n",
@@ -61,6 +62,7 @@ function uhc_statistics_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : "",
+    "send_mece_notification" : "0",
     "message_text" : { "en" : [
         {
           "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\r\\n",

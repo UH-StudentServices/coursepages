@@ -6,13 +6,40 @@
  */
 
 /**
+ * Implements hook_entity_property_info_alter().
+ */
+function uhc_course_implementation_activity_mece_entity_property_info_alter(&$info) {
+  if (isset($info['message_type'])) {
+    $info['message_type']['properties']['send_mece_notification'] = array(
+      'type' => 'boolean',
+      'label' => t('Send notification message to MECE'),
+      'schema field' => 'send_mece_notification',
+      'description' => t('Determines whether this type of messages should send notification to MECE from the message.'),
+    );
+  }
+}
+
+/**
+ * Implements hook_form_message_type_form_alter().
+ */
+function uhc_course_implementation_activity_mece_form_message_type_form_alter(&$form, &$form_state) {
+  // Allow message types to send notifications out to MECE from these messages
+  $form['send_mece_notification'] = array(
+    '#title' => t('Send notification message to MECE'),
+    '#type' => 'checkbox',
+    '#default_value' => $form_state['message_type']->send_mece_notification,
+    '#description' => t('Check this if you want this type of messages to be sent to MECE.'),
+  );
+}
+
+/**
  * Implements hook_entity_insert().
  *
  * @param Message $entity
  * @param string $entity_type
  */
 function uhc_course_implementation_activity_mece_entity_insert($entity, $entity_type) {
-  if ($entity_type == 'message' && $entity instanceof Message) {
+  if ($entity_type == 'message' && $entity instanceof Message && $entity->getType()->send_mece_notification) {
 
     // Setup notification message
     $notification = uh_mece_notifications_get_instance();
@@ -63,7 +90,15 @@ function uhc_course_implementation_activity_mece_entity_insert($entity, $entity_
 
           // Set link from entity_uri
           if (!empty($uri['path'])) {
-            $link->setValue(url($uri['path'], array('language' => $language, 'absolute' => TRUE)), $langcode);
+            $options = array(
+              'language' => $language,
+              'absolute' => TRUE,
+            );
+            if ($target_accordion_class = uhc_course_implementation_activity_get_target_accordion_class($entity)) {
+              $target_accordion_class = check_url($target_accordion_class);
+              $options['query'][$target_accordion_class] = 1;
+            }
+            $link->setValue(url($uri['path'], $options), $langcode);
           }
 
         }
@@ -87,6 +122,15 @@ function uhc_course_implementation_activity_mece_entity_insert($entity, $entity_
     $notification->setLinkText($link_text);
     $notification->setLink($link);
     $notification->setHeading($heading);
+
+    // If we have Oodi UID available, then lets generate avatar URL out from it
+    // and set it as avatarImageUrl
+    global $user;
+    $sender = user_load($user->uid);
+    $field_oodi_uid = field_get_items('user', $sender, 'field_oodi_uid');
+    if (!empty($field_oodi_uid[0]['value'])) {
+      $notification->setAvatarImageUrl(uhc_avatar_get_avatar_api_url($field_oodi_uid[0]['value']));
+    }
 
     // Send notification message
     $response = uh_mece_notifications_send($notification);
@@ -166,4 +210,16 @@ function uhc_course_implementation_activity_mece_get_courseunitrealisation($cour
   }
 
   return NULL;
+}
+
+/**
+ * Gets target accordion class without dot-prefixes.
+ * @param Message $entity
+ * @return mixed|string
+ */
+function uhc_course_implementation_activity_get_target_accordion_class(Message $entity) {
+  if (!empty($entity->getType()->target_accordion_class)) {
+    return str_replace('.', '', $entity->getType()->target_accordion_class);
+  }
+  return '';
 }

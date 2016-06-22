@@ -10,7 +10,7 @@
 function uhc_page_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_portal_page_image'
+  // Exported field_base: 'field_portal_page_image'.
   $field_bases['field_portal_page_image'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -19,14 +19,6 @@ function uhc_page_field_default_field_bases() {
     'field_name' => 'field_portal_page_image',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
     ),
     'indexes' => array(
       'fid' => array(
@@ -46,7 +38,7 @@ function uhc_page_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_view_attachment'
+  // Exported field_base: 'field_view_attachment'.
   $field_bases['field_view_attachment'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -56,7 +48,6 @@ function uhc_page_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'view_id' => array(
         0 => 'view_id',

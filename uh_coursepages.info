@@ -1,7 +1,7 @@
 name = Helsinki University Portal
 description = Install with pre-configured features for courses in genetics.
 core = 7.x
-version = 7.x-1.68
+version = 7.x-1.69
 dependencies[] = block
 dependencies[] = file
 dependencies[] = image
@@ -54,7 +54,6 @@ dependencies[] = smart_trim
 dependencies[] = special_menu_items
 
 ; Custom and features
-dependencies[] = menu_translation
 dependencies[] = uhc_autofill_metadata
 dependencies[] = uhc_doo_theme_features
 dependencies[] = uhc_content_administration_feature
@@ -70,6 +69,7 @@ dependencies[] = uhc_course_implementation_source
 dependencies[] = uhc_course_implementation_language_suggester
 dependencies[] = uhc_course_implementation_activity
 dependencies[] = uhc_course_implementation_activity_mece
+dependencies[] = uhc_course_implementation_inherited_fields
 dependencies[] = uhc_course_material_dnd
 dependencies[] = uhc_course_material_sort
 dependencies[] = uhc_course_tasks_and_material

@@ -1,0 +1,55 @@
+<?php
+/**
+ * @file
+ * Takes care of (un)installation and update tasks.
+ */
+
+/**
+ * Implement hook_schema_alter().
+ */
+function uhc_course_implementation_activity_mece_schema_alter(&$schema) {
+  $schema['message_type']['fields']['send_mece_notification'] = array(
+    'description' => 'Indicates whether this type should send notification to MECE.',
+    'type' => 'int',
+    'size' => 'tiny',
+    'not null' => TRUE,
+    'default' => '0',
+  );
+}
+
+/**
+ * Implements hook_install().
+ */
+function uhc_course_implementation_activity_mece_install() {
+  if (!db_field_exists('message_type', 'send_mece_notification')) {
+    db_add_field('message_type', 'send_mece_notification', array(
+      'description' => 'Indicates whether this type should send notification to MECE.',
+      'type' => 'int',
+      'size' => 'tiny',
+      'not null' => TRUE,
+      'default' => '0',
+    ));
+  }
+}
+
+/**
+ * Create field to message_type table.
+ */
+function uhc_course_implementation_activity_mece_update_7001(&$sandbox) {
+  if (!db_field_exists('message_type', 'send_mece_notification')) {
+    db_add_field('message_type', 'send_mece_notification', array(
+      'description' => 'Indicates whether this type should send notification to MECE.',
+      'type' => 'int',
+      'size' => 'tiny',
+      'not null' => TRUE,
+      'default' => '0',
+    ));
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_course_implementation_activity_mece_uninstall() {
+  db_drop_field('message_type', 'send_mece_notification');
+}

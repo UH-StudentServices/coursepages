@@ -368,7 +368,7 @@ function uhc_dev_feature_views_default_views() {
     3 => 0,
     4 => 0,
   );
-  /* Filter criterion: Content: Title (title_field) */
+  /* Filter criterion: Field: Title (title_field) */
   $handler->display->display_options['filters']['title_field_value']['id'] = 'title_field_value';
   $handler->display->display_options['filters']['title_field_value']['table'] = 'field_data_title_field';
   $handler->display->display_options['filters']['title_field_value']['field'] = 'title_field_value';
@@ -385,7 +385,7 @@ function uhc_dev_feature_views_default_views() {
     3 => 0,
     4 => 0,
   );
-  /* Filter criterion: Content: Title (title_field) */
+  /* Filter criterion: Field: Title (title_field) */
   $handler->display->display_options['filters']['title_field_value_1']['id'] = 'title_field_value_1';
   $handler->display->display_options['filters']['title_field_value_1']['table'] = 'field_data_title_field';
   $handler->display->display_options['filters']['title_field_value_1']['field'] = 'title_field_value';

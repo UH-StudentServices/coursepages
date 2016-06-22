@@ -10,7 +10,7 @@
 function uhc_online_services_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-online_service-field_liftup_description'
+  // Exported field_instance: 'node-online_service-field_liftup_description'.
   $field_instances['node-online_service-field_liftup_description'] = array(
     'bundle' => 'online_service',
     'default_value' => NULL,
@@ -92,7 +92,7 @@ function uhc_online_services_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-online_service-field_liftup_image'
+  // Exported field_instance: 'node-online_service-field_liftup_image'.
   $field_instances['node-online_service-field_liftup_image'] = array(
     'bundle' => 'online_service',
     'deleted' => 0,
@@ -170,7 +170,7 @@ function uhc_online_services_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-online_service-field_link'
+  // Exported field_instance: 'node-online_service-field_link'.
   $field_instances['node-online_service-field_link'] = array(
     'bundle' => 'online_service',
     'default_value' => NULL,

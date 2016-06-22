@@ -10,6 +10,21 @@
 
 include_once 'uhc_event.features.inc';
 
+/**
+ * Implements hook_theme().
+ */
+function uhc_event_theme() {
+  return array(
+    'uhc_event_structured_teaching_schedule' => array(
+      'file' => 'uhc_event.theme.inc',
+      'variables' => array('node' => NULL, 'prefix' => NULL, 'messages' => NULL, 'content' => NULL, 'suffix' => NULL),
+    ),
+    'uhc_event_unstructured_teaching_schedule' => array(
+      'file' => 'uhc_event.theme.inc',
+      'variables' => array('node' => NULL, 'prefix' => NULL, 'messages' => NULL, 'content' => NULL, 'suffix' => NULL),
+    ),
+  );
+}
 
 /**
  * Helper function to get referencing course implementation nid
@@ -93,87 +108,29 @@ function uhc_event_ds_fields_info($entity_type) {
  */
 function uhc_event_teaching_schedule($field) {
   $node = $field['entity'];
-
-  // By default title will not be rendered unless we have events from both
-  // sources.
-  $title = '';
-  $content = '';
-  if(uhc_event_has_events_from_both_sources($node)) {
-    $title = '<h2 class="accordion-item__light ds-teaser-accordion--title">' . t('Teaching schedule') . '</h2>';
-    $content .= '<div class="event-list table-three-columns field-group-accordion-item">';
+  if (uhc_event_should_use_unstructured_events($node)) {
+    return theme('uhc_event_unstructured_teaching_schedule', array('node' => $node));
   }
   else {
-    $content .= '<div class="event-list table-three-columns tube--large">';
+    return theme('uhc_event_structured_teaching_schedule', array('node' => $node));
   }
+}
 
-  // Generate content out from JSON
-  $field_imp_events_json = field_get_items('node', $node, 'field_imp_events_json');
-  if (!empty($field_imp_events_json[0]['value'])) {
-    $events = json_decode($field_imp_events_json[0]['value']);
-    if (json_last_error() == JSON_ERROR_NONE) {
-
-      // DOO-2021: Show text link for accessability
-      $content .= '<div class="messages views-system-message status info alternative">' . t('<p><a href="http://www.helsinki.fi/teknos/opetustilat/index.htm">Learn more about the classrooms accessibility and facilities (in Finnish)</a></p>') . '</div>';
-
-      // DOO-706: When user is staff, let them know that information comes from
-      // Oodi.
-      if (uh_coursepages_has_staff_role()) {
-        $content .= '<div class="messages views-system-message status alternative"><p>' . t('These events are imported from WebOodi') . '</p></div>';
-      }
-
-      // Table header
-      $content .= '<span class="event-list-header">';
-      $content .= '<span class="event-column"><span class="field accordion-content-item--label event-date">' . t('Date') . '</span><span class="field accordion-content-item--label event-time">' . t('Time') . '</span></span>';
-      $content .= '<span class="event-column"><span class="field remove-styles accordion-content-item--label event-location">' . t('Location', array(), array('context' => 'event')) . '</span></span>';
-      $content .= '</span>';
-
-      // Table contents
-      foreach ($events as $event) {
-
-        // JSON events datetimes are provided as Zulu timezone but we want to
-        // convert them to local timezone.
-        $from_timezone = new DateTimeZone('Etc/Zulu');
-        $to_timzone = new DateTimeZone('Europe/Helsinki');
-
-        // Create date objects out from start/end dates
-        $begin_date = new DateTime($event->start_date, $from_timezone);
-        $begin_date->setTimezone($to_timzone);
-
-        $date = format_date($begin_date->getTimestamp(), 'custom', 'D j.n.Y');
-        $time = $begin_date->format('H:i');
-        if ($event->event_duration > 0) {
-          $end_date = new DateTime($event->start_date, $from_timezone);
-          $end_date->setTimezone($to_timzone);
-          $end_date->modify('+' . $event->event_duration . ' minutes');
-          $time = $begin_date->format('H:i') . ' - ' . $end_date->format('H:i');
-        }
-
-        // Location is an combination of building name and street address link
-        $location = '';
-        if (!empty($event->room_name_short)) {
-          $location = check_plain($event->room_name_short);
-        }
-
-        // Build the maps link
-        if (!empty($event->building_address1)) {
-          $path = 'https://www.google.fi/maps/place/' . $event->building_address1;
-          if (!empty($event->building_zipcode)) {
-            $path .= ', ' . $event->building_zipcode;
-          }
-          $location .= ', ' . l($event->building_address1, $path);
-        }
-
-        $content .= '<div class="event">';
-        $content .= '<div class="event-column"><div class="field event-date">' . $date . '</div><div class="field event-time">' . $time . '</div></div>';
-        $content .= '<div class="event-column"><div class="field remove-styles event-location">' . $location . '</div></div>';
-        $content .= '</div>';
-      }
-      $content .= '</div>';
-
-      return $title . $content;
-    }
+/**
+ * Return TRUE when referenced method of study has a field_use_raw_events value
+ * checked.
+ *
+ * @param $node
+ * @return bool
+ */
+function uhc_event_should_use_unstructured_events($node) {
+  $node_wrapper = entity_metadata_wrapper('node', $node);
+  $method_of_study = $node_wrapper->field_imp_method_of_study->value();
+  if ($method_of_study) {
+    $method_of_study_wrapper = entity_metadata_wrapper('taxonomy_term', $method_of_study);
+    return $method_of_study_wrapper->field_use_raw_events->value() === TRUE;
   }
-  return '';
+  return FALSE;
 }
 
 /**

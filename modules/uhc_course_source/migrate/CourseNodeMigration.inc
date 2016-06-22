@@ -114,17 +114,7 @@ class CourseNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_study_credit', 'credit_points');
     // Multilingual text fields that are computed in preprocess: Descriptions
     $this->addFieldMapping('field_objective',  'objective')->arguments($field_arguments);
-    $this->addFieldMapping('field_contents',  'contents')->arguments($field_arguments);
-    $this->addFieldMapping('field_study_materials',  'study_materials')->arguments($field_arguments);
-    $this->addFieldMapping('field_responsible_person',  'responsible_person')->arguments($field_arguments);
-    $this->addFieldMapping('field_rel_to_other_study_units',  'relations_to_other_study_units')->arguments($field_arguments);
-    $this->addFieldMapping('field_timing',  'timing')->arguments($field_arguments);
-    $this->addFieldMapping('field_target_group',  'target_group')->arguments($field_arguments);
-    $this->addFieldMapping('field_additional_info',  'other_information')->arguments($field_arguments);
-    $this->addFieldMapping('field_evaluation',  'evaluation')->arguments($field_arguments);
-    $this->addFieldMapping('field_conduct',  'completion')->arguments($field_arguments);
     $this->addFieldMapping('field_req_prerequisites',  'previous_studies')->arguments($field_arguments);
-    $this->addFieldMapping('field_working_methods', 'realisation_and_working_methods')->arguments($field_arguments);
 
     // Entity reference fields
     $this->addFieldMapping('field_course_type_of_teaching', 'learningopportunity_type_code')

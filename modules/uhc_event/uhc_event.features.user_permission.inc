@@ -31,6 +31,15 @@ function uhc_event_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_imp_events_raw'.
+  $permissions['create field_imp_events_raw'] = array(
+    'name' => 'create field_imp_events_raw',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit field_event_ref_to_material'.
   $permissions['edit field_event_ref_to_material'] = array(
     'name' => 'edit field_event_ref_to_material',
@@ -52,6 +61,15 @@ function uhc_event_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_imp_events_raw'.
+  $permissions['edit field_imp_events_raw'] = array(
+    'name' => 'edit field_imp_events_raw',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit own field_event_ref_to_material'.
   $permissions['edit own field_event_ref_to_material'] = array(
     'name' => 'edit own field_event_ref_to_material',
@@ -67,6 +85,15 @@ function uhc_event_user_default_permissions() {
   // Exported permission: 'edit own field_imp_events_json'.
   $permissions['edit own field_imp_events_json'] = array(
     'name' => 'edit own field_imp_events_json',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_imp_events_raw'.
+  $permissions['edit own field_imp_events_raw'] = array(
+    'name' => 'edit own field_imp_events_raw',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -95,6 +122,17 @@ function uhc_event_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_imp_events_raw'.
+  $permissions['view field_imp_events_raw'] = array(
+    'name' => 'view field_imp_events_raw',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view own field_event_ref_to_material'.
   $permissions['view own field_event_ref_to_material'] = array(
     'name' => 'view own field_event_ref_to_material',
@@ -109,6 +147,17 @@ function uhc_event_user_default_permissions() {
   // Exported permission: 'view own field_imp_events_json'.
   $permissions['view own field_imp_events_json'] = array(
     'name' => 'view own field_imp_events_json',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_imp_events_raw'.
+  $permissions['view own field_imp_events_raw'] = array(
+    'name' => 'view own field_imp_events_raw',
     'roles' => array(
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',

@@ -267,6 +267,11 @@ function uhc_genetics_views_default_views() {
   $handler->display->display_options['filters']['field_imp_keywords']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['field_imp_keywords']['field'] = 'field_imp_keywords';
   $handler->display->display_options['filters']['field_imp_keywords']['value'] = 'genetiikka';
+  /* Filter criterion: Indexed Multilingual Node: Hierarchy position */
+  $handler->display->display_options['filters']['field_hierarchy_position']['id'] = 'field_hierarchy_position';
+  $handler->display->display_options['filters']['field_hierarchy_position']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['filters']['field_hierarchy_position']['field'] = 'field_hierarchy_position';
+  $handler->display->display_options['filters']['field_hierarchy_position']['value'] = 'root';
 
   /* Display: Desktop */
   $handler = $view->new_display('page', 'Desktop', 'desktop');

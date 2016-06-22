@@ -10,7 +10,7 @@
 function uhc_course_implementation_activity_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_message_ref_to_comment'
+  // Exported field_base: 'field_message_ref_to_comment'.
   $field_bases['field_message_ref_to_comment'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -19,14 +19,6 @@ function uhc_course_implementation_activity_field_default_field_bases() {
     'field_name' => 'field_message_ref_to_comment',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'comment' => array(
-        'columns' => array(
-          'target_id' => 'cid',
-        ),
-        'table' => 'comment',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -57,7 +49,7 @@ function uhc_course_implementation_activity_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_message_ref_to_course_imp'
+  // Exported field_base: 'field_message_ref_to_course_imp'.
   $field_bases['field_message_ref_to_course_imp'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -66,14 +58,6 @@ function uhc_course_implementation_activity_field_default_field_bases() {
     'field_name' => 'field_message_ref_to_course_imp',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -104,7 +88,7 @@ function uhc_course_implementation_activity_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_message_ref_to_task'
+  // Exported field_base: 'field_message_ref_to_task'.
   $field_bases['field_message_ref_to_task'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -113,14 +97,6 @@ function uhc_course_implementation_activity_field_default_field_bases() {
     'field_name' => 'field_message_ref_to_task',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(

@@ -264,22 +264,19 @@ function uhc_autofill_metadata_get_enrollments($personal_unique_code) {
  * Returns enrollment information for the given user identified by personal
  * unique code.
  *
- * @param $personal_unique_code string Personal unique code, typically student
- * number.
- * @return object|NULL|bool Enrollment information (if found), NULL if not found
- * or FALSE if an error occured.
+ * @param string $personal_unique_code
+ *   Personal unique code, typically student number.
+ * @param bool $filter_relevant_only
+ *   If TRUE, filters enrollments that are relevant for students.
+ * @return object|NULL|bool
+ *   Enrollment information (if found), NULL if not found or FALSE if an error
+ *   occured.
  */
-function uhc_autofill_metadata_get_enrollment_data($personal_unique_code) {
-
-  // Construct enrollment data
-  $enrollment_data = NULL;
+function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $filter_relevant_only = FALSE) {
 
   // For easier debugging, we can fake our enrollment response by using this
   // Drupal variable (if it's set).
-  $override_enrollments = variable_get('uhc_autofill_metadata_override_enrollments', array());
-  if (!empty($override_enrollments)) {
-    return $override_enrollments;
-  }
+  $enrollment_data = variable_get('uhc_autofill_metadata_override_enrollments', NULL);
 
   // Work only when unique code is given
   if (!empty($personal_unique_code)) {
@@ -312,7 +309,33 @@ function uhc_autofill_metadata_get_enrollment_data($personal_unique_code) {
     }
   }
 
+  // When enrollment data is available and we want to filter relevant courses
+  if ($filter_relevant_only === TRUE && !is_null($enrollment_data)) {
+    $enrollment_data = uhc_autofill_metadata_get_enrollment_filtered($enrollment_data);
+  }
+
   return $enrollment_data;
+}
+
+/**
+ * Fiters non-relevant enrollments out and returns relevant courses.
+ *
+ * @param array $enrollments
+ * @return array
+ *   Returns $enrollments without non-relevant courses.
+ */
+function uhc_autofill_metadata_get_enrollment_filtered(array $enrollments) {
+  $return = $enrollments;
+  $return['data'] = array();
+  for ($i = 0; $i < count($enrollments['data']); $i++) {
+    if (!empty($enrollments['data'][$i]['end_date'])) {
+      if (strtotime($enrollments['data'][$i]['end_date']) > REQUEST_TIME) {
+        // When end date is in the future, append enrollment to unfiltered list
+        $return['data'][] = $enrollments['data'][$i];
+      }
+    }
+  }
+  return $return;
 }
 
 function uhc_autofill_metadata_set_enrollments($account, $enrollments) {

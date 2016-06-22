@@ -24,8 +24,8 @@ function uhc_course_implementation_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'course_overview_link',
-      1 => 'uhc_ds_additional_info',
-      2 => 'uhc_ds_conduct',
+      1 => 'uhc_course_implementation_inherited_fields_additional_info',
+      2 => 'uhc_course_implementation_inherited_fields_conduct',
       3 => 'uhc_ds_fee',
     ),
     'format_type' => 'div',
@@ -358,33 +358,33 @@ function uhc_course_implementation_field_group_info() {
     'weight' => '14',
     'children' => array(
       0 => 'field_imp_begin_date',
-      1 => 'field_imp_canonical_url',
-      2 => 'field_imp_end_date',
-      3 => 'field_imp_id',
-      4 => 'field_imp_reference_to_courses',
-      5 => 'field_imp_teacher',
-      6 => 'field_imp_teacher_number',
-      7 => 'title_field',
-      8 => 'field_imp_course_organiser',
-      9 => 'field_imp_giver_locality',
-      10 => 'field_imp_locality',
-      11 => 'field_imp_method_of_study',
-      12 => 'field_imp_start_month',
-      13 => 'field_imp_teaching_language',
-      14 => 'field_study_credit',
-      15 => 'field_timing',
-      16 => 'field_imp_administrator_number',
-      17 => 'field_imp_keywords',
-      18 => 'field_imp_organisation',
-      19 => 'field_imp_enrollment_begin_date',
-      20 => 'field_imp_enrollment_end_date',
-      21 => 'field_cancelled',
-      22 => 'field_rel_to_other_study_units',
-      23 => 'field_responsible_person',
-      24 => 'field_working_methods',
-      25 => 'field_hierarchy_children',
-      26 => 'field_hierarchy_parent_id',
-      27 => 'field_hierarchy_position',
+      1 => 'field_imp_end_date',
+      2 => 'field_imp_id',
+      3 => 'field_imp_reference_to_courses',
+      4 => 'field_imp_teacher',
+      5 => 'field_imp_teacher_number',
+      6 => 'title_field',
+      7 => 'field_imp_course_organiser',
+      8 => 'field_imp_giver_locality',
+      9 => 'field_imp_locality',
+      10 => 'field_imp_method_of_study',
+      11 => 'field_imp_start_month',
+      12 => 'field_imp_teaching_language',
+      13 => 'field_study_credit',
+      14 => 'field_timing',
+      15 => 'field_imp_administrator_number',
+      16 => 'field_imp_keywords',
+      17 => 'field_imp_organisation',
+      18 => 'field_imp_enrollment_begin_date',
+      19 => 'field_imp_enrollment_end_date',
+      20 => 'field_cancelled',
+      21 => 'field_rel_to_other_study_units',
+      22 => 'field_responsible_person',
+      23 => 'field_working_methods',
+      24 => 'field_hierarchy_children',
+      25 => 'field_hierarchy_parent_id',
+      26 => 'field_hierarchy_position',
+      27 => 'group_from_course',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -411,7 +411,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Interaction',
-    'weight' => '18',
+    'weight' => '19',
     'children' => array(
       0 => 'field_imp_interaction_link',
       1 => 'field_imp_interactiondescription',
@@ -498,7 +498,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Learning environments',
-    'weight' => '16',
+    'weight' => '17',
     'children' => array(
       0 => 'field_moodle_url',
       1 => 'field_wiki_url',
@@ -592,7 +592,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Video',
-    'weight' => '21',
+    'weight' => '22',
     'children' => array(
       0 => 'field_video_description',
       1 => 'field_video_embed_url',
@@ -652,7 +652,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Custom Section',
-    'weight' => '23',
+    'weight' => '24',
     'children' => array(
       0 => 'field_imp_teachersection',
     ),
@@ -740,6 +740,7 @@ function uhc_course_implementation_field_group_info() {
       1 => 'field_imp_events_title',
       2 => 'field_imp_timetable_additional',
       3 => 'field_imp_events_json',
+      4 => 'field_imp_events_raw',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

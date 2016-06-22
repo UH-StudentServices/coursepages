@@ -1,3 +1,46 @@
+# Helsinki University Coursepages v1.69
+Päiväys: 20.06.2016
+
+## Lisäykset
+  - DOO-2098: Korvattiin opettajille suunnattu RSS aktiviteetti syötelinkki
+    julkisella RSS ikonilla.
+  - DOO-2083: Sallittiin lisää tiedostomuotoja kurssimateriaaleihin: csv por sav
+    r rmd aif m4a mp3 ogg wav wma mpeg4 mpegps mp4 wmv flv svg xml shp dbf
+    geotiff netcdf mxf ascii dta sas bmp warc.
+  - DOO-1713: Lisättiin opetusaikatauluun logiikka, jolla voidaan määrittää
+    millä opetustyypillä pitäisi näyttää Oodissa syötetty tapahtuma aikataulu
+    kenttä.
+  - DOO-1741: Lisättiin lähettävän käyttäjän avatar kuvan URL kaikkiin
+    viestikeskukseen lähteviin viesteihin.
+  - Lisättiin logitusta tapauksiin, jolloin ei pystytä määrittää jakson
+    kuvausteksien palveluosoitetta.
+  - DOO-2257: Lisättiin menneiden omien kurssien suodatus kurssisivun
+    sivupalkkiin.
+
+## Muutokset
+  - DOO-2055: Päivitettiin jaksokuvaustekstien tallennusta siten, että se
+    säilyttää toteutuksen päättymis-päivämäärän kuvaustekstit.
+  - DOO-1741: Tarkennettiin viestikeskukseen lähtevän viestin linkitystä siten,
+    että se kohdistaa linkin tiettyyn haitariin.
+  - DOO-2270: Ilmoittautuis nappi vie aina pääopetustapahtuman ilmoittautumis 
+    sivulle.
+  - DOO-1846: Päivitettiin Varnish moduuli (Varnish 4 tukea varten)
+  - DOO-1825: Kurssien hakutulokset listaavat nyt vain pääopetustapahtumia.
+
+## Korjaukset
+  - DOO-2229: Kun uusi organisaatio luodaan/sisäänluetaan, niin "Salli
+    sisäänluvussa" arvo kopioidaan ylemmän tason organisaatiosta.
+  - DOO-2238: Korjattiin tarpeettomien viestien lähetys viestikeskukseen.
+
+## Poistot
+  - DOO-1846: Poistettiin menu_translation riippuvuus (ei käytössä)
+
+## Päivitykset
+  - Re-exportattiin kaikki feature moduulit (featuresin päivityksen jälkeen
+    exportableit ovat osittain muuttuneet)
+  - DOO-2275: Päivitettiin Drupal core versioon v7.44
+
+
 # Helsinki University Coursepages v1.68
 Päiväys: 30.05.2016
 

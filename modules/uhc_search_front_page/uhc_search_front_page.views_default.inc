@@ -238,6 +238,11 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['filters']['field_imp_begin_date']['field'] = 'field_imp_begin_date';
   $handler->display->display_options['filters']['field_imp_begin_date']['operator'] = '>=';
   $handler->display->display_options['filters']['field_imp_begin_date']['value'] = 'current semester';
+  /* Filter criterion: Indexed Multilingual Node: Hierarchy position */
+  $handler->display->display_options['filters']['field_hierarchy_position']['id'] = 'field_hierarchy_position';
+  $handler->display->display_options['filters']['field_hierarchy_position']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['filters']['field_hierarchy_position']['field'] = 'field_hierarchy_position';
+  $handler->display->display_options['filters']['field_hierarchy_position']['value'] = 'root';
 
   /* Display: Desktop */
   $handler = $view->new_display('page', 'Desktop', 'desktop');

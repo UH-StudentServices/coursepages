@@ -156,21 +156,7 @@ function uhc_teacher_tools_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['node/%node/rss'] = array(
-    'title' => 'Feed',
-    'access callback' => '_uhc_teacher_tools_menu_edit_links_access_callback',
-    'access arguments' => array(1),
-    'page callback' => 'uhc_teacher_tools_rss_callback',
-    'page arguments' => array(1),
-    'type' => MENU_LOCAL_TASK,
-  );
-
   return $items;
-}
-
-// Page callback for rss view.
-function uhc_teacher_tools_rss_callback($node) {
-  drupal_goto("course_implementation_activity/rss/" . $node->field_imp_id[LANGUAGE_NONE][0]['value']);
 }
 
 function _uhc_teacher_tools_demo_course_page_callback() {

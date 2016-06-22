@@ -231,5 +231,15 @@ function uhc_course_implementation_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view uhc_course_implementation_enrollment_button on node'.
+  $permissions['view uhc_course_implementation_enrollment_button on node'] = array(
+    'name' => 'view uhc_course_implementation_enrollment_button on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   return $permissions;
 }

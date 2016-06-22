@@ -38,6 +38,15 @@
       font-weight: 900;
     }
   }
+  .rss {
+    padding: 0 0 0 10px;
+    display: block;
+    float: right;
+    a {
+      display: block;
+      margin-top: 3px;
+    }
+  }
   @include at-breakpoint($layout-large) {
     .teaching-languages {
       float: right;

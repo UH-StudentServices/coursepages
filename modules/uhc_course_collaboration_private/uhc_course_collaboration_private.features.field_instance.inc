@@ -10,7 +10,8 @@
 function uhc_course_collaboration_private_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'comment-comment_node_course_implementation-field_private'
+  // Exported field_instance:
+  // 'comment-comment_node_course_implementation-field_private'.
   $field_instances['comment-comment_node_course_implementation-field_private'] = array(
     'bundle' => 'comment_node_course_implementation',
     'default_value' => array(
@@ -58,7 +59,8 @@ function uhc_course_collaboration_private_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_course_implementation-field_send_email'
+  // Exported field_instance:
+  // 'comment-comment_node_course_implementation-field_send_email'.
   $field_instances['comment-comment_node_course_implementation-field_send_email'] = array(
     'bundle' => 'comment_node_course_implementation',
     'default_value' => array(

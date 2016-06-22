@@ -10,7 +10,7 @@
 function uhc_subject_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_related_content'
+  // Exported field_base: 'field_related_content'.
   $field_bases['field_related_content'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -20,7 +20,6 @@ function uhc_subject_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -44,7 +43,7 @@ function uhc_subject_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_related_content_section'
+  // Exported field_base: 'field_related_content_section'.
   $field_bases['field_related_content_section'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -54,7 +53,6 @@ function uhc_subject_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'revision_id' => array(
         0 => 'revision_id',
@@ -71,7 +69,7 @@ function uhc_subject_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_related_content_title'
+  // Exported field_base: 'field_related_content_title'.
   $field_bases['field_related_content_title'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -80,14 +78,6 @@ function uhc_subject_field_default_field_bases() {
     'field_name' => 'field_related_content_title',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -104,7 +94,7 @@ function uhc_subject_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_related_content_visibility'
+  // Exported field_base: 'field_related_content_visibility'.
   $field_bases['field_related_content_visibility'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -114,7 +104,6 @@ function uhc_subject_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -134,7 +123,7 @@ function uhc_subject_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_study_modules_description'
+  // Exported field_base: 'field_study_modules_description'.
   $field_bases['field_study_modules_description'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -143,14 +132,6 @@ function uhc_subject_field_default_field_bases() {
     'field_name' => 'field_study_modules_description',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -166,7 +147,7 @@ function uhc_subject_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_study_modules_title'
+  // Exported field_base: 'field_study_modules_title'.
   $field_bases['field_study_modules_title'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -175,14 +156,6 @@ function uhc_subject_field_default_field_bases() {
     'field_name' => 'field_study_modules_title',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -199,7 +172,7 @@ function uhc_subject_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_subject_category'
+  // Exported field_base: 'field_subject_category'.
   $field_bases['field_subject_category'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -208,14 +181,6 @@ function uhc_subject_field_default_field_bases() {
     'field_name' => 'field_subject_category',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'taxonomy_term_data' => array(
-        'columns' => array(
-          'target_id' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -246,7 +211,7 @@ function uhc_subject_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_subject_contact_reference'
+  // Exported field_base: 'field_subject_contact_reference'.
   $field_bases['field_subject_contact_reference'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -255,14 +220,6 @@ function uhc_subject_field_default_field_bases() {
     'field_name' => 'field_subject_contact_reference',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(
@@ -293,7 +250,7 @@ function uhc_subject_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_subject_ref_study_module'
+  // Exported field_base: 'field_subject_ref_study_module'.
   $field_bases['field_subject_ref_study_module'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -302,14 +259,6 @@ function uhc_subject_field_default_field_bases() {
     'field_name' => 'field_subject_ref_study_module',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
     ),
     'indexes' => array(
       'target_id' => array(

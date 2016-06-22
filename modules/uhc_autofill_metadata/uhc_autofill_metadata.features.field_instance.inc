@@ -10,7 +10,7 @@
 function uhc_autofill_metadata_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'user-user-field_employee_number'
+  // Exported field_instance: 'user-user-field_employee_number'.
   $field_instances['user-user-field_employee_number'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -79,7 +79,7 @@ function uhc_autofill_metadata_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_enrollments'
+  // Exported field_instance: 'user-user-field_enrollments'.
   $field_instances['user-user-field_enrollments'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -148,7 +148,7 @@ function uhc_autofill_metadata_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_oodi_uid'
+  // Exported field_instance: 'user-user-field_oodi_uid'.
   $field_instances['user-user-field_oodi_uid'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -185,7 +185,7 @@ function uhc_autofill_metadata_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_organisation_modify_rights'
+  // Exported field_instance: 'user-user-field_organisation_modify_rights'.
   $field_instances['user-user-field_organisation_modify_rights'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -261,7 +261,7 @@ function uhc_autofill_metadata_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_organisational_unit'
+  // Exported field_instance: 'user-user-field_organisational_unit'.
   $field_instances['user-user-field_organisational_unit'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -299,7 +299,7 @@ function uhc_autofill_metadata_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_personal_unique_code'
+  // Exported field_instance: 'user-user-field_personal_unique_code'.
   $field_instances['user-user-field_personal_unique_code'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -368,7 +368,7 @@ function uhc_autofill_metadata_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_user_real_name'
+  // Exported field_instance: 'user-user-field_user_real_name'.
   $field_instances['user-user-field_user_real_name'] = array(
     'bundle' => 'user',
     'default_value' => NULL,

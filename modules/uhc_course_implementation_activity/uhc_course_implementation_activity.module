@@ -11,6 +11,76 @@
 include_once 'uhc_course_implementation_activity.features.inc';
 
 /**
+ * Implements hook_ds_fields_info().
+ */
+function uhc_course_implementation_activity_ds_fields_info($entity_type) {
+  $ds_fields = array();
+  if ($entity_type == 'node') {
+    $ds_fields['node']['rss_activity_feed_link'] = array(
+      'function' => 'uhc_course_implementation_activity_rss_feed_link',
+      'title' => 'RSS activity feed link',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course_implementation|*'),
+    );
+  }
+  return $ds_fields;
+}
+
+/**
+ * Callback for rendering DS field value for "RSS activity feed link".
+ *
+ * @param $field
+ * @return string
+ * @throws Exception
+ */
+function uhc_course_implementation_activity_rss_feed_link($field) {
+  $node = $field['entity'];
+  $field_imp_id = field_get_items('node', $node, 'field_imp_id');
+  $course_implementation_id = !empty($field_imp_id[0]['value']) ? $field_imp_id[0]['value'] : '';
+  return theme('activity_rss_feed_link', array('id' => $course_implementation_id));
+}
+
+/**
+ * Implements hook_theme().
+ */
+function uhc_course_implementation_activity_theme($existing, $type, $theme, $path) {
+  return array(
+    'activity_rss_feed_link' => array(
+      'variables' => array('id' => NULL),
+    ),
+  );
+}
+
+/**
+ * Preprocessing CSS classes for theme('activity_rss_feed_link').
+ * @param $variables
+ */
+function template_preprocess_activity_rss_feed_link(&$variables) {
+  // Generate URL where RSS feed should rely on
+  $variables['path'] = '';
+  if (!empty($variables['id'])) {
+    $variables['path'] = 'course_implementation_activity/rss/' . $variables['id'];
+  }
+}
+
+/**
+ * Default theme('activity_rss_feed_link') callback for rendering RSS feed link.
+ * @param $variables
+ * @return string
+ */
+function theme_activity_rss_feed_link($variables) {
+  $output = '';
+  if ($variables['path']) {
+    $output = '<span class="rss">';
+    $output .= '<a href="' . url($variables['path']) . '" class="feed-icon" title="Subscribe this course activity">';
+    $output .= '<img typeof="foaf:Image" src="/misc/feed.png" width="16" height="16" alt="Subscribe this course activity">';
+    $output .= '</a>';
+    $output .= '</span>';
+  }
+  return $output;
+}
+
+/**
  * Implements hook_entity_property_info_alter().
  */
 function uhc_course_implementation_activity_entity_property_info_alter(&$info) {

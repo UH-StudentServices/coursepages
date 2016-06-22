@@ -40,6 +40,5 @@ function uhc_open_university_menu_default_menu_custom() {
   t('Open university navigation');
   t('Open university some links');
 
-
   return $menus;
 }

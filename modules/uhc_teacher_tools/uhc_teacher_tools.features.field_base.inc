@@ -10,7 +10,7 @@
 function uhc_teacher_tools_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_moodle_key'
+  // Exported field_base: 'field_moodle_key'.
   $field_bases['field_moodle_key'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -19,14 +19,6 @@ function uhc_teacher_tools_field_default_field_bases() {
     'field_name' => 'field_moodle_key',
     'field_permissions' => array(
       'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
     ),
     'indexes' => array(
       'format' => array(
@@ -43,7 +35,7 @@ function uhc_teacher_tools_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_moodle_url'
+  // Exported field_base: 'field_moodle_url'.
   $field_bases['field_moodle_url'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -53,7 +45,6 @@ function uhc_teacher_tools_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -77,7 +68,7 @@ function uhc_teacher_tools_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_wiki_url'
+  // Exported field_base: 'field_wiki_url'.
   $field_bases['field_wiki_url'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -87,7 +78,6 @@ function uhc_teacher_tools_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',

@@ -10,7 +10,7 @@
 function uhc_course_collaboration_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-course_implementation-group_group'
+  // Exported field_instance: 'node-course_implementation-group_group'.
   $field_instances['node-course_implementation-group_group'] = array(
     'bundle' => 'course_implementation',
     'default_value' => array(

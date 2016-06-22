@@ -51,13 +51,13 @@ function uhc_locale_strongarm() {
     'language' => 'en',
     'name' => 'English',
     'native' => 'English',
-    'direction' => '0',
+    'direction' => 0,
     'enabled' => 1,
-    'plurals' => '0',
+    'plurals' => 0,
     'formula' => '',
     'domain' => '',
     'prefix' => '',
-    'weight' => '-8',
+    'weight' => -8,
     'javascript' => '',
   );
   $export['language_default'] = $strongarm;

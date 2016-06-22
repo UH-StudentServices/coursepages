@@ -15,3 +15,32 @@ function uhc_course_update_7001() {
   field_delete_field('field_faculty_image');
   field_delete_field('field_faculty_image_caption');
 }
+
+/**
+ * Removes courses fields that are inherited from course to course
+ * implementation as "inherited" fields.
+ */
+function uhc_course_update_7002() {
+  // Include all fields that has inherited field except for field_objective and
+  // field_req_prerequisites that still are used in course teaser/full view
+  // modes.
+  $fields = array(
+    'field_additional_info',
+    'field_conduct',
+    'field_contents',
+    'field_evaluation',
+    'field_rel_to_other_study_units',
+    'field_responsible_person',
+    'field_study_materials',
+    'field_target_group',
+    'field_timing',
+    'field_working_methods',
+  );
+  $entity_type = 'node';
+  $bundle = 'course';
+  foreach ($fields as $field_name) {
+    $instance = field_info_instance($entity_type, $field_name, $bundle);
+    field_delete_instance($instance, FALSE);
+  }
+  field_cache_clear();
+}

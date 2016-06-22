@@ -10,7 +10,8 @@
 function uhc_statistics_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'message-course_implementation_private_statistics-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_private_statistics-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_private_statistics-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_private_statistics',
     'default_value' => NULL,
@@ -58,7 +59,8 @@ function uhc_statistics_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'message-course_implementation_update_statistics-field_message_ref_to_course_imp'
+  // Exported field_instance:
+  // 'message-course_implementation_update_statistics-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_update_statistics-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_update_statistics',
     'default_value' => NULL,

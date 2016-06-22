@@ -146,29 +146,35 @@ function uhc_sources_filtering_denied_realisation_type_codes() {
  * @param $type
  */
 function uhc_sources_filtering_entity_presave($entity, $type) {
-  // When saving taxonomy term of certain type while in taxonomy term management
-  // pages...
-  if ($type == 'taxonomy_term' &&
-      $entity->vocabulary_machine_name == 'organisations_of_university_of_helsinki' &&
-      menu_get_object('taxonomy_term', 2)) {
+  if ($type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'organisations_of_university_of_helsinki') {
+    // When saving organisation term on taxonomy term page and is not a new term
+    if (menu_get_object('taxonomy_term', 2) && !is_null($entity->tid)) {
+      // Save values recursively if the value has been changed
+      $value_changed = TRUE;
+      if (isset($entity->field_migrate_allow[LANGUAGE_NONE][0]['value']) &&
+        isset($entity->original->field_migrate_allow[LANGUAGE_NONE][0]['value'])) {
+        $value_changed = ($entity->field_migrate_allow[LANGUAGE_NONE][0]['value'] != $entity->original->field_migrate_allow[LANGUAGE_NONE][0]['value']);
+      }
+      if (isset($entity->field_migrate_allow[LANGUAGE_NONE][0]['value']) && $value_changed) {
+        foreach (taxonomy_get_children($entity->tid) as $children) {
+          // By copying value from parent and then save it
+          $children->field_migrate_allow[LANGUAGE_NONE][0]['value'] = $entity->field_migrate_allow[LANGUAGE_NONE][0]['value'];
+          taxonomy_term_save($children);
 
-    // Save values recursively if the value has been changed
-    $value_changed = TRUE;
-    if (isset($entity->field_migrate_allow[LANGUAGE_NONE][0]['value']) &&
-      isset($entity->original->field_migrate_allow[LANGUAGE_NONE][0]['value'])) {
-      $value_changed = ($entity->field_migrate_allow[LANGUAGE_NONE][0]['value'] != $entity->original->field_migrate_allow[LANGUAGE_NONE][0]['value']);
-    }
-    if (isset($entity->field_migrate_allow[LANGUAGE_NONE][0]['value']) && $value_changed) {
-      foreach (taxonomy_get_children($entity->tid) as $children) {
-        // By copying value from parent and then save it
-        $children->field_migrate_allow[LANGUAGE_NONE][0]['value'] = $entity->field_migrate_allow[LANGUAGE_NONE][0]['value'];
-        taxonomy_term_save($children);
+          // And by informing user about this term being updated too.
+          drupal_set_message(t('Organisation @code has been updated also', array('@code' => $children->name)));
 
-        // And by informing user about this term being updated too.
-        drupal_set_message(t('Organisation @code has been updated also', array('@code' => $children->name)));
-
+        }
       }
     }
-
+    elseif (!isset($entity->tid) && !empty($entity->parent)) {
+      // When saving new taxonomy term with existing parent, then just copy
+      // allow_migrate value from parent.
+      $parents = taxonomy_term_load_multiple($entity->parent);
+      $parent = reset($parents);
+      if (!empty($parent->field_migrate_allow)) {
+        $entity->field_migrate_allow = $parent->field_migrate_allow;
+      }
+    }
   }
 }

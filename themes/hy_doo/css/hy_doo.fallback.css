@@ -1222,7 +1222,7 @@ a:hover .course-hierarchy > li:after, .course-hierarchy > li:hover:after {
   }
 }
 
-[class*="imp-canonical-url"] {
+[class*="enrollment-button"] {
   display: inline-block;
   margin-bottom: 1em;
   margin-right: 2em;
@@ -1297,6 +1297,15 @@ a:hover .course-hierarchy > li:after, .course-hierarchy > li:hover:after {
 .ds-node-metadata .teaching-languages span {
   margin-left: 0.35em;
   font-weight: 900;
+}
+.ds-node-metadata .rss {
+  padding: 0 0 0 10px;
+  display: block;
+  float: right;
+}
+.ds-node-metadata .rss a {
+  display: block;
+  margin-top: 3px;
 }
 @media (min-width: 75em) {
   .ds-node-metadata .teaching-languages {

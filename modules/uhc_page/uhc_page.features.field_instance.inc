@@ -10,7 +10,8 @@
 function uhc_page_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'field_collection_item-field_content_collection-field_body'
+  // Exported field_instance:
+  // 'field_collection_item-field_content_collection-field_body'.
   $field_instances['field_collection_item-field_content_collection-field_body'] = array(
     'bundle' => 'field_content_collection',
     'default_value' => NULL,
@@ -88,7 +89,8 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_content_collection-field_content_image'
+  // Exported field_instance:
+  // 'field_collection_item-field_content_collection-field_content_image'.
   $field_instances['field_collection_item-field_content_collection-field_content_image'] = array(
     'bundle' => 'field_content_collection',
     'deleted' => 0,
@@ -158,7 +160,8 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_content_collection-field_link_multiple'
+  // Exported field_instance:
+  // 'field_collection_item-field_content_collection-field_link_multiple'.
   $field_instances['field_collection_item-field_content_collection-field_link_multiple'] = array(
     'bundle' => 'field_content_collection',
     'default_value' => NULL,
@@ -219,7 +222,8 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_content_collection-field_related_content'
+  // Exported field_instance:
+  // 'field_collection_item-field_content_collection-field_related_content'.
   $field_instances['field_collection_item-field_content_collection-field_related_content'] = array(
     'bundle' => 'field_content_collection',
     'default_value' => NULL,
@@ -280,7 +284,8 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_content_collection-field_related_content_title'
+  // Exported field_instance:
+  // 'field_collection_item-field_content_collection-field_related_content_title'.
   $field_instances['field_collection_item-field_content_collection-field_related_content_title'] = array(
     'bundle' => 'field_content_collection',
     'default_value' => NULL,
@@ -356,7 +361,8 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_content_collection-title_field'
+  // Exported field_instance:
+  // 'field_collection_item-field_content_collection-title_field'.
   $field_instances['field_collection_item-field_content_collection-title_field'] = array(
     'bundle' => 'field_content_collection',
     'default_value' => NULL,
@@ -432,7 +438,8 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_liftup_collection-field_intro'
+  // Exported field_instance:
+  // 'field_collection_item-field_liftup_collection-field_intro'.
   $field_instances['field_collection_item-field_liftup_collection-field_intro'] = array(
     'bundle' => 'field_liftup_collection',
     'default_value' => NULL,
@@ -520,7 +527,8 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_liftup_collection-field_portal_promotions'
+  // Exported field_instance:
+  // 'field_collection_item-field_liftup_collection-field_portal_promotions'.
   $field_instances['field_collection_item-field_liftup_collection-field_portal_promotions'] = array(
     'bundle' => 'field_liftup_collection',
     'default_value' => NULL,
@@ -584,7 +592,8 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_liftup_collection-title_field'
+  // Exported field_instance:
+  // 'field_collection_item-field_liftup_collection-title_field'.
   $field_instances['field_collection_item-field_liftup_collection-title_field'] = array(
     'bundle' => 'field_liftup_collection',
     'default_value' => NULL,
@@ -670,7 +679,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_content_collection'
+  // Exported field_instance: 'node-portal_page-field_content_collection'.
   $field_instances['node-portal_page-field_content_collection'] = array(
     'bundle' => 'portal_page',
     'default_value' => NULL,
@@ -723,7 +732,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_liftup_collection'
+  // Exported field_instance: 'node-portal_page-field_liftup_collection'.
   $field_instances['node-portal_page-field_liftup_collection'] = array(
     'bundle' => 'portal_page',
     'default_value' => NULL,
@@ -776,7 +785,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_liftup_section'
+  // Exported field_instance: 'node-portal_page-field_liftup_section'.
   $field_instances['node-portal_page-field_liftup_section'] = array(
     'bundle' => 'portal_page',
     'default_value' => NULL,
@@ -832,7 +841,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_portal_page_description'
+  // Exported field_instance: 'node-portal_page-field_portal_page_description'.
   $field_instances['node-portal_page-field_portal_page_description'] = array(
     'bundle' => 'portal_page',
     'default_value' => NULL,
@@ -918,7 +927,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_portal_page_image'
+  // Exported field_instance: 'node-portal_page-field_portal_page_image'.
   $field_instances['node-portal_page-field_portal_page_image'] = array(
     'bundle' => 'portal_page',
     'deleted' => 0,
@@ -996,7 +1005,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_portal_promotions'
+  // Exported field_instance: 'node-portal_page-field_portal_promotions'.
   $field_instances['node-portal_page-field_portal_promotions'] = array(
     'bundle' => 'portal_page',
     'default_value' => NULL,
@@ -1080,7 +1089,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_portal_promotions_link'
+  // Exported field_instance: 'node-portal_page-field_portal_promotions_link'.
   $field_instances['node-portal_page-field_portal_promotions_link'] = array(
     'bundle' => 'portal_page',
     'default_value' => NULL,
@@ -1157,7 +1166,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_portal_promotions_title'
+  // Exported field_instance: 'node-portal_page-field_portal_promotions_title'.
   $field_instances['node-portal_page-field_portal_promotions_title'] = array(
     'bundle' => 'portal_page',
     'default_value' => NULL,
@@ -1249,7 +1258,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_related_content_section'
+  // Exported field_instance: 'node-portal_page-field_related_content_section'.
   $field_instances['node-portal_page-field_related_content_section'] = array(
     'bundle' => 'portal_page',
     'default_value' => NULL,
@@ -1310,7 +1319,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_show_search_box'
+  // Exported field_instance: 'node-portal_page-field_show_search_box'.
   $field_instances['node-portal_page-field_show_search_box'] = array(
     'bundle' => 'portal_page',
     'default_value' => array(
@@ -1360,7 +1369,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_show_search_filters'
+  // Exported field_instance: 'node-portal_page-field_show_search_filters'.
   $field_instances['node-portal_page-field_show_search_filters'] = array(
     'bundle' => 'portal_page',
     'default_value' => array(
@@ -1414,7 +1423,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_sidebar_liftups'
+  // Exported field_instance: 'node-portal_page-field_sidebar_liftups'.
   $field_instances['node-portal_page-field_sidebar_liftups'] = array(
     'bundle' => 'portal_page',
     'deleted' => 0,
@@ -1487,7 +1496,8 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_subject_contact_reference'
+  // Exported field_instance:
+  // 'node-portal_page-field_subject_contact_reference'.
   $field_instances['node-portal_page-field_subject_contact_reference'] = array(
     'bundle' => 'portal_page',
     'deleted' => 0,
@@ -1560,7 +1570,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-field_view_attachment'
+  // Exported field_instance: 'node-portal_page-field_view_attachment'.
   $field_instances['node-portal_page-field_view_attachment'] = array(
     'bundle' => 'portal_page',
     'default_value' => NULL,
@@ -1624,7 +1634,7 @@ function uhc_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-portal_page-title_field'
+  // Exported field_instance: 'node-portal_page-title_field'.
   $field_instances['node-portal_page-title_field'] = array(
     'bundle' => 'portal_page',
     'default_value' => NULL,

@@ -8,6 +8,9 @@
  * Implements hook_ctools_plugin_api().
  */
 function uhc_course_implementation_activity_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "ds" && $api == "ds") {
+    return array("version" => "1");
+  }
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -92,6 +95,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-course-messages",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -130,6 +134,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-course-messages",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -168,6 +173,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-course-messages",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -206,6 +212,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-conduct-of-course",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -244,6 +251,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-conduct-of-course",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -282,6 +290,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-conduct-of-course",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -320,6 +329,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-description-objectives",
+    "send_mece_notification" : "0",
     "message_text" : {
       "en" : [
         {
@@ -358,6 +368,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-timetable",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -396,6 +407,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-timetable",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -434,6 +446,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-timetable",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -472,6 +485,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-fee",
+    "send_mece_notification" : "0",
     "message_text" : {
       "en" : [
         {
@@ -510,6 +524,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-feedback",
+    "send_mece_notification" : "0",
     "message_text" : {
       "en" : [
         {
@@ -548,6 +563,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-interaction",
+    "send_mece_notification" : "0",
     "message_text" : {
       "en" : [
         {
@@ -586,6 +602,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-material",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -624,6 +641,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-material",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -662,6 +680,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : "",
+    "send_mece_notification" : "0",
     "message_text" : { "en" : [
         {
           "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\r\\n",
@@ -685,6 +704,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-material",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -723,6 +743,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-material",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -761,6 +782,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-course-messages",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -799,6 +821,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-course-messages",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -837,6 +860,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-course-messages",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -875,6 +899,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-material",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -913,6 +938,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-material",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -951,6 +977,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-material",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -989,6 +1016,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-course-task-material",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -1027,6 +1055,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-course-task-material",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -1065,6 +1094,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-course-task-material",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -1103,6 +1133,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-custom-section",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -1141,6 +1172,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-custom-section",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -1179,6 +1211,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-custom-section",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
@@ -1217,6 +1250,7 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-video",
+    "send_mece_notification" : "0",
     "message_text" : {
       "en" : [
         {

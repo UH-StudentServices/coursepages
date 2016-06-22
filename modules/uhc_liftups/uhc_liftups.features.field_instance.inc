@@ -10,7 +10,7 @@
 function uhc_liftups_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-course_liftup-field_courseliftup_courseimp'
+  // Exported field_instance: 'node-course_liftup-field_courseliftup_courseimp'.
   $field_instances['node-course_liftup-field_courseliftup_courseimp'] = array(
     'bundle' => 'course_liftup',
     'default_value' => NULL,
@@ -76,7 +76,8 @@ function uhc_liftups_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_liftup-field_courseliftup_descripion'
+  // Exported field_instance:
+  // 'node-course_liftup-field_courseliftup_descripion'.
   $field_instances['node-course_liftup-field_courseliftup_descripion'] = array(
     'bundle' => 'course_liftup',
     'default_value' => NULL,
@@ -142,7 +143,7 @@ function uhc_liftups_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_liftup-field_courseliftup_image'
+  // Exported field_instance: 'node-course_liftup-field_courseliftup_image'.
   $field_instances['node-course_liftup-field_courseliftup_image'] = array(
     'bundle' => 'course_liftup',
     'deleted' => 0,
@@ -214,7 +215,7 @@ function uhc_liftups_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_liftup-field_liftup_section'
+  // Exported field_instance: 'node-course_liftup-field_liftup_section'.
   $field_instances['node-course_liftup-field_liftup_section'] = array(
     'bundle' => 'course_liftup',
     'default_value' => NULL,
@@ -274,7 +275,7 @@ function uhc_liftups_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-liftup-field_liftup_description'
+  // Exported field_instance: 'node-liftup-field_liftup_description'.
   $field_instances['node-liftup-field_liftup_description'] = array(
     'bundle' => 'liftup',
     'default_value' => NULL,
@@ -337,7 +338,7 @@ function uhc_liftups_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-liftup-field_liftup_image'
+  // Exported field_instance: 'node-liftup-field_liftup_image'.
   $field_instances['node-liftup-field_liftup_image'] = array(
     'bundle' => 'liftup',
     'deleted' => 0,
@@ -397,7 +398,7 @@ function uhc_liftups_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-liftup-field_liftup_link_to'
+  // Exported field_instance: 'node-liftup-field_liftup_link_to'.
   $field_instances['node-liftup-field_liftup_link_to'] = array(
     'bundle' => 'liftup',
     'default_value' => NULL,
@@ -459,7 +460,7 @@ function uhc_liftups_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-liftup-field_liftup_section'
+  // Exported field_instance: 'node-liftup-field_liftup_section'.
   $field_instances['node-liftup-field_liftup_section'] = array(
     'bundle' => 'liftup',
     'default_value' => NULL,
@@ -501,7 +502,7 @@ function uhc_liftups_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-liftup-title_field'
+  // Exported field_instance: 'node-liftup-title_field'.
   $field_instances['node-liftup-title_field'] = array(
     'bundle' => 'liftup',
     'default_value' => NULL,

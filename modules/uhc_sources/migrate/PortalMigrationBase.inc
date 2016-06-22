@@ -325,8 +325,12 @@ class PortalMigrationBase extends Migration {
    * into descriptions -property and they are using element id as identifiers
    * which is a problem for field mapping.
    *
+   * Note: This is used also by other function in another module:
+   * _uhc_course_implementation_inherited_fields_get_descriptions()
+   *
    * @param object &$row
    * @param array $description_elements
+   * @see _uhc_course_implementation_inherited_fields_get_descriptions()
    */
   static public function prepareDescriptions(&$row, array $description_elements) {
 

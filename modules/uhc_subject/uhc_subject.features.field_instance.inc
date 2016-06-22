@@ -10,7 +10,8 @@
 function uhc_subject_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'field_collection_item-field_related_content_section-field_related_content'
+  // Exported field_instance:
+  // 'field_collection_item-field_related_content_section-field_related_content'.
   $field_instances['field_collection_item-field_related_content_section-field_related_content'] = array(
     'bundle' => 'field_related_content_section',
     'default_value' => NULL,
@@ -71,7 +72,8 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_related_content_section-field_related_content_title'
+  // Exported field_instance:
+  // 'field_collection_item-field_related_content_section-field_related_content_title'.
   $field_instances['field_collection_item-field_related_content_section-field_related_content_title'] = array(
     'bundle' => 'field_related_content_section',
     'default_value' => NULL,
@@ -147,7 +149,8 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_related_content_section-field_related_content_visibility'
+  // Exported field_instance:
+  // 'field_collection_item-field_related_content_section-field_related_content_visibility'.
   $field_instances['field_collection_item-field_related_content_section-field_related_content_visibility'] = array(
     'bundle' => 'field_related_content_section',
     'default_value' => array(
@@ -185,7 +188,8 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_study_module-field_study_module_title'
+  // Exported field_instance:
+  // 'field_collection_item-field_study_module-field_study_module_title'.
   $field_instances['field_collection_item-field_study_module-field_study_module_title'] = array(
     'bundle' => 'field_study_module',
     'default_value' => NULL,
@@ -261,7 +265,8 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_study_module-field_subject_ref_study_module'
+  // Exported field_instance:
+  // 'field_collection_item-field_study_module-field_subject_ref_study_module'.
   $field_instances['field_collection_item-field_study_module-field_subject_ref_study_module'] = array(
     'bundle' => 'field_study_module',
     'default_value' => NULL,
@@ -306,7 +311,8 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_study_module-field_subject_ref_to_courses'
+  // Exported field_instance:
+  // 'field_collection_item-field_study_module-field_subject_ref_to_courses'.
   $field_instances['field_collection_item-field_study_module-field_subject_ref_to_courses'] = array(
     'bundle' => 'field_study_module',
     'default_value' => NULL,
@@ -350,7 +356,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_imp_header_headline'
+  // Exported field_instance: 'node-subject-field_imp_header_headline'.
   $field_instances['node-subject-field_imp_header_headline'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
@@ -393,7 +399,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_related_content_section'
+  // Exported field_instance: 'node-subject-field_related_content_section'.
   $field_instances['node-subject-field_related_content_section'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
@@ -430,7 +436,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_sidebar_liftups'
+  // Exported field_instance: 'node-subject-field_sidebar_liftups'.
   $field_instances['node-subject-field_sidebar_liftups'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
@@ -481,7 +487,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_study_module'
+  // Exported field_instance: 'node-subject-field_study_module'.
   $field_instances['node-subject-field_study_module'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
@@ -517,7 +523,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_study_modules_description'
+  // Exported field_instance: 'node-subject-field_study_modules_description'.
   $field_instances['node-subject-field_study_modules_description'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
@@ -586,7 +592,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_study_modules_title'
+  // Exported field_instance: 'node-subject-field_study_modules_title'.
   $field_instances['node-subject-field_study_modules_title'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
@@ -655,7 +661,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_subject_category'
+  // Exported field_instance: 'node-subject-field_subject_category'.
   $field_instances['node-subject-field_subject_category'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
@@ -693,7 +699,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_subject_contact_reference'
+  // Exported field_instance: 'node-subject-field_subject_contact_reference'.
   $field_instances['node-subject-field_subject_contact_reference'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
@@ -748,7 +754,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_subject_description'
+  // Exported field_instance: 'node-subject-field_subject_description'.
   $field_instances['node-subject-field_subject_description'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
@@ -790,7 +796,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-field_subject_image'
+  // Exported field_instance: 'node-subject-field_subject_image'.
   $field_instances['node-subject-field_subject_image'] = array(
     'bundle' => 'subject',
     'deleted' => 0,
@@ -838,7 +844,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-subject-title_field'
+  // Exported field_instance: 'node-subject-title_field'.
   $field_instances['node-subject-title_field'] = array(
     'bundle' => 'subject',
     'default_value' => NULL,
@@ -880,7 +886,7 @@ function uhc_subject_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-subject_category-name_field'
+  // Exported field_instance: 'taxonomy_term-subject_category-name_field'.
   $field_instances['taxonomy_term-subject_category-name_field'] = array(
     'bundle' => 'subject_category',
     'default_value' => NULL,

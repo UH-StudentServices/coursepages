@@ -10,21 +10,13 @@
 function uhc_liftups_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_courseliftup_courseimp'
+  // Exported field_base: 'field_courseliftup_courseimp'.
   $field_bases['field_courseliftup_courseimp'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_courseliftup_courseimp',
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -54,21 +46,13 @@ function uhc_liftups_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_courseliftup_descripion'
+  // Exported field_base: 'field_courseliftup_descripion'.
   $field_bases['field_courseliftup_descripion'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_courseliftup_descripion',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -83,21 +67,13 @@ function uhc_liftups_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_courseliftup_image'
+  // Exported field_base: 'field_courseliftup_image'.
   $field_bases['field_courseliftup_image'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_courseliftup_image',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -116,21 +92,13 @@ function uhc_liftups_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_liftup_description'
+  // Exported field_base: 'field_liftup_description'.
   $field_bases['field_liftup_description'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_liftup_description',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -145,7 +113,7 @@ function uhc_liftups_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_liftup_image'
+  // Exported field_base: 'field_liftup_image'.
   $field_bases['field_liftup_image'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -155,14 +123,6 @@ function uhc_liftups_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -181,14 +141,13 @@ function uhc_liftups_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_liftup_link_to'
+  // Exported field_base: 'field_liftup_link_to'.
   $field_bases['field_liftup_link_to'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_liftup_link_to',
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -212,7 +171,7 @@ function uhc_liftups_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_liftup_section'
+  // Exported field_base: 'field_liftup_section'.
   $field_bases['field_liftup_section'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -222,7 +181,6 @@ function uhc_liftups_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
