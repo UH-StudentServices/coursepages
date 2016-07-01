@@ -17,6 +17,14 @@
         background: transparent;
       }
     }
+    label {
+      @include font-weight-medium;
+      @include font-size(13px);
+    }
+    input[type=checkbox] + label:before {
+      color: $gray;
+      border-color: $gray;
+    }
     textarea[name=message] {
       @include font-size(13px);
       @include input-placeholder {
@@ -31,6 +39,13 @@
       &:focus {
         outline: none;
       }
+    }
+    input[type=text] {
+      @include font-weight-medium;
+      @include font-size(13px);
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid $gray;
     }
   }
   .grippie {

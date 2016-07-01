@@ -181,7 +181,7 @@ and their target parameters are as follows:
 |                       |                              | course_implementation_material_remove                  |
 |                       |                              | course_implementation_material_update                  |
 |-----------------------+------------------------------+--------------------------------------------------------|
-| Custom section        | group-custom-section         | course_implementation_teacher_section_create           |
+| Custom section        | group-manual-content         | course_implementation_teacher_section_create           |
 |                       |                              | course_implementation_teacher_section_remove           |
 |                       |                              | course_implementation_teacher_section_update           |
 |-----------------------+------------------------------+--------------------------------------------------------|

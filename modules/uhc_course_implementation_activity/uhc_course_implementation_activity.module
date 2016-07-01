@@ -103,7 +103,7 @@ function uhc_course_implementation_activity_form_message_type_form_alter(&$form,
   $form['target_accordion_class'] = array(
     '#title' => t('Target accordion class'),
     '#type' => 'textfield',
-    '#default_value' => $form_state['message_type']->target_accordion_class,
+    '#default_value' => !empty($form_state['message_type']->target_accordion_class) ? $form_state['message_type']->target_accordion_class : '',
     '#description' => t('Type here accordion target class which should be opened when clicking this message. Example: ".group-imp-material".'),
   );
 }
@@ -410,6 +410,7 @@ function uhc_course_implementation_activity_node_delete($node) {
  */
 function uhc_course_implementation_activity_entity_update($entity) {
   _uhc_course_implementation_activity_track_teacher_section_modify($entity, array('field_imp_teachersection_content', 'field_imp_teachersection_label'), 'course_implementation_teacher_section_update');
+  _uhc_course_implementation_activity_track_json_event_update($entity);
 }
 
 
@@ -770,6 +771,27 @@ function _uhc_course_implementation_activity_track_teacher_section_modify($entit
         $wrapper->field_message_ref_to_course_imp->set($course_implementation_node->nid);
         $wrapper->save();
       }
+    }
+  }
+}
+
+/**
+ * Function that detects changes on JSON events and causes message to be
+ * created.
+ *
+ * @param $entity
+ * @return void
+ */
+function _uhc_course_implementation_activity_track_json_event_update($entity) {
+  if (isset($entity->type) && $entity->type == 'course_implementation') {
+    $old_value = !empty($entity->original->field_imp_events_json[LANGUAGE_NONE][0]['value']) ? $entity->original->field_imp_events_json[LANGUAGE_NONE][0]['value'] : '';
+    $new_value = !empty($entity->field_imp_events_json[LANGUAGE_NONE][0]['value']) ? $entity->field_imp_events_json[LANGUAGE_NONE][0]['value'] : '';
+    if ($old_value != $new_value) {
+      // Create schedule change message when new and old value are not the same
+      $message = message_create('course_implementation_json_event_change');
+      $wrapper = entity_metadata_wrapper('message', $message);
+      $wrapper->field_message_ref_to_course_imp->set($entity);
+      $wrapper->save();
     }
   }
 }

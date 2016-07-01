@@ -43,3 +43,10 @@ function uhc_feedback_form_submit($form, &$form_state) {
 
   drupal_set_message(t('Thank you'));
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function uhc_feedback_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}

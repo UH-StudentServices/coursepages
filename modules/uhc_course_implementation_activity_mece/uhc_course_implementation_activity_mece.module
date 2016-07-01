@@ -27,7 +27,7 @@ function uhc_course_implementation_activity_mece_form_message_type_form_alter(&$
   $form['send_mece_notification'] = array(
     '#title' => t('Send notification message to MECE'),
     '#type' => 'checkbox',
-    '#default_value' => $form_state['message_type']->send_mece_notification,
+    '#default_value' => !empty($form_state['message_type']->send_mece_notification) ? $form_state['message_type']->send_mece_notification : '',
     '#description' => t('Check this if you want this type of messages to be sent to MECE.'),
   );
 }
@@ -129,7 +129,10 @@ function uhc_course_implementation_activity_mece_entity_insert($entity, $entity_
     $sender = user_load($user->uid);
     $field_oodi_uid = field_get_items('user', $sender, 'field_oodi_uid');
     if (!empty($field_oodi_uid[0]['value'])) {
-      $notification->setAvatarImageUrl(uhc_avatar_get_avatar_api_url($field_oodi_uid[0]['value']));
+      $response = uhc_avatar_get_avatar_api_response($field_oodi_uid[0]['value']);
+      if ($response) {
+        $notification->setAvatarImageUrl($response->avatarImageUrl);
+      }
     }
 
     // Send notification message

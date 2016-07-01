@@ -1532,6 +1532,16 @@ a:hover .course-hierarchy > li:after, .course-hierarchy > li:hover:after {
 #block-feedback-form form #feedback-submit:hover {
   background: transparent;
 }
+#block-feedback-form form label {
+  font-weight: 600;
+  font-style: normal;
+  font-size: 13px;
+  font-size: 0.8125rem;
+}
+#block-feedback-form form input[type=checkbox] + label:before {
+  color: #666;
+  border-color: #666;
+}
 #block-feedback-form form textarea[name=message] {
   font-size: 13px;
   font-size: 0.8125rem;
@@ -1556,6 +1566,15 @@ a:hover .course-hierarchy > li:after, .course-hierarchy > li:hover:after {
 }
 #block-feedback-form form textarea[name=message]:focus {
   outline: none;
+}
+#block-feedback-form form input[type=text] {
+  font-weight: 600;
+  font-style: normal;
+  font-size: 13px;
+  font-size: 0.8125rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #666;
 }
 #block-feedback-form .grippie {
   display: none;

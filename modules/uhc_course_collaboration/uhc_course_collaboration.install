@@ -1,0 +1,46 @@
+<?php
+/**
+ * @file
+ * Installation, uninstallation and udpate tasks.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_install().
+ */
+function uhc_course_collaboration_install() {
+  features_revert_module('uhc_course_collaboration');
+  _uhc_course_collaboration_hide_og_user_node_widget();
+}
+
+/**
+ * Enable field extra widgets and use it on 'og_user_node'.
+ */
+function uhc_course_collaboration_update_7001() {
+
+  // Enable module
+  module_enable(array('field_extrawidgets'));
+
+  // Load instance and change its widget.
+  _uhc_course_collaboration_hide_og_user_node_widget();
+
+}
+
+/**
+ * Helper function that changes the og_user_node widget to hidden, because it
+ * will cause huge memory issues for persons that have thousands of memberships.
+ */
+function _uhc_course_collaboration_hide_og_user_node_widget() {
+  $instance = field_info_instance('user', 'og_user_node', 'user');
+  if ($instance) {
+    $instance['widget']['settings'] = array();
+    $instance['widget']['module'] = 'field_extrawidgets';
+    $instance['widget']['type'] = 'field_extrawidgets_hidden';
+    $instance['display']['default']['type'] = 'hidden';
+    $instance['display']['default']['settings'] = array();
+    field_update_instance($instance);
+  }
+}

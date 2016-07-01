@@ -151,6 +151,7 @@ function uhc_course_implementation_inherited_fields_ds_field($field) {
       'value' => $value,
       'label' => $field['title'],
       'source' => 'course',
+      'node' => $node,
     ));
   }
 
@@ -161,6 +162,7 @@ function uhc_course_implementation_inherited_fields_ds_field($field) {
       'value' => $value,
       'label' => $field['title'],
       'source' => 'study-object',
+      'node' => $node,
     ));
   }
 

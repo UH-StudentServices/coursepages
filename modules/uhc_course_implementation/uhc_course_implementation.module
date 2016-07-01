@@ -154,7 +154,8 @@ function uhc_course_implementation_field_group_build_pre_render_alter(&$element)
   }
 
   $node_view = arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL;
-  if (isset($element['group_description_objectives']['#prefix']) && $node_view && user_is_logged_in()) {
+  $node = node_load(arg(1));
+  if (isset($element['group_description_objectives']['#prefix']) && $node_view && node_access('update', $node)) {
     $messages = array(
       'attributes' => array(
         'class' => 'messages status alternative accordion-content-item',
@@ -170,11 +171,11 @@ function uhc_course_implementation_field_group_build_pre_render_alter(&$element)
       ),
       'items' => array(
         1 => array(
-          'data' => t("study object's information"),
+          'data' => t("Degree requirements information"),
           'class' => 'study-object',
         ),
         2 => array(
-          'data' => t("course's information"),
+          'data' => t("Teaching information"),
           'class' => 'course',
         ),
       ),

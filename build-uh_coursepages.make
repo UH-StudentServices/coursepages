@@ -216,6 +216,10 @@ projects[site_status_message][version] = 1.0
 projects[past][version] = 1.0-alpha3
 projects[rules][version] = 2.9
 
+projects[conditional_fields][version] = 3.0-alpha2
+
+projects[field_extrawidgets][version] = 1.1
+
 ; Themes
 
 projects[omega][subdir] = "omega"

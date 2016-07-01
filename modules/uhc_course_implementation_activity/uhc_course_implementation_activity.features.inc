@@ -589,6 +589,45 @@ function uhc_course_implementation_activity_default_message_type() {
     },
     "rdf_mapping" : []
   }');
+  $items['course_implementation_json_event_change'] = entity_import('message_type', '{
+    "name" : "course_implementation_json_event_change",
+    "description" : "Course implementation - JSON Event change",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-timetable",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003ECourse schedule has changed\\u003C\\/p\\u003E\\r\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003ECourse schedule has changed\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003EKurssin aikataulu on muuttunut\\u003C\\/p\\u003E\\r\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003EKurssin aikataulu on muuttunut\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003ETidschema har förändrats\\u003C\\/p\\u003E\\r\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003ETidschema har förändrats\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
   $items['course_implementation_material_create'] = entity_import('message_type', '{
     "name" : "course_implementation_material_create",
     "description" : "Course implementation - Material create",
@@ -1132,7 +1171,7 @@ function uhc_course_implementation_activity_default_message_type() {
     },
     "language" : "en",
     "arguments" : null,
-    "target_accordion_class" : ".group-custom-section",
+    "target_accordion_class" : ".group-manual-content",
     "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
@@ -1171,7 +1210,7 @@ function uhc_course_implementation_activity_default_message_type() {
     },
     "language" : "en",
     "arguments" : null,
-    "target_accordion_class" : ".group-custom-section",
+    "target_accordion_class" : ".group-manual-content",
     "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
@@ -1210,7 +1249,7 @@ function uhc_course_implementation_activity_default_message_type() {
     },
     "language" : "en",
     "arguments" : null,
-    "target_accordion_class" : ".group-custom-section",
+    "target_accordion_class" : ".group-manual-content",
     "send_mece_notification" : "1",
     "message_text" : {
       "en" : [

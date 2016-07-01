@@ -1,3 +1,24 @@
+# Helsinki University Coursepages v1.70
+Päiväys: 01.07.2016
+
+## Lisäykset
+  - DOO-893: Oodista tulevien aikataulumuutoksista tulee notifikaatio viesti
+  - DOO-2196: Lisättiin valintaruutu ja sähköpostiosoite kenttä
+    palautelomakkeelle vastaamista varten
+  - DOO-2271: Lisättiin Moodin opiskelijoiden/opettajien synkronisointi tilanne
+
+## Muutokset
+  - DOO-2279: Optimoitiin muistinkäyttöä käyttäjän sivua tai lomaketta
+    ladattaessa.
+  - DOO-2259: Päivitettiin kurssikuvausten opintokohde/opetustapahtuma
+    selitetekstit.
+
+## Korjaukset
+  - Korjattiin "toteutus ja työtavat" kentän näkyvyysasetukset
+  - Korjattiin kaksi PHP noticea viestityypin luomis lomakkeesta
+  - DOO-2267: Korjattiin opettajan lisäämän osion haitarikohdistus URL
+
+
 # Helsinki University Coursepages v1.69
 Päiväys: 20.06.2016
 

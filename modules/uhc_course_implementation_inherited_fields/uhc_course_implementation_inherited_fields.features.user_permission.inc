@@ -671,7 +671,10 @@ function uhc_course_implementation_inherited_fields_user_default_permissions() {
   // Exported permission: 'view uhc_course_implementation_inherited_fields_working_methods on node'.
   $permissions['view uhc_course_implementation_inherited_fields_working_methods on node'] = array(
     'name' => 'view uhc_course_implementation_inherited_fields_working_methods on node',
-    'roles' => array(),
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
     'module' => 'ds_extras',
   );
 
