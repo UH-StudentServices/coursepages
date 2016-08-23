@@ -1,3 +1,11 @@
+# Helsinki University Cousepages v1.71
+Päiväys: 15.08.2016
+
+## Päivitykset
+  - Drupal core 7.50
+  - Admin Views 7.x-1.6 (tuotannossa ollut jo hotfix käytössä)
+
+
 # Helsinki University Coursepages v1.70
 Päiväys: 01.07.2016
 

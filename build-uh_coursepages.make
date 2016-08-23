@@ -5,7 +5,7 @@ core = 7.0
 api = 2
 
 projects[drupal][type] = core
-projects[drupal][version] = 7.44
+projects[drupal][version] = 7.50
 
 ; Patch: Text field (textarea) with "Default" formatter does not retain newlines
 projects[drupal][patch][1152216] = https://www.drupal.org/files/text-plain-1152216-24.patch
@@ -18,7 +18,7 @@ defaults[projects][subdir] = "contrib"
 projects[admin_menu][download][branch] = 7.x-3.x
 projects[admin_menu][download][revision] = b07d37b857f48e8e38ca8c31fbb8153184c46932
 projects[admin_menu][patch][1981308] = https://www.drupal.org/files/issues/admin_menu-js-module-compatibility-1981308-9.patch
-projects[admin_views][version] = "1.5"
+projects[admin_views][version] = "1.6"
 projects[behavior_weights][version] = "1.0"
 projects[block_class][version] = "2.3"
 projects[chosen][version] = "2.0-beta4"
