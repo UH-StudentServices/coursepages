@@ -536,6 +536,16 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view uhc_course_implementation_timetable_help_texts on node'.
+  $permissions['view uhc_course_implementation_timetable_help_texts on node'] = array(
+    'name' => 'view uhc_course_implementation_timetable_help_texts on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   // Exported permission: 'view uhc_ds_course_number on node'.
   $permissions['view uhc_ds_course_number on node'] = array(
     'name' => 'view uhc_ds_course_number on node',

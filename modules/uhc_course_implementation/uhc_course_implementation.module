@@ -134,56 +134,119 @@ function uhc_course_implementation_get_course_administrator_numbers($node) {
  * @see uhc_course_implementation_is_group_empty()
  */
 function uhc_course_implementation_field_group_build_pre_render_alter(&$element) {
-  if (isset($element['group_timetable']['#prefix'])) {
-    // check if timetable accordion has no content
-    $empty = TRUE;
-    foreach($element['group_timetable'] as $field) {
-      if (is_array($field) && !empty($field)) {
-        $empty = FALSE;
-        break;
-      }
-    }
-    // if timetable accordion is not completely empty, but additional info
-    // is empty, add default value
-    if (!$empty && empty($element['field_imp_timetable_additional'][0]['#markup'])) {
-      $element['group_timetable']['#prefix'] .= '<p class="bar bar--small">' . t('Here is the course’s teaching schedule. Check the course overview for possible other schedules.') . '</p>';
-    }
-  }
+
+  // When rendering course tasks
   if (isset($element['group_course_task_material']['#prefix']) && !empty($element['field_reference_to_course_tasks'])) {
-    $element['group_course_task_material']['#prefix'] .= '<p class="bar bar--small">' . t('In this section you can find the course tasks.') . '</p>';
+    _uhc_course_implementation_handle_tasks_accordion_processing($element);
   }
 
+  // When rendering description objectives...
   $node_view = arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL;
   $node = node_load(arg(1));
   if (isset($element['group_description_objectives']['#prefix']) && $node_view && node_access('update', $node)) {
-    $messages = array(
-      'attributes' => array(
-        'class' => 'messages status alternative accordion-content-item',
-      ),
-      'items' => array(
-        t('Course overview information comes from Oodi.'),
-      ),
-    );
-
-    $source_legend = array(
-      'attributes' => array(
-        'class' => 'course-overview-source-legend tube',
-      ),
-      'items' => array(
-        1 => array(
-          'data' => t("Degree requirements information"),
-          'class' => 'study-object',
-        ),
-        2 => array(
-          'data' => t("Teaching information"),
-          'class' => 'course',
-        ),
-      ),
-    );
-
-    $element['group_description_objectives']['#prefix'] .= theme('item_list', $messages);
-    $element['group_description_objectives']['#prefix'] .= theme('item_list', $source_legend);
+    _uhc_course_implementation_handle_objectives_accordion_processing($element);
   }
+
+}
+
+/**
+ * Helper function that adapts some logic parts from flowchart, see URL.
+ * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202022322
+ * @param $element
+ */
+function _uhc_course_implementation_handle_timetable_accordion_processing(&$element) {
+  if (_uhc_course_implementation_viewing_electronic_exam_room()) {
+    _uhc_course_implementation_hide_timetable_accordion_from_oodi($element);
+  }
+}
+
+/**
+ * Helper function for determining is user viewing electornic exam room´ course
+ * implementation $node.
+ *
+ * @return bool
+ */
+function _uhc_course_implementation_viewing_electronic_exam_room() {
+  $uhc_course_implementation_eletronic_exam_room_tid = variable_get('uhc_course_implementation_eletronic_exam_room_tid', 0);
+  return _uhc_course_implementation_has_method_of_study(array($uhc_course_implementation_eletronic_exam_room_tid));
+}
+
+/**
+ * Heper function for determining whether given $node has given one (or more)
+ * method of studies linked.
+ * @param array $tids
+ *   List of term IDs that will be compared against method of study reference
+ *   field.
+ * @param null $node
+ *   Optional. Active node page will be used if ommitted.
+ * @return bool
+ */
+function _uhc_course_implementation_has_method_of_study(array $tids, $node = NULL) {
+  $node_view = arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL;
+  if (is_null($node) && $node_view) {
+    $node = node_load(arg(1));
+  }
+  if ($node && $node_view) {
+    $field_imp_method_of_study = field_get_items('node', $node, 'field_imp_method_of_study');
+    if (!empty($field_imp_method_of_study)) {
+      foreach ($field_imp_method_of_study as $value) {
+        if (in_array($value['tid'], $tids)) {
+          return TRUE;
+        }
+      }
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Helper function for hiding timetable from Oodi.
+ * @param $element
+ */
+function _uhc_course_implementation_hide_timetable_accordion_from_oodi(&$element) {
+  $element['group_timetable']['uhc_event_teaching_schedule'] = NULL;
+}
+
+/**
+ * Helper function that adds help text for tasks.
+ * @param $element
+ */
+function _uhc_course_implementation_handle_tasks_accordion_processing(&$element) {
+  $element['group_course_task_material']['#prefix'] .= '<p class="bar bar--small">' . t('In this section you can find the course tasks.') . '</p>';
+}
+
+/**
+ * Helper function that renders help texts and legends for fields.
+ * @param $element
+ */
+function _uhc_course_implementation_handle_objectives_accordion_processing(&$element) {
+  $messages = array(
+    'attributes' => array(
+      'class' => 'messages status alternative accordion-content-item',
+    ),
+    'items' => array(
+      t('Course overview information comes from Oodi.'),
+    ),
+  );
+
+  $source_legend = array(
+    'attributes' => array(
+      'class' => 'course-overview-source-legend tube',
+    ),
+    'items' => array(
+      1 => array(
+        'data' => t("Degree requirements information"),
+        'class' => 'study-object',
+      ),
+      2 => array(
+        'data' => t("Teaching information"),
+        'class' => 'course',
+      ),
+    ),
+  );
+
+  $element['group_description_objectives']['#prefix'] .= theme('item_list', $messages);
+  $element['group_description_objectives']['#prefix'] .= theme('item_list', $source_legend);
 }
 
 /**
@@ -347,12 +410,19 @@ function uhc_course_implementation_ds_fields_info($entity_type) {
       'field_type' => DS_FIELD_TYPE_FUNCTION,
       'ui_limit' => array('course_implementation|*'),
     );
+    $ds_fields['node']['uhc_course_implementation_timetable_help_texts'] = array(
+      'function' => 'uhc_course_implementation_timetable_help_texts',
+      'title' => 'Timetable help texts',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course_implementation|*'),
+    );
   }
   return $ds_fields;
 }
 
 /**
  * Callback for DS field that renders enrollment button.
+ * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202029321
  */
 function uhc_course_implementation_enrollment_button($field) {
   $node = $field['entity'];
@@ -382,6 +452,146 @@ function uhc_course_implementation_enrollment_button($field) {
   );
   global $language;
   return theme('link', array('text' => $label, 'path' => $wrapper->language($language->language)->enrollment_url->value(), 'options' => $options));
+}
+
+/**
+ * Callback for DS field that determines which help texts to show.
+ *
+ * @param $field
+ * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202022322
+ */
+function uhc_course_implementation_timetable_help_texts($field) {
+  $node = $field['entity'];
+
+  /*
+   * @var $drupal_timetable_empty bool
+   *   Does timetable (from Drupal) accordion have any content?
+   */
+  $field_imp_reference_to_events = field_get_items('node', $node, 'field_imp_reference_to_events');
+  $drupal_timetable_empty = !is_array($field_imp_reference_to_events);
+
+  /*
+   * @var $oodi_timetable_empty bool
+   *   Does timetable (from Oodi) accordion have any content?
+   */
+  $field_imp_events_json = field_get_items('node', $node, 'field_imp_events_json');
+  $oodi_timetable_empty = !is_array($field_imp_events_json);
+
+  /*
+   * @var $either_timetable_content bool
+   *   Has either sources timetable content defined?
+   */
+  $either_timetable_content = !$drupal_timetable_empty || !$oodi_timetable_empty;
+
+  /*
+   * @var $schedule_only_from_drupal bool
+   *   If timetable found but only from Drupal, don't show any text
+   */
+  $schedule_only_from_drupal = $oodi_timetable_empty && !$drupal_timetable_empty;
+
+  /*
+   * @var $is_exam bool
+   *   Does current nodes´ method of study belong to exams group?
+   */
+  $exam_tids = variable_get('uhc_migrate_methods_of_study_marked_as_exam', array());
+  $exam_tids = array_unique(array_values($exam_tids));
+  if ($zero = array_search(0, $exam_tids)) {
+    unset($exam_tids[$zero]);
+  }
+  $is_exam = _uhc_course_implementation_has_method_of_study($exam_tids);
+
+  /*
+   * @var $is_electronic_exam_room bool
+   *   Does current node's method of study belong to electronic exam room?
+   */
+  $is_electronic_exam_room = _uhc_course_implementation_viewing_electronic_exam_room();
+
+  $content = '';
+  uhc_course_implementation_help_texts_description($content, $node, $drupal_timetable_empty, $oodi_timetable_empty, $either_timetable_content, $schedule_only_from_drupal, $is_exam, $is_electronic_exam_room);
+  uhc_course_implementation_help_texts_messages($content, $node, $drupal_timetable_empty, $oodi_timetable_empty, $either_timetable_content, $schedule_only_from_drupal, $is_exam, $is_electronic_exam_room);
+
+  return $content;
+}
+
+/**
+ * Populates $content varaible with timetable descripion text that has a
+ * specific logic specified in flowchart.
+ *
+ * @param string &$content
+ * @param object $node
+ * @param bool $drupal_timetable_empty
+ * @param bool $oodi_timetable_empty
+ * @param bool $either_timetable_content
+ * @param bool $schedule_only_from_drupal
+ * @param bool $is_exam
+ * @param bool $is_electronic_exam_room
+ * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202022322
+ */
+function uhc_course_implementation_help_texts_description(&$content, $node, $drupal_timetable_empty, $oodi_timetable_empty, $either_timetable_content, $schedule_only_from_drupal, $is_exam, $is_electronic_exam_room) {
+  global $language;
+
+  // Following loops until $help_text is defined
+  while (!isset($help_text)) {
+
+    // Has user set an specific help text?
+    $field_imp_timetable_additional = field_get_items('node', $node, 'field_imp_timetable_additional', $language->language);
+    if (!empty($field_imp_timetable_additional[0]['safe_value'])) {
+      $help_text = $field_imp_timetable_additional[0]['safe_value'];
+      break;
+    }
+
+    // If this page is elextronic exam room -type, then use specific help text
+    if ($is_electronic_exam_room) {
+      $examinarium_url = variable_get('uhc_course_implementation_timetable_examinarium_url', 'http://blogs.helsinki.fi/examinarium/opiskelijanohjeet/');
+      $help_text = t('Enrol for the exam in WebOodi. Then book your exam time and place in <a href="@url">Examinarium</a> (in Finnish).', array('@url' => $examinarium_url));
+      break;
+    }
+
+    // If has timetable and its not only from Drupal, but it's not an exam...
+    if ($either_timetable_content && !$schedule_only_from_drupal && !$is_exam) {
+      $help_text = t('Here is the course’s teaching schedule. Check the course overview for possible other schedules.');
+      break;
+    }
+
+    // Default/fallback behaviour: Do not show any text
+    $help_text = '';
+    break;
+
+  }
+
+  // Set help text as accordions´ prefix value and wrap it with <p>
+  if (!empty($help_text)) {
+    $content .= '<p class="bar bar--small">' . $help_text . '</p>';
+  }
+}
+
+/**
+ * Populates $content with extra message elements.
+ *
+ * @param string &$content
+ * @param object $node
+ * @param bool $drupal_timetable_empty
+ * @param bool $oodi_timetable_empty
+ * @param bool $either_timetable_content
+ * @param bool $schedule_only_from_drupal
+ * @param bool $is_exam
+ * @param bool $is_electronic_exam_room
+ * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202022322
+ */
+function uhc_course_implementation_help_texts_messages(&$content, $node, $drupal_timetable_empty, $oodi_timetable_empty, $either_timetable_content, $schedule_only_from_drupal, $is_exam, $is_electronic_exam_room) {
+
+  // Set messages
+  // DOO-2021: Show text link for accessability
+  if ($either_timetable_content && !$is_electronic_exam_room) {
+    $content .= '<div class="messages views-system-message status info alternative">' . t('<p><a href="http://www.helsinki.fi/teknos/opetustilat/index.htm">Learn more about the classrooms accessibility and facilities (in Finnish)</a></p>') . '</div>';
+  }
+
+  // DOO-706: When user is staff, let them know that information comes from
+  // Oodi.
+  if (!$oodi_timetable_empty && uh_coursepages_has_staff_role() && !$is_electronic_exam_room) {
+    $content .= '<div class="messages views-system-message status alternative"><p>' . t('These events are imported from WebOodi') . '</p></div>';
+  }
+
 }
 
 /**
@@ -656,6 +866,7 @@ function uhc_course_implementation_display_course_implementation_status_message(
  * Determines whether given node should hide the signup button.
  * @param $node
  * @return bool
+ * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202029321
  */
 function uhc_course_implementation_should_hide_sign_up($node) {
   return uhc_course_collaboration_is_current_user_course_student()
@@ -671,6 +882,7 @@ function uhc_course_implementation_should_hide_sign_up($node) {
  *
  * @param $node
  * @return bool
+ * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202029321
  */
 function uhc_course_implementation_is_organised_by_open_uni($node) {
   $org = field_get_items('node', $node, 'field_imp_course_organiser')[0]['value'];
@@ -682,6 +894,7 @@ function uhc_course_implementation_is_organised_by_open_uni($node) {
  *
  * @param $node
  * @return mixed
+ * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202029321
  */
 function uhc_course_implementation_signup_hidden($node) {
   return field_get_items('node', $node, 'field_imp_hide_sign_up_button')[0]['value'];
@@ -692,6 +905,7 @@ function uhc_course_implementation_signup_hidden($node) {
  *
  * @param $node
  * @return bool
+ * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202029321
  */
 function uhc_course_implementation_enrollment_period_active($node) {
   $enrollment_period_active = FALSE;

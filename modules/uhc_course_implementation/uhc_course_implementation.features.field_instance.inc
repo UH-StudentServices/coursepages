@@ -3392,7 +3392,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 29,
+        'weight' => 2,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3519,12 +3519,8 @@ function uhc_course_implementation_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-        ),
-        'type' => 'text_default',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 4,
       ),
       'sidebar' => array(
@@ -5183,7 +5179,6 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Attach tasks to this course');
   t('Begin date');
   t('Cancelled');
-  t('Canonical URL');
   t('Checked when course implementation is cancelled.');
   t('Content');
   t('Contents');
@@ -5239,7 +5234,6 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Teaching language');
   t('Text');
   t('The default image will always be used if no new image has been uploaded.');
-  t('This is the URL address of this content.');
   t('Timing');
   t('Title');
   t('Title for events added on course page');

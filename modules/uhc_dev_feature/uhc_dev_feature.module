@@ -11,33 +11,46 @@
 include_once 'uhc_dev_feature.features.inc';
 
 /**
+ * Implements hook_permission().
+ */
+function uhc_dev_feature_permission() {
+  return array(
+    'test integration requests' => array(
+      'title' => t('Test integration requests'),
+      'description' => t('Allows user to request integration through testing paths'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
  * Implements hook_menu().
  */
 function uhc_dev_feature_menu() {
   $items['test/course'] = array(
     'page callback' => '_uhc_dev_feature_integration_get_course',
     'delivery callback' => 'drupal_json_output',
-    'access callback' => TRUE,
+    'access arguments' => array('test integration requests'),
   );
   $items['test/course/changes'] = array(
     'page callback' => '_uhc_dev_feature_integration_get_course_changes',
     'delivery callback' => 'drupal_json_output',
-    'access callback' => TRUE,
+    'access arguments' => array('test integration requests'),
   );
   $items['test/implementation'] = array(
     'page callback' => '_uhc_dev_feature_integration_get_course_implementation',
     'delivery callback' => 'drupal_json_output',
-    'access callback' => TRUE,
+    'access arguments' => array('test integration requests'),
   );
   $items['test/implementation/changes'] = array(
     'page callback' => '_uhc_dev_feature_integration_get_course_implementation_changes',
     'delivery callback' => 'drupal_json_output',
-    'access callback' => TRUE,
+    'access arguments' => array('test integration requests'),
   );
   $items['test/teacher/modifyrights'] = array(
     'page callback' => '_uhc_dev_feature_integration_get_teacher_modify_rights',
     'delivery callback' => 'drupal_json_output',
-    'access callback' => TRUE,
+    'access arguments' => array('test integration requests'),
   );
 
   return $items;

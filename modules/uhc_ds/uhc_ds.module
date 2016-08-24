@@ -371,6 +371,11 @@ function uhc_ds_title_and_credit($field) {
   return $title . ', ' . $credit . ' ' . t('cr');
 }
 
+/**
+ * @param $field
+ * @return string
+ * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202029321
+ */
 function uhc_ds_enrollment_period($field) {
   $enrollment_period = '';
   $node = $field['entity'];
@@ -378,7 +383,10 @@ function uhc_ds_enrollment_period($field) {
   $enrollment_begin_date = uhc_ds_get_formatted_date_and_time($node, 'field_imp_enrollment_begin_date');
   $enrollment_end_date = uhc_ds_get_formatted_date_and_time($node, 'field_imp_enrollment_end_date');
 
-  if (!$hide_sign_up_button && (!empty($enrollment_begin_date) || !empty($enrollment_end_date))) {
+  if (!$hide_sign_up_button &&
+    (!empty($enrollment_begin_date) || !empty($enrollment_end_date)) &&
+    !uhc_sources_is_from_organisation($node, 'H930') === TRUE &&
+    !uhc_course_implementation_is_organised_by_open_uni($node)) {
     $enrollment_period = "$enrollment_begin_date - $enrollment_end_date";
   }
 

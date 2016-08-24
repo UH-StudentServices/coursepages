@@ -270,9 +270,9 @@ function uhc_ds_field_group_info() {
     'label' => 'Timetable',
     'weight' => '20',
     'children' => array(
-      0 => 'field_imp_timetable_additional',
-      1 => 'event_reference_block',
-      2 => 'uhc_event_teaching_schedule',
+      0 => 'event_reference_block',
+      1 => 'uhc_event_teaching_schedule',
+      2 => 'uhc_course_implementation_timetable_help_texts',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(

@@ -2366,6 +2366,7 @@ function uhc_content_administration_feature_user_default_permissions() {
   $permissions['override subject published option'] = array(
     'name' => 'override subject published option',
     'roles' => array(
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
       'open university editor' => 'open university editor',
     ),
     'module' => 'override_node_options',

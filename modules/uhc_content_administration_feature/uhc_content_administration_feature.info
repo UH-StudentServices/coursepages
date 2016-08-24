@@ -1,7 +1,7 @@
 name = UHC Content Administration
 core = 7.x
 package = UHC
-version = 7.x-1.71
+version = 7.x-1.72
 project = uhc_content_administration_feature
 dependencies[] = admin_menu
 dependencies[] = admin_views

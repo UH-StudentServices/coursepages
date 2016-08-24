@@ -25,7 +25,7 @@ function uhc_sources_filtering_migrate_method_of_study_settings_form($form, &$fo
   $options = uhc_sources_get_taxonomy_term_options($vocabulary->vid);
   $default_value = variable_get('uhc_migrate_methods_of_study_marked_as_exam', array_keys($options));
 
-  $description = t('Mark which methods of study are exams. These will be excluded from importing from HY backend systems. NOTE: Open university course implementation import ignores this setting.');
+  $description = t('Mark which methods of study are exams. This configuration will affect on migration filtering and schedule display logic in course pages.');
 
   $form['uhc_migrate_methods_of_study_marked_as_exam'] = array(
     '#type' => 'checkboxes',

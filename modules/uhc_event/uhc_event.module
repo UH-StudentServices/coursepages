@@ -108,7 +108,7 @@ function uhc_event_ds_fields_info($entity_type) {
  */
 function uhc_event_teaching_schedule($field) {
   $node = $field['entity'];
-  if (uhc_event_should_use_unstructured_events($node)) {
+  if (uhc_event_should_use_unstructured_events($node) && variable_get('uhc_event_use_unstructured_events', FALSE)) {
     return theme('uhc_event_unstructured_teaching_schedule', array('node' => $node));
   }
   else {

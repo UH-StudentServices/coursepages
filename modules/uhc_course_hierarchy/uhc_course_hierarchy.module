@@ -202,13 +202,21 @@ function uhc_course_hierarchy_get_course_children(stdClass $node) {
     // access, otherwise use previously defined fallback path.
     $items = array();
     foreach ($children as $child) {
-      // If user has no rights to path, then use fallback path
-      $path = node_access('view', $child['node']) ? $child['uri']['path'] : $fallback_path;
-      $items[] = array(
-        'data' => l($child['label'], $path),
-        'class' => uhc_course_hierarchy_get_attributes($child['node']),
-        'children' => uhc_course_hierarchy_get_course_children($child['node']),
-      );
+      // If user has no rights to path and it does not contain grandchildren,
+      // then do not render an link item. See DOO-2338.
+      $access = node_access('view', $child['node']);
+      $grandchildren = uhc_course_hierarchy_get_course_children($child['node']);
+      if ($access || (!is_null($grandchildren) && !$access)) {
+        // When user has no right, but contains grandchildren, then render an
+        // link item, but use fallback path. This item probably may be hided by
+        // CSS styling for grouping reasons.
+        $path = $access ? $child['uri']['path'] : $fallback_path;
+        $items[] = array(
+          'data' => l($child['label'], $path),
+          'class' => uhc_course_hierarchy_get_attributes($child['node']),
+          'children' => $grandchildren,
+        );
+      }
     }
     return $items;
   }

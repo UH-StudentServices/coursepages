@@ -14,7 +14,6 @@ function template_preprocess_uhc_event_structured_teaching_schedule(&$variables)
   $variables['title'] = '';
   $variables['prefix'] = '<div>';
   $variables['suffix'] = '</div>';
-  $variables['messages'] = '';
 
   // Set title and prefix
   if(uhc_event_has_events_from_both_sources($variables['node'])) {
@@ -23,16 +22,6 @@ function template_preprocess_uhc_event_structured_teaching_schedule(&$variables)
   }
   else {
     $variables['prefix'] = '<div class="event-list table-three-columns tube--large">';
-  }
-
-  // Set messages
-  // DOO-2021: Show text link for accessability
-  $variables['messages'] .= '<div class="messages views-system-message status info alternative">' . t('<p><a href="http://www.helsinki.fi/teknos/opetustilat/index.htm">Learn more about the classrooms accessibility and facilities (in Finnish)</a></p>') . '</div>';
-
-  // DOO-706: When user is staff, let them know that information comes from
-  // Oodi.
-  if (uh_coursepages_has_staff_role()) {
-    $variables['messages'] .= '<div class="messages views-system-message status alternative"><p>' . t('These events are imported from WebOodi') . '</p></div>';
   }
 }
 
@@ -52,9 +41,6 @@ function theme_uhc_event_structured_teaching_schedule(&$variables) {
   if (!empty($field_imp_events_json[0]['value'])) {
     $events = json_decode($field_imp_events_json[0]['value']);
     if (json_last_error() == JSON_ERROR_NONE) {
-
-      // Prepend messages before table
-      $content .= $variables['messages'];
 
       // Table header
       $content .= '<span class="event-list-header">';
@@ -120,7 +106,6 @@ function template_preprocess_uhc_event_unstructured_teaching_schedule(&$variable
   $variables['title'] = '';
   $variables['prefix'] = '<div>';
   $variables['suffix'] = '</div>';
-  $variables['messages'] = '';
 
   // Set title and prefix
   if(uhc_event_has_events_from_both_sources($variables['node'])) {
@@ -129,16 +114,6 @@ function template_preprocess_uhc_event_unstructured_teaching_schedule(&$variable
   }
   else {
     $variables['prefix'] = '<div class="event-list table-three-columns tube--large">';
-  }
-
-  // Set messages
-  // DOO-2021: Show text link for accessability
-  $variables['messages'] .= '<div class="messages views-system-message status info alternative">' . t('<p><a href="http://www.helsinki.fi/teknos/opetustilat/index.htm">Learn more about the classrooms accessibility and facilities (in Finnish)</a></p>') . '</div>';
-
-  // DOO-706: When user is staff, let them know that information comes from
-  // Oodi.
-  if (uh_coursepages_has_staff_role()) {
-    $variables['messages'] .= '<div class="messages views-system-message status alternative"><p>' . t('These events are imported from WebOodi') . '</p></div>';
   }
 }
 
@@ -155,7 +130,6 @@ function theme_uhc_event_unstructured_teaching_schedule(&$variables) {
     $content = $variables['prefix'];
     $field_imp_events_raw = field_get_items('node', $node, 'field_imp_events_raw');
     if (!empty($field_imp_events_raw[0]['safe_value'])) {
-      $content .= $variables['messages'];
       $content .= $field_imp_events_raw[0]['safe_value'];
       $content .= $variables['suffix'];
     }

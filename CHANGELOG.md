@@ -1,3 +1,25 @@
+# Helsinki University Cousepages v1.72
+Päiväys: 24.08.2016
+
+## Lisäykset
+  - DOO-2251: Lisättiin oikeudet editorille hallita oppiaine sivujen julkisuutta
+  - DOO-2260: Lisättiin komentotyökalu, jolla voidaan poistaa tilastodataa, joka
+    on muodostunut pääkäyttäjän toimista.
+  - Lisättiin testi integraatiokutsuihin käyttöoikeus tarkistus 
+
+## Muutokset
+  - DOO-2307: Kurssisivun aikataulun oletuskuvausteksti kurssin ollessa akvaariotentti 
+  - DOO-2308: Kurssisivun aikataulun oletuskuvausteksti piiloon kurssin ollessa tentti
+  - DOO-2315: Kurssisivun aikataulun oletuskuvausteksti piiloon jos kurssilla on
+    vain Drupalissa lisätyt kurssit
+  - DOO-2336: Kurssisivun ilmoittautumis ajankohdat piilotetaan kurssisivulta,
+    jotka tulevat avoimelta yliopistolta, mutta eivät ole avoimen yliopiston järjestämiä
+
+## Korjaukset
+  - DOO-2338: Älä näytä kurssihierarkian ei-julkisia kurssilinkkejä, silloin kun
+    niillä ei ole enempää ala-hierarkiaa.
+
+
 # Helsinki University Cousepages v1.71
 Päiväys: 15.08.2016
 
