@@ -130,8 +130,11 @@ function uhc_course_implementation_activity_mece_entity_insert($entity, $entity_
     $field_oodi_uid = field_get_items('user', $sender, 'field_oodi_uid');
     if (!empty($field_oodi_uid[0]['value'])) {
       $response = uhc_avatar_get_avatar_api_response($field_oodi_uid[0]['value']);
-      if ($response) {
+      if (isset($response->avatarImageUrl) && is_string($response->avatarImageUrl)) {
         $notification->setAvatarImageUrl($response->avatarImageUrl);
+      }
+      else {
+        watchdog('uhc_course_implementation_activity_mece', 'Avatar API response did not return avatarImageUrl or it was not an string value. Response: @response', array('@response' => print_r($response, TRUE)), WATCHDOG_ERROR);
       }
     }
 

@@ -1,3 +1,14 @@
+# Helsinki University Cousepages v1.73
+Päiväys: 30.08.2016
+
+## Korjaukset
+  - DOO-2339: Parannettiin virheensietoa viestikeskuksen viestiä muodostaessa,
+    kun verkkosovellus selvittää käyttäjän avatar kuvan URL osoitetta.
+  - DOO-2346: Korjattiin ongelma, jossa kurssien sisäänluvun aikaleima
+    määriteltiin siten, että se mahdollisti käsittelyn aikana muutettujen
+    kurssien päivittämättä jättämisen seuraavassa sisäänluku kierroksessa.
+
+
 # Helsinki University Cousepages v1.72
 Päiväys: 24.08.2016
 

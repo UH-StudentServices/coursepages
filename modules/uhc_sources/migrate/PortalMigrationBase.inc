@@ -11,6 +11,16 @@
 class PortalMigrationBase extends Migration {
 
   /**
+   * Holds timestamp for when import process has started. This is used for
+   * determining when the source was requested last time.
+
+   * @var DateTime $process_started
+   * @see PortalMigrationBase::processImport()
+   * @see PortalMigrationBase::postImport()
+   */
+  protected $process_started;
+
+  /**
    * This holds set of ids to be imported either defined through constructor
    * or by predefined idlist when calling MigrationBase::processImport().
    * @var array $predefined_ids
@@ -106,7 +116,8 @@ class PortalMigrationBase extends Migration {
    */
   public function processImport(array $options = array()) {
 
-    // Keep track of ids we're specifically importing. @see self::postImport()
+    // Keep track of ids we're specifically importing and what time we started
+    // the process. @see self::postImport()
     if (!empty($options['idlist'])) {
       foreach (explode(',', $options['idlist']) as $id) {
         $id = trim($id);
@@ -115,6 +126,7 @@ class PortalMigrationBase extends Migration {
         }
       }
     }
+    $this->process_started = new DateTime();
 
     return parent::processImport($options);
   }
@@ -131,7 +143,9 @@ class PortalMigrationBase extends Migration {
   protected function postImport() {
     parent::postImport();
     if (count($this->predefined_ids) == 0 && $this->getMap()->errorCount() == 0) {
-      $this->setLastRequested();
+      // It is very important to set last requested when starting the process,
+      // not when the process is done. See ticket DOO-2346.
+      $this->setLastRequested($this->process_started);
     }
     // Sort month terms in chronological order
     uhc_taxonomy_sort_month_terms();
