@@ -542,8 +542,8 @@ function uhc_course_implementation_help_texts_description(&$content, $node, $dru
 
     // If this page is elextronic exam room -type, then use specific help text
     if ($is_electronic_exam_room) {
-      $examinarium_url = variable_get('uhc_course_implementation_timetable_examinarium_url', 'http://blogs.helsinki.fi/examinarium/opiskelijanohjeet/');
-      $help_text = t('Enrol for the exam in WebOodi. Then book your exam time and place in <a href="@url">Examinarium</a> (in Finnish).', array('@url' => $examinarium_url));
+      $examinarium_url = variable_get('uhc_course_implementation_timetable_examinarium_url_' . $language->language, '/');
+      $help_text = t('Enrol for the exam in WebOodi. Then book your exam time and place in <a href="@url">Examinarium</a>.', array('@url' => $examinarium_url));
       break;
     }
 

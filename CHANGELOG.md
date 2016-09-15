@@ -1,3 +1,24 @@
+# Helsinki University Cousepages v1.74
+Päiväys: 07.09.2016
+
+## Lisäykset
+  - DOO-2346: Lisättiin 5 sekunnin vähennys aikaleimaan kurssimuutoksia
+    haettaessa.
+  - DOO-2323: Lisättiin moduuli, jolla voidaan määrittää viesti monikielisesti
+    ja settings.php:ssa varoittamaan käytössä olevasta ympäristöstä.
+  - DOO-2318: Korotettiin PHP:n muistirajaa kun ollaan admin käyttöliittymässä.
+
+## Muutokset
+  - DOO-2337: Päivitettiin MECE-PHP ja UH Mece moduuli uusimpiin versioihin,
+    joissa on uuden linkki attribuutti nimenmuutos otettu huomioon.
+  - DOO-2361: Päivitettiin Examinariumin URL:t monikielisiksi ja muutettiin
+    hieman englannin ja ruotsin tekstiä.
+  - DOO-1357: Käyttäjän avatar linkitetty opintoni-palveluun käyttäjäroolin mukaan.
+
+## Korjaukset
+  - DOO-2162: Piilotettiin header ja footer "node add" lomakkeesta jotta painikkeet eivät menisi piiloon footerin alle.
+
+
 # Helsinki University Cousepages v1.73
 Päiväys: 30.08.2016
 

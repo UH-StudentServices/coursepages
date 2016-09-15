@@ -14,3 +14,11 @@
 function uhc_statistics_update_7001(&$sandbox) {
   module_enable(array('shs'));
 }
+
+/**
+ * Enable and configure Page Memory Limit module.
+ */
+function uhc_statistics_update_7002(&$sandbox) {
+  module_enable(array('page_memory_limit'));
+  variable_set('page_memory_limit', array('<admin>' => '512M'));
+}

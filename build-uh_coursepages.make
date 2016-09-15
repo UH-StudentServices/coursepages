@@ -220,6 +220,8 @@ projects[conditional_fields][version] = 3.0-alpha2
 
 projects[field_extrawidgets][version] = 1.1
 
+projects[page_memory_limit][version] = 1.2
+
 ; Themes
 
 projects[omega][subdir] = "omega"
@@ -282,4 +284,4 @@ projects[uh_mece][type] = module
 projects[uh_mece][download][type] = git
 projects[uh_mece][download][url] = "git://github.com/UH-StudentServices/uh-mece.git"
 projects[uh_mece][download][branch] = 7.x-1.x
-projects[uh_mece][download][revision] = 970720544859ff6753231c1842d0887ce4fd422c
+projects[uh_mece][download][revision] = d31cd76ca36c3f8540d75f200e43b84aeb02cbd5

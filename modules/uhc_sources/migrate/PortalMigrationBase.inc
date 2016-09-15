@@ -63,6 +63,10 @@ class PortalMigrationBase extends Migration {
    * used for constructing list url when fetching for changes from previous
    * request.
    *
+   * If Drupal variable 'uhc_sources_last_requested_modify' is set, this method
+   * will modify the timestamp by that value against the last requested
+   * timestamp before returning the value.
+   *
    * @return DateTime|null
    */
   protected function getLastRequested() {
@@ -71,6 +75,10 @@ class PortalMigrationBase extends Migration {
       // Convert to DateTime from unix timestamp
       $last_requested = new DateTime();
       $last_requested->setTimestamp($last_requested_timestamp);
+      $modify = variable_get('uhc_sources_last_requested_modify', '-5 sec');
+      if (!empty($modify)) {
+        $last_requested->modify($modify);
+      }
     }
     else {
       // No last imported timestamp. Then return default value which is decided

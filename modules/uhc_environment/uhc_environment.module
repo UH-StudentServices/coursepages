@@ -1,0 +1,62 @@
+<?php
+/**
+ * @file
+ * Drupal module implementaiton for the UHC Environment.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_page_build().
+ *
+ * Almost all this implementation is copied over originally from site status
+ * message implementation.
+ *
+ * @see site_status_message_page_build()
+ */
+function uhc_environment_page_build(&$page) {
+  $site_status_message = trim(variable_get('site_status_message_message', NULL));
+  $environment_message = trim(variable_get('uhc_environment_message', NULL));
+  if (empty($site_status_message) && !empty($environment_message)) {
+    // Only trigger if original site status message is not set and environment
+    // message is set.
+    $variables = array();
+    $variables['message'] = t($environment_message, array('@url' => uhc_environment_get_url()));
+    $variables['link'] = '';
+    $page['page_top']['site_status_message'] = array(
+      '#type'   => 'markup',
+      '#markup' => theme('site_status_message', $variables),
+      '#attached' => array(
+        'css' => array(
+          drupal_get_path('module', 'site_status_message') . '/css/site_status_message.css',
+        ),
+      ),
+      '#access' => user_access('access content'),
+    );
+  }
+}
+
+/**
+ * Return correct production URL of the current section in right language.
+ */
+function uhc_environment_get_url() {
+  global $language;
+  $contexts = context_active_contexts();
+  if (array_key_exists('open_university_header_and_footer', $contexts)) {
+    $url = array(
+      'fi' => 'https://courses.helsinki.fi/fi/open-university',
+      'sv' => 'https://courses.helsinki.fi/sv/open-university',
+      'en' => 'https://courses.helsinki.fi/open-university',
+    );
+  }
+  else {
+    $url = array(
+      'fi' => 'https://courses.helsinki.fi/fi/search',
+      'sv' => 'https://courses.helsinki.fi/sv/search',
+      'en' => 'https://courses.helsinki.fi/search',
+    );
+  }
+  return !empty($url[$language->language]) ? $url[$language->language] : '';
+}

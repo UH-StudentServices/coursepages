@@ -53,6 +53,7 @@ function uhc_doo_theme_features_context_default_contexts() {
     'path' => array(
       'values' => array(
         '~node/*/edit' => '~node/*/edit',
+        '~node/add/*' => '~node/add/*',
       ),
     ),
   );
@@ -98,6 +99,7 @@ function uhc_doo_theme_features_context_default_contexts() {
     'path' => array(
       'values' => array(
         '~node/*/edit' => '~node/*/edit',
+        '~node/add/*' => '~node/add/*',
       ),
     ),
   );
@@ -126,7 +128,7 @@ function uhc_doo_theme_features_context_default_contexts() {
           'module' => 'uhc_avatar',
           'delta' => 'avatar_block',
           'region' => 'menu_bar',
-          'weight' => '-99',
+          'weight' => '-36',
         ),
       ),
     ),
