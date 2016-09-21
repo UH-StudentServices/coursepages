@@ -644,6 +644,34 @@ function uhc_course_implementation_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_manual_content|field_collection_item|field_imp_teachersection|default';
+  $field_group->group_name = 'group_manual_content';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_imp_teachersection';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Custom section',
+    'weight' => '0',
+    'children' => array(
+      0 => 'field_imp_teachersection_content',
+      1 => 'field_imp_teachersection_label',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'label' => 'Custom section',
+      'instance_settings' => array(
+        'classes' => 'group-manual-content field-group-accordion-item',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_manual_content|field_collection_item|field_imp_teachersection|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_manual_content|node|course_implementation|default';
   $field_group->group_name = 'group_manual_content';
   $field_group->entity_type = 'node';
@@ -689,7 +717,8 @@ function uhc_course_implementation_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 0,
         'classes' => 'group-manual-content field-group-tab',
-        'description' => 'Add your own section with its own label',
+        'description' => 'Add your own sections with their own labels.',
+        'show_empty_fields' => 0,
       ),
       'formatter' => 'closed',
     ),

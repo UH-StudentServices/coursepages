@@ -333,9 +333,96 @@ function uhc_course_implementation_activity_node_update($node) {
   // machine name may be confusing due to legacy usage.
   _uhc_course_implementation_activity_track_field_value_update($node, 'field_imp_teacher_se_content', 'course_implementation_course_conduct');
 
+  // track moodle link and key
+  _uhc_course_implementation_activity_track_field_value_update($node, 'field_moodle_url', 'course_implementation_moodle_link');
+  _uhc_course_implementation_activity_track_field_value_update($node, 'field_moodle_key', 'course_implementation_moodle_key');
+
   // Keep track of these statistics
   _uhc_course_implementation_activity_track_update_statistics($node, 'course_implementation_update_statistics');
   _uhc_course_implementation_activity_track_private_statistics($node, 'course_implementation_private_statistics');
+
+  // track video section
+  _uhc_course_implementation_activity_track_section($node, array('field_video_description', 'field_video_embed_url', 'field_video_link'), 'course_implementation_video');
+
+  // track interaction section
+  _uhc_course_implementation_activity_track_section($node, array('field_imp_interactiondescription', 'field_imp_interaction_link'), 'course_implementation_interaction');
+
+  // track feedback section
+  _uhc_course_implementation_activity_track_section($node, array('field_feedback_description', 'field_feedback_link'), 'course_implementation_feedback');
+
+  // track introduction section
+  _uhc_course_implementation_activity_track_section($node, array('field_imp_header_headline', 'field_field_imp_header_intro_tex', 'field_imp_header_text'), 'course_implementation_introduction');
+
+}
+
+/**
+ * function for tracking modifications in sections with multiple fields in
+ * course implementations.
+ *
+ * @param $node
+ * @param $fields array fields included in the section
+ * @param $message_type_prefix string Message type prefix (such as
+ *   "course_implementation_video")
+ */
+function _uhc_course_implementation_activity_track_section($node, $fields, $message_type_prefix) {
+  if ($node->type == 'course_implementation') {
+    $original = $node->original;
+    $original_section_empty = TRUE;
+    $updated_section_empty = TRUE;
+
+    // check if section is empty in original node
+    foreach ($fields as $field_name) {
+      if ($original->$field_name) {
+        $original_section_empty = FALSE;
+        break;
+      }
+    }
+
+    // check if section is empty in updated node
+    foreach ($fields as $field_name) {
+      if ($node->{$field_name}[LANGUAGE_NONE]) {
+        $updated_section_empty = FALSE;
+        break;
+      }
+    }
+
+    // check if section is created
+    if (!$updated_section_empty && $original_section_empty) {
+      $message_type = $message_type_prefix . '_create';
+    }
+
+    // check if section is removed
+    else if (!$original_section_empty && $updated_section_empty) {
+      $message_type = $message_type_prefix .'_remove';
+    }
+
+    // check if section is updated
+    else {
+      foreach ($fields as $field_name) {
+        $created = _uhc_course_implementation_activity_field_value_created($node, $field_name);
+        $updated = _uhc_course_implementation_activity_field_value_updated($node, $field_name);
+        $removed = _uhc_course_implementation_activity_field_value_removed($node, $field_name);
+        $modified = $created || $updated || $removed;
+
+        if ($modified) {
+          $message_type = $message_type_prefix . '_update';
+          break;
+        }
+      }
+    }
+
+    // create message
+    if (isset($message_type)) {
+      global $user;
+      $account = user_load($user->uid);
+      $message = message_create($message_type, array(), $account);
+      $wrapper = entity_metadata_wrapper('message', $message);
+      if (isset($wrapper->field_message_ref_to_course_imp)) {
+        $wrapper->field_message_ref_to_course_imp->set($node);
+        $wrapper->save();
+      }
+    }
+  }
 }
 
 /**
@@ -819,11 +906,11 @@ function _uhc_course_implementation_activity_track_field_value_update($node, $fi
     if ($created) {
       $message_type = $message_type_prefix . '_create';
     }
-    elseif ($updated) {
-      $message_type = $message_type_prefix . '_update';
-    }
     elseif ($removed) {
       $message_type = $message_type_prefix .'_remove';
+    }
+    elseif ($updated) {
+      $message_type = $message_type_prefix . '_update';
     }
 
     // When modification has been done and message type determined, then create
@@ -850,22 +937,37 @@ function _uhc_course_implementation_activity_track_field_value_update($node, $fi
  *   Returns TRUE when value has been created. FALSE if it has not.
  */
 function _uhc_course_implementation_activity_field_value_created($node, $field_name) {
-  return !empty($node->{$field_name}[LANGUAGE_NONE][0]['value'])
-    && empty($node->original->{$field_name}[LANGUAGE_NONE][0]['value']);
+  return !empty($node->{$field_name}[LANGUAGE_NONE])
+    && empty($node->original->{$field_name}[LANGUAGE_NONE]);
 }
 
 /**
- * Helper function for identifying whether the value has been updated/changed.
+ * Helper function for identifying whether the value/values have been updated/changed.
  *
  * @param $node
  * @param $field_name
  * @return bool
- *   Returns TRUE when given field value has been updated/changed.
+ *   Returns TRUE when given field value/values have been updated/changed.
  */
 function _uhc_course_implementation_activity_field_value_updated($node, $field_name) {
-  return !empty($node->{$field_name}[LANGUAGE_NONE][0]['value'])
-    && !empty($node->original->{$field_name}[LANGUAGE_NONE][0]['value'])
-    && $node->{$field_name}[LANGUAGE_NONE][0]['value'] != $node->original->{$field_name}[LANGUAGE_NONE][0]['value'];
+  $relevant_keys = array('title' => '', 'url' => '', 'value' => '');
+  $compare_values = array('updated' => array(), 'original' => array());
+  $nodes = array('updated' => $node, 'original' => $node->original);
+
+  // $node and $node->original are not easily comparable unless we remove some keys, do some sorting, and flatten the arrays
+  foreach ($nodes as $node_key => $node) {
+    if (isset($node->{$field_name}[LANGUAGE_NONE])) {
+      foreach ($node->{$field_name}[LANGUAGE_NONE] as $values) {
+        ksort($values);
+        foreach ($values as $key => $value) {
+          if (array_key_exists($key, $relevant_keys) && $value != NULL) {
+            $compare_values[$node_key][] = $value;
+          }
+        }
+      }
+    }
+  }
+  return array_diff($compare_values['original'], $compare_values['updated']) || array_diff($compare_values['updated'], $compare_values['original']);
 }
 
 /**
@@ -877,8 +979,8 @@ function _uhc_course_implementation_activity_field_value_updated($node, $field_n
  *   Returns TRUE if given field value has been removed.
  */
 function _uhc_course_implementation_activity_field_value_removed($node, $field_name) {
-  return empty($node->{$field_name}[LANGUAGE_NONE][0]['value'])
-    && !empty($node->original->{$field_name}[LANGUAGE_NONE][0]['value']);
+  return empty($node->{$field_name}[LANGUAGE_NONE])
+    && !empty($node->original->{$field_name}[LANGUAGE_NONE]);
 }
 
 /**

@@ -58,6 +58,7 @@ function uhc_course_implementation_inline_entity_form_entity_form_alter(&$entity
     $label = t('Add material');
     $entity_form['#title'] = $label;
     $entity_form['actions']['ief_add_save']['#value'] = $label;
+    $entity_form['actions']['ief_edit_save']['#value'] = isset($entity_form['actions']['ief_edit_save']) ? t('Save') : NULL;
   }
   elseif ($entity_form['#bundle'] == 'course_task') {
     $label = t('Add task');
@@ -135,11 +136,6 @@ function uhc_course_implementation_get_course_administrator_numbers($node) {
  */
 function uhc_course_implementation_field_group_build_pre_render_alter(&$element) {
 
-  // When rendering course tasks
-  if (isset($element['group_course_task_material']['#prefix']) && !empty($element['field_reference_to_course_tasks'])) {
-    _uhc_course_implementation_handle_tasks_accordion_processing($element);
-  }
-
   // When rendering description objectives...
   $node_view = arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL;
   $node = node_load(arg(1));
@@ -208,14 +204,6 @@ function _uhc_course_implementation_hide_timetable_accordion_from_oodi(&$element
 }
 
 /**
- * Helper function that adds help text for tasks.
- * @param $element
- */
-function _uhc_course_implementation_handle_tasks_accordion_processing(&$element) {
-  $element['group_course_task_material']['#prefix'] .= '<p class="bar bar--small">' . t('In this section you can find the course tasks.') . '</p>';
-}
-
-/**
  * Helper function that renders help texts and legends for fields.
  * @param $element
  */
@@ -265,17 +253,10 @@ function uhc_course_implementation_field_group_pre_render_alter(&$element, $grou
     $element['#prefix'] = str_replace('h3 class="', 'h3 class="print-hidden ', $element['#prefix']);
   }
 
-  // Reconstruct whole prefix when rendering manual content and a file has been
-  // uploaded.
-  $fid = isset($element['field_imp_teachersection']['#items'][0]['value']) ? $element['field_imp_teachersection']['#items'][0]['value'] : NULL;
-  if ($group->group_name == 'group_manual_content' && $fid) {
-    // let's fetch the label
-    $field_collection = field_collection_item_load($fid);
-    $label_field = field_get_items('field_collection_item', $field_collection, 'field_imp_teachersection_label');
-    $label = field_view_value('field_collection_item', $field_collection, 'field_imp_teachersection_label', $label_field[0]);
-
+  // Use custom section labels as custom section accordion titles
+  if ($group->group_name == 'group_manual_content') {
     // We need to reconstruct the whole prefix in order to change the label
-    $element['#prefix'] = '<h3 class="field-group-format-toggler ' . $group->format_type . ($group->collapsed ? '' : ' field-group-accordion-active') . '"><a href="#">' . render($label) . '</a></h3><div class="field-group-format-wrapper ' . $group->classes . '">';
+    $element['#prefix'] = '<h3 class="field-group-format-toggler ' . $group->format_type . ($group->collapsed ? '' : ' field-group-accordion-active') . '"><a href="#">' . render($element['field_imp_teachersection_label']) . '</a></h3><div class="field-group-format-wrapper ' . $group->classes . '">';
   }
 }
 

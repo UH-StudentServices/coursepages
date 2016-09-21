@@ -1,16 +1,19 @@
-.view-statistics .container-inline-date {
-  display: inline-block;
+.view-statistics .container-inline-date .description,
+.view-statistics .container-inline-date .form-item > label[for=edit-timestamp-max] {
+	display: none;
 }
 
-.view-statistics .container-inline-date .form-item .form-item label {
-  display: none;
+.view-statistics .container-inline-date,
+.view-statistics .views-exposed-widget  .views-widget > div {
+	display: inline-block;
 }
 
-.view-statistics .container-inline-date > .form-item > label {
-  float: left;
-  margin-right: 12px;
+.views-exposed-widget {
+	display: inline-block;
+	vertical-align: bottom;
+	float: none !important;
 }
 
-.view-statistics .container-inline-date .form-item {
-  padding: 0;
+.views-exposed-widget .form-item {
+	padding: 0 !important;
 }

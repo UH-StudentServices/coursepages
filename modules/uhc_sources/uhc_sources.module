@@ -252,7 +252,7 @@ function _uhc_sources_get_json_object($course_imp_id) {
     $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
 
     // Fetch contents and JSON decode
-    $response = drupal_http_request($item_url);
+    $response = drupal_http_request($item_url, array('timeout' => 5.0));
     if ($response->code != 200) {
       // Failed to connect and get the contents :(
       watchdog('uhc_sources', 'Failed to request @url as response reports HTTP @code, @response', array(

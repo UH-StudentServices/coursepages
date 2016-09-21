@@ -4,17 +4,38 @@
  * @see README.md how to contribute to this project
  */
 (function ($) {
-  Drupal.behaviors.uhc_moodi_copy_moodle_url = {
+
+  // Function: Get URL parameter value by name. If the parameter exists, but
+  // has no value, return true. Otherwise return false.
+  var getUrlParameter = function getUrlParameter(parameter) {
+    var pageUrl = decodeURIComponent(window.location.search.substring(1));
+    var urlParameters = pageUrl.split('&');
+    var parameterName;
+    var i;
+
+    for (i = 0; i < urlParameters.length; i++) {
+      parameterName = urlParameters[i].split('=');
+
+      if (parameterName[0] === parameter) {
+        return parameterName[1] === undefined ? true : parameterName[1];
+      }
+    }
+
+    return false;
+  };
+
+  // Saves the Moodle URL to the course implementation, if the URL is present
+  // as a hidden form input (set by the Moodi integration) and if the URL
+  // parameter indicates a successful completion of Moodi create request.
+  Drupal.behaviors.uhc_moodi_save_moodle_url_on_moodi_create = {
     attach: function (context) {
       $(function() {
-        $('#edit-uhc-moodi-copy-url-link a').click(function(e) {
-          e.preventDefault();
-          var moodi_moodle_url = $('input[name=moodi_moodle_url]').val();
+        var moodi_moodle_url = $('input[name=moodi_moodle_url]').val();
 
-          if (moodi_moodle_url) {
-            $('#edit-field-moodle-url-und-0-url').val(moodi_moodle_url);
-          }
-        });
+        if (getUrlParameter('moodi_creation_successful') && moodi_moodle_url) {
+          $('#edit-field-moodle-url-und-0-url').val(moodi_moodle_url);
+          $('#edit-submit2').click();
+        }
       });
     }
   }

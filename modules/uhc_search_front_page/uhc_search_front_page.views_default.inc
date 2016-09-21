@@ -99,12 +99,6 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['header']['result']['field'] = 'result';
   $handler->display->display_options['header']['result']['content'] = '<h2>Results (@total)</h2>';
   /* Header: Global: Block area */
-  $handler->display->display_options['header']['block_5']['id'] = 'block_5';
-  $handler->display->display_options['header']['block_5']['table'] = 'views';
-  $handler->display->display_options['header']['block_5']['field'] = 'block';
-  $handler->display->display_options['header']['block_5']['label'] = 'Subject';
-  $handler->display->display_options['header']['block_5']['block_to_insert'] = 'facetapi:hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX';
-  /* Header: Global: Block area */
   $handler->display->display_options['header']['block_3']['id'] = 'block_3';
   $handler->display->display_options['header']['block_3']['table'] = 'views';
   $handler->display->display_options['header']['block_3']['field'] = 'block';
@@ -470,7 +464,6 @@ function uhc_search_front_page_views_default_views() {
     t('next ›'),
     t('last »'),
     t('<h2>Results (@total)</h2>'),
-    t('Subject'),
     t('Organisation'),
     t('Method of study'),
     t('Start month'),

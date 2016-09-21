@@ -1,7 +1,7 @@
 name = UHC Course
 core = 7.x
 package = UHC
-version = 7.x-1.74
+version = 7.x-1.75
 project = uhc_course
 dependencies[] = ctools
 dependencies[] = entity_token
@@ -20,6 +20,7 @@ dependencies[] = text
 dependencies[] = title
 dependencies[] = token
 dependencies[] = uhc_course_implementation
+dependencies[] = uhc_course_implementation_inherited_fields
 dependencies[] = uhc_field_base
 dependencies[] = uhc_sources
 dependencies[] = uhc_taxonomy

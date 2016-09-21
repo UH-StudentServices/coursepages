@@ -167,6 +167,27 @@ function uhc_statistics_views_default_views() {
   );
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Content: Begin date (field_imp_begin_date) */
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['identifier'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
 
   /* Display: Created */
   $handler = $view->new_display('page', 'Created', 'page');
@@ -259,6 +280,27 @@ function uhc_statistics_views_default_views() {
   );
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Content: Begin date (field_imp_begin_date) */
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['identifier'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
   $handler->display->display_options['path'] = 'admin/statistics/created';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Course Implementations Created';
@@ -372,6 +414,27 @@ function uhc_statistics_views_default_views() {
   );
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Content: Begin date (field_imp_begin_date) */
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['identifier'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
   $handler->display->display_options['path'] = 'admin/statistics/created/export';
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
@@ -466,6 +529,27 @@ function uhc_statistics_views_default_views() {
   );
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Content: Begin date (field_imp_begin_date) */
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['identifier'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
   $handler->display->display_options['path'] = 'admin/statistics/moodle';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Course Implementations With Moodle';
@@ -607,6 +691,27 @@ function uhc_statistics_views_default_views() {
   );
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Content: Begin date (field_imp_begin_date) */
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['identifier'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
   $handler->display->display_options['path'] = 'admin/statistics/private';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Course Implementations With Restricted Content';
@@ -726,6 +831,27 @@ function uhc_statistics_views_default_views() {
   );
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Content: Begin date (field_imp_begin_date) */
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['identifier'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
   $handler->display->display_options['path'] = 'admin/statistics/private/export';
   $handler->display->display_options['displays'] = array(
     'page_2' => 'page_2',
@@ -892,6 +1018,27 @@ function uhc_statistics_views_default_views() {
     6 => 0,
     7 => 0,
   );
+  /* Filter criterion: Content: Begin date (field_imp_begin_date) */
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['identifier'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
   $handler->display->display_options['path'] = 'admin/statistics/edits';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Course Implementations edited';
@@ -1083,6 +1230,27 @@ function uhc_statistics_views_default_views() {
     6 => 0,
     7 => 0,
   );
+  /* Filter criterion: Content: Begin date (field_imp_begin_date) */
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['identifier'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
   $handler->display->display_options['path'] = 'admin/statistics/edited/export';
   $handler->display->display_options['displays'] = array(
     'page_3' => 'page_3',
@@ -1114,6 +1282,7 @@ function uhc_statistics_views_default_views() {
     t('Keywords (field_imp_keywords)'),
     t('Keyword'),
     t('Organisation'),
+    t('Begin date (between)'),
     t('Created'),
     t('Course Implementations Created'),
     t('Data export - Created'),

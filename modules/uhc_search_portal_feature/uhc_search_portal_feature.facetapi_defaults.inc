@@ -88,7 +88,7 @@ function uhc_search_portal_feature_facetapi_default_facet_settings() {
   $facet->enabled = FALSE;
   $facet->settings = array(
     'operator' => 'or',
-    'hard_limit' => '50',
+    'hard_limit' => '-1',
     'dependencies' => array(
       'facets' => array(),
       'force_deactivation' => TRUE,
@@ -606,17 +606,17 @@ function uhc_search_portal_feature_facetapi_default_facet_settings() {
       'indexed' => 0,
     ),
     'sort_weight' => array(
+      'display' => '-50',
       'active' => '-49',
       'count' => '-48',
-      'display' => '-50',
       'taxonomy_weight' => '-47',
       'natural' => '-46',
       'indexed' => '-45',
     ),
     'sort_order' => array(
+      'display' => '4',
       'active' => '3',
       'count' => '3',
-      'display' => '4',
       'taxonomy_weight' => '4',
       'natural' => '4',
       'indexed' => '4',
@@ -624,7 +624,7 @@ function uhc_search_portal_feature_facetapi_default_facet_settings() {
     'empty_behavior' => 'none',
     'facet_more_text' => 'Show more',
     'facet_fewer_text' => 'Show fewer',
-    'soft_limit' => '20',
+    'soft_limit' => '0',
     'nofollow' => 1,
     'show_expanded' => 0,
     'exclude' => '',

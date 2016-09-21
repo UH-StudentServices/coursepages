@@ -47,12 +47,15 @@ function uhc_statistics_page() {
  * Add date popup for timestamp exposed filter
  */
 function uhc_statistics_form_views_exposed_form_alter(&$form, $form_state, $form_id) {
-  if ($form['#id'] == 'views-exposed-form-statistics-page-3') {
+  $statistics_view = strpos($form['#id'], 'views-exposed-form-statistics');
+  if ($statistics_view !== false) {
     drupal_add_css(drupal_get_path('module', 'uhc_statistics') . '/css/uhc_statistics.css', array('group' => CSS_THEME, 'type' => 'file'));
-    foreach($form['timestamp'] as &$timestamp_element) {
-      if (is_array($timestamp_element)) {
-        $timestamp_element['#type'] = 'date_popup';
-        $timestamp_element['#date_format'] = 'd.m.Y';
+    if (isset($form['timestamp'])) {
+      foreach($form['timestamp'] as &$timestamp_element) {
+        if (is_array($timestamp_element)) {
+          $timestamp_element['#type'] = 'date_popup';
+          $timestamp_element['#date_format'] = 'd.m.Y';
+        }
       }
     }
   }

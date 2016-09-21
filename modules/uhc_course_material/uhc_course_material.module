@@ -201,7 +201,7 @@ function uhc_course_material_inline_entity_form_entity_form_alter(&$entity_form,
     // TODO: Refactor material form for better usability. Disabled Finna links until then
     $entity_form['field_material_publication_year']['#access'] = FALSE;
     $entity_form['field_material_show_finna_link']['#access'] = FALSE;
-    $entity_form['#element_validate'][] = 'uhc_course_material_publication_year_validate';
+    //$entity_form['#element_validate'][] = 'uhc_course_material_publication_year_validate';
   }
 }
 
@@ -210,6 +210,7 @@ function uhc_course_material_inline_entity_form_entity_form_alter(&$entity_form,
  * the material is a link to Finna.
  */
 function uhc_course_material_publication_year_validate($form, &$form_state) {
+  /* TODO: Fix if we ever start using it. right now it's broken and is the cause for DOO-2393
   $ief = &$form_state['values']['field_section_material'][LANGUAGE_NONE]['form'];
   if (!$ief) {
     // This is an edit form so the IEF structure is completely different. Find the IEF form
@@ -230,6 +231,7 @@ function uhc_course_material_publication_year_validate($form, &$form_state) {
   if ($year && is_numeric($year) && strlen((string)$year) != 4) {
     form_error($form, t('The publication year must be entered in YYYY format.'));
   }
+  */
 }
 
 /**

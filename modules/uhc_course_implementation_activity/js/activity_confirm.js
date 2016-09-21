@@ -12,14 +12,16 @@
 
       // lets link each message type to the correct accordion item when clicked
       $.each(sections, function(index, section) {
-        $('.activity li.' + section.messageType).click(function(){
-          if (!$(section.targetAccordion).prev().hasClass('is-active')) {
-            $(section.targetAccordion).prev().children('a').click();
-          }
-          $('html, body').animate({
-            scrollTop: $(section.targetAccordion).offset().top - 55
-          }, 500);
-        });
+        if (section.targetAccordion) {
+          $('.activity li.' + section.messageType).click(function(){
+            if (!$(section.targetAccordion).prev().hasClass('is-active')) {
+              $(section.targetAccordion).prev().children('a').click();
+            }
+            $('html, body').animate({
+              scrollTop: $(section.targetAccordion).offset().top - 55
+            }, 500);
+          });
+        }
       });
 
       $('.activity').click(function(){
@@ -40,6 +42,10 @@
             $.cookie('uhc_activity_last_visited', Drupal.settings.uhc_course_implementation_activity.time, { expires: 7, path: value + path });
           });
 
+          // if cookie is not set for some reason like IE11 if path is set, add cookie for this language version only, better than nothing
+          if (!$.cookie('uhc_activity_last_visited') || $.cookie('uhc_activity_last_visited') < Drupal.settings.uhc_course_implementation_activity.time) {
+            $.cookie('uhc_activity_last_visited', Drupal.settings.uhc_course_implementation_activity.time, { expires: 7 });
+          }
           updateActivityCount();
         }
       });

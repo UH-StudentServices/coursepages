@@ -1,3 +1,46 @@
+# Helsinki University Cousepages v1.75
+Päiväys: 15.09.2016
+
+## Lisäykset
+  - DOO-2380: Kaikissa ympäristöissä paitsi tuotannossa; tullaan korvaamaan
+    päivitystä ajettaessa aina robots.txt, jossa pyydetää hakukoneita olemaan
+    indeksoimatta.
+  - DOO-2289: Lisätty aktiviteettiviestit video-osion muutoksista.
+  - DOO-2288: Lisätty aktiviteettiviestit vuorovaikutus-osion muutoksista.
+  - DOO-2286: Lisätty aktiviteettiviestit moodle-linkin ja kurssiavaimen muutoksista.
+  - DOO-2287: Lisätty aktiviteettiviestit palaute-osion muutoksista.
+  - DOO-2265: Lisätty aktiviteettiviestit esittelytekstin muutoksista.
+  - DOO-2378: Lisätty mahdollisuus lisätä useampia lisäosioita toteutukseen.
+  - DOO-2359: Lisätty mahdollisuus suodattaa statistiikkaa toteutuksen alkamispäivämäärän mukaan.
+
+## Muutokset
+  - DOO-2377: Lisätään Moodle-linkki kurssisivulle automaattisesti sen jälkeen
+    kun uusi alue on luotu Moodi-napilla. Poistettiin linkin kopiointipainike.
+  - DOO-2326: Kurssinostoissa toteutuksia haetaan jakson numeron mukaan.
+  - DOO-2392: Piilotettiin integraatiovälilehti muilta kuin admin-käyttäjältä.
+    Piilotettiin ilmoittautumisvälilehti muilta kuin admin- ja editorkäyttäjiltä.
+  - DOO-2403: Näytetään tiedekuntasuodattimessa kaikki suodatinarvot (ei rajata
+    näytettävien lukumäärää).
+  - DOO-2407: Muutettu materiaalin muokkauslomakkeen tallennuspainikkeen otsikko.
+  - DOO-2410: Aikatauluhaitari on nyt aina oletuksena avattuna.
+
+## Korjaukset
+  - DOO-2389: Korjattiin/palautettiin toiminnallisuus, jossa jaksoa päivittäessä
+    kaikki sen toteutukset päivitetään myös (mikäli ovat aktiivisen tai tulevan
+    lukuvuoden alkavia toteutuksia).
+  - DOO-2375: Notifikaatioiden ilmoituskello ei nollaudu (IE11)
+  - DOO-2393: Korjattu bugi joka estää kurssimateriaalin otsikon päivityksen.
+  - DOO-2049: Oppiainesivujen suodattimista poistettu chosen JS käytöstä kaikilla mobiililaitteilla.
+
+## Poistot
+  - DOO-2374: Poistettiin tehtävähaitarin (Tasks) automaattinen kuvausteksti
+  - DOO-2430: Poistettiin oppiainesuodatin etusivun hausta, sillä sen sisältö
+    on Oodin tasolla puutteellista ja siten harhaanjohtavaa.
+
+## Päivitykset
+  - DOO-2379: Päivitettiin Views versioon v3.14 ja CTools versioon v1.10
+
+
 # Helsinki University Cousepages v1.74
 Päiväys: 07.09.2016
 

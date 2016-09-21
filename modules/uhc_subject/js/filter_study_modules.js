@@ -7,6 +7,14 @@
   Drupal.behaviors.uhc_subject_filter_study_modules = {
     attach: function (context, settings) {
 
+      var mobile = false;
+      var mobileUserAgents = ['Android', 'iPad', 'iPhone', 'iPod', 'Windows Phone'];
+      mobileUserAgents.forEach(function(userAgent) {
+        if (RegExp(userAgent, 'i').test(navigator.userAgent)) {
+          mobile = true;
+        }
+      });
+
       var select_element = Drupal.settings.uhc_subject_filter_study_modules.select_element;
       var nodes_to_filter = Drupal.settings.uhc_subject_filter_study_modules.nodes_to_filter;
       var fields_to_filter = Drupal.settings.uhc_subject_filter_study_modules.fields_to_filter;
@@ -74,30 +82,33 @@
         });
 
         // enable chosen
-        element.chosen({
-          display_selected_options: false,
-          inherit_select_classes: true,
-          placeholder_text_multiple: placeholder,
-        });
-
-        // add titles and make them open the chosen drop
-        if (element.next('.chosen-container').length) {
-          element.next('.chosen-container').prepend('<h2 class="block__title">' + field_title + '</h2>').click(function() {
-            $(this).prev(element).trigger('chosen:updated');
+        if (mobile == false) {
+          element.chosen({
+            display_selected_options: false,
+            inherit_select_classes: true,
+            placeholder_text_multiple: placeholder,
           });
-        } else {
-          // if we don't have chosen (mobile devices), just add the title before select
+
+          // add titles and make them open the chosen drop
+          if (element.next('.chosen-container').length) {
+            element.next('.chosen-container').prepend('<h2 class="block__title">' + field_title + '</h2>').click(function() {
+              $(this).prev(element).trigger('chosen:updated');
+            });
+          }
+        }
+        else {
+          // we don't want chosen for mobile devices, just add the title before select
           element.before('<h2 class="study-module-select-title">' + field_title + '</h2>');
         }
       }
 
       // Actual filtering. all filters are rerun when changing a single value
-      $('select.' + select_element).chosen().change(function() {
+      $('select.' + select_element).change(function() {
         var enabled_filters = {};
 
         // Get all filter values
         $('select.' + select_element).each(function() {
-          var filter_value = $(this).chosen().val();
+          var filter_value = $(this).val();
           var field_to_filter = $(this).data('filter');
           enabled_filters[field_to_filter] = filter_value;
         });

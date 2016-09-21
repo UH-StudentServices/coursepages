@@ -34,3 +34,68 @@ function uhc_course_preprocess_node(&$variables) {
     );
   }
 }
+
+/**
+ * Implements hook_node_update().
+ */
+function uhc_course_node_update($node) {
+  // Process only if we're dealing with type "course" nodes
+  if ($node->type != 'course') {
+    return NULL;
+  }
+
+  /** @var DrupalReliableQueueInterface $queue */
+  $queue = DrupalQueue::get('uhc_sources_postupdate_handling', TRUE);
+
+  $course_imp_nodes = _uhc_course_node_get_referencing_course_imp_nodes($node);
+  foreach ($course_imp_nodes as $course_imp_node) {
+    $id = _uhc_sources_resolve_course_imp($course_imp_node->nid);
+    if ($id !== FALSE && _uhc_course_node_get_is_in_past_academic_year($course_imp_node) === FALSE) {
+      $item = array(
+        'type' => 'courseunitrealisation',
+        'id' => (int) $id,
+      );
+      $queue->createItem($item);
+    }
+  }
+}
+
+/**
+ * Fetches list of course implementation nodes that are referencing to given
+ * $node.
+ *
+ * @param $node
+ * @return array
+ */
+function _uhc_course_node_get_referencing_course_imp_nodes($node) {
+  $query = db_select('field_data_field_imp_reference_to_courses', 'irtc')
+    ->condition('entity_type', 'node')
+    ->condition('bundle', 'course_implementation')
+    ->condition('field_imp_reference_to_courses_target_id', $node->nid)
+    ->fields('irtc', array('entity_id'))
+    ->execute();
+  $nids = array();
+  while ($value = $query->fetchField()) {
+    $nids[] = $value;
+  }
+  return node_load_multiple($nids);
+}
+
+/**
+ * Helper function for determining if given $node is a course implementation
+ * that is held in past academic years.
+ *
+ * @param $node
+ * @return null|bool
+ *   TRUE if can be determined and is held in past academic year. FALSE if can
+ *   be determined and is held in current or future academic years. NULL if
+ *   can't be determined from given $node.
+ */
+function _uhc_course_node_get_is_in_past_academic_year($node) {
+  // Get academic year end date
+  $date = _uhc_course_implementation_inherited_fields_get_academic_year_end_date($node);
+  if (is_null($date)) {
+    return NULL;
+  }
+  return $date < new DateTime();
+}

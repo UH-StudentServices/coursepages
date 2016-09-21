@@ -511,9 +511,9 @@ function uhc_course_implementation_activity_default_message_type() {
     },
     "rdf_mapping" : []
   }');
-  $items['course_implementation_feedback_accordion_target'] = entity_import('message_type', '{
-    "name" : "course_implementation_feedback_accordion_target",
-    "description" : "Course implementation - Feedback accordion target",
+  $items['course_implementation_feedback_create'] = entity_import('message_type', '{
+    "name" : "course_implementation_feedback_create",
+    "description" : "Course implementation - Feedback create",
     "argument_keys" : [],
     "argument" : [],
     "category" : "message_type",
@@ -524,35 +524,113 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-feedback",
-    "send_mece_notification" : "0",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\r\\n",
-          "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+          "value" : "\\u003Cp\\u003E[message:user:name] added\\u0026nbsp;information on feedback.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] added\\u00a0information on feedback.\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
         {
-          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n",
-          "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+          "value" : "\\u003Cp\\u003E[message:user:name]\\u0026nbsp;lis\\u00e4si tietoa palautteen antamisesta.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name]\\u00a0lis\\u00e4si tietoa palautteen antamisesta.\\u003C\\/p\\u003E\\n"
         }
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n",
-          "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+          "value" : "\\u003Cp\\u003E[message:user:name] tillade information om feedback.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] tillade information om feedback.\\u003C\\/p\\u003E\\n"
         }
       ]
     },
     "rdf_mapping" : []
   }');
-  $items['course_implementation_interaction_accordion_target'] = entity_import('message_type', '{
-    "name" : "course_implementation_interaction_accordion_target",
-    "description" : "Course implementation - Interaction accordion target",
+  $items['course_implementation_feedback_remove'] = entity_import('message_type', '{
+    "name" : "course_implementation_feedback_remove",
+    "description" : "Course implementation - Feedback remove",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-feedback",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] removed information on feedback.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] removed information on feedback.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] poisti tiedot palautteen antamisesta.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] poisti tiedot palautteen antamisesta.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] raderade information om feedback.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] raderade information om feedback.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_feedback_update'] = entity_import('message_type', '{
+    "name" : "course_implementation_feedback_update",
+    "description" : "Course implementation - Feedback update",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-feedback",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] updated information on feedback.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] updated information on feedback.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti tietoja palautteen antamisesta.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti tietoja palautteen antamisesta.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] uppdaterade information om feedback.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] uppdaterade information om feedback.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_interaction_create'] = entity_import('message_type', '{
+    "name" : "course_implementation_interaction_create",
+    "description" : "Course implementation - Interaction create",
     "argument_keys" : [],
     "argument" : [],
     "category" : "message_type",
@@ -563,27 +641,222 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-interaction",
-    "send_mece_notification" : "0",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\r\\n",
-          "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+          "value" : "\\u003Cp\\u003E[message:user:name] added information on interaction.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] added information on interaction.\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
         {
-          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n",
-          "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+          "value" : "\\u003Cp\\u003E[message:user:name]\\u0026nbsp;lis\\u00e4si tietoa vuorovaikutuksesta.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name]\\u00a0lis\\u00e4si tietoa vuorovaikutuksesta.\\u003C\\/p\\u003E\\n"
         }
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n",
-          "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+          "value" : "\\u003Cp\\u003E[message:user:name] tillade information om interaktion.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] tillade information om interaktion.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_interaction_remove'] = entity_import('message_type', '{
+    "name" : "course_implementation_interaction_remove",
+    "description" : "Course implementation - Interaction remove",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-interaction",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] removed information on interaction.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] removed information on interaction.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] poisti tiedot vuorovaikutuksesta.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] poisti tiedot vuorovaikutuksesta.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] raderade information om interaktion.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] raderade information om interaktion.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_interaction_update'] = entity_import('message_type', '{
+    "name" : "course_implementation_interaction_update",
+    "description" : "Course implementation - Interaction update",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-interaction",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] updated information on interaction.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] updated information on interaction.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti tietoja vuorovaikutuksesta.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti tietoja vuorovaikutuksesta.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] uppdaterade information om interaktion.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] uppdaterade information om interaktion.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_introduction_create'] = entity_import('message_type', '{
+    "name" : "course_implementation_introduction_create",
+    "description" : "Course implementation - Introduction create",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : "",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] added introduction text.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] added introduction text.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name]\\u0026nbsp;lis\\u00e4si esittelytekstin.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name]\\u00a0lis\\u00e4si esittelytekstin.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] tillade introduktion text.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] tillade introduktion text.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_introduction_remove'] = entity_import('message_type', '{
+    "name" : "course_implementation_introduction_remove",
+    "description" : "Course implementation - Introduction remove",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : "",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] removed introduction text.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] removed introduction text.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] poisti esittelytekstin.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] poisti esittelytekstin.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] raderade introduktion text.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] raderade introduktion text.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_introduction_update'] = entity_import('message_type', '{
+    "name" : "course_implementation_introduction_update",
+    "description" : "Course implementation - Introduction update ",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : "",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] updated introduction text.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] updated introduction text.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti esittelyteksti\\u00e4.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti esittelyteksti\\u00e4.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] uppdaterade introduktion text.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] uppdaterade introduktion text.\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -620,9 +893,9 @@ function uhc_course_implementation_activity_default_message_type() {
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003ETidschema har förändrats\\u003C\\/p\\u003E\\r\\n",
+          "value" : "\\u003Cp\\u003ETidschema har f\\u00f6r\\u00e4ndrats\\u003C\\/p\\u003E\\r\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003ETidschema har förändrats\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003ETidschema har f\\u00f6r\\u00e4ndrats\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -803,6 +1076,240 @@ function uhc_course_implementation_activity_default_message_type() {
           "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E redigerade materialet \\u0022@material_title\\u0022",
           "format" : "full_html",
           "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E redigerade materialet \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_moodle_key_create'] = entity_import('message_type', '{
+    "name" : "course_implementation_moodle_key_create",
+    "description" : "Course implementation - Moodle key create",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : "",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] added Moodle key.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] added Moodle key.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name]\\u0026nbsp;lis\\u00e4si Moodle-kurssiavaimen.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name]\\u00a0lis\\u00e4si Moodle-kurssiavaimen.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] tillade Moodle kursnyckel.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] tillade Moodle kursnyckel.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_moodle_key_remove'] = entity_import('message_type', '{
+    "name" : "course_implementation_moodle_key_remove",
+    "description" : "Course implementation - Moodle key remove",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : "",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] removed Moodle key.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] removed Moodle key.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] poisti Moodle-kurssiavaimen.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] poisti Moodle-kurssiavaimen.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] raderade Moodle kursnyckel.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] raderade Moodle kursnyckel.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_moodle_key_update'] = entity_import('message_type', '{
+    "name" : "course_implementation_moodle_key_update",
+    "description" : "Course implementation - Moodle key update",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : "",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] updated Moodle key.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] updated Moodle key.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti Moodle-kurssiavainta.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti Moodle-kurssiavainta.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] uppdaterade Moodle kursnyckel.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] uppdaterade Moodle kursnyckel.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_moodle_link_create'] = entity_import('message_type', '{
+    "name" : "course_implementation_moodle_link_create",
+    "description" : "Course implementation - Moodle link create",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : "",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] added Moodle link.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] added Moodle link.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name]\\u0026nbsp;lis\\u00e4si Moodle-linkin.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name]\\u00a0lis\\u00e4si Moodle-linkin.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] tillade Moodle l\\u00e4nk.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] tillade Moodle l\\u00e4nk.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_moodle_link_remove'] = entity_import('message_type', '{
+    "name" : "course_implementation_moodle_link_remove",
+    "description" : "Course implementation - Moodle link remove",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : "",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] removed Moodle link.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] removed Moodle link.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] poisti Moodle-linkityksen.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] poisti Moodle-linkityksen.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] raderade Moodle l\\u00e4nk.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] raderade Moodle l\\u00e4nk.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_moodle_link_update'] = entity_import('message_type', '{
+    "name" : "course_implementation_moodle_link_update",
+    "description" : "Course implementation - Moodle link update",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : "",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] updated Moodle link.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] updated Moodle link.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti Moodle-linkki\\u00e4.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti Moodle-linkki\\u00e4.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] uppdaterade Moodle l\\u00e4nk.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] uppdaterade Moodle l\\u00e4nk.\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -1276,9 +1783,9 @@ function uhc_course_implementation_activity_default_message_type() {
     },
     "rdf_mapping" : []
   }');
-  $items['course_implementation_video_accordion_target'] = entity_import('message_type', '{
-    "name" : "course_implementation_video_accordion_target",
-    "description" : "Course implementation - Video accordion target",
+  $items['course_implementation_video_create'] = entity_import('message_type', '{
+    "name" : "course_implementation_video_create",
+    "description" : "Course implementation - Video create",
     "argument_keys" : [],
     "argument" : [],
     "category" : "message_type",
@@ -1289,27 +1796,105 @@ function uhc_course_implementation_activity_default_message_type() {
     "language" : "en",
     "arguments" : null,
     "target_accordion_class" : ".group-imp-video",
-    "send_mece_notification" : "0",
+    "send_mece_notification" : "1",
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\r\\n",
-          "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+          "value" : "\\u003Cp\\u003E[message:user:name] added the video section.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] added the video section.\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
         {
-          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n",
-          "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+          "value" : "\\u003Cp\\u003E[message:user:name]\\u0026nbsp;lis\\u00e4si video-osion.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name]\\u00a0lis\\u00e4si video-osion.\\u003C\\/p\\u003E\\n"
         }
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n",
-          "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
+          "value" : "\\u003Cp\\u003E[message:user:name] tillade video sektionen.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] tillade video sektionen.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_video_remove'] = entity_import('message_type', '{
+    "name" : "course_implementation_video_remove",
+    "description" : "Course implementation - Video remove",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-video",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] removed\\u0026nbsp;the video section.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] removed\\u00a0the video section.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] poisti video-osion.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] poisti video-osion.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] raderade video sektionen.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] raderade video sektionen.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_video_update'] = entity_import('message_type', '{
+    "name" : "course_implementation_video_update",
+    "description" : "Course implementation - Video update",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-video",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] updated\\u0026nbsp;the video section.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] updated\\u00a0the video section.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti video-osiota.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti video-osiota.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] uppdaterade video sektionen.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] uppdaterade video sektionen.\\u003C\\/p\\u003E\\n"
         }
       ]
     },

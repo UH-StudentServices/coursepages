@@ -337,16 +337,35 @@ function uhc_teacher_tools_moodle_conditional_field(&$form, &$form_state) {
  * Submit handler for Save & Continue button
  */
 function uhc_teacher_tools_save_and_continue($form, &$form_state) {
-  $active_tab = isset($form_state['values']['form_active_tab']) ? $form_state['values']['form_active_tab'] : NULL;
+  $active_tab = uhc_teacher_tools_get_active_tab($form_state);
   $form_state['redirect'] = array('node/' . $form_state['nid'] . '/edit');
 
-  if($active_tab) {
+  if (!empty($active_tab)) {
     $form_state['redirect'][] = array(
       'query' => array(
         'section' => $active_tab,
       ),
     );
   }
+}
+
+/**
+ * Get active tab. Primary: form state. Fallback: section query parameter.
+ *
+ * @param $form_state
+ * @return string|null
+ */
+function uhc_teacher_tools_get_active_tab($form_state) {
+  $active_tab = NULL;
+  $query_parameters = drupal_get_query_parameters();
+
+  if (!empty($form_state['values']['form_active_tab'])) {
+    $active_tab = $form_state['values']['form_active_tab'];
+  } elseif (!empty($query_parameters['section'])) {
+    $active_tab = $query_parameters['section'];
+  }
+
+  return $active_tab;
 }
 
 /**
@@ -412,4 +431,35 @@ function uhc_teacher_tools_field_group_pre_render_alter(&$element, $group, &$for
       $element['#prefix'] = substr_replace($element['#prefix'], $link, $position, 0);
     }
   }
+
+  uhc_teacher_tools_hide_some_field_groups($form);
+}
+
+/**
+ * Deny access to certain field groups for certain roles.
+ *
+ * @param $form
+ */
+function uhc_teacher_tools_hide_some_field_groups(&$form) {
+  global $user;
+
+  // Prevent executing this check more than once per request.
+  static $field_groups_hide_executed = FALSE;
+
+  if (!$field_groups_hide_executed) {
+    $roles = array_values($user->roles);
+    $is_admin = in_array('administrator', $roles);
+    $is_editor = in_array('editor-in-chief of communications', $roles);
+    $is_course_administrator = in_array('course administrator', $roles);
+
+    if (!$is_admin) {
+      field_group_hide_field_groups($form, array('group_imp_integration'));
+    }
+
+    if (!$is_admin && !$is_editor && !$is_course_administrator) {
+      field_group_hide_field_groups($form, array('group_imp_signup'));
+    }
+  }
+
+  $field_groups_hide_executed = TRUE;
 }

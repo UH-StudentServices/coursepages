@@ -15,7 +15,7 @@ function uhc_liftups_field_default_field_instances() {
     'bundle' => 'course_liftup',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'You need to specify which course implementation this liftup refers to, so that system can create proper linking.',
+    'description' => 'You need to specify which course implementation this liftup refers to, so that system can create proper linking. Type the course number to get all upcoming course implementations.',
     'display' => array(
       'content_suffix' => array(
         'label' => 'above',
@@ -53,6 +53,7 @@ function uhc_liftups_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_courseliftup_courseimp',
     'label' => 'Course implementation',
@@ -66,7 +67,6 @@ function uhc_liftups_field_default_field_instances() {
       'module' => 'entityreference',
       'settings' => array(
         'apply_chosen' => '',
-        'entityreference_autocreate' => 0,
         'match_operator' => 'CONTAINS',
         'path' => '',
         'size' => 60,
@@ -570,7 +570,7 @@ function uhc_liftups_field_default_field_instances() {
   t('Liftup section');
   t('Link to');
   t('Select where this liftup should be promoted.');
-  t('You need to specify which course implementation this liftup refers to, so that system can create proper linking.');
+  t('You need to specify which course implementation this liftup refers to, so that system can create proper linking. Type the course number to get all upcoming course implementations.');
 
   return $field_instances;
 }

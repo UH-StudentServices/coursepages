@@ -92,6 +92,9 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
         '#prefix' => uhc_moodi_get_status_prefix($moodi_response),
         '#suffix' => '</div>',
         '#markup' => $status_markup,
+        '#attached' => array('js' => array(
+          drupal_get_path('module', 'uhc_moodi') . '/js/uhc_moodi_copy_moodle_url.js',
+        )),
       );
     }
     else {
@@ -102,16 +105,6 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
         '#markup' => '<p>' . t('This function is not yet available.') . '</p>',
       );
     }
-
-    // Moodi copy URL link.
-    $form['uhc_moodi_fieldset']['uhc_moodi_copy_url_link'] = array(
-      '#type' => 'item',
-      '#markup' => t('<a href="#">Copy Moodle URL from Moodi to this course</a>'),
-      '#access' => uhc_moodi_copy_url_link_access($moodi_response, $form),
-      '#attached' => array('js' => array(
-        drupal_get_path('module', 'uhc_moodi') . '/js/uhc_moodi_copy_moodle_url.js',
-      )),
-    );
 
     // Course implementation ID (hidden field).
     $form['uhc_moodi_fieldset']['course_implementation_id'] = array(
@@ -321,28 +314,6 @@ function uhc_moodi_create_button_access($moodi_response) {
 }
 
 /**
- * Access function for Moodi copy URL button. Allow if Moodi response contains
- * URL and if URL in Moodi is different than URL in course implementation.
- * Otherwise deny.
- *
- * @param $moodi_response object Moodi response.
- * @return bool TRUE if access is allowed, otherwise FALSE.
- */
-function uhc_moodi_copy_url_link_access($moodi_response, $form) {
-  $moodle_url_in_moodi = uhc_moodi_get_moodle_url($moodi_response);
-
-  $moodle_url_in_course_implementation = !empty($form['field_moodle_url'][LANGUAGE_NONE][0]['#default_value']['url'])
-    ? trim($form['field_moodle_url'][LANGUAGE_NONE][0]['#default_value']['url'])
-    : '';
-
-  $moodle_url_same_in_moodi_and_course_implementation = !empty($moodle_url_in_moodi)
-    && !empty($moodle_url_in_course_implementation)
-    && $moodle_url_in_moodi == $moodle_url_in_course_implementation;
-
-  return !empty($moodle_url_in_moodi) && !$moodle_url_same_in_moodi_and_course_implementation;
-}
-
-/**
  * Return Moodle URL from Moodi response.
  *
  * @param $moodi_response object Moodi response.
@@ -380,7 +351,8 @@ function uhc_moodi_create_button_ajax_callback($form, &$form_state) {
 }
 
 /**
- * Handle Moodi create response.
+ * Handle Moodi create response. Redirects back to Moodle section on successful
+ * Moodi create operation.
  *
  * @param $moodi_create_response object Moodi response.
  * @param $form array Course implementation form.
@@ -403,7 +375,15 @@ function uhc_moodi_redirect($path) {
   if (!empty($path)) {
     ctools_include('ajax');
     ctools_add_js('ajax-responder');
-    $commands[] = ctools_ajax_command_redirect($path, 0, array('query' => array('section' => 'edit-group_imp_moodle')));
+
+    $options = array(
+      'query' => array(
+        'section' => 'edit-group_imp_moodle',
+        'moodi_creation_successful' => TRUE
+      )
+    );
+
+    $commands[] = ctools_ajax_command_redirect($path, 0, $options);
     print ajax_render($commands);
     exit;
   }

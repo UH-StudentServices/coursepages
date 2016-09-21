@@ -193,10 +193,10 @@ function uhc_course_implementation_inherited_fields_node_presave($node) {
 function _uhc_course_implementation_inherited_fields_get_json($node) {
   $resource_url = _uhc_course_implementation_inherited_fields_get_resource_url($node);
   if (empty($resource_url)) {
-    watchdog('uhc_course_implementation_inherited_fields', 'Could not determine $resource_url for node "@nid".', array('@nid' => $node->nid), WATCHDOG_WARNING);
+    watchdog('uhc_course_implementation_inherited_fields', 'Could not determine $resource_url for node "@title".', array('@title' => $node->title), WATCHDOG_WARNING);
     return NULL;
   }
-  $response = drupal_http_request($resource_url);
+  $response = drupal_http_request($resource_url, array('timeout' => 5.0));
   if ($response->code == 200) {
     $json = json_decode($response->data);
     if (json_last_error() == JSON_ERROR_NONE) {
