@@ -1039,3 +1039,18 @@ function uh_coursepages_update_7021(&$sandbox) {
 function uh_coursepages_update_7022(&$sandbox) {
   module_enable(array('uhc_course_implementation_inherited_fields'));
 }
+
+/**
+ * Enable Form Error Logging.
+ */
+function uh_coursepages_update_7023(&$sandbox) {
+  variable_set('form_error_logging_forms', 'course_implementation_node_form');
+  module_enable(array('form_error_logging'));
+}
+
+/**
+ * Enable Actions permissions (VBO).
+ */
+function uh_coursepages_update_7024(&$sandbox) {
+  module_enable(array('actions_permissions'));
+}

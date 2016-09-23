@@ -20,6 +20,25 @@ function uhc_search_front_page_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
+ * Implements hook_views_pre_build().
+ */
+function uhc_search_front_page_views_pre_build(&$view) {
+  // DOO-2372: HULIB wants feed with no hierarchy position restrictions. Allow
+  // this by GET parameters. This couldn't be achieved with contextual filters
+  // as they aren't compatible with facet_prerry_paths that we use. We can't
+  // also disable them because then the search breaks. And we can't fix it
+  // because it's already a hack (for fancy UX filtering) that barely works :)
+  /** @var $view view */
+  if ($view->name == 'uhc_portal_search_front_page_' && $view->display_handler->plugin_title() == 'Feed') {
+    $parameter_name = variable_get('uhc_search_front_page_disable_filter_parameter_name', 'disable_filter');
+    $filter_whitelist = variable_get('uhc_search_front_page_disable_filter_whitelist', array());
+    if (!empty($_GET[$parameter_name]) && in_array($_GET[$parameter_name], $filter_whitelist)) {
+      unset($view->filter[$_GET['disable_filter']]);
+    }
+  }
+}
+
+/**
  * Implements hook_facet_items_alter(). Remove other organisation filters
  * except the ones belonging in the Faculty subtree.
  *

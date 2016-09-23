@@ -22,7 +22,7 @@ function uhc_statistics_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Course Implementations With Moodle';
+  $handler->display->display_options['title'] = 'Course implementations with specific content added';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['group_by'] = TRUE;
   $handler->display->display_options['access']['type'] = 'role';
@@ -444,15 +444,22 @@ function uhc_statistics_views_default_views() {
     'page_3' => 0,
   );
 
-  /* Display: Moodle */
-  $handler = $view->new_display('page', 'Moodle', 'page_1');
+  /* Display: Course implementations with specific content added */
+  $handler = $view->new_display('page', 'Course implementations with specific content added', 'page_1');
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['content'] = 'This statistics view displays the amount of course implementations where the selected field has content. It is best to select a single field only as a filter and have the rest set as "-any-".';
+  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: COUNT(DISTINCT Content: Nid) */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['group_type'] = 'count_distinct';
-  $handler->display->display_options['fields']['nid']['label'] = 'Has Moodle Url';
+  $handler->display->display_options['fields']['nid']['label'] = 'Course implementations';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -471,12 +478,6 @@ function uhc_statistics_views_default_views() {
     'course_implementation' => 'course_implementation',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: URL (field_moodle_url:url) */
-  $handler->display->display_options['filters']['field_moodle_url_url']['id'] = 'field_moodle_url_url';
-  $handler->display->display_options['filters']['field_moodle_url_url']['table'] = 'field_data_field_moodle_url';
-  $handler->display->display_options['filters']['field_moodle_url_url']['field'] = 'field_moodle_url_url';
-  $handler->display->display_options['filters']['field_moodle_url_url']['operator'] = 'not empty';
-  $handler->display->display_options['filters']['field_moodle_url_url']['group'] = 1;
   /* Filter criterion: Content: Keywords (field_imp_keywords) */
   $handler->display->display_options['filters']['field_imp_keywords_value']['id'] = 'field_imp_keywords_value';
   $handler->display->display_options['filters']['field_imp_keywords_value']['table'] = 'field_data_field_imp_keywords';
@@ -550,17 +551,393 @@ function uhc_statistics_views_default_views() {
     8 => 0,
   );
   $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
-  $handler->display->display_options['path'] = 'admin/statistics/moodle';
+  /* Filter criterion: Content: URL (field_moodle_url:url) */
+  $handler->display->display_options['filters']['field_moodle_url_url']['id'] = 'field_moodle_url_url';
+  $handler->display->display_options['filters']['field_moodle_url_url']['table'] = 'field_data_field_moodle_url';
+  $handler->display->display_options['filters']['field_moodle_url_url']['field'] = 'field_moodle_url_url';
+  $handler->display->display_options['filters']['field_moodle_url_url']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_moodle_url_url']['group'] = 1;
+  $handler->display->display_options['filters']['field_moodle_url_url']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_moodle_url_url']['expose']['operator_id'] = 'field_moodle_url_url_op';
+  $handler->display->display_options['filters']['field_moodle_url_url']['expose']['label'] = 'Moodle URL';
+  $handler->display->display_options['filters']['field_moodle_url_url']['expose']['operator'] = 'field_moodle_url_url_op';
+  $handler->display->display_options['filters']['field_moodle_url_url']['expose']['identifier'] = 'field_moodle_url_url';
+  $handler->display->display_options['filters']['field_moodle_url_url']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Interaction Description */
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['id'] = 'field_imp_interactiondescription_value';
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['table'] = 'field_data_field_imp_interactiondescription';
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['field'] = 'field_imp_interactiondescription_value';
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['ui_name'] = 'Interaction Description';
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['expose']['operator_id'] = 'field_imp_interactiondescription_value_op';
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['expose']['label'] = 'Interaction Description';
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['expose']['operator'] = 'field_imp_interactiondescription_value_op';
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['expose']['identifier'] = 'field_imp_interactiondescription_value';
+  $handler->display->display_options['filters']['field_imp_interactiondescription_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Interaction links */
+  $handler->display->display_options['filters']['delta']['id'] = 'delta';
+  $handler->display->display_options['filters']['delta']['table'] = 'field_data_field_imp_interaction_link';
+  $handler->display->display_options['filters']['delta']['field'] = 'delta';
+  $handler->display->display_options['filters']['delta']['ui_name'] = 'Interaction links';
+  $handler->display->display_options['filters']['delta']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['delta']['group'] = 1;
+  $handler->display->display_options['filters']['delta']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['delta']['expose']['operator_id'] = 'delta_op';
+  $handler->display->display_options['filters']['delta']['expose']['label'] = 'Interaction links';
+  $handler->display->display_options['filters']['delta']['expose']['operator'] = 'delta_op';
+  $handler->display->display_options['filters']['delta']['expose']['identifier'] = 'delta';
+  $handler->display->display_options['filters']['delta']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Tasks */
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['id'] = 'field_reference_to_course_tasks_target_id';
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['table'] = 'field_data_field_reference_to_course_tasks';
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['field'] = 'field_reference_to_course_tasks_target_id';
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['ui_name'] = 'Tasks';
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['group'] = 1;
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['expose']['operator_id'] = 'field_reference_to_course_tasks_target_id_op';
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['expose']['label'] = 'Tasks';
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['expose']['operator'] = 'field_reference_to_course_tasks_target_id_op';
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['expose']['identifier'] = 'field_reference_to_course_tasks_target_id';
+  $handler->display->display_options['filters']['field_reference_to_course_tasks_target_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Intro text */
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['id'] = 'field_field_imp_header_intro_tex_value';
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['table'] = 'field_data_field_field_imp_header_intro_tex';
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['field'] = 'field_field_imp_header_intro_tex_value';
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['ui_name'] = 'Intro text';
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['expose']['operator_id'] = 'field_field_imp_header_intro_tex_value_op';
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['expose']['label'] = 'Intro text';
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['expose']['operator'] = 'field_field_imp_header_intro_tex_value_op';
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['expose']['identifier'] = 'field_field_imp_header_intro_tex_value';
+  $handler->display->display_options['filters']['field_field_imp_header_intro_tex_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Headline text */
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['id'] = 'field_imp_header_headline_value';
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['table'] = 'field_data_field_imp_header_headline';
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['field'] = 'field_imp_header_headline_value';
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['ui_name'] = 'Headline text';
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['expose']['operator_id'] = 'field_imp_header_headline_value_op';
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['expose']['label'] = 'Headline text';
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['expose']['operator'] = 'field_imp_header_headline_value_op';
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['expose']['identifier'] = 'field_imp_header_headline_value';
+  $handler->display->display_options['filters']['field_imp_header_headline_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Header Text */
+  $handler->display->display_options['filters']['field_imp_header_text_value']['id'] = 'field_imp_header_text_value';
+  $handler->display->display_options['filters']['field_imp_header_text_value']['table'] = 'field_data_field_imp_header_text';
+  $handler->display->display_options['filters']['field_imp_header_text_value']['field'] = 'field_imp_header_text_value';
+  $handler->display->display_options['filters']['field_imp_header_text_value']['ui_name'] = 'Header Text';
+  $handler->display->display_options['filters']['field_imp_header_text_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_imp_header_text_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_header_text_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_header_text_value']['expose']['operator_id'] = 'field_imp_header_text_value_op';
+  $handler->display->display_options['filters']['field_imp_header_text_value']['expose']['label'] = 'Header Text';
+  $handler->display->display_options['filters']['field_imp_header_text_value']['expose']['operator'] = 'field_imp_header_text_value_op';
+  $handler->display->display_options['filters']['field_imp_header_text_value']['expose']['identifier'] = 'field_imp_header_text_value';
+  $handler->display->display_options['filters']['field_imp_header_text_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Feedback description */
+  $handler->display->display_options['filters']['field_feedback_description_value']['id'] = 'field_feedback_description_value';
+  $handler->display->display_options['filters']['field_feedback_description_value']['table'] = 'field_data_field_feedback_description';
+  $handler->display->display_options['filters']['field_feedback_description_value']['field'] = 'field_feedback_description_value';
+  $handler->display->display_options['filters']['field_feedback_description_value']['ui_name'] = 'Feedback description';
+  $handler->display->display_options['filters']['field_feedback_description_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_feedback_description_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_feedback_description_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_feedback_description_value']['expose']['operator_id'] = 'field_feedback_description_value_op';
+  $handler->display->display_options['filters']['field_feedback_description_value']['expose']['label'] = 'Feedback Description';
+  $handler->display->display_options['filters']['field_feedback_description_value']['expose']['operator'] = 'field_feedback_description_value_op';
+  $handler->display->display_options['filters']['field_feedback_description_value']['expose']['identifier'] = 'field_feedback_description_value';
+  $handler->display->display_options['filters']['field_feedback_description_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Feedback Links */
+  $handler->display->display_options['filters']['delta_1']['id'] = 'delta_1';
+  $handler->display->display_options['filters']['delta_1']['table'] = 'field_data_field_feedback_link';
+  $handler->display->display_options['filters']['delta_1']['field'] = 'delta';
+  $handler->display->display_options['filters']['delta_1']['ui_name'] = 'Feedback Links';
+  $handler->display->display_options['filters']['delta_1']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['delta_1']['group'] = 1;
+  $handler->display->display_options['filters']['delta_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['delta_1']['expose']['operator_id'] = 'delta_1_op';
+  $handler->display->display_options['filters']['delta_1']['expose']['label'] = 'Feedback Links';
+  $handler->display->display_options['filters']['delta_1']['expose']['operator'] = 'delta_1_op';
+  $handler->display->display_options['filters']['delta_1']['expose']['identifier'] = 'delta_1';
+  $handler->display->display_options['filters']['delta_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Video Description */
+  $handler->display->display_options['filters']['field_video_description_value']['id'] = 'field_video_description_value';
+  $handler->display->display_options['filters']['field_video_description_value']['table'] = 'field_data_field_video_description';
+  $handler->display->display_options['filters']['field_video_description_value']['field'] = 'field_video_description_value';
+  $handler->display->display_options['filters']['field_video_description_value']['ui_name'] = 'Video Description';
+  $handler->display->display_options['filters']['field_video_description_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_video_description_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_video_description_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_video_description_value']['expose']['operator_id'] = 'field_video_description_value_op';
+  $handler->display->display_options['filters']['field_video_description_value']['expose']['label'] = 'Video Description';
+  $handler->display->display_options['filters']['field_video_description_value']['expose']['operator'] = 'field_video_description_value_op';
+  $handler->display->display_options['filters']['field_video_description_value']['expose']['identifier'] = 'field_video_description_value';
+  $handler->display->display_options['filters']['field_video_description_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Video embed URL */
+  $handler->display->display_options['filters']['field_video_embed_url_value']['id'] = 'field_video_embed_url_value';
+  $handler->display->display_options['filters']['field_video_embed_url_value']['table'] = 'field_data_field_video_embed_url';
+  $handler->display->display_options['filters']['field_video_embed_url_value']['field'] = 'field_video_embed_url_value';
+  $handler->display->display_options['filters']['field_video_embed_url_value']['ui_name'] = 'Video embed URL';
+  $handler->display->display_options['filters']['field_video_embed_url_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_video_embed_url_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_video_embed_url_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_video_embed_url_value']['expose']['operator_id'] = 'field_video_embed_url_value_op';
+  $handler->display->display_options['filters']['field_video_embed_url_value']['expose']['label'] = 'Video embed URL';
+  $handler->display->display_options['filters']['field_video_embed_url_value']['expose']['operator'] = 'field_video_embed_url_value_op';
+  $handler->display->display_options['filters']['field_video_embed_url_value']['expose']['identifier'] = 'field_video_embed_url_value';
+  $handler->display->display_options['filters']['field_video_embed_url_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Video links */
+  $handler->display->display_options['filters']['delta_2']['id'] = 'delta_2';
+  $handler->display->display_options['filters']['delta_2']['table'] = 'field_data_field_video_link';
+  $handler->display->display_options['filters']['delta_2']['field'] = 'delta';
+  $handler->display->display_options['filters']['delta_2']['ui_name'] = 'Video links';
+  $handler->display->display_options['filters']['delta_2']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['delta_2']['group'] = 1;
+  $handler->display->display_options['filters']['delta_2']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['delta_2']['expose']['operator_id'] = 'delta_2_op';
+  $handler->display->display_options['filters']['delta_2']['expose']['label'] = 'Video links';
+  $handler->display->display_options['filters']['delta_2']['expose']['operator'] = 'delta_2_op';
+  $handler->display->display_options['filters']['delta_2']['expose']['identifier'] = 'delta_2';
+  $handler->display->display_options['filters']['delta_2']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Events */
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['id'] = 'field_imp_reference_to_events_target_id';
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['table'] = 'field_data_field_imp_reference_to_events';
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['field'] = 'field_imp_reference_to_events_target_id';
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['ui_name'] = 'Events';
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['expose']['operator_id'] = 'field_imp_reference_to_events_target_id_op';
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['expose']['label'] = 'Events';
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['expose']['operator'] = 'field_imp_reference_to_events_target_id_op';
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['expose']['identifier'] = 'field_imp_reference_to_events_target_id';
+  $handler->display->display_options['filters']['field_imp_reference_to_events_target_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Wiki URL */
+  $handler->display->display_options['filters']['field_wiki_url_url']['id'] = 'field_wiki_url_url';
+  $handler->display->display_options['filters']['field_wiki_url_url']['table'] = 'field_data_field_wiki_url';
+  $handler->display->display_options['filters']['field_wiki_url_url']['field'] = 'field_wiki_url_url';
+  $handler->display->display_options['filters']['field_wiki_url_url']['ui_name'] = 'Wiki URL';
+  $handler->display->display_options['filters']['field_wiki_url_url']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_wiki_url_url']['group'] = 1;
+  $handler->display->display_options['filters']['field_wiki_url_url']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_wiki_url_url']['expose']['operator_id'] = 'field_wiki_url_url_op';
+  $handler->display->display_options['filters']['field_wiki_url_url']['expose']['label'] = 'Wiki URL';
+  $handler->display->display_options['filters']['field_wiki_url_url']['expose']['operator'] = 'field_wiki_url_url_op';
+  $handler->display->display_options['filters']['field_wiki_url_url']['expose']['identifier'] = 'field_wiki_url_url';
+  $handler->display->display_options['filters']['field_wiki_url_url']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Custom section */
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['id'] = 'field_imp_teachersection_value';
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['table'] = 'field_data_field_imp_teachersection';
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['field'] = 'field_imp_teachersection_value';
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['ui_name'] = 'Custom section';
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['expose']['operator_id'] = 'field_imp_teachersection_value_op';
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['expose']['label'] = 'Custom section';
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['expose']['operator'] = 'field_imp_teachersection_value_op';
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['expose']['identifier'] = 'field_imp_teachersection_value';
+  $handler->display->display_options['filters']['field_imp_teachersection_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Hide Enrollment */
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['id'] = 'field_imp_hide_sign_up_button_value';
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['table'] = 'field_data_field_imp_hide_sign_up_button';
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['field'] = 'field_imp_hide_sign_up_button_value';
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['ui_name'] = 'Hide Enrollment';
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['expose']['operator_id'] = 'field_imp_hide_sign_up_button_value_op';
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['expose']['label'] = 'Hide Enrollment';
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['expose']['operator'] = 'field_imp_hide_sign_up_button_value_op';
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['expose']['identifier'] = 'field_imp_hide_sign_up_button_value';
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_hide_sign_up_button_value']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Course Conduct */
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['id'] = 'field_imp_teacher_se_content_value';
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['table'] = 'field_data_field_imp_teacher_se_content';
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['field'] = 'field_imp_teacher_se_content_value';
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['ui_name'] = 'Course Conduct';
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['expose']['operator_id'] = 'field_imp_teacher_se_content_value_op';
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['expose']['label'] = 'Course Conduct';
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['expose']['operator'] = 'field_imp_teacher_se_content_value_op';
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['expose']['identifier'] = 'field_imp_teacher_se_content_value';
+  $handler->display->display_options['filters']['field_imp_teacher_se_content_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['path'] = 'admin/statistics/fields';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Course Implementations With Moodle';
-  $handler->display->display_options['menu']['description'] = 'Course Implementations With Moodle';
+  $handler->display->display_options['menu']['title'] = 'Course implementations with specific content added';
+  $handler->display->display_options['menu']['description'] = 'Course implementations with specific content added';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
-  /* Display: Data export - Moodle */
-  $handler = $view->new_display('views_data_export', 'Data export - Moodle', 'views_data_export_1');
+  /* Display: Data export - Field */
+  $handler = $view->new_display('views_data_export', 'Data export - Field', 'views_data_export_1');
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '0';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -883,6 +1260,11 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['table'] = 'node';
   $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['field'] = 'reverse_field_message_ref_to_course_imp_message';
   $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['required'] = TRUE;
+  /* Relationship: Message: User uid */
+  $handler->display->display_options['relationships']['user']['id'] = 'user';
+  $handler->display->display_options['relationships']['user']['table'] = 'message';
+  $handler->display->display_options['relationships']['user']['field'] = 'user';
+  $handler->display->display_options['relationships']['user']['relationship'] = 'reverse_field_message_ref_to_course_imp_message';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Field: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
@@ -1039,6 +1421,33 @@ function uhc_statistics_views_default_views() {
     8 => 0,
   );
   $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['relationship'] = 'user';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    3 => '3',
+    4 => '4',
+    5 => '5',
+    6 => '6',
+  );
+  $handler->display->display_options['filters']['rid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['rid']['expose']['operator_id'] = 'rid_op';
+  $handler->display->display_options['filters']['rid']['expose']['label'] = 'Edited by user role';
+  $handler->display->display_options['filters']['rid']['expose']['operator'] = 'rid_op';
+  $handler->display->display_options['filters']['rid']['expose']['identifier'] = 'rid';
+  $handler->display->display_options['filters']['rid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['rid']['expose']['reduce'] = TRUE;
   $handler->display->display_options['path'] = 'admin/statistics/edits';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Course Implementations edited';
@@ -1078,6 +1487,11 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['table'] = 'node';
   $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['field'] = 'reverse_field_message_ref_to_course_imp_message';
   $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['required'] = TRUE;
+  /* Relationship: Message: User uid */
+  $handler->display->display_options['relationships']['user']['id'] = 'user';
+  $handler->display->display_options['relationships']['user']['table'] = 'message';
+  $handler->display->display_options['relationships']['user']['field'] = 'user';
+  $handler->display->display_options['relationships']['user']['relationship'] = 'reverse_field_message_ref_to_course_imp_message';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Field: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
@@ -1251,6 +1665,33 @@ function uhc_statistics_views_default_views() {
     8 => 0,
   );
   $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['relationship'] = 'user';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    3 => '3',
+    4 => '4',
+    5 => '5',
+    6 => '6',
+  );
+  $handler->display->display_options['filters']['rid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['rid']['expose']['operator_id'] = 'rid_op';
+  $handler->display->display_options['filters']['rid']['expose']['label'] = 'Roles';
+  $handler->display->display_options['filters']['rid']['expose']['operator'] = 'rid_op';
+  $handler->display->display_options['filters']['rid']['expose']['identifier'] = 'rid';
+  $handler->display->display_options['filters']['rid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['rid']['expose']['reduce'] = TRUE;
   $handler->display->display_options['path'] = 'admin/statistics/edited/export';
   $handler->display->display_options['displays'] = array(
     'page_3' => 'page_3',
@@ -1260,9 +1701,202 @@ function uhc_statistics_views_default_views() {
     'page_2' => 0,
   );
   $handler->display->display_options['sitename_title'] = 0;
+
+  /* Display: Moodle course areas created */
+  $handler = $view->new_display('page', 'Moodle course areas created', 'page_4');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Moodle course areas created';
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['id'] = 'result';
+  $handler->display->display_options['header']['result']['table'] = 'views';
+  $handler->display->display_options['header']['result']['field'] = 'result';
+  $handler->display->display_options['header']['result']['content'] = 'Total @total Course implementations with moodle course areas created';
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_imp_reference_to_courses_target_id']['id'] = 'field_imp_reference_to_courses_target_id';
+  $handler->display->display_options['relationships']['field_imp_reference_to_courses_target_id']['table'] = 'field_data_field_imp_reference_to_courses';
+  $handler->display->display_options['relationships']['field_imp_reference_to_courses_target_id']['field'] = 'field_imp_reference_to_courses_target_id';
+  /* Relationship: Entity Reference: Referencing entity */
+  $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['id'] = 'reverse_field_message_ref_to_course_imp_message';
+  $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['table'] = 'node';
+  $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['field'] = 'reverse_field_message_ref_to_course_imp_message';
+  $handler->display->display_options['relationships']['reverse_field_message_ref_to_course_imp_message']['required'] = TRUE;
+  /* Relationship: Message: User uid */
+  $handler->display->display_options['relationships']['user']['id'] = 'user';
+  $handler->display->display_options['relationships']['user']['table'] = 'message';
+  $handler->display->display_options['relationships']['user']['field'] = 'user';
+  $handler->display->display_options['relationships']['user']['relationship'] = 'reverse_field_message_ref_to_course_imp_message';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Field: Title */
+  $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
+  $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
+  $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
+  $handler->display->display_options['fields']['title_field']['link_to_entity'] = 1;
+  /* Field: COUNT(DISTINCT Message: Timestamp) */
+  $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['table'] = 'message';
+  $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['relationship'] = 'reverse_field_message_ref_to_course_imp_message';
+  $handler->display->display_options['fields']['timestamp']['group_type'] = 'count_distinct';
+  $handler->display->display_options['fields']['timestamp']['label'] = 'Number of Moodle course areas added';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['created']['granularity'] = 'month';
+  /* Sort criterion: COUNT(DISTINCT Message: Timestamp) */
+  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['table'] = 'message';
+  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['relationship'] = 'reverse_field_message_ref_to_course_imp_message';
+  $handler->display->display_options['sorts']['timestamp']['group_type'] = 'count_distinct';
+  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'course_implementation' => 'course_implementation',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Keywords (field_imp_keywords) */
+  $handler->display->display_options['filters']['field_imp_keywords_value']['id'] = 'field_imp_keywords_value';
+  $handler->display->display_options['filters']['field_imp_keywords_value']['table'] = 'field_data_field_imp_keywords';
+  $handler->display->display_options['filters']['field_imp_keywords_value']['field'] = 'field_imp_keywords_value';
+  $handler->display->display_options['filters']['field_imp_keywords_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_keywords_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['operator_id'] = 'field_imp_keywords_value_op';
+  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['label'] = 'Keywords (field_imp_keywords)';
+  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['operator'] = 'field_imp_keywords_value_op';
+  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['identifier'] = 'field_imp_keywords_value';
+  $handler->display->display_options['filters']['field_imp_keywords_value']['is_grouped'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['label'] = 'Keyword';
+  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['identifier'] = 'field_imp_keywords_value';
+  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['group_items'] = array(
+    1 => array(
+      'title' => 'Genetics',
+      'operator' => '=',
+      'value' => 'genetiikka',
+    ),
+    2 => array(
+      'title' => 'Molecular bioscience',
+      'operator' => '=',
+      'value' => 'molekyylibiotieteet',
+    ),
+    3 => array(
+      'title' => '',
+      'operator' => '=',
+      'value' => '',
+    ),
+  );
+  /* Filter criterion: Message: Type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'message';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['relationship'] = 'reverse_field_message_ref_to_course_imp_message';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'course_implementation_moodle_course_area_create' => 'course_implementation_moodle_course_area_create',
+  );
+  $handler->display->display_options['filters']['type_1']['group'] = 1;
+  /* Filter criterion: Content: Has taxonomy terms (with depth; <em class="placeholder">Simple hierarchical select</em>) */
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['id'] = 'shs_term_node_tid_depth';
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['table'] = 'node';
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['field'] = 'shs_term_node_tid_depth';
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['value'] = 'All';
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['group'] = 1;
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['expose']['operator_id'] = 'shs_term_node_tid_depth_op';
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['expose']['label'] = 'Organisation';
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['expose']['operator'] = 'shs_term_node_tid_depth_op';
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['expose']['identifier'] = 'shs_term_node_tid_depth';
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+  );
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
+  $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Content: Begin date (field_imp_begin_date) */
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator'] = 'field_imp_begin_date_value_op';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['identifier'] = 'field_imp_begin_date_value';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['relationship'] = 'user';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    3 => '3',
+    4 => '4',
+    5 => '5',
+    6 => '6',
+  );
+  $handler->display->display_options['filters']['rid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['rid']['expose']['operator_id'] = 'rid_op';
+  $handler->display->display_options['filters']['rid']['expose']['label'] = 'Created by user role';
+  $handler->display->display_options['filters']['rid']['expose']['operator'] = 'rid_op';
+  $handler->display->display_options['filters']['rid']['expose']['identifier'] = 'rid';
+  $handler->display->display_options['filters']['rid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['rid']['expose']['reduce'] = TRUE;
+  $handler->display->display_options['path'] = 'admin/statistics/moodle-areas-created';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Moodle course areas created';
+  $handler->display->display_options['menu']['description'] = 'Moodle course areas created';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'management';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $handler->display->display_options['tab_options']['type'] = 'normal';
+  $handler->display->display_options['tab_options']['title'] = 'Statistics';
+  $handler->display->display_options['tab_options']['description'] = 'Statistics';
+  $handler->display->display_options['tab_options']['weight'] = '0';
+  $handler->display->display_options['tab_options']['name'] = 'management';
   $translatables['statistics'] = array(
     t('Master'),
-    t('Course Implementations With Moodle'),
+    t('Course implementations with specific content added'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -1286,8 +1920,26 @@ function uhc_statistics_views_default_views() {
     t('Created'),
     t('Course Implementations Created'),
     t('Data export - Created'),
-    t('Moodle'),
-    t('Data export - Moodle'),
+    t('This statistics view displays the amount of course implementations where the selected field has content. It is best to select a single field only as a filter and have the rest set as "-any-".'),
+    t('Course implementations'),
+    t('Moodle URL'),
+    t('Interaction Description'),
+    t('Interaction links'),
+    t('Tasks'),
+    t('Intro text'),
+    t('Headline text'),
+    t('Header Text'),
+    t('Feedback Description'),
+    t('Feedback Links'),
+    t('Video Description'),
+    t('Video embed URL'),
+    t('Video links'),
+    t('Events'),
+    t('Wiki URL'),
+    t('Custom section'),
+    t('Hide Enrollment'),
+    t('Course Conduct'),
+    t('Data export - Field'),
     t('Restricted'),
     t('Course Implementations With Restricted Content added'),
     t('Message referencing Content from field_message_ref_to_course_imp'),
@@ -1297,11 +1949,18 @@ function uhc_statistics_views_default_views() {
     t('Edited'),
     t('Course Implementation Edited'),
     t('Total @total Course implementations edited'),
+    t('User'),
     t('Title'),
     t('Number of edits'),
     t('Last updated'),
     t('Last updated (between)'),
+    t('Edited by user role'),
     t('Data Export - Edited'),
+    t('Roles'),
+    t('Moodle course areas created'),
+    t('Total @total Course implementations with moodle course areas created'),
+    t('Number of Moodle course areas added'),
+    t('Created by user role'),
   );
   $export['statistics'] = $view;
 

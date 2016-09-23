@@ -83,11 +83,49 @@ function uhc_doo_theme_features_image_default_styles() {
     ),
   );
 
+  // Exported image style: large_with_manualcrop.
+  $styles['large_with_manualcrop'] = array(
+    'label' => 'Large with manualcrop',
+    'effects' => array(
+      4 => array(
+        'name' => 'manualcrop_auto_reuse',
+        'data' => array(
+          'style_priority' => array(
+            0 => 'liftup_322_x_190',
+          ),
+          'apply_all_effects' => 0,
+          'fallback_style' => '',
+        ),
+        'weight' => 0,
+      ),
+      3 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 480,
+          'height' => 480,
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: liftup_322_x_190.
   $styles['liftup_322_x_190'] = array(
     'label' => 'Liftup 322 x 190',
     'effects' => array(
-      1 => array(
+      9 => array(
+        'name' => 'manualcrop_crop',
+        'data' => array(
+          'width' => 322,
+          'height' => 190,
+          'keepproportions' => 1,
+          'reuse_crop_style' => '',
+          'style_name' => 'liftup_322_x_190',
+        ),
+        'weight' => 0,
+      ),
+      8 => array(
         'name' => 'image_scale_and_crop',
         'data' => array(
           'width' => 322,

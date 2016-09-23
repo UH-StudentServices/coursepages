@@ -8,6 +8,6 @@
  * - $link: An optional link to a page with more information.
  */
 ?>
-<div class="messages warning">
+<div class="messages messages__sticky warning">
   <p><?php print $message; ?></p><?php if ($link): ?> <?php print $link; ?><?php endif; ?>
 </div>

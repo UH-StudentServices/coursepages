@@ -240,7 +240,7 @@ function uhc_genetics_views_default_views() {
   $handler->display->display_options['filters']['search_api_aggregation_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['operator_id'] = 'search_api_aggregation_1_op';
   $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['label'] = 'Search by keyword';
-  $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['description'] = 'For example name of the course or topic.';
+  $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['description'] = 'If you want to see all the courses, leave the search field empty.';
   $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['operator'] = 'search_api_aggregation_1_op';
   $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['identifier'] = 'search';
   $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['remember_roles'] = array(
@@ -248,6 +248,10 @@ function uhc_genetics_views_default_views() {
     1 => 0,
     3 => 0,
     4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
   );
   /* Filter criterion: Indexed Multilingual Node: Item language */
   $handler->display->display_options['filters']['search_api_language']['id'] = 'search_api_language';
@@ -317,7 +321,7 @@ function uhc_genetics_views_default_views() {
     t('By name'),
     t('By course number'),
     t('Search by keyword'),
-    t('For example name of the course or topic.'),
+    t('If you want to see all the courses, leave the search field empty.'),
     t('Desktop'),
     t('Table'),
     t('Facets block'),

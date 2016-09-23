@@ -1081,6 +1081,45 @@ function uhc_course_implementation_activity_default_message_type() {
     },
     "rdf_mapping" : []
   }');
+  $items['course_implementation_moodle_course_area_create'] = entity_import('message_type', '{
+    "name" : "course_implementation_moodle_course_area_create",
+    "description" : "Course implementation - Moodle course area create",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : "",
+    "send_mece_notification" : "0",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] created a Moodle course area.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] created a Moodle course area.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name]\\u0026nbsp;created a Moodle course area.\\u003C\\/p\\u003E\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name]\\u00a0created a Moodle course area.\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] created a Moodle course area.\\u003C\\/p\\u003E\\r\\n",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] created a Moodle course area.\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
   $items['course_implementation_moodle_key_create'] = entity_import('message_type', '{
     "name" : "course_implementation_moodle_key_create",
     "description" : "Course implementation - Moodle key create",
@@ -1332,23 +1371,23 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has written a private message",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E wrote a message to students",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has written a private message\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E wrote a message to students\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E kirjoitti yksityisviestin",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E kirjoitti viestin kurssin opiskelijoille",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E kirjoitti yksityisviestin\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E kirjoitti viestin kurssin opiskelijoille\\u003C\\/p\\u003E\\n"
         }
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E skrev ett privat meddelande",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E skrev ett meddelande till studerande",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E skrev ett privat meddelande\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E skrev ett meddelande till studerande\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -1371,23 +1410,23 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed a private message",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed a message",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed a private message\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed a message\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E poisti yksityisviestin",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E poisti viestin",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E poisti yksityisviestin\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E poisti viestin\\u003C\\/p\\u003E\\n"
         }
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E raderade ett privat meddelande",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E raderade ett meddelande",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E raderade ett privat meddelande\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E raderade ett meddelande\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -1410,23 +1449,23 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated a private message",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated a message to students",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated a private message\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated a message to students\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E p\\u00e4ivitti yksityisviesti\\u00e4",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E p\\u00e4ivitti viesti\\u00e4 kurssin opiskelijoille",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E p\\u00e4ivitti yksityisviesti\\u00e4\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E p\\u00e4ivitti viesti\\u00e4 kurssin opiskelijoille\\u003C\\/p\\u003E\\n"
         }
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E redigerade ett privat meddelande",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E uppdaterade ett meddelande till studerande",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E redigerade ett privat meddelande\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E uppdaterade ett meddelande till studerande\\u003C\\/p\\u003E\\n"
         }
       ]
     },

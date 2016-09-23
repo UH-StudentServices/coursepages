@@ -18,9 +18,6 @@
            $('#formElementId').submit();
            */
         });
-        // Moving views widget description to input placeholder
-        var placeholder = $("#edit-search-wrapper .description").text();
-        $("#edit-search").attr("placeholder", $.trim(placeholder));
       });
 
       // Faux multiselect dropdown for checkboxes

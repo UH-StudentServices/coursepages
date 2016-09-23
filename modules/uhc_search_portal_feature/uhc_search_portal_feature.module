@@ -60,9 +60,12 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
         }
       }
 
+      // add placeholder for search input
+      $form['search']['#attributes']['placeholder'] = t('For example name of the course or topic.');
+
       // Render header and prefix it with filter help text
       $header = $view->display_handler->render_header();
-      $filter_help = '<div class="filter-help">' . t('Limit search results') . '<span class="icon-help-circled" title="'. t('Please define your search criteria. The number in brackets shows the amount of courses that match your search.') . '"/></div>';
+      $filter_help = '<div class="filter-help">' . t('Limit search results') . ' <div class="description">' . t('Please define your search criteria. The number in brackets shows the amount of courses that match your search.') . '</div></div>';
       if (!empty($header)) {
         $form['search']['#suffix'] = $filter_help . $header;
       }
@@ -101,6 +104,7 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
         $form['include_ongoing_courses'] = array(
           '#type' => 'checkbox',
           '#title' => t('Also show ongoing teaching'),
+          '#description' => t('Select this if you want to see also the courses that have already begun.'),
         );
         $form['#info']['include_ongoing_courses'] = array(
           'value' => 'include_ongoing_courses',

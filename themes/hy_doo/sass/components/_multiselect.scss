@@ -6,6 +6,9 @@
   margin: 0 1em 1em 0;
   overflow: visible;
   width: 100%;
+  select {
+    width: 100%;
+  }
   @include at-breakpoint($layout-small) {
     width: 23%;
     .node--sidebar & {

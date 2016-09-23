@@ -1108,3 +1108,20 @@ function uhc_course_implementation_activity_views_pre_render(&$view) {
     }
   }
 }
+
+/**
+ * Helper function for creating messages with reference to node given as a parameter.
+ *
+ * @param $node
+ * @param string $message_type
+ */
+function uhc_course_implementation_activity_create_message($node, $message_type) {
+  global $user;
+  $account = user_load($user->uid);
+  $message = message_create($message_type, array(), $account);
+  $wrapper = entity_metadata_wrapper('message', $message);
+  if (isset($wrapper->field_message_ref_to_course_imp)) {
+    $wrapper->field_message_ref_to_course_imp->set($node);
+    $wrapper->save();
+  }
+}

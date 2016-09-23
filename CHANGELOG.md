@@ -1,3 +1,33 @@
+# Helsinki University Cousepages v1.76
+Päiväys: 22.09.2016
+
+## Lisäykset
+  - DOO-2401: Lisättiin kuvanrajaamistuki toteutuksien muokkausnäkymään.
+  - DOO-2387: Lisätty statistiikkanäkymään mahdollisuus suodattaa toteutuksia sen mukaan
+    onko kentissä sisältöä.
+  - DOO-2220: Lisätty avoimen editorille näkymä joka listaa kaikki oppiainesivut.
+  - DOO-2382: Lisätty statistiikan keräys luoduista moodle-alueista.
+  - DOO-2314: Lisättiin toiminnallisuus, joka logittaa kaikki Drupalin sisältöön
+    littyvät lomakevirhesanomat.
+  - DOO-2417: Ylläpitolistaus kaikista aktiviteettiviesteistä käännöksineen.
+  - DOO-2219: Lisätty hakuihin tooltip-ohjeita
+
+## Muutokset
+  - DOO-2329: Lisätty statistiikkanäkymään mahdollisuus suodattaa muokkauksia käyttäjäroolin mukaan.
+  - DOO-2353: Parannettiin kurssilleilmoittautumiskehotetta kirjautuneelle
+    käyttäjälle.
+  - DOO-2367: Päivitetty rajattujen viestien aktiviteettinotifikaatiotekstejä.
+  - DOO-2445: Muutettu Demo-ympäristön yläreunan huomautusviesti näkymään aina vaikka käyttäjä
+    skrollaa.
+
+## Muutokset
+  - DOO-2372: Toteutusten RSS-syötteeseen lisätty mahdollisuus sisällyttää
+    aliopetustapahtumat
+
+## Korjaukset
+  - DOO-2444: Korjattu materiaalilistauksessa päällekkäin menevät nimi ja tekstitiedot.
+
+
 # Helsinki University Cousepages v1.75
 Päiväys: 15.09.2016
 

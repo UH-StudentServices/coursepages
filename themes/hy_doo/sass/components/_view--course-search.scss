@@ -15,9 +15,6 @@
         label {
           @include text-label;
         }
-        .description {
-          display: none;
-        }
       }
       &.views-widget-filter-search_api_aggregation_1 {
         width: 100%;
@@ -117,14 +114,6 @@
   }
   .filter-help {
     margin: 2em 0 0.5em 0;
-    .icon-help-circled:after {
-      @include at-breakpoint($small){
-        @include hy-icon($hy-question);
-        color: $blue;
-        cursor: help;
-        margin-left: 0.5em;
-      }
-    }
   }
   h2 {
     clear: both;

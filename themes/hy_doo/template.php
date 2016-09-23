@@ -185,9 +185,9 @@ function hy_doo_menu_local_tasks_alter(&$data, $router_item, $root_path) {
  * Add JS for mobile vertical tabs.
  */
 function hy_doo_form_alter(&$form, &$form_state, $form_id) {
+  $form['#attached']['js'][] = drupal_get_path('theme', 'hy_doo') . '/js/help-widgets.js';
   if (isset($form['#node_edit_form']) && $form['#node_edit_form'] == TRUE) {
     $form['#attached']['js'][] = drupal_get_path('theme', 'hy_doo') . '/js/vertical_tabs.js';
-    $form['#attached']['js'][] = drupal_get_path('theme', 'hy_doo') . '/js/help-widgets.js';
   }
 }
 

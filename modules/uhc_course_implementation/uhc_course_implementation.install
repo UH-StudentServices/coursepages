@@ -457,6 +457,13 @@ function uhc_course_implementation_update_7011(&$sandbox) {
  * Remove field_imp_canonical_url that gets replaced by entity propety + DS
  * field.
  */
-function uhc_courses_implementation_update_7012(&$sandbox) {
+function uhc_course_implementation_update_7012(&$sandbox) {
   field_delete_field('field_imp_canonical_url');
+}
+
+/**
+ * Enable manualcrop module.
+ */
+function uhc_course_implementation_update_7013(&$sandbox) {
+  module_enable(array('manualcrop'));
 }

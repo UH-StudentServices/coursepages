@@ -2,18 +2,17 @@
 /**
  * @file
  * Code for the UHC Content Administration feature.
+ */
+
+include_once 'uhc_content_administration_feature.features.inc';
+/**
+ * @file
+ * Code for the UHC Content Administration feature.
  *
  * @license GPL, or GNU General Public License, version 3
  * @license http://opensource.org/licenses/GPL-3.0
  * @see README.md how to contribute to this project
  */
-
-/**
- * Implements hook_views_api().
- */
-function uhc_content_administration_feature_views_api($module = NULL, $api = NULL) {
-  return array("api" => "3.0");
-}
 
 /**
  * Implements hook_preprocess_page().
@@ -106,4 +105,36 @@ function _uhc_content_administration_feature_set_frontpage_if_requested($node, $
  */
 function uhc_content_administration_feature_form_alter(&$form, &$form_state) {
   $form['#attached']['js'][] = drupal_get_path('module', 'uhc_content_administration_feature') . '/js/content-admin-actions.js';
+}
+
+/**
+ * Implements hook_menu().
+ */
+function uhc_content_administration_feature_menu() {
+   $items = array();
+   $items['content-open-university-editor'] = array(
+    'access callback' => uhc_content_administration_has_role,
+    'access arguments' => array('open university editor'),
+    'page callback' => uhc_content_administration_content_open_university_editor,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'management',
+    'title' => t('List content'),
+  );
+  return $items;
+}
+
+// access callback that shows the menu item only to open university editors
+function uhc_content_administration_has_role($role) {
+  if (user_is_logged_in()) {
+    global $user;
+    if (in_array($role, $user->roles)) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+// Page callback that that redirects to open university editor content view.
+function uhc_content_administration_content_open_university_editor() {
+  drupal_goto('admin/content/content-open-university-editor');
 }

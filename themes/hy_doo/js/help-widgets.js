@@ -8,7 +8,7 @@
 (function ($) {
   Drupal.behaviors.uhc_help_widgets = {
     attach: function (context, settings) {
-      $('.node-form .description').once('uhc_help_widgets', function () {
+      $('form .description').once('uhc_help_widgets', function () {
 
         // try to find corresponding label and move description after it
         if ($(this).siblings('label').length) {

@@ -2,8 +2,11 @@
   @include font-weight-medium;
   @include font-size(12px);
   @include transition(all 0.3s ease-in-out);
+  @include transition-property(opacity, height, padding-top, padding-bottom);
   clear: both;
   text-align: center;
+  width: 100%;
+  position: relative;
   padding: 1.3em 2em;
   p, ul {
     @include font-family-main;
@@ -32,6 +35,9 @@
     opacity: 0;
     padding-top: 0;
     padding-bottom: 0;
+  }
+  &__sticky {
+    z-index: 999;
   }
   @each $name, $type in $messages {
     &.#{$name} {

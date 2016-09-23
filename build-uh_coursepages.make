@@ -46,6 +46,7 @@ projects[field_group][patch]["https://www.drupal.org/node/1482958"] = "https://w
 projects[field_multiple_limit][version] = "1.0-alpha4"
 projects[field_permissions][version] = "1.0-beta2"
 projects[filefield_paths][version] = "1.0-rc1"
+projects[form_error_logging][version] = "1.0-rc1"
 
 ; Support for field mapping on migrate
 projects[languagefield][version] = "1.3"
@@ -58,6 +59,7 @@ projects[google_analytics][version] = "1.4"
 projects[google_analytics_et][version] = "1.2"
 projects[google_analytics_reports][version] = "3.0-beta2"
 projects[i18n][version] = "1.13"
+projects[manualcrop][version] = "1.5"
 projects[imagemagick][version] = "1.0"
 projects[joyride][version] = "1.0-alpha3"
 projects[joyride][patch]["https://www.drupal.org/node/2411447"] = https://www.drupal.org/files/issues/joyride-makefile-core-and-api-version.diff
@@ -142,6 +144,7 @@ projects[url_alias_permissions][version] = "1.0"
 projects[variable][version] = "2.5"
 projects[varnish][version] = "1.1"
 projects[views][version] = "3.14"
+projects[views][patch]["https://www.drupal.org/node/477984"] = https://www.drupal.org/files/issues/exposed_EMPTY_NOT_EMPTY-477984-80.patch
 projects[views_bulk_operations][version] = "3.2"
 projects[views_block_area][version] = "1.1"
 projects[views_data_export][version] = "3.0-beta8"
@@ -260,6 +263,14 @@ libraries[dropzone][directory_name] = "dropzone"
 libraries[flexslider][download][type] = file
 libraries[flexslider][download][url] = https://github.com/woothemes/FlexSlider/archive/version/2.2.2.zip
 libraries[flexslider][directory_name] = "flexslider"
+
+libraries[jquery.imagesloaded][download][type] = file
+libraries[jquery.imagesloaded][download][url] = https://github.com/desandro/imagesloaded/archive/v2.1.2.tar.gz
+libraries[jquery.imagesloaded][directory_name] = "jquery.imagesloaded"
+
+libraries[jquery.imgareaselect][download][type] = file
+libraries[jquery.imgareaselect][download][url] = http://odyniec.net/projects/imgareaselect/jquery.imgareaselect-0.9.10.zip
+libraries[jquery.imgareaselect][directory_name] = "jquery.imgareaselect"
 
 libraries[wvega-timepicker][download][type] = file
 libraries[wvega-timepicker][download][url] = https://github.com/wvega/timepicker/archive/master.zip

@@ -28,11 +28,6 @@ function uhc_environment_page_build(&$page) {
     $page['page_top']['site_status_message'] = array(
       '#type'   => 'markup',
       '#markup' => theme('site_status_message', $variables),
-      '#attached' => array(
-        'css' => array(
-          drupal_get_path('module', 'site_status_message') . '/css/site_status_message.css',
-        ),
-      ),
       '#access' => user_access('access content'),
     );
   }

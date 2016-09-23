@@ -813,7 +813,10 @@ function uhc_course_implementation_display_private_content_message($node) {
     && !uhc_course_collaboration_is_current_user_course_administrator()
     && uhc_course_implementation_has_private_content($node);
 
-  $private_content_message = t('You need to log in and sign up for the course to view some of the content on this page.');
+
+  $private_content_message = user_is_anonymous()
+    ? t('You need to log in and sign up for the course to view some of the content on this page.')
+    : t('You need to enrol for the course to view some of the content on this page.');
 
   if ($display_private_content_message) {
     uh_coursepages_set_message($private_content_message, 'warning');

@@ -19,12 +19,6 @@
         $( ".accordion-edit-link" ).click(function(e) {
           e.stopPropagation();
         });
-
-        // Timetable accordion should be open by default.
-        $('.field-group-format-wrapper.group-timetable')
-          .slideToggle(0)
-          .prev('.field-group-format-toggler')
-          .toggleClass('is-active');
       });
     }
   }

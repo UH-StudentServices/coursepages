@@ -51,6 +51,7 @@ function uhc_course_implementation_activity_views_default_views() {
   $handler->display->display_options['fields']['mid']['label'] = '';
   $handler->display->display_options['fields']['mid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['mid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['mid']['separator'] = '';
   /* Field: User: Picture */
   $handler->display->display_options['fields']['picture']['id'] = 'picture';
   $handler->display->display_options['fields']['picture']['table'] = 'users';
@@ -140,6 +141,7 @@ function uhc_course_implementation_activity_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'course_implementation_private_statistics' => 'course_implementation_private_statistics',
     'course_implementation_update_statistics' => 'course_implementation_update_statistics',
+    'course_implementation_moodle_course_area_create' => 'course_implementation_moodle_course_area_create',
   );
 
   /* Display: Block */
@@ -155,7 +157,6 @@ function uhc_course_implementation_activity_views_default_views() {
     t('<div class="activity-toggle"></div><div class="count"></div>'),
     t('User'),
     t('.'),
-    t(','),
     t('[message_render]
 <span class="message-date" data-mid="[mid]" data-timestamp="[timestamp_1]">[timestamp]</span>'),
     t('All'),

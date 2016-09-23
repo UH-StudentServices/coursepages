@@ -97,8 +97,9 @@
           }
         }
         else {
-          // we don't want chosen for mobile devices, just add the title before select
-          element.before('<h2 class="study-module-select-title">' + field_title + '</h2>');
+          // we don't want chosen for mobile devices, just add a wrapper and the title before select
+          element.wrap('<div class="study-module-multiselect"></div>')
+            .before('<h2 class="study-module-select-title">' + field_title + '</h2>');
         }
       }
 
