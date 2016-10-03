@@ -241,18 +241,6 @@ function _uhc_course_implementation_handle_objectives_accordion_processing(&$ele
  * Implements hook_field_group_pre_render_alter().
  */
 function uhc_course_implementation_field_group_pre_render_alter(&$element, $group, &$form) {
-
-  // Prepend some classes for label
-  if (in_array($group->group_name, array(
-    'group_course_messages',
-    'group_imp_material',
-    'group_imp_feedback',
-    'group_course_task_material',
-    'group_imp_video',
-  )) && isset($element['#prefix'])) {
-    $element['#prefix'] = str_replace('h3 class="', 'h3 class="print-hidden ', $element['#prefix']);
-  }
-
   // Use custom section labels as custom section accordion titles
   if ($group->group_name == 'group_manual_content') {
     // We need to reconstruct the whole prefix in order to change the label

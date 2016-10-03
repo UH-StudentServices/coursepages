@@ -187,6 +187,10 @@ function _uhc_teacher_tools_menu_edit_links_menu_callback($node, $value) {
  * @return array Markup for the UHC Google Analytics Reports Page block.
  */
 function uhc_teacher_tools_analytics_callback() {
+  // create activity message
+  $node = node_load(arg(1));
+  uhc_course_implementation_activity_create_message($node, 'course_implementation_analytics_view');
+
   $view = views_get_view('uhc_google_analytics_reports_page');
   $view->set_display('block');
   $analytics_block_title =  '<p>' . $view->get_title() . '</p>';

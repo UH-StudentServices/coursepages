@@ -987,7 +987,7 @@ a:hover .course-hierarchy > li:after, .course-hierarchy > li:hover:after {
   -moz-hyphens: auto;
   hyphens: auto;
   word-break: break-word;
-  -ms-word-break: break-all;
+  -ms-word-break: break-word;
   padding: 1em 0;
   border-top: 1px solid #EBEBEB;
 }
@@ -1394,7 +1394,7 @@ a:hover .course-hierarchy > li:after, .course-hierarchy > li:hover:after {
   -moz-hyphens: auto;
   hyphens: auto;
   word-break: break-word;
-  -ms-word-break: break-all;
+  -ms-word-break: break-word;
   padding-right: 0.5em;
   width: 100%;
   display: inline-block;
@@ -1908,7 +1908,7 @@ form .description {
   -moz-hyphens: auto;
   hyphens: auto;
   word-break: break-word;
-  -ms-word-break: break-all;
+  -ms-word-break: break-word;
   font-size: 0.75em;
   left: -15px;
   top: 30px;
@@ -2887,7 +2887,7 @@ h2.study-module-select-title {
     -moz-hyphens: auto;
     hyphens: auto;
     word-break: break-word;
-    -ms-word-break: break-all;
+    -ms-word-break: break-word;
     font-weight: 400;
     font-style: normal;
     text-transform: none;
@@ -3310,7 +3310,7 @@ body.search-main-page .views-widget-sort-by {
 }
 @media (min-width: 49em) {
   .view.course-search th, .view.course-search td {
-    width: initial;
+    width: auto;
     float: none;
     padding-right: 1em;
   }
@@ -3848,7 +3848,7 @@ body.search-main-page .views-widget-sort-by {
   -moz-hyphens: auto;
   hyphens: auto;
   word-break: break-word;
-  -ms-word-break: break-all;
+  -ms-word-break: break-word;
   display: block;
 }
 @media (min-width: 49em) {
@@ -4462,6 +4462,7 @@ a:hover .accordion-item__alternative:before, .accordion-item__alternative:hover:
   left: -2px;
   top: -2px;
   right: initial;
+  width: 45px;
 }
 .ghost-accordion .accordion-edit-link:before {
   -webkit-font-smoothing: antialiased;
@@ -4469,6 +4470,7 @@ a:hover .accordion-item__alternative:before, .accordion-item__alternative:hover:
   font-family: "hy-icons";
   content: "";
   display: block;
+  float: left;
 }
 .ghost-accordion .accordion-edit-link:hover {
   -moz-animation: none;
@@ -4891,7 +4893,7 @@ h1, h2 {
   -moz-hyphens: auto;
   hyphens: auto;
   word-break: break-word;
-  -ms-word-break: break-all;
+  -ms-word-break: break-word;
 }
 
 .heading-light {

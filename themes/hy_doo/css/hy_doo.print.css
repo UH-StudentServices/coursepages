@@ -1,3 +1,17 @@
+@charset "UTF-8";
+* {
+  color: #000000 !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  overflow: visible !important;
+  text-transform: none !important;
+  font-family: 'Georgia' !important;
+  font-size: 12px !important;
+  font-weight: normal !important;
+}
+
 .field-group-accordion-item,
 .accordion-item,
 .accordion-content-item,
@@ -5,76 +19,91 @@
   display: block !important;
 }
 
-.ds-grid-8, .ds-grid-18 {
-  width: 100% !important;
-}
-
-.messages,
+.mobile-menu-toggle,
 .l-top-bar-wrapper,
 .l-menu-bar,
+.tabs-wrapper,
 .l-breadcrumb,
-.ds-node-banner img,
-.accordion-item:before,
-.ds-teaser-accordion--title:before,
-.field--name-uhc-course-implementation-enrollment-button,
-.tabs--primary,
-.links--inline,
-.activity,
-#block-hy-content-suffix-hy-content-suffix-up-anchor,
-#block-menu-menu-open-university-footer-link,
-#block-menu-menu-open-university-some-links,
+.messages,
+.comments h2.title,
+#comment-form,
+.message-wrapper .links,
+.accordion-edit-link,
+.field-group-format-toggler:before,
+#up-anchor,
 #block-feedback-form,
-#comments h2,
-#comments form,
-.moodle-button,
-.group-course-messages,
-.group-imp-material,
-.group-imp-feedback,
-.ghost-accordion,
-.group-imp-video,
-.print-hidden,
 .joyride-tip-guide,
-footer,
-.l-region--info-footer,
-.ds-node-sidebar,
-.ds-node-banner {
+.rss,
+.course-overview-source-legend,
+.ds-node-banner,
+.activity,
+.user-picture,
+.field--name-field-video-embed-url,
+.l-footer {
   display: none !important;
 }
 
-* {
-  color: #000000 !important;
-  padding-left: 0 !important;
-  margin: 0 !important;
-  overflow: visible !important;
+.ds-grid-8, .ds-grid-18 {
+  width: 100% !important;
 }
 
 .ds-node-content,
 .ds-node-banner {
   float: none !important;
+  text-align: left;
 }
 
 .ds-node-metadata label {
   margin-right: 0.35em !important;
 }
 
-.ds-node-content {
-  font-size: 0.7rem;
+.ds-node-metadata {
+  font-size: 13px !important;
 }
 
-p {
-  line-height: 1.4em;
+p, li, span {
+  line-height: 1.4em !important;
 }
 
-li {
-  font-size: 0.7rem !important;
+h1,
+h2,
+h3,
+h3 a,
+h3 .field__item,
+h4,
+.accordion-content-item--label,
+.message-author {
+  font-weight: bold !important;
+  font-family: "Open Sans",Helvetica,Arial,sans-serif,Nimbus Sans L !important;
 }
 
-.event-list .event-column {
-  width: 50% !important;
+h1 {
+  font-size: 2.6rem !important;
+  padding: 0 !important;
 }
 
-.event-list .field {
-  width: 50%;
+h3,
+h3 a,
+h3 .field__item {
+  font-size: 1.8rem !important;
+}
+
+h4,
+.accordion-content-item--label,
+.message-author,
+h2.grouping-title {
+  font-size: 1.3rem !important;
+  padding-top: 1em;
+}
+
+ul {
+  list-style-type: circle;
+  list-style-position: inside !important;
+  padding: 1em !important;
+}
+
+.field-name-course-implementation-material ul {
+  list-style-type: none;
 }
 
 .tube--large {
@@ -87,9 +116,93 @@ li {
 
 .accordion-item__light, .accordion-item {
   clear: both;
-  padding: inherit;
+  padding: 1em 0 0.3em 0;
 }
 
-h1 {
-  font-size: 1.5rem;
+.field--name-uhc-course-implementation-enrollment-button a:link:after,
+.field--name-uhc-course-implementation-enrollment-button a:visited:after,
+.accordion-content-item a:link:after,
+.accordion-content-item a:visited:after,
+.event-location a:link:after,
+.event-location a:visited:after,
+.wiki-url a:link:after,
+.wiki-url a:visited:after {
+  content: " (" attr(href) ") " !important;
+  font-size: smaller !important;
+  position: static !important;
+  color: #000 !important;
+  padding: 0 !important;
+}
+
+.moodle-button:after {
+  content: " (" attr(href) ") " !important;
+  font-size: smaller !important;
+  position: static !important;
+  color: #000 !important;
+  padding: 0 !important;
+}
+
+.event-list .event-list-header .event-time,
+.event-list .event-list-header .event-title {
+  display: inline-block !important;
+}
+.event-list .field {
+  width: 49% !important;
+  vertical-align: top;
+}
+.event-list .views-row-odd,
+.event-list .views-row-even {
+  padding: 0.5em 0;
+}
+
+ul.list-of-links--light li > a,
+ul.list-of-links li > a {
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: normal;
+  padding: 0 !important;
+}
+
+.moodle-key {
+  padding: 0 !important;
+  font-size: inherit !important;
+}
+.moodle-key:before {
+  display: none;
+}
+
+.message-wrapper {
+  display: block !important;
+  width: 100% !important;
+  float: none !important;
+}
+
+.item-list ul {
+  padding: 0 !important;
+}
+
+.ds-material-block {
+  width: 100% !important;
+}
+
+.ds-material-block--content {
+  width: 100% !important;
+  padding-right: 1em !important;
+}
+.ds-material-block--content .field {
+  float: left;
+  width: 30%;
+  padding-left: 1em;
+}
+.ds-material-block--content .field:first-child {
+  width: 40%;
+  padding-left: 0;
+}
+
+.block--hy-content-suffix-hy-content-suffix-last-updated .block__content:before {
+  content: 'Updated/päivitetty/updaterad: ';
+}
+
+.button {
+  padding: 0 !important;
 }

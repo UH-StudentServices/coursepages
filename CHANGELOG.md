@@ -1,3 +1,18 @@
+# Helsinki University Cousepages v1.77
+Päiväys: 26.09.2016
+
+## Muutokset
+  - DOO-2357: Tulostustyylien jatkokehitystä.
+  - DOO-2400: Tilastointityökalun parannuksia ja laajennuksia.
+
+## Korjaukset
+  - DOO-2372: Viilattiin hakutulosten RSS-syötteen alitapahtumien näyttäminen
+    toimimaan kaikilla kielillä.
+  - DOO-2219: Parannettiin IE11-selaimen sanankatkaisua hakuvihjeissä.
+  - DOO-2442: Parannettiin kurssisivuhaitareiden konseptinmukaisuutta (IE11)
+  - DOO-2443: hakutulosten nimi-sarakkeen leveys korjattu IE:llä.
+
+
 # Helsinki University Cousepages v1.76
 Päiväys: 22.09.2016
 

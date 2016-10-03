@@ -164,9 +164,11 @@
     left: -2px;
     top: -2px;
     right: initial;
+    width: 45px;
     &:before {
       @include hy-icon($hy-plus);
       display: block;
+      float: left;
     }
     &:hover {
       @include animation(none);

@@ -58,6 +58,9 @@ function uhc_sources_sync_status_form_submit($form, &$form_state) {
 
     // Synchronize this page
     if ($node = uhc_sources_sync_for_page($form_state['build_info']['args']['field_imp_id'])) {
+      // create activity message for statistics
+      uhc_course_implementation_activity_create_message($node, 'course_implementation_sync');
+
       drupal_set_message(t('This page has been synchronized.'));
       $form_state['redirect'] = array('node/' . $node->nid);
     }
