@@ -12,10 +12,8 @@
  * Implements hook_uninstall().
  */
 function uhc_course_implementation_source_uninstall() {
-  variable_del('uhc_course_implementation_source_list_url');
   variable_del('uhc_course_implementation_source_item_url');
   variable_del('uhc_course_implementation_source_predefined_description_names');
-  variable_del('uhc_course_implementation_source_deleted_last_requested');
 }
 
 /**
@@ -60,6 +58,30 @@ function uhc_course_implementation_source_update_7003() {
     $queue->createItem($item);
   }
   variable_del('uhc_course_implementation_source_migrate_stubs');
+}
+
+/**
+ * Remove variables related to list urls and last requested.
+ */
+function uhc_course_implementation_source_update_7004() {
+  variable_del('uhc_course_implementation_source_list_url');
+  variable_del('uhc_course_implementation_source_deleted_last_requested');
+}
+
+/**
+ * Migrate delete queue to new oodi queue.
+ */
+function uhc_course_implementation_source_update_7005() {
+  /** @var DrupalReliableQueueInterface $source_queue */
+  $source_queue = DrupalQueue::get('uhc_course_implementation_source_delete', TRUE);
+  $target_queue = new UHOodiPrioritisedQueue();
+  while ($item = $source_queue->claimItem()) {
+    $target_queue->createItem(array(
+      'action' => 'delete',
+      'entityType' => 'courseunitrealisation',
+      'entityId' => $item,
+    ), UHOodiQueue::PRIORITY_MEDIUM);
+  }
 }
 
 /**

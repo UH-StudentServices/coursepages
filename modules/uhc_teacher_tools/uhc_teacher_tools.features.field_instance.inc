@@ -15,7 +15,7 @@ function uhc_teacher_tools_field_default_field_instances() {
     'bundle' => 'course_implementation',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Copy and place the Moodle course key here. It\'s visibility will be restricted to logged in participants of the course.',
+    'description' => 'Copy and place the Moodle enrolment key here. It\'s visibility will be restricted to logged in participants of the course.',
     'display' => array(
       'content_suffix' => array(
         'label' => 'above',
@@ -61,7 +61,7 @@ function uhc_teacher_tools_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_moodle_key',
-    'label' => 'Moodle key',
+    'label' => 'Enrolment key',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
@@ -288,10 +288,10 @@ function uhc_teacher_tools_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Copy and place the Moodle course key here. It\'s visibility will be restricted to logged in participants of the course.');
+  t('Copy and place the Moodle enrolment key here. It\'s visibility will be restricted to logged in participants of the course.');
   t('Example: https://moodle.helsinki.fi/course/view.php?id=754');
   t('Example: https://wiki.helsinki.fi/display/support/Perustoiminnot');
-  t('Moodle key');
+  t('Enrolment key');
   t('URL');
 
   return $field_instances;

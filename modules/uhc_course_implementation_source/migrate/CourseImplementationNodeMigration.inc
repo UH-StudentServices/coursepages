@@ -12,6 +12,7 @@
 class CourseImplementationNodeMigration extends PortalMigrationBase {
 
   protected $reference_to_courses_migration;
+  protected $foreign_entity_type = 'courseunitrealisation';
 
   /**
    * @param $arguments array
@@ -39,18 +40,14 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     else {
 
       // Construct URLs for source class
-      $list_url = variable_get('uhc_course_implementation_source_list_url', '');
       $item_url = variable_get('uhc_course_implementation_source_item_url', '');
 
       // Prepare URLs for hosts and other parameters
       $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
-      $list_url = PortalMigrationBase::prependHostIfMissing($list_url);
-      $list_url = $this->constructLastRequested($list_url);
 
       // Construct source class
-      $timeout = variable_get('uhc_sources_timeout', ini_get('default_socket_timeout'));
       $this->source = new MigrateSourceList(
-        new PortalListBase('course_id', $list_url, array('timeout' => $timeout)),
+        new PortalListQueue('update', 'courseunitrealisation'),
         new PortalItemBase($item_url),
         self::sourceFields(),
         array('reader_class' => 'UHCMigrateJSONReader', 'track_changes' => TRUE)
@@ -331,12 +328,15 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       }
     }
 
-    // Add each stub into handling queue
-    /** @var DrupalReliableQueueInterface $queue */
-    $queue = DrupalQueue::get('uhc_sources_postupdate_handling', TRUE);
+    // Add each stub into queue
+    $queue = new UHOodiPrioritisedQueue();
     foreach ($created_stubs as $created_stub) {
-      $item = array('type' => 'courseunitrealisation', 'id' => $created_stub);
-      $queue->createItem($item);
+      $item = new UHOodiQueueItem(array(
+        'action' => 'update',
+        'entityType' => 'courseunitrealisation',
+        'entityId' => $created_stub,
+      ), UHOodiQueue::PRIORITY_MEDIUM);
+      $queue->createItem($item->exportToQueueItem());
     }
 
     // Returns stub nids if any, or else return FALSE

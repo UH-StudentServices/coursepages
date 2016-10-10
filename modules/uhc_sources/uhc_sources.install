@@ -26,7 +26,6 @@ function uhc_sources_uninstall() {
   variable_del('uhc_sources_examination_type_codes');
   variable_del('uhc_sources_timeout');
   variable_del('uhc_sources_simulate_failure');
-  db_query("DELETE FROM {variable} WHERE name LIKE 'uhc_sources_last_requested_%'");
 }
 
 /**
@@ -116,4 +115,33 @@ function uhc_sources_update_7003() {
  */
 function uhc_sources_update_7004() {
   db_update('queue')->fields(array('name' => 'uhc_sources_postupdate_handling'))->condition('name', 'uhc_sources_stub_handling')->execute();
+}
+
+/**
+ * Cleans up last requested timestamp variables and migrate post update queue to
+ * new queue.
+ */
+function uhc_sources_update_7005() {
+  module_enable(array('uh_oodi_queue', 'uh_oodi_queue_poll'));
+  // Remove variables
+  db_query("DELETE FROM {variable} WHERE name LIKE 'uhc_sources_last_requested_%'");
+
+  /** @var DrupalReliableQueueInterface $source_queue */
+  $source_queue = DrupalQueue::get('uhc_sources_postupdate_handling', TRUE);
+  $target_queue = new UHOodiPrioritisedQueue();
+  while ($item = $source_queue->claimItem()) {
+
+    // Create item to target queue
+    $created = $target_queue->createItem(array(
+      'action' => 'update',
+      'entityType' => $item->data['type'],
+      'entityId' => $item->data['id'],
+    ), UHOodiQueue::PRIORITY_MEDIUM);
+
+    // If it was successfully created, remove it from source queue
+    if ($created) {
+      $source_queue->deleteItem($item);
+    }
+
+  }
 }

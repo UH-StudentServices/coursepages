@@ -113,9 +113,9 @@ function uhc_content_administration_feature_form_alter(&$form, &$form_state) {
 function uhc_content_administration_feature_menu() {
    $items = array();
    $items['content-open-university-editor'] = array(
-    'access callback' => uhc_content_administration_has_role,
+    'access callback' => 'uhc_content_administration_has_role',
     'access arguments' => array('open university editor'),
-    'page callback' => uhc_content_administration_content_open_university_editor,
+    'page callback' => 'uhc_content_administration_content_open_university_editor',
     'type' => MENU_NORMAL_ITEM,
     'menu_name' => 'management',
     'title' => t('List content'),

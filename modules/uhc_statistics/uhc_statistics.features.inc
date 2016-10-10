@@ -49,30 +49,6 @@ function uhc_statistics_default_message_type() {
     },
     "rdf_mapping" : []
   }');
-  $items['course_implementation_private_statistics'] = entity_import('message_type', '{
-    "name" : "course_implementation_private_statistics",
-    "description" : "Course Implementation Private Statistics",
-    "argument_keys" : [],
-    "argument" : [],
-    "category" : "message_type",
-    "data" : {
-      "token options" : { "clear" : 0 },
-      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
-    },
-    "language" : "en",
-    "arguments" : null,
-    "target_accordion_class" : "",
-    "send_mece_notification" : "0",
-    "message_text" : { "en" : [
-        {
-          "value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\r\\n",
-          "format" : "filtered_html",
-          "safe_value" : "\\u003Cp\\u003E-\\u003C\\/p\\u003E\\n"
-        }
-      ]
-    },
-    "rdf_mapping" : []
-  }');
   $items['course_implementation_sync'] = entity_import('message_type', '{
     "name" : "course_implementation_sync",
     "description" : "Course implementation - Sync",

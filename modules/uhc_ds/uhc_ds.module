@@ -561,7 +561,7 @@ function uhc_ds_moodle_key_or_login($field) {
       $value['#markup'] = l(t('Log in'), shib_auth_generate_login_url()) . ' ' . t('to view the registration key for Moodle.');
     }
     else {
-      $value['#markup'] = t('Moodle key') . ': ' . $value['#markup'];
+      $value['#markup'] = t('Enrolment key') . ': ' . $value['#markup'];
     }
   }
 

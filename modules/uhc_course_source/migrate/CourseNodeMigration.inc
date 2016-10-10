@@ -11,6 +11,7 @@
 class CourseNodeMigration extends PortalMigrationBase {
 
   protected $type_of_teaching;
+  protected $foreign_entity_type = 'learningopportunity';
 
   /**
    * @param array $arguments
@@ -38,18 +39,14 @@ class CourseNodeMigration extends PortalMigrationBase {
     else {
 
       // Construct the URLs for source class
-      $list_url = variable_get('uhc_course_source_list_url', '');
       $item_url = variable_get('uhc_course_source_item_url', '');
 
       // Prepare URLs for hosts and other parameters
       $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
-      $list_url = PortalMigrationBase::prependHostIfMissing($list_url);
-      $list_url = $this->constructLastRequested($list_url);
 
       // Construct and specify source class
-      $timeout = variable_get('uhc_sources_timeout', ini_get('default_socket_timeout'));
       $this->source = new MigrateSourceList(
-        new PortalListBase('learningopportunity_id', $list_url, array('timeout' => $timeout)),
+        new PortalListQueue('update', 'learningopportunity'),
         new PortalItemBase($item_url),
         self::sourceFields(),
         array('track_changes' => TRUE)
@@ -255,12 +252,15 @@ class CourseNodeMigration extends PortalMigrationBase {
       }
     }
 
-    // Add each stub into handling queue
-    /** @var DrupalReliableQueueInterface $queue */
-    $queue = DrupalQueue::get('uhc_sources_postupdate_handling', TRUE);
+    // Add each stub into queue
+    $queue = new UHOodiPrioritisedQueue();
     foreach ($created_stubs as $created_stub) {
-      $item = array('type' => 'learningopportunity', 'id' => $created_stub);
-      $queue->createItem($item);
+      $item = new UHOodiQueueItem(array(
+        'action' => 'update',
+        'entityType' => 'learningopportunity',
+        'entityId' => $created_stub,
+      ), UHOodiQueue::PRIORITY_MEDIUM);
+      $queue->createItem($item->exportToQueueItem());
     }
 
     // Returns stub nids if any, or else return FALSE

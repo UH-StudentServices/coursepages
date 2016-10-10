@@ -11,21 +11,22 @@
 class PortalMigrationBase extends Migration {
 
   /**
-   * Holds timestamp for when import process has started. This is used for
-   * determining when the source was requested last time.
-
-   * @var DateTime $process_started
-   * @see PortalMigrationBase::processImport()
-   * @see PortalMigrationBase::postImport()
-   */
-  protected $process_started;
-
-  /**
    * This holds set of ids to be imported either defined through constructor
    * or by predefined idlist when calling MigrationBase::processImport().
    * @var array $predefined_ids
    */
   protected $predefined_ids = array();
+
+  /**
+   * Contains all successfully processed source ids.
+   * @var array
+   */
+  protected $processed_source_ids = array();
+
+  /**
+   * @var string
+   */
+  protected $foreign_entity_type = '';
 
   /**
    * Sets machine name if provided through arguments.
@@ -39,71 +40,6 @@ class PortalMigrationBase extends Migration {
     if (!empty($arguments['machine_name'])) {
       $this->machineName = $arguments['machine_name'];
     }
-  }
-
-  /**
-   * Sets the timestamp of last requested. This is used for constructing list
-   * url when fetching for changes from previous request.
-   *
-   * @param DateTime|NULL $last_requested
-   */
-  protected function setLastRequested(DateTime $last_requested = NULL) {
-    if (is_null($last_requested)) {
-      $last_requested = new DateTime();
-    }
-
-    // This is a state variable of this migration. Declare variable name for
-    // storing the timestamp.
-    variable_set('uhc_sources_last_requested_' . drupal_strtolower($this->getMachineName()), $last_requested->getTimestamp());
-
-  }
-
-  /**
-   * Gets the timestamp of when list url has been requested previously. This is
-   * used for constructing list url when fetching for changes from previous
-   * request.
-   *
-   * If Drupal variable 'uhc_sources_last_requested_modify' is set, this method
-   * will modify the timestamp by that value against the last requested
-   * timestamp before returning the value.
-   *
-   * @return DateTime|null
-   */
-  protected function getLastRequested() {
-    $last_requested_timestamp = variable_get('uhc_sources_last_requested_' . drupal_strtolower($this->getMachineName()));
-    if (!empty($last_requested_timestamp)) {
-      // Convert to DateTime from unix timestamp
-      $last_requested = new DateTime();
-      $last_requested->setTimestamp($last_requested_timestamp);
-      $modify = variable_get('uhc_sources_last_requested_modify', '-5 sec');
-      if (!empty($modify)) {
-        $last_requested->modify($modify);
-      }
-    }
-    else {
-      // No last imported timestamp. Then return default value which is decided
-      // to be -1 month from today.
-      $last_requested = new DateTime("-1 month");
-    }
-    return $last_requested;
-  }
-
-  /**
-   * Constructs the last requested timestamp to the URL. This timestamp is
-   * different from last imported by the fact that we keep track this timestamp
-   * only if no errors occurs.
-   *
-   * @param $list_url
-   * @return mixed
-   */
-  protected function constructLastRequested($list_url) {
-    // Our timestamps are kept as local time, but requests must be done in Zulu
-    // timezone.
-    $last_requested = $this->getLastRequested();
-    $last_requested->setTimezone(new DateTimeZone('Etc/Zulu'));
-    $list_url = str_replace(':since_date', $last_requested->format('Y-m-d\TH:i:s\.000\Z'), $list_url);
-    MigrationBase::displayMessage('Requesting using list URL: ' . $list_url, 'status');
-    return $list_url;
   }
 
   /**
@@ -134,9 +70,117 @@ class PortalMigrationBase extends Migration {
         }
       }
     }
-    $this->process_started = new DateTime();
 
     return parent::processImport($options);
+  }
+
+  /**
+   * Overrides Migrate::import().
+   *
+   * Note: We do exact same implementation except we want to keep track of
+   * which source IDs have been successfully processed. See below ## hashtag ##
+   * comment for our own additions.
+   */
+  protected function import() {
+    $return = MigrationBase::RESULT_COMPLETED;
+
+    try {
+      $this->source->rewind();
+    }
+    catch (Exception $e) {
+      self::displayMessage(
+        t('Migration failed with source plugin exception: %e, in %file:%line',
+          array('%e' => $e->getMessage(), '%file' => $e->getFile(), '%line' => $e->getLine())));
+      return MigrationBase::RESULT_FAILED;
+    }
+    while ($this->source->valid()) {
+      $data_row = $this->source->current();
+
+      // Wipe old messages, and save any new messages.
+      $this->map->delete($this->currentSourceKey(), TRUE);
+      $this->saveQueuedMessages();
+
+      $this->sourceValues = $data_row;
+      $this->applyMappings();
+
+      try {
+        migrate_instrument_start('destination import', TRUE);
+        $ids = $this->destination->import($this->destinationValues, $this->sourceValues);
+        migrate_instrument_stop('destination import');
+        if ($ids) {
+          $this->map->saveIDMapping($this->sourceValues, $ids,
+            $this->needsUpdate, $this->rollbackAction,
+            $data_row->migrate_map_hash);
+          ######################################################################
+          ## Keep track of successfull source IDs ##############################
+          $this->appendProcessedSourceId($this->source->key());
+          ######################################################################
+          ######################################################################
+          $this->successes_since_feedback++;
+          $this->total_successes++;
+        }
+        else {
+          $this->map->saveIDMapping($this->sourceValues, array(),
+            MigrateMap::STATUS_FAILED, $this->rollbackAction,
+            $data_row->migrate_map_hash);
+          if ($this->map->messageCount() == 0) {
+            $message = t('New object was not saved, no error provided');
+            $this->saveMessage($message);
+            self::displayMessage($message);
+          }
+        }
+      }
+      catch (MigrateException $e) {
+        $this->map->saveIDMapping($this->sourceValues, array(),
+          $e->getStatus(), $this->rollbackAction, $data_row->migrate_map_hash);
+        $this->saveMessage($e->getMessage(), $e->getLevel());
+        self::displayMessage($e->getMessage());
+      }
+      catch (Exception $e) {
+        $this->map->saveIDMapping($this->sourceValues, array(),
+          MigrateMap::STATUS_FAILED, $this->rollbackAction,
+          $data_row->migrate_map_hash);
+        $this->handleException($e);
+      }
+      $this->total_processed++;
+      $this->processed_since_feedback++;
+      if ($this->highwaterField) {
+        $this->saveHighwater($this->sourceValues->{$this->highwaterField['name']});
+      }
+
+      // Reset row properties.
+      unset($this->sourceValues, $this->destinationValues);
+      $this->needsUpdate = MigrateMap::STATUS_IMPORTED;
+
+      // TODO: Temporary. Remove when http://drupal.org/node/375494 is committed.
+      // TODO: Should be done in MigrateDestinationEntity
+      if (!empty($this->destination->entityType)) {
+        entity_get_controller($this->destination->entityType)->resetCache();
+      }
+
+      if ($this->timeOptionExceeded()) {
+        break;
+      }
+      if (($return = $this->checkStatus()) != MigrationBase::RESULT_COMPLETED) {
+        break;
+      }
+      if ($this->itemOptionExceeded()) {
+        break;
+      }
+      try {
+        $this->source->next();
+      }
+      catch (Exception $e) {
+        self::displayMessage(
+          t('Migration failed with source plugin exception: %e, in %file:%line',
+            array('%e' => $e->getMessage(), '%file' => $e->getFile(), '%line' => $e->getLine())));
+        return MigrationBase::RESULT_FAILED;
+      }
+    }
+
+    $this->progressMessage($return);
+
+    return $return;
   }
 
   /**
@@ -150,13 +194,59 @@ class PortalMigrationBase extends Migration {
    */
   protected function postImport() {
     parent::postImport();
-    if (count($this->predefined_ids) == 0 && $this->getMap()->errorCount() == 0) {
-      // It is very important to set last requested when starting the process,
-      // not when the process is done. See ticket DOO-2346.
-      $this->setLastRequested($this->process_started);
-    }
     // Sort month terms in chronological order
     uhc_taxonomy_sort_month_terms();
+    // Clean up successfully processed source ids from UHOodiPrioritisedQueue
+    $foreign_entity_type = $this->getForeignEntityType();
+    $processed_ids = $this->getProcessedIds();
+    $this->clearPrioritisedQueue($foreign_entity_type, $processed_ids);
+  }
+
+  /**
+   * @return string
+   */
+  public function getForeignEntityType() {
+    return $this->foreign_entity_type;
+  }
+
+  /**
+   * Appends source id to the list.
+   * @param $source_id
+   */
+  protected function appendProcessedSourceId($source_id) {
+    $this->processed_source_ids[] = $source_id;
+  }
+
+  protected function getProcessedIds() {
+    return array_map(function($item) {
+      $item = unserialize($item);
+      return $item['id'];
+    }, $this->processed_source_ids);
+  }
+
+  /**
+   * Clears corresponding queue items out that is processed within this
+   * migration.
+   * @param $foreign_entity_type
+   * @param $processed_ids
+   */
+  protected function clearPrioritisedQueue($foreign_entity_type, $processed_ids) {
+    if (empty($foreign_entity_type) || empty($processed_ids)) {
+      return;
+    }
+    $queue = new UHOodiPrioritisedQueue();
+    $unmatched_items = array();
+    while ($item = $queue->claimItem()) {
+      if ($item->isAction('update') && $item->isType($foreign_entity_type) && in_array($item->getId(), $processed_ids)) {
+        $queue->deleteItem($item);
+      }
+      else {
+        $unmatched_items[] = $item;
+      }
+    }
+    foreach ($unmatched_items as $item) {
+      $queue->releaseItem($item);
+    }
   }
 
   /**

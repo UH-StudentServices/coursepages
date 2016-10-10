@@ -15,6 +15,7 @@
   font-family: 'Georgia' !important;
   font-size: 12px !important;
   font-weight: normal !important;
+  letter-spacing: normal !important;
 }
 
 // Accordion items should be open by default when printing.
@@ -42,11 +43,16 @@
 .joyride-tip-guide,
 .rss,
 .course-overview-source-legend,
-.ds-node-banner,
+.ds-node-banner img,
+.ds-node-banner span,
 .activity,
 .user-picture,
 .field--name-field-video-embed-url,
-.l-footer
+.l-footer,
+.l-info-footer-wrapper,
+.ds-node-sidebar,
+.moodle-key,
+.ghost-accordion
 {
   display: none !important;
 }
@@ -75,6 +81,13 @@
 
 p, li, span {
   line-height: 1.4em !important;
+}
+
+p {
+  margin-bottom: 1em !important;
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
 }
 
 h1,
@@ -110,9 +123,13 @@ h2.grouping-title {
 
 
 ul {
-  list-style-type: circle;
+  list-style-type: circle !important;
   list-style-position: inside !important;
   padding: 1em !important;
+}
+
+li:before {
+  display: none !important;
 }
 
 .field-name-course-implementation-material ul {
@@ -160,6 +177,10 @@ ul {
   }
 }
 
+a.field-material-file:after {
+  display: none !important;
+}
+
 .event-list {
   .event-list-header {
     .event-time,
@@ -183,15 +204,8 @@ ul.list-of-links {
     font-size: inherit;
     font-family: inherit;
     font-weight: normal;
+    display: inline !Important;
     padding: 0 !important;
-  }
-}
-
-.moodle-key {
-  padding: 0 !important;
-  font-size: inherit !important;
-  &:before {
-    display: none;
   }
 }
 
@@ -204,6 +218,9 @@ ul.list-of-links {
 .item-list {
   ul {
     padding: 0 !important;
+    li {
+      list-style-type: none !important;
+    }
   }
 }
 
@@ -233,4 +250,30 @@ ul.list-of-links {
 
 .button {
   padding: 0 !important;
+}
+
+.headline,
+.intro-text,
+.long-text {
+  margin-bottom: 1em !important;
+}
+
+.ds-node-metadata {
+  border-bottom: solid 1px grey !important;
+  padding-bottom: 0.8em !important;
+  margin-bottom: 1em !important;
+}
+
+.teaching-languages span {
+  padding-right: 0.5em;
+}
+
+.message-author {
+  font-size: small !important;
+}
+
+.headline p {
+  font-family: "Open Sans",Helvetica,Arial,sans-serif,Nimbus Sans L !important;
+  font-weight: bold !important;
+  font-size: 1.8rem !important;
 }

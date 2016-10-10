@@ -44,18 +44,18 @@ function uhc_course_node_update($node) {
     return NULL;
   }
 
-  /** @var DrupalReliableQueueInterface $queue */
-  $queue = DrupalQueue::get('uhc_sources_postupdate_handling', TRUE);
+  $queue = new UHOodiPrioritisedQueue();
 
   $course_imp_nodes = _uhc_course_node_get_referencing_course_imp_nodes($node);
   foreach ($course_imp_nodes as $course_imp_node) {
     $id = _uhc_sources_resolve_course_imp($course_imp_node->nid);
     if ($id !== FALSE && _uhc_course_node_get_is_in_past_academic_year($course_imp_node) === FALSE) {
-      $item = array(
-        'type' => 'courseunitrealisation',
-        'id' => (int) $id,
-      );
-      $queue->createItem($item);
+      $item = new UHOodiQueueItem(array(
+        'action' => 'update',
+        'entityType' => 'courseunitrealisation',
+        'entityId' => $id,
+      ), UHOodiQueue::PRIORITY_MEDIUM);
+      $queue->createItem($item->exportToQueueItem());
     }
   }
 }

@@ -1002,8 +1002,7 @@ function uhc_course_implementation_taxonomy_term_delete($term) {
   $organisation_vocabulary = taxonomy_vocabulary_machine_name_load('organisations_of_university_of_helsinki');
   if (!empty($organisation_vocabulary->vid) && $term->vid == $organisation_vocabulary->vid) {
 
-    /** @var DrupalReliableQueueInterface $queue */
-    $queue = DrupalQueue::get('uhc_sources_postupdate_handling', TRUE);
+    $queue = new UHOodiPrioritisedQueue();
 
     // Find nodes that refers to this deletable node
     $query = new EntityFieldQuery();
@@ -1017,11 +1016,12 @@ function uhc_course_implementation_taxonomy_term_delete($term) {
         // update queue (it supports course ids, no nids).
         $id = _uhc_sources_resolve_course_imp($item->nid);
         if ($id) {
-          $item = array(
-            'type' => 'courseunitrealisation',
-            'id' => $id,
-          );
-          $queue->createItem($item);
+          $item = new UHOodiQueueItem(array(
+            'action' => 'update',
+            'entityType' => 'courseunitrealisation',
+            'entityId' => $id,
+          ), UHOodiQueue::PRIORITY_MEDIUM);
+          $queue->createItem($item->exportToQueueItem());
         }
       }
     }

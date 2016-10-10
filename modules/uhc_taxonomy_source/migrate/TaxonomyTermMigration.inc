@@ -9,7 +9,6 @@
  */
 
 // Include these base classes from dependent module
-module_load_include('inc', 'uhc_sources', 'migrate/PortalListBase');
 module_load_include('inc', 'uhc_sources', 'migrate/PortalItemBase');
 module_load_include('inc', 'uhc_sources', 'migrate/PortalMigrationBase');
 

@@ -243,10 +243,10 @@ function _uhc_search_portal_feature_translate_facet_block_title(&$data, $block) 
       'do4BdKvyCgpZP4td6B6GmQ8iCUJ40HBx' => t('Method of study'),
       'cEQesYoZJTu7ITT2OD5RXHP0T0bqniOh' => t('Start month'),
       'u1d1Lx0rPaqN5rZzf9O8SX4IxIGxkUQG' => t('Location'),
-      'R1BRVcBSjxhf1KDt3dthdTfNu1qhp5en' => t('Faculty'),
+      'R1BRVcBSjxhf1KDt3dthdTfNu1qhp5en' => t('Unit'),
       'as918Au1kK03VaWu2iPYsRfNZ1iJWE7X' => t('Teaching language'),
       'hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX' => t('Subject'),
-      'UHyOu2m5IufOONBzgYtqiXaxReuk8K7e' => t('Faculty', array(), array('context' => 'facet label')),
+      'UHyOu2m5IufOONBzgYtqiXaxReuk8K7e' => t('Unit', array(), array('context' => 'facet label')),
     );
     _uhc_search_portal_feature_set_block_titles($block, $translate_block_titles);
   }

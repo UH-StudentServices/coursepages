@@ -1824,50 +1824,6 @@ function uhc_course_implementation_activity_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'message-course_implementation_task_create-field_message_ref_to_task'.
-  $field_instances['message-course_implementation_task_create-field_message_ref_to_task'] = array(
-    'bundle' => 'course_implementation_task_create',
-    'default_value' => NULL,
-    'default_value_function' => '',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'message',
-    'field_name' => 'field_message_ref_to_task',
-    'label' => 'Reference to task',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'entityreference_autocreate' => 0,
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 1,
-    ),
-  );
-
-  // Exported field_instance:
   // 'message-course_implementation_task_remove-field_message_ref_to_course_imp'.
   $field_instances['message-course_implementation_task_remove-field_message_ref_to_course_imp'] = array(
     'bundle' => 'course_implementation_task_remove',
@@ -1952,50 +1908,6 @@ function uhc_course_implementation_activity_field_default_field_instances() {
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'message-course_implementation_task_update-field_message_ref_to_task'.
-  $field_instances['message-course_implementation_task_update-field_message_ref_to_task'] = array(
-    'bundle' => 'course_implementation_task_update',
-    'default_value' => NULL,
-    'default_value_function' => '',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'message',
-    'field_name' => 'field_message_ref_to_task',
-    'label' => 'Reference to task',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'entityreference_autocreate' => 0,
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 1,
     ),
   );
 
@@ -2261,7 +2173,6 @@ function uhc_course_implementation_activity_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Reference to comment');
   t('Reference to course implementation');
-  t('Reference to task');
 
   return $field_instances;
 }

@@ -12,10 +12,16 @@
  * Implements hook_uninstall().
  */
 function uhc_course_source_uninstall() {
-  variable_del('uhc_course_source_list_url');
   variable_del('uhc_course_source_item_url');
   variable_del('uhc_course_source_disciplines_url');
   variable_del('uhc_course_source_ignore_keywords');
   variable_del('uhc_course_source_migrate_stubs');
   variable_del('uhc_course_source_predefined_description_names');
+}
+
+/**
+ * Removes uhc_course_source_list_url variable.
+ */
+function uhc_course_source_update_7001() {
+  variable_del('uhc_course_source_list_url');
 }

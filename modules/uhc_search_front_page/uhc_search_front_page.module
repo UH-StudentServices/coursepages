@@ -39,21 +39,14 @@ function uhc_search_front_page_views_pre_build(&$view) {
 }
 
 /**
- * Implements hook_facet_items_alter(). Remove other organisation filters
- * except the ones belonging in the Faculty subtree.
+ * Implements hook_facet_items_alter().
  *
  * When on front page search, enable alternative titles for type of teaching terms
  * in facet blocks.
  */
 function uhc_search_front_page_facet_items_alter(&$build, &$settings) {
   if (!empty($build)) {
-    if ($settings->facet == "field_imp_organisation") {
-      $root_tid = array_keys($build)[0];
-      $build[$root_tid]['#item_children'] = array_filter($build[$root_tid]['#item_children'], function ($elem) {
-        return $elem['#markup'] == 'HY, Faculties' || $elem['#markup'] == 'HY, Fakulteterna' || $elem['#markup'] == 'HY, Tiedekunnat (TDK)';
-      });
-    }
-    elseif ($settings->facet == 'field_imp_reference_to_courses:field_course_type_of_teaching' && arg(0) == 'search') {
+    if ($settings->facet == 'field_imp_reference_to_courses:field_course_type_of_teaching' && arg(0) == 'search') {
       foreach ($build as $key => $item) {
         $term = taxonomy_term_load($key);
         if(!empty($term->field_alternative_title)) {

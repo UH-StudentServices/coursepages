@@ -56,7 +56,7 @@ projects[languagefield][patch]["https://www.drupal.org/node/2217385"] = "https:/
 ; See docs at https://www.drupal.org/project/google_analytics about Universal Analytics
 projects[google_analytics][version] = "1.4"
 
-projects[google_analytics_et][version] = "1.2"
+projects[google_analytics_et][version] = "1.3"
 projects[google_analytics_reports][version] = "3.0-beta2"
 projects[i18n][version] = "1.13"
 projects[manualcrop][version] = "1.5"
@@ -297,3 +297,9 @@ projects[uh_mece][download][type] = git
 projects[uh_mece][download][url] = "git://github.com/UH-StudentServices/uh-mece.git"
 projects[uh_mece][download][branch] = 7.x-1.x
 projects[uh_mece][download][revision] = d31cd76ca36c3f8540d75f200e43b84aeb02cbd5
+
+projects[uh_oodi_queue][type] = module
+projects[uh_oodi_queue][download][type] = git
+projects[uh_oodi_queue][download][url] = "git://github.com/UH-StudentServices/uh_oodi_queue.git"
+projects[uh_oodi_queue][download][branch] = 7.x-1.x
+projects[uh_oodi_queue][download][revision] = c501e37a6072b9c6fadae68f148aa3c8231b97d2

@@ -2425,10 +2425,10 @@ if (!empty($entity->field_material_file)) {
   $attachment_file = file_create_url($entity->field_material_file[LANGUAGE_NONE][0][\'uri\']);
 }
 if (!empty($entity->field_material_link)){
-  print \'<a href="\' . $attachment_link . \'" title="\' . $node_title . \'" class="field">\' . $node_title . \'</a>\';
+  print \'<a href="\' . $attachment_link . \'" title="\' . $node_title . \'" class="field field-material-link">\' . $node_title . \'</a>\';
 }
 else if (!empty($entity->field_material_file)){
-  print \'<a href="\' . $attachment_file . \'" title="\' . $node_title . \'" class="field">\' . $node_title . \'</a>\';
+  print \'<a href="\' . $attachment_file . \'" title="\' . $node_title . \'" class="field field-material-file">\' . $node_title . \'</a>\';
 }
 else {
   print \'<label class="field">\' . $node_title . \'</label>\';

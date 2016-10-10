@@ -98,6 +98,51 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
     'action' => 'click',
   );
 
+  // Home icons (links).
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.home-link',
+    'category' => 'Home icons',
+    'label' => 'Home icon',
+    'action' => 'click',
+  );
+
+  // Save & Close button.
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '#edit-submit',
+    'category' => 'Save buttons',
+    'label' => 'Save & Close',
+    'action' => 'click',
+  );
+
+  // Save button.
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '#edit-submit2',
+    'category' => 'Save buttons',
+    'label' => 'Save',
+    'action' => 'click',
+  );
+
+  // Cancel button.
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '#edit-cancel',
+    'category' => 'Cancel button',
+    'label' => 'Cancel',
+    'action' => 'click',
+  );
+
+  // Avatar image.
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '#block-uhc-avatar-avatar-block',
+    'category' => 'Avatar',
+    'label' => 'Avatar',
+    'action' => 'click',
+  );
+
   return $selectors;
 }
 

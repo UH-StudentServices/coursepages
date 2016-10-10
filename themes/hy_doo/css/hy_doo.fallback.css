@@ -2848,6 +2848,7 @@ h2.study-module-select-title {
 
 .node--course-implementation--teaser-accordion .cancelled {
   position: absolute;
+  width: auto;
   top: 0;
   height: 100%;
 }

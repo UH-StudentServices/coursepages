@@ -64,9 +64,8 @@ function _uhc_dev_feature_integration_get_course($id) {
 }
 
 function _uhc_dev_feature_integration_get_course_changes($since_date) {
-  $url = variable_get('uhc_course_source_list_url', '');
+  $url = variable_get('uh_oodi_queue_poll_learningopportunity_changes_url', '');
   $url = str_replace(':since_date', check_plain($since_date), $url);
-  $url = PortalMigrationBase::prependHostIfMissing($url);
   return _uhc_dev_feature_return_json_response($url);
 }
 
@@ -78,9 +77,8 @@ function _uhc_dev_feature_integration_get_course_implementation($id) {
 }
 
 function _uhc_dev_feature_integration_get_course_implementation_changes($since_date) {
-  $url = variable_get('uhc_course_implementation_source_list_url', '');
+  $url = variable_get('uh_oodi_queue_poll_courseunitrealisation_changes_url', '');
   $url = str_replace(':since_date', check_plain($since_date), $url);
-  $url = PortalMigrationBase::prependHostIfMissing($url);
   return _uhc_dev_feature_return_json_response($url);
 }
 

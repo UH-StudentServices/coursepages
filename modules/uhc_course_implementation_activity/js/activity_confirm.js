@@ -17,9 +17,12 @@
             if (!$(section.targetAccordion).prev().hasClass('is-active')) {
               $(section.targetAccordion).prev().children('a').click();
             }
-            $('html, body').animate({
-              scrollTop: $(section.targetAccordion).offset().top - 55
-            }, 500);
+            var offset = $(section.targetAccordion).offset();
+            if (offset != null) {
+              $('html, body').animate({
+                scrollTop: offset.top - 55
+              }, 500);
+            }
           });
         }
       });

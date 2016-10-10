@@ -1,3 +1,28 @@
+# Helsinki University Cousepages v1.78
+Päiväys: 04.10.2016
+
+## Lisäykset
+  - DOO-2471: Lisätty ja päivitetty käyttöliittymän käännöstekstejä.
+  - DOO-2137: Lisätty Google Analytics Events -träkkäyksiä: Palautelomakkeen
+    avaaminen ja lähetys, mökki-ikonien klikkaukset, tallennus- ja
+    peruutuspainikkeiden klikkaukset, profiilikuvan klikkaus.
+
+## Muutokset
+  - DOO-2446: Sisältötuontien refaktorointi pitkien tuontikatkojen
+    välttämiseksi.
+  - DOO-2400: Tilastointi: Poistettiin "Private content added" -valinta
+    "Statistics by activity" -näkymästä.
+  - DOO-2357: Tulostustyylien hienosäätöä.
+  - DOO-2343: Uudelleennimettiin tiedekuntahakusuodatin yksiköksi. Poistettiin
+    suodattimen arvojen tiedekuntasuodatus, jolloin näkyy muitakin yksiköitä
+    kuin tiedekuntia.
+
+## Korjaukset
+  - DOO-2388: Korjattiin poistetun sisällön aktiviteettiviestin kuittaus.
+  - DOO-2467: Korjattiin perutun toteutuksen näyttäminen oppiainesivulla.
+  - Korjattiin PHP huomiosta määrittelemättömästä vakiosta
+
+
 # Helsinki University Cousepages v1.77
 Päiväys: 26.09.2016
 
