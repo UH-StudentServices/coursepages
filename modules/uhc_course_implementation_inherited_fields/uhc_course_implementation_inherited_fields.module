@@ -239,58 +239,12 @@ function _uhc_course_implementation_inherited_fields_get_resource_url($node) {
 
     // Then append academic year's end date, do not return resource URL if we
     // can't specify the date.
-    $date = _uhc_course_implementation_inherited_fields_get_academic_year_end_date($node);
+    $date = _uhc_course_implementation_get_academic_year_end_date($node);
     if (is_null($date)) {
       return NULL;
     }
     return $resource_url . '?date=' . $date->format('Y-m-d\TH:i:s\.000\Z');
 
-  }
-  return NULL;
-}
-
-/**
- * Helper function for determining the academic years´ end date for given $node
- * that has begin date set.
- *
- * @param $node
- * @return DateTime|null
- * @see UHCSearchPortalFeatureViewsHandlerFilterSemester::getCurrentSemester()
- */
-function _uhc_course_implementation_inherited_fields_get_academic_year_end_date($node) {
-  $date = _uhc_course_implementation_inherited_fields_get_begin_date($node);
-  if ($date) {
-
-    // Specify two testable values
-    $date->modify('last day of this month');
-    $academic_years_last_day = '31.07.';
-
-    // Add one day and modify it to last day of that month, until it matches the
-    // last academic years´ day
-    while ($date->format('d.m.') != $academic_years_last_day) {
-      $date->add(new DateInterval('P1D'));
-      $date->modify('last day of this month');
-    }
-
-    // Convert timezone to Etc/Zulu if it's not already
-    if ($date->getTimezone()->getName() != 'Etc/Zulu') {
-      $date->setTimezone(new DateTimeZone('Etc/Zulu'));
-    }
-
-    return $date;
-  }
-  return NULL;
-}
-
-/**
- * Gets start date as DateTime object if given $node has one set.
- * @param $node
- * @return DateTime|NULL
- */
-function _uhc_course_implementation_inherited_fields_get_begin_date($node) {
-  $field_values = field_get_items('node', $node, 'field_imp_begin_date');
-  if (!empty($field_values)) {
-    return new DateTime($field_values[0]['value'], new DateTimeZone($field_values[0]['timezone']));
   }
   return NULL;
 }

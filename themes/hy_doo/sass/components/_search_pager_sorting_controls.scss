@@ -6,6 +6,7 @@
   padding: 0.7em 0;
   color: $silver;
   .form-item {
+    @include chosen-dropdown;
     display: inline-block;
     padding: 0 1em;
     &:first-child {
@@ -15,55 +16,8 @@
       @include link-heading;
       color: $silver;
     }
-    .chosen-container {
-      cursor: pointer;
-      position: relative;
-      width: auto !important;
-      .chosen-single {
-        @include link-heading;
-        color: $gray;
-        display: inline-block;
-        line-height: 50px;
-        padding: 0 2em 0 0.5em;
-        &:after {
-          content: "\f0d7"; // \f0d7
-          font-family: "FontAwesome";
-          color: $blue;
-          position: absolute;
-          top: 0;
-          right: 10px;
-        }
-      }
-      .chosen-drop {
-        @include dropdown-menu();
-        right: -9px;
-        margin-top: 5px;
-        font-size: 1em;
-        width: auto;
-        min-width: 150px;
-        color: $blue;
-        .chosen-search {
-          display: none;
-        }
-      }
-      &.chosen-with-drop {
-        .chosen-single:after {
-          color: $black;
-        }
-        .chosen-drop {
-          @include border;
-          overflow: visible;
-          max-height: none;
-          li {
-            padding: 0.5em 0;
-            margin: 0 1em;
-            @include border-bottom;
-            &:last-child {
-              border-bottom: none;
-            }
-          }
-        }
-      }
+    .chosen-single {
+      @include link-heading;
     }
   }
   @include at-breakpoint($small) {

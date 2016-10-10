@@ -19,7 +19,7 @@ class UHCCourseImplementationMessageProcessor extends UHCMessageQueueProcessorBa
     $id = $this->getId();
     $item = $this->getJSONBody();
     /** @var $migration CourseImplementationNodeMigration */
-    $migration = Migration::getInstance('CourseImplementationNode', 'CourseImplementationNodeMigration', array('predefined_ids' => $id, 'predefined_item' => $item));
+    $migration = Migration::getInstance('CourseImplementationNode', 'CourseImplementationNodeMigration', array('predefined_ids' => array($id), 'predefined_item' => $item));
     $migration->prepareUpdate();
     $result = $migration->processImport();
     return $result == Migration::RESULT_COMPLETED ? UHCMessageQueueProcessorInterface::PROCESS_PROCESSED : NULL;

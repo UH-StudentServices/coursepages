@@ -36,7 +36,7 @@ function uhc_course_source_import($course_number) {
   $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
 
   /** @var $migration CourseNodeMigration */
-  $migration = new CourseNodeMigration(array('predefined_ids' => $course_number, 'predefined_item' => $item_url));
+  $migration = new CourseNodeMigration(array('predefined_ids' => array($course_number), 'predefined_item' => $item_url));
   $migration->prepareUpdate();
   $result = $migration->processImport();
   if ($result == Migration::RESULT_COMPLETED) {
@@ -78,4 +78,30 @@ function _uhc_course_source_resolve_nid($course_number) {
     ->fieldCondition('field_course_course_number', 'value', $course_number)
     ->execute();
   return !empty($result['node']) ? reset(array_keys($result['node'])) : NULL;
+}
+
+/**
+ * Processes batch if UHQueueItem objects that should be imported through
+ * migrate.
+ * @param array $items
+ * @see drush_uhc_sources_uhc_process_queue()
+ */
+function _uhc_course_source_process_update_batch($items) {
+  $ids = array();
+  /** @var UHOodiQueueItem $item */
+  foreach ($items as $item) {
+    $ids[] = $item->getId();
+  }
+
+  // Construct the URLs for source class
+  $item_url = variable_get('uhc_course_source_item_url', '');
+  $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
+
+  /** @var $migration CourseNodeMigration */
+  $migration = new CourseNodeMigration(array('predefined_ids' => $ids, 'predefined_item' => $item_url));
+  $migration->prepareUpdate();
+  $result = $migration->processImport();
+  if ($result == Migration::RESULT_COMPLETED) {
+    watchdog('uhc_course_source', 'Migration for update batch has failed', array(), WATCHDOG_ERROR);
+  }
 }

@@ -473,11 +473,11 @@ function uh_coursepages_block_view($delta = '') {
         $image_fallback_path = '/profiles/uh_coursepages/themes/hy_doo/logo.png';
         global $user;
         if (in_array('teacher', $user->roles)) {
-          $href = 'https://teacher.helsinki.fi';
+          $href = '/teacher';
           $text = t('My teaching');
         }
         else {
-          $href = 'https://student.helsinki.fi';
+          $href = '/student';
           $text = t('My studies');
         }
       }

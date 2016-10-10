@@ -122,7 +122,7 @@ function uhc_course_implementation_source_import($course_imp_id) {
   $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
 
   /** @var $migration CourseImplementationNodeMigration */
-  $migration = new CourseImplementationNodeMigration(array('predefined_ids' => $course_imp_id, 'predefined_item' => $item_url));
+  $migration = new CourseImplementationNodeMigration(array('predefined_ids' => array($course_imp_id), 'predefined_item' => $item_url));
   $migration->prepareUpdate();
   $result = $migration->processImport();
   if ($result == Migration::RESULT_COMPLETED) {
@@ -152,35 +152,12 @@ function uhc_course_implementation_source_import($course_imp_id) {
 }
 
 /**
- * Implements hook_cron().
- */
-function uhc_course_implementation_source_cron() {
-
-  $prioritised_queue = new UHOodiPrioritisedQueue();
-  $processed_items = array();
-  while ($item = $prioritised_queue->claimItem()) {
-    if ($item->isType('courseunitrealisation') && $item->isAction('delete')) {
-      if (_uhc_course_implementation_source_delete_item_from_queue($item->getId())) {
-        // Delete this item from queue
-        $prioritised_queue->deleteItem($item);
-      }
-    }
-    $processed_items[] = $item;
-  }
-
-  // Release all processed items
-  foreach ($processed_items as $processed_item) {
-    $prioritised_queue->releaseItem($processed_item);
-  }
-
-}
-
-/**
- * Process queued item which should remove the item.
+ * Deletes an course implementation item together with the Migrate mapping.
  * @param $id
  * @return bool
+ * @see drush_uhc_sources_uhc_process_queue()
  */
-function _uhc_course_implementation_source_delete_item_from_queue($id) {
+function _uhc_course_implementation_source_delete_item($id) {
   // Utilize MigrateSQLMap class for resolving mapping from given ID
   $map = new MigrateSQLMap('CourseImplementationNode', array('id'), array('nid'));
   if ($row = $map->getRowBySource(array($id))) {
@@ -207,4 +184,30 @@ function _uhc_course_implementation_source_delete_item_from_queue($id) {
     watchdog('uhc_course_implementation_source', 'Failed resolving ID @id during queue deletion worker process. Nothing was done (queue item will be deleted).', array('@id' => $id), WATCHDOG_INFO);
   }
   return FALSE;
+}
+
+/**
+ * Processes batch if UHQueueItem objects that should be imported through
+ * migrate.
+ * @param array $items
+ * @see drush_uhc_sources_uhc_process_queue()
+ */
+function _uhc_course_implementation_source_process_update_batch($items) {
+  $ids = array();
+  /** @var UHOodiQueueItem $item */
+  foreach ($items as $item) {
+    $ids[] = $item->getId();
+  }
+
+  // Construct the URLs for source class
+  $item_url = variable_get('uhc_course_implementation_source_item_url', '');
+  $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
+
+  /** @var $migration CourseImplementationNodeMigration */
+  $migration = new CourseImplementationNodeMigration(array('predefined_ids' => $ids, 'predefined_item' => $item_url));
+  $migration->prepareUpdate();
+  $result = $migration->processImport();
+  if ($result != Migration::RESULT_COMPLETED) {
+    watchdog('uhc_course_implementation_source', 'Migration for update batch has failed', array(), WATCHDOG_ERROR);
+  }
 }

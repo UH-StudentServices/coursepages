@@ -737,7 +737,7 @@ function uhc_liftups_views_default_views() {
   $handler->display->display_options['fields']['field_liftup_description']['label'] = '';
   $handler->display->display_options['fields']['field_liftup_description']['alter']['path'] = '[field_liftup_link_to]';
   $handler->display->display_options['fields']['field_liftup_description']['element_type'] = 'div';
-  $handler->display->display_options['fields']['field_liftup_description']['element_class'] = 'box-story__content body-text';
+  $handler->display->display_options['fields']['field_liftup_description']['element_class'] = 'box-story__content textarea';
   $handler->display->display_options['fields']['field_liftup_description']['element_label_type'] = '0';
   $handler->display->display_options['fields']['field_liftup_description']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_liftup_description']['element_default_classes'] = FALSE;

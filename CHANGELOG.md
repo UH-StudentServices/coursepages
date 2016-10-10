@@ -1,4 +1,30 @@
-# Helsinki University Cousepages v1.78
+# University of Helsinki Courses v1.79
+Päiväys: 10.10.2016
+
+## Lisäykset
+  - DOO-1147: Lisätty tekstikenttä oppiainesivulle opintojaksoryhmien kuvausta varten.
+  - DOO-2050: Lisättiin lukuvuosisuodatin hakuihin (muut kuin avoin yliopisto).
+
+## Muutokset
+  - DOO-2073: Ohjeistetaan hakukoneita olemaan indeksoimatta hakutuloksia.
+  - DOO-2455: Päivitettiin aktiviteettiviestien aikamuotoja.
+  - DOO-1418: Logoteksti, mökki-ikonit ja avatarkuva linkittävät dev- ja
+    demoympäristössä vastaaviin student- ja teacherpalveluiden ympäristöihin.
+  - DOO-2468: Lisättiin Flinga vuorovaikutusosion kuvausteksteihin.
+  - DOO-2458: Taulukot sallittu tekstikenttiin.
+  - DOO-2069: Parannettiin sivujen otsikointeja (sanamuodot, käännökset).
+  - Palautettiin "drush uhc-sync" kutsu
+
+## Korjaukset
+  - DOO-2503: Korjattiin jono käsittelyä siten, että se toimii suurella määrällä
+
+## Poistot
+  - Poistettiin "drush uhc-course-imp-queue-for-delete" komento, jolla ei ole
+    enää vaikutusta poistoihin. Tämän sijasta voi käyttää komentoa "drush uh-uoq
+    delete X".
+
+
+# University of Helsinki Courses v1.78
 Päiväys: 04.10.2016
 
 ## Lisäykset
@@ -23,7 +49,7 @@ Päiväys: 04.10.2016
   - Korjattiin PHP huomiosta määrittelemättömästä vakiosta
 
 
-# Helsinki University Cousepages v1.77
+# University of Helsinki Courses v1.77
 Päiväys: 26.09.2016
 
 ## Muutokset
@@ -38,7 +64,7 @@ Päiväys: 26.09.2016
   - DOO-2443: hakutulosten nimi-sarakkeen leveys korjattu IE:llä.
 
 
-# Helsinki University Cousepages v1.76
+# University of Helsinki Courses v1.76
 Päiväys: 22.09.2016
 
 ## Lisäykset
@@ -68,7 +94,7 @@ Päiväys: 22.09.2016
   - DOO-2444: Korjattu materiaalilistauksessa päällekkäin menevät nimi ja tekstitiedot.
 
 
-# Helsinki University Cousepages v1.75
+# University of Helsinki Courses v1.75
 Päiväys: 15.09.2016
 
 ## Lisäykset
@@ -111,7 +137,7 @@ Päiväys: 15.09.2016
   - DOO-2379: Päivitettiin Views versioon v3.14 ja CTools versioon v1.10
 
 
-# Helsinki University Cousepages v1.74
+# University of Helsinki Courses v1.74
 Päiväys: 07.09.2016
 
 ## Lisäykset
@@ -132,7 +158,7 @@ Päiväys: 07.09.2016
   - DOO-2162: Piilotettiin header ja footer "node add" lomakkeesta jotta painikkeet eivät menisi piiloon footerin alle.
 
 
-# Helsinki University Cousepages v1.73
+# University of Helsinki Courses v1.73
 Päiväys: 30.08.2016
 
 ## Korjaukset
@@ -143,7 +169,7 @@ Päiväys: 30.08.2016
     kurssien päivittämättä jättämisen seuraavassa sisäänluku kierroksessa.
 
 
-# Helsinki University Cousepages v1.72
+# University of Helsinki Courses v1.72
 Päiväys: 24.08.2016
 
 ## Lisäykset
@@ -165,7 +191,7 @@ Päiväys: 24.08.2016
     niillä ei ole enempää ala-hierarkiaa.
 
 
-# Helsinki University Cousepages v1.71
+# University of Helsinki Courses v1.71
 Päiväys: 15.08.2016
 
 ## Päivitykset

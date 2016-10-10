@@ -12,7 +12,6 @@
 class CourseImplementationNodeMigration extends PortalMigrationBase {
 
   protected $reference_to_courses_migration;
-  protected $foreign_entity_type = 'courseunitrealisation';
 
   /**
    * @param $arguments array
@@ -21,39 +20,30 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
   function __construct($arguments = array()) {
     parent::__construct($arguments);
 
-    // Determine source for this migration. We have option to use predefined ids
-    // and item (when this migration is used for mapping and entity handling
-    // purposes only) if we want. If those arguments we decide to go with them,
-    // but if they're missing we remain fetching the list and items from
-    // doo-oodi service system.
-    if (!empty($arguments['predefined_ids']) && !empty($arguments['predefined_item'])) {
-      $ids = is_array($arguments['predefined_ids']) ? array() : array($arguments['predefined_ids']);
-      // Keep track of ids we're specifically importing. @see self::postImport()
-      $this->predefined_ids = $ids;
-      $this->source = new MigrateSourceList(
-        new PortalListPredefined($ids),
-        new PortalItemBase($arguments['predefined_item']),
-        self::sourceFields(),
-        array('track_changes' => TRUE)
-      );
+    // Declare the items that we're up to migrate.
+    $ids = is_array($arguments['predefined_ids']) && !empty($arguments['predefined_ids']) ? $arguments['predefined_ids'] : array();
+    $this->predefined_ids = $ids;
+
+    // Define the item importing class and options based on predefined_item
+    // existance.
+    $options = array('track_changes' => TRUE);
+    if (!empty($arguments['predefined_item'])) {
+      $item_class = new PortalItemBase($arguments['predefined_item']);
     }
     else {
-
-      // Construct URLs for source class
       $item_url = variable_get('uhc_course_implementation_source_item_url', '');
-
-      // Prepare URLs for hosts and other parameters
       $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
-
-      // Construct source class
-      $this->source = new MigrateSourceList(
-        new PortalListQueue('update', 'courseunitrealisation'),
-        new PortalItemBase($item_url),
-        self::sourceFields(),
-        array('reader_class' => 'UHCMigrateJSONReader', 'track_changes' => TRUE)
-      );
-
+      $item_class = new PortalItemBase($item_url);
+      $options['reader_class'] = 'UHCMigrateJSONReader';
     }
+
+    // Setup source
+    $this->source = new MigrateSourceList(
+      new PortalListPredefined($ids),
+      $item_class,
+      self::sourceFields(),
+      $options
+    );
 
     // Set hard dependencies
     $this->dependencies = array('TaxonomyFormOfTeachingTerm');

@@ -302,4 +302,4 @@ projects[uh_oodi_queue][type] = module
 projects[uh_oodi_queue][download][type] = git
 projects[uh_oodi_queue][download][url] = "git://github.com/UH-StudentServices/uh_oodi_queue.git"
 projects[uh_oodi_queue][download][branch] = 7.x-1.x
-projects[uh_oodi_queue][download][revision] = c501e37a6072b9c6fadae68f148aa3c8231b97d2
+projects[uh_oodi_queue][download][revision] = a9b8d2cb1be3c67b05a437963792aa097397dd6f

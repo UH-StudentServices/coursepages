@@ -5,12 +5,7 @@
 
 .ds-node-content {
   @include pie-clearfix;
-  p,
-  ul li,
-  ol li {
-    @include font-family-bodytext;
-    font-size: inherit;
-  }
+  @extend %textarea--small;
 }
 .field--name-field-imp-header-image {
   float: none;

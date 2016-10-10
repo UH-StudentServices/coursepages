@@ -229,6 +229,27 @@ function uhc_molecular_biosciences_views_default_views() {
   $handler->display->display_options['sorts']['search_api_relevance']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['sorts']['search_api_relevance']['field'] = 'search_api_relevance';
   $handler->display->display_options['sorts']['search_api_relevance']['order'] = 'DESC';
+  /* Filter criterion: Indexed Multilingual Node: Academic year */
+  $handler->display->display_options['filters']['academic_year']['id'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['filters']['academic_year']['field'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['group'] = 1;
+  $handler->display->display_options['filters']['academic_year']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['academic_year']['expose']['operator_id'] = 'academic_year_op';
+  $handler->display->display_options['filters']['academic_year']['expose']['label'] = 'Academic year';
+  $handler->display->display_options['filters']['academic_year']['expose']['operator'] = 'academic_year_op';
+  $handler->display->display_options['filters']['academic_year']['expose']['identifier'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['expose']['required'] = TRUE;
+  $handler->display->display_options['filters']['academic_year']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
   /* Filter criterion: Indexed Multilingual Node: Combined fulltext */
   $handler->display->display_options['filters']['search_api_aggregation_1']['id'] = 'search_api_aggregation_1';
   $handler->display->display_options['filters']['search_api_aggregation_1']['table'] = 'search_api_index_uhc_portal';
@@ -257,17 +278,13 @@ function uhc_molecular_biosciences_views_default_views() {
   $handler->display->display_options['filters']['search_api_language']['value'] = array(
     'current' => 'current',
   );
-  /* Filter criterion: Indexed Multilingual Node: Begin date */
-  $handler->display->display_options['filters']['field_imp_begin_date']['id'] = 'field_imp_begin_date';
-  $handler->display->display_options['filters']['field_imp_begin_date']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['filters']['field_imp_begin_date']['field'] = 'field_imp_begin_date';
-  $handler->display->display_options['filters']['field_imp_begin_date']['operator'] = '>=';
-  $handler->display->display_options['filters']['field_imp_begin_date']['value'] = 'current semester';
+  $handler->display->display_options['filters']['search_api_language']['group'] = 1;
   /* Filter criterion: Indexed Multilingual Node: Keywords */
   $handler->display->display_options['filters']['field_imp_keywords']['id'] = 'field_imp_keywords';
   $handler->display->display_options['filters']['field_imp_keywords']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['field_imp_keywords']['field'] = 'field_imp_keywords';
   $handler->display->display_options['filters']['field_imp_keywords']['value'] = 'molekyylibiotieteet';
+  $handler->display->display_options['filters']['field_imp_keywords']['group'] = 1;
 
   /* Display: Desktop */
   $handler = $view->new_display('page', 'Desktop', 'desktop');
@@ -321,6 +338,7 @@ function uhc_molecular_biosciences_views_default_views() {
     t('Teacher(s)'),
     t('By name'),
     t('By course number'),
+    t('Academic year'),
     t('Search by keyword'),
     t('If you want to see all the courses, leave the search field empty.'),
     t('Desktop'),

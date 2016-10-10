@@ -45,7 +45,7 @@ function template_preprocess_uhc_ds_accordion_field(&$variables) {
 function theme_uhc_ds_accordion_field($variables) {
   $output = '<div class="accordion-content-item">';
   $output .= '<label class="' . $variables['label_css_classes'] . '">' . $variables['label'] . '</label>';
-  $output .= '<div class="body-text">' . $variables['value'] . '</div>';
+  $output .= '<div class="textarea">' . $variables['value'] . '</div>';
   $output .= '</div>';
   return $output;
 }

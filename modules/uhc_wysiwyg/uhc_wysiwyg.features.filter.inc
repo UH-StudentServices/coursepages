@@ -22,7 +22,7 @@ function uhc_wysiwyg_filter_default_formats() {
         'weight' => -49,
         'status' => 1,
         'settings' => array(
-          'allowed_html' => '<a> <em> <strong> <blockquote> <code> <ul> <ol> <li> <h1> <h2> <h3> <h4> <br> <img> <div> <p>',
+          'allowed_html' => '<a> <em> <strong> <blockquote> <code> <ul> <ol> <li> <h1> <h2> <h3> <h4> <br> <img> <div> <p> <table> <tr> <td> <th> <tbody> <thead>',
           'filter_html_help' => 1,
           'filter_html_nofollow' => 0,
         ),

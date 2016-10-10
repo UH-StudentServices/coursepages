@@ -93,7 +93,7 @@ function _uhc_course_node_get_referencing_course_imp_nodes($node) {
  */
 function _uhc_course_node_get_is_in_past_academic_year($node) {
   // Get academic year end date
-  $date = _uhc_course_implementation_inherited_fields_get_academic_year_end_date($node);
+  $date = _uhc_course_implementation_get_academic_year_end_date($node);
   if (is_null($date)) {
     return NULL;
   }

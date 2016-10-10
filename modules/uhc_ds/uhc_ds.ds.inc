@@ -49,7 +49,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'ow' => TRUE,
           'ow-el' => 'div',
-          'ow-cl' => 'field field-name-comment-body body-text',
+          'ow-cl' => 'field field-name-comment-body textarea',
           'ow-def-cl' => FALSE,
           'ow-at' => '',
           'ow-def-at' => FALSE,
@@ -116,7 +116,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'ow' => TRUE,
           'ow-el' => 'div',
-          'ow-cl' => 'field field-name-comment-body body-text',
+          'ow-cl' => 'field field-name-comment-body textarea',
           'ow-def-cl' => FALSE,
           'ow-at' => '',
           'ow-def-at' => FALSE,
@@ -139,7 +139,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'body-text body-text--small',
+          'fi-cl' => 'textarea textarea--small',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
@@ -270,7 +270,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item body-text">',
+          'prefix' => '<div class="accordion-content-item textarea">',
           'suffix' => '</div>',
         ),
       ),
@@ -404,6 +404,18 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+    'field_study_module_description' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fis' => TRUE,
+          'fis-el' => 'div',
+          'fis-cl' => 'textarea spacer-top-1',
+          'fis-at' => '',
+          'fis-def-at' => FALSE,
         ),
       ),
     ),
@@ -926,7 +938,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'ow' => TRUE,
           'ow-el' => 'div',
-          'ow-cl' => 'long-text body-text',
+          'ow-cl' => 'long-text textarea',
           'ow-def-cl' => FALSE,
           'ow-at' => '',
           'ow-def-at' => FALSE,
@@ -973,7 +985,7 @@ function uhc_ds_ds_field_settings_info() {
         'ft' => array(
           'func' => 'theme_ds_field_expert',
           'lb-col' => TRUE,
-          'prefix' => '<div class="accordion-content-item body-text">',
+          'prefix' => '<div class="accordion-content-item textarea">',
           'suffix' => '</div>',
         ),
       ),
@@ -990,7 +1002,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item body-text">',
+          'prefix' => '<div class="accordion-content-item textarea">',
           'suffix' => '</div>',
         ),
       ),
@@ -1040,7 +1052,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'ow' => TRUE,
           'ow-el' => 'div',
-          'ow-cl' => 'intro-text body-text',
+          'ow-cl' => 'intro-text textarea',
           'ow-def-cl' => FALSE,
           'ow-at' => '',
           'ow-def-at' => FALSE,
@@ -1091,7 +1103,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item body-text">',
+          'prefix' => '<div class="accordion-content-item textarea">',
           'suffix' => '</div>',
         ),
       ),
@@ -1100,7 +1112,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item body-text">',
+          'prefix' => '<div class="accordion-content-item textarea">',
           'suffix' => '</div>',
         ),
       ),
@@ -1116,7 +1128,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
-          'prefix' => '<div class="accordion-content-item body-text">',
+          'prefix' => '<div class="accordion-content-item textarea">',
           'suffix' => '</div>',
         ),
       ),
@@ -1489,7 +1501,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'body-text',
+          'fi-cl' => 'textarea',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
@@ -1771,7 +1783,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'body-text',
+          'fi-cl' => 'textarea',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
@@ -1884,7 +1896,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'body-text',
+          'fi-cl' => 'textarea',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
@@ -2096,7 +2108,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'body-text',
+          'fi-cl' => 'textarea',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
@@ -2116,7 +2128,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fis' => TRUE,
           'fis-el' => 'div',
-          'fis-cl' => 'body-text',
+          'fis-cl' => 'textarea',
           'fis-at' => '',
           'fis-def-at' => FALSE,
         ),
@@ -2871,6 +2883,20 @@ function uhc_ds_ds_layout_settings_info() {
   $ds_layout->view_mode = 'default';
   $ds_layout->layout = 'ds_1col';
   $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'field_study_module_title',
+        1 => 'field_study_module_description',
+        2 => 'field_subject_ref_study_module',
+        3 => 'field_subject_ref_to_courses',
+      ),
+    ),
+    'fields' => array(
+      'field_study_module_title' => 'ds_content',
+      'field_study_module_description' => 'ds_content',
+      'field_subject_ref_study_module' => 'ds_content',
+      'field_subject_ref_to_courses' => 'ds_content',
+    ),
     'classes' => array(
       'layout_class' => array(
         '' => '',
@@ -2885,18 +2911,6 @@ function uhc_ds_ds_layout_settings_info() {
     'layout_attributes_merge' => 1,
     'layout_link_attribute' => '',
     'layout_link_custom' => '',
-    'regions' => array(
-      'ds_content' => array(
-        0 => 'field_study_module_title',
-        1 => 'field_subject_ref_study_module',
-        2 => 'field_subject_ref_to_courses',
-      ),
-    ),
-    'fields' => array(
-      'field_study_module_title' => 'ds_content',
-      'field_subject_ref_study_module' => 'ds_content',
-      'field_subject_ref_to_courses' => 'ds_content',
-    ),
   );
   $export['field_collection_item|field_study_module|default'] = $ds_layout;
 

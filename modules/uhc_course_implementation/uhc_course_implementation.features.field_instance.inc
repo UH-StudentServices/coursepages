@@ -2404,7 +2404,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'bundle' => 'course_implementation',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please specify how the students are able to interact online in this course. Recommended services are Moodle, Yammer and Presemo but there are other services too. Sometimes it might be a good idea to ask the students for their opinion.',
+    'description' => 'Please specify how the students are able to interact online in this course. Recommended services are Moodle, Yammer, Presemo and Flinga but there are other services too. Sometimes it might be a good idea to ask the students for their opinion.',
     'display' => array(
       'content_suffix' => array(
         'label' => 'above',
@@ -5250,7 +5250,7 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Objective');
   t('Open university registration');
   t('Organisation');
-  t('Please specify how the students are able to interact online in this course. Recommended services are Moodle, Yammer and Presemo but there are other services too. Sometimes it might be a good idea to ask the students for their opinion.');
+  t('Please specify how the students are able to interact online in this course. Recommended services are Moodle, Yammer, Presemo and Flinga but there are other services too. Sometimes it might be a good idea to ask the students for their opinion.');
   t('Realisation and working methods');
   t('Reference to course tasks');
   t('Reference to course(s)');

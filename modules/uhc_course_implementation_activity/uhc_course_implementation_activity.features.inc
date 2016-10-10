@@ -138,9 +138,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed a message",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed a message",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed a message\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed a message\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -177,9 +177,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated a message",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated a message",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated a message\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated a message\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -216,9 +216,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has added conduct of the course",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E added conduct of the course",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has added conduct of the course\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E added conduct of the course\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -230,9 +230,9 @@ function uhc_course_implementation_activity_default_message_type() {
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har tillagt kursbeskrivningen",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E tillade kursbeskrivningen",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har tillagt kursbeskrivningen\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E tillade kursbeskrivningen\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -255,9 +255,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed conduct of the course",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed conduct of the course",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed conduct of the course\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed conduct of the course\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -269,9 +269,9 @@ function uhc_course_implementation_activity_default_message_type() {
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har raderat kursbeskrivningen",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E raderade kursbeskrivningen",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har raderat kursbeskrivningen\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E raderade kursbeskrivningen\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -294,9 +294,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated conduct of the course",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated conduct of the course",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated conduct of the course\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated conduct of the course\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -308,9 +308,9 @@ function uhc_course_implementation_activity_default_message_type() {
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har uppdaterat kursbeskrivningen",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E uppdaterade kursbeskrivningen",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har uppdaterat kursbeskrivningen\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E uppdaterade kursbeskrivningen\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -372,9 +372,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has created one-off event \\u0022@event_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E created one-off event \\u0022@event_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has created one-off event \\u0022@event_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E created one-off event \\u0022@event_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -411,9 +411,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed an one-off event \\u0022@event_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed an one-off event \\u0022@event_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed an one-off event \\u0022@event_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed an one-off event \\u0022@event_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -450,9 +450,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated an event \\u0022@event_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated an event \\u0022@event_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated an event \\u0022@event_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated an event \\u0022@event_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -918,23 +918,23 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has attached a material \\u0022@material_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E attached a material \\u0022@material_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has attached a material \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E attached a material \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E on liitt\\u00e4nyt materiaalin \\u0022@material_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E liitti materiaalin \\u0022@material_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E on liitt\\u00e4nyt materiaalin \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E liitti materiaalin \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har f\\u00e4stat ett material \\u0022@material_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E f\\u00e4ste ett material \\u0022@material_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har f\\u00e4stat ett material \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E f\\u00e4ste ett material \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -957,9 +957,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated material main description",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated material main description",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated material main description\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated material main description\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1020,9 +1020,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed an attached material \\u0022@material_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed an attached material \\u0022@material_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed an attached material \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed an attached material \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1059,9 +1059,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated material \\u0022@material_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated material \\u0022@material_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated material \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated material \\u0022@material_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1488,23 +1488,23 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] has attached a private material\\u003C\\/p\\u003E\\r\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] attached a material to students\\u003C\\/p\\u003E\\r\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] has attached a private material\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] attached a material to students\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] on liitt\\u00e4nyt yksityisen materiaalin\\u003C\\/p\\u003E\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] liitti materiaalin kurssin opiskelijoille\\u003C\\/p\\u003E\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] on liitt\\u00e4nyt yksityisen materiaalin\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] liitti materiaalin kurssin opiskelijoille\\u003C\\/p\\u003E\\n"
         }
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] har f\\u00e4stat ett privat\\u0026nbsp;material\\u003C\\/p\\u003E\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] f\\u00e4ste ett material till studerande\\u003C\\/p\\u003E\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] har f\\u00e4stat ett privat\\u00a0material\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] f\\u00e4ste ett material till studerande\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -1527,23 +1527,23 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] has removed a private material\\u003C\\/p\\u003E\\r\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] removed a material\\u003C\\/p\\u003E\\r\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] has removed a private material\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] removed a material\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] poisti yksityisen materiaalin\\u003C\\/p\\u003E\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] poisti materiaalin\\u003C\\/p\\u003E\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] poisti yksityisen materiaalin\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] poisti materiaalin\\u003C\\/p\\u003E\\n"
         }
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] raderade ett privat\\u0026nbsp;material\\u003C\\/p\\u003E\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] raderade ett material\\u003C\\/p\\u003E\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] raderade ett privat\\u00a0material\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] raderade ett material\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -1566,23 +1566,23 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] has updated private material\\u003C\\/p\\u003E\\r\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] updated a material\\u003C\\/p\\u003E\\r\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] has updated private material\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] updated a material\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti yksityist\\u00e4 materiaalia\\u003C\\/p\\u003E\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti materiaalia\\u003C\\/p\\u003E\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti yksityist\\u00e4 materiaalia\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti materiaalia\\u003C\\/p\\u003E\\n"
         }
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] redigerade ett privat material\\u003C\\/p\\u003E\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] redigerade ett material\\u003C\\/p\\u003E\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] redigerade ett privat material\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] redigerade ett material\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -1605,9 +1605,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has given an task \\u0022@task_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E gave a task \\u0022@task_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has given an task \\u0022@task_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E gave a task \\u0022@task_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1644,9 +1644,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed a task \\u0022@task_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed a task \\u0022@task_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed a task \\u0022@task_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed a task \\u0022@task_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1683,9 +1683,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated task \\u0022@task_title\\u0022",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated task \\u0022@task_title\\u0022",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated task \\u0022@task_title\\u0022\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated task \\u0022@task_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1722,9 +1722,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has added @field_imp_teachersection_label\\u003C\\/p\\u003E\\n",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E added @field_imp_teachersection_label\\u003C\\/p\\u003E\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has added @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E added @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1736,9 +1736,9 @@ function uhc_course_implementation_activity_default_message_type() {
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har tillagt @field_imp_teachersection_label\\u003C\\/p\\u003E\\r\\n\\r\\n",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E tillade @field_imp_teachersection_label\\u003C\\/p\\u003E\\r\\n\\r\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har tillagt @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E tillade @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -1761,9 +1761,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed @field_imp_teachersection_label",
+          "value" : "\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed @field_imp_teachersection_label",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has removed @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E removed @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1775,9 +1775,9 @@ function uhc_course_implementation_activity_default_message_type() {
       ],
       "sv" : [
         {
-          "value" : "\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har raderat @field_imp_teachersection_label",
+          "value" : "\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E raderade @field_imp_teachersection_label",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har raderat @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E raderade @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
         }
       ]
     },
@@ -1800,9 +1800,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated @field_imp_teachersection_label\\u003C\\/p\\u003E\\n\\n",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated @field_imp_teachersection_label\\u003C\\/p\\u003E\\n\\n",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E has updated @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E updated @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1814,9 +1814,9 @@ function uhc_course_implementation_activity_default_message_type() {
       ],
       "sv" : [
         {
-          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har uppdaterat @field_imp_teachersection_label\\u003C\\/p\\u003E",
+          "value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E uppdaterade @field_imp_teachersection_label\\u003C\\/p\\u003E",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E har uppdaterat @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Cspan class=\\u0022user-name\\u0022\\u003E[message:user:name]\\u003C\\/span\\u003E uppdaterade @field_imp_teachersection_label\\u003C\\/p\\u003E\\n"
         }
       ]
     },

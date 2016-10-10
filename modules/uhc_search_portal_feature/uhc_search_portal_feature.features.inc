@@ -57,6 +57,7 @@ function uhc_search_portal_feature_default_search_api_index() {
       "cron_limit" : "100",
       "search_api_et" : { "include" : "incomplete", "fallback language" : "fi" },
       "fields" : {
+        "academic_year" : { "type" : "string" },
         "field_additional_info:value" : { "type" : "text" },
         "field_conduct:value" : { "type" : "text" },
         "field_contents:value" : { "type" : "text" },

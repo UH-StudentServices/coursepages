@@ -192,6 +192,35 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['sorts']['search_api_relevance']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['sorts']['search_api_relevance']['field'] = 'search_api_relevance';
   $handler->display->display_options['sorts']['search_api_relevance']['order'] = 'DESC';
+  /* Filter criterion: Indexed Multilingual Node: Academic year */
+  $handler->display->display_options['filters']['academic_year']['id'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['filters']['academic_year']['field'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['group'] = 1;
+  $handler->display->display_options['filters']['academic_year']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['academic_year']['expose']['operator_id'] = 'academic_year_op';
+  $handler->display->display_options['filters']['academic_year']['expose']['label'] = 'Academic year';
+  $handler->display->display_options['filters']['academic_year']['expose']['operator'] = 'academic_year_op';
+  $handler->display->display_options['filters']['academic_year']['expose']['identifier'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['expose']['required'] = TRUE;
+  $handler->display->display_options['filters']['academic_year']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['academic_year']['group_info']['label'] = 'Academic year';
+  $handler->display->display_options['filters']['academic_year']['group_info']['identifier'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['academic_year']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
   /* Filter criterion: Indexed Multilingual Node: Combined fulltext */
   $handler->display->display_options['filters']['search_api_aggregation_1']['id'] = 'search_api_aggregation_1';
   $handler->display->display_options['filters']['search_api_aggregation_1']['table'] = 'search_api_index_uhc_portal';
@@ -221,24 +250,12 @@ function uhc_search_front_page_views_default_views() {
     'current' => 'current',
   );
   $handler->display->display_options['filters']['search_api_language']['group'] = 1;
-  /* Filter criterion: Indexed Multilingual Node: End date */
-  $handler->display->display_options['filters']['field_imp_end_date']['id'] = 'field_imp_end_date';
-  $handler->display->display_options['filters']['field_imp_end_date']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['filters']['field_imp_end_date']['field'] = 'field_imp_end_date';
-  $handler->display->display_options['filters']['field_imp_end_date']['operator'] = '>=';
-  $handler->display->display_options['filters']['field_imp_end_date']['value'] = 'today';
-  $handler->display->display_options['filters']['field_imp_end_date']['group'] = 1;
-  /* Filter criterion: Indexed Multilingual Node: Begin date */
-  $handler->display->display_options['filters']['field_imp_begin_date']['id'] = 'field_imp_begin_date';
-  $handler->display->display_options['filters']['field_imp_begin_date']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['filters']['field_imp_begin_date']['field'] = 'field_imp_begin_date';
-  $handler->display->display_options['filters']['field_imp_begin_date']['operator'] = '>=';
-  $handler->display->display_options['filters']['field_imp_begin_date']['value'] = 'current semester';
   /* Filter criterion: Indexed Multilingual Node: Hierarchy position */
   $handler->display->display_options['filters']['field_hierarchy_position']['id'] = 'field_hierarchy_position';
   $handler->display->display_options['filters']['field_hierarchy_position']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['field_hierarchy_position']['field'] = 'field_hierarchy_position';
   $handler->display->display_options['filters']['field_hierarchy_position']['value'] = 'root';
+  $handler->display->display_options['filters']['field_hierarchy_position']['group'] = 1;
 
   /* Display: Desktop */
   $handler = $view->new_display('page', 'Desktop', 'desktop');
@@ -477,6 +494,7 @@ function uhc_search_front_page_views_default_views() {
     t('<a href="[field_imp_reference_to_courses_url]">[title_field]</a>'),
     t('Location'),
     t('Begin date'),
+    t('Academic year'),
     t('Search'),
     t('If you want to see all the courses, leave the search field empty.'),
     t('Desktop'),

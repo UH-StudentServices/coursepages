@@ -149,6 +149,10 @@ function uhc_open_university_page() {
  */
 function uhc_open_university_is_open_university_course_or_implementation($node) {
 
+  if (!is_object($node)) {
+    return FALSE;
+  }
+
   // If node type is course and there's migration source set
   if ($node->type == 'course') {
     $results = db_query('select entity_id from {field_data_field_imp_reference_to_courses}
@@ -174,6 +178,11 @@ function uhc_open_university_is_open_university_course_or_implementation($node) 
   // If we get to this, it means that we have tried to call this method with a
   // node from which we can't say whether it's from open university or not.
   return FALSE;
+}
+
+function uhc_open_university_is_open_university_context($node = NULL) {
+  return key_exists('open_university_header_and_footer', context_active_contexts())
+    || uhc_open_university_is_open_university_course_or_implementation($node);
 }
 
 /**

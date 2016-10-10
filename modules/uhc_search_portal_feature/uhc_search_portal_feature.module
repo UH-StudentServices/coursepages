@@ -14,16 +14,8 @@ include_once 'uhc_search_portal_feature.features.inc';
  * Implements hook_views_data_alter().
  */
 function uhc_search_portal_feature_views_data_alter(&$data) {
-  if (isset($data['search_api_index_uhc_portal'])) {
-    foreach ($data['search_api_index_uhc_portal'] as $key => $value) {
-      if (isset($value['filter']['handler']) &&
-          $value['filter']['handler'] == 'SearchApiViewsHandlerFilterDate') {
-        // Replace all SearchApiViewsHandlerFilterDate handlers with our own
-        // handler which extends it by adding support for "current semester"
-        // string to time text. (poorsman strtotime('current semester'))
-        $data['search_api_index_uhc_portal'][$key]['filter']['handler'] = 'UHCSearchPortalFeatureViewsHandlerFilterSemester';
-      }
-    }
+  if (isset($data['search_api_index_uhc_portal']['academic_year'])) {
+    $data['search_api_index_uhc_portal']['academic_year']['filter']['handler'] = 'ViewsHandlerFilterAcademicYear';
   }
 }
 
@@ -120,7 +112,8 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
       if (!_uhc_search_portal_feature_form_without_search_perform($form, $form_state)) {
         $form['reset']['#access'] = FALSE;
       }
-      break;
+
+    break;
   }
 }
 
@@ -153,6 +146,53 @@ function uhc_search_portal_feature_views_pre_view(&$view, &$display_id, &$args) 
       $view->set_item($display_id, 'header', $header_item['id'], NULL);
     }
   }
+}
+
+/**
+ * Implements hook_views_post_execute().
+ *
+ * Adds a noindex metatag when on a search results page.
+ */
+function uhc_search_portal_feature_views_post_execute(&$view) {
+  if (uhc_search_portal_feature_is_search_results_page($view)) {
+    uhc_search_portal_feature_add_noindex_meta_tag();
+  }
+}
+
+/**
+ * Determines if we are in search results page having results.
+ *
+ * Due to couple hacks done around search form and functionality, there is no
+ * clear streamlined way of detecting this other than checking if we're dealing
+ * with one of search views and checking if we have search query parameter set.
+ *
+ * @param $view
+ * @return bool
+ */
+function uhc_search_portal_feature_is_search_results_page(view $view) {
+  $search_views = array(
+    'uhc_search_open_university',
+    'uhc_portal_search_front_page_',
+    'uhc_search',
+    'uhc_search_biosciences'
+  );
+
+  return in_array($view->name, $search_views) && array_key_exists('search', drupal_get_query_parameters());
+}
+
+/**
+ * Adds noindex tag to page meta headers disallowing robots to index the page.
+ */
+function uhc_search_portal_feature_add_noindex_meta_tag() {
+  $noindex_meta_tag = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'robots',
+      'content' => 'noindex',
+    )
+  );
+
+  drupal_add_html_head($noindex_meta_tag, 'robots');
 }
 
 /**
@@ -311,6 +351,10 @@ function _uhc_search_portal_feature_append_view_css_class_to_exposed_block(&$dat
  * courses.
  */
 function uhc_search_portal_feature_search_api_views_query_alter(view &$view, SearchApiViewsQuery &$query) {
+
+  // Ongoing courses option (Open University). Note that this should overwrite
+  // the semester selection, since it does not make sense to limit the results
+  // based on the selected semester, since that would be confusing for the user.
   if ($view->name == 'uhc_search_open_university') {
     $include_ongoing_courses = isset($view->exposed_raw_input['include_ongoing_courses'])
       && $view->exposed_raw_input['include_ongoing_courses'] == 1;
@@ -448,7 +492,9 @@ function uhc_search_portal_feature_section_search_form($field) {
     $output = render($exposed_form_render_array);
 
     if (empty($node->field_liftup_section)) {
-      $output .= '<div class="messages info"><p>' . t('Students are advised to access their active courses via My Studies') . '<a href="https://student.helsinki.fi"></a></br>' . t('Teachers are advised to access their active courses via My Teaching') . '<a href="https://teacher.helsinki.fi"></a></p></div>';
+      $student_url = variable_get('uhc_student_home_url', 'https://student.helsinki.fi/');
+      $teacher_url = variable_get('uhc_teacher_home_url', 'https://teacher.helsinki.fi/');
+      $output .= '<div class="messages info"><p>' . t('Students are advised to access their active courses via My Studies') . '<a href="'.$student_url.'"></a></br>' . t('Teachers are advised to access their active courses via My Teaching') . '<a href="'.$teacher_url.'"></a></p></div>';
     }
     return $output;
   }

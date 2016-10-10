@@ -24,11 +24,6 @@ class PortalMigrationBase extends Migration {
   protected $processed_source_ids = array();
 
   /**
-   * @var string
-   */
-  protected $foreign_entity_type = '';
-
-  /**
    * Sets machine name if provided through arguments.
    *
    * @param array $arguments
@@ -75,115 +70,6 @@ class PortalMigrationBase extends Migration {
   }
 
   /**
-   * Overrides Migrate::import().
-   *
-   * Note: We do exact same implementation except we want to keep track of
-   * which source IDs have been successfully processed. See below ## hashtag ##
-   * comment for our own additions.
-   */
-  protected function import() {
-    $return = MigrationBase::RESULT_COMPLETED;
-
-    try {
-      $this->source->rewind();
-    }
-    catch (Exception $e) {
-      self::displayMessage(
-        t('Migration failed with source plugin exception: %e, in %file:%line',
-          array('%e' => $e->getMessage(), '%file' => $e->getFile(), '%line' => $e->getLine())));
-      return MigrationBase::RESULT_FAILED;
-    }
-    while ($this->source->valid()) {
-      $data_row = $this->source->current();
-
-      // Wipe old messages, and save any new messages.
-      $this->map->delete($this->currentSourceKey(), TRUE);
-      $this->saveQueuedMessages();
-
-      $this->sourceValues = $data_row;
-      $this->applyMappings();
-
-      try {
-        migrate_instrument_start('destination import', TRUE);
-        $ids = $this->destination->import($this->destinationValues, $this->sourceValues);
-        migrate_instrument_stop('destination import');
-        if ($ids) {
-          $this->map->saveIDMapping($this->sourceValues, $ids,
-            $this->needsUpdate, $this->rollbackAction,
-            $data_row->migrate_map_hash);
-          ######################################################################
-          ## Keep track of successfull source IDs ##############################
-          $this->appendProcessedSourceId($this->source->key());
-          ######################################################################
-          ######################################################################
-          $this->successes_since_feedback++;
-          $this->total_successes++;
-        }
-        else {
-          $this->map->saveIDMapping($this->sourceValues, array(),
-            MigrateMap::STATUS_FAILED, $this->rollbackAction,
-            $data_row->migrate_map_hash);
-          if ($this->map->messageCount() == 0) {
-            $message = t('New object was not saved, no error provided');
-            $this->saveMessage($message);
-            self::displayMessage($message);
-          }
-        }
-      }
-      catch (MigrateException $e) {
-        $this->map->saveIDMapping($this->sourceValues, array(),
-          $e->getStatus(), $this->rollbackAction, $data_row->migrate_map_hash);
-        $this->saveMessage($e->getMessage(), $e->getLevel());
-        self::displayMessage($e->getMessage());
-      }
-      catch (Exception $e) {
-        $this->map->saveIDMapping($this->sourceValues, array(),
-          MigrateMap::STATUS_FAILED, $this->rollbackAction,
-          $data_row->migrate_map_hash);
-        $this->handleException($e);
-      }
-      $this->total_processed++;
-      $this->processed_since_feedback++;
-      if ($this->highwaterField) {
-        $this->saveHighwater($this->sourceValues->{$this->highwaterField['name']});
-      }
-
-      // Reset row properties.
-      unset($this->sourceValues, $this->destinationValues);
-      $this->needsUpdate = MigrateMap::STATUS_IMPORTED;
-
-      // TODO: Temporary. Remove when http://drupal.org/node/375494 is committed.
-      // TODO: Should be done in MigrateDestinationEntity
-      if (!empty($this->destination->entityType)) {
-        entity_get_controller($this->destination->entityType)->resetCache();
-      }
-
-      if ($this->timeOptionExceeded()) {
-        break;
-      }
-      if (($return = $this->checkStatus()) != MigrationBase::RESULT_COMPLETED) {
-        break;
-      }
-      if ($this->itemOptionExceeded()) {
-        break;
-      }
-      try {
-        $this->source->next();
-      }
-      catch (Exception $e) {
-        self::displayMessage(
-          t('Migration failed with source plugin exception: %e, in %file:%line',
-            array('%e' => $e->getMessage(), '%file' => $e->getFile(), '%line' => $e->getLine())));
-        return MigrationBase::RESULT_FAILED;
-      }
-    }
-
-    $this->progressMessage($return);
-
-    return $return;
-  }
-
-  /**
    * After import this method gets called.
    *
    * Set last reuqested if no errors has occured and if no specific items has
@@ -196,57 +82,6 @@ class PortalMigrationBase extends Migration {
     parent::postImport();
     // Sort month terms in chronological order
     uhc_taxonomy_sort_month_terms();
-    // Clean up successfully processed source ids from UHOodiPrioritisedQueue
-    $foreign_entity_type = $this->getForeignEntityType();
-    $processed_ids = $this->getProcessedIds();
-    $this->clearPrioritisedQueue($foreign_entity_type, $processed_ids);
-  }
-
-  /**
-   * @return string
-   */
-  public function getForeignEntityType() {
-    return $this->foreign_entity_type;
-  }
-
-  /**
-   * Appends source id to the list.
-   * @param $source_id
-   */
-  protected function appendProcessedSourceId($source_id) {
-    $this->processed_source_ids[] = $source_id;
-  }
-
-  protected function getProcessedIds() {
-    return array_map(function($item) {
-      $item = unserialize($item);
-      return $item['id'];
-    }, $this->processed_source_ids);
-  }
-
-  /**
-   * Clears corresponding queue items out that is processed within this
-   * migration.
-   * @param $foreign_entity_type
-   * @param $processed_ids
-   */
-  protected function clearPrioritisedQueue($foreign_entity_type, $processed_ids) {
-    if (empty($foreign_entity_type) || empty($processed_ids)) {
-      return;
-    }
-    $queue = new UHOodiPrioritisedQueue();
-    $unmatched_items = array();
-    while ($item = $queue->claimItem()) {
-      if ($item->isAction('update') && $item->isType($foreign_entity_type) && in_array($item->getId(), $processed_ids)) {
-        $queue->deleteItem($item);
-      }
-      else {
-        $unmatched_items[] = $item;
-      }
-    }
-    foreach ($unmatched_items as $item) {
-      $queue->releaseItem($item);
-    }
   }
 
   /**

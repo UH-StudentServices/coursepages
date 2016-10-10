@@ -1054,3 +1054,18 @@ function uh_coursepages_update_7023(&$sandbox) {
 function uh_coursepages_update_7024(&$sandbox) {
   module_enable(array('actions_permissions'));
 }
+
+/**
+ * Update site name.
+ */
+function uh_coursepages_update_7025(&$sandbox) {
+  $site_names = array(
+    'en' => 'Courses | University of Helsinki',
+    'fi' => 'Kurssit | Helsingin yliopisto',
+    'sv' => 'Kurser | Helsingfors universitet',
+  );
+
+  foreach ($site_names as $language => $site_name) {
+    variable_store_set('language', $language, 'site_name', $site_name);
+  }
+}

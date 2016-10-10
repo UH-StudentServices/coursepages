@@ -312,6 +312,14 @@ function uhc_course_implementation_entity_property_info() {
     'entity views field' => TRUE,
     'translatable' => TRUE,
   );
+  $properties['academic_year'] = array(
+    'label' => t('Academic year'),
+    'type' => 'text',
+    'getter callback' => 'uhc_course_implementation_get_academic_year',
+    'computed' => TRUE,
+    'entity views field' => TRUE,
+    'translatable' => FALSE,
+  );
   return $info;
 }
 
@@ -365,6 +373,70 @@ function uhc_course_implementation_get_enrollment_url($node, array $options, $na
   $options['absolute'] = TRUE;
 
   return url($url, $options);
+}
+
+/**
+ * Callback function for deducing the academic year depending on the begin year.
+ */
+function uhc_course_implementation_get_academic_year($node, array $options, $name, $type, $info) {
+  // This callback should only cover enrollment_url field in node
+  if ($name != 'academic_year' || $type != 'node') {
+    return NULL;
+  }
+
+  if ($end_date = _uhc_course_implementation_get_academic_year_end_date($node)) {
+    $ending_year = (int) $end_date->format('Y');
+    $starting_year = $ending_year - 1;
+    return sprintf('%d - %d', $starting_year, $ending_year);
+  }
+
+  return NULL;
+}
+
+/**
+ * Helper function for determining the academic years´ end date for given $node
+ * that has begin date set.
+ *
+ * @param $node
+ * @return DateTime|null
+ * @see UHCSearchPortalFeatureViewsHandlerFilterSemester::getCurrentSemester()
+ */
+function _uhc_course_implementation_get_academic_year_end_date($node) {
+  $date = _uhc_course_implementation_get_begin_date($node);
+  if ($date) {
+
+    // Specify two testable values
+    $date->modify('last day of this month');
+    $academic_years_last_day = '31.07.';
+
+    // Add one day and modify it to last day of that month, until it matches the
+    // last academic years´ day
+    while ($date->format('d.m.') != $academic_years_last_day) {
+      $date->add(new DateInterval('P1D'));
+      $date->modify('last day of this month');
+    }
+
+    // Convert timezone to Etc/Zulu if it's not already
+    if ($date->getTimezone()->getName() != 'Etc/Zulu') {
+      $date->setTimezone(new DateTimeZone('Etc/Zulu'));
+    }
+
+    return $date;
+  }
+  return NULL;
+}
+
+/**
+ * Gets start date as DateTime object if given $node has one set.
+ * @param $node
+ * @return DateTime|NULL
+ */
+function _uhc_course_implementation_get_begin_date($node) {
+  $field_values = field_get_items('node', $node, 'field_imp_begin_date');
+  if (!empty($field_values)) {
+    return new DateTime($field_values[0]['value'], new DateTimeZone($field_values[0]['timezone']));
+  }
+  return NULL;
 }
 
 /**

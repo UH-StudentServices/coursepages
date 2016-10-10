@@ -1,0 +1,88 @@
+// This is the results view (which also includes facet search elements)
+.view.course-search {
+  .view-header {
+    h2 {
+      margin: 0;
+      padding: 1em 0 0.4em 0;
+    }
+  }
+
+  @include at-breakpoint($layout-mobile-only) {
+    // Space for overlapping sort div
+    margin-bottom: 9em;
+    z-index: 1;
+  }
+
+  // Views-table styles
+  th, td {
+    // mobile first
+    float: left;
+    clear: both;
+    padding: 0;
+    width: 100%;
+    background: $white;
+    font-weight: normal;
+    @include at-breakpoint($layout-small) {
+      width: auto;
+      float: none;
+      padding-right: 1em;
+      &.views-field-title-field {
+        > a {
+          padding: 1em 1em 1em 0;
+          display: table-cell;
+        }
+        .cancelled {
+          display: table-cell;
+          width: auto;
+          & + a {
+            padding-left: 1em;
+          }
+        }
+      }
+    }
+    .cancelled {
+      width: 100%;
+    }
+  }
+
+  th {
+    padding: 1em 1em 1em 0;
+    text-align: left;
+    color: $black;
+    a, a.active {
+      color: $black;
+      font-weight: normal;
+    }
+    img {
+      margin-left: 0.5em;
+    }
+  }
+
+  tr {
+    // mobile first
+    display: block;
+    padding: 1em 0;
+    border-bottom: 1px dashed #efefef;
+
+    background: white;
+    overflow: hidden;
+    @include at-breakpoint($layout-small) {
+      display: table-row;
+      border-bottom-style: solid;
+      border-bottom-color: $lightsilver;
+      overflow: scroll;
+    }
+    &.views-row-first {
+      border-top: 1px dashed #efefef;
+      @include at-breakpoint($layout-small) {
+        border-top: 0;
+      }
+    }
+  }
+  thead {
+    display: none;
+    @include at-breakpoint($layout-small) {
+      display: table-header-group;
+    }
+  }
+}
