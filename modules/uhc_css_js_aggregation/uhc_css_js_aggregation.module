@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UHC CSS/JS Aggregation feature.
+ */
+
+include_once 'uhc_css_js_aggregation.features.inc';

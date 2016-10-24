@@ -1076,3 +1076,10 @@ function uh_coursepages_update_7025(&$sandbox) {
 function uh_coursepages_update_7026(&$sandbox) {
   module_enable(array('hy_cookie_consent'));
 }
+
+/**
+ * Enable uhc_css_js_aggregation module.
+ */
+function uh_coursepages_update_7027(&$sandbox) {
+  module_enable(array('uhc_css_js_aggregation'));
+}

@@ -1,3 +1,19 @@
+# University of Helsinki Courses v1.82
+Päiväys: 24.10.2016
+
+## Muutokset
+ - DOO-2566: Käyttöliittymäkerroksen suorituskykyoptimointia.
+ - DOO-2463: Hierarkiaorganisaatio suodatin listaa nyt kaikki organisaatiot eikä
+   vain tiedekuntia.
+
+## Korjaukset
+ - DOO-2568: Korjattu yksikkösuodattimessa valinnan tekeminen ei vaadi enää kahta
+   kosketusta.
+
+## Päivitykset
+  - DOO-2564: Moduulien versiopäivityksiä.
+
+
 # University of Helsinki Courses v1.81
 Päiväys: 21.10.2016
 

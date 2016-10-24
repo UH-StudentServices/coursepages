@@ -383,15 +383,11 @@ function uhc_search_portal_feature_facet_items_alter(&$build, &$settings) {
     if (!empty($build)) {
       $build = array_shift($build)['#item_children'];
       if (!empty($build)) {
+        $new_build = array();
         foreach ($build as $key => $value) {
-          $term = taxonomy_term_load($key);
-          if ($term !== FALSE) {
-            $code = !empty($term->field_ouh_code[LANGUAGE_NONE][0]['value']) ? $term->field_ouh_code[LANGUAGE_NONE][0]['value'] : '';
-            if ($code == variable_get('uhc_search_portal_feature_override_org_code_root', '0-TDK')) {
-              $build = $build[$key]['#item_children'];
-            }
-          }
+          $new_build = array_merge($new_build, $build[$key]['#item_children']);
         }
+        $build = $new_build;
       }
     }
   }

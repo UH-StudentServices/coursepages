@@ -7,21 +7,31 @@
   Drupal.behaviors.courseSearchDropdowns = {
     attach: function (context, settings) {
 
-      $('.block.block--facetapi li.expanded').hoverIntent({
-        sensitivity: 1,
-        interval: 0,
-        over: hoverInMenuItem,
-        timeout: 100,
-        out: hoverOutMenuItem
+      var mobile = false;
+      var mobileUserAgents = ['Android', 'iPad', 'iPhone', 'iPod', 'Windows Phone'];
+      mobileUserAgents.forEach(function(userAgent) {
+        if (RegExp(userAgent, 'i').test(navigator.userAgent)) {
+          mobile = true;
+        }
       });
 
-      $('.block__content, .item-list', '.block.block--facetapi').hoverIntent({
-        sensitivity: 1,
-        interval: 0,
-        over: hoverInMenuLevel,
-        timeout: 100,
-        out: hoverOutMenuLevel
-      });
+      if (!mobile) {
+        $('.block.block--facetapi li.expanded').hoverIntent({
+          sensitivity: 1,
+          interval: 0,
+          over: hoverInMenuItem,
+          timeout: 100,
+          out: hoverOutMenuItem
+        });
+
+        $('.block__content, .item-list', '.block.block--facetapi').hoverIntent({
+          sensitivity: 1,
+          interval: 0,
+          over: hoverInMenuLevel,
+          timeout: 100,
+          out: hoverOutMenuLevel
+        });
+      }
 
       //Run when hovering Menu item
       function hoverInMenuItem() {
