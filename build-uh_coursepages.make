@@ -18,14 +18,15 @@ defaults[projects][subdir] = "contrib"
 projects[admin_menu][download][branch] = 7.x-3.x
 projects[admin_menu][download][revision] = 67abd3a
 projects[admin_menu][patch][1981308] = https://www.drupal.org/files/issues/admin_menu-js-module-compatibility-1981308-9.patch
+projects[admin_menu][patch]["https://www.drupal.org/node/2502695"] = "https://www.drupal.org/files/issues/admin_menu-issetmapfix-2502695-3.patch"
 projects[admin_views][version] = "1.6"
 projects[behavior_weights][version] = "1.0"
 projects[block_class][version] = "2.3"
-projects[chosen][version] = "2.0-beta5"
+projects[chosen][version] = "2.0"
 projects[ckeditor][version] = "1.17"
 projects[context][version] = "3.7"
 projects[context_omega][version] = "1.1"
-projects[ctools][version] = "1.10"
+projects[ctools][version] = "1.11"
 projects[date][version] = "2.9"
 projects[diff][version] = "3.2"
 projects[email][version] = "1.3"
@@ -41,7 +42,8 @@ projects[field_collection][version] = "1.0-beta8"
 projects[field_formatter_settings][version] = "1.1"
 projects[field_group][version] = "1.4"
 projects[field_group][patch]["https://www.drupal.org/node/1482958"] = "https://www.drupal.org/files/issues/empty-config-1482958-26.patch"
-projects[field_multiple_limit][version] = "1.0-alpha4"
+projects[field_multiple_limit][version] = "1.0-alpha5"
+projects[field_multiple_limit][patch]["https://www.drupal.org/node/2807079"] = "https://www.drupal.org/files/issues/Avoid_php_warnings-2807079-2.patch"
 projects[field_permissions][version] = "1.0-beta2"
 projects[filefield_paths][version] = "1.0-rc1"
 projects[form_error_logging][version] = "1.0-rc1"
@@ -53,7 +55,7 @@ projects[languagefield][patch]["https://www.drupal.org/node/2217385"] = "https:/
 projects[google_analytics][version] = "2.3"
 projects[google_analytics_et][version] = "1.3"
 projects[google_analytics_et][patch]["remove console log"] = "http://cgit.drupalcode.org/google_analytics_et/patch/?id=89cdc6201ef844b07e4f8606c774f6e72002d040"
-projects[google_analytics_reports][version] = "3.0-beta2"
+projects[google_analytics_reports][version] = "3.1"
 projects[honeypot][version] = "1.22"
 projects[i18n][version] = "1.13"
 projects[manualcrop][version] = "1.5"
@@ -67,9 +69,9 @@ projects[logging_alerts][version] = "2.2"
 projects[link][download][type] = git
 projects[link][download][url] = http://git.drupal.org/project/link.git
 projects[link][download][revision] = 18fc33964f2ad730e9c5ebf28d8e77d4555349e6
-projects[linkit][version] = "3.4"
+projects[linkit][version] = "3.5"
 projects[maxlength][version] = "3.2"
-projects[memcache][version] = "1.3"
+projects[memcache][version] = "1.5"
 projects[mb][download][type] = git
 projects[mb][download][url] = http://git.drupal.org/project/mb.git
 projects[mb][download][revision] = cf380cf23801c41bc6a3712b0775483ab553c920
@@ -132,11 +134,11 @@ projects[smart_trim][version] = "1.5"
 projects[special_menu_items][version] = "2.0"
 projects[stringoverrides][version] = "1.8"
 projects[strongarm][version] = "2.0"
-projects[taxonomy_access_fix][version] = "2.1"
+projects[taxonomy_access_fix][version] = "2.3"
 projects[timeago][version] = "2.3"
 projects[title][version] = "1.0-alpha7"
 projects[title][patch]["https://www.drupal.org/node/1772116"] = https://www.drupal.org/files/title-1772116-auto-menu-title-bug-1772116-3.patch
-projects[token][version] = "1.5"
+projects[token][version] = "1.6"
 projects[url_alias_permissions][version] = "1.0"
 projects[variable][version] = "2.5"
 projects[varnish][version] = "1.1"
@@ -149,7 +151,7 @@ projects[viewreference][version] = "3.5"
 projects[view_unpublished][version] = "1.2"
 projects[override_node_options][version] = "1.13"
 
-projects[shib_auth][version] = 4.2
+projects[shib_auth][version] = 4.3
 projects[shib_auth][patch]["https://www.drupal.org/node/2350239"] = https://www.drupal.org/files/issues/email_already_used-2350239-7.patch
 projects[shib_auth][patch]["https://www.drupal.org/node/2389383"] = https://www.drupal.org/files/issues/2389383-shib-redirect.patch
 projects[shib_auth][patch]["https://www.drupal.org/node/2416637"] = https://www.drupal.org/files/issues/shib_auth-bad_url-2416637-4.patch
@@ -168,10 +170,6 @@ projects[ds][version] = "2.14"
 projects[ds][subdir] = "contrib"
 ;# Patch for text in resilts view see: https://www.drupal.org/node/2345387
 ;projects[ds][patch][rename-total-results] = "https://www.drupal.org/files/issues/ds-rename_total_results_output-2345387-1.patch"
-
-; multiple filed issue descovered in build
-;# Undefined index: cardinality in field_multiple_limit_field_formatter_settings_summary_alter()
-projects[field_multiple_limit][patch]["https://www.drupal.org/node/2345387"] = "https://www.drupal.org/files/field_multiple_limit-ignore_missing_cardinality-1958614-1.patch"
 
 ; Allows us to put comments into descending sorting (we do not use comment
 ; threading, so it should be safe).
@@ -202,8 +200,8 @@ projects[better_formats][patch]["https://www.drupal.org/node/2471589"] = "https:
 
 ; With these modules we can provide course information in JSON format for
 ; external clients like Opintoni project.
-projects[services][version] = 3.12
-projects[services_views][version] = 1.0
+projects[services][version] = 3.17
+projects[services_views][version] = 1.1
 projects[image_url_formatter][version] = 1.4
 
 ; With message module, we can track down course activity.
@@ -225,9 +223,9 @@ projects[page_memory_limit][version] = 1.2
 ; Themes
 
 projects[omega][subdir] = "omega"
-projects[omega][version] = "4.3"
+projects[omega][version] = "4.4"
 ; Fix PHP notice related to incorrect language direction detection.
-projects[omega][patch][2364731] = "https://www.drupal.org/files/issues/omega-fix-direction-language-rtl-2364731-7.patch"
+projects[omega][patch][2762793] = "https://www.drupal.org/files/issues/omega-modules-listed-as-missing-themes-2762793-13.patch"
 
 projects[hy_base_theme][type] = "theme"
 projects[hy_base_theme][subdir] = "hy_base_theme"

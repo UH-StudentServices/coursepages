@@ -10,10 +10,7 @@
     width: 100%;
   }
   @include at-breakpoint($layout-small) {
-    width: 23%;
-    .node--sidebar & {
-      width: 31%;
-    }
+    width: 255px;
   }
   h2.block__title {
     @include select-header;
@@ -21,43 +18,45 @@
   // Faux chosen multiselect theming
   .block__content,
   .chosen-drop {
-    @include transition(max-height 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
+    display: none;
     z-index: 998;
-    max-height: 0;
-    height: 0;
-    background: #fff;
+    max-height: 320px;
+    height: auto;
     position: absolute;
+    background: #fff;
     width: 100%;
-    overflow: hidden;
     font-size: 13px;
     ul {
       @include border-bottom;
       @include box-shadow(0px 1px 5px $lightsilver);
-      overflow-y: scroll;
-      overflow-x: hidden;
+      @include scrollbar;
+      background-color: $white;
+      min-width: 255px;
       max-height: 250px;
       li {
         @include border-bottom;
-        padding: 10px 0;
-        margin: 0 10px;
+        padding: 10px;
         color: $blue;
         cursor: pointer;
         &:last-child {
           border-bottom: none;
         }
-        a.facetapi-active {
-          display: block !important;
-          font-size: 0;
-        }
-        a:before {
-          @include transition(all 0.2s ease-in-out);
-          content: '';
-          margin: 2px 8px 0 0;
-          display: block;
-          float: left;
-          height: 15px;
-          width: 15px;
-          border: 1px solid $blue;
+        a {
+          display: inline-block;
+          &.facetapi-active {
+            display: block !important;
+            font-size: 0;
+          }
+          &:before {
+            @include transition(all 0.2s ease-in-out);
+            content: '';
+            margin: 2px 8px 0 0;
+            display: block;
+            float: left;
+            height: 15px;
+            width: 15px;
+            border: 1px solid $blue;
+          }
         }
         input[type="checkbox"] {
           display: none;
@@ -71,21 +70,6 @@
         opacity: 1;
       }
     }
-    .facet-buttons {
-      padding: 1em;
-      text-align: center;
-    }
-    .button {
-      display: inline-block;
-      &.facets-remove {
-        @include button-invert-colors;
-        padding: 0.7em 0;
-      }
-      &.facets-apply {
-        float: left;
-        padding: 0.7em 1.3em;
-      }
-    }
   }
   &.collapsed,
   &.chosen-with-drop {
@@ -97,31 +81,106 @@
     .chosen-drop {
       @include border;
       @include shadow-under;
-      max-height: 320px;
-      height: auto;
+      display: block;
       z-index: 10;
     }
   }
+}
 
-  .chosen-choices {
-    @include border;
-    .search-choice {
-      cursor: pointer !important;
-      color: $silver;
-      background: $lightsilver;
-      font-size: 13px;
-      padding: 3px 5px;
-      margin: 1px;
+.chosen-choices {
+  @include border;
+  .search-choice {
+    cursor: pointer !important;
+    color: $silver;
+    background: $lightsilver;
+    font-size: 13px;
+    padding: 3px 5px;
+    margin: 1px;
+    display: inline-block;
+    &:hover {
+      background: $silver;
+      color: $lightsilver;
+    }
+    &:after {
+      @include hy-icon("\EA2F");
+      @include transform(rotate(-45deg));
       display: inline-block;
-      &:hover {
-        background: $silver;
-        color: $lightsilver;
+      margin-left: 3px;
+    }
+  }
+}
+
+.facet-buttons {
+  padding: 1em;
+  text-align: center;
+  .button {
+    display: inline-block;
+    &.facets-remove {
+      @include button-invert-colors;
+      padding: 0.7em 0;
+    }
+    &.facets-apply {
+      float: left;
+      padding: 0.7em 1.3em;
+    }
+  }
+}
+
+
+
+
+
+.block--facetapi-uhyou2m5iufoonbzgytqixaxreuk8k7e {
+  .item-list {
+    display: none;
+  }
+  @include at-breakpoint($layout-small) {
+    .item-list {
+      @include transform(scale(0) translateX(0));
+      @include transition(transform 0.3s cubic-bezier(0.15, 1, 0.33, 1) 0s);
+      display: block;
+      z-index: -2;
+    }
+    .item-list,
+    .block__content {
+      @include border;
+      background-color: $white;
+      position: absolute;
+      .facet-buttons {
+        @include transition(all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
+        @include transform(translateY(-100%));
+        @include box-shadow(0px 1px 5px $lightsilver);
+        @include border;
+        padding: 0 1em;
+        background-color: $white;
+        position: absolute;
+        width: 100%;
+        z-index: -1;
       }
-      &:after {
-        @include hy-icon("\EA2F");
-        @include transform(rotate(-45deg));
-        display: inline-block;
-        margin-left: 3px;
+      &.active {
+        > .facet-buttons {
+          @include transform(translateY(0));
+          padding: 1em;
+        }
+      }
+      &.collapsed {
+        @include transform(scale(1) translateX(96%));
+      }
+    }
+    li {
+      padding-right: 2em;
+      &.expanded {
+        a {
+          max-width: 90%;
+        }
+        &:after {
+          @include hy-icon($hy-arrow);
+          display: inline-block;
+          float: right;
+        }
+      }
+      &.collapsed {
+        background-color: $lightsilver;
       }
     }
   }

@@ -2,7 +2,7 @@ name = UHC Moodi
 description = Provides Moodi integration services
 core = 7.x
 package = UHC
-version = 7.x-1.80
+version = 7.x-1.81
 project = uhc_moodi
 
 files[] = classes/UHCMoodiService.php

@@ -75,6 +75,8 @@ function uhc_rest_api_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['relationship'] = 'user';
   $handler->display->display_options['fields']['name']['label'] = 'user';
+  $handler->display->display_options['fields']['name']['link_to_user'] = FALSE;
+  $handler->display->display_options['fields']['name']['format_username'] = FALSE;
   /* Field: User: Oodi UID */
   $handler->display->display_options['fields']['field_oodi_uid']['id'] = 'field_oodi_uid';
   $handler->display->display_options['fields']['field_oodi_uid']['table'] = 'field_data_field_oodi_uid';
@@ -87,13 +89,10 @@ function uhc_rest_api_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['ui_name'] = 'Message: Timestamp: see uhc_rest_api_services_views_execute_view_alter';
   $handler->display->display_options['fields']['timestamp']['label'] = 'timestamp';
-  $handler->display->display_options['fields']['timestamp']['date_format'] = 'short_date_only';
+  $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'Y-m-d\\TH:i:s\\Z';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'short_date_only';
-  /* Field: Message: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'message';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = 'type';
+  $handler->display->display_options['fields']['timestamp']['timezone'] = 'UTC';
   /* Sort criterion: Message: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'message';
@@ -164,7 +163,6 @@ function uhc_rest_api_views_default_views() {
     t('user'),
     t('oodi_uid'),
     t('timestamp'),
-    t('type'),
     t('All'),
     t('Timestamp'),
     t('Services'),
@@ -325,6 +323,7 @@ function uhc_rest_api_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   /* Field: Content: Event begin date */
   $handler->display->display_options['fields']['field_event_begin_date']['id'] = 'field_event_begin_date';
   $handler->display->display_options['fields']['field_event_begin_date']['table'] = 'field_data_field_event_begin_date';

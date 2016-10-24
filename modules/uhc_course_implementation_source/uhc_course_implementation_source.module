@@ -208,6 +208,8 @@ function _uhc_course_implementation_source_process_update_batch($items) {
   $migration->prepareUpdate();
   $result = $migration->processImport();
   if ($result != Migration::RESULT_COMPLETED) {
-    watchdog('uhc_course_implementation_source', 'Migration for update batch has failed', array(), WATCHDOG_ERROR);
+    watchdog('uhc_course_implementation_source', 'Migration for course implementations did not complete (status @status)', array('@status' => $result), WATCHDOG_ERROR);
+    return FALSE;
   }
+  return TRUE;
 }

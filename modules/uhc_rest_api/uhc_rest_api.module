@@ -64,7 +64,7 @@ function uhc_rest_api_process_course_implementation_activity_output($output, $la
     $result->course_imp_id = (int) $result->course_imp_id;
     $message = message_load($result->message);
     $result->message = trim($message->getText($langcode));
-    $result->timestamp = uhc_rest_api_format_datetime_from_timestamp($result->timestamp);
+    $result->type = $message->type;
     
     if (empty($result->oodi_uid)) {
       unset($result->oodi_uid);
@@ -144,18 +144,6 @@ function uhc_rest_api_process_course_implementations_output($output) {
   }
 
   return $output;
-}
-
-/**
- * Helper function for converting from unix timestamp to datetime format
- * requested by Opintoni project in DOO-889.
- *
- * @param $timestamp
- * @return string
- * @see uhc_rest_api_process_course_implementation_activity_output()
- */
-function uhc_rest_api_format_datetime_from_timestamp($timestamp) {
-  return gmdate(uhc_rest_api_get_datetime_format(), $timestamp);
 }
 
 /**

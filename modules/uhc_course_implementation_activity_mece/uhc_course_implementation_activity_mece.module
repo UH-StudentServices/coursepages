@@ -69,12 +69,16 @@ function uhc_course_implementation_activity_mece_entity_insert($entity, $entity_
     $languages = $languages[1];
     foreach ($nodes as $node) {
 
-      // Get course students from given node
-      if ($course_students = uhc_course_implementation_activity_mece_get_students($node, 'userid')) {
-        foreach ($course_students as $course_student) {
-          $notification->appendRecipient($course_student);
-        }
+      // Collect recipients
+      $recipients = $notification->getRecipients();
+      $recipient_fields = array('students', 'teachers', 'officials');
+      foreach ($recipient_fields as $recipient_field) {
+        $recipients = array_merge($recipients, uhc_course_implementation_activity_mece_get_recipients($node, $recipient_field, 'userid'));
       }
+
+      // Update recipients list
+      $recipients = array_unique($recipients);
+      $notification->setRecipients($recipients);
 
       // If link text and link are empty, then define them from first node
       $uri = entity_uri('node', $node);
@@ -107,7 +111,7 @@ function uhc_course_implementation_activity_mece_entity_insert($entity, $entity_
 
     // Cancel notification sending if we don't have recipients
     if (empty($notification->getRecipients())) {
-      watchdog('uhc_course_implementation_activity_mece', 'Notification message build (id "@id") was cancelled because recipients was missing.', array('@id' => $notification->getSourceId()), WATCHDOG_WARNING);
+      watchdog('uhc_course_implementation_activity_mece', 'Notification message build (id "@id") was cancelled because recipients was missing.', array('@id' => $notification->getSourceId()), WATCHDOG_INFO);
       return;
     }
 
@@ -151,37 +155,39 @@ function uhc_course_implementation_activity_mece_entity_insert($entity, $entity_
 }
 
 /**
- * Get list of students from given course implementation ID.
+ * Get recipients from the given course implementation.
  * @param $node
+ * @param string $recipients_field
+ *   The name of the recipients field ('students', 'teachers', 'officials').
  * @param NULL|string $field
- *   Optional argument for specifying which field of student you want to get. If
- *   not provided (or NULL), then get whole object of the student.
+ *   Optional argument for specifying which field of the recipient you want to
+ *   get. If not provided (or NULL), then get whole object of the recipient.
  * @return array
  */
-function uhc_course_implementation_activity_mece_get_students($node, $field = NULL) {
+function uhc_course_implementation_activity_mece_get_recipients($node, $recipients_field, $field = NULL) {
 
-  // Figure out course imp and request it
+  // Figure out course imp and request it.
   $course_imp = _uhc_sources_resolve_course_imp($node->nid);
   $courseunitrealisation = uhc_course_implementation_activity_mece_get_courseunitrealisation($course_imp);
   if (empty($courseunitrealisation->data)) {
     return array();
   }
 
-  // Loop students and gather result list
-  $students = array();
-  if (!empty($courseunitrealisation->data->students) && is_array($courseunitrealisation->data->students)) {
+  // Loop recipients and gather result list.
+  $recipients = array();
+  if (!empty($courseunitrealisation->data->$recipients_field) && is_array($courseunitrealisation->data->$recipients_field)) {
     if (is_null($field)) {
-      $students = $courseunitrealisation->data->students;
+      $recipients = $courseunitrealisation->data->$recipients_field;
     }
     else {
-      foreach ($courseunitrealisation->data->students as $student) {
-        if (!empty($student->$field)) {
-          $students[] = $student->$field;
+      foreach ($courseunitrealisation->data->$recipients_field as $recipient) {
+        if (!empty($recipient->$field)) {
+          $recipients[] = $recipient->$field;
         }
       }
     }
   }
-  return $students;
+  return $recipients;
 }
 
 /**

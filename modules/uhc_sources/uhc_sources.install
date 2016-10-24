@@ -145,3 +145,51 @@ function uhc_sources_update_7005() {
 
   }
 }
+
+/**
+ * Queue Oodi changes from 2016-10-18T05:00:00Z with low priority as there was
+ * major issues during that date.
+ */
+function uhc_sources_update_7006() {
+
+  /*
+   * Most of code here is borrowed from uh_oodi_queue_poll_cron() function.
+   */
+
+  // Define previous and next last requested timestamp
+  $last_requested = new DateTime('2016-10-18T05:00:00Z', new DateTimeZone('Etc/Zulu'));
+
+  // Define processing
+  $processors = array(
+    'learningopportunity' => array(
+      'url' => variable_get('uh_oodi_queue_poll_learningopportunity_changes_url', ''),
+      'mapping' => variable_get('uh_oodi_queue_poll_learningopportunity_mapping', array(
+        'action' => array('property' => 'deleted', 'preprocessors' => array('_uh_oodi_queue_poll_determine_action')),
+        'entityId' => 'learningopportunity_id',
+      )),
+    ),
+    'courseunitrealisation' => array(
+      'url' => variable_get('uh_oodi_queue_poll_courseunitrealisation_changes_url', ''),
+      'mapping' => variable_get('uh_oodi_queue_poll_courseunitrealisation_mapping', array(
+        'action' => array('property' => 'deleted', 'preprocessors' => array('_uh_oodi_queue_poll_determine_action')),
+        'entityId' => 'course_id',
+      )),
+    ),
+  );
+
+  // Parse changes and put them to queues
+  $http_options = variable_get('uh_oodi_queue_poll_http_options', array());
+  $responses = _uh_oodi_queue_poll_request($processors, $last_requested, $http_options);
+  if (_uh_oodi_queue_poll_responses_valid($responses)) {
+    $items = _uh_oodi_queue_poll_process_items($responses, $processors);
+    $queue = new UHOodiQueue(UHOodiQueue::PRIORITY_LOW);
+    foreach ($items as $item) {
+      try {
+        $queue->validateItem($item);
+        $queue->createItem($item);
+      } catch (\LogicException $e) {
+        watchdog('uhc_sources', 'Failed adding Oodi item to queue: "@message"', array('@message' => $e->getMessage()), WATCHDOG_ERROR);
+      }
+    }
+  }
+}

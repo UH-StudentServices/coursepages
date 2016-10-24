@@ -1,3 +1,32 @@
+# University of Helsinki Courses v1.81
+Päiväys: 21.10.2016
+
+## Lisäykset
+  - DOO-2524: MECE: Lisättiin aktiviteettiviestien vastaanottajiksi kurssin
+    opettajat ja virkailijat.
+
+## Muutokset
+  - DOO-2536: Huom: Mahdollisia pieniä muutoksia kurssisivujen tarjoamien APIen
+    vastauksissa (uhc_rest_api) varsinkin HTML:ää sisältävien osioiden osalta
+    (aktiviteettiviestit, otsikot...). Testattava Opintoni ja Opetukseni -
+    sovellusten osalta ennen tuotantoonvientiä.
+  - DOO-2463: Hakujen yksikkösuodatin tukee nyt hierarkiavalintoja.
+  - DOO-2553: Kurssipäivitysjonon käsittelyssä niput käsitellään nyt niin että
+    jaksot ensin ja sitten toteutukset per nippu.
+  - DOO-2553: Kurssipäivitysjonon käsittelyssä tulleet uudet jaksot luetaan nyt
+    samalla käsittelykerralla (samoin kun toteutukset).
+  - DOO-2553: Kurssipäivitysjonon käsittelyssä integraation aikakatkaisu ei
+    merkitse nipun jaksoja ja toteutuksia käsitellyksi.
+  - DOO-1896: Mahdollistettiin HTML-merkkauksen katselmointi wysiwyg-editorissa.
+
+## Korjaukset
+  - DOO-2559: PHP notice -korjaus.
+  - DOO-2560: Omega-teeman herjojen korjaus.
+
+## Päivitykset
+  - DOO-2552, DOO-2557: Moduulien versiopäivityksiä.
+
+
 # University of Helsinki Courses v1.80
 Päiväys: 17.10.2016
 

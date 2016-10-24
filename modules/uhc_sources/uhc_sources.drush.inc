@@ -133,20 +133,17 @@ function drush_uhc_sources_uhc_process_queue() {
         if (empty($batches[$item->getType()]['update callback'])) {
           throw new \LogicException('Update callback required in queue processing loop.');
         }
-        $function = $batches[$item->getType()]['update callback'];
 
         // Move to processable list from the queue
         if (isset($batches[$item->getType()])) {
           $batches[$item->getType()]['items'][] = $item;
-          $queue->deleteItem($item);
         }
 
         // Trigger import if batch size exceeded
-        if (count($batches[$item->getType()]['items']) >= $batch_size) {
-          // Update callback are called with multiple IDs.
-          $function($batches[$item->getType()]['items']);
-          $batches[$item->getType()]['items'] = array();
+        if (_uhc_sources_uhc_batch_exceeded($batches, $batch_size)) {
+          _uhc_sources_uhc_process_batches($batches, $queue);
         }
+
         break;
       case 'delete':
         $function = isset($batches[$item->getType()]['delete callback']) ? $batches[$item->getType()]['delete callback'] : '';
@@ -160,19 +157,51 @@ function drush_uhc_sources_uhc_process_queue() {
   }
 
   // Flush loop leftovers
-  foreach ($batches as $batch) {
-    if (empty($batch['update callback'])) {
-      throw new \LogicException('Update callback required in queue processing loop.');
-    }
-    $function = $batch['update callback'];
-    if (count($batch['items']) > 0 && function_exists($function)) {
-      $function($batch['items']);
-    }
-  }
+  _uhc_sources_uhc_process_batches($batches, $queue);
 
   // Release specified items
   foreach ($release_items as $release_item) {
     $queue->releaseItem($release_item);
   }
 
+}
+
+/**
+ * Tells if given batches exceeds the given $batch_size.
+ * @param $batches
+ * @param $batch_size
+ * @return bool
+ */
+function _uhc_sources_uhc_batch_exceeded($batches, $batch_size) {
+  $count = 0;
+  foreach ($batches as $batch) {
+    $count += count($batch['items']);
+    if ($count >= $batch_size) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * @param $batches
+ * @param UHOodiPrioritisedQueue $queue
+ */
+function _uhc_sources_uhc_process_batches(&$batches, &$queue) {
+  foreach ($batches as $type => &$batch) {
+    // Do not bother processing empty items list
+    if (!empty($batch['items'])) {
+      $function = $batch['update callback'];
+      if ($function($batch['items']) === TRUE) {
+        foreach ($batch['items'] as $updated_item) {
+          $queue->deleteItem($updated_item);
+          $batch['items'] = array();
+        }
+      }
+      else {
+        // TODO: Decide what to do with the items if update fails? Now, they
+        // will be released after default expire...
+      }
+    }
+  }
 }

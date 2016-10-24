@@ -24,6 +24,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 3,
@@ -103,6 +104,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'title_class' => '',
           'title_link' => '',
           'title_style' => '',
@@ -229,6 +231,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'list_default',
         'weight' => 33,
@@ -505,6 +508,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 79,
@@ -613,6 +617,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'link_default',
         'weight' => 80,
@@ -705,6 +710,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 13,
@@ -1219,6 +1225,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_plain',
         'weight' => 5,
@@ -1753,6 +1760,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 12,
@@ -1859,6 +1867,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'image_link' => '',
           'image_style' => 'large_with_manualcrop',
         ),
@@ -1973,6 +1982,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 11,
@@ -2080,6 +2090,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 14,
@@ -2326,6 +2337,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'link_default',
         'weight' => 75,
@@ -2418,6 +2430,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 74,
@@ -2621,6 +2634,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_plain',
         'weight' => 6,
@@ -2694,6 +2708,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 43,
@@ -2803,6 +2818,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 1,
@@ -3150,6 +3166,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'title_class' => '',
           'title_link' => '',
           'title_style' => '_none',
@@ -3295,6 +3312,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 19,
@@ -3317,6 +3335,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 4,
@@ -3408,6 +3427,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
@@ -3476,6 +3496,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'format' => array(
             'iso' => 'iso',
             'name' => 0,
@@ -3815,6 +3836,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'links' => 0,
           'use_content_language' => TRUE,
           'view_mode' => 'teaser_accordion',
@@ -4523,6 +4545,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 80,
@@ -4620,6 +4643,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 81,
@@ -4714,6 +4738,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'link_default',
         'weight' => 82,
@@ -5053,6 +5078,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'image_link' => '',
           'image_style' => '',
         ),
@@ -5137,6 +5163,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 6,

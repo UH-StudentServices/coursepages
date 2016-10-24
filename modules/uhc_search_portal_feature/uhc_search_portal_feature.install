@@ -18,6 +18,7 @@ function uhc_search_portal_feature_uninstall() {
   variable_del('uhc_search_portal_feature_host');
   variable_del('uhc_search_portal_feature_port');
   variable_del('uhc_search_portal_feature_path');
+  variable_del('uhc_search_portal_feature_override_org_code_root');
 }
 
 /**

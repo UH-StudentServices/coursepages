@@ -1,0 +1,200 @@
+swagger: '2.0'
+info:
+  version: "1.80.0"
+  title: DOO Kurssisivut API
+  description: |
+    API for University of Helsinki coursepage service (DOO Kurssisivut) that can
+    be used publicly with no SLA of any kind.
+  contact:
+    name: Mikael Kundert
+    email: doo-projekti@helsinki.fi
+  license:
+    name: GPL v3
+    url: https://www.gnu.org/licenses/gpl-3.0.txt
+host: courses.helsinki.fi
+schemes:
+  - https
+basePath: /api/v1
+tags:
+  - name: Activity
+  - name: Course implementations
+  - name: Events
+paths:
+  /course_implementations:
+    get:
+      description: |
+        Retrieve corresponding `courseunitrealistaion` from Drupal that is internally called `course_implementation`.
+        Course implementations are retrieved using `courseunitrealisation` ID, not by Drupal´s internal `nid`.
+      tags:
+        - Course implementations
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: course_implementation_id
+          in: query
+          description: ID of the courseunitrealisation.
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Returns `CourseImplementation` object.
+          schema:
+            $ref: '#/definitions/CourseImplementation'
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /course_implementation_activity:
+    get:
+      description: Retrieve course activity messages from given `courseunitrealisation` IDs.
+      tags:
+        - Activity
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: course_implementation_id
+          in: query
+          description: ID or IDs of the courseunitrealisation. You may provide multiple IDs by separating them with comma.
+          type: string
+          required: true
+      responses:
+        200:
+          description: Returns list of `Activity` objects.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Activity'
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /events:
+    get:
+      description: Retrieve events from given `courseunitrealisation` IDs.
+      tags:
+        - Events
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: course_implementation_id
+          in: query
+          description: ID or IDs of the `courseunitrealisation`. You may provide multiple IDs by separating them with comma.
+          type: string
+          required: true
+      responses:
+        200:
+          description: Returns list of `Event` objects.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Event'
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+definitions:
+  CourseImplementation:
+    type: object
+    properties:
+      nid:
+        type: integer
+        description: Node ID
+        required: true
+      title:
+        type: string
+        description: Node title
+        required: true
+      header_image_url:
+        type: string
+        description: URL address of the header promotion image
+      header_image_attribution:
+        type: string
+        description: Image attribution text of the header promotion image
+      header_headline:
+        type: string
+        description: Header promotion headline
+      header_text:
+        type: string
+        description: Header promotion text
+      url:
+        type: string
+        description: URL address to the course page
+        required: true
+      has_material:
+        type: boolean
+        description: Indicates whether the course has materials added
+      moodle_url:
+        type: string
+        description: URL address to the linked Moodle page
+      wiki_url:
+        type: string
+        description: URL address to the linked Wiki page
+  Event:
+    type: object
+    properties:
+      course_implementation_id:
+        type: integer
+        description: Courseunitrealisation´ ID. Do not confuse this with `nid`.
+        required: true
+      title:
+        type: string
+        description: Title of the event
+        required: true
+      begin:
+        type: string
+        format: dateTime
+        description: Beginning date and time for the event in ISO 8601 format
+      end:
+        type: string
+        format: dateTime
+        description: End date and time for the event in ISO 8601 format
+      where:
+        type: string
+        description: Location of the event
+      exam:
+        type: boolean
+        description: Indiciates if the event is considered as an "exam"
+  Activity:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Message ID
+        required: true
+      course_imp_id:
+        type: integer
+        description: Courseunitrealisation´ ID. Do not confuse this with `nid`.
+        required: true
+      message:
+        type: string
+        description: Generated human readable activity text in HTML
+        required: true
+      user:
+        type: string
+        description: Name of the corresponding user
+        required: true
+      oodi_uid:
+        type: integer
+        description: Oodi user ID of the corresponding user
+        required: true
+      timestamp:
+        type: string
+        format: dateTime
+        description: Timestamp date and time in ISO 8601 format.
+        required: true
+      type:
+        type: string
+        description: Type of activity
+        required: true

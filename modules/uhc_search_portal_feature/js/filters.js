@@ -7,6 +7,74 @@
   Drupal.behaviors.courseSearchDropdowns = {
     attach: function (context, settings) {
 
+      $('.block.block--facetapi li.expanded').hoverIntent({
+        sensitivity: 1,
+        interval: 0,
+        over: hoverInMenuItem,
+        timeout: 100,
+        out: hoverOutMenuItem
+      });
+
+      $('.block__content, .item-list', '.block.block--facetapi').hoverIntent({
+        sensitivity: 1,
+        interval: 0,
+        over: hoverInMenuLevel,
+        timeout: 100,
+        out: hoverOutMenuLevel
+      });
+
+      //Run when hovering Menu item
+      function hoverInMenuItem() {
+        $(this).children('.item-list').addClass('collapsed').moveToViewport();
+        $(this).addClass('collapsed');
+        $(this).closest('.item-list, .block__content').addClass('active');
+      }
+
+      //Run when hovering Menu level
+      function hoverInMenuLevel() {
+        $(this).addClass('active');
+        $(this).parents('.item-list.active, .block__content.active').removeClass('active');
+      }
+
+      //Run when hovering outside Menu item
+      function hoverOutMenuItem() {
+        $(this).children('.item-list').removeClass('collapsed');
+        $(this).children('.item-list').css({'bottom': 'auto', 'right': 'auto', 'top': 'auto'});
+        $(this).removeClass('collapsed');
+      }
+
+      //Run when hovering outside Menu level
+      function hoverOutMenuLevel(hover) {
+        $(hover.toElement).closest('.item-list, .block__content').addClass('active');
+        $(this).removeClass('active');
+      }
+
+      $.fn.moveToViewport = function() {
+
+        // by default align the child menu vertically with its parent menu item
+        var parentTop = this.parent('li.expanded').position().top + 'px';
+        $(this).css('top', parentTop);
+
+        var viewport = {};
+        viewport.right = $(window).scrollLeft() + $(window).width();
+        viewport.bottom = $(window).scrollTop() + $(window).height();
+
+        var bounds = this.offset();
+        bounds.right = bounds.left + this.outerWidth();
+        bounds.bottom = bounds.top + this.outerHeight();
+
+        // Move child menu back to viewport if out of bounds
+        if (viewport.right < bounds.right) {
+          $(this).css('right', function(){
+            return (bounds.right) - viewport.right + 'px'
+          });
+          $(this).css('z-index', '1');
+        }
+        if (viewport.bottom < bounds.bottom + 60) {
+          $(this).css({'top': 'initial', 'bottom': '0'});
+        }
+      };
+
       // Make sure this happens only once
       $('.views-exposed-widgets').once('uhc-filters', function () {
         // Submit form when sort select is changed, only visible in mobile
@@ -25,14 +93,14 @@
 
       // Create buttons outside the dropdown, showing currently active filters
       $('.facetapi-active', '.block--facetapi').each(function () {
-        $(this).closest('.block__content').siblings('.chosen-choices').append('<li class="search-choice">' + $(this).parent().contents(":not(a, label, input)").text() + '</span>');
+        $(this).closest('.block__content').siblings('.chosen-choices').append('<li class="search-choice">' + $(this).parent().contents(":not(a, label, input, div)").text() + '</span>');
       });
 
       // Handle clicks on the active filter buttons to remove them
       $('.search-choice', '.block--facetapi').click(function () {
         var title = $(this).text();
         $(this).closest('.block--facetapi').find('.facetapi-active').each(function () {
-          if ($(this).parent().contents(":not(a, label, input)").text() == title) {
+          if ($(this).parent().contents(":not(a, label, input, div)").text() == title) {
             $(this).siblings('input').click();
           }
         });
@@ -49,7 +117,7 @@
     attach: function (context, settings) {
 
       // Add "buttons" for applying changes and removing all filters
-      $('.block--facetapi .block__content').append('<div class="facet-buttons"></div>');
+      $('.block__content, .item-list', '.block--facetapi').append('<div class="facet-buttons"></div>');
       $('.facet-buttons').append('<span class="facets-apply button">OK</span>')
         .append('<span class="facets-remove button">' + Drupal.t('Remove selections') + '</span>');
       $('.facets-apply').click(applyChanges);
@@ -62,8 +130,10 @@
       var added_filters = [];
       var removed_filters = {};
       var changes = 0; // Used to check if clicking outside the facet should trigger a redirect
-      $('.block--facetapi ul li.leaf').each(function(key, elem) {
+      $('.block--facetapi ul li').each(function(key, elem) {
         elem.addEventListener('click', function(event) {
+          // Prevent bubbling up so the click doesnt register on the hierarchy parent also
+          event.stopPropagation();
           // Remove existing filter
           if ($(this).children('a').hasClass('facetapi-active')) {
             event.preventDefault();

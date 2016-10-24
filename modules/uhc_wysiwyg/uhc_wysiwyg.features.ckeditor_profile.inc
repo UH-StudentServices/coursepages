@@ -14,7 +14,7 @@ function uhc_wysiwyg_ckeditor_profile_defaults() {
       'settings' => array(
         'ss' => 2,
         'toolbar' => '[
-    [\'Format\',\'Bold\',\'Italic\',\'NumberedList\',\'BulletedList\',\'Link\',\'Unlink\',\'Anchor\',\'PasteFromWord\',\'Undo\',\'Redo\']
+    [\'Format\',\'Bold\',\'Italic\',\'NumberedList\',\'BulletedList\',\'Link\',\'Unlink\',\'Anchor\',\'PasteFromWord\',\'Undo\',\'Redo\',\'Source\']
 ]',
         'expand' => 't',
         'default' => 't',

@@ -670,7 +670,7 @@ function uhc_course_implementation_field_group_info() {
   $export['group_manual_content|field_collection_item|field_imp_teachersection|default'] = $field_group;
 
   $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->disabled = TRUE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_manual_content|node|course_implementation|default';
   $field_group->group_name = 'group_manual_content';
