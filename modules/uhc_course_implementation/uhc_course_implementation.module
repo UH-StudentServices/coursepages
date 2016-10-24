@@ -352,7 +352,7 @@ function uhc_course_implementation_get_enrollment_url($node, array $options, $na
   $id = _uhc_sources_resolve_course_imp($nid);
 
   // Define URL pattern depending on organisation
-  if (uhc_sources_is_from_organisation($node, 'H930') === TRUE) {
+  if (uhc_sources_is_from_organisation($node, 'H930')) {
     $url = 'https://www.avoin.helsinki.fi/palvelut/esittely.aspx?o=:id';
     if ($language != 'fi') {
       // When language is not 'fi', then append also language parameter
@@ -479,7 +479,7 @@ function uhc_course_implementation_enrollment_button($field) {
   // If we should remove the link, but still have the label, just return label
   // itself.
   $label = t('Enrol');
-  if (!uhc_course_implementation_enrollment_period_active($node)) {
+  if (!uhc_sources_is_from_organisation($node, 'H930') && !uhc_course_implementation_enrollment_period_active($node)) {
     return $label;
   }
 
@@ -916,8 +916,7 @@ function uhc_course_implementation_should_hide_sign_up($node) {
   return uhc_course_collaboration_is_current_user_course_student()
   || uhc_course_collaboration_is_current_user_course_teacher()
   || uhc_course_collaboration_is_current_user_course_administrator()
-  || (uhc_sources_is_from_organisation($node, 'H930') === TRUE
-    && !uhc_course_implementation_is_organised_by_open_uni($node))
+  || (uhc_sources_is_from_organisation($node, 'H930') && !uhc_course_implementation_is_organised_by_open_uni($node))
   || uhc_course_implementation_signup_hidden($node);
 }
 
@@ -929,8 +928,8 @@ function uhc_course_implementation_should_hide_sign_up($node) {
  * @see https://wiki.helsinki.fi/pages/viewpage.action?pageId=202029321
  */
 function uhc_course_implementation_is_organised_by_open_uni($node) {
-  $org = field_get_items('node', $node, 'field_imp_course_organiser')[0]['value'];
-  return $org == 'Open university' || $org == 'Avoin yliopisto' || $org == 'Öppna universitet';
+  $org = trim(drupal_strtolower(field_get_items('node', $node, 'field_imp_course_organiser')[0]['value']));
+  return in_array($org, array('open university', 'avoin yliopisto', 'öppna universitet'));
 }
 
 /**

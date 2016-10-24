@@ -10,10 +10,17 @@
   Drupal.behaviors.uhc_feedback = {
     attach: function (context) {
       var $block = '#block-feedback-form';
-      var trackEvents = typeof _gaq != 'undefined';
+      var trackEvents = typeof ga != 'undefined';
       $('body').once().delegate("#block-feedback-form:not('.open')", 'mousedown', function () {
         if (trackEvents) {
-          _gaq.push(['_trackEvent', 'Feedback form', 'open', 'Feedback form', 0, false]);
+          ga('send', {
+            'hitType': 'event',
+            'eventCategory': 'Feedback form',
+            'eventAction': 'open',
+            'eventLabel': 'Feedback form',
+            'eventValue': 0,
+            'nonInteraction': false
+          });
         }
       });
       $('.feedback-link', $block).once().click(function () {
@@ -21,7 +28,14 @@
       });
       $('#feedback-submit').once().mousedown(function () {
         if (trackEvents) {
-          _gaq.push(['_trackEvent', 'Feedback form', 'submit', 'Submit', 0, false]);
+          ga('send', {
+            'hitType': 'event',
+            'eventCategory': 'Feedback form',
+            'eventAction': 'submit',
+            'eventLabel': 'Submit',
+            'eventValue': 0,
+            'nonInteraction': false
+          });
         }
       });
       $('#feedback-submit', $block).once().click(function () {

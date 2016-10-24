@@ -29,10 +29,10 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
     'label' => '!href',
   );
   $selectors[0] = $liftup_template;
-  $selectors[0]['selector'] = '#block-views-uhc-course-liftups-latest a';
+  $selectors[0]['selector'] = '.view-id-uhc_course_liftups.course-liftups a';
   $selectors[0]['category'] = 'liftups course';
   $selectors[1] = $liftup_template;
-  $selectors[1]['selector'] = '#block-views-uhc-liftups-main a';
+  $selectors[1]['selector'] = '.view-id-uhc_liftups a';
   $selectors[1]['category'] = 'liftups main';
 
   // Search form
@@ -40,13 +40,13 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
   // uhc_analytics_and_tracking_views_post_execute().
   $selectors[] = array(
     'event' => 'click',
-    'selector' => 'form#views-exposed-form-uhc-search-desktop input#edit-reset',
+    'selector' => '.block--views.course-search form input#edit-reset',
     'category' => 'search form',
     'action' => 'reset',
   );
   $selectors[] = array(
     'event' => 'click',
-    'selector' => 'form#views-exposed-form-uhc-search-desktop input#edit-submit-uhc-search',
+    'selector' => '.block--views.course-search form input.form-submit',
     'category' => 'search form',
     'action' => 'submit',
   );
@@ -54,25 +54,10 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
   // Search results
   $selectors[] = array(
     'event' => 'click',
-    'selector' => '.view.view-id-uhc_search .views-field-title-field a',
+    'selector' => '.view.course-search tbody .views-field-title-field a',
     'category' => 'search results',
     'action' => 'click',
     'label' => '!text',
-  );
-  // Sorting in desktop
-  $selectors[] = array(
-    'event' => 'click',
-    'selector' => '.view.view-id-uhc_search th a',
-    'category' => 'search results',
-    'action' => 'sort',
-    'label' => '!text',
-  );
-  // Sorting in mobile
-  $selectors[] = array(
-    'event' => 'change',
-    'selector' => '#edit-sort-by',
-    'category' => 'search results',
-    'action' => 'sort',
   );
 
   //Teacher edit links in menu local tasks
@@ -143,6 +128,40 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
     'action' => 'click',
   );
 
+  // Course link.
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.course-info a',
+    'category' => 'Course page',
+    'label' => 'Course link',
+    'action' => 'click',
+  );
+
+  // Block menu (og) links
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '#block-menu-og-menu-single li a',
+    'category' => 'Block menu links',
+    'label' => '!text',
+    'action' => 'click',
+  );
+
+  // User menu links
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '#block-system-user-menu a.info-link',
+    'category' => 'User menu links',
+    'label' => 'Info icon',
+    'action' => 'click',
+  );
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '#block-system-user-menu a:not(.info-link)',
+    'category' => 'User menu links',
+    'label' => '!text',
+    'action' => 'click',
+  );
+
   return $selectors;
 }
 
@@ -187,6 +206,10 @@ function uhc_analytics_and_tracking_views_post_execute(&$view) {
     $search_type = uhc_analytics_and_tracking_track_search_type($keyword, $filters);
     uhc_analytics_and_tracking_put_event($events, 'search type', 'search', $search_type);
 
+    // Track pager and sorting controls
+    uhc_analytics_and_tracking_put_event($events, 'search results', 'sort', uhc_analytics_and_tracking_get_sort_by($view));
+    uhc_analytics_and_tracking_put_event($events, 'search results', 'items per page', uhc_analytics_and_tracking_get_items_per_page($view));
+
     // Now push to frontend
     uhc_analytics_and_tracking_track_events($events);
 
@@ -226,6 +249,26 @@ function uhc_analytics_and_tracking_track_search_type($keyword, $filters) {
   }
 
   return isset($search_type) ? $search_type : '';
+}
+
+/**
+ * Fetches the sorting configuraiton and returns it as a simple string for
+ * statistics purposes.
+ * @param $view
+ * @return string
+ */
+function uhc_analytics_and_tracking_get_sort_by(&$view) {
+  return !empty($view->exposed_input['sorting']) ? uhc_open_university_sorting_label($view->exposed_input['sorting']) : '';
+}
+
+/**
+ * Fetches the items per page configuraiton and returns it as a simple string
+ * for statistics purposes.
+ * @param $view
+ * @return string
+ */
+function uhc_analytics_and_tracking_get_items_per_page(&$view) {
+  return !empty($view->exposed_input['items_per_page']) ? $view->exposed_input['items_per_page'] : '';
 }
 
 /**

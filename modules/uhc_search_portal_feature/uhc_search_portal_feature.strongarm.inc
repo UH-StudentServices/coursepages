@@ -13,6 +13,16 @@ function uhc_search_portal_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'chosen_disabled_themes';
+  $strongarm->value = array(
+    0 => 'hy_doo',
+    1 => 'seven',
+  );
+  $export['chosen_disabled_themes'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'chosen_disable_search';
   $strongarm->value = 1;
   $export['chosen_disable_search'] = $strongarm;
@@ -58,13 +68,6 @@ function uhc_search_portal_feature_strongarm() {
   $strongarm->name = 'chosen_search_contains';
   $strongarm->value = 1;
   $export['chosen_search_contains'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'chosen_use_theme';
-  $strongarm->value = 0;
-  $export['chosen_use_theme'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

@@ -197,6 +197,7 @@ function uhc_open_university_is_open_university_context($node = NULL) {
  * probably consider something better in following tickets.
  *
  * @see uhc_open_university_form_apply_sort()
+ * @todo Move this elsewhere and update dependency in uhc_analytics_and_tracking
  */
 function uhc_open_university_form_alter(&$form, &$form_state, $form_id) {
   if ($form['#id'] != 'views-exposed-form-uhc-search-open-university-desktop' &&
@@ -209,16 +210,16 @@ function uhc_open_university_form_alter(&$form, &$form_state, $form_id) {
   $submit_on_change_script = 'this.form.submit();';
   $form['items_per_page']['#attributes']['onchange'][] = $submit_on_change_script;
   $sort_options = array(
-    'title_field:asc' => t('By name A-Ö'),
-    'title_field:desc' => t('By name Ö-A'),
+    'title_field:asc' => uhc_open_university_sorting_label('title_field:asc'),
+    'title_field:desc' => uhc_open_university_sorting_label('title_field:desc'),
   );
   // Only show location options in open uni search
   if ($form['#id'] == 'views-exposed-form-uhc-search-open-university-desktop') {
-    $sort_options['field_imp_locality:asc'] = t('By location A-Ö');
-    $sort_options['field_imp_locality:desc'] = t('By location Ö-A');
+    $sort_options['field_imp_locality:asc'] = uhc_open_university_sorting_label('field_imp_locality:asc');
+    $sort_options['field_imp_locality:desc'] = uhc_open_university_sorting_label('field_imp_locality:desc');
   }
-  $sort_options['field_imp_begin_date:asc'] = t('Ascending by begin date');
-  $sort_options['field_imp_begin_date:desc'] = t('Descending by begin date');
+  $sort_options['field_imp_begin_date:asc'] = uhc_open_university_sorting_label('field_imp_begin_date:asc');
+  $sort_options['field_imp_begin_date:desc'] = uhc_open_university_sorting_label('field_imp_begin_date:desc');
 
   $form['contact'] = array(
     '#type' => 'container',
@@ -243,6 +244,25 @@ function uhc_open_university_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
+ * Helper function for resolving sorting machine definitions to human readable
+ * labels.
+ * @param $key
+ * @return mixed
+ * @todo Move this elsewhere and update dependency in uhc_analytics_and_tracking
+ */
+function uhc_open_university_sorting_label($key) {
+  $labels = array(
+    'title_field:asc' => t('By name A-Ö'),
+    'title_field:desc' => t('By name Ö-A'),
+    'field_imp_locality:asc' => t('By location A-Ö'),
+    'field_imp_locality:desc' => t('By location Ö-A'),
+    'field_imp_begin_date:asc' => t('Ascending by begin date'),
+    'field_imp_begin_date:desc' => t('Descending by begin date'),
+  );
+  return !empty($labels[$key]) ? $labels[$key] : $key;
+}
+
+/**
  * This form submission callback applies sorting preferences as defined in
  * custom sorting form element.
  *
@@ -250,6 +270,7 @@ function uhc_open_university_form_alter(&$form, &$form_state, $form_id) {
  * probably consider something better in following tickets.
  *
  * @see uhc_open_university_form_alter()
+ * @todo Move this elsewhere and update dependency in uhc_analytics_and_tracking
  */
 function uhc_open_university_form_apply_sort(&$form, &$form_state) {
   if (isset($_GET['search']) && isset($form_state['values']['sorting'])) {

@@ -90,7 +90,9 @@ function uhc_doo_theme_features_strongarm() {
       10 => 'sites/all/themes/omega/omega/omega/css/modules/system/system.base.css',
       11 => 'sites/all/themes/omega/omega/omega/css/modules/image/image.theme.css',
     ),
-    'omega_js_exclude' => array(),
+    'omega_js_exclude' => array(
+      0 => 'misc/tableheader.js',
+    ),
     'omega_libraries' => array(
       'selectivizr' => array(
         'status' => 1,

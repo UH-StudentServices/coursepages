@@ -94,7 +94,7 @@ function uhc_course_implementation_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-imp-conduct-of-course field-group-tab',
-        'description' => 'Specify how the course is conducted and how the students are evaluated',
+        'description' => 'Specify how the course is conducted and how the learning will be evaluated',
       ),
       'formatter' => 'closed',
     ),

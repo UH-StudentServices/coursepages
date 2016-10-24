@@ -765,6 +765,63 @@ body:before {
   width: 33%;
 }
 
+.cc_banner-wrapper {
+  z-index: 9001;
+  position: relative;
+}
+
+.cc_container {
+  display: flex;
+  background: #424242;
+  bottom: 0;
+  justify-content: space-between;
+  left: 0;
+  overflow: hidden;
+  padding: 0.4em 0.8em;
+  right: 0;
+}
+
+.cc_btn {
+  transition-duration: 0.1s;
+  transition-property: all;
+  background-color: #0098d0;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  display: block;
+  line-height: 125%;
+  padding: 0.9em 1em;
+  font-size: 14px;
+  font-size: 0.875rem;
+  align-self: center;
+  flex-shrink: 0;
+  font-weight: 600;
+  order: 2;
+  margin-left: 1em;
+}
+.cc_btn:hover {
+  background-color: #005479;
+  color: #FFF;
+}
+
+.cc_message {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif, Nimbus Sans L;
+  font-size: 14px;
+  font-size: 0.875rem;
+  align-self: center;
+  color: #FFF;
+  margin: 0;
+}
+
+.cc_logo {
+  display: none;
+}
+
+.cc_more_info {
+  font-weight: 700;
+  font-style: normal;
+}
+
 .course-hierarchy a.active {
   color: #005479;
 }
@@ -3287,6 +3344,7 @@ body.search-main-page .views-widget-sort-by {
 }
 @media (min-width: 49em) {
   .block--system-user-menu > ul > li .info-link {
+    display: block;
     font-size: 0px;
     line-height: 0;
   }
@@ -3310,6 +3368,7 @@ body.search-main-page .views-widget-sort-by {
 }
 @media (min-width: 49em) {
   .block--system-user-menu > ul > li .logout-link {
+    display: block;
     font-size: 0px;
     line-height: 0;
   }
@@ -3333,6 +3392,7 @@ body.search-main-page .views-widget-sort-by {
 }
 @media (min-width: 49em) {
   .block--system-user-menu > ul > li .login-link {
+    display: block;
     font-size: 0px;
     line-height: 0;
   }
@@ -3361,6 +3421,7 @@ body.search-main-page .views-widget-sort-by {
 }
 @media (min-width: 0em) and (max-width: 49em) and (min-width: 49em) {
   .block--system-user-menu ul ul.menu li a {
+    display: block;
     font-size: 0px;
     line-height: 0;
   }
@@ -4593,6 +4654,7 @@ a:hover .accordion-item__alternative:before, .accordion-item__alternative:hover:
 }
 @media (min-width: 49em) {
   .home-link {
+    display: block;
     font-size: 0px;
     line-height: 0;
   }

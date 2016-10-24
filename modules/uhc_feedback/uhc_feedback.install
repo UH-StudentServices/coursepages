@@ -14,3 +14,10 @@
 function uhc_feedback_update_7001(&$sandbox) {
   module_enable(array('conditional_fields'));
 }
+
+/**
+ * Enable honeypot module.
+ */
+function uhc_feedback_update_7002(&$sandbox) {
+  module_enable(array('honeypot'));
+}

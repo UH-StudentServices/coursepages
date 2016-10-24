@@ -152,7 +152,7 @@ function uhc_tour_context_default_contexts() {
 
 <li data-class="is-active" data-text="Next">
   <h2>Conduct of the course</h2>
-  <p>The teacher may specify how the course is conducted and how the students are evaluated.</p>
+  <p>The teacher may specify how the course is conducted and how the learning will be evaluated.</p>
 </li>
 
 <li data-class="edit-link" class="joyride-edit-link" data-text="Next">

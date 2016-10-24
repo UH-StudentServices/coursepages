@@ -1,3 +1,38 @@
+# University of Helsinki Courses v1.80
+Päiväys: 17.10.2016
+
+## Lisäykset
+  - DOO-2319: Otettu Cookie consent käyttöön.
+  - DOO-2195: Parannettiin palautelomakkeen roskaviestisuodatusta.
+  - DOO-2492: Lisätty Info ja logout ikoneille title-attribuutit.
+  - DOO-2478: Lisättiin rinnakkainen GA-koodi.
+  - DOO-2498: Laajennettiin Google Analytics event tracking koskemaan kaikkia
+    hakuja.
+
+## Muutokset
+  - DOO-2450: Näytetään ilmoittautumispainike avoimen yliopiston järjestämillä
+    kursseilla, vaikka ilmoittautumisaika ei olisi aktiviinen.
+  - DOO-2490: Päivitettiin mökki-ikonin URL-osoitteen konfigurointia.
+  - DOO-2495: Poistettiin muokkausnäkymästä kelluvat taulukoiden otsikot.
+  - DOO-2497: Päivitettiin kurssin suorittamiseen liittyvät kuvaustekstit.
+  - DOO-2501: Päivitettiin Moodle-avaimeen liittyvät englanninkieliset
+    notifikaatioviestit.
+  - DOO-2478: Päivitettiin Google Analytics -moduuli useamman yhtäaikaisen
+    GA-tunnisteen käyttämiseksi.
+  - DOO-2522: Muutettiin avoimen yliopiston tiedekunta-suodattimen otsikko.
+
+## Korjaukset
+  - DOO-2450: Korjattiin ongelma, jossa avoimen yliopiston järjestämiä kursseja
+    ei tunnistettu oikein kaikissa tapauksissa.
+  - DOO-2519: Korjattiin ongelma, jossa jonon purku ilmoittaa virheellisesti
+    jaksojen tuonnin epäonnistuvan.
+
+## Päivitykset
+  - DOO-2506: Päivitettiin Drupal core (7.50 -> 7.51).
+  - DOO-2514: Moduulien tietoturvapäivityksiä.
+  - DOO-2504: Moduulien versiopäivityksiä.
+
+
 # University of Helsinki Courses v1.79
 Päiväys: 10.10.2016
 

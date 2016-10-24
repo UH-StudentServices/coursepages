@@ -8,15 +8,21 @@ Drupal.behaviors.uhcGoogleAnalyticsEventTracking = {
     jQuery(context).ready(function(){
       if (typeof(Drupal.settings.uhcGoogleAnalyticsEventTracking) != 'undefined' &&
         typeof(Drupal.settings.uhcGoogleAnalyticsEventTracking.events) != 'undefined' &&
-        typeof(_gaq) != 'undefined') {
+        typeof(ga) != 'undefined') {
         for (var i=0; Drupal.settings.uhcGoogleAnalyticsEventTracking.events.length > i; i++) {
 
           var category  = Drupal.settings.uhcGoogleAnalyticsEventTracking.events[i].category;
           var action    = Drupal.settings.uhcGoogleAnalyticsEventTracking.events[i].action;
           var opt_label = Drupal.settings.uhcGoogleAnalyticsEventTracking.events[i].opt_label;
 
-          // console.log(['_trackEvent', String(category), String(action), String(opt_label), 0, false]);
-          _gaq.push(['_trackEvent', String(category), String(action), String(opt_label), 0, false]);
+          ga('send', {
+            'hitType': 'event',
+            'eventCategory': String(category),
+            'eventAction': String(action),
+            'eventLabel': String(opt_label),
+            'eventValue': 0,
+            'nonInteraction': false
+          });
         }
       }
     });

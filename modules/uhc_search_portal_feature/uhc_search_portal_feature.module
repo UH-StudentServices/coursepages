@@ -283,10 +283,10 @@ function _uhc_search_portal_feature_translate_facet_block_title(&$data, $block) 
       'do4BdKvyCgpZP4td6B6GmQ8iCUJ40HBx' => t('Method of study'),
       'cEQesYoZJTu7ITT2OD5RXHP0T0bqniOh' => t('Start month'),
       'u1d1Lx0rPaqN5rZzf9O8SX4IxIGxkUQG' => t('Location'),
-      'R1BRVcBSjxhf1KDt3dthdTfNu1qhp5en' => t('Unit'),
+      'R1BRVcBSjxhf1KDt3dthdTfNu1qhp5en' => t('Faculty'),
       'as918Au1kK03VaWu2iPYsRfNZ1iJWE7X' => t('Teaching language'),
       'hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX' => t('Subject'),
-      'UHyOu2m5IufOONBzgYtqiXaxReuk8K7e' => t('Unit', array(), array('context' => 'facet label')),
+      'UHyOu2m5IufOONBzgYtqiXaxReuk8K7e' => t('Unit'),
     );
     _uhc_search_portal_feature_set_block_titles($block, $translate_block_titles);
   }
@@ -492,8 +492,8 @@ function uhc_search_portal_feature_section_search_form($field) {
     $output = render($exposed_form_render_array);
 
     if (empty($node->field_liftup_section)) {
-      $student_url = variable_get('uhc_student_home_url', 'https://student.helsinki.fi/');
-      $teacher_url = variable_get('uhc_teacher_home_url', 'https://teacher.helsinki.fi/');
+      $student_url = variable_get('uhc_student_home_url', 'https://student.helsinki.fi/opintoni');
+      $teacher_url = variable_get('uhc_teacher_home_url', 'https://teacher.helsinki.fi/opetukseni');
       $output .= '<div class="messages info"><p>' . t('Students are advised to access their active courses via My Studies') . '<a href="'.$student_url.'"></a></br>' . t('Teachers are advised to access their active courses via My Teaching') . '<a href="'.$teacher_url.'"></a></p></div>';
     }
     return $output;

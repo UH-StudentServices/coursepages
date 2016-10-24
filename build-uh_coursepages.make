@@ -5,7 +5,7 @@ core = 7.0
 api = 2
 
 projects[drupal][type] = core
-projects[drupal][version] = 7.50
+projects[drupal][version] = 7.51
 
 ; Patch: Text field (textarea) with "Default" formatter does not retain newlines
 projects[drupal][patch][1152216] = https://www.drupal.org/files/text-plain-1152216-24.patch
@@ -16,29 +16,27 @@ defaults[projects][subdir] = "contrib"
 ; ----------------
 
 projects[admin_menu][download][branch] = 7.x-3.x
-projects[admin_menu][download][revision] = b07d37b857f48e8e38ca8c31fbb8153184c46932
+projects[admin_menu][download][revision] = 67abd3a
 projects[admin_menu][patch][1981308] = https://www.drupal.org/files/issues/admin_menu-js-module-compatibility-1981308-9.patch
 projects[admin_views][version] = "1.6"
 projects[behavior_weights][version] = "1.0"
 projects[block_class][version] = "2.3"
-projects[chosen][version] = "2.0-beta4"
-projects[ckeditor][version] = "1.16"
-projects[context][version] = "3.6"
+projects[chosen][version] = "2.0-beta5"
+projects[ckeditor][version] = "1.17"
+projects[context][version] = "3.7"
 projects[context_omega][version] = "1.1"
 projects[ctools][version] = "1.10"
-projects[date][version] = "2.8"
+projects[date][version] = "2.9"
 projects[diff][version] = "3.2"
 projects[email][version] = "1.3"
-projects[entity][version] = "1.6"
+projects[entity][version] = "1.8"
 projects[entitycache][version] = "1.2"
 projects[entity_translation][version] = "1.0-beta5"
-projects[entityreference][version] = "1.1"
-projects[entityreference][patch]["https://www.drupal.org/node/1674792"] = https://www.drupal.org/files/issues/entityreference-rendered-entity-is-not-language-aware-1674792-58.patch
+projects[entityreference][version] = "1.2"
 projects[entityreference][patch]["https://www.drupal.org/node/1898290"] = https://www.drupal.org/files/issues/selection.patch
 projects[features][version] = "2.10"
-projects[feedback][download][type] = git
-projects[feedback][download][url] = http://git.drupal.org/project/feedback.git
-projects[feedback][download][revision] = 5211a265d75c8303902ee584c42b375983170ce3
+projects[feedback][version] = "2.0-beta1"
+projects[feedback][patch]["https://www.drupal.org/node/2545708"] = "https://www.drupal.org/files/issues/feedback-honeypot_0.patch"
 projects[field_collection][version] = "1.0-beta8"
 projects[field_formatter_settings][version] = "1.1"
 projects[field_group][version] = "1.4"
@@ -52,19 +50,18 @@ projects[form_error_logging][version] = "1.0-rc1"
 projects[languagefield][version] = "1.3"
 projects[languagefield][patch]["https://www.drupal.org/node/2217385"] = "https://www.drupal.org/files/issues/2217385-languagefield_migrate_handler-4.patch"
 
-; TODO: Check if google_analytics can be updated to 2.0
-; See docs at https://www.drupal.org/project/google_analytics about Universal Analytics
-projects[google_analytics][version] = "1.4"
-
+projects[google_analytics][version] = "2.3"
 projects[google_analytics_et][version] = "1.3"
+projects[google_analytics_et][patch]["remove console log"] = "http://cgit.drupalcode.org/google_analytics_et/patch/?id=89cdc6201ef844b07e4f8606c774f6e72002d040"
 projects[google_analytics_reports][version] = "3.0-beta2"
+projects[honeypot][version] = "1.22"
 projects[i18n][version] = "1.13"
 projects[manualcrop][version] = "1.5"
 projects[imagemagick][version] = "1.0"
 projects[joyride][version] = "1.0-alpha3"
 projects[joyride][patch]["https://www.drupal.org/node/2411447"] = https://www.drupal.org/files/issues/joyride-makefile-core-and-api-version.diff
 projects[l10n_update][version] = "1.1"
-projects[libraries][version] = "2.2"
+projects[libraries][version] = "2.3"
 projects[location][version] = "3.7"
 projects[logging_alerts][version] = "2.2"
 projects[link][download][type] = git
@@ -76,10 +73,10 @@ projects[memcache][version] = "1.3"
 projects[mb][download][type] = git
 projects[mb][download][url] = http://git.drupal.org/project/mb.git
 projects[mb][download][revision] = cf380cf23801c41bc6a3712b0775483ab553c920
-projects[menu_attributes][version] = "1.0-rc3"
-projects[menu_block][version] = "2.4"
+projects[menu_attributes][version] = "1.0"
+projects[menu_block][version] = "2.7"
 projects[migrate][version] = "2.8"
-projects[module_filter][version] = 2.0-alpha2
+projects[module_filter][version] = "2.0"
 
 projects[node_edit_protection][download][type] = git
 projects[node_edit_protection][download][url] = http://git.drupal.org/project/node_edit_protection.git
@@ -145,10 +142,10 @@ projects[variable][version] = "2.5"
 projects[varnish][version] = "1.1"
 projects[views][version] = "3.14"
 projects[views][patch]["https://www.drupal.org/node/477984"] = https://www.drupal.org/files/issues/exposed_EMPTY_NOT_EMPTY-477984-80.patch
-projects[views_bulk_operations][version] = "3.2"
-projects[views_block_area][version] = "1.1"
-projects[views_data_export][version] = "3.0-beta8"
-projects[viewreference][version] = "3.4"
+projects[views_bulk_operations][version] = "3.3"
+projects[views_block_area][version] = "1.2"
+projects[views_data_export][version] = "3.1"
+projects[viewreference][version] = "3.5"
 projects[view_unpublished][version] = "1.2"
 projects[override_node_options][version] = "1.13"
 
@@ -167,9 +164,8 @@ projects[pathologic][version] = 2.12
 projects[embed_views][version] = 1.2
 
 ; Display suite
-projects[ds][version] = "2.8"
+projects[ds][version] = "2.14"
 projects[ds][subdir] = "contrib"
-projects[ds][patch]["https://www.drupal.org/node/2481557"] = "https://www.drupal.org/files/issues/xss_fix_is_too_strict-2481557-4.patch"
 ;# Patch for text in resilts view see: https://www.drupal.org/node/2345387
 ;projects[ds][patch][rename-total-results] = "https://www.drupal.org/files/issues/ds-rename_total_results_output-2345387-1.patch"
 
@@ -190,7 +186,7 @@ projects[video_filter][download][revision] = 9e6fe9b6f42af9634fbe4558c484c39e503
 
 ; We want to flag course implementations where privileged user may hide
 ; optionally repeating events.
-projects[flag] = 3.6
+projects[flag] = 3.9
 
 ; For showing some system messages within Views, we need this module to provide
 ; the handler. See DOO-706
@@ -201,7 +197,7 @@ projects[views_system_message] = 1.0
 projects[noreqnewpass] = 1.2
 
 ; Too much of help texts around makes the form too fuzzy
-projects[better_formats][version] = 1.0-beta1
+projects[better_formats][version] = 1.0-beta2
 projects[better_formats][patch]["https://www.drupal.org/node/2471589"] = "https://www.drupal.org/files/issues/empty-format-wrapper-div-2471589-1.patch"
 
 ; With these modules we can provide course information in JSON format for
@@ -211,7 +207,7 @@ projects[services_views][version] = 1.0
 projects[image_url_formatter][version] = 1.4
 
 ; With message module, we can track down course activity.
-projects[message][version] = 1.10
+projects[message][version] = 1.12
 
 ; Optional supported (themed) module for providing site status messages
 projects[site_status_message][version] = 1.0

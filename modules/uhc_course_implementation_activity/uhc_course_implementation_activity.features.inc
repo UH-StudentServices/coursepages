@@ -1137,9 +1137,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] added Moodle key.\\u003C\\/p\\u003E\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] added Moodle enrolment key.\\u003C\\/p\\u003E\\n",
           "format" : "filtered_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] added Moodle key.\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] added Moodle enrolment key.\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1176,9 +1176,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] removed Moodle key.\\u003C\\/p\\u003E\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] removed Moodle enrolment key.\\u003C\\/p\\u003E\\n",
           "format" : "filtered_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] removed Moodle key.\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] removed Moodle enrolment key.\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [
@@ -1215,9 +1215,9 @@ function uhc_course_implementation_activity_default_message_type() {
     "message_text" : {
       "en" : [
         {
-          "value" : "\\u003Cp\\u003E[message:user:name] updated Moodle key.\\u003C\\/p\\u003E\\n",
+          "value" : "\\u003Cp\\u003E[message:user:name] updated Moodle enrolment key.\\u003C\\/p\\u003E\\n",
           "format" : "filtered_html",
-          "safe_value" : "\\u003Cp\\u003E[message:user:name] updated Moodle key.\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] updated Moodle enrolment key.\\u003C\\/p\\u003E\\n"
         }
       ],
       "fi" : [

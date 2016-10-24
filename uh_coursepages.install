@@ -1069,3 +1069,10 @@ function uh_coursepages_update_7025(&$sandbox) {
     variable_store_set('language', $language, 'site_name', $site_name);
   }
 }
+
+/**
+ * Enable hy cookie consent.
+ */
+function uh_coursepages_update_7026(&$sandbox) {
+  module_enable(array('hy_cookie_consent'));
+}
