@@ -38,7 +38,7 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Clear';
   $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Sorting:';
   $handler->display->display_options['exposed_form']['options']['expose_sort_order'] = FALSE;
-  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = FALSE;
   $handler->display->display_options['exposed_form']['options']['text_input_required'] = '';
   $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'filtered_html';
   $handler->display->display_options['pager']['type'] = 'full';

@@ -412,7 +412,7 @@ function uh_coursepages_setup_variables() {
         'value' => '<div class="logo">
         <a href="http://www.helsinki.fi/university/">
           <svg width="99" height="93" class="site-logo">
-            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg" src="/profiles/uh_coursepages/themes/hy_doo/ie/helsinki_university_99x93.png" width="99" height="93"></image>
+            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg" src="/profiles/uh_coursepages/themes/hy_doo/images/ie/helsinki_university_99x93.png" width="99" height="93"></image>
           </svg>
         </a>
       </div>

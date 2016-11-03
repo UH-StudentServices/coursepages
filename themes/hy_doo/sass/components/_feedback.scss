@@ -21,6 +21,13 @@
       @include font-weight-medium;
       @include font-size(13px);
     }
+    .form-type-checkbox {
+      label {
+        color: $gray;
+        display: block;
+        margin-bottom: 10px;
+      }
+    }
     input[type=checkbox] + label:before {
       color: $gray;
       border-color: $gray;
@@ -29,6 +36,7 @@
       @include font-size(13px);
       @include input-placeholder {
         color: $white;
+        opacity: 1;
       }
       color: $white;
       background: transparent;
@@ -43,6 +51,7 @@
     input[type=text] {
       @include font-weight-medium;
       @include font-size(13px);
+      color: $white;
       background: transparent;
       border: 0;
       border-bottom: 1px solid $gray;

@@ -1,3 +1,12 @@
+# University of Helsinki Courses v1.84
+Päiväys: 03.11.2016
+
+## Korjaukset
+  - DOO-2540: Viilauksia palaute lomakkeen sähköpostiosoite fontti väriin
+  - DOO-2540: Korjattiin ongelma, jossa haku lähettää lomakkeen kesken kirjoituksen
+  - Korjattiin ongelma, jossa ruotsin IE fallback logoa ei löytynyt
+
+
 # University of Helsinki Courses v1.83
 Päiväys: 03.11.2016
 

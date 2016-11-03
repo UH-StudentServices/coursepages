@@ -5773,6 +5773,10 @@ ul.pager {
       @media (min-width: 49em) {
         #block-feedback-form form label {
           font-size: 13px; } }
+    #block-feedback-form form .form-type-checkbox label {
+      color: #666;
+      display: block;
+      margin-bottom: 10px; }
     #block-feedback-form form input[type=checkbox] + label:before {
       color: #666;
       border-color: #666; }
@@ -5789,13 +5793,17 @@ ul.pager {
         #block-feedback-form form textarea[name=message] {
           font-size: 13px; } }
       #block-feedback-form form textarea[name=message]:-ms-input-placeholder {
-        color: #FFF; }
+        color: #FFF;
+        opacity: 1; }
       #block-feedback-form form textarea[name=message]:-moz-placeholder {
-        color: #FFF; }
+        color: #FFF;
+        opacity: 1; }
       #block-feedback-form form textarea[name=message]::-moz-placeholder {
-        color: #FFF; }
+        color: #FFF;
+        opacity: 1; }
       #block-feedback-form form textarea[name=message]::-webkit-input-placeholder {
-        color: #FFF; }
+        color: #FFF;
+        opacity: 1; }
       #block-feedback-form form textarea[name=message]:focus {
         outline: none; }
     #block-feedback-form form input[type=text] {
@@ -5803,6 +5811,7 @@ ul.pager {
       font-style: normal;
       font-size: 11.375px;
       font-size: 0.8125rem;
+      color: #FFF;
       background: transparent;
       border: 0;
       border-bottom: 1px solid #666; }
