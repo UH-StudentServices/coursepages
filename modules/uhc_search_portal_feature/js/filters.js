@@ -7,15 +7,9 @@
   Drupal.behaviors.courseSearchDropdowns = {
     attach: function (context, settings) {
 
-      var mobile = false;
-      var mobileUserAgents = ['Android', 'iPad', 'iPhone', 'iPod', 'Windows Phone'];
-      mobileUserAgents.forEach(function(userAgent) {
-        if (RegExp(userAgent, 'i').test(navigator.userAgent)) {
-          mobile = true;
-        }
-      });
+      if (!isMobile()) {
+        $('.block.block--facetapi').addClass('block--facetapi__desktop');
 
-      if (!mobile) {
         $('.block.block--facetapi li.expanded').hoverIntent({
           sensitivity: 1,
           interval: 0,
@@ -31,6 +25,8 @@
           timeout: 100,
           out: hoverOutMenuLevel
         });
+      } else {
+        $('.block.block--facetapi li.expanded').removeClass('expanded');
       }
 
       //Run when hovering Menu item
@@ -117,7 +113,7 @@
       });
 
       // Display sorting and paging controls only when there are search results.
-      if ($('.course-search .view-content').length == 0) {
+      if ($('.course-search .views-table').length == 0) {
         $('.pager-and-sorting-controls').hide();
       }
     }

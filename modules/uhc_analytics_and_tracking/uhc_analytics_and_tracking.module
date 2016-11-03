@@ -20,7 +20,7 @@ include_once 'uhc_analytics_and_tracking.features.inc';
 function uhc_analytics_and_tracking_google_analytics_et_api() {
   $selectors = array();
 
-  // Liftups
+  // Liftups.
   $liftup_template = array(
     'event' => 'click',
     'selector' => '',
@@ -35,7 +35,7 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
   $selectors[1]['selector'] = '.view-id-uhc_liftups a';
   $selectors[1]['category'] = 'liftups main';
 
-  // Search form
+  // Search form.
   // Some parts are here, but some advanced tracking is handled through
   // uhc_analytics_and_tracking_views_post_execute().
   $selectors[] = array(
@@ -51,7 +51,7 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
     'action' => 'submit',
   );
 
-  // Search results
+  // Search results.
   $selectors[] = array(
     'event' => 'click',
     'selector' => '.view.course-search tbody .views-field-title-field a',
@@ -137,7 +137,25 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
     'action' => 'click',
   );
 
-  // Block menu (og) links
+  // Course implementation link on course page.
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.node-type-course .field--name-title-and-credit-linked a',
+    'category' => 'Course implementation link on course page',
+    'label' => '!href',
+    'action' => 'click',
+  );
+
+  // Course programme link on subject page.
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.node-type-subject .view-course-node-references a.button',
+    'category' => 'Subject page course buttons',
+    'label' => '!href',
+    'action' => 'click',
+  );
+
+  // Block menu (og) links.
   $selectors[] = array(
     'event' => 'click',
     'selector' => '#block-menu-og-menu-single li a',
@@ -146,7 +164,7 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
     'action' => 'click',
   );
 
-  // User menu links
+  // User menu links.
   $selectors[] = array(
     'event' => 'click',
     'selector' => '#block-system-user-menu a.info-link',

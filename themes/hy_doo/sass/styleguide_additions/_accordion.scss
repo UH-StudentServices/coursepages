@@ -1,6 +1,6 @@
 .field-group-accordion-item {
   margin: 2em 0 1em;
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     padding-left: 2.6em;
   }
 }
@@ -13,9 +13,10 @@
 }
 
 .accordion-item {
-  @include button-accordion--dark;
+  background-color: transparent;
+  @extend %button--accordion;
   @include font-size(15px);
-  background-color: $accordion-blue;
+  background-color: $blue;
   border: 0;
   padding-left: 4em;
   margin-bottom: 0.5em;
@@ -23,8 +24,8 @@
     color: $white;
   }
   &:before {
-    @include hy-icon($hy_arrow);
-    background-color: $accordion-blue-button;
+    @include icon($icon-caret-right);
+    background-color: $blue--active;
     left: 0;
     line-height: 2.8em;
     padding-left: 1em;
@@ -32,24 +33,26 @@
   }
   &:hover,
   &.is-active {
-    background-color: $accordion-blue--active;
+    background-color: $darkblue;
     a {
       color: $white;
     }
     &:before {
-      background-color: $accordion-blue-button--active;
+      background-color: $darkblue--active;
     }
   }
 }
 
 .accordion-item__light {
-  @include button-accordion;
+  @extend %button--accordion;
   @include font-size(15px);
+  background-color: $white;
+  color: $blue;
   text-transform: none;
   padding-left: 4em;
   margin-bottom: 0.5em;
   &:before {
-    @include hy-icon($hy_arrow);
+    @include icon($icon-caret-right);
     background-color: $blue;
     color: $white;
     left: 0;
@@ -65,15 +68,18 @@
 }
 
 .accordion-item__alternative {
-  @include button-accordion;
+  @extend %button--accordion;
   @include font-size(15px);
   @include border-bottom;
   @include font-weight-medium;
+  color: $blue;
   text-transform: none;
   padding-left: 0;
   padding-right: 3em;
+  background: transparent;
   &:before {
-    @include hy-icon($hy_arrow);
+    @include icon($icon-caret-right);
+    color: $blue;
     left: auto;
     right: 1em;
   }
@@ -98,7 +104,7 @@
 
 .accordion-item-title-link {
   &:after {
-    @include hy-icon($hy-hy-logo);
+    @include icon($icon-hy-logo);
     background: $silver;
     color: $white;
     left: 0;
@@ -121,7 +127,7 @@
   padding: 0.9em 1em 0.8em 4em;
 
   &:after {
-    @include hy-icon($hy-hy-logo);
+    @include icon($icon-hy-logo);
     background: $silver;
     color: $white;
     left: 0;
@@ -134,22 +140,6 @@
   }
 }
 
-.accordion-edit-link {
-  position: absolute;
-  right: 0;
-  top: 0;
-  line-height: 2.9em;
-  padding-left: 1em;
-  padding-right: 1em;
-  &:before {
-    @include hy-icon($hy-modify);
-    display: block;
-  }
-  &:hover {
-    @include hy-spin;
-  }
-}
-
 .ghost-accordion {
   @include font-size(15px);
   position: relative;
@@ -157,22 +147,39 @@
   border: 2px dashed $lightsilver;
   padding: 0.8em 0 0.8em 4em;
   margin-bottom: 0.5em;
-  .accordion-edit-link {
-    @include hy-icon($hy_plus);
+}
+
+.accordion-edit-link {
+  position: absolute;
+  line-height: 2.9em;
+  padding-left: 1em;
+  padding-right: 1em;
+  .ghost-accordion & {
+    @include icon($icon-plus);
     color: $white;
-    background-color: $accordion-blue;
+    background-color: $blue;
     left: -2px;
     top: -2px;
     right: initial;
     width: 45px;
     &:before {
-      @include hy-icon($hy-plus);
+      @include icon($icon-plus);
       display: block;
       float: left;
     }
     &:hover {
-      @include animation(none);
-      background-color: $accordion-blue--active;
+      background-color: $darkblue--active;
+    }
+  }
+  .accordion-item & {
+    right: 0;
+    top: 0;
+    &:before {
+      @include icon($icon-modify);
+      display: block;
+    }
+    &:hover {
+      @include hy-spin;
     }
   }
 }

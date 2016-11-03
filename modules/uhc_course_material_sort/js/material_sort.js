@@ -22,7 +22,7 @@
 
       // Add "order alphabetically" link before the table.
       $('#' + base, context).once(function() {
-        $(this).closest('.field-name-field-section-material').find('#edit-field-section-material-und-actions')
+        $(this).siblings('[id*=field-section-material-und-actions]')
           .append('<input type="submit" class="tabledrag-order form-submit" value="' + Drupal.t('Order alphabetically') + '">');
       });
 
@@ -67,7 +67,7 @@
         $.each(materialSections, function() {
           // Lets add rows belonging to each section
           this.rows = $('> tr.draggable, > tbody > tr.draggable', $('#' + base))
-            .find('.field-name-field-material-section:contains(' + this.section + ')')
+            .find('.field--name-field-material-section:contains(' + this.section + ')')
             .closest('.ief-row-entity.draggable');
 
           if(this.section == undefined) {
@@ -79,8 +79,8 @@
           // Lets reorder the rows alphabetically if needed
           if (sortAlphabetically == true) {
             this.rows.sort(function(a, b) {
-              a = $(a).find('.inline-entity-form-node-title').text().toLowerCase();
-              b = $(b).find('.inline-entity-form-node-title').text().toLowerCase();
+              a = $(a).find('.inline-entity-form-node-field_material_title').text().toLowerCase().trim();
+              b = $(b).find('.inline-entity-form-node-field_material_title').text().toLowerCase().trim();
               if (a < b) return -1;
               if (a > b) return 1;
               return 0;

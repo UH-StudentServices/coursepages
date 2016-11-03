@@ -25,6 +25,43 @@
             ($(this).text() == showLessText) ? $(this).text(showMoreText) : $(this).text(showLessText);
           });
         });
+
+        // Google Analytics Event Tracking.
+        var trackEvents = typeof ga != 'undefined';
+
+        if (trackEvents) {
+          // Show past implementations on course page.
+          $('.node-type-course a.show-past-imps').once('uhc_doo_show_past_imps_on_course_page_ga_event', function () {
+            $(this).click(function (event) {
+              if ($(this).text() === showLessText) {
+                ga('send', {
+                  'hitType': 'event',
+                  'eventCategory': 'Show past implementations on course page',
+                  'eventAction': 'click',
+                  'eventLabel': 'Show past implementations',
+                  'eventValue': 0,
+                  'nonInteraction': false
+                });
+              }
+            });
+          });
+
+          // Show past implementations on subject page.
+          $('.node-type-subject a.show-past-imps').once('uhc_doo_show_past_imps_on_subject_page_ga_event', function () {
+            $(this).click(function (event) {
+              if ($(this).text() === showLessText) {
+                ga('send', {
+                  'hitType': 'event',
+                  'eventCategory': 'Show past implementations on subject page',
+                  'eventAction': 'click',
+                  'eventLabel': 'Show past implementations',
+                  'eventValue': 0,
+                  'nonInteraction': false
+                });
+              }
+            });
+          });
+        }
       });
     }
   }

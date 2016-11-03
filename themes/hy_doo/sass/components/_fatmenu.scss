@@ -6,7 +6,7 @@
   padding-bottom: 1em;
   z-index: 11;
 
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     @include transition(transform 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
     @include transform(translateY(-100%));
     display: block;

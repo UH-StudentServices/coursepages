@@ -11,7 +11,6 @@
   @include border-side(bottom);
   display: block;
   padding: 6px 0 5px;
-  margin-bottom: 2rem;
 
   font-size: 0.875em;
   line-height: 2em;
@@ -40,14 +39,11 @@
   }
   .rss {
     padding: 0 0 0 10px;
+    line-height: 22px;
     display: block;
     float: right;
-    a {
-      display: block;
-      margin-top: 3px;
-    }
   }
-  @include at-breakpoint($layout-large) {
+  @include breakpoint($large) {
     .teaching-languages {
       float: right;
     }

@@ -56,7 +56,7 @@ function uhc_ds_field_group_info() {
       'label' => 'Content collection left',
       'instance_settings' => array(
         'id' => '',
-        'classes' => 'ds-grid-8',
+        'classes' => 'ds-grid-6',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -90,7 +90,7 @@ function uhc_ds_field_group_info() {
       'label' => 'Content collection right',
       'instance_settings' => array(
         'id' => '',
-        'classes' => 'ds-grid-14 ds-grid-last',
+        'classes' => 'ds-grid-9 ds-grid-last',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',

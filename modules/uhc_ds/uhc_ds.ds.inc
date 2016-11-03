@@ -165,7 +165,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fis' => TRUE,
           'fis-el' => 'ul',
-          'fis-cl' => 'list-of-links--light tube--large columns-2',
+          'fis-cl' => 'list-of-links tube--large columns-2',
           'fis-at' => '',
           'fis-def-at' => FALSE,
           'fi' => TRUE,
@@ -183,7 +183,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fis' => TRUE,
           'fis-el' => 'ul',
-          'fis-cl' => 'list-of-links--dark tube',
+          'fis-cl' => 'list-of-links tube',
           'fis-at' => '',
           'fis-def-at' => FALSE,
           'fi' => TRUE,
@@ -345,7 +345,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fis' => TRUE,
           'fis-el' => 'ul',
-          'fis-cl' => 'list-of-links--dark',
+          'fis-cl' => 'list-of-links',
           'fis-at' => '',
           'fis-def-at' => FALSE,
           'fi' => TRUE,
@@ -441,10 +441,11 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'contact-title',
+          'fi-cl' => 'box-subsection__title',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -454,10 +455,25 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'contact-mail',
+          'fi-cl' => 'box-subsection__row',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
+        ),
+      ),
+    ),
+    'field_contact_link' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'box-subsection__row',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -470,16 +486,10 @@ function uhc_ds_ds_field_settings_info() {
           'lb-col' => TRUE,
           'ow' => TRUE,
           'ow-el' => 'div',
-          'ow-cl' => 'contact-tel',
+          'ow-cl' => 'box-subsection__row',
           'ow-def-cl' => FALSE,
           'ow-at' => '',
           'ow-def-at' => FALSE,
-          'fi' => TRUE,
-          'fi-el' => 'span',
-          'fi-cl' => '',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
         ),
       ),
     ),
@@ -489,23 +499,11 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'contact-name',
+          'fi-cl' => 'box-subsection__row',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
-        ),
-      ),
-    ),
-    'field_contact_link' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'contact-link',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -640,12 +638,13 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
-          'ow' => TRUE,
-          'ow-el' => 'div',
-          'ow-cl' => 'enrollment-period',
-          'ow-def-cl' => FALSE,
-          'ow-at' => '',
-          'ow-def-at' => FALSE,
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'button button--info button__inline icon--time',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -663,10 +662,11 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'moodle-key',
+          'fi-cl' => 'button button--info button__inline icon--info-stroke',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -890,7 +890,9 @@ function uhc_ds_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
-        'ft' => array(),
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+        ),
       ),
     ),
     'uhc_course_implementation_timetable_help_texts' => array(
@@ -961,6 +963,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -1025,6 +1028,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -1039,10 +1043,7 @@ function uhc_ds_ds_field_settings_info() {
     'field_moodle_url' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'lb' => 'Learning environments',
-          'lb-el' => 'h3',
-          'lb-cl' => 'heading-light',
+          'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
@@ -1067,7 +1068,7 @@ function uhc_ds_ds_field_settings_info() {
           'suffix' => '</div>',
           'fis' => TRUE,
           'fis-el' => 'ul',
-          'fis-cl' => 'list-of-links--light',
+          'fis-cl' => 'list-of-links',
           'fis-at' => '',
           'fis-def-at' => FALSE,
           'fi' => TRUE,
@@ -1076,6 +1077,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -1087,7 +1089,7 @@ function uhc_ds_ds_field_settings_info() {
           'suffix' => '</div>',
           'fis' => TRUE,
           'fis-el' => 'ul',
-          'fis-cl' => 'list-of-links--light',
+          'fis-cl' => 'list-of-links',
           'fis-at' => '',
           'fis-def-at' => FALSE,
           'fi' => TRUE,
@@ -1096,6 +1098,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -1141,7 +1144,7 @@ function uhc_ds_ds_field_settings_info() {
           'suffix' => '</div>',
           'fis' => TRUE,
           'fis-el' => 'ul',
-          'fis-cl' => 'list-of-links--light',
+          'fis-cl' => 'list-of-links',
           'fis-at' => '',
           'fis-def-at' => FALSE,
           'fi' => TRUE,
@@ -1150,19 +1153,14 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
     'field_wiki_url' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'fi' => TRUE,
-          'fi-el' => 'span',
-          'fi-cl' => 'wiki-url',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
+          'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
@@ -1296,19 +1294,6 @@ function uhc_ds_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'course_material';
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
-    'node_title_with_content_link' => array(
-      'weight' => '0',
-      'label' => 'hidden',
-      'format' => 'default',
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'lb-col' => TRUE,
-          'lbw-el' => 'label',
-          'lbw-cl' => 'accordion-content-label',
-        ),
-      ),
-    ),
     'field_material_author' => array(
       'formatter_settings' => array(
         'ft' => array(
@@ -1744,7 +1729,7 @@ function uhc_ds_ds_field_settings_info() {
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'div',
-          'fi-cl' => 'box-story__link button--action icon--next theme-transparent',
+          'fi-cl' => 'box-story__link button--action icon--arrow-right theme-transparent',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
@@ -1900,6 +1885,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -1919,6 +1905,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -1932,6 +1919,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -1955,26 +1943,14 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
     'field_subject_contact_reference' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'lb-col' => TRUE,
-          'ow' => TRUE,
-          'ow-el' => 'div',
-          'ow-cl' => 'sidebar-contact',
-          'ow-def-cl' => FALSE,
-          'ow-at' => '',
-          'ow-def-at' => FALSE,
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'contact-card',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
+          'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
@@ -2009,6 +1985,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -2022,6 +1999,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -2055,7 +2033,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'link text' => 'Read more',
         'wrapper' => 'div',
-        'class' => 'box-story__link button--action icon--next theme-transparent',
+        'class' => 'box-story__link button--action icon--arrow-right theme-transparent',
         'ft' => array(
           'func' => 'theme_ds_field_reset',
         ),
@@ -2112,6 +2090,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -2144,27 +2123,15 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
     'field_subject_contact_reference' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_expert',
+          'func' => 'theme_ds_field_reset',
           'lb' => 'Contact',
-          'lb-col' => TRUE,
-          'ow' => TRUE,
-          'ow-el' => 'div',
-          'ow-cl' => 'sidebar-contact',
-          'ow-def-cl' => FALSE,
-          'ow-at' => '',
-          'ow-def-at' => FALSE,
-          'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'contact-card',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
         ),
       ),
     ),
@@ -2178,6 +2145,7 @@ function uhc_ds_ds_field_settings_info() {
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -2418,39 +2386,6 @@ print "<a href=\'[node:field-event-link:url]\' target=\'_blank\'>[node:field_eve
     'use_token' => 1,
   );
   $export['message_header'] = $ds_field;
-
-  $ds_field = new stdClass();
-  $ds_field->api_version = 1;
-  $ds_field->field = 'node_title_with_content_link';
-  $ds_field->label = 'Material node title with content link';
-  $ds_field->field_type = 5;
-  $ds_field->entities = array(
-    'node' => 'node',
-  );
-  $ds_field->ui_limit = '*|teaser';
-  $ds_field->properties = array(
-    'code' => array(
-      'value' => '<?php
-$node_title = "[node:title]";
-$attachment_link = "[node:field-material-link:url]";
-if (!empty($entity->field_material_file)) {
-  $attachment_file = file_create_url($entity->field_material_file[LANGUAGE_NONE][0][\'uri\']);
-}
-if (!empty($entity->field_material_link)){
-  print \'<a href="\' . $attachment_link . \'" title="\' . $node_title . \'" class="field field-material-link">\' . $node_title . \'</a>\';
-}
-else if (!empty($entity->field_material_file)){
-  print \'<a href="\' . $attachment_file . \'" title="\' . $node_title . \'" class="field field-material-file">\' . $node_title . \'</a>\';
-}
-else {
-  print \'<label class="field">\' . $node_title . \'</label>\';
-}
-?>',
-      'format' => 'ds_code',
-    ),
-    'use_token' => 1,
-  );
-  $export['node_title_with_content_link'] = $ds_field;
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
@@ -2925,14 +2860,16 @@ function uhc_ds_ds_layout_settings_info() {
     'regions' => array(
       'ds_content' => array(
         0 => 'title',
-        1 => 'field_contant_name',
-        2 => 'field_contact_phone',
-        3 => 'field_contact_email',
-        4 => 'field_contact_link',
+        1 => 'group_contact_card_content',
+        2 => 'field_contant_name',
+        3 => 'field_contact_phone',
+        4 => 'field_contact_email',
+        5 => 'field_contact_link',
       ),
     ),
     'fields' => array(
       'title' => 'ds_content',
+      'group_contact_card_content' => 'ds_content',
       'field_contant_name' => 'ds_content',
       'field_contact_phone' => 'ds_content',
       'field_contact_email' => 'ds_content',
@@ -2940,7 +2877,7 @@ function uhc_ds_ds_layout_settings_info() {
     ),
     'classes' => array(
       'layout_class' => array(
-        '' => '',
+        'box-subsection' => 'box-subsection',
       ),
     ),
     'wrappers' => array(
@@ -2952,6 +2889,7 @@ function uhc_ds_ds_layout_settings_info() {
     'layout_attributes_merge' => 1,
     'layout_link_attribute' => '',
     'layout_link_custom' => '',
+    'layout_disable_css' => FALSE,
     'hide_page_title' => '0',
     'page_option_title' => '',
   );
@@ -3142,6 +3080,7 @@ function uhc_ds_ds_layout_settings_info() {
     'layout_attributes_merge' => 1,
     'layout_link_attribute' => '',
     'layout_link_custom' => '',
+    'layout_disable_css' => FALSE,
     'hide_page_title' => '0',
     'page_option_title' => '',
   );
@@ -3287,13 +3226,15 @@ function uhc_ds_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'event_material_content' => array(
-        0 => 'node_title_with_content_link',
-        1 => 'field_material_author',
-        2 => 'field_material_pub_info',
+        0 => 'field_material_link',
+        1 => 'field_material_file',
+        2 => 'field_material_author',
+        3 => 'field_material_pub_info',
       ),
     ),
     'fields' => array(
-      'node_title_with_content_link' => 'event_material_content',
+      'field_material_link' => 'event_material_content',
+      'field_material_file' => 'event_material_content',
       'field_material_author' => 'event_material_content',
       'field_material_pub_info' => 'event_material_content',
     ),
@@ -3312,6 +3253,7 @@ function uhc_ds_ds_layout_settings_info() {
     'layout_attributes_merge' => 1,
     'layout_link_attribute' => '',
     'layout_link_custom' => '',
+    'layout_disable_css' => FALSE,
     'hide_page_title' => '0',
     'page_option_title' => '',
   );
@@ -3772,10 +3714,10 @@ function uhc_ds_ds_layout_settings_info() {
       ),
       'portal_page_promotion' => array(
         8 => 'field_portal_promotions_title',
-        9 => 'field_content_collection',
-        10 => 'field_portal_promotions_link',
-        11 => 'group_portal_page_promotion',
-        12 => 'field_portal_promotions',
+        9 => 'field_portal_promotions_link',
+        10 => 'field_content_collection',
+        11 => 'field_portal_promotions',
+        12 => 'group_portal_page_promotion',
         13 => 'field_liftup_collection',
       ),
     ),
@@ -3789,10 +3731,10 @@ function uhc_ds_ds_layout_settings_info() {
       'field_sidebar_liftups' => 'portal_page_sidebar',
       'field_subject_contact_reference' => 'portal_page_sidebar',
       'field_portal_promotions_title' => 'portal_page_promotion',
-      'field_content_collection' => 'portal_page_promotion',
       'field_portal_promotions_link' => 'portal_page_promotion',
-      'group_portal_page_promotion' => 'portal_page_promotion',
+      'field_content_collection' => 'portal_page_promotion',
       'field_portal_promotions' => 'portal_page_promotion',
+      'group_portal_page_promotion' => 'portal_page_promotion',
       'field_liftup_collection' => 'portal_page_promotion',
     ),
     'classes' => array(
@@ -3811,6 +3753,7 @@ function uhc_ds_ds_layout_settings_info() {
     'layout_attributes_merge' => 1,
     'layout_link_attribute' => '',
     'layout_link_custom' => '',
+    'layout_disable_css' => FALSE,
     'hide_page_title' => '0',
     'page_option_title' => '',
   );
@@ -3920,6 +3863,7 @@ function uhc_ds_ds_layout_settings_info() {
     'layout_attributes_merge' => 1,
     'layout_link_attribute' => '',
     'layout_link_custom' => '',
+    'layout_disable_css' => FALSE,
     'hide_page_title' => '0',
     'page_option_title' => '',
   );

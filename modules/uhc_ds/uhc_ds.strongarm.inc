@@ -47,7 +47,9 @@ spacer-top-4
 spacer-bottom-1
 spacer-bottom-2
 spacer-bottom-3
-spacer-bottom-4';
+spacer-bottom-4
+box-card
+box-subsection';
   $export['ds_classes_regions'] = $strongarm;
 
   $strongarm = new stdClass();

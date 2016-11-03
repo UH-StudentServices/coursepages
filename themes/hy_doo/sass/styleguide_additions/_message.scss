@@ -19,7 +19,7 @@
   a {
     @include font-weight-bold;
     &:after {
-      @include hy-icon($hy-link-arrow);
+      @include icon($icon-link-arrow);
       margin-left: 0.5em;
     }
   }
@@ -27,7 +27,7 @@
     display: inline-block;
     float: right;
     &:after{
-      @include hy-icon($hy-remove);
+      @include icon($icon-remove);
     }
   }
   &.closed {
@@ -55,7 +55,7 @@
       }
       li:before,
       p:before {
-        @include font-awesome(map-get(map-get($messages, $name), "icon"));
+        @include icon(map-get(map-get($messages, $name), "icon"));
         font-size: 1.3em;
         margin-right: 0.7em;
       }

@@ -7,21 +7,21 @@
   @include hyphenate;
   padding: 1em 0;
   border-top: 1px solid $lightsilver;
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     width: 100%;
   }
 }
 
 .ds-material-block--content {
   overflow: hidden;
-  @include at-breakpoint($layout-medium) {
+  @include breakpoint($medium) {
     width: 100%;
   }
   a {
     @include font-weight-bold;
   }
   .field {
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       float: left;
       width: 30%;
       padding-left: 1em;
@@ -32,11 +32,11 @@
     }
     &.field--name-uhc-ds-finna-link {
       a:before {
-        @include hy-icon($hy-search);
+        @include icon($icon-search);
         color: $blue;
         padding-right: 0.5em;
       }
-      @include at-breakpoint($layout-small) {
+      @include breakpoint($small) {
         float: right;
         text-align: right;
         padding-right: 1em;

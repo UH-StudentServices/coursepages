@@ -26,6 +26,7 @@ function uhc_sources_uninstall() {
   variable_del('uhc_sources_examination_type_codes');
   variable_del('uhc_sources_timeout');
   variable_del('uhc_sources_simulate_failure');
+  variable_del('uhc_sources_expected_duration');
 }
 
 /**
@@ -192,4 +193,14 @@ function uhc_sources_update_7006() {
       }
     }
   }
+}
+
+/**
+ * Update permission database entries.
+ */
+function uhc_sources_update_7007() {
+  db_update('role_permission')
+    ->condition('permission', 'access sync status page')
+    ->fields(array('permission' => 'access queue status page'))
+    ->execute();
 }

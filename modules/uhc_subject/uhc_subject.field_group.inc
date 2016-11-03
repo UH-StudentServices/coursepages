@@ -21,7 +21,7 @@ function uhc_subject_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Contact information',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_subject_contact_reference',
     ),
@@ -48,7 +48,7 @@ function uhc_subject_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Promotion',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_imp_header_headline',
       1 => 'field_subject_description',
@@ -77,7 +77,7 @@ function uhc_subject_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Liftups',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_sidebar_liftups',
     ),
@@ -104,7 +104,7 @@ function uhc_subject_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related content',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_related_content_section',
     ),
@@ -131,12 +131,11 @@ function uhc_subject_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Study modules',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_subject_study_modules',
-      1 => 'field_study_modules_description',
-      2 => 'field_study_modules_title',
-      3 => 'field_study_module',
+      0 => 'field_study_modules_description',
+      1 => 'field_study_modules_title',
+      2 => 'field_study_module',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

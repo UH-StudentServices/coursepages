@@ -19,7 +19,6 @@ class ViewsHandlerFilterAcademicYear extends SearchApiViewsHandlerFilter {
     $form['value'] = array(
       '#type' => 'select',
       '#title' => empty($form_state['exposed']) ? t('Value') : '',
-      '#size' => 30,
       '#options' => $this->get_options(),
       '#default_value' => !empty($this->value) ? $this->value : $this->getSemester(),
     );

@@ -1,10 +1,11 @@
-@include at-breakpoint($layout-small) {
-  @for $i from 1 to 24 {
+@include breakpoint($small) {
+  @for $i from 1 to 17 {
       .ds-grid-#{$i} {
-        @include span-columns($i, 24);
+       @include float-span($i, 16);
       }
   }
   .ds-grid-last {
-    @include omega;
+    padding-right: 0;
+    float: right;
   }
 }

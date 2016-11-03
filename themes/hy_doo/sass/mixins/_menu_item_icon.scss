@@ -1,11 +1,11 @@
 @mixin menu-item-icon($icon) {
   color: $blue;
   &:before {
-    @include hy-icon($icon);
+    @include icon($icon);
     @include font-weight-book;
     margin-right: 20px;
   }
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     display: block;
     font-size: 0px;
     line-height: 0;

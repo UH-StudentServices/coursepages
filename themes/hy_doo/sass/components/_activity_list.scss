@@ -8,8 +8,8 @@
     .activity-toggle {
       display: inline;
       &:before {
-        @include font-awesome('\f0f3');
-        font-size: 14px;
+        @include icon($icon-notification);
+        font-size: 18px;
         color: $blue;
       }
     }
@@ -18,8 +18,8 @@
       @include font-weight-bold;
       display: inline;
       position: absolute;
-      left: 3px;
-      top: -4px;
+      left: 6px;
+      top: -3px;
       background-color: $orange;
       color: $white;
       text-align: center;

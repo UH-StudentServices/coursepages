@@ -9,7 +9,7 @@
   select {
     width: 100%;
   }
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     width: 255px;
   }
   h2.block__title {
@@ -47,23 +47,6 @@
             display: block !important;
             font-size: 0;
           }
-          &:before {
-            @include transition(all 0.2s ease-in-out);
-            content: '';
-            margin: 2px 8px 0 0;
-            display: block;
-            float: left;
-            height: 15px;
-            width: 15px;
-            border: 1px solid $blue;
-          }
-        }
-        input[type="checkbox"] {
-          display: none;
-        }
-        input:checked + a:before {
-          background-color: $darkblue;
-          border: 1px solid $darkblue;
         }
       }
       &.facetapi-disabled {
@@ -102,10 +85,8 @@
       color: $lightsilver;
     }
     &:after {
-      @include hy-icon("\EA2F");
-      @include transform(rotate(-45deg));
-      display: inline-block;
-      margin-left: 3px;
+      @include icon($icon-remove);
+      margin: 2px;
     }
   }
 }
@@ -115,6 +96,7 @@
   text-align: center;
   .button {
     display: inline-block;
+    font-size: 13px;
     &.facets-remove {
       @include button-invert-colors;
       padding: 0.7em 0;
@@ -126,61 +108,59 @@
   }
 }
 
-
-
-
-
 .block--facetapi-uhyou2m5iufoonbzgytqixaxreuk8k7e {
   .item-list {
     display: none;
   }
-  @include at-breakpoint($layout-small) {
-    .item-list {
-      @include transform(scale(0) translateX(0));
-      @include transition(transform 0.3s cubic-bezier(0.15, 1, 0.33, 1) 0s);
-      display: block;
-      z-index: -2;
-    }
-    .item-list,
-    .block__content {
-      @include border;
-      background-color: $white;
-      position: absolute;
-      .facet-buttons {
-        @include transition(all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
-        @include transform(translateY(-100%));
-        @include box-shadow(0px 1px 5px $lightsilver);
+  @include breakpoint($small) {
+    &.block--facetapi__desktop {
+      .item-list {
+        @include transform(scale(0) translateX(0));
+        @include transition(transform 0.3s cubic-bezier(0.15, 1, 0.33, 1) 0s);
+        display: block;
+        z-index: -2;
+      }
+      .item-list,
+      .block__content {
         @include border;
-        padding: 0 1em;
         background-color: $white;
         position: absolute;
-        width: 100%;
-        z-index: -1;
-      }
-      &.active {
-        > .facet-buttons {
-          @include transform(translateY(0));
-          padding: 1em;
+        .facet-buttons {
+          @include transition(all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
+          @include transform(translateY(-100%));
+          @include box-shadow(0px 1px 5px $lightsilver);
+          @include border;
+          padding: 0 1em;
+          background-color: $white;
+          position: absolute;
+          width: 100%;
+          z-index: -1;
+        }
+        &.active {
+          > .facet-buttons {
+            @include transform(translateY(0));
+            padding: 1em;
+          }
+        }
+        &.collapsed {
+          @include transform(scale(1) translateX(96%));
         }
       }
-      &.collapsed {
-        @include transform(scale(1) translateX(96%));
-      }
-    }
-    li {
-      padding-right: 2em;
-      &.expanded {
-        a {
-          max-width: 90%;
+      li {
+        padding-right: 2em;
+        &.expanded {
+          a {
+            max-width: 90%;
+          }
+          &:after {
+            @include icon($icon-caret-right);
+            display: inline-block;
+            float: right;
+          }
         }
-        &:after {
-          @include hy-icon($hy-arrow);
-          display: inline-block;
-          float: right;
+        &.collapsed {
+          background-color: $lightsilver;
         }
-      }
-      &.collapsed {
-        background-color: $lightsilver;
       }
     }
   }

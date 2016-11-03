@@ -1,6 +1,3 @@
-// use Susy v.1 syntax, please note that this version has "soon to be depricated" values
-@import "susyone";
-
 @mixin hyphenate() {
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
@@ -9,14 +6,6 @@
   -ms-word-break: break-word;
 }
 
-@mixin hy-icon($unicode : '') {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: "hy-icons";
-  @if ($unicode) {
-    content: $unicode;
-  }
-}
 
 /// Map deep get
 /// @author Hugo Giraudel
@@ -34,5 +23,12 @@
 @mixin button-invert-colors {
   background: $white;
   color: $blue;
+}
+
+@mixin hy-spin {
+  -webkit-animation: icon-spin 2s infinite linear;
+  -moz-animation: icon-spin 2s infinite linear;
+  -ms-animation: icon-spin 2s infinite linear;
+  animation: icon-spin 2s infinite linear;
 }
 

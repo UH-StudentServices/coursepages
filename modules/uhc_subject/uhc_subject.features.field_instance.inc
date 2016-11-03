@@ -24,6 +24,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'link_default',
         'weight' => 1,
@@ -37,7 +38,7 @@ function uhc_subject_field_default_field_instances() {
     'settings' => array(
       'absolute_url' => 1,
       'attributes' => array(
-        'class' => '',
+        'class' => 'list-of-links__link button--action icon--arrow-right',
         'configurable_class' => 0,
         'configurable_title' => 0,
         'rel' => '',
@@ -86,6 +87,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_plain',
         'weight' => 0,
@@ -202,6 +204,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 2,
@@ -281,6 +284,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_plain',
         'weight' => 0,
@@ -359,6 +363,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'links' => 0,
           'use_content_language' => 1,
           'view_mode' => 'teaser',
@@ -404,6 +409,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'links' => 0,
           'use_content_language' => 1,
           'view_mode' => 'teaser',
@@ -448,6 +454,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 1,
@@ -491,6 +498,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
@@ -529,6 +537,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'links' => 0,
           'use_content_language' => 1,
           'view_mode' => 'teaser',
@@ -579,6 +588,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'uhc_subject_field_collection_view_cached',
         'weight' => 5,
@@ -598,7 +608,44 @@ function uhc_subject_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 12,
+      'weight' => 34,
+    ),
+  );
+
+  // Exported field_instance: 'node-subject-field_study_module_filters'.
+  $field_instances['node-subject-field_study_module_filters'] = array(
+    'bundle' => 'subject',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
+        ),
+        'type' => 'list_default',
+        'weight' => 39,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_study_module_filters',
+    'label' => 'Disable study module search filters',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 2,
     ),
   );
 
@@ -615,6 +662,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 4,
@@ -667,7 +715,7 @@ function uhc_subject_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 10,
+      'weight' => 33,
     ),
   );
 
@@ -684,6 +732,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 3,
@@ -736,7 +785,7 @@ function uhc_subject_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 9,
+      'weight' => 32,
     ),
   );
 
@@ -792,6 +841,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'links' => 0,
           'use_content_language' => 1,
           'view_mode' => 'default',
@@ -846,6 +896,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 2,
@@ -887,6 +938,7 @@ function uhc_subject_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'image_link' => '',
           'image_style' => 'large',
         ),
@@ -1018,6 +1070,7 @@ function uhc_subject_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Contact Information');
   t('Description');
+  t('Disable study module search filters');
   t('For example: "You might also be interested in"');
   t('Header headline');
   t('Image');

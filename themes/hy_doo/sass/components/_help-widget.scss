@@ -5,13 +5,13 @@ form {
     position: relative;
     cursor: help;
     &:after {
-      @include hy-icon($hy-question);
+      @include icon($icon-question);
       padding-bottom: 2px;
       vertical-align: middle;
       display: inline-block;
       color: $blue;
     }
-    @include at-breakpoint($layout-mobile-only) {
+    @include breakpoint($mobile-only) {
       float: left;
       padding-right: 0.5em;
     }

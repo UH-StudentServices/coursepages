@@ -1,12 +1,13 @@
 name = Helsingin yliopisto DOO subtheme
-description = Theme for Helsingin yliopisto DOO -prject (subtheme).
-base theme = hy_base_theme
+description = Theme for Helsingin yliopisto DOO -project.
 screenshot = screenshot.png
+base theme = omega
 engine = phptemplate
 core = 7.x
-version = 7.x-1.82
+version = 7.x-1.83
 
 ; Scripts
+scripts[] = js/mobile_detect.js
 scripts[] = js/ds_accordion.js
 scripts[] = js/jquery.browser.min.js
 scripts[] = js/jquery.hoverIntent.r6.js
@@ -23,7 +24,6 @@ scripts[] = js/stickies.js
 stylesheets[all][] = css/hy_doo.styles.css
 stylesheets[all][] = css/hy_doo.hacks.css
 stylesheets[print][] = css/hy_doo.print.css
-
 
 ; Regions
 regions[top_bar]        = Top bar

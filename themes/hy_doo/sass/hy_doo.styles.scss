@@ -1,25 +1,67 @@
-// Import external libraries.
+/* EXTERNAL LIBRARIES */
+@import "normalize/import-now";
 @import "compass";
 @import "breakpoint";
-@import "susyone";
-@import "toolkit";
+@import "singularitygs";
 
-// Import variables, abstractions, base styles and components using globbing.
-//
-// Globbing will always import files alphabetically. Optimally, all your
-// components should be self-contained and explicit enough to not have any
-// contained styles leak into unrelated components: The import order should not
-// affect the result.
-//
-// If there are variables, functions or mixins that depend on each other and
-// therefore need to be imported in a specific order you can import them
-// directly. Variables-, function- or mixin providing partials should never
-// output any styles themselves: Importing them multiple times to resolve
-// dependencies shouldn't be a problem.
-@import "../../../../../../current/sites/all/themes/hy_base_theme/hy_base_theme/scss/variables/_variables";
-@import "../../../../../../current/sites/all/themes/hy_base_theme/hy_base_theme/scss/mixins/_mixins";
-@import "../../../../../../current/sites/all/themes/hy_base_theme/hy_base_theme/scss/variables.scss";
+/* STYLEGUIDE VARIABLES */
+@import "styleguide/variables/_breakpoints.scss";
+@import "styleguide/variables/_colors.scss";
+@import "styleguide/variables/_raster.scss";
+//@import "styleguide/variables/_typography.scss";
+@import "styleguide/icons/__variables.scss";
+
+/* HY DOO THEME VARIABLES */
 @import "variables/**/*";
+
+/* STYLEGUIDE MISC */
+@import "styleguide/mixins/**/*";
+@import "styleguide/icons/**/*";
+@import "styleguide/common-elements/**/*";
+@import "styleguide/objects/**/*";
+@import "styleguide/layouts/**/*";
+//@import "styleguide/typography/**/*";
+//@import "styleguide/forms/**/*";
+//@import "styleguide/_theme.scss";
+//@import "styleguide/_states.scss";
+
+/* STYLEGUIDE BOX COMPONENTS */
+//@import "styleguide/components/box/_box-application.scss";
+//@import "styleguide/components/box/_box-card.scss";
+//@import "styleguide/components/box/_box-data.scss";
+//@import "styleguide/components/box/_box-hero.scss";
+@import "styleguide/components/box/_box-ingress.scss";
+//@import "styleguide/components/box/_box-logo.scss";
+@import "styleguide/components/box/_box-story.scss";
+@import "styleguide/components/box/_box-subsection.scss";
+//@import "styleguide/components/box/_box-subtitle.scss";
+
+/* STYLEGUIDE COMPONENTS */
+//@import "styleguide/components/_accordion.scss";
+//@import "styleguide/components/_avatar.scss";
+@import "styleguide/components/_button.scss";
+//@import "styleguide/components/_date.scss";
+//@import "styleguide/components/_horizontal-tabs.scss";
+//@import "styleguide/components/_jobs-listing.scss";
+@import "styleguide/components/_list-of-links.scss";
+//@import "styleguide/components/_messages.scss";
+@import "styleguide/components/_pager.scss";
+//@import "styleguide/components/_post.scss";
+//@import "styleguide/components/_some-links.scss";
+//@import "styleguide/components/_tag-list.scss";
+//@import "styleguide/components/_author.scss";
+@import "styleguide/components/_breadcrumbs.scss";
+//@import "styleguide/components/_carousel.scss";
+//@import "styleguide/components/_feed-listing.scss";
+//@import "styleguide/components/_index.scss";
+//@import "styleguide/components/_label-row.scss";
+//@import "styleguide/components/_main-menu.scss";
+//@import "styleguide/components/_page-title.scss";
+//@import "styleguide/components/_panel.scss";
+//@import "styleguide/components/_search-form.scss";
+@import "styleguide/components/_table.scss";
+
+/* HY DOO THEME */
 @import "mixins/**/*";
 @import "layouts/*";
 @import "components/**/*";

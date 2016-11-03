@@ -1,11 +1,11 @@
 // This is the exposed filter form
-.block--views.course-search form {
+.search-filters {
   margin: 0;
   border-width: 0 0 2px 0;
   border-color: $lightsilver;
   border-style: solid;
   .views-exposed-form-header {
-    @include at-breakpoint($layout-mobile-only) {
+    @include breakpoint($mobile-only) {
       text-align: center;
     }
   }
@@ -14,6 +14,18 @@
       &#edit-search-wrapper {
         label {
           @include text-label;
+        }
+      }
+      &.views-widget-filter-academic_year {
+        padding: 0;
+        @include chosen-dropdown;
+        label {
+          font-weight: normal;
+          line-height: 50px;
+          float: left;
+        }
+        .views-widget {
+          float: left;
         }
       }
       &.views-widget-filter-search_api_aggregation_1 {
@@ -36,7 +48,7 @@
             &:after {
               content: " )";
             }
-            @include at-breakpoint($layout-mobile-only) {
+            @include breakpoint($mobile-only) {
               display: none;
             }
           }
@@ -48,19 +60,19 @@
           width: 100%;
           margin: 0 0 1em 0;
         }
-        @include at-breakpoint($layout-mobile-only) {
+        @include breakpoint($mobile-only) {
           float: none;
         }
       }
       &.views-reset-button {
         text-align: center;
         &:after {
-          content: "\f00d";
-          font-family: "FontAwesome";
+          @include icon($icon-remove);
           position: relative;
           display: inline;
           right: 13px;
           top: 2px;
+          font-size: 12px;
           color: $blue;
         }
         input {
@@ -70,7 +82,7 @@
           display: inline;
           margin: 0;
         }
-        @include at-breakpoint($layout-mobile-only) {
+        @include breakpoint($mobile-only) {
           float: none;
           width: 100%;
         }
@@ -88,7 +100,7 @@
       }
       // This rule will be overridden for hiding when viewing .search-main-page
       &.views-widget-sort-by {
-        @include at-breakpoint($layout-mobile-only) {
+        @include breakpoint($mobile-only) {
           text-align: center;
           width: 100%;
           .form-item-sort-by {
@@ -98,14 +110,14 @@
             }
           }
         }
-        @include at-breakpoint($layout-small) {
+        @include breakpoint($small) {
           display: none;
         }
       }
       &.views-widget-sort-order {
         display: none;
       }
-      @include at-breakpoint($layout-mobile-only) {
+      @include breakpoint($mobile-only) {
         &.gridder-box {
           width: 100%;
         }
@@ -138,26 +150,11 @@ body.search-main-page .views-widget-sort-by {
   }
 }
 
-.front-page-search-exposed-form {
-  padding: 1em 0 4em 0;
-  .views-exposed-form-uhc-portal-search-front-page--desktop {
-    @include border-top;
-    padding-top: 1em;
-    border-bottom: none !important;
-    .views-exposed-widget {
-      padding: 0;
-      .form-item-search {
-        max-width: none !important;
-      }
-    }
-  }
-}
-
 //hack for pager control positioning
 .view-uhc-search-open-university {
   margin-top: -60px;
   min-height: 100px;
-  @include at-breakpoint($medium) {
+  @include breakpoint($medium) {
     margin-top: -100px;
   }
 }
@@ -165,22 +162,7 @@ body.search-main-page .views-widget-sort-by {
 .views-exposed-form-uhc-search-open-university-desktop {
   position: relative;
   padding-bottom: 50px;
-  @include at-breakpoint($medium) {
+  @include breakpoint($medium) {
     padding-bottom: 100px;
-  }
-}
-
-.course-search {
-  .views-widget-filter-academic_year {
-    padding: 0;
-    @include chosen-dropdown;
-    label {
-      font-weight: normal;
-      line-height: 50px;
-      float: left;
-    }
-    .views-widget {
-      float: left;
-    }
   }
 }

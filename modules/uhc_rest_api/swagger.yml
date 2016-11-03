@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: "1.80.0"
+  version: "1.83.0"
   title: DOO Kurssisivut API
   description: |
     API for University of Helsinki coursepage service (DOO Kurssisivut) that can
@@ -40,14 +40,52 @@ paths:
           type: integer
           required: true
       responses:
-        200:
+        "200":
           description: Returns `CourseImplementation` object.
           schema:
             $ref: '#/definitions/CourseImplementation'
-        404:
+        "404":
           description: Not found.
-        500:
+        "500":
           description: Internal server error.
+  /course_implementation/changes/since/{timestamp}:
+    get:
+      description: |
+        Retrieve all courseunitrealisation IDs that have been modified in Coursepages
+        since given unix timestamp.
+      tags:
+        - Course implementations
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: timestamp
+          in: path
+          description: Unix timestamp that is used when filtering courseunitrealisation IDs.
+          type: integer
+          required: true
+      responses:
+        "200":
+          description: Returns list of courseunitrealisation IDs.
+          schema:
+            type: array
+            items:
+              type: integer
+        "403":
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Internal server error.
+        "503":
+          description: Site under maintenance.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
   /course_implementation_activity:
     get:
       description: Retrieve course activity messages from given `courseunitrealisation` IDs.
@@ -66,15 +104,15 @@ paths:
           type: string
           required: true
       responses:
-        200:
+        "200":
           description: Returns list of `Activity` objects.
           schema:
             type: array
             items:
               $ref: '#/definitions/Activity'
-        404:
+        "404":
           description: Not found.
-        500:
+        "500":
           description: Internal server error.
   /events:
     get:
@@ -94,28 +132,30 @@ paths:
           type: string
           required: true
       responses:
-        200:
+        "200":
           description: Returns list of `Event` objects.
           schema:
             type: array
             items:
               $ref: '#/definitions/Event'
-        404:
+        "404":
           description: Not found.
-        500:
+        "500":
           description: Internal server error.
 definitions:
   CourseImplementation:
     type: object
+    required:
+      - nid
+      - title
+      - url
     properties:
       nid:
         type: integer
         description: Node ID
-        required: true
       title:
         type: string
         description: Node title
-        required: true
       header_image_url:
         type: string
         description: URL address of the header promotion image
@@ -131,7 +171,6 @@ definitions:
       url:
         type: string
         description: URL address to the course page
-        required: true
       has_material:
         type: boolean
         description: Indicates whether the course has materials added
@@ -143,15 +182,16 @@ definitions:
         description: URL address to the linked Wiki page
   Event:
     type: object
+    required:
+      - course_implementation_id
+      - title
     properties:
       course_implementation_id:
         type: integer
         description: Courseunitrealisation´ ID. Do not confuse this with `nid`.
-        required: true
       title:
         type: string
         description: Title of the event
-        required: true
       begin:
         type: string
         format: dateTime
@@ -168,33 +208,42 @@ definitions:
         description: Indiciates if the event is considered as an "exam"
   Activity:
     type: object
+    required:
+      - id
+      - course_imp_id
+      - message
+      - user
+      - oodi_uid
+      - timestamp
+      - type
     properties:
       id:
         type: integer
         description: Message ID
-        required: true
       course_imp_id:
         type: integer
         description: Courseunitrealisation´ ID. Do not confuse this with `nid`.
-        required: true
       message:
         type: string
         description: Generated human readable activity text in HTML
-        required: true
       user:
         type: string
         description: Name of the corresponding user
-        required: true
       oodi_uid:
         type: integer
         description: Oodi user ID of the corresponding user
-        required: true
       timestamp:
         type: string
         format: dateTime
         description: Timestamp date and time in ISO 8601 format.
-        required: true
       type:
         type: string
         description: Type of activity
-        required: true
+  ErrorResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        description: Error message

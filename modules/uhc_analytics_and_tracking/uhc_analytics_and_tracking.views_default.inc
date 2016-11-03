@@ -23,7 +23,7 @@ function uhc_analytics_and_tracking_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Google Analytics Reports Page';
-  $handler->display->display_options['css_class'] = 'google-analytics-reports-pages course-search';
+  $handler->display->display_options['css_class'] = 'textarea';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'access google analytics reports';

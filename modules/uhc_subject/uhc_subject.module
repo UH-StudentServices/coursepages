@@ -312,6 +312,14 @@ function uhc_subject_preprocess_node(&$variables) {
 
   // add filtering js for subject nodes
   if ($variables['type'] == 'subject' && node_is_page($variables['node']) && !empty($variables['field_study_module'])) {
+
+    // check for disabled filters in subject node
+    foreach ($variables['field_study_module_filters'] as $filter) {
+      if (array_intersect(array_keys($settings['fields_to_filter']), $filter)) {
+        unset($settings['fields_to_filter'][$filter['value']]);
+      }
+    }
+
     drupal_add_js(libraries_get_path('chosen') . '/chosen.jquery.min.js');
     drupal_add_js(array('uhc_subject_filter_study_modules' => $settings), 'setting');
     drupal_add_js(drupal_get_path('module', 'uhc_subject') . '/js/filter_study_modules.js');

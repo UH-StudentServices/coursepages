@@ -11,6 +11,41 @@
 include_once 'uhc_teacher_tools.features.inc';
 
 /**
+ * Implements hook_element_info_alter().
+ */
+function uhc_teacher_tools_element_info_alter(&$elements) {
+  if (!empty($elements['managed_file'])) {
+    // Introduce another pre render callback.
+    $elements['managed_file']['#pre_render'][] = 'uhc_teacher_tools_managed_file_pre_render';
+  }
+}
+
+/**
+ * Callback for pre rendering managed file widget. Change the label of the
+ * "Remove" button. See ticket DOO-2586.
+ */
+function uhc_teacher_tools_managed_file_pre_render($element) {
+  if ($element['#entity_type'] == 'node' &&
+      $element['#bundle'] == 'course_implementation' &&
+      $element['#field_name'] == 'field_imp_header_image' &&
+      isset($element['remove_button']['#value'])) {
+    $element['remove_button']['#value'] = t('Change');
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_manualcrop_croptool_validate_triggering_values_alter().
+ */
+function uhc_teacher_tools_manualcrop_croptool_validate_triggering_values_alter(&$values) {
+  // Course implementation promotion image has default image that is always
+  // loaded if there is no self-provided image. Due to this, the label for
+  // changing the default is changed to "Change" instead of "Remove".  See
+  // ticket DOO-2586.
+  $values[] = 'Change';
+}
+
+/**
  * Implements hook_field_widget_form_alter().
  *
  * When attaching "text with format" -field to an form. Identify those who have
@@ -271,7 +306,6 @@ function uhc_teacher_tools_form_node_form_alter(&$form, &$form_state, $form_id) 
   $form['actions']['submit']['#value'] = t('Save & Close');
   $form['actions']['submit2']['#weight'] = 6;
   $form['actions']['submit2']['#submit'][] = 'uhc_teacher_tools_save_and_continue';
-  $form['actions']['cancel']['#value'] = t('Cancel') . '  ×';
 }
 
 /**

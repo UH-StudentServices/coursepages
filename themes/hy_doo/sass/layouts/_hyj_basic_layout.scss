@@ -4,6 +4,7 @@
 .l-region--footer,
 .l-region--info-footer {
   @include container;
+  @include clearfix;
 }
 
 .l-top-bar,
@@ -13,27 +14,23 @@
 
 // At a given Susy Media Layout, use a given amount of columns.
 // Styles for site when the menu-bar is in slim-mode
-@include at-breakpoint($layout-small) {
-  .l-top-bar,
-  .l-main,
-  .l-region--menu-bar {
-    @include set-container-width; // Reset only the container width (elements have already been declared as containers).
-  }
-
+@include breakpoint($small) {
   .l-top-bar {
     @include container;
+    @include clearfix;
   }
 
   .l-region--menu-bar {
     @include container;
+    @include clearfix;
   }
 
   .l-content-sidebar-left {
-    @include span-columns(6, 16);
+    @include float-span(6, 16);
   }
 
   .l-content-sidebar-right {
-    @include span-columns(4 omega, 16);
+    @include float-span(4, last);
     margin-left: 4%;
   }
 
@@ -64,7 +61,7 @@
     margin-top: 0.2em;
   }
 
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     padding: 0 0 2em 0;
   }
 }

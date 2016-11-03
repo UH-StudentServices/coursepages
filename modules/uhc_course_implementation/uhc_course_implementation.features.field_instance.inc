@@ -655,7 +655,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'absolute_url' => 1,
       'attributes' => array(
-        'class' => '',
+        'class' => 'list-of-links__link button--action icon--arrow-right theme-transparent',
         'configurable_class' => 0,
         'configurable_title' => 0,
         'rel' => '',
@@ -2375,7 +2375,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'absolute_url' => 1,
       'attributes' => array(
-        'class' => '',
+        'class' => 'list-of-links__link button--action icon--arrow-right theme-transparent',
         'configurable_class' => 0,
         'configurable_title' => 0,
         'rel' => '',
@@ -4770,7 +4770,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'settings' => array(
       'absolute_url' => 1,
       'attributes' => array(
-        'class' => '',
+        'class' => 'list-of-links__link button--action icon--arrow-right theme-transparent',
         'configurable_class' => 0,
         'configurable_title' => 0,
         'rel' => '',

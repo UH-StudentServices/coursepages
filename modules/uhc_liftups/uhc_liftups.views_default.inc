@@ -143,7 +143,7 @@ function uhc_liftups_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '6';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['row_class'] = 'box-story';
@@ -271,7 +271,7 @@ function uhc_liftups_views_default_views() {
   $handler->display->display_options['fields']['view_node']['element_type'] = '0';
   $handler->display->display_options['fields']['view_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view_node']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['view_node']['element_wrapper_class'] = 'box-story__link button--action icon--next theme-transparent';
+  $handler->display->display_options['fields']['view_node']['element_wrapper_class'] = 'box-story__link button--action icon--arrow-right theme-transparent';
   $handler->display->display_options['fields']['view_node']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['view_node']['text'] = 'Read more';
   /* Sort criterion: Content: Sticky */
@@ -454,7 +454,7 @@ function uhc_liftups_views_default_views() {
   $handler->display->display_options['fields']['view_node']['element_type'] = '0';
   $handler->display->display_options['fields']['view_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view_node']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['view_node']['element_wrapper_class'] = 'box-story__link button--action icon--next theme-transparent';
+  $handler->display->display_options['fields']['view_node']['element_wrapper_class'] = 'box-story__link button--action icon--arrow-right theme-transparent';
   $handler->display->display_options['fields']['view_node']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['view_node']['text'] = 'Read more';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
@@ -602,7 +602,7 @@ function uhc_liftups_views_default_views() {
   $handler->display->display_options['fields']['view_node']['element_type'] = '0';
   $handler->display->display_options['fields']['view_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view_node']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['view_node']['element_wrapper_class'] = 'box-story__link button--action icon--next theme-transparent';
+  $handler->display->display_options['fields']['view_node']['element_wrapper_class'] = 'box-story__link button--action icon--arrow-right theme-transparent';
   $handler->display->display_options['fields']['view_node']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['view_node']['text'] = 'Read more';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
@@ -679,7 +679,7 @@ function uhc_liftups_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['style_options']['row_class'] = 'box-storyliftup tube';
+  $handler->display->display_options['style_options']['row_class'] = 'box-story box-story--liftup tube';
   $handler->display->display_options['style_options']['default_row_class'] = FALSE;
   $handler->display->display_options['style_options']['row_class_special'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';

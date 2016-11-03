@@ -6,15 +6,15 @@
  */
 
 /**
- * Page callback to 'node/%node/sync-status' as LOCAL_TASK, so privileged users
- * may see quick status of synchronization status. User may perform an manual
- * synchronization from this page.
+ * Page callback to 'node/%node/queue-status' as LOCAL_TASK, so privileged users
+ * may request for updating corresponding course. Button will queue this item
+ * with high priority.
  *
  * @param $form
  * @param $form_state
  * @return array
  */
-function uhc_sources_sync_status_form($form, &$form_state) {
+function uhc_sources_queue_status_form($form, &$form_state) {
 
   // Figure out the migration source and course implementation ID
   $form_state['build_info']['args']['field_imp_id'] = '';
@@ -27,46 +27,58 @@ function uhc_sources_sync_status_form($form, &$form_state) {
     }
   }
 
-  // Setup the informal description with "Sync" button
+  // Setup the informal description with "Request for update" button
   return array(
     'submit' => array(
       '#type' => 'submit',
-      '#value' => t('Synchronize now'),
+      '#value' => t('Request for update'),
     ),
     'description' => array(
-      '#markup' => '<div class="description">' . t('This item has been previously updated at <strong><em>@time</em></strong>.', array('@time' => format_date($node->changed, 'short'))) . '</div>',
+      '#markup' => '<div class="description">' . t('System checks frequently for new Oodi updates. You may specifically request for updating this course during next cycle.') . '</div>',
     ),
   );
 }
 
 /**
- * Form submission callback for processing the form. In this form we only
- * perform manual synchronizations.
+ * Form submission callback for processing the form. In this form we only queue
+ * an item for next update cycle.
  *
  * @param $form
  * @param $form_state
  */
-function uhc_sources_sync_status_form_submit($form, &$form_state) {
-  $access = (user_access('access administration pages')
-    || uhc_course_collaboration_is_current_user_course_teacher()
-    || uhc_course_collaboration_is_current_user_course_administrator()
-  );
-
-  if ($access &&
-      $form_state['triggering_element']['#value'] == t('Synchronize now') &&
+function uhc_sources_queue_status_form_submit($form, &$form_state) {
+  if ($form_state['triggering_element']['#value'] == t('Request for update') &&
       isset($form_state['build_info']['args']['field_imp_id'])) {
 
-    // Synchronize this page
-    if ($node = uhc_sources_sync_for_page($form_state['build_info']['args']['field_imp_id'])) {
-      // create activity message for statistics
-      uhc_course_implementation_activity_create_message($node, 'course_implementation_sync');
+    $imp_id = $form_state['build_info']['args']['field_imp_id'];
+    $node = uhc_course_implementation_load_by_id($imp_id);
 
-      drupal_set_message(t('This page has been synchronized.'));
+    // Queue this course implementation
+    if (uhc_sources_queue_imp_id($imp_id)) {
+      // create activity message for statistics
+      uhc_course_implementation_activity_create_message($node, 'course_implementation_queue');
+
+      drupal_set_message(t('The page will be updated soon (within @expected_duration)', array('@expected_duration' => variable_get('uhc_sources_expected_duration', '10 min'))));
       $form_state['redirect'] = array('node/' . $node->nid);
     }
     else {
-      drupal_set_message(t('Could not synchronize the page. Please see more information from logs.'), 'error');
+      drupal_set_message(t('Could not request for update. Please see more information from logs.'), 'error');
     }
 
   }
+}
+
+/**
+ * Callback for queueing an single specified course implementation.
+ * @param $imp_id
+ * @return bool
+ */
+function uhc_sources_queue_imp_id($imp_id) {
+  $queue = new UHOodiQueue(UHOodiQueue::PRIORITY_HIGH);
+  $item = array(
+    'action' => 'update',
+    'entityType' => 'courseunitrealisation',
+    'entityId' => (int) $imp_id,
+  );
+  return $queue->createItem($item);
 }

@@ -72,9 +72,9 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'google_analytics_reports',
   );
 
-  // Exported permission: 'access sync status page'.
-  $permissions['access sync status page'] = array(
-    'name' => 'access sync status page',
+  // Exported permission: 'access queue status page'.
+  $permissions['access queue status page'] = array(
+    'name' => 'access queue status page',
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',

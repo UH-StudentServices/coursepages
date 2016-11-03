@@ -1,7 +1,7 @@
 .main-menu {
   background: $white;
 
-  @include at-breakpoint($layout-mobile-only) {
+  @include breakpoint($mobile-only) {
     @include border-bottom;
 
     li {
@@ -14,7 +14,7 @@
         color: $blue;
         padding-left: 20px;
         &:before {
-          @include hy-icon($hy-arrow);
+          @include icon($icon-arrow);
           cursor: pointer;
           display: inline-block;
         }
@@ -79,7 +79,7 @@
     }
   }
 
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     li {
       display: block;
       float: left;
@@ -98,7 +98,7 @@
         line-height: 60px;
         padding: 0 1.5em;
 
-        @include at-breakpoint($layout-medium) {
+        @include breakpoint($medium) {
           padding: 0 2em;
         }
         .open-university & {

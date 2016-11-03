@@ -20,7 +20,7 @@
       @include link-heading;
     }
   }
-  @include at-breakpoint($small) {
+  @include breakpoint($small) {
     display: block;
   }
 }

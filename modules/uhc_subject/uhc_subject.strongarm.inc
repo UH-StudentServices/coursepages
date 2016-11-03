@@ -131,13 +131,13 @@ function uhc_subject_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'path' => array(
-          'weight' => '7',
+          'weight' => '8',
         ),
         'language' => array(
           'weight' => '1',
         ),
         'locations' => array(
-          'weight' => '30',
+          'weight' => '9',
         ),
       ),
       'display' => array(),

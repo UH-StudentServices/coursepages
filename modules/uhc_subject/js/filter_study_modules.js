@@ -7,14 +7,6 @@
   Drupal.behaviors.uhc_subject_filter_study_modules = {
     attach: function (context, settings) {
 
-      var mobile = false;
-      var mobileUserAgents = ['Android', 'iPad', 'iPhone', 'iPod', 'Windows Phone'];
-      mobileUserAgents.forEach(function(userAgent) {
-        if (RegExp(userAgent, 'i').test(navigator.userAgent)) {
-          mobile = true;
-        }
-      });
-
       var select_element = Drupal.settings.uhc_subject_filter_study_modules.select_element;
       var nodes_to_filter = Drupal.settings.uhc_subject_filter_study_modules.nodes_to_filter;
       var fields_to_filter = Drupal.settings.uhc_subject_filter_study_modules.fields_to_filter;
@@ -82,7 +74,7 @@
         });
 
         // enable chosen
-        if (mobile == false) {
+        if (!isMobile()) {
           element.chosen({
             display_selected_options: false,
             inherit_select_classes: true,
@@ -132,6 +124,7 @@
 
         // hide course if all it's implementations are hidden
         hide_empty_courses();
+        trackEvent($(this));
       });
 
       // compare filter values against data attributes in node to filter
@@ -180,6 +173,28 @@
           }
         });
       }
+
+      // Track filter click.
+      function trackEvent(element) {
+        var trackEvents = typeof ga != 'undefined';
+
+        if (trackEvents) {
+          var eventCategory = 'Subject page filter';
+          var selectedFilterName = element.next('.chosen-container').find('h2').text();
+          var selectedFilterValue = element.val();
+          var eventLabel = selectedFilterName + ': ' + selectedFilterValue;
+
+          ga('send', {
+            'hitType': 'event',
+            'eventCategory': eventCategory,
+            'eventAction': 'click',
+            'eventLabel': eventLabel,
+            'eventValue': 0,
+            'nonInteraction': false
+          });
+        }
+      }
+
     },
     weight: 999
   }

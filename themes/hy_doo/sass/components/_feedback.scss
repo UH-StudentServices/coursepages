@@ -68,14 +68,14 @@
     color: $white;
     text-transform: initial;
     &:before {
-      @include hy-icon($hy-chat);
+      @include icon($icon-chat);
       @include font-size(32px);
       display: block;
       width: 50px;
       height: 50px;
       line-height: 50px;
     }
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       @include font-size(14px);
       width: 90px;
       height: 90px;
@@ -89,7 +89,7 @@
   #feedback-status-message {
     background: $light-green;
     &:before {
-      @include hy-icon($hy-done);
+      @include icon($icon-done);
     }
   }
   #feedback-form-toggle {
@@ -101,7 +101,7 @@
     z-index: 999;
     color: $white;
     &:after {
-      @include hy-icon($hy-remove);
+      @include icon($icon-remove);
       position: absolute;
       right: 0.4em;
       bottom: 0.4em;

@@ -8,12 +8,12 @@
       width: 100%;
       box-sizing: border-box;
     }
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       float: left;
     }
   }
 
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     #edit-field-imp-header-headline-und-0-value {
       @include font-size(32px);
       font-weight: bold;
@@ -22,6 +22,16 @@
 
     #edit-field-field-imp-header-intro-tex-und-0-value {
       @include font-size(21px);
+    }
+  }
+
+  #edit-field-imp-header-image-und-0-remove-button {
+    display: block;
+  }
+
+  .group-imp-header-img {
+    input[type="submit"] {
+      min-width: 100%;
     }
   }
 
@@ -35,8 +45,11 @@
     clear: both;
   }
 
-  .field-name-field-private label {
-    font-weight: bold;
+  .field-name-field-private {
+    padding-top: 2em;
+    label {
+      font-weight: bold;
+    }
   }
 }
 
@@ -45,9 +58,11 @@
 }
 
 // hide section from material table, we still need it for material sort js
-#ief-entity-table-edit-field-section-material-und-entities {
-  th:nth-child(5),
+#ief-entity-table-edit-field-section-material-und-entities,
+.field-name-field-event-ref-to-material .ief-entity-table {
+  th:nth-child(4),
   .inline-entity-form-node-field_material_section {
-    display: none;
+    display: none !important;
   }
 }
+

@@ -68,7 +68,10 @@ projects[link][version] = "1.4"
 projects[linkit][version] = "3.5"
 projects[location][version] = "3.7"
 projects[logging_alerts][version] = "2.2"
-projects[manualcrop][version] = "1.5"
+projects[manualcrop][download][type] = git
+projects[manualcrop][download][url] = http://git.drupal.org/project/manualcrop.git
+projects[manualcrop][download][revision] = 2617e7771283b486197056ccffba953332276e1b
+projects[manualcrop][patch]["https://www.drupal.org/node/2823990"] = https://www.drupal.org/files/issues/triggering-values-alter-2823990-3.patch
 projects[maxlength][version] = "3.2"
 projects[memcache][version] = "1.5"
 projects[mb][download][type] = git
@@ -225,13 +228,6 @@ projects[omega][subdir] = "omega"
 projects[omega][version] = "4.4"
 ; Fix PHP notice related to incorrect language direction detection.
 projects[omega][patch][2762793] = "https://www.drupal.org/files/issues/omega-modules-listed-as-missing-themes-2762793-13.patch"
-
-projects[hy_base_theme][type] = "theme"
-projects[hy_base_theme][subdir] = "hy_base_theme"
-projects[hy_base_theme][download][type] = git
-projects[hy_base_theme][download][url] = "git://github.com/UH-StudentServices/hy_base_theme.git"
-projects[hy_base_theme][download][branch] = 7.x-1.x
-projects[hy_base_theme][download][revision] = d84b0d1ae4bcfac4ade20a4fa526d1f18a6aeb90
 projects[adminimal_theme][subdir] = "adminimal_theme"
 projects[adminimal_theme][version] = "1.22"
 
@@ -262,8 +258,8 @@ libraries[jquery.imagesloaded][download][url] = https://github.com/desandro/imag
 libraries[jquery.imagesloaded][directory_name] = "jquery.imagesloaded"
 
 libraries[jquery.imgareaselect][download][type] = file
-libraries[jquery.imgareaselect][download][url] = http://odyniec.net/projects/imgareaselect/jquery.imgareaselect-0.9.10.zip
-libraries[jquery.imgareaselect][directory_name] = "jquery.imgareaselect"
+libraries[jquery.imgareaselect][download][url] = https://github.com/odyniec/imgareaselect/archive/v0.9.11-rc.1.tar.gz
+libraries[jquery.imgareaselect][download][subtree] = imgareaselect-0.9.11-rc.1
 
 libraries[wvega-timepicker][download][type] = file
 libraries[wvega-timepicker][download][url] = https://github.com/wvega/timepicker/archive/master.zip

@@ -1,0 +1,45 @@
+input[type="checkbox"],
+input[type="radio"] {
+  display: none;
+  & + a:before,
+  & + label:before {
+    @include transition(all 0.2s ease-in-out);
+    content: '';
+    margin: 2px 8px 0 0;
+    display: block;
+    float: left;
+    height: 15px;
+    width: 15px;
+    border: 1px solid $blue;
+  }
+  & + label:before {
+    margin: 6px 8px 0 0;
+  }
+  &:checked + a:before,
+  &:checked + label:before {
+    background-color: $darkblue;
+    border: 1px solid $darkblue;
+  }
+}
+
+input[type="radio"] {
+  & + a:before,
+  & + label:before {
+    border-radius: 7px;
+    @include box-shadow(inset 0 0  0 3px $white);
+  }
+}
+
+input[type="submit"] {
+  &#edit-cancel,
+  &#edit-delete,
+  &[id*="form-actions-ief-add-cancel"],
+  &[id*="form-actions-ief-edit-cancel"],
+  &[id*="remove-button"] {
+    @extend %button--light;
+  }
+}
+
+img.file-icon {
+  display: none;
+}

@@ -20,19 +20,24 @@
     }
   }
   .user-picture {
-    @include span-columns(2, 16);
+    width: 11%;
+    float: left;
+    padding-right: 1em;
     img {
       background: $color-user;
     }
   }
   .message-wrapper {
-    @include span-columns(14 omega, 16);
+    float: left;
+    width: 89%;
     .message-header {
       .message-author {
         @include font-size(20px);
         @include font-weight-medium;
       }
       @include horizontal-rule('bottom');
+      margin-bottom: 1em;
+      padding-bottom: 1em;
       font-size: 0.875rem;
       float: left;
       width: 100%;

@@ -53,9 +53,9 @@ function uhc_statistics_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'message-course_implementation_sync-field_message_ref_to_course_imp'.
-  $field_instances['message-course_implementation_sync-field_message_ref_to_course_imp'] = array(
-    'bundle' => 'course_implementation_sync',
+  // 'message-course_implementation_queue-field_message_ref_to_course_imp'.
+  $field_instances['message-course_implementation_queue-field_message_ref_to_course_imp'] = array(
+    'bundle' => 'course_implementation_queue',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',

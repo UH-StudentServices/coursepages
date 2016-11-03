@@ -5,13 +5,13 @@
 
   .vertical-tabs-header {
     @include select-header;
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       display: none;
     }
   }
 
   .vertical-tabs-list {
-    @include at-breakpoint($layout-mobile-only) {
+    @include breakpoint($mobile-only) {
       @include dropdown-menu(none, 'left');
       top: 50px;
       li {
@@ -30,7 +30,7 @@
       color: $darkblue;
     }
 
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       li {
         @include border;
         border-bottom: none;
@@ -51,7 +51,7 @@
     }
   }
   .vertical-tabs-pane {
-    @include at-breakpoint($layout-mobile-only) {
+    @include breakpoint($mobile-only) {
       margin: 1em;
     }
     > legend {
@@ -63,7 +63,7 @@
       background: $white;
       margin-bottom: 2em;
 
-      @include at-breakpoint($layout-small) {
+      @include breakpoint($small) {
         border: 2px solid $lightsilver;
         .vertical-tabs-list li {
           a {
@@ -87,12 +87,12 @@
       .vertical-tabs-panes {
         padding-right: 1.5em;
         border: 2px solid $lightsilver;
-        @include at-breakpoint($layout-small) {
+        @include breakpoint($small) {
           border: none;
         }
       }
       .vertical-tabs-header {
-        @include at-breakpoint($layout-mobile-only) {
+        @include breakpoint($mobile-only) {
           background: $blue;
           color: $white;
           &.collapsed {

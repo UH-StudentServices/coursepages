@@ -9,7 +9,7 @@
   position: absolute;
   z-index: 150;
   width: 100%;
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     display: none;
   }
 }
@@ -63,7 +63,7 @@
       }
     }
   }
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     display: none;
   }
 }

@@ -49,9 +49,9 @@ function uhc_statistics_default_message_type() {
     },
     "rdf_mapping" : []
   }');
-  $items['course_implementation_sync'] = entity_import('message_type', '{
-    "name" : "course_implementation_sync",
-    "description" : "Course implementation - Sync",
+  $items['course_implementation_queue'] = entity_import('message_type', '{
+    "name" : "course_implementation_queue",
+    "description" : "Course implementation - Queue",
     "argument_keys" : [],
     "argument" : [],
     "category" : "message_type",

@@ -11,7 +11,7 @@
     .site-logo {
       height: auto;
     }
-    @include at-breakpoint($small) {
+    @include breakpoint($small) {
       display: block;
       margin-right: 2em;
     }
@@ -37,7 +37,7 @@
     margin-bottom: 0;
     color: $lightsilver;
     text-align: center;
-    @include at-breakpoint($small) {
+    @include breakpoint($small) {
       position: absolute;
       bottom: 2em;
       right: 15%;

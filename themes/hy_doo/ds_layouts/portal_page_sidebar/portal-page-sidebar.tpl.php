@@ -16,13 +16,13 @@
   <?php print render($title_suffix['contextual_links']); ?>
   <?php endif; ?>
 
-    <div class="ds-grid-18">
+    <div class="ds-grid-12">
       <<?php print $portal_page_content_wrapper ?> class="<?php print $portal_page_content_classes; ?>">
         <?php print $portal_page_content; ?>
       </<?php print $portal_page_content_wrapper ?>>
     </div>
 
-    <<?php print $portal_page_sidebar_wrapper ?> class="ds-grid-6 ds-grid-last ds-node-sidebar <?php print $portal_page_sidebar_classes; ?>">
+    <<?php print $portal_page_sidebar_wrapper ?> class="ds-grid-4 ds-grid-last ds-node-sidebar <?php print $portal_page_sidebar_classes; ?>">
       <?php print $portal_page_sidebar ?>
     </<?php print $portal_page_sidebar_wrapper ?>>
 

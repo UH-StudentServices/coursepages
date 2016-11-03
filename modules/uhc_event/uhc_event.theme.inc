@@ -49,44 +49,10 @@ function theme_uhc_event_structured_teaching_schedule(&$variables) {
       $content .= '</span>';
 
       // Table contents
-      foreach ($events as $event) {
-
-        // JSON events datetimes are provided as Zulu timezone but we want to
-        // convert them to local timezone.
-        $from_timezone = new DateTimeZone('Etc/Zulu');
-        $to_timzone = new DateTimeZone('Europe/Helsinki');
-
-        // Create date objects out from start/end dates
-        $begin_date = new DateTime($event->start_date, $from_timezone);
-        $begin_date->setTimezone($to_timzone);
-
-        $date = format_date($begin_date->getTimestamp(), 'custom', 'D j.n.Y');
-        $time = $begin_date->format('H:i');
-        if ($event->event_duration > 0) {
-          $end_date = new DateTime($event->start_date, $from_timezone);
-          $end_date->setTimezone($to_timzone);
-          $end_date->modify('+' . $event->event_duration . ' minutes');
-          $time = $begin_date->format('H:i') . ' - ' . $end_date->format('H:i');
-        }
-
-        // Location is an combination of building name and street address link
-        $location = '';
-        if (!empty($event->room_name_short)) {
-          $location = check_plain($event->room_name_short);
-        }
-
-        // Build the maps link
-        if (!empty($event->building_address1)) {
-          $path = 'https://www.google.fi/maps/place/' . $event->building_address1;
-          if (!empty($event->building_zipcode)) {
-            $path .= ', ' . $event->building_zipcode;
-          }
-          $location .= ', ' . l($event->building_address1, $path);
-        }
-
+      foreach (_uhc_event_structured_teaching_schedule_aggregate($events) as $event) {
         $content .= '<div class="event">';
-        $content .= '<div class="event-column"><div class="field event-date">' . $date . '</div><div class="field event-time">' . $time . '</div></div>';
-        $content .= '<div class="event-column"><div class="field remove-styles event-location">' . $location . '</div></div>';
+        $content .= '<div class="event-column"><div class="field event-date">' . $event['date'] . '</div><div class="field event-time">' . $event['time'] . '</div></div>';
+        $content .= '<div class="event-column"><div class="field remove-styles event-location">' . theme('item_list', array('items' => $event['locations'])) . '</div></div>';
         $content .= '</div>';
       }
       $content .= $variables['suffix'];
@@ -95,6 +61,60 @@ function theme_uhc_event_structured_teaching_schedule(&$variables) {
     }
   }
   return '';
+}
+
+/**
+ * Aggregate all events by grouping them by date and time.
+ *
+ * @param array $events
+ * @return array
+ */
+function _uhc_event_structured_teaching_schedule_aggregate($events) {
+  $aggregated_events = array();
+
+  foreach ($events as $event) {
+
+    // JSON events datetimes are provided as Zulu timezone but we want to
+    // convert them to local timezone.
+    $from_timezone = new DateTimeZone('Etc/Zulu');
+    $to_timzone = new DateTimeZone('Europe/Helsinki');
+
+    // Create date objects out from start/end dates
+    $begin_date = new DateTime($event->start_date, $from_timezone);
+    $begin_date->setTimezone($to_timzone);
+
+    $date = format_date($begin_date->getTimestamp(), 'custom', 'D j.n.Y');
+    $time = $begin_date->format('H:i');
+    if ($event->event_duration > 0) {
+      $end_date = new DateTime($event->start_date, $from_timezone);
+      $end_date->setTimezone($to_timzone);
+      $end_date->modify('+' . $event->event_duration . ' minutes');
+      $time = $begin_date->format('H:i') . ' - ' . $end_date->format('H:i');
+    }
+
+    // Location is an combination of building name and street address link
+    $location = '';
+    if (!empty($event->room_name_short)) {
+      $location = check_plain($event->room_name_short);
+    }
+
+    // Build the maps link
+    if (!empty($event->building_address1)) {
+      $path = 'https://www.google.fi/maps/place/' . $event->building_address1;
+      if (!empty($event->building_zipcode)) {
+        $path .= ', ' . $event->building_zipcode;
+      }
+      $location .= ', ' . l($event->building_address1, $path);
+    }
+
+    // Append item
+    $key = sprintf('%sT%s', $date, $time);
+    $aggregated_events[$key]['date'] = $date;
+    $aggregated_events[$key]['time'] = $time;
+    $aggregated_events[$key]['locations'][] = $location;
+  }
+
+  return $aggregated_events;
 }
 
 /**

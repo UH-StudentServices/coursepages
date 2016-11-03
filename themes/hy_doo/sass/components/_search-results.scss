@@ -7,7 +7,7 @@
     }
   }
 
-  @include at-breakpoint($layout-mobile-only) {
+  @include breakpoint($mobile-only) {
     // Space for overlapping sort div
     margin-bottom: 9em;
     z-index: 1;
@@ -22,7 +22,7 @@
     width: 100%;
     background: $white;
     font-weight: normal;
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       width: auto;
       float: none;
       padding-right: 1em;
@@ -66,7 +66,7 @@
 
     background: white;
     overflow: hidden;
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       display: table-row;
       border-bottom-style: solid;
       border-bottom-color: $lightsilver;
@@ -74,14 +74,14 @@
     }
     &.views-row-first {
       border-top: 1px dashed #efefef;
-      @include at-breakpoint($layout-small) {
+      @include breakpoint($small) {
         border-top: 0;
       }
     }
   }
   thead {
     display: none;
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       display: table-header-group;
     }
   }

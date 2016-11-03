@@ -9,12 +9,6 @@
  */
 
 /**
- * Define two source systems where we can request course information from.
- */
-define('UHC_SOURCE_REST', 'rest');
-define('UHC_SOURCE_ESB_OODI', 'esb-oodi');
-
-/**
  * Helper function for returning the referenced course node from course
  * implementation node.
  *
@@ -47,8 +41,8 @@ function _uhc_source_load_course_node($node, $field_name = 'field_imp_reference_
  */
 function uhc_sources_permission() {
   return array(
-    'access sync status page' => array(
-      'title' => t('Access synchronization status page'),
+    'access queue status page' => array(
+      'title' => t('Access queue status page'),
     ),
   );
 }
@@ -56,14 +50,14 @@ function uhc_sources_permission() {
 /**
  * Implements hook_menu().
  *
- * Defines node synchronization task.
+ * Defines node queue update task.
  */
 function uhc_sources_menu() {
-  $items['node/%node/sync-status'] = array(
+  $items['node/%node/queue-status'] = array(
     'title' => 'Status',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('uhc_sources_sync_status_form', 1),
-    'access callback' => 'uhc_sources_sync_status_access',
+    'page arguments' => array('uhc_sources_queue_status_form', 1),
+    'access callback' => 'uhc_sources_queue_status_access',
     'access arguments' => array(1),
     'file' => 'uhc_sources.pages.inc',
     'type' => MENU_LOCAL_TASK,
@@ -72,141 +66,17 @@ function uhc_sources_menu() {
 }
 
 /**
- * Access callback for path 'node/%node/sync-status'.
+ * Access callback for path 'node/%node/queue-status'.
  *
  * @param $node object Node.
  * @return bool TRUE if access is allowed, otherwise FALSE.
  */
-function uhc_sources_sync_status_access($node) {
+function uhc_sources_queue_status_access($node) {
   return $node->type == 'course_implementation'
-    && (user_access('access sync status page')
+    && (user_access('access queue status page')
     || uhc_course_collaboration_is_current_user_course_teacher($node)
     || uhc_course_collaboration_is_current_user_course_administrator($node)
   );
-}
-
-/**
- * TODO: Callback for synchronizing everything we need for updating course
- * implementation page.
- *
- * If the course implementation page exists, it will update it unless it is
- * migrated by "mass-migrations".
- *
- * If the course implementation page does not exist, it will create one.
- *
- * @param $course_imp_id
- *   Course implementation ID. This is so that we can create new pages from
- *   given implementation ID.
- * @param $course_number
- *   Course number. This is optional when using UHC_SOURCE_REST as source
- *   system, but required when using UHC_SOURCE_ESB_OODI.
- * @param $source_system
- *   Specify from which system we synchronize the course from. Can be either
- *   UHC_SOURCE_REST or UHC_SOURCE_ESB_OODI. If not provided, then
- *   UHC_SOURCE_REST will be used as default.
- * @return object|bool
- *   Node object when new page is created or when existing page has been
- *   synchronized. FALSE when could not create or update. More information will
- *   be written to the log why it failed.
- *
- * @see _uhc_sources_resolve_course_number()
- * @see uhc_course_source_import()
- * @see uhc_course_implementation_source_import()
- */
-function uhc_sources_sync_for_page($course_imp_id, $course_number = NULL, $source_system = UHC_SOURCE_REST) {
-
-  // "UHC Course Implementation Source" and "UHC Course Source" modules are both
-  // dependent on *this* module. Lets not make circular dependency and just
-  // ensure here that if required functions are available and skip declaring a
-  // dependency back to them.
-  if (!function_exists('uhc_course_source_import') ||
-      !function_exists('uhc_course_implementation_source_import')) {
-    watchdog('uhc_sources', 'Failed to ensure that we have required functions available.', array(), WATCHDOG_ERROR);
-    return FALSE;
-  }
-
-  // When using REST as source system, lets figure out the course number and
-  // import it before importing course implementation import.
-  if ($source_system == UHC_SOURCE_REST) {
-
-    // When course number missing, try to resolve it
-    if (is_null($course_number)) {
-      // If we failed to ensure course entity presence, report it to log and
-      // return FALSE as a sign of failure.
-      if (!$course_number = _uhc_sources_resolve_course_number($course_imp_id)) {
-        watchdog('uhc_sources', 'Failed to resolve course number from @course_imp_id.', array('@course_imp_id' => $course_imp_id), WATCHDOG_ERROR);
-        return FALSE;
-      }
-    }
-
-    // Now ensure that course node exists. If it fails, then log and return
-    // FALSE.
-    if (!$course_node = uhc_course_source_import($course_number)) {
-      watchdog('uhc_sources', 'Failed to ensure @course_number course presence.', array('@course_number' => $course_number), WATCHDOG_ERROR);
-      return FALSE;
-    }
-
-    // After we have ensured that we have referenced entity in the system we may
-    // now import course implementation.
-    if ($node = uhc_course_implementation_source_import($course_imp_id)) {
-      return $node;
-    }
-    else {
-      watchdog('uhc_sources', 'Failed to import @course_imp_id course implementation.', array('@course_imp_id' => $course_imp_id), WATCHDOG_ERROR);
-      return FALSE;
-    }
-
-  }
-  elseif ($source_system == UHC_SOURCE_ESB_OODI) {
-
-    // TODO: Not sure how we figure this out without REST source?
-    if (is_null($course_number)) {
-      watchdog('uhc_sources', 'Failed to resolve course number from @course_imp_id.', array('@course_imp_id' => $course_imp_id), WATCHDOG_ERROR);
-      return FALSE;
-    }
-
-    // Get settings and construct connection to Oodi
-    $activemq_settings = variable_get('uhc_activemq_connector_settings');
-    $queue_base = variable_get('uhc_activemq_connector_default_queue_base', 'doo.local1.kurssisivu');
-    $oodi = new UHCOodi($activemq_settings, $queue_base);
-
-    // Call method "course" with given course number and and course
-    // implementation.
-    $response = $oodi->requestMethod('course', array('course_id' => $course_imp_id, 'jakso_code' => $course_number));
-    $json_response = json_decode($response->body);
-    if ($json_response && $json_response->status == 200) {
-
-      // Read and split course and course implementation data. Add type to the
-      // objects so message they can be picked up by right modules during
-      // message processing.
-      $json_response->data->base->type = 'base';
-      $course = json_encode($json_response->data->base);
-      $json_response->data->realisation->type = 'realisation';
-      $course_implementation = json_encode($json_response->data->realisation);
-
-      // Connect to Stomp and send course and course implementations
-      $stomp = uhc_activemq_connector_get_stomp_instance();
-      $queue_name = variable_get('uhc_activemq_connector_default_queue', 'doo.local1.kurssisivu.in');
-      try {
-        $stomp->send("/queue/" . $queue_name, $course);
-        $stomp->send("/queue/" . $queue_name, $course_implementation);
-      }
-      catch (\FuseSource\Stomp\Exception\StompException $e) {
-        UHCMessageQueueProcessorBase::log('Error creating queue item: @exception', array('@exception' => $e->getMessage()), WATCHDOG_ERROR);
-      }
-      $stomp->disconnect();
-
-      // After sending, lets process the queue
-      uhc_activemq_connector_process_queue($queue_name);
-
-    }
-
-    return FALSE;
-  }
-  else {
-    watchdog('uhc_sources', 'Unknown source system @source_system', array('@source_system' => $source_system), WATCHDOG_ERROR);
-    return FALSE;
-  }
 }
 
 /**
@@ -218,8 +88,6 @@ function uhc_sources_sync_for_page($course_imp_id, $course_number = NULL, $sourc
  * @return integer|bool
  *   The course number of given course implementation on success. Returns FALSE
  *   if failed to resolve.
- *
- * @see uhc_sources_sync_for_page()
  */
 function _uhc_sources_resolve_course_number($course_imp_id) {
   if (!is_numeric($course_imp_id) && !is_string($course_imp_id)) {

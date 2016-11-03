@@ -1,9 +1,9 @@
 .node-form  {
   padding-bottom: 260px;
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     padding-bottom: 170px;
   }
-  @include at-breakpoint($layout-medium) {
+  @include breakpoint($medium) {
     padding-bottom: 110px;
   }
   input[type="submit"] {
@@ -13,13 +13,9 @@
     margin: 0.5em 1em 0.5em 0;
     padding: 1em 3em;
     width: 100%;
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       min-width: 220px;
       width: auto;
-    }
-    &#edit-cancel {
-      background: #fff;
-      color: #0098d0;
     }
   }
 
@@ -56,14 +52,14 @@
     display: inline-block;
     position: relative;
     left: -45px;
-    @include at-breakpoint($layout-mobile-only) {
+    @include breakpoint($mobile-only) {
       float: right;
       top: -58px;
       left: -10px;
     }
     .throbber {
       &:after {
-        @include hy-icon($hy-spinner);
+        @include icon($icon-spinner);
         @include hy-spin;
         color: $white;
         display: block;
@@ -86,7 +82,7 @@
   }
 
   .link-field-column {
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       width: 50%;
       float: left;
       &:first-child {
@@ -189,7 +185,7 @@
     border-top: 2px solid $lightsilver;
     padding-top: 10px;
     padding-bottom: 20px;
-    @include at-breakpoint($layout-mobile-only) {
+    @include breakpoint($mobile-only) {
       left: 0;
       padding: 0.5em;
       input[type="submit"] {
@@ -203,7 +199,7 @@
         }
       }
     }
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       max-width: 71em;
       margin: 40px auto 0;
       padding-top: 30px;
@@ -224,7 +220,7 @@
     .ui-icon {
       font-size: 0;
       &:after {
-        @include hy-icon($hy-arrow);
+        @include icon($icon-arrow);
         display: block;
         font-size: initial;
       }

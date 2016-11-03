@@ -1,6 +1,6 @@
 .ds-node-sidebar {
   margin: 2em 0;
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     @include border-left;
     margin: 0;
     padding-left: 1.5em;
@@ -11,26 +11,5 @@
   margin-bottom: 2em;
   ul {
     margin-top: 0.5em;
-  }
-}
-
-.sidebar-contact {
-  margin-top: 3em;
-  .contact-card {
-    @include border;
-    padding: 1.3em 1em;
-    margin-top: 1.5em;
-    .contact-title {
-      @include link-heading;
-      margin-bottom: 0.5em;
-    }
-    .contact-name,
-    .contact-tel {
-      @include font-weight-light;
-      margin-bottom: 0.2em;
-      .label-inline {
-        margin-right: 0.3em;
-      }
-    }
   }
 }

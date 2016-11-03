@@ -22,3 +22,37 @@ function uhc_statistics_update_7002(&$sandbox) {
   module_enable(array('page_memory_limit'));
   variable_set('page_memory_limit', array('<admin>' => '512M'));
 }
+
+/**
+ * Update message_type from "sync" to "queue".
+ */
+function uhc_statistics_update_7003(&$sandbox) {
+  $old_name = 'course_implementation_sync';
+  $new_name = 'course_implementation_queue';
+  if ($message_type = message_type_load($old_name)) {
+
+    // Collect all messages that was created with deprecated message type
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'message');
+    $query->entityCondition('bundle', $old_name);
+    $result = $query->execute();
+    $mids = array();
+    foreach ($result['message'] as $mid => $item) {
+      $mids[] = $mid;
+    }
+
+    // Save each message to new message type
+    $messages = message_load_multiple($mids);
+    foreach ($messages as $message) {
+      /** @var Message $message */
+      $message->type = $new_name;
+      $message->save();
+    }
+
+    // Now update the message type itself
+    $message_type->name = $new_name;
+    $message_type->description = 'Course implementation - Queue';
+    $message_type->save();
+
+  }
+}

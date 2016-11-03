@@ -20,3 +20,51 @@ function uhc_field_base_update_7001(&$sandbox) {
   // Clear field caches
   field_cache_clear();
 }
+
+/**
+ * Data migration for disabling translation for field_material_link values.
+ */
+function uhc_course_material_update_7001() {
+  features_revert(array(
+    'uhc_field_base' => array('field_base'),
+  ));
+
+  // Include this file that contains some admin utilities we use here
+  module_load_include('inc', 'entity_translation', 'entity_translation.admin');
+
+  // Get all course material entities
+  $entity_type = 'node';
+  $field_name = 'field_material_link';
+  $result = db_select('field_data_field_material_link', 'fml')
+    ->fields('fml', array('entity_id'))
+    ->condition('entity_type', $entity_type)
+    ->groupBy('entity_id')
+    ->execute();
+  $ids = $result->fetchCol();
+  foreach (node_load_multiple($ids) as $entity) {
+    $handler = entity_translation_get_handler($entity_type, $entity);
+    $langcode = $handler->getLanguage();
+
+    // Skip process for language neutral entities.
+    if ($langcode == LANGUAGE_NONE) {
+      continue;
+    }
+
+    // The field has been marked untranslatable and has data in the entity
+    // language: we need to move it to LANGUAGE_NONE and drop the other
+    // translations.
+    $entity->{$field_name}[LANGUAGE_NONE] = $entity->{$field_name}[$langcode];
+    // Store the original value.
+    _entity_translation_update_field($entity_type, $entity, $field_name);
+    // Remove translations.
+    foreach ($entity->{$field_name} as $langcode => $items) {
+      if ($langcode != LANGUAGE_NONE) {
+        $entity->{$field_name}[$langcode] = array();
+      }
+    }
+    _entity_translation_update_field($entity_type, $entity, $field_name);
+  }
+
+  // Clear field caches
+  field_cache_clear();
+}

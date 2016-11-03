@@ -1,13 +1,47 @@
+html {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+embed,
+img,
+object,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+.portal-promotions {
+  padding: 4em 0 1em 0;
+  .button-internal {
+    border-bottom: none;
+  }
+}
+
+.field-group-accordion-item {
+  .messages {
+    margin-bottom: 1em;
+    li, p {
+      @include font-family-main;
+    }
+  }
+}
+
+
 // used for hiding certain elements and show it only in mobile
 .show-only-in-mobile {
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     display: none;
   }
 }
 
 @for $i from 1 to 4 {
  .columns-#{$i} {
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       > li {
         float: left;
         padding-right: 2em;
@@ -20,26 +54,30 @@
   }
 }
 
-.button-offsite {
-  @include button-internal--dark;
-  &:after {
-    @include hy-icon($hy-link-arrow-offsite);
-  }
-}
-
 input[type=text] {
   -webkit-appearance: textfield !important;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+abbr[title] {
+  text-decoration: none;
 }
 
 .element-hidden {
   display: none;
 }
 
-ul.list-of-links {
-  li > a {
-    @include font-weight-medium;
-    margin-bottom: 2px;
-  }
+img.file-icon {
+  display: none;
 }
 
 @for $i from 1 to 5 {
@@ -59,6 +97,15 @@ ul.list-of-links {
     bottom: 0;
     width: 100%;
   }
+  .box-story__content {
+    @include font-family-bodytext;
+    a {
+      color: $blue;
+      &:hover {
+        color: $darkblue;
+      }
+    }
+  }
   &.node--online-service--teaser,
   &.node--portal-page--teaser,
   &.node--liftup--teaser {
@@ -66,10 +113,21 @@ ul.list-of-links {
   }
 }
 
-.button-anchor {
-  height: auto;
-  padding: 0 0 1.5em 1.5em;
-  &:before {
-    height: auto;
+.box-ingress__image {
+  @include breakpoint($small) {
+    margin-bottom: 1em;
   }
+}
+
+.some-links {
+  li {
+    a {
+      text-indent: -9999px;
+      position: absolute;
+    }
+  }
+}
+
+.pager {
+  text-align: center;
 }

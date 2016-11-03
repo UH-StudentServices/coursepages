@@ -7,7 +7,8 @@
   @include font-family-bodytext;
   @include clearfix;
   text-align: center;
-  @include at-breakpoint($layout-small) {
+  margin: 2em 0;
+  @include breakpoint($small) {
     text-align: left;
   }
   h2 {
@@ -16,7 +17,7 @@
     line-height: 1.1em;
     float: left;
     width: 100%;
-    @include at-breakpoint($layout-medium) {
+    @include breakpoint($medium) {
       float: none;
       width: auto;
       margin-top: 0;
@@ -26,7 +27,7 @@
   img {
     width: 100%;
     
-    @include at-breakpoint($layout-medium) {
+    @include breakpoint($medium) {
       float: left;
       margin-right: 2rem;
       max-width: 270px;
@@ -37,16 +38,15 @@
     display: inline-block;
     width: 100%;
     @include text-filter-label();
-    font-size: 0.75em;
     text-transform: none;
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       float: left;
       clear: left;
       max-width: 270px;
       margin-right: 2em;
     }
     p {
-      font-size: inherit;
+      @include font-size(12px);
       line-height: inherit;
       margin-bottom: 0;
       padding-bottom: 0;

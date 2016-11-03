@@ -180,6 +180,20 @@ function uhc_liftups_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'mb_content_cancel_course_liftup';
+  $strongarm->value = '2';
+  $export['mb_content_cancel_course_liftup'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mb_content_cancel_liftup';
+  $strongarm->value = '2';
+  $export['mb_content_cancel_liftup'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_course_liftup';
   $strongarm->value = array();
   $export['menu_options_course_liftup'] = $strongarm;

@@ -1,10 +1,12 @@
 .node--teaser.node--course-implementation {
+  @include border-bottom;
+  padding: 0.8em 0;
   &.exam {
     border-left: 3px solid $orange;
   }
   .field {
     padding-left: 1em;
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       float: left;
       width: 50%;
     }
@@ -32,13 +34,13 @@
     display: inline-block;
     margin-bottom: 2em;
   }
-  @include at-breakpoint($layout-medium) {
+  @include breakpoint($medium) {
     .accordion-content-item {
       @include clearfix;
       @include border-bottom;
 
       .label-above {
-        @include span-columns(2, 12);
+        @include float-span(3);
         @include hyphenate;
         @include font-weight-book;
         text-transform: none;
@@ -46,7 +48,7 @@
         margin-top: 0.2em;
       }
       > div:last-child {
-        @include span-columns(10 omega, 12);
+        @include float-span(13, last);
       }
     }
   }

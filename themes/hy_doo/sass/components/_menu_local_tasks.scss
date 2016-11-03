@@ -6,12 +6,12 @@
   width: 100%;
   .tabs {
     @include container;
+    @include clearfix;
     li {
       a {
         text-transform: uppercase;
         color: #FFF;
         font-size: 12px;
-        margin: 3px 0 2px 0;
         letter-spacing: 0.03em;
         padding-right: 2em;
         line-height: 25px;
@@ -26,7 +26,7 @@
           background-color: $darkblue;
         }
         &:after {
-          @include hy-icon($hy-modify);
+          @include icon($icon-modify);
           font-size: 16px;
           margin-left: 0.5em;
         }      

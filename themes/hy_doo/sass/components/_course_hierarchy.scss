@@ -3,7 +3,7 @@
     color: $darkblue;
   }
   > li {
-    @include button-internal;
+    @include button-next-transparent;
     padding-right: 0;
     > a {
       @include link-menu;
@@ -35,7 +35,7 @@
             }
           }
           &.my-enrollment a:after {
-            @include hy-icon($hy-done);
+            @include icon($icon-done);
             color: $green;
             position: absolute;
             right: 0;
@@ -75,11 +75,11 @@
     }
   }
 
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     padding-bottom: 2em;
   }
 
-  @include at-breakpoint($layout-mobile-only) {
+  @include breakpoint($mobile-only) {
     background: $lightsilver;
     border-top: 1px solid darken($lightsilver, 10%);
     > li {
@@ -92,7 +92,7 @@
       &.root {
         > a {
           /*
-          @include menu-item-icon($hy-arrow);
+          @include menu-item-icon($icon-arrow);
           padding-left: 20px;
           &:before {
             @include transform(rotate(90deg));

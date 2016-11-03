@@ -143,7 +143,7 @@ function uhc_course_implementation_activity_views_default_views() {
     'course_implementation_update_statistics' => 'course_implementation_update_statistics',
     'course_implementation_analytics_view' => 'course_implementation_analytics_view',
     'course_implementation_moodle_course_area_create' => 'course_implementation_moodle_course_area_create',
-    'course_implementation_sync' => 'course_implementation_sync',
+    'course_implementation_queue' => 'course_implementation_queue',
   );
 
   /* Display: Block */

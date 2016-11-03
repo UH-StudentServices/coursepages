@@ -419,11 +419,21 @@ function uhc_ds_table_of_contents($field) {
       $title_field_raw = field_get_items('field_collection_item', $entity, 'title_field');
       $title = field_view_value('field_collection_item', $entity, 'title_field', $title_field_raw[0]);
 
-      $items['items'][] = l(render($title), '',  array(
+      // add link classes
+      $options = array(
+        'attributes' => array(
+          'class' => array(
+            'list-of-links__link',
+            'button--action-before',
+            'icon--arrow-down',
+            'theme-transparent',
+          ),
+        ),
         'fragment' => render($title),
         'external' => TRUE,
-        'attributes' => array('class' => 'button-anchor'),
-      ));
+      );
+
+      $items['items'][] = l(render($title), '',  $options);
     }
     return theme('item_list', $items);
   }
@@ -437,7 +447,7 @@ function uhc_ds_link_to_subject($field) {
     return;
   }
   $subjects = _uhc_ds_get_imp_subjects($field['entity']->nid);
-  $items = array('attributes' => array('class' => 'list-of-links--dark'));
+  $items = array('attributes' => array('class' => 'list-of-links'));
 
   // Render links to other implementations
   foreach ($subjects as $subject) {
@@ -446,20 +456,30 @@ function uhc_ds_link_to_subject($field) {
       $course = node_load($course_ref[0]['target_id']);
       $course_number = field_get_items('node', $course, 'field_course_course_number')[0]['value'];
     }
+
+    // add link classes
+    $options = array(
+      'attributes' => array(
+        'class' => array(
+          'list-of-links__link',
+          'button--action',
+          'icon--arrow-right',
+        ),
+      ),
+    );
+
     // If the implementation belongs to more than one subject, specify subject names in links
     $subject_specifier = count($subjects) > 1 ? ' ' . $subject->title : '';
     if (!empty($subject->nid) && !empty($course_number)) {
-      $items['items'][] = l(t('All courses') . $subject_specifier, "node/$subject->nid",  array(
-        'fragment' => 'course-number-' . $course_number,
-      ));
+      $options['fragment'] = 'course-number-' . $course_number;
+      $items['items'][] = l(t('All courses') . $subject_specifier, "node/$subject->nid", $options);
     }
   }
 
   // Render plain subject links
   foreach ($subjects as $subject) {
     if (!empty($subject->nid)) {
-      $items['items'][] = l($subject->title, "node/$subject->nid",  array(
-      ));
+      $items['items'][] = l($subject->title, "node/$subject->nid",  $options);
     }
   }
   return theme('item_list', $items);
@@ -524,7 +544,19 @@ function _uhc_ds_get_imp_subjects($nid) {
  */
 function uhc_ds_link_to_related_subjects($field) {
   $subjects = _uhc_ds_get_imp_subjects($field['entity']->nid);
-  $items = array('attributes' => array('class' => 'list-of-links--dark'));
+  $items = array('attributes' => array('class' => 'list-of-links'));
+
+  // add link classes
+  $options = array(
+    'attributes' => array(
+      'class' => array(
+        'list-of-links__link',
+        'button--action',
+        'icon--arrow-right',
+      ),
+    ),
+  );
+
   foreach ($subjects as $subject) {
     $query = db_select('field_data_field_related_content_section', 'sub_to_fc');
     $query->join('field_data_field_related_content', 'fc_to_rc',
@@ -542,7 +574,7 @@ function uhc_ds_link_to_related_subjects($field) {
       ->fields('fc_to_visibility', array('field_related_content_visibility_value'));
     $query = $query->execute();
     while ($related_content = $query->fetchObject()) {
-      $items['items'][] = l($related_content->field_related_content_title, $related_content->field_related_content_url);
+      $items['items'][] = l($related_content->field_related_content_title, $related_content->field_related_content_url, $options);
     }
   }
   return theme('item_list', $items);

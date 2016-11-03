@@ -372,16 +372,6 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view node_title_with_content_link on node'.
-  $permissions['view node_title_with_content_link on node'] = array(
-    'name' => 'view node_title_with_content_link on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view permalink on comment'.
   $permissions['view permalink on comment'] = array(
     'name' => 'view permalink on comment',

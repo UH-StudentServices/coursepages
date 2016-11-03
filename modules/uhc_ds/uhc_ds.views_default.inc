@@ -211,7 +211,6 @@ function uhc_ds_views_default_views() {
   $handler->display->display_options['row_options']['delta_fieldset']['delta_fields'] = array();
   $handler->display->display_options['row_options']['grouping_fieldset']['group_field'] = 'field_data_field_imp_begin_date|field_imp_begin_date_value';
   $handler->display->display_options['row_options']['default_fieldset']['view_mode'] = 'teaser';
-  $handler->display->display_options['row_options']['switch_fieldset']['switch'] = TRUE;
   /* Relationship: Entity Reference: Referencing entity */
   $handler->display->display_options['relationships']['reverse_field_imp_reference_to_courses_node']['id'] = 'reverse_field_imp_reference_to_courses_node';
   $handler->display->display_options['relationships']['reverse_field_imp_reference_to_courses_node']['table'] = 'node';
@@ -324,7 +323,6 @@ function uhc_ds_views_default_views() {
   $handler->display->display_options['row_options']['delta_fieldset']['delta_fields'] = array();
   $handler->display->display_options['row_options']['grouping_fieldset']['group_field'] = 'field_data_field_imp_begin_date|field_imp_begin_date_value';
   $handler->display->display_options['row_options']['default_fieldset']['view_mode'] = 'teaser_accordion';
-  $handler->display->display_options['row_options']['switch_fieldset']['switch'] = TRUE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
@@ -378,7 +376,6 @@ function uhc_ds_views_default_views() {
   $handler->display->display_options['row_options']['delta_fieldset']['delta_fields'] = array();
   $handler->display->display_options['row_options']['grouping_fieldset']['group_field'] = 'field_data_field_imp_begin_date|field_imp_begin_date_value';
   $handler->display->display_options['row_options']['default_fieldset']['view_mode'] = 'teaser_accordion';
-  $handler->display->display_options['row_options']['switch_fieldset']['switch'] = TRUE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['footer'] = FALSE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;

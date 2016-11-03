@@ -1,7 +1,7 @@
 name = UHC Content Administration
 core = 7.x
 package = UHC
-version = 7.x-1.82
+version = 7.x-1.83
 project = uhc_content_administration_feature
 dependencies[] = actions_permissions
 dependencies[] = admin_menu
@@ -39,7 +39,7 @@ features[user_permission][] = access administration pages
 features[user_permission][] = access content overview
 features[user_permission][] = access contextual links
 features[user_permission][] = access google analytics reports
-features[user_permission][] = access sync status page
+features[user_permission][] = access queue status page
 features[user_permission][] = add terms in course_theme
 features[user_permission][] = add terms in months
 features[user_permission][] = administer contexts

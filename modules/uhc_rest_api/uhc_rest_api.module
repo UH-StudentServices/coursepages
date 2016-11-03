@@ -11,6 +11,77 @@
 include_once 'uhc_rest_api.features.inc';
 
 /**
+ * Implements hook_menu().
+ */
+function uhc_rest_api_menu() {
+  $items['api/v1/course_implementation/changes/since'] = array(
+    'page callback' => '_uhc_rest_api_course_implementation_changes_since',
+    'delivery callback' => 'uhc_rest_api_deliver',
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
+
+/**
+ * Our REST APIs deliver callback.
+ * @param $page_callback_result
+ */
+function uhc_rest_api_deliver($page_callback_result) {
+  // Menu status constants are integers; page content is a string or array.
+  if (is_int($page_callback_result)) {
+    switch ($page_callback_result) {
+      case MENU_NOT_FOUND:
+        drupal_add_http_header('Status', '404 Not Found');
+        drupal_json_output((object) array('message' => 'Not found'));
+        break;
+
+      case MENU_ACCESS_DENIED:
+        drupal_add_http_header('Status', '403 Forbidden');
+        drupal_json_output((object) array('message' => 'Forbidden'));
+        break;
+
+      case MENU_SITE_OFFLINE:
+        drupal_add_http_header('Status', '503 Service unavailable');
+        drupal_json_output((object) array('message' =>
+          variable_get('maintenance_mode_message',
+            t('@site is currently under maintenance. We should be back shortly. Thank you for your patience.', array('@site' => variable_get('site_name', 'Drupal'))))
+        ));
+        break;
+    }
+  }
+  elseif (isset($page_callback_result)) {
+    drupal_json_output($page_callback_result);
+  }
+}
+
+/**
+ * Callback for api/v1/course_implementation/changes/since/{timestamp}.
+ *
+ * @param int $timestamp Unix timestamp.
+ * @return int|int[] Either one of callback result codes or list of course
+ *         implementation IDs.
+ */
+function _uhc_rest_api_course_implementation_changes_since($timestamp) {
+  if (!is_numeric($timestamp)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $query = db_select('node', 'n');
+  $query->join('field_data_field_imp_id', 'fii', 'n.nid = fii.entity_id');
+  $query->fields('fii', array('field_imp_id_value'))
+    ->condition('n.type', 'course_implementation')
+    ->condition('n.status', NODE_PUBLISHED)
+    ->condition('n.changed', $timestamp, '>=');
+
+  $ids = $query->execute()->fetchCol();
+  $ids = array_map(function ($id) { return (int) $id; }, $ids);
+  $ids = array_values(array_filter($ids, function ($id) { return !empty($id); }));
+
+  return empty($ids) ? array() : $ids;
+}
+
+/**
  * Implements hook_services_views_execute_view_alter().
  */
 function uhc_rest_api_services_views_execute_view_alter(&$output, $view) {

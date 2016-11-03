@@ -9,33 +9,8 @@
  * Implements hook_preprocess_html().
  */
 function hy_doo_preprocess_html(&$variables) {
-  _hy_doo_preprocess_add_font_awesome();
-  _hy_doo_preprocess_load_internet_explorer_fallback_css();
   _hy_doo_preprocess_add_favicon_meta_information();
   _hy_doo_preprocess_generate_head_title($variables);
-}
-
-/**
- * Add font awesome.
- */
-function _hy_doo_preprocess_add_font_awesome() {
-  drupal_add_css('//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', array('type' => 'external'));
-  drupal_add_css('//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', array('type' => 'external'));
-}
-
-/**
- * Load the fallback.css for Internet Explorer 8 and lower.
- */
-function _hy_doo_preprocess_load_internet_explorer_fallback_css() {
-  $path = drupal_get_path('theme', 'hy_doo');
-  drupal_add_css("$path/css/hy_doo.fallback.css", array(
-    'browsers' => array(
-      '!IE' => FALSE,
-      'IE' => 'lte IE 8',
-    ),
-    'group' => CSS_THEME,
-    'weight' => 1000,
-  ));
 }
 
 /**
@@ -167,7 +142,7 @@ function _hy_doo_preprocess_generate_head_title(&$variables) {
 
     $altered_title = explode(' | ', $variables['head_title']);
     if (uhc_open_university_is_open_university_context($node)) {
-      array_splice($altered_title, 1, 0, t('The University of Helsinki Open University'));
+      array_splice($altered_title, 1, 0, t('Open University'));
     }
 
     // Add subject(s) and add them to the title. If this is a course imp node, fetch course first.
@@ -191,7 +166,34 @@ function _hy_doo_preprocess_generate_head_title(&$variables) {
   }
   elseif (uhc_open_university_is_open_university_context()) {
     $altered_title = explode(' | ', $variables['head_title']);
-    array_splice($altered_title, 1, 0, t('The University of Helsinki Open University'));
+    array_splice($altered_title, 1, 0, t('Open University'));
     $variables['head_title'] = implode(' | ', $altered_title);
   }
+
+  if (uhc_open_university_is_open_university_context()) {
+    $variables['head_title'] = _hy_doo_preprocess_remove_courses_string_from_title($variables['head_title']);
+  }
+
+  if (_hy_doo_preprocess_is_search_page($variables)) {
+    $variables['head_title'] = t('Search for courses') . ' | ' . $variables['head_title'];
+  }
+}
+
+function _hy_doo_preprocess_is_search_page(&$variables) {
+  $search_page_classes = array(
+    'search-main-page',
+    'page-search',
+    'page-open-university-search',
+    'page-genetics-search',
+    'page-molecular-biosciences-search'
+  );
+
+  return !empty($variables['classes_array'])
+    && count(array_intersect($search_page_classes, $variables['classes_array'])) > 0;
+}
+
+function _hy_doo_preprocess_remove_courses_string_from_title($title) {
+  $search = array('Courses |', 'Kurssit |', 'Kurser |');
+
+  return str_replace($search, '', $title);
 }

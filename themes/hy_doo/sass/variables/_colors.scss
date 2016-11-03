@@ -1,0 +1,45 @@
+$light-blue: #e5f3f9;
+$orange: #fa9500;
+$purple: #7A46A2;
+$light-green: #91C466;
+
+// User colors
+$color-user: $purple;
+
+// Basic colors
+$color-bg-prefooter: #f2f2f2;
+
+// Course overview legend colors
+$color-legend-study-object: $purple;
+$color-legend-course: #52c6af;
+
+$messages: (
+	'status': (
+		'color': $black,
+		'color-alt': #81b43b,
+		'bg-color': #b2e576,
+		'bg-color-alt': #f2f7eb,
+		'icon': $icon-done,
+	),
+	'warning': (
+		'color': $white,
+		'color-alt': $black,
+		'bg-color': #52c6af,
+		'bg-color-alt': #f8f8f8,
+		'icon': $icon-info,
+	),
+	'error': (
+		'color': $white,
+		'color-alt': #964822,
+		'bg-color': #964822,
+		'bg-color-alt': #f4ece8,
+		'icon': $icon-warning,
+	),
+	'info': (
+		'color': $black,
+		'color-alt': $black,
+		'bg-color': #F8F8F8,
+		'bg-color-alt': #F8F8F8,
+		'icon': $icon-info,
+	)
+);

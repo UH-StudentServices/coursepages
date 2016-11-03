@@ -1,7 +1,7 @@
 
 div.study-module-multiselect {
   width: 100% !important;
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     width: 30% !important;
   }
 
@@ -33,7 +33,7 @@ div.study-module-multiselect {
     }
     .search-choice-close {
       &:after {
-        @include hy-icon("\EA2F");
+        @include icon("\EA2F");
         @include transform(rotate(-45deg));
         color: $silver;
         display: inline-block;

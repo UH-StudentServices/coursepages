@@ -25,10 +25,6 @@
  * - $more: A link to view more, if any
  *
  * @ingroup views_templates
- *
- * @license GPL, or GNU General Public License, version 3
- * @license http://opensource.org/licenses/GPL-3.0
- * @see README.md how to contribute to this project
  */
 ?>
 <div class="<?php print $classes; ?>">
@@ -37,19 +33,17 @@
     <?php print $title; ?>
   <?php endif; ?>
   <?php print render($title_suffix); ?>
-
-  <?php /* Template modification: Swap filters and header elements */ ?>
-  <?php if ($exposed): ?>
-    <div class="view-filters">
-      <?php print $exposed; ?>
-    </div>
-  <?php endif; ?>
   <?php if ($header): ?>
     <div class="view-header">
       <?php print $header; ?>
     </div>
   <?php endif; ?>
-  <?php /* END: Template modification: Swap filters and header elements */ ?>
+
+  <?php if ($exposed): ?>
+    <div class="view-filters">
+      <?php print $exposed; ?>
+    </div>
+  <?php endif; ?>
 
   <?php if ($attachment_before): ?>
     <div class="attachment attachment-before">
@@ -58,9 +52,7 @@
   <?php endif; ?>
 
   <?php if ($rows): ?>
-    <div class="view-content">
-      <?php print $rows; ?>
-    </div>
+    <?php print $rows; ?>
   <?php elseif ($empty): ?>
     <div class="view-empty">
       <?php print $empty; ?>

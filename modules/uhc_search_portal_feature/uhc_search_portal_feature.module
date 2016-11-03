@@ -105,8 +105,6 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
 
       // Wider search box
       $form['search']['#size'] = 75;
-      // Grid container
-      $form['#attributes']['class'] = array('gridder-container-4');
 
       // When we are not performing an search, then take out the "reset" button.
       if (!_uhc_search_portal_feature_form_without_search_perform($form, $form_state)) {
@@ -258,7 +256,6 @@ function uhc_search_portal_feature_block_view_alter(&$data, $block) {
   _uhc_search_portal_feature_translate_facet_block_title($data, $block);
 
   // These two tasks needed for exposed filter block rendering
-  _uhc_search_portal_feature_append_view_css_class_to_exposed_block($data, $block);
   if ($block->module == 'views') {
     $views_exposed_titles = array(
       '-exp-uhc_search-desktop' => t('Search for courses'),
@@ -310,38 +307,6 @@ function _uhc_search_portal_feature_set_block_titles($block, $titles) {
       break;
     }
   }
-}
-
-/**
- * Helper function for adding CSS class from view configuration to exposed
- * filter block. See: http://drupal.stackexchange.com/questions/100255/how-to-add-custom-css-classes-to-views-exposed-filters
- *
- * @param $data
- * @param $block
- */
-function _uhc_search_portal_feature_append_view_css_class_to_exposed_block(&$data, $block) {
-
-  // When we have corresponding view available with an display id
-  $view_name = isset($data['content']['#views_contextual_links_info']['views_ui']['view_name']) ? $data['content']['#views_contextual_links_info']['views_ui']['view_name'] : NULL;
-  $view_display_id = isset($data['content']['#views_contextual_links_info']['views_ui']['view_display_id']) ? $data['content']['#views_contextual_links_info']['views_ui']['view_display_id'] : NULL;
-  if (!is_null($view_name) && !is_null($view_display_id)) {
-    // Instantiate the view with display handler, so that we can call for
-    // potential CSS class options.
-    $view = views_get_view($view_name);
-    if (!$view) {
-      // Bail out if coldn't instantiate the view
-      return;
-    }
-    $view->set_display($view_display_id);
-    $css_class = $view->display_handler->get_option('css_class');
-
-    // If we found and CSS class, then append that CSS class to the list for
-    // block rendering.
-    if (!empty($css_class)) {
-      $block->css_class .= $css_class;
-    }
-  }
-
 }
 
 /**

@@ -2,20 +2,20 @@
   > ul > li {
     cursor: pointer;
     .info-link {
-      @include menu-item-icon($hy-info-stroke);
+      @include menu-item-icon($icon-info-stroke);
     }
     .logout-link {
-      @include menu-item-icon($hy-logout);
+      @include menu-item-icon($icon-logout);
     }
     .login-link {
-      @include menu-item-icon($hy-login);
+      @include menu-item-icon($icon-login);
     }
   }
 
-  @include at-breakpoint($layout-mobile-only) {
+  @include breakpoint($mobile-only) {
     background: $white;
     ul ul.menu li a {
-      @include menu-item-icon($hy-info-stroke);
+      @include menu-item-icon($icon-info-stroke);
     }
     a {
       @include link-menu;
@@ -27,7 +27,7 @@
     }
   }
 
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     float: right;
     > ul > li {
       position: relative;
@@ -68,7 +68,7 @@
   img {
     background: $color-user;
   }
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     position: static;
     float: right;
     margin-left: 2.5em;

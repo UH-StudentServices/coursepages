@@ -488,7 +488,7 @@ function uhc_course_implementation_enrollment_button($field) {
   $options = array(
     'absolute' => TRUE,
     'external' => TRUE,
-    'attributes' => array('class' => 'button'),
+    'attributes' => array('class' => 'button--action icon--arrow-right button__inline'),
     'html' => TRUE,
   );
   global $language;
@@ -873,13 +873,13 @@ function uhc_course_implementation_display_private_content_message($node) {
     && !uhc_course_collaboration_is_current_user_course_administrator()
     && uhc_course_implementation_has_private_content($node);
 
-
-  $private_content_message = user_is_anonymous()
-    ? t('You need to log in and sign up for the course to view some of the content on this page.')
-    : t('You need to enrol for the course to view some of the content on this page.');
+  $private_content_message_anonymous = t('You need to log in and sign up for the course to view some of the content on this page.');
+  $private_content_message_authenticated = t('You need to enrol for the course to view some of the content on this page.');
+  $private_content_message = user_is_anonymous() ? $private_content_message_anonymous : $private_content_message_authenticated;
 
   if ($display_private_content_message) {
-    uh_coursepages_set_message($private_content_message, 'warning');
+    $message_type = user_is_anonymous() ? 'warning anonymous private-content-message' : 'warning';
+    uh_coursepages_set_message($private_content_message, $message_type);
   }
   else {
     drupal_add_js(

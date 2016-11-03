@@ -10,6 +10,7 @@
     attach: function (context, settings) {
       var message = Drupal.settings.uhc_course_implementation.private_content_message;
       $('.messages p:contains(' + message + ')').parent('.messages').remove();
+      $('.messages.warning.anonymous.private-content-message').remove();
     },
     weight: 100
   }

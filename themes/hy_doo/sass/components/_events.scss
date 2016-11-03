@@ -4,7 +4,7 @@
     .event-time,
     .event-title {
       display: none;
-      @include at-breakpoint($layout-medium) {
+      @include breakpoint($medium) {
         display: inline-block;
       }
     }
@@ -24,7 +24,7 @@
     padding-right: 0.5em;
     width: 100%;
     display: inline-block;
-    @include at-breakpoint($layout-medium) {
+    @include breakpoint($medium) {
       width: 49%;
     }
   }

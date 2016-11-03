@@ -26,7 +26,7 @@ function uhc_statistics_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'field_bundle_settings_message__course_implementation_sync';
+  $strongarm->name = 'field_bundle_settings_message__course_implementation_queue';
   $strongarm->value = array(
     'view_modes' => array(),
     'extra_fields' => array(
@@ -34,7 +34,7 @@ function uhc_statistics_strongarm() {
       'display' => array(),
     ),
   );
-  $export['field_bundle_settings_message__course_implementation_sync'] = $strongarm;
+  $export['field_bundle_settings_message__course_implementation_queue'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

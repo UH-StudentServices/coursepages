@@ -53,8 +53,7 @@
   font-size: 0.875em;
   width: 100%;
   &:after {
-    content: "\f0d7"; // \f0d7
-    font-family: "FontAwesome";
+    @include icon($icon-drop-down);
     float: right;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -77,8 +76,7 @@
       line-height: 50px;
       padding: 0 2em 0 0.5em;
       &:after {
-        content: "\f0d7"; // \f0d7
-        font-family: "FontAwesome";
+        @include icon($icon-drop-down);
         color: $blue;
         position: absolute;
         top: 0;

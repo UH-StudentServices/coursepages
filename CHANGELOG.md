@@ -1,3 +1,32 @@
+# University of Helsinki Courses v1.83
+Päiväys: 03.11.2016
+
+## Lisäykset
+ - DOO-2569: Oppiainesivuille lisätty mahdollisuus ottaa suodattimia pois käytöstä.
+ - DOO-2469: Kurssisivujen API: Muuttuneet toteutukset.
+
+## Muutokset
+ - DOO-2567: Kurssinostojen maksimimäärä nostettiin kolmesta kuuteen.
+ - DOO-2568: Parannettiin mobiilin tunnistusta helpommin ylläpidettäväksi.
+ - DOO-1548: Synkronisointitoiminnallisuus muutettiin käyttämään nykyistä
+   jonotusmekanismia. 
+ - DOO-2563: Google Analytics Event Tracking -lisäyksiä
+ - DOO-2510: Avoimen yliopiston ja hakusivujen otsikoiden muutoksia.
+ - DOO-2539: Muutettu peruuta-painikkeen tyylitys.
+ - DOO-2561: Oodista tulevat opetusaikataulut ryhmitellään nyt päivän ja ajan
+   mukaan.
+ - DOO-2516: Helpotettu materiaalin lisäämistä muuttamalla lomake
+   yksinkertaisemmaksi.
+ - DOO-2586: Muutettiin kurssisivun promokuvan "Poista" -painikkeen teksti
+   muotoon "Vaihda".
+
+## Korjaukset
+  - DOO-2527: Näytetään sisäänkirjautumiskehoite vain tarpeen tullen.
+  - DOO-2525: Ohjatun kierroksen (tour) viilauksia.
+  - DOO-2541: Korjattu: Lukuvuosisuodatin latautuu välkähtäen.
+  - DOO-2583: Korjattu toteutusten näkyminen täysikokoisena jaksosivuilla.
+
+
 # University of Helsinki Courses v1.82
 Päiväys: 24.10.2016
 

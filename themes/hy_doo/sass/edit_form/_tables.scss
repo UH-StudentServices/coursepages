@@ -22,12 +22,12 @@
       display: block;
       text-align: center;
     }
-
-    .handle:after {
-      @include font-awesome("\f047");
-      margin-right: 1em;
+    .handle {
+      background: url('../../../../../misc/draggable.png') no-repeat;
+      width: 15px;
+      height: 15px;
     }
-    @include at-breakpoint($layout-mobile-only) {
+    @include breakpoint($mobile-only) {
       display: block;
       padding: 1em 0;
     }
@@ -40,7 +40,7 @@
   td:not(.ief-tabledrag-handle):not(.field-multiple-drag) {
     @include hyphenate;
     display: block;
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       display: table-cell;
       padding: 1em;
       min-width: 160px;
@@ -49,13 +49,14 @@
   td.ief-tabledrag-handle,
   td.field-multiple-drag {
     display: none;
-    @include at-breakpoint($layout-small) {
+    @include breakpoint($small) {
       display: table-cell;
+      width: 15px;
     }
   }
 
   td.inline-entity-form-node-title {
-    @include at-breakpoint($layout-mobile-only) {
+    @include breakpoint($mobile-only) {
       @include font-weight-bold;
       text-transform: uppercase;
       margin-bottom: 0.5em;
@@ -65,7 +66,7 @@
   .ief-entity-table {
     th {
       display: none;
-      @include at-breakpoint($layout-small) {
+      @include breakpoint($small) {
         display: table-cell;
         padding: 0.5em 1em;
       }
@@ -83,7 +84,7 @@
       }
       .ajax-progress-throbber {
         left: -10px;
-        @include at-breakpoint($layout-mobile-only) {
+        @include breakpoint($mobile-only) {
           top: 0;
           float: none;
         }
@@ -93,7 +94,7 @@
       }
     }
     .ief-row-form {
-      td {
+      > td {
         padding: 0 !important;
       }
     }

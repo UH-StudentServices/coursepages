@@ -132,6 +132,13 @@ function uhc_contact_card_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'mb_content_cancel_contact_card';
+  $strongarm->value = '2';
+  $export['mb_content_cancel_contact_card'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_contact_card';
   $strongarm->value = array();
   $export['menu_options_contact_card'] = $strongarm;

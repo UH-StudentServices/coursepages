@@ -1,8 +1,8 @@
-// Susy Media Layouts
-$layout-mobile-only: 0em 12 49em; // Mobile only.
-$layout-small: 49em 12; // At 48em use 12 columns.
-$layout-medium: 62.5em 16; // At 62.5em use 12 columns.
-$layout-large: 75em 16; // At 75em use 16 columns.
+// show mobile in tablet portrait
+$mobile-only: max-width 49em;
+$small: 49em;
+
+@include add-gutter(2em);
 
 /**
  * These values will not show up in content, but can be 
@@ -13,18 +13,18 @@ body:before {
   display: none;
 }
 
-@include at-breakpoint($layout-small) {
+@include breakpoint($small) {
   body:before {
     content: "small";
   }
 }
-@include at-breakpoint($layout-medium) {
+@include breakpoint($medium) {
   body:before {
     content: "medium";
   }
 }
 
-@include at-breakpoint($layout-large) {
+@include breakpoint($large) {
   body:before {
     content: "large";
   }

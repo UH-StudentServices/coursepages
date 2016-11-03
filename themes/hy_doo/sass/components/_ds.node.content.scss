@@ -3,10 +3,6 @@
 * text, accordion items, and accordion lists
 */
 
-.ds-node-content {
-  @include pie-clearfix;
-  @extend %textarea--small;
-}
 .field--name-field-imp-header-image {
   float: none;
   padding: 0 2em 0 0;
@@ -17,30 +13,9 @@
 
 [class*="content-header-promotion--"] {
   width: 100%;
-  @include at-breakpoint($layout-small) {
+  @include breakpoint($small) {
     float: left;
     width: 50%;
-  }
-}
-
-// Register button
-[class*="enrollment-button"] {
-  display: inline-block;
-  margin-bottom: 1em;
-  margin-right: 2em;
-}
-
-// Enrollment period
-.enrollment-period {
-  @include font-size(14px);
-  @include border;
-  padding: 0.9em 2em;
-  &:before {
-    @include hy-icon($hy-time);
-    margin-right: 0.5em;
-  }
-  @include at-breakpoint($layout-small) {
-    display: inline-block;
   }
 }
 
