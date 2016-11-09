@@ -62,16 +62,16 @@ function uhc_course_material_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'path' => array(
-          'weight' => '7',
+          'weight' => '2',
         ),
         'language' => array(
           'weight' => '5',
         ),
         'title' => array(
-          'weight' => '0',
+          'weight' => '6',
         ),
         'locations' => array(
-          'weight' => '8',
+          'weight' => '6',
         ),
       ),
       'display' => array(),

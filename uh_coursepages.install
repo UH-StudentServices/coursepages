@@ -1083,3 +1083,13 @@ function uh_coursepages_update_7026(&$sandbox) {
 function uh_coursepages_update_7027(&$sandbox) {
   module_enable(array('uhc_css_js_aggregation'));
 }
+
+/**
+ * Disable seven theme and some old theme variables.
+ */
+function uh_coursepages_update_7028(&$sandbox) {
+  theme_disable(array('seven'));
+  variable_del('theme_seven_settings');
+  variable_del('theme_uhc_doo_settings');
+}
+

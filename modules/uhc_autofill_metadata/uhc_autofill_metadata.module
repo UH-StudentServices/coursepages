@@ -268,8 +268,8 @@ function uhc_autofill_metadata_get_enrollments($personal_unique_code) {
  *   Personal unique code, typically student number.
  * @param bool $filter_relevant_only
  *   If TRUE, filters enrollments that are relevant for students.
- * @return object|NULL|bool
- *   Enrollment information (if found), NULL if not found or FALSE if an error
+ * @return array|NULL
+ *   Enrollment information (if found), NULL if not found or empty array if an error
  *   occured.
  */
 function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $filter_relevant_only = FALSE) {
@@ -281,9 +281,8 @@ function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $filte
   // Work only when unique code is given
   if (!empty($personal_unique_code)) {
     $enrollment_data = &drupal_static(__FUNCTION__ . $personal_unique_code);
-    // Enrollment data might be also defined as FALSE, so we let this through
-    // from static storage too. If it's NULL, we assume that this specific case
-    // isn't requested yet.
+    // If enrollment data is NULL, we assume that this specific case isn't
+    // requested yet.
     if (is_null($enrollment_data)) {
       $base_url = variable_get('uhc_enrollments_base_url');
 
@@ -296,7 +295,7 @@ function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $filte
           $enrollment_data = drupal_json_decode($response->data);
         }
         else {
-          $enrollment_data = FALSE;
+          $enrollment_data = array();
           $error = isset($response->error) ? $response->error : '';
 
           uhc_autofill_metadata_log(
@@ -310,7 +309,7 @@ function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $filte
   }
 
   // When enrollment data is available and we want to filter relevant courses
-  if ($filter_relevant_only === TRUE && !is_null($enrollment_data)) {
+  if ($filter_relevant_only === TRUE && !empty($enrollment_data)) {
     $enrollment_data = uhc_autofill_metadata_get_enrollment_filtered($enrollment_data);
   }
 

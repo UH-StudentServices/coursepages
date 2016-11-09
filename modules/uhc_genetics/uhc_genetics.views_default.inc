@@ -31,7 +31,7 @@ function uhc_genetics_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'input_required';
   $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Show results';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
-  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Clear selections';
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Clear selections  x';
   $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Sorting:';
   $handler->display->display_options['exposed_form']['options']['expose_sort_order'] = FALSE;
   $handler->display->display_options['exposed_form']['options']['text_input_required'] = '';
@@ -215,18 +215,6 @@ function uhc_genetics_views_default_views() {
   $handler->display->display_options['fields']['field_imp_teacher']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['field_imp_teacher']['field'] = 'field_imp_teacher';
   $handler->display->display_options['fields']['field_imp_teacher']['label'] = 'Teacher(s)';
-  /* Sort criterion: Indexed Multilingual Node: Title */
-  $handler->display->display_options['sorts']['title_field']['id'] = 'title_field';
-  $handler->display->display_options['sorts']['title_field']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['sorts']['title_field']['field'] = 'title_field';
-  $handler->display->display_options['sorts']['title_field']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['title_field']['expose']['label'] = 'By name';
-  /* Sort criterion: Reference to course(s): Course number (indexed) */
-  $handler->display->display_options['sorts']['field_imp_reference_to_courses_field_course_course_number']['id'] = 'field_imp_reference_to_courses_field_course_course_number';
-  $handler->display->display_options['sorts']['field_imp_reference_to_courses_field_course_course_number']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['sorts']['field_imp_reference_to_courses_field_course_course_number']['field'] = 'field_imp_reference_to_courses_field_course_course_number';
-  $handler->display->display_options['sorts']['field_imp_reference_to_courses_field_course_course_number']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_imp_reference_to_courses_field_course_course_number']['expose']['label'] = 'By course number';
   /* Sort criterion: Search: Relevance */
   $handler->display->display_options['sorts']['search_api_relevance']['id'] = 'search_api_relevance';
   $handler->display->display_options['sorts']['search_api_relevance']['table'] = 'search_api_index_uhc_portal';
@@ -312,7 +300,7 @@ function uhc_genetics_views_default_views() {
     t('Master'),
     t('more'),
     t('Show results'),
-    t('Clear selections'),
+    t('Clear selections  x'),
     t('Sorting:'),
     t('Asc'),
     t('Desc'),
@@ -336,8 +324,6 @@ function uhc_genetics_views_default_views() {
     t('<a href="[url]">[title_field]</a>'),
     t('Begin date'),
     t('Teacher(s)'),
-    t('By name'),
-    t('By course number'),
     t('Academic year'),
     t('Search by keyword'),
     t('If you want to see all the courses, leave the search field empty.'),

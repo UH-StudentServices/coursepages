@@ -40,6 +40,23 @@ function uhc_sources_filtering_menu() {
  */
 function uhc_sources_filtering_uhc_course_implementation_source_allow_source_row($row) {
 
+  $allow_by_begin_date = uhc_sources_filter_allow_by_begin_date($row);
+  $allow_by_organisation = uhc_sources_filter_allow_by_organisation($row);
+  $allow_by_keyword_and_realisation_type = FALSE;
+  if (!$allow_by_organisation) {
+    $allow_by_keyword_and_realisation_type = uhc_sources_filter_allow_by_keyword_and_realisation_type($row);
+  }
+
+  return $allow_by_begin_date && ($allow_by_organisation || $allow_by_keyword_and_realisation_type);
+}
+
+/**
+ * Specify if given $row should be allowed for importing in regards of
+ * organisation code.
+ * @param $row
+ * @return bool
+ */
+function uhc_sources_filter_allow_by_organisation($row) {
   // Allow by organisation
   // @todo Perhaps do this in uhc_open_univerity module?
   $allowed_organisation_units = uhc_sources_filtering_allowed_organisation_unit_codes();
@@ -60,33 +77,56 @@ function uhc_sources_filtering_uhc_course_implementation_source_allow_source_row
       }
     }
   }
+  return $allow_by_organisation;
+}
 
+/**
+ * Specify if given $row should be allowed for importing in regards of
+ * keyword and realisation type.
+ * @param $row
+ * @return bool
+ */
+function uhc_sources_filter_allow_by_keyword_and_realisation_type($row) {
   // Allow by keyword and realisation types (only check if
   // $allow_by_organisation is not TRUE)
   // @todo Perhaps do this in uhc_genetics and uhc_molecular_biosciences modules?
-  $allow_by_keyword_and_realisation_type = FALSE;
-  if (!$allow_by_organisation) {
-    $allowed_keywords = array('genetiikka', 'molekyylibiotieteet');
-    $denied_realisations = uhc_sources_filtering_denied_realisation_type_codes();
-    if (isset($row->descriptions) && isset($row->realisation_type_code)) {
-      // Important: Clone the row object to avoid modifying the original object
-      // when parsing the keywords.
-      $row_clone = clone $row;
-      $description_elements = variable_get('uhc_course_implementation_source_predefined_description_names', array());
-      CourseImplementationNodeMigration::prepareDescriptions($row_clone, $description_elements);
-      $keywords = CourseImplementationNodeMigration::parseKeywords($row_clone->keywords);
-      foreach ($keywords as $keyword) {
-        if (in_array($keyword, $allowed_keywords) && !in_array($row->realisation_type_code, $denied_realisations)) {
-          // When source row has allowed keyword and allowed realistion type, then
-          // allow migrating this item.
-          $allow_by_keyword_and_realisation_type = TRUE;
-          break;
-        }
+  $allowed_keywords = array('genetiikka', 'molekyylibiotieteet');
+  $denied_realisations = uhc_sources_filtering_denied_realisation_type_codes();
+  if (isset($row->descriptions) && isset($row->realisation_type_code)) {
+    // Important: Clone the row object to avoid modifying the original object
+    // when parsing the keywords.
+    $row_clone = clone $row;
+    $description_elements = variable_get('uhc_course_implementation_source_predefined_description_names', array());
+    CourseImplementationNodeMigration::prepareDescriptions($row_clone, $description_elements);
+    $keywords = CourseImplementationNodeMigration::parseKeywords($row_clone->keywords);
+    foreach ($keywords as $keyword) {
+      if (in_array($keyword, $allowed_keywords) && !in_array($row->realisation_type_code, $denied_realisations)) {
+        // When source row has allowed keyword and allowed realistion type, then
+        // allow migrating this item.
+        return TRUE;
+        break;
       }
     }
   }
+  return FALSE;
+}
 
-  return $allow_by_organisation || $allow_by_keyword_and_realisation_type;
+/**
+ * Specify if given $row should be allowed for importing in regards of begin
+ * date.
+ * @param $row
+ * @return bool
+ */
+function uhc_sources_filter_allow_by_begin_date($row) {
+  $begin_date_filter_value = variable_get('uhc_sources_filter_begin_date_filter_value', '2014-12-31T22:00:00Z');
+  $oldest_allowed = new DateTime($begin_date_filter_value);
+  if (!empty($row->start_date) && strtotime($row->start_date)) {
+    // Only compare if $row->start_date is found and valid
+    $row_start_date = new DateTime($row->start_date);
+    return $row_start_date >= $oldest_allowed;
+  }
+  // Do not allow if can't be specified.
+  return FALSE;
 }
 
 /**

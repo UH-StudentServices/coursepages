@@ -1,143 +1,28 @@
 // This is the exposed filter form
 .search-filters {
-  margin: 0;
-  border-width: 0 0 2px 0;
-  border-color: $lightsilver;
-  border-style: solid;
-  .views-exposed-form-header {
-    @include breakpoint($mobile-only) {
-      text-align: center;
-    }
-  }
-  .views-exposed-form {
-    .views-exposed-widget {
-      &#edit-search-wrapper {
-        label {
-          @include text-label;
-        }
-      }
-      &.views-widget-filter-academic_year {
-        padding: 0;
-        @include chosen-dropdown;
-        label {
-          font-weight: normal;
-          line-height: 50px;
-          float: left;
-        }
-        .views-widget {
-          float: left;
-        }
-      }
-      &.views-widget-filter-search_api_aggregation_1 {
-        width: 100%;
-        .form-item-search {
-          max-width: 660px;
-          margin-bottom: 1.5em;
-          input {
-            width: 100%;
-          }
-          .field-prefix {
-            float: right;
-            margin-top: -2.7em;
-            padding-bottom: 1em;
-            font-size: 0.875rem;
-            font-weight: 300;
-            &:before {
-              content: "( ";
-            }
-            &:after {
-              content: " )";
-            }
-            @include breakpoint($mobile-only) {
-              display: none;
-            }
-          }
-        }
-      }
-      &.views-submit-button {
-        clear: left;
-        input {
-          width: 100%;
-          margin: 0 0 1em 0;
-        }
-        @include breakpoint($mobile-only) {
-          float: none;
-        }
-      }
-      &.views-reset-button {
-        text-align: center;
-        &:after {
-          @include icon($icon-remove);
-          position: relative;
-          display: inline;
-          right: 13px;
-          top: 2px;
-          font-size: 12px;
-          color: $blue;
-        }
-        input {
-          @include button-invert-colors;
-          background: $white;
-          color: $blue;
-          display: inline;
-          margin: 0;
-        }
-        @include breakpoint($mobile-only) {
-          float: none;
-          width: 100%;
-        }
-      }
-      .form-item-include-ongoing-courses {
-        margin-bottom: 15px;
-        input {
-          width: auto;
-        }
-        label {
-          font-weight: normal;
-          font-size: 0.85em;
-          color: $gray;
-        }
-      }
-      // This rule will be overridden for hiding when viewing .search-main-page
-      &.views-widget-sort-by {
-        @include breakpoint($mobile-only) {
-          text-align: center;
-          width: 100%;
-          .form-item-sort-by {
-            label {
-              display: inline;
-              margin-right: 1em;
-            }
-          }
-        }
-        @include breakpoint($small) {
-          display: none;
-        }
-      }
-      &.views-widget-sort-order {
-        display: none;
-      }
-      @include breakpoint($mobile-only) {
-        &.gridder-box {
-          width: 100%;
-        }
-      }
-    }
-  }
-  .filter-help {
-    margin: 2em 0 0.5em 0;
-  }
-  h2 {
-    clear: both;
-  }
-}
-// On main page we don't want to show sorting
-body.search-main-page .views-widget-sort-by {
-  display: none;
-}
-
-.block.course-search {
   position: relative;
+  .views-widget-filter-academic_year {
+    @include chosen-dropdown;
+    @include clearfix;
+    label,
+    .views-widget {
+      display: inline-block;
+    }
+  }
+  .form-item-search {
+    @include clearfix;
+    input {
+      @include breakpoint($small) {
+        @include grid-span(10);
+      }
+    }
+  }
+  .form-item-include-ongoing-courses {
+    @include clearfix;
+  }
+  #edit-reset {
+    @include button-invert-colors;
+  }
 }
 
 #autocomplete {
@@ -147,22 +32,5 @@ body.search-main-page .views-widget-sort-by {
   background: $white;
   .search-api-autocomplete-suggestion {
     cursor: pointer;
-  }
-}
-
-//hack for pager control positioning
-.view-uhc-search-open-university {
-  margin-top: -60px;
-  min-height: 100px;
-  @include breakpoint($medium) {
-    margin-top: -100px;
-  }
-}
-
-.views-exposed-form-uhc-search-open-university-desktop {
-  position: relative;
-  padding-bottom: 50px;
-  @include breakpoint($medium) {
-    padding-bottom: 100px;
   }
 }

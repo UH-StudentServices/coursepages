@@ -29,6 +29,7 @@ function uhc_course_tasks_and_material_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 0,
@@ -45,6 +46,7 @@ function uhc_course_tasks_and_material_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 0,
@@ -55,6 +57,7 @@ function uhc_course_tasks_and_material_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 1,
@@ -144,6 +147,7 @@ function uhc_course_tasks_and_material_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
@@ -167,6 +171,7 @@ function uhc_course_tasks_and_material_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'links' => 0,
           'use_content_language' => TRUE,
           'view_mode' => 'teaser',
@@ -197,7 +202,8 @@ function uhc_course_tasks_and_material_field_default_field_instances() {
         'fields' => array(),
         'type_settings' => array(
           'allow_existing' => 0,
-          'delete_references' => 0,
+          'allow_new' => 1,
+          'delete_references' => 1,
           'label_plural' => 'nodes',
           'label_singular' => 'node',
           'match_operator' => 'CONTAINS',

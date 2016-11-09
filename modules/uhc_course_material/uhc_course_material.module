@@ -302,7 +302,7 @@ function uhc_course_material_field_widget_form_alter(&$element, &$form_state, $c
 
     $prefix = $context['instance']['field_name'];
     $ief_id = $element['#ief_id'];
-    if (empty($form_state['inline_entity_form'][$ief_id]['form'])) {
+    if (empty($form_state['inline_entity_form'][$ief_id]['form']) && !empty($element['actions']['ief_add'])) {
       $element['actions'][$prefix . '_add_material_link'] = $element['actions']['ief_add'];
       $element['actions'][$prefix . '_add_material_link']['#value'] = t('Add link');
       $element['actions'][$prefix . '_add_material_link']['#name'] = $prefix . '_add_material_link';

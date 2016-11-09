@@ -200,10 +200,7 @@ function uhc_open_university_is_open_university_context($node = NULL) {
  * @todo Move this elsewhere and update dependency in uhc_analytics_and_tracking
  */
 function uhc_open_university_form_alter(&$form, &$form_state, $form_id) {
-  if ($form['#id'] != 'views-exposed-form-uhc-search-open-university-desktop' &&
-      $form['#id'] != 'views-exposed-form-uhc-portal-search-front-page--desktop' &&
-      $form['#id'] != 'views-exposed-form-uhc-search-desktop' &&
-      $form['#id'] != 'views-exposed-form-uhc-search-biosciences-desktop') {
+  if (!in_array($form['#id'], uhc_search_portal_feature_search_view_exposed_form_ids())) {
     return;
   }
 
@@ -221,7 +218,11 @@ function uhc_open_university_form_alter(&$form, &$form_state, $form_id) {
   $sort_options['field_imp_begin_date:asc'] = uhc_open_university_sorting_label('field_imp_begin_date:asc');
   $sort_options['field_imp_begin_date:desc'] = uhc_open_university_sorting_label('field_imp_begin_date:desc');
 
-  $form['contact'] = array(
+  $form['#info']['pager-and-sorting-controls'] = array(
+    'value' => 'pager-and-sorting-controls',
+  );
+
+  $form['pager-and-sorting-controls'] = array(
     '#type' => 'container',
     '#weight' => 5,
     '#attributes' => array(

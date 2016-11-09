@@ -25,11 +25,7 @@ function uhc_search_portal_feature_views_data_alter(&$data) {
 function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
   // When building form with CSS class "course-search" should have these
   // alterations. However, for performance reasons we just use form IDs here.
-  switch ($form['#id']) {
-    case 'views-exposed-form-uhc-search-desktop':
-    case 'views-exposed-form-uhc-search-open-university-desktop':
-    case 'views-exposed-form-uhc-search-biosciences-desktop':
-    case 'views-exposed-form-uhc-portal-search-front-page--desktop':
+  if (in_array($form['#id'], uhc_search_portal_feature_search_view_exposed_form_ids())) {
 
       // Shhh... lets steal the view exposed filters from the view header and
       // print them under the search field. See how header gets hided in
@@ -57,7 +53,7 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
 
       // Render header and prefix it with filter help text
       $header = $view->display_handler->render_header();
-      $filter_help = '<div class="filter-help">' . t('Limit search results') . ' <div class="description">' . t('Please define your search criteria. The number in brackets shows the amount of courses that match your search.') . '</div></div>';
+      $filter_help = '<label>' . t('Limit search results') . ' <div class="description">' . t('Please define your search criteria. The number in brackets shows the amount of courses that match your search.') . '</div></label>';
       if (!empty($header)) {
         $form['search']['#suffix'] = $filter_help . $header;
       }
@@ -82,11 +78,6 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
         'type' => 'setting'
       );
 
-      // Custom field prefix for genetics search box (not for open university).
-      if ($form['#id'] == 'views-exposed-form-uhc-search-desktop') {
-        $form['search']['#field_prefix'] = t('you may also search without keyword');
-      }
-
       // Open university: Checkbox for searching ongoing courses, too.
       if ($form['#id'] == 'views-exposed-form-uhc-search-open-university-desktop') {
         if (isset($form_state['input']['include_ongoing_courses']) && $form_state['input']['include_ongoing_courses'] == '0') {
@@ -110,8 +101,6 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
       if (!_uhc_search_portal_feature_form_without_search_perform($form, $form_state)) {
         $form['reset']['#access'] = FALSE;
       }
-
-    break;
   }
 }
 
@@ -168,14 +157,29 @@ function uhc_search_portal_feature_views_post_execute(&$view) {
  * @return bool
  */
 function uhc_search_portal_feature_is_search_results_page(view $view) {
-  $search_views = array(
+  return in_array($view->name, uhc_search_portal_feature_search_view_names())
+    && array_key_exists('search', drupal_get_query_parameters());
+}
+
+/**
+ * @return array Search view names.
+ */
+function uhc_search_portal_feature_search_view_names() {
+  return array(
     'uhc_search_open_university',
     'uhc_portal_search_front_page_',
     'uhc_search',
     'uhc_search_biosciences'
   );
+}
 
-  return in_array($view->name, $search_views) && array_key_exists('search', drupal_get_query_parameters());
+/**
+ * @return array Search views exposed form IDs.
+ */
+function uhc_search_portal_feature_search_view_exposed_form_ids() {
+  $view_names = uhc_search_portal_feature_search_view_names();
+  $dashed = array_map(function ($value) { return str_replace('_', '-', $value); }, $view_names);
+  return array_map(function ($value) { return sprintf('views-exposed-form-%s-desktop', $value); }, $dashed);
 }
 
 /**

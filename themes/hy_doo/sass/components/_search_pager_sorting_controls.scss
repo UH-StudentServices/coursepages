@@ -1,26 +1,32 @@
 .pager-and-sorting-controls {
-  display: none;  
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 0.7em 0;
+  width: 100%;
+  padding-bottom: 1em;
   color: $silver;
   .form-item {
     @include chosen-dropdown;
-    display: inline-block;
-    padding: 0 1em;
-    &:first-child {
-      @include border-right;
-    }
+    padding: 0.5em 0;
     label {
       @include link-heading;
+      display: inline-block;
       color: $silver;
+      padding: 0;
     }
     .chosen-single {
       @include link-heading;
     }
   }
   @include breakpoint($small) {
-    display: block;
+    width: auto;
+    position: absolute;
+    right: 0;
+    bottom: -65px;
+    .form-item {
+      display: inline-block;
+      padding: 0 0 0 1em;
+      &:first-child {
+        @include border-right;
+        padding-right: 1em;
+      }
+    }
   }
 }

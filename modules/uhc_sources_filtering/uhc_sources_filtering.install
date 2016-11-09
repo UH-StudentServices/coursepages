@@ -1,0 +1,45 @@
+<?php
+/**
+ * @file
+ * Contains ”UHC Sources Filtering" module implementation.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Put course implementations that begins before 2014-12-31T22:00:00Z into
+ * deletion queue.
+ */
+function uhc_sources_filtering_update_7001() {
+  // Get filter value and convert to the same timezone as begin date field
+  // values are stored in SQL (Europe/Helsinki).
+  $begin_date_filter_value = variable_get('uhc_sources_filter_begin_date_filter_value', '2014-12-31T22:00:00Z');
+  $begin_date_filter_value = new DateTime($begin_date_filter_value);
+  $begin_date_filter_value->setTimezone(new DateTimeZone('Europe/Helsinki'));
+  $sql_condition_value = $begin_date_filter_value->format('Y-m-d H:i:s');
+
+  // Build the query and execute it
+  $query = db_select('field_data_field_imp_begin_date', 'bd');
+  $query->join('field_data_field_imp_id', 'fi', 'fi.entity_id = bd.entity_id');
+  $ids = $query
+    ->fields('fi', array('field_imp_id_value'))
+    ->condition('bd.entity_type', 'node')
+    ->condition('bd.bundle', 'course_implementation')
+    ->condition('bd.field_imp_begin_date_value', $sql_condition_value, '<')
+    ->orderBy('bd.field_imp_begin_date_value')
+    ->execute()
+    ->fetchCol();
+
+  // Initialize queue and adds items for deletion
+  $queue = new UHOodiQueue(UHOodiQueue::PRIORITY_LOW);
+  foreach ($ids as $id) {
+    $item = array(
+      'action' => 'delete',
+      'entityType' => 'courseunitrealisation',
+      'entityId' => $id,
+    );
+    $queue->createItem($item);
+  }
+}

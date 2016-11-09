@@ -480,7 +480,17 @@ function uhc_course_implementation_enrollment_button($field) {
   // itself.
   $label = t('Enrol');
   if (!uhc_sources_is_from_organisation($node, 'H930') && !uhc_course_implementation_enrollment_period_active($node)) {
-    return $label;
+    return theme_html_tag(
+      array(
+        'element' => array(
+          '#tag' => 'div',
+          '#value' => $label,
+          '#attributes' => array(
+            'class' => 'button--label'
+          )
+        )
+      )
+    );
   }
 
   // Otherwise, return it as a link
@@ -828,7 +838,11 @@ function uhc_course_implementation_preprocess_node(&$vars) {
 
   if ($node->type == 'course_implementation') {
     // add class so we can theme exams
-    if (in_array($node->field_imp_method_of_study[LANGUAGE_NONE][0]['tid'], variable_get('uhc_migrate_methods_of_study_marked_as_exam'))) {
+    $exam = isset($node->field_imp_method_of_study[LANGUAGE_NONE])
+      && in_array($node->field_imp_method_of_study[LANGUAGE_NONE][0]['tid'],
+        variable_get('uhc_migrate_methods_of_study_marked_as_exam')
+      );
+    if ($exam) {
       $vars['classes_array'][] = 'exam';
     }
   }

@@ -194,14 +194,8 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
  * See DOO-28 and DOO-344
  */
 function uhc_analytics_and_tracking_views_post_execute(&$view) {
-  $search_view_names = array(
-    'uhc_search',
-    'uhc_search_open_university',
-    'uhc_portal_search_front_page_',
-    'uhc_search_biosciences'
-  );
 
-  if (in_array($view->name, $search_view_names)) {
+  if (in_array($view->name, uhc_search_portal_feature_search_view_names())) {
 
     // Figure out search keyword and sanitize it to avoid XSS
     $keyword = isset($_GET['search']) ? $_GET['search'] : '';

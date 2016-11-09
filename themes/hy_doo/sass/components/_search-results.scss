@@ -1,12 +1,5 @@
 // This is the results view (which also includes facet search elements)
 .view.course-search {
-  .view-header {
-    h2 {
-      margin: 0;
-      padding: 1em 0 0.4em 0;
-    }
-  }
-
   @include breakpoint($mobile-only) {
     // Space for overlapping sort div
     margin-bottom: 9em;

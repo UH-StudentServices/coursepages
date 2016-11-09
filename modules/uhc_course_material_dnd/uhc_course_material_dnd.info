@@ -2,6 +2,6 @@ name = UHC Course Material Drag 'N Drop
 description = Provides UX for drag and dropping materials to a course implementation.
 core = 7.x
 package = UHC
-version = 7.x-1.84
+version = 7.x-1.85
 project = uhc_course_material_dnd
 dependencies[] = uhc_course_material

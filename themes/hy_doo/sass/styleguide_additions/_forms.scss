@@ -12,9 +12,6 @@ input[type="radio"] {
     width: 15px;
     border: 1px solid $blue;
   }
-  & + label:before {
-    margin: 6px 8px 0 0;
-  }
   &:checked + a:before,
   &:checked + label:before {
     background-color: $darkblue;
@@ -31,6 +28,19 @@ input[type="radio"] {
 }
 
 input[type="submit"] {
+  @include font-weight-medium;
+  @include font-size(14px);
+  display: inline-block;
+  margin: 0.5em 1em 0.5em 0;
+  padding: 1em 3em;
+  width: 100%;
+  @include breakpoint($small) {
+    min-width: 220px;
+    width: auto;
+  }
+}
+
+input[type="submit"] {
   &#edit-cancel,
   &#edit-delete,
   &[id*="form-actions-ief-add-cancel"],
@@ -38,6 +48,37 @@ input[type="submit"] {
   &[id*="remove-button"] {
     @extend %button--light;
   }
+}
+
+input[type="text"],
+textarea {
+  @include font-weight-medium;
+  border: 2px solid $lightsilver;
+  font-size: 14px;
+  width: 100%;
+  padding: 0.7em;
+}
+
+select {
+  padding: 0 1em;
+  width: auto;
+}
+
+form label,
+%label {
+  @include font-weight-book;
+  @include font-size(18px);
+  padding: 1em 0 0.5em 0;
+  display: block;
+}
+
+.form-type-checkbox label,
+.form-type-radios label,
+%label__small {
+  font-size: 0.85em;
+  color: $gray;
+  padding: 0.5em 0;
+  line-height: 15px;
 }
 
 img.file-icon {

@@ -6,27 +6,6 @@
   @include breakpoint($medium) {
     padding-bottom: 110px;
   }
-  input[type="submit"] {
-    @include font-weight-medium;
-    @include font-size(14px);
-    display: inline-block;
-    margin: 0.5em 1em 0.5em 0;
-    padding: 1em 3em;
-    width: 100%;
-    @include breakpoint($small) {
-      min-width: 220px;
-      width: auto;
-    }
-  }
-
-  input[type="text"],
-  textarea {
-    @include font-weight-medium;
-    border: 2px solid $lightsilver;
-    font-size: 14px;
-    width: 100%;
-    padding: 0.7em;
-  }
 
   textarea {
     line-height: 1.5em;
@@ -133,10 +112,7 @@
 
   label,
   .fieldset-legend {
-    @include font-weight-book;
-    @include font-size(18px);
-    padding: 1em 0 0.5em 0;
-    display: inline-block;
+    @extend %label;
   }
 
   .form-item {

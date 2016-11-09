@@ -28,7 +28,7 @@ function uhc_course_implementation_source_add_course_implementation() {
     'container' => array(
       '#type' => 'fieldset',
       '#title' => t('Course implementation'),
-      '#description' => t('Type in the course id which you want to import.'),
+      '#description' => t('Type in the course id which you want to queue for import.'),
       'course_imp_id' => array('#type' => 'textfield', '#title' => t('Course implementation ID'), '#required' => TRUE, '#size' => 10),
     ),
     'submit' => array('#type' => 'submit', '#value' => t('Import')),
@@ -50,12 +50,6 @@ function uhc_course_implementation_source_add_course_implementation_validate(&$f
     form_set_error('course_imp_id', t('Failed to fetch'));
   }
 
-  // Resolve course number, so we know that which course we need to import too
-  if (!$course_number = _uhc_sources_resolve_course_number($course_imp_id)) {
-    form_set_error('course_imp_id', t('Could not resolve course number from course implementation id'));
-  }
-  $form_state['values']['course_number'] = $course_number;
-
 }
 
 /**
@@ -67,31 +61,15 @@ function uhc_course_implementation_source_add_course_implementation_validate(&$f
 function uhc_course_implementation_source_add_course_implementation_submit(&$form, &$form_state) {
 
   $course_imp_id = $form_state['values']['course_imp_id'];
-  $course_number = $form_state['values']['course_number'];
 
-  // Now ensure that course node exists. If it fails, then log and return
-  // FALSE.
-  if (!$course_node = uhc_course_source_import($course_number)) {
-    watchdog('uhc_course_implementation_sources', 'Failed to ensure @course_number course presence.', array('@course_number' => $course_number), WATCHDOG_ERROR);
-    drupal_set_message(t('Could not import course'), 'error');
+  // Queue this item for import
+  if (!uhc_course_implementation_source_queue($course_imp_id)) {
+    watchdog('uhc_course_implementation_sources', 'Failed to queue @course_imp_id course implementation.', array('@course_imp_id' => $course_imp_id), WATCHDOG_ERROR);
+    drupal_set_message(t('Could not queue course implementation'), 'error');
     return;
   }
 
-  // After we have ensured that we have referenced entity in the system we may
-  // now import course implementation.
-  if (!$node = uhc_course_implementation_source_import($course_imp_id)) {
-    watchdog('uhc_course_implementation_sources', 'Failed to import @course_imp_id course implementation.', array('@course_imp_id' => $course_imp_id), WATCHDOG_ERROR);
-    drupal_set_message(t('Could not import course implementation'), 'error');
-    return;
-  }
-
-  $entity_uri = entity_uri('node', $node);
-  if (!empty($entity_uri['path'])) {
-    drupal_goto($entity_uri['path']);
-  }
-  else {
-    drupal_set_message(t('Could import node, but could not find path to redirect.'));
-  }
+  drupal_set_message(t('The page will be created/updated soon (within @expected_duration)', array('@expected_duration' => variable_get('uhc_sources_expected_duration', '10 min'))));
 }
 
 /**
@@ -107,48 +85,21 @@ function uhc_course_implementation_source_uhc_activemq_connector_message_process
 }
 
 /**
- * Imports a course implementation by the given ID whether or not it exists in
- * the system.
+ * Queues a course implementation by the given ID.
  *
  * @param $course_imp_id
- *   The ID of the course implementation to import.
- * @return bool|object
- *   Returns FALSE if failed to import. Node object when successfully imported.
+ *   The ID of the course implementation to queue.
+ * @return bool
+ *   Returns FALSE if failed to queue. TRUE if it succeeds.
  */
-function uhc_course_implementation_source_import($course_imp_id) {
-
-  // Construct the URLs for source class
-  $item_url = variable_get('uhc_course_implementation_source_item_url', '');
-  $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
-
-  /** @var $migration CourseImplementationNodeMigration */
-  $migration = new CourseImplementationNodeMigration(array('predefined_ids' => array($course_imp_id), 'predefined_item' => $item_url));
-  $migration->prepareUpdate();
-  $result = $migration->processImport();
-  if ($result == Migration::RESULT_COMPLETED) {
-
-    // Use EntityFieldQuery to find out the node id. Then load and return it.
-    $query = new EntityFieldQuery();
-    $result = $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'course_implementation')
-      ->fieldCondition('field_imp_id', 'value', $course_imp_id)
-      ->execute();
-    if (isset($result['node'])) {
-      foreach ($result['node'] as $nid => $item) {
-        return node_load($nid);
-      }
-    }
-    else {
-      watchdog('uhc_course_implementation_source', 'Node with course implementation id @course_imp_id was imported but could not be loaded.', array('@course_imp_id' => $course_imp_id), WATCHDOG_ERROR);
-      return FALSE;
-    }
-
-  }
-  else {
-    watchdog('uhc_course_implementation_source', 'Failed to process importing, migration returned "@result" as result.', array('@result' => $result), WATCHDOG_ERROR);
-    return FALSE;
-  }
-
+function uhc_course_implementation_source_queue($course_imp_id) {
+  $queue = new UHOodiQueue(UHOodiQueue::PRIORITY_HIGH);
+  $item = array(
+    'action' => 'update',
+    'entityType' => 'courseunitrealisation',
+    'entityId' => $course_imp_id,
+  );
+  return $queue->createItem($item);
 }
 
 /**

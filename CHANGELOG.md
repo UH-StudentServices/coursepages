@@ -1,10 +1,41 @@
+# University of Helsinki Courses v1.85
+Päiväys: 09.11.2016
+
+## Lisäykset
+  - DOO-2320: Lisättiin palautelomakkeen vastausosoitteen oletusarvoksi
+    kirjautuneen käyttäjän sähköpostiosoite.
+  - DOO-2542: Lisättiin suodatus, jossa 1.1.2015 vanhempia toteutuksia ei enää
+    lueta sisään järjestelmään (samalla sitä vanhemmat olemassa olevat
+    poistetaan Drupalista).
+
+## Muutokset
+  - DOO-2499: Hakunäkymien tunnistamisen refaktorointia, ei vaikuta
+    loppukäyttäjiin.
+  - DOO-2581: Kurssin tuomisen UI työkalu nyt käyttää päivitysjonoa sen sijaan,
+    että se yrittää tuoda välittömästi mahdollisesti aiheuttaen päällekkäisen
+    ajon konfliktin.
+  - DOO-2335: Hakujen järjestely lisätty mobiilina kaikkiin hakuihin.
+  - DOO-2472: Haut löytävät tuloksia nyt myös muillakin kuin kokonaisilla
+    sanoilla.
+
+## Korjaukset
+  - DOO-2602, DOO-2603: PHP notice -korjauksia.
+  - DOO-2609: Parannettiin vikasietoisuutta ilmoittautumis taustajärjestelmän
+    ollessa poissa käytöstä.
+  - DOO-2604: Korjattiin kirjamerkki ikonin löytyminen.
+  - DOO-2528: Korjattu materiaalilistauksessa pitkien sanojen katkaisu IE:llä.
+
+## Poistot
+  - DOO-2606: Poistettiin materiaalin lajittelun informaatioteksti.
+
+
 # University of Helsinki Courses v1.84
 Päiväys: 03.11.2016
 
 ## Korjaukset
   - DOO-2540: Viilauksia palaute lomakkeen sähköpostiosoite fontti väriin
   - DOO-2540: Korjattiin ongelma, jossa haku lähettää lomakkeen kesken kirjoituksen
-  - Korjattiin ongelma, jossa ruotsin IE fallback logoa ei löytynyt
+  - DOO-2595: Korjattiin ongelma, jossa ruotsin IE fallback logoa ei löytynyt
 
 
 # University of Helsinki Courses v1.83

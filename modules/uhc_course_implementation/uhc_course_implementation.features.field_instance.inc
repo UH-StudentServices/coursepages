@@ -3883,10 +3883,15 @@ function uhc_course_implementation_field_default_field_instances() {
       'module' => 'inline_entity_form',
       'settings' => array(
         'fields' => array(),
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-        'type_settings' => array(),
+        'type_settings' => array(
+          'allow_existing' => 0,
+          'allow_new' => 1,
+          'delete_references' => 1,
+          'label_plural' => 'nodes',
+          'label_singular' => 'node',
+          'match_operator' => 'CONTAINS',
+          'override_labels' => 0,
+        ),
       ),
       'type' => 'inline_entity_form',
       'weight' => 16,
@@ -4187,7 +4192,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'bundle' => 'course_implementation',
     'default_value_function' => '',
     'deleted' => 0,
-    'description' => 'Material will be automatically sorted by section in view mode.',
+    'description' => '',
     'display' => array(
       'content_suffix' => array(
         'label' => 'above',
@@ -4243,7 +4248,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'type_settings' => array(
           'allow_existing' => 0,
           'allow_new' => 1,
-          'delete_references' => 0,
+          'delete_references' => 1,
           'label_plural' => 'nodes',
           'label_singular' => 'node',
           'match_operator' => 'CONTAINS',
@@ -5271,7 +5276,6 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Locality');
   t('Material description');
   t('Material listing');
-  t('Material will be automatically sorted by section in view mode.');
   t('Method of study');
   t('Name');
   t('Objective');

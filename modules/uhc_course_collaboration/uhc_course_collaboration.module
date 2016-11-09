@@ -168,8 +168,10 @@ function uhc_course_collaboration_has_grants_left($account, $og_role_name) {
   if (isset($account->og_user_node[LANGUAGE_NONE])) {
     foreach ($account->og_user_node[LANGUAGE_NONE] as $item) {
       // If node exists, then try to get user roles of given node and return
-      // TRUE if given role matches.
-      $node = node_load($item['target_id']);
+      // TRUE if given role matches. If user has huge amount of memberships,
+      // this will run out of memory, therefore we call this with $reset TRUE.
+      // Using db_select() will also bloat the memory, which is also weird..
+      $node = node_load($item['target_id'], NULL, TRUE);
       if ($node !== FALSE) {
         $user_roles = og_get_user_roles('node', $item['target_id'], $account->uid);
         foreach ($user_roles as $user_role) {

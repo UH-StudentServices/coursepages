@@ -31,7 +31,7 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'input_required';
   $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Show results';
   $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
-  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Clear selections';
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Clear selections  x';
   $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Sorting:';
   $handler->display->display_options['exposed_form']['options']['expose_sort_order'] = FALSE;
   $handler->display->display_options['exposed_form']['options']['text_input_required'] = '';
@@ -471,7 +471,7 @@ function uhc_search_front_page_views_default_views() {
     t('Master'),
     t('more'),
     t('Show results'),
-    t('Clear selections'),
+    t('Clear selections  x'),
     t('Sorting:'),
     t('Asc'),
     t('Desc'),

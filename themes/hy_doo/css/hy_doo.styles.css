@@ -5389,6 +5389,7 @@ ul.pager {
   -ms-hyphens: auto;
       hyphens: auto;
   word-break: break-word;
+  word-wrap: break-word;
   -ms-word-break: break-word;
   padding: 1em 0;
   border-top: 1px solid #EBEBEB; }
@@ -5647,6 +5648,7 @@ ul.pager {
   -ms-hyphens: auto;
       hyphens: auto;
   word-break: break-word;
+  word-wrap: break-word;
   -ms-word-break: break-word;
   padding-right: 0.5em;
   width: 100%;
@@ -6130,6 +6132,7 @@ form .description {
   -ms-hyphens: auto;
       hyphens: auto;
   word-break: break-word;
+  word-wrap: break-word;
   -ms-word-break: break-word;
   font-size: 0.75em;
   left: -15px;
@@ -6728,15 +6731,11 @@ h2.study-module-select-title {
       background-color: #EBEBEB; } }
 
 .pager-and-sorting-controls {
-  display: none;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 0.7em 0;
+  width: 100%;
+  padding-bottom: 1em;
   color: #979797; }
   .pager-and-sorting-controls .form-item {
-    display: inline-block;
-    padding: 0 1em; }
+    padding: 0.5em 0; }
     .pager-and-sorting-controls .form-item .chosen-container {
       cursor: pointer;
       position: relative;
@@ -6818,52 +6817,46 @@ h2.study-module-select-title {
           border-top: 0; }
           .pager-and-sorting-controls .form-item .chosen-container.chosen-with-drop .chosen-drop li:last-child {
             border-bottom: none; }
-    .pager-and-sorting-controls .form-item:first-child {
-      border-right: 1px solid #EBEBEB;
-      border-left: 0;
-      border-bottom: 0;
-      border-top: 0; }
     .pager-and-sorting-controls .form-item label {
       font-weight: 600;
       text-transform: uppercase;
-      color: #979797; }
+      display: inline-block;
+      color: #979797;
+      padding: 0; }
     .pager-and-sorting-controls .form-item .chosen-single {
       font-weight: 600;
       text-transform: uppercase; }
   @media (min-width: 49em) {
     .pager-and-sorting-controls {
-      display: block; } }
+      width: auto;
+      position: absolute;
+      right: 0;
+      bottom: -65px; }
+      .pager-and-sorting-controls .form-item {
+        display: inline-block;
+        padding: 0 0 0 1em; }
+        .pager-and-sorting-controls .form-item:first-child {
+          border-right: 1px solid #EBEBEB;
+          border-left: 0;
+          border-bottom: 0;
+          border-top: 0;
+          padding-right: 1em; } }
 
 .search-filters {
-  margin: 0;
-  border-width: 0 0 2px 0;
-  border-color: #EBEBEB;
-  border-style: solid; }
-  @media (max-width: 49em) {
-    .search-filters .views-exposed-form-header {
-      text-align: center; } }
-  .search-filters .views-exposed-form .views-exposed-widget#edit-search-wrapper label {
-    font-size: 15.75px;
-    font-size: 1.125rem;
-    font-weight: 400;
-    font-style: normal;
-    color: #666;
-    text-transform: none; }
-    @media (min-width: 49em) {
-      .search-filters .views-exposed-form .views-exposed-widget#edit-search-wrapper label {
-        font-size: 18px; } }
-  .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year {
-    padding: 0; }
-    .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container {
+  position: relative; }
+  .search-filters .views-widget-filter-academic_year {
+    *zoom: 1;
+    clear: both; }
+    .search-filters .views-widget-filter-academic_year .chosen-container {
       cursor: pointer;
       position: relative;
       width: auto !important; }
-      .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container .chosen-single {
+      .search-filters .views-widget-filter-academic_year .chosen-container .chosen-single {
         color: #666;
         display: inline-block;
         line-height: 50px;
         padding: 0 2em 0 0.5em; }
-        .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container .chosen-single:after {
+        .search-filters .views-widget-filter-academic_year .chosen-container .chosen-single:after {
           display: inline-block;
           font-family: "hy-icons";
           font-style: normal;
@@ -6875,7 +6868,7 @@ h2.study-module-select-title {
           position: absolute;
           top: 0;
           right: 10px; }
-      .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container .chosen-drop {
+      .search-filters .views-widget-filter-academic_year .chosen-container .chosen-drop {
         -webkit-transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1);
         -webkit-transition-delay: 0s;
         transition: all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s;
@@ -6894,7 +6887,7 @@ h2.study-module-select-title {
         width: auto;
         min-width: 150px;
         color: #178feb; }
-        .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container .chosen-drop:before {
+        .search-filters .views-widget-filter-academic_year .chosen-container .chosen-drop:before {
           width: 0;
           height: 0;
           content: '';
@@ -6904,7 +6897,7 @@ h2.study-module-select-title {
           position: absolute;
           top: -11px;
           right: 12px; }
-        .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container .chosen-drop:after {
+        .search-filters .views-widget-filter-academic_year .chosen-container .chosen-drop:after {
           width: 0;
           height: 0;
           content: '';
@@ -6914,121 +6907,67 @@ h2.study-module-select-title {
           position: absolute;
           top: -10px;
           right: 12px; }
-        .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container .chosen-drop.collapsed {
+        .search-filters .views-widget-filter-academic_year .chosen-container .chosen-drop.collapsed {
           border: 1px solid #EBEBEB;
           overflow: visible;
           max-height: none; }
-        .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container .chosen-drop .chosen-search {
+        .search-filters .views-widget-filter-academic_year .chosen-container .chosen-drop .chosen-search {
           display: none; }
-      .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container.chosen-with-drop .chosen-single:after {
+      .search-filters .views-widget-filter-academic_year .chosen-container.chosen-with-drop .chosen-single:after {
         color: #222; }
-      .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container.chosen-with-drop .chosen-drop {
+      .search-filters .views-widget-filter-academic_year .chosen-container.chosen-with-drop .chosen-drop {
         border: 1px solid #EBEBEB;
         overflow: visible;
         max-height: none; }
-        .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container.chosen-with-drop .chosen-drop li {
+        .search-filters .views-widget-filter-academic_year .chosen-container.chosen-with-drop .chosen-drop li {
           padding: 0.5em 0;
           margin: 0 1em;
           border-bottom: 1px solid #EBEBEB;
           border-left: 0;
           border-right: 0;
           border-top: 0; }
-          .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .chosen-container.chosen-with-drop .chosen-drop li:last-child {
+          .search-filters .views-widget-filter-academic_year .chosen-container.chosen-with-drop .chosen-drop li:last-child {
             border-bottom: none; }
-    .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year label {
-      font-weight: normal;
-      line-height: 50px;
-      float: left; }
-    .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-academic_year .views-widget {
-      float: left; }
-  .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-search_api_aggregation_1 {
-    width: 100%; }
-    .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-search_api_aggregation_1 .form-item-search {
-      max-width: 660px;
-      margin-bottom: 1.5em; }
-      .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-search_api_aggregation_1 .form-item-search input {
-        width: 100%; }
-      .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-search_api_aggregation_1 .form-item-search .field-prefix {
-        float: right;
-        margin-top: -2.7em;
-        padding-bottom: 1em;
-        font-size: 0.875rem;
-        font-weight: 300; }
-        .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-search_api_aggregation_1 .form-item-search .field-prefix:before {
-          content: "( "; }
-        .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-search_api_aggregation_1 .form-item-search .field-prefix:after {
-          content: " )"; }
-        @media (max-width: 49em) {
-          .search-filters .views-exposed-form .views-exposed-widget.views-widget-filter-search_api_aggregation_1 .form-item-search .field-prefix {
-            display: none; } }
-  .search-filters .views-exposed-form .views-exposed-widget.views-submit-button {
-    clear: left; }
-    .search-filters .views-exposed-form .views-exposed-widget.views-submit-button input {
-      width: 100%;
-      margin: 0 0 1em 0; }
-    @media (max-width: 49em) {
-      .search-filters .views-exposed-form .views-exposed-widget.views-submit-button {
-        float: none; } }
-  .search-filters .views-exposed-form .views-exposed-widget.views-reset-button {
-    text-align: center; }
-    .search-filters .views-exposed-form .views-exposed-widget.views-reset-button:after {
-      display: inline-block;
-      font-family: "hy-icons";
-      font-style: normal;
-      font-weight: normal;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      content: "";
-      position: relative;
-      display: inline;
-      right: 13px;
-      top: 2px;
-      font-size: 12px;
-      color: #178feb; }
-    .search-filters .views-exposed-form .views-exposed-widget.views-reset-button input {
-      background: #FFF;
-      color: #178feb;
-      background: #FFF;
-      color: #178feb;
-      display: inline;
-      margin: 0; }
-    @media (max-width: 49em) {
-      .search-filters .views-exposed-form .views-exposed-widget.views-reset-button {
-        float: none;
-        width: 100%; } }
-  .search-filters .views-exposed-form .views-exposed-widget .form-item-include-ongoing-courses {
-    margin-bottom: 15px; }
-    .search-filters .views-exposed-form .views-exposed-widget .form-item-include-ongoing-courses input {
-      width: auto; }
-    .search-filters .views-exposed-form .views-exposed-widget .form-item-include-ongoing-courses label {
-      font-weight: normal;
-      font-size: 0.85em;
-      color: #666; }
-  @media (max-width: 49em) {
-    .search-filters .views-exposed-form .views-exposed-widget.views-widget-sort-by {
-      text-align: center;
-      width: 100%; }
-      .search-filters .views-exposed-form .views-exposed-widget.views-widget-sort-by .form-item-sort-by label {
-        display: inline;
-        margin-right: 1em; } }
-  @media (min-width: 49em) {
-    .search-filters .views-exposed-form .views-exposed-widget.views-widget-sort-by {
-      display: none; } }
-  .search-filters .views-exposed-form .views-exposed-widget.views-widget-sort-order {
-    display: none; }
-  @media (max-width: 49em) {
-    .search-filters .views-exposed-form .views-exposed-widget.gridder-box {
-      width: 100%; } }
-  .search-filters .filter-help {
-    margin: 2em 0 0.5em 0; }
-  .search-filters h2 {
+    .search-filters .views-widget-filter-academic_year:before, .search-filters .views-widget-filter-academic_year:after {
+      content: " ";
+      /* 1 */
+      display: table;
+      /* 2 */ }
+    .search-filters .views-widget-filter-academic_year:after {
+      clear: both; }
+    .search-filters .views-widget-filter-academic_year label,
+    .search-filters .views-widget-filter-academic_year .views-widget {
+      display: inline-block; }
+  .search-filters .form-item-search {
+    *zoom: 1;
     clear: both; }
-
-body.search-main-page .views-widget-sort-by {
-  display: none; }
-
-.block.course-search {
-  position: relative; }
+    .search-filters .form-item-search:before, .search-filters .form-item-search:after {
+      content: " ";
+      /* 1 */
+      display: table;
+      /* 2 */ }
+    .search-filters .form-item-search:after {
+      clear: both; }
+    @media (min-width: 49em) {
+      .search-filters .form-item-search input {
+        width: 62.5%;
+        float: left;
+        margin-right: -100%;
+        clear: none;
+        padding-right: 2em; } }
+  .search-filters .form-item-include-ongoing-courses {
+    *zoom: 1;
+    clear: both; }
+    .search-filters .form-item-include-ongoing-courses:before, .search-filters .form-item-include-ongoing-courses:after {
+      content: " ";
+      /* 1 */
+      display: table;
+      /* 2 */ }
+    .search-filters .form-item-include-ongoing-courses:after {
+      clear: both; }
+  .search-filters #edit-reset {
+    background: #FFF;
+    color: #178feb; }
 
 #autocomplete {
   border: 1px solid #EBEBEB;
@@ -7037,24 +6976,6 @@ body.search-main-page .views-widget-sort-by {
   background: #FFF; }
   #autocomplete .search-api-autocomplete-suggestion {
     cursor: pointer; }
-
-.view-uhc-search-open-university {
-  margin-top: -60px;
-  min-height: 100px; }
-  @media (min-width: 62.5em) {
-    .view-uhc-search-open-university {
-      margin-top: -100px; } }
-
-.views-exposed-form-uhc-search-open-university-desktop {
-  position: relative;
-  padding-bottom: 50px; }
-  @media (min-width: 62.5em) {
-    .views-exposed-form-uhc-search-open-university-desktop {
-      padding-bottom: 100px; } }
-
-.view.course-search .view-header h2 {
-  margin: 0;
-  padding: 1em 0 0.4em 0; }
 
 @media (max-width: 49em) {
   .view.course-search {
@@ -7180,6 +7101,7 @@ body.search-main-page .views-widget-sort-by {
       -ms-hyphens: auto;
           hyphens: auto;
       word-break: break-word;
+      word-wrap: break-word;
       -ms-word-break: break-word;
       font-weight: 400;
       font-style: normal;
@@ -7500,30 +7422,6 @@ body.search-main-page .views-widget-sort-by {
   @media (min-width: 62.5em) {
     .node-form {
       padding-bottom: 110px; } }
-  .node-form input[type="submit"] {
-    font-weight: 600;
-    font-style: normal;
-    font-size: 12.25px;
-    font-size: 0.875rem;
-    display: inline-block;
-    margin: 0.5em 1em 0.5em 0;
-    padding: 1em 3em;
-    width: 100%; }
-    @media (min-width: 49em) {
-      .node-form input[type="submit"] {
-        font-size: 14px; } }
-    @media (min-width: 49em) {
-      .node-form input[type="submit"] {
-        min-width: 220px;
-        width: auto; } }
-  .node-form input[type="text"],
-  .node-form textarea {
-    font-weight: 600;
-    font-style: normal;
-    border: 2px solid #EBEBEB;
-    font-size: 14px;
-    width: 100%;
-    padding: 0.7em; }
   .node-form textarea {
     line-height: 1.5em; }
   .node-form .form-type-checkbox label,
@@ -7616,18 +7514,6 @@ body.search-main-page .views-widget-sort-by {
     letter-spacing: -2px;
     text-transform: uppercase;
     color: #424242; }
-  .node-form label,
-  .node-form .fieldset-legend {
-    font-weight: 400;
-    font-style: normal;
-    font-size: 15.75px;
-    font-size: 1.125rem;
-    padding: 1em 0 0.5em 0;
-    display: inline-block; }
-    @media (min-width: 49em) {
-      .node-form label,
-      .node-form .fieldset-legend {
-        font-size: 18px; } }
   .node-form .form-item {
     margin-bottom: 1em; }
   .node-form fieldset {
@@ -7794,6 +7680,7 @@ body.search-main-page .views-widget-sort-by {
   -ms-hyphens: auto;
       hyphens: auto;
   word-break: break-word;
+  word-wrap: break-word;
   -ms-word-break: break-word;
   display: block; }
   @media (min-width: 49em) {
@@ -8242,14 +8129,21 @@ body.search-main-page .views-widget-sort-by {
         line-height: 60px;
         margin-right: 0; } }
 
-.button__inline {
+.button__inline,
+.button--label {
   margin-bottom: 1em;
   padding-right: 4em; }
   @media (min-width: 49em) {
-    .button__inline {
+    .button__inline,
+    .button--label {
       margin-right: 2em;
       min-width: 16em;
       display: inline-block; } }
+
+.button--label {
+  min-width: auto;
+  padding-right: 0;
+  margin-right: 0.5em; }
 
 .button--action.theme-transparent {
   border-bottom: 1px solid #EBEBEB;
@@ -8295,9 +8189,6 @@ input[type="radio"] {
     height: 15px;
     width: 15px;
     border: 1px solid #178feb; }
-  input[type="checkbox"] + label:before,
-  input[type="radio"] + label:before {
-    margin: 6px 8px 0 0; }
   input[type="checkbox"]:checked + a:before,
   input[type="checkbox"]:checked + label:before,
   input[type="radio"]:checked + a:before,
@@ -8309,6 +8200,58 @@ input[type="radio"] + a:before,
 input[type="radio"] + label:before {
   border-radius: 7px;
   box-shadow: inset 0 0 0 3px #FFF; }
+
+input[type="submit"] {
+  font-weight: 600;
+  font-style: normal;
+  font-size: 12.25px;
+  font-size: 0.875rem;
+  display: inline-block;
+  margin: 0.5em 1em 0.5em 0;
+  padding: 1em 3em;
+  width: 100%; }
+  @media (min-width: 49em) {
+    input[type="submit"] {
+      font-size: 14px; } }
+  @media (min-width: 49em) {
+    input[type="submit"] {
+      min-width: 220px;
+      width: auto; } }
+
+input[type="text"],
+textarea {
+  font-weight: 600;
+  font-style: normal;
+  border: 2px solid #EBEBEB;
+  font-size: 14px;
+  width: 100%;
+  padding: 0.7em; }
+
+select {
+  padding: 0 1em;
+  width: auto; }
+
+form label,
+.node-form label,
+.node-form .fieldset-legend {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15.75px;
+  font-size: 1.125rem;
+  padding: 1em 0 0.5em 0;
+  display: block; }
+  @media (min-width: 49em) {
+    form label,
+    .node-form label,
+    .node-form .fieldset-legend {
+      font-size: 18px; } }
+
+.form-type-checkbox label,
+.form-type-radios label {
+  font-size: 0.85em;
+  color: #666;
+  padding: 0.5em 0;
+  line-height: 15px; }
 
 img.file-icon {
   display: none; }
@@ -8611,6 +8554,7 @@ h1, h2 {
   -ms-hyphens: auto;
       hyphens: auto;
   word-break: break-word;
+  word-wrap: break-word;
   -ms-word-break: break-word; }
 
 .heading-light {

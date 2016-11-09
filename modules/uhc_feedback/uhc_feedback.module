@@ -33,6 +33,8 @@ function uhc_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
   unset($form['message']['#title']);
   unset($form['messages']);
   unset($form['help']);
+
+  _uhc_feedback_add_response_email_default_value($form);
 }
 
 /**
@@ -48,6 +50,13 @@ function uhc_feedback_form_submit($form, &$form_state) {
   feedback_save($entry);
 
   drupal_set_message(t('Thank you'));
+}
+
+function _uhc_feedback_add_response_email_default_value(&$form) {
+  if (user_is_logged_in() && isset($form['field_feedback_email'][LANGUAGE_NONE][0]['email'])) {
+    global $user;
+    $form['field_feedback_email'][LANGUAGE_NONE][0]['email']['#default_value'] = $user->mail;
+  }
 }
 
 /**
