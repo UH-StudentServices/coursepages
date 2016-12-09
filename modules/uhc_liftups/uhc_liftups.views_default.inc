@@ -77,12 +77,12 @@ function uhc_liftups_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'course_implementation' => 'course_implementation',
   );
-  /* Filter criterion: Content: Begin date (field_imp_begin_date) */
-  $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
-  $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
-  $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
-  $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = '>=';
-  $handler->display->display_options['filters']['field_imp_begin_date_value']['default_date'] = 'now';
+  /* Filter criterion: Content: End date (field_imp_end_date) */
+  $handler->display->display_options['filters']['field_imp_end_date_value']['id'] = 'field_imp_end_date_value';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['table'] = 'field_data_field_imp_end_date';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['field'] = 'field_imp_end_date_value';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['operator'] = '>=';
+  $handler->display->display_options['filters']['field_imp_end_date_value']['default_date'] = 'now';
 
   /* Display: Entity Reference */
   $handler = $view->new_display('entityreference', 'Entity Reference', 'entityreference_1');

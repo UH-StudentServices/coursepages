@@ -25,7 +25,7 @@ function uhc_search_portal_feature_views_data_alter(&$data) {
 function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
   // When building form with CSS class "course-search" should have these
   // alterations. However, for performance reasons we just use form IDs here.
-  if (in_array($form['#id'], uhc_search_portal_feature_search_view_exposed_form_ids())) {
+  if (in_array($form['#id'], uhc_search_portal_feature_search_view_exposed_form_ids()) && arg(0) != 'admin') {
 
       // Shhh... lets steal the view exposed filters from the view header and
       // print them under the search field. See how header gets hided in
@@ -70,6 +70,7 @@ function uhc_search_portal_feature_form_alter(&$form, &$form_state, $form_id) {
       );
 
       // Add some frontend alterations to related to filtering
+      $form['#attached']['js'][] = libraries_get_path('jquery-hoverintent') . '/jquery.hoverIntent.js';
       $form['#attached']['js'][] = drupal_get_path('module', 'uhc_search_portal_feature') . '/js/filters.js';
       $form['#attached']['js'][] = array(
         'data' => array(

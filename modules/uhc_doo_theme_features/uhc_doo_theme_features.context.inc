@@ -60,21 +60,21 @@ function uhc_doo_theme_features_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'hy_content_suffix-hy_content_suffix_last_updated' => array(
-          'module' => 'hy_content_suffix',
-          'delta' => 'hy_content_suffix_last_updated',
+        'uhc_doo_theme_features-last_updated' => array(
+          'module' => 'uhc_doo_theme_features',
+          'delta' => 'last_updated',
           'region' => 'action_footer',
           'weight' => '-10',
         ),
-        'hy_content_suffix-hy_content_suffix_up_anchor' => array(
-          'module' => 'hy_content_suffix',
-          'delta' => 'hy_content_suffix_up_anchor',
+        'uhc_doo_theme_features-up_anchor' => array(
+          'module' => 'uhc_doo_theme_features',
+          'delta' => 'up_anchor',
           'region' => 'action_footer',
           'weight' => '0',
         ),
-        'hy_contact-hy_contact_logo_block' => array(
-          'module' => 'hy_contact',
-          'delta' => 'hy_contact_logo_block',
+        'uh_coursepages-uhc_contact_logo_block' => array(
+          'module' => 'uh_coursepages',
+          'delta' => 'uhc_contact_logo_block',
           'region' => 'footer',
           'weight' => '-8',
         ),

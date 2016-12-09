@@ -376,7 +376,7 @@ function uh_coursepages_setup_variables() {
 
   // footer contact block content
   $hy_contact_config = array(
-    'hy_contact_logo_block_form_content' => array(
+    'uhc_contact_logo_block_form_content' => array(
       'en' => array(
         'value' => '
             <div class="logo">
@@ -440,6 +440,9 @@ function uh_coursepages_block_info() {
   $blocks['uhc_logo_block'] = array(
     'info' => t('UHC Logo Block'),
   );
+  $blocks['uhc_contact_logo_block'] = array(
+    'info' => t('HY Logo block with contact information'),
+  );
   return $blocks;
 }
 
@@ -491,8 +494,60 @@ function uh_coursepages_block_view($delta = '') {
         </a>';
       $block['css_class'] = 'logo-block';
       break;
+
+    case 'uhc_contact_logo_block':
+      // Markup for footer contact logo block
+      $title = uh_coursepages_contact_data('title', $delta);
+      $block['subject_array'] = $title;
+      $block['subject'] = reset($title);
+      $block['content'] = uh_coursepages_contact_data('content', $delta);
+      $block['css_class'] = uh_coursepages_contact_data('css_class', $delta);
+      break;
   }
   return $block;
+}
+
+/**
+ * Implements hook_block_view_alter().
+ *
+ * When we make a block with hook_block_view(), the subject won't transfer to
+ * block title by default. In a lot of different blocks we need want to use
+ * <none> title to erase title from dom. Instead of making couple of extra steps
+ * by applying block title to each block in their admin page; let's copy the
+ * title (<none>) from configuration form to block settings.
+ */
+function uh_coursepages_block_view_alter(&$data, $block) {
+  $block->title = (isset($data['subject'])) ? ($data['subject'] == '<none>') ? '<none>' : $block->title : '';
+}
+
+/**
+ * Provides block content.
+ * @return array
+ *    A renderable, translated array containing the markup retrieved from the variable table
+ */
+function uh_coursepages_contact_data($field, $block) {
+  global $language;
+  $realm = 'language';
+  $realm_key = $language->language;
+  $content = array('#markup' => '');
+
+  // Fetch either the title or the body from the variable table, depending on provided argument.
+  switch ($field) {
+    case 'title':
+      $data = variable_store_get($realm, $realm_key, $block . '_form_title');
+      $content = array('#markup' => $data);
+      break;
+    case 'content':
+      $data = variable_store_get($realm, $realm_key, $block . '_form_content');
+      // Create the renderable array.
+      $content = array('#markup' => $data['value'], '#format' => $data['format']);
+      break;
+    case 'css_class':
+      $content = variable_get($block . '_form_css_class', 'css-class');
+      break;
+
+  }
+  return $content;
 }
 
 /**
@@ -612,4 +667,27 @@ function uh_field_migrate_values($deprecated_field_name, $new_field_name) {
   field_cache_clear();
 
   return $data_result && $revision_result;
+}
+
+/**
+ * Gets the $node object that is used in system ajax calls when editing nodes.
+ *
+ * @see ajax_form_callback()
+ * @see ajax_get_form()
+ */
+function uh_coursepages_ajax_get_node() {
+  $node = NULL;
+
+  // Try to parse the AJAX request almost like it would be parsed in
+  //ajax_form_callback() callback.
+  $state_defaults = form_state_defaults();
+  if (!empty($_POST['form_build_id']) && form_get_cache($_POST['form_build_id'], $state_defaults)) {
+    list(, $form_state) = ajax_get_form();
+    // We're interested in possible $node object that is used in the callback
+    if (!empty($form_state['node'])) {
+      $node = $form_state['node'];
+    }
+  }
+
+  return $node;
 }

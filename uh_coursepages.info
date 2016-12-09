@@ -1,7 +1,7 @@
 name = Helsinki University Portal
 description = Install with pre-configured features for courses in genetics.
 core = 7.x
-version = 7.x-1.85
+version = 7.x-1.86
 dependencies[] = block
 dependencies[] = file
 dependencies[] = image
@@ -53,6 +53,9 @@ dependencies[] = inline_entity_form
 dependencies[] = noreqnewpass
 dependencies[] = smart_trim
 dependencies[] = special_menu_items
+dependencies[] = i18n_variable
+dependencies[] = variable_store
+dependencies[] = variable_realm
 
 ; Custom and features
 dependencies[] = uhc_autofill_metadata

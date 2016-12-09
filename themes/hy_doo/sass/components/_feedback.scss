@@ -12,6 +12,7 @@
       @include font-weight-medium;
       @include font-size(13px);
       background: transparent;
+      min-width: auto;
       padding: 0;
       &:hover {
         background: transparent;
@@ -103,10 +104,10 @@
   }
   #feedback-form-toggle {
     position: absolute;
+    display: none;
     right: 1em;
     margin-bottom: 1em;
     bottom: 0;
-    visibility: hidden;
     z-index: 999;
     color: $white;
     &:after {
@@ -120,9 +121,14 @@
     .feedback-link {
       visibility: hidden;
     }
-    #feedback-form-toggle:after {
-      display: block;
+    #feedback-form-toggle {
+      font-size: 0;
       visibility: visible;
+      display: block;
+      &:after {
+        @include font-size(14px);
+        padding: 1em;
+      }
     }
   }
 }

@@ -8,13 +8,13 @@ About:
   Fonts and scss assets come from the Helsinki University styleguide.
   these are installed with bower and gulp.
 
-Getting started:
+Getting started (for development):
   - Change directory to this theme directory
-  - Install npm packages
+  - Install npm packages (to install bower and gulp)
       $ npm install
-  - Install HY Styleguide
-      $ gulp styleguide-update
-  - Initialize SASS watcher
+  - Install bower dependencies like HY Styleguide
+      $ gulp build
+  - Optional: Initialize SASS watcher
       $ gulp watch
-  - Automatically reload changes in your browser (disable css caching in drupal first)
+  - Optional: Automatically reload changes in your browser (disable css caching in drupal first)
       $ gulp browsersync

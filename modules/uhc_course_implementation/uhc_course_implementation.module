@@ -12,28 +12,45 @@ include_once 'uhc_course_implementation.features.inc';
 
 /**
  * Implements hook_field_widget_form_alter().
- * Change labels of inline entity form when dealing with materials.
+ * Change labels of inline entity forms add buttons. Multilingual doesn't work if we use
+ * "Override labels" in the field settings. Move actions and ief form before the ief listing.
  */
 function uhc_course_implementation_field_widget_form_alter(&$element, &$form_state, $context) {
-  // Change field widget to "Add material" or "Add task"
-  if (isset($element['#field_name'])) {
-    if ($element['#field_name'] == 'field_event_ref_to_material' ||
-        $element['#field_name'] == 'field_section_material') {
-      if (isset($element['actions']['ief_add']['#value'])) {
-        $element['actions']['ief_add']['#value'] = $label = t('Add material');
-      }
-    }
-    elseif ($element['#field_name'] == 'field_reference_to_course_tasks') {
-      if (isset($element['actions']['ief_add']['#value'])) {
-        $element['actions']['ief_add']['#value'] = $label = t('Add task');
-      }
-    }
-    if ($element['#field_name'] == 'field_imp_reference_to_events') {
-      // We want actions & ief forms before the event list
+  $labels = array(
+    'field_event_ref_to_material' => t('Add material'),
+    'field_section_material' => t('Add material'),
+    'field_reference_to_course_tasks' => t('Add task'),
+    'field_imp_reference_to_events' => t('Add new event')
+  );
+
+  foreach ($labels as $field_name => $label) {
+    if (isset($element['#field_name']) && $element['#field_name'] == $field_name) {
+      $element['actions']['ief_add']['#value'] = $label;
       $element['actions']['#weight'] = 0;
       if (isset($element['form'])) {
         $element['form']['#weight'] = 0;
       }
+    }
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ * Change labels of inline entity forms. Multilingual doesn't work if we use
+ * "Override labels" in the field settings.
+ */
+function uhc_course_implementation_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  $labels = array(
+    'course_material' => t('Add material'),
+    'course_task' => t('Add task'),
+    'event' => t('Add new event')
+  );
+
+  foreach ($labels as $bundle => $label)  {
+    if ($entity_form['#bundle'] == $bundle) {
+      $entity_form['#title'] = $label;
+      $entity_form['actions']['ief_add_save']['#value'] = $label;
+      $entity_form['actions']['ief_edit_save']['#value'] = isset($entity_form['actions']['ief_edit_save']) ? t('Save') : NULL;
     }
   }
 }
@@ -46,24 +63,6 @@ function uhc_course_implementation_preprocess_link_field(&$link) {
   if (!empty($link['element']['#field_name']) &&
   $link['element']['#field_name'] == 'field_imp_interaction_link') {
     $link['element']['title']['#title'] = t('Name');
-  }
-}
-
-/**
- * Implements hook_inline_entity_form_entity_form_alter().
- * Change labels of inline entity form when dealing with materials.
- */
-function uhc_course_implementation_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
-  if ($entity_form['#bundle'] == 'course_material') {
-    $label = t('Add material');
-    $entity_form['#title'] = $label;
-    $entity_form['actions']['ief_add_save']['#value'] = $label;
-    $entity_form['actions']['ief_edit_save']['#value'] = isset($entity_form['actions']['ief_edit_save']) ? t('Save') : NULL;
-  }
-  elseif ($entity_form['#bundle'] == 'course_task') {
-    $label = t('Add task');
-    $entity_form['#title'] = $label;
-    $entity_form['actions']['ief_add_save']['#value'] = $label;
   }
 }
 

@@ -10,7 +10,7 @@
     }
   }
 
-  .vertical-tabs-list {
+  ul.vertical-tabs-list {
     @include breakpoint($mobile-only) {
       @include dropdown-menu(none, 'left');
       top: 50px;
@@ -30,6 +30,15 @@
       color: $darkblue;
     }
 
+    li a.icon--done {
+      background-image: none;
+      &:after {
+        color: $green;
+        position: absolute;
+        right: 1em;
+      }
+    }
+
     @include breakpoint($small) {
       li {
         @include border;
@@ -39,6 +48,7 @@
           text-transform: uppercase;
           padding: 1em 2em;
           display: block;
+          position: relative;
         }
         &.selected {
           @include box-shadow(-7px 0px 20px -3px $lightsilver);

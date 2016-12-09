@@ -9,3 +9,68 @@
  */
 
 include_once 'uhc_doo_theme_features.features.inc';
+
+/**
+ * Implements hook_block_info().
+ */
+function uhc_doo_theme_features_block_info() {
+  $blocks['last_updated'] = array(
+    'info' => t('Last updated block'),
+  );
+
+  $blocks['up_anchor'] = array(
+    'info' => t('Up anchor'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function uhc_doo_theme_features_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'last_updated':
+      $object = menu_get_object();
+
+      $block['subject'] = '<none>';
+      $block['content'] = _uhc_doo_theme_features_get_date($object);
+      break;
+
+    case 'up_anchor':
+      $block['subject'] = '<none>';
+      $block['content'] = '<a href="#html" id="up-anchor">' . t('Up') . '</a>';
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Provide either updated or created date
+ */
+function _uhc_doo_theme_features_get_date($object) {
+  if (!is_object($object)) {
+    return;
+  }
+
+  return format_date($object->changed, 'short');
+}
+
+/**
+ * Implement hook_js_alter().
+ *
+ * Use a more recent jQuery version than the one supplied with core if not in
+ * node edit/add or admin (which might break with newer jQuery).
+ */
+function uhc_doo_theme_features_js_alter(&$javascript) {
+  $node_edit = (arg(0) == 'node' && arg(2) == 'edit');
+  $node_add = (arg(0) == 'node' && arg(1) == 'add');
+  $admin = (arg(0) == 'admin');
+  if (!$node_edit && !$node_add && !$admin) {
+    $javascript['misc/jquery.js']['data'] = libraries_get_path('jquery') . '/dist/jquery.min.js';
+    $javascript['misc/jquery.js']['version'] = '2.2.4';
+  }
+}

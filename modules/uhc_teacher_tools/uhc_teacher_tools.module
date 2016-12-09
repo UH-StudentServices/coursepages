@@ -352,7 +352,7 @@ function uhc_teacher_tools_form_placeholders(&$form, &$form_state) {
 }
 
 function uhc_teacher_tools_display_editing_message() {
-  drupal_set_message(t('You are now editing the course page. Remember to save your changes with choosing "Save" or "Save & Close".'), 'warning');
+  drupal_set_message(t('You are now editing the course page. Remember to save your changes with choosing "Save" or "Save & Close".'), 'warning messages__sticky');
 }
 
 /**

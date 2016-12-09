@@ -30,8 +30,12 @@
   }
 
   .group-imp-header-img {
+    @include hyphenate;
     input[type="submit"] {
       min-width: 100%;
+    }
+    img {
+      width: 100%;
     }
   }
 

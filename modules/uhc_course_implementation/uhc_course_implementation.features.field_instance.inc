@@ -3071,10 +3071,10 @@ function uhc_course_implementation_field_default_field_instances() {
           'allow_existing' => 0,
           'allow_new' => 1,
           'delete_references' => 1,
-          'label_plural' => 'events',
-          'label_singular' => 'event',
+          'label_plural' => '',
+          'label_singular' => '',
           'match_operator' => 'CONTAINS',
-          'override_labels' => 1,
+          'override_labels' => 0,
         ),
       ),
       'type' => 'inline_entity_form',
@@ -4234,7 +4234,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_section_material',
-    'label' => 'Material listing',
+    'label' => 'Materials',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -5275,7 +5275,7 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Label');
   t('Locality');
   t('Material description');
-  t('Material listing');
+  t('Materials');
   t('Method of study');
   t('Name');
   t('Objective');

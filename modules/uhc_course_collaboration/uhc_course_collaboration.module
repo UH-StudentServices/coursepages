@@ -394,6 +394,9 @@ function uhc_course_collaboration_is_current_user_course_teacher($node = NULL) {
   if (user_is_logged_in()) {
     if ($node == NULL) {
       $node = menu_get_object();
+      if (arg(0) == 'system' && arg(1) == 'ajax') {
+        $node = uh_coursepages_ajax_get_node();
+      }
     }
 
     if (isset($node->nid) && $node->type == 'course_implementation') {
@@ -425,6 +428,9 @@ function uhc_course_collaboration_is_current_user_course_administrator($node = N
   if (user_is_logged_in()) {
     if ($node == NULL) {
       $node = menu_get_object();
+      if (arg(0) == 'system' && arg(1) == 'ajax') {
+        $node = uh_coursepages_ajax_get_node();
+      }
     }
 
     if (isset($node->nid) && $node->type == 'course_implementation') {
@@ -489,6 +495,9 @@ function uhc_course_collaboration_is_current_user_course_student() {
 
   if (user_is_logged_in()) {
     $node = menu_get_object();
+    if (arg(0) == 'system' && arg(1) == 'ajax') {
+      $node = uh_coursepages_ajax_get_node();
+    }
 
     if (isset($node->nid) && $node->type == 'course_implementation') {
       $personal_unique_code = uhc_autofill_metadata_get_current_user_personal_unique_code();

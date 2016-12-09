@@ -37,6 +37,11 @@ function uhc_dev_feature_menu() {
     'delivery callback' => 'drupal_json_output',
     'access arguments' => array('test integration requests'),
   );
+  $items['test/enrollments'] = array(
+    'page callback' => '_uhc_dev_feature_integration_get_enrollments',
+    'delivery callback' => 'drupal_json_output',
+    'access arguments' => array('test integration requests'),
+  );
   $items['test/implementation'] = array(
     'page callback' => '_uhc_dev_feature_integration_get_course_implementation',
     'delivery callback' => 'drupal_json_output',
@@ -79,6 +84,13 @@ function _uhc_dev_feature_integration_get_course_implementation($id) {
 function _uhc_dev_feature_integration_get_course_implementation_changes($since_date) {
   $url = variable_get('uh_oodi_queue_poll_courseunitrealisation_changes_url', '');
   $url = str_replace(':since_date', check_plain($since_date), $url);
+  return _uhc_dev_feature_return_json_response($url);
+}
+
+function _uhc_dev_feature_integration_get_enrollments($id) {
+  $url = variable_get('uhc_enrollments_base_url', '') . 'students/:id/enrollments';
+  $url = str_replace(':id', check_plain($id), $url);
+  $url = PortalMigrationBase::prependHostIfMissing($url);
   return _uhc_dev_feature_return_json_response($url);
 }
 

@@ -5,7 +5,7 @@ core = 7.0
 api = 2
 
 projects[drupal][type] = core
-projects[drupal][version] = 7.51
+projects[drupal][version] = 7.52
 
 ; Patch: Text field (textarea) with "Default" formatter does not retain newlines
 projects[drupal][patch][1152216] = https://www.drupal.org/files/text-plain-1152216-24.patch
@@ -20,7 +20,7 @@ projects[admin_menu][download][revision] = 67abd3a
 projects[admin_menu][patch][1981308] = https://www.drupal.org/files/issues/admin_menu-js-module-compatibility-1981308-9.patch
 projects[admin_menu][patch]["https://www.drupal.org/node/2502695"] = "https://www.drupal.org/files/issues/admin_menu-issetmapfix-2502695-3.patch"
 projects[admin_views][version] = "1.6"
-projects[advagg][version] = "2.18"
+projects[advagg][version] = "2.19"
 projects[behavior_weights][version] = "1.0"
 projects[block_class][version] = "2.3"
 projects[chosen][version] = "2.0"
@@ -41,8 +41,8 @@ projects[feedback][version] = "2.0-beta1"
 projects[feedback][patch]["https://www.drupal.org/node/2545708"] = "https://www.drupal.org/files/issues/feedback-honeypot_0.patch"
 projects[field_collection][version] = "1.0-beta8"
 projects[field_formatter_settings][version] = "1.1"
-projects[field_group][version] = "1.4"
-projects[field_group][patch]["https://www.drupal.org/node/1482958"] = "https://www.drupal.org/files/issues/empty-config-1482958-26.patch"
+projects[field_group][version] = "1.5"
+projects[field_group][patch]["https://www.drupal.org/node/1482958"] = "https://www.drupal.org/files/issues/empty-config-1482958-27.patch"
 projects[field_multiple_limit][version] = "1.0-alpha5"
 projects[field_multiple_limit][patch]["https://www.drupal.org/node/2807079"] = "https://www.drupal.org/files/issues/Avoid_php_warnings-2807079-2.patch"
 projects[field_permissions][version] = "1.0"
@@ -100,7 +100,7 @@ projects[pathauto][patch]["https://www.drupal.org/node/867578"] = https://www.dr
 ; Search
 
 ; drush make does not know where to place this by default
-projects[search_api][version] = "1.18"
+projects[search_api][version] = "1.20"
 projects[search_api][subdir] = "contrib"
 projects[search_api_autocomplete][version] = "1.4"
 ; Temporary fix for download not working for facetapi
@@ -117,14 +117,11 @@ projects[facetapi_select][download][revision] = "c960e18"
 projects[facetapi_pretty_paths][version] = "1.1"
 projects[facetapi_taxonomy_sort][version] = "1.0-beta1"
 projects[search_api_db][version] = "1.4"
-projects[search_api_et][download][type] = git
-projects[search_api_et][download][url] = http://git.drupal.org/project/search_api_et.git
-projects[search_api_et][download][revision] = a56f527
-projects[search_api_solr][version] = "1.6"
-projects[search_api_solr][patch]["https://www.drupal.org/node/2343111"] = https://www.drupal.org/files/issues/search_api_solr-2343111-OR-Filters-14.patch
+projects[search_api_et][version] = "2.0-alpha7"
+projects[search_api_solr][version] = "1.11"
 projects[search_api_et_solr][download][type] = git
 projects[search_api_et_solr][download][url] = http://git.drupal.org/project/search_api_et_solr.git
-projects[search_api_et_solr][download][revision] = a03edb6
+projects[search_api_et_solr][download][revision] = fb5e8a5
 
 ; Others
 
@@ -141,6 +138,7 @@ projects[timeago][version] = "2.3"
 projects[title][version] = "1.0-alpha7"
 projects[title][patch]["https://www.drupal.org/node/1772116"] = https://www.drupal.org/files/title-1772116-auto-menu-title-bug-1772116-3.patch
 projects[token][version] = "1.6"
+projects[token][patch]["https://www.drupal.org/node/2474403"] = https://www.drupal.org/files/issues/token-field_description_overwritten-2474403-12-D7.patch
 projects[url_alias_permissions][version] = "1.0"
 projects[variable][version] = "2.5"
 projects[varnish][version] = "1.1"
@@ -222,6 +220,14 @@ projects[field_extrawidgets][version] = 1.1
 
 projects[page_memory_limit][version] = 1.2
 
+projects[vertical_tabs_content_marker][type] = module
+projects[vertical_tabs_content_marker][download][type] = git
+projects[vertical_tabs_content_marker][download][branch] = "7.x-1.x"
+projects[vertical_tabs_content_marker][download][url] = http://git.drupal.org/sandbox/lviit/2827780.git
+projects[vertical_tabs_content_marker][download][revision] = 8672f9d2c2256094bae185169981e2ef0ab0e77e
+
+projects[xmlsitemap][version] = "2.3"
+
 ; Themes
 
 projects[omega][subdir] = "omega"
@@ -233,6 +239,18 @@ projects[adminimal_theme][version] = "1.22"
 
 ; Libraries
 
+libraries[jquery][directory_name] = jquery
+libraries[jquery][download][type] = file
+libraries[jquery][download][url] = https://github.com/jquery/jquery/archive/2.2.4.tar.gz
+
+libraries[masonry][directory_name] = masonry
+libraries[masonry][download][type] = file
+libraries[masonry][download][url] = https://github.com/desandro/masonry/archive/v4.1.1.tar.gz
+
+libraries[jquery-hoverintent][directory_name] = jquery-hoverintent
+libraries[jquery-hoverintent][download][type] = file
+libraries[jquery-hoverintent][download][url] = https://github.com/briancherne/jquery-hoverIntent/archive/v1.8.1.tar.gz
+
 libraries[chosenjs][directory_name] = chosen
 libraries[chosenjs][download][type] = file
 libraries[chosenjs][download][url] = https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip
@@ -241,17 +259,9 @@ libraries[ckeditor][directory_name] = ckeditor
 libraries[ckeditor][download][type] = file
 libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.4.7/ckeditor_4.4.7_standard.zip"
 
-libraries[colorbox][download][type] = file
-libraries[colorbox][download][url] = https://github.com/jackmoore/colorbox/archive/1.5.14.zip
-libraries[colorbox][directory_name] = "colorbox"
-
 libraries[dropzone][download][type] = file
 libraries[dropzone][download][url] = https://raw.github.com/enyo/dropzone/master/dist/dropzone.js
 libraries[dropzone][directory_name] = "dropzone"
-
-libraries[flexslider][download][type] = file
-libraries[flexslider][download][url] = https://github.com/woothemes/FlexSlider/archive/version/2.2.2.zip
-libraries[flexslider][directory_name] = "flexslider"
 
 libraries[jquery.imagesloaded][download][type] = file
 libraries[jquery.imagesloaded][download][url] = https://github.com/desandro/imagesloaded/archive/v2.1.2.tar.gz
@@ -292,3 +302,9 @@ projects[uh_oodi_queue][download][type] = git
 projects[uh_oodi_queue][download][url] = "git://github.com/UH-StudentServices/uh_oodi_queue.git"
 projects[uh_oodi_queue][download][branch] = 7.x-1.x
 projects[uh_oodi_queue][download][revision] = a9b8d2cb1be3c67b05a437963792aa097397dd6f
+
+projects[hy_cookie_consent][type] = module
+projects[hy_cookie_consent][download][type] = git
+projects[hy_cookie_consent][download][url] = "git://github.com/UniversityofHelsinki/hy_cookie_consent.git"
+projects[hy_cookie_consent][download][branch] = 7.x-1.x
+projects[hy_cookie_consent][download][revision] = ea1743ab92b2dc8c62eb2fa21d9cfadb8e19fffa

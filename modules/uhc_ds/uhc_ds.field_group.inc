@@ -187,7 +187,7 @@ function uhc_ds_field_group_info() {
       'label' => 'Course overview',
       'instance_settings' => array(
         'classes' => 'group-description-objectives field-group-accordion-item',
-        'show_empty_fields' => 1,
+        'show_empty_fields' => 0,
       ),
       'formatter' => 'closed',
     ),

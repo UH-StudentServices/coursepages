@@ -309,3 +309,15 @@ function uhc_open_university_block_info_alter(&$blocks, $theme, $code_blocks) {
     $blocks['menu_block']['open_university_menu_expanded']['css_class'] = 'main-menu';
   }
 }
+/**
+ * Implements template_preprocess_block().
+ * Add javascript for fatmenu.
+ */
+function uhc_open_university_preprocess_block(&$variables) {
+  $block = $variables['block'];
+  if ($block->delta == 'open_university_menu_expanded') {
+    drupal_add_js(libraries_get_path('jquery-hoverintent') . '/jquery.hoverIntent.js', array('scope' => 'footer'));
+    drupal_add_js(libraries_get_path('masonry') . '/dist/masonry.pkgd.min.js', array('scope' => 'footer'));
+    drupal_add_js(drupal_get_path('module', 'uhc_open_university') . '/js/fatmenu.js', array('scope' => 'footer'));
+  }
+}

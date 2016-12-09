@@ -99,14 +99,17 @@
 
       // Create buttons outside the dropdown, showing currently active filters
       $('.facetapi-active', '.block--facetapi').each(function () {
-        $(this).closest('.block__content').siblings('.chosen-choices').append('<li class="search-choice">' + $(this).parent().contents(":not(a, label, input, div)").text() + '</span>');
+
+        $(this).closest('.block__content').siblings('.chosen-choices').append('<li class="search-choice">' + $(this).parent().clone().children().remove().end().text() + '</span>');
+
+
       });
 
       // Handle clicks on the active filter buttons to remove them
       $('.search-choice', '.block--facetapi').click(function () {
         var title = $(this).text();
         $(this).closest('.block--facetapi').find('.facetapi-active').each(function () {
-          if ($(this).parent().contents(":not(a, label, input, div)").text() == title) {
+          if ($(this).parent().clone().children().remove().end().text() == title) {
             $(this).siblings('input').click();
           }
         });

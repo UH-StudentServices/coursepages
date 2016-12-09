@@ -1,3 +1,48 @@
+# University of Helsinki Courses v1.86
+Päiväys: 22.11.2016
+
+## Lisäykset
+  - DOO-2103: Muokkausnäkymän välilehdissä näkyy merkki aina kun niihin on lisätty sisältöä.
+  - DOO-2076: Otettiin käyttöön XML sitemap sisältötyyppien Portal page ja
+	  Subject osalta.
+  - DOO-2657: Lisättiin testaustyökalu oppilaan ilmoittautumistietojen
+	  tarkasteluun.
+
+## Muutokset
+  - DOO-2596: Materiaalien tiedostokentän kuvauskentän otsikko muutettu ja kuvaus poistettu.
+  - DOO-2613: Muokkausnäkymän "Olet muokkaamassa.." -ilmoitus pysyy näkyvillä sivua
+    vieritettäessä.
+  - DOO-1790: Muutettu "Lisää tapahtuma" -painikkeen käännökset.
+  - DOO-2597: Materiaalin lisäys ja muokkaus -käännösten korjauksia.
+  - DOO-2578: Kaikki JavaScript-kirjastot haetaan buildin yhteydessä, jQuery päivitetty,
+    JavaScript-pakkausta parannettu.
+  - DOO-2513: Eriytettiin HY Cookie Consent -moduuli.
+  - DOO-2622: Päivitettiin Moodlen kurssiavaimen suomennos.
+  - DOO-1609: Vanhoja kopioituja moduleita poistettu käytöstä tai sulautettu osaksi muita 
+    kurssisivujen moduleja.
+  - DOO-2342: Opiskelijana haluan hakea kurssisivua koodi + nimi -yhdistelmällä.
+  - DOO-2635: Kurssinostojen linkitys onnistuu nyt myös jo aloittaneille
+    kursseille. Päättyneitä kursseja ei voi linkittää.
+
+## Korjaukset
+  - DOO-2579: Korjattiin ongelma, jossa opettaja tai virkailija ei voinut
+    muokata yksityisiä materiaaleja tietyissä tilanteissa.
+  - DOO-2617: Korjattiin "Show past" -linkin ruotsinnos.
+  - DOO-2600: Piilotetaan kurssiesite-haitari jos siinä ei ole sisältöä.
+  - DOO-2621: Hakunäkymien muokkaustilan JavaScript-virhe korjattu.
+  - DOO-2636: Hakusivujen aktiivisiin suodattimiin lisätty puuttuva suodattimen nimi.
+  - DOO-2607: IE:llä voi nyt sulkea palautelomakkeen.
+  - DOO-2627: Automaattisen sisäänkirjautumisen korjaaminen saavuttaessa
+    kurssisivuille.
+
+## Päivitykset
+  - DOO-2520: Päivitettiin Field Group moduuli uusimpaan julkaisuun.
+  - DOO-2645: Päivitettiin Drupal core uusimpaan julkaisuun.
+  - DOO-2644: Päivitettiin Advanced CSS/JS Aggregation -moduuli uusimpaan julkaisuun.
+  - DOO-2648: Päivitettiin uusimmat versiot moduuleista search_api,
+    search_api_et, search_api_solr, search_api_et_solr.
+
+
 # University of Helsinki Courses v1.85
 Päiväys: 09.11.2016
 

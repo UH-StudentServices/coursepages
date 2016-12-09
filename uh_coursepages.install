@@ -380,7 +380,7 @@ function uh_coursepages_install() {
         <p>'. $translations[$key]['switchboard'] . ':<br>'. t('+358 (0) 2941 911') . '</p>
       </div>';
 
-    variable_store_set('language', $key, 'hy_contact_logo_block_form_content', array('value' => $hy_contact_logo_block_content, 'format' => 'filtered_html'));
+    variable_store_set('language', $key, 'uhc_contact_logo_block_form_content', array('value' => $hy_contact_logo_block_content, 'format' => 'filtered_html'));
   }
 
   // Create multilingual menu items
@@ -742,7 +742,7 @@ function uh_coursepages_install() {
 
   // Configure hy_contact module
   $hy_contact_config = array(
-    'hy_contact_logo_block_form_content' => array(
+    'uhc_contact_logo_block_form_content' => array(
       'fi' => array(
         'value' => '<div class="logo">
         <a href="http://www.helsinki.fi/university/">
@@ -1093,3 +1093,34 @@ function uh_coursepages_update_7028(&$sandbox) {
   variable_del('theme_uhc_doo_settings');
 }
 
+
+/**
+ * Enable advagg js compression.
+ */
+function uh_coursepages_update_7029(&$sandbox) {
+  module_enable(array('advagg_js_compress'));
+}
+
+/**
+ * Enable Vertical tabs content marker.
+ */
+function uh_coursepages_update_7030(&$sandbox) {
+  module_enable(array('vertical_tabs_content_marker'));
+}
+
+/**
+ * Enable UHC XML Sitemap module.
+ */
+function uh_coursepages_update_7031(&$sandbox) {
+  module_enable(array('uhc_xml_sitemap'));
+}
+
+/**
+ * Disable deprecated modules and migrate its variables and configuration.
+ */
+function uh_coursepages_update_7032(&$sandbox) {
+  db_update('variable_store')->condition('name', 'hy_contact_logo_block_form_content')->fields(array('name' => 'uhc_contact_logo_block_form_content'))->execute();
+  db_update('variable_store')->condition('name', 'hy_contact_logo_block_form_title')->fields(array('name' => 'uhc_contact_logo_block_form_title'))->execute();
+  db_update('variable_store')->condition('name', 'hy_contact_logo_block_form_css_class')->fields(array('name' => 'uhc_contact_logo_block_form_css_class'))->execute();
+  module_disable(array('hy_contact', 'hy_content_suffix'), FALSE);
+}

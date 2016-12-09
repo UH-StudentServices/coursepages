@@ -1155,14 +1155,14 @@ function uhc_statistics_views_default_views() {
     7 => 0,
     8 => 0,
   );
-  /* Filter criterion: Content: Material listing (field_section_material) */
+  /* Filter criterion: Content: Materials (field_section_material) */
   $handler->display->display_options['filters']['field_section_material_target_id']['id'] = 'field_section_material_target_id';
   $handler->display->display_options['filters']['field_section_material_target_id']['table'] = 'field_data_field_section_material';
   $handler->display->display_options['filters']['field_section_material_target_id']['field'] = 'field_section_material_target_id';
   $handler->display->display_options['filters']['field_section_material_target_id']['operator'] = 'not empty';
   $handler->display->display_options['filters']['field_section_material_target_id']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_section_material_target_id']['expose']['operator_id'] = 'field_section_material_target_id_op';
-  $handler->display->display_options['filters']['field_section_material_target_id']['expose']['label'] = 'Material listing';
+  $handler->display->display_options['filters']['field_section_material_target_id']['expose']['label'] = 'Materials';
   $handler->display->display_options['filters']['field_section_material_target_id']['expose']['operator'] = 'field_section_material_target_id_op';
   $handler->display->display_options['filters']['field_section_material_target_id']['expose']['identifier'] = 'field_section_material_target_id';
   $handler->display->display_options['filters']['field_section_material_target_id']['expose']['remember_roles'] = array(
@@ -1312,7 +1312,7 @@ function uhc_statistics_views_default_views() {
     t('Hide enrollment'),
     t('Course conduct'),
     t('Material description'),
-    t('Material listing'),
+    t('Materials'),
     t('Restricted messages'),
     t('Restricted material'),
     t('Data export'),

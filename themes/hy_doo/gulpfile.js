@@ -38,14 +38,13 @@ gulp.task('bower', function() {
 
 // Updates styleguide with bower and moves relevant assets to correct path
 gulp.task('styleguide-update',['bower'], function(){
-  gulp.src('./bower_components/Styleguide/fonts/hy-icons.*',
-    { base: './bower_components/Styleguide/fonts' }
-  ).pipe(gulp.dest('./fonts'));
+  gulp.src('./bower_components/Styleguide/fonts/hy-icons.*')
+    .pipe(gulp.dest('./fonts'));
 
   gulp.src(['./bower_components/Styleguide/sass/**/*',
     '!./bower_components/Styleguide/sass/styles.scss'],
-    { base: './bower_components/Styleguide/sass' }
-  ).pipe(gulp.dest('./sass/styleguide'));
+    { base: './bower_components/Styleguide/sass' })
+    .pipe(gulp.dest('./sass/styleguide'));
 });
 
 // Live reload css changes

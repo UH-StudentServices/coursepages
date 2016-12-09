@@ -8,6 +8,8 @@
  * @see README.md how to contribute to this project
  */
 
+define("MY_STUDIES_LOGIN_COOKIE_NAME", "OPINTONI_HAS_LOGGED_IN");
+
 /**
  * Implements hook_page_alter().
  */
@@ -41,7 +43,7 @@ function uhc_autologin_expire_login_redirect_cookie() {
  * Sets the login cookie as expired.
  */
 function uhc_autologin_expire_login_cookie() {
-  setcookie('OPINTONI_LAST_LOGIN', FALSE, null, '/', '.helsinki.fi');
+  setcookie(MY_STUDIES_LOGIN_COOKIE_NAME, FALSE, null, '/', '.helsinki.fi');
 }
 
 /**
@@ -62,7 +64,7 @@ function uhc_autologin_login_cookie_exists() {
  * @return string Login cookie value or empty.
  */
 function uhc_autologin_get_login_cookie_value() {
-  return isset($_COOKIE['OPINTONI_LAST_LOGIN']) ? $_COOKIE['OPINTONI_LAST_LOGIN'] : '';
+  return isset($_COOKIE[MY_STUDIES_LOGIN_COOKIE_NAME]) ? $_COOKIE[MY_STUDIES_LOGIN_COOKIE_NAME] : '';
 }
 
 /**
