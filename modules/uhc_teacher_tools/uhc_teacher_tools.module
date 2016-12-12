@@ -317,6 +317,14 @@ function uhc_teacher_tools_form_course_implementation_node_form_alter(&$form, &$
     uhc_teacher_tools_display_editing_message();
   }
 
+  // add header image and caption to data attributes as required by
+  // vertical_tabs_content_marker module.
+  $entity = $form['#node'];
+  $term_image_and_caption = uhc_course_implementation_get_default_header_image($entity->field_imp_organisation[LANGUAGE_NONE][0]['tid']);
+  $form['field_imp_header_image_caption']['#attributes']['data-default-value'] = $term_image_and_caption['caption'][LANGUAGE_NONE][0]['value'];
+  $form['field_imp_header_image']['#attributes']['data-default-value'] = $term_image_and_caption['fid'];
+
+
   // link field placeholders work only if set in after build
   $form['#after_build'][] = 'uhc_teacher_tools_form_placeholders';
 }
@@ -429,7 +437,7 @@ function uhc_teacher_tools_field_group_pre_render_alter(&$element, $group, &$for
     // check if accordion has any content
     $empty = TRUE;
     foreach($element as $field) {
-      if (is_array($field) && !empty($field)) {
+      if (is_array($field) && !empty($field) && $field['#access']) {
         $empty = FALSE;
         break;
       }

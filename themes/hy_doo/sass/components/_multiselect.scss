@@ -10,7 +10,7 @@
     width: 100%;
   }
   @include breakpoint($small) {
-    width: 255px;
+    flex-basis: 255px;
   }
   h2.block__title {
     @include select-header;

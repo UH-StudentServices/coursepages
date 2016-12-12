@@ -1,0 +1,56 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Exam results feature.
+ */
+
+include_once 'uhc_exam_results.features.inc';
+
+/**
+ * Implements hook_node_view().
+ *
+ * Redirect node view to course implementation that references this node.
+ */
+function uhc_exam_results_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'exam_results' && uh_coursepages_is_node_page($node, $view_mode)) {
+    if ($nid = uhc_course_implementation_get_referencing_course_implementation($node->nid, 'field_imp_results')) {
+      drupal_goto('node/' . $nid);
+    }
+  }
+}
+
+/**
+ * Implements hook_field_access().
+ *
+ * Show results only to course teacher and students.
+ */
+function uhc_exam_results_field_access($op, $field, $entity_type, $entity, $account) {
+  // this check breaks node edit of exam results, but we don't need it there
+  if ($field['field_name'] == 'field_imp_results' && $op != 'edit') {
+    return uhc_course_collaboration_private_current_user_has_access_to_private_content();
+  }
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * Delete exam results after expire time.
+ */
+function uhc_exam_results_cron() {
+  $six_months_in_days = 183;
+  $expire_days = variable_get('uhc_exam_results_expire_after_days', $six_months_in_days);
+  $expire_time = time() - strtotime($expire_days . ' day', 0);
+
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node');
+  $query->propertyCondition('type', 'exam_results');
+  $query->propertyCondition('created', $expire_time, '<');
+  $results = $query->execute();
+
+  if ($results) {
+    foreach ($results as $result) {
+      node_delete_multiple(array_keys($result));
+      watchdog('uhc_exam_results', '@count expired exam results deleted.', array('@count' => count($result)), WATCHDOG_INFO);
+    }
+  }
+}

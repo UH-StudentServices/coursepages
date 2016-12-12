@@ -25,6 +25,7 @@ function uhc_navigation_context_default_contexts() {
     'path' => array(
       'values' => array(
         '~node/*/edit' => '~node/*/edit',
+        '~node/add/*' => '~node/add/*',
       ),
     ),
   );

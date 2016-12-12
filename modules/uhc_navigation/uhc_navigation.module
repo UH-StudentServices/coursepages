@@ -50,3 +50,18 @@ function uhc_navigation_block_info_alter(&$blocks, $theme, $code_blocks) {
     $blocks['menu']['og-menu-single']['css_class'] = 'main-menu';
   }
 }
+
+/**
+ * Implements template_preprocess_block().
+ * Add javascript for main menus.
+ */
+function uhc_navigation_preprocess_block(&$variables) {
+  $block = $variables['block'];
+  $menus = array('open_university_menu_expanded', 'og-menu-single');
+  if (in_array($block->delta, $menus)) {
+    drupal_add_js(libraries_get_path('masonry') . '/dist/masonry.pkgd.min.js', array('scope' => 'footer'));
+    drupal_add_js(libraries_get_path('matchmedia') . '/matchMedia.js', array('scope' => 'footer'));
+    drupal_add_js(drupal_get_path('module', 'uhc_navigation') . '/js/menu.js', array('scope' => 'footer'));
+    drupal_add_js(drupal_get_path('module', 'uhc_navigation') . '/js/mobile_menu.js', array('scope' => 'footer'));
+  }
+}

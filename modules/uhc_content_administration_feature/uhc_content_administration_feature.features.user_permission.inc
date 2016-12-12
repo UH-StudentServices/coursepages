@@ -196,6 +196,17 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'create exam_results content'.
+  $permissions['create exam_results content'] = array(
+    'name' => 'create exam_results content',
+    'roles' => array(
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'create field_additional_info'.
   $permissions['create field_additional_info'] = array(
     'name' => 'create field_additional_info',
@@ -829,6 +840,17 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'delete any exam_results content'.
+  $permissions['delete any exam_results content'] = array(
+    'name' => 'delete any exam_results content',
+    'roles' => array(
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'delete any liftup content'.
   $permissions['delete any liftup content'] = array(
     'name' => 'delete any liftup content',
@@ -909,6 +931,17 @@ function uhc_content_administration_feature_user_default_permissions() {
     'name' => 'delete own event content',
     'roles' => array(
       'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete own exam_results content'.
+  $permissions['delete own exam_results content'] = array(
+    'name' => 'delete own exam_results content',
+    'roles' => array(
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
       'teacher' => 'teacher',
@@ -1016,6 +1049,17 @@ function uhc_content_administration_feature_user_default_permissions() {
     'name' => 'edit any event content',
     'roles' => array(
       'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'edit any exam_results content'.
+  $permissions['edit any exam_results content'] = array(
+    'name' => 'edit any exam_results content',
+    'roles' => array(
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
       'teacher' => 'teacher',
@@ -1716,6 +1760,17 @@ function uhc_content_administration_feature_user_default_permissions() {
     'name' => 'edit own event content',
     'roles' => array(
       'administrator' => 'administrator',
+      'course administrator' => 'course administrator',
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'teacher' => 'teacher',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'edit own exam_results content'.
+  $permissions['edit own exam_results content'] = array(
+    'name' => 'edit own exam_results content',
+    'roles' => array(
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
       'teacher' => 'teacher',

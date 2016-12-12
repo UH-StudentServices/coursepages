@@ -649,6 +649,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['relationships']['cid']['id'] = 'cid';
   $handler->display->display_options['relationships']['cid']['table'] = 'node';
   $handler->display->display_options['relationships']['cid']['field'] = 'cid';
+  $handler->display->display_options['relationships']['cid']['label'] = 'Messages';
   /* Relationship: Course material */
   $handler->display->display_options['relationships']['field_section_material_target_id']['id'] = 'field_section_material_target_id';
   $handler->display->display_options['relationships']['field_section_material_target_id']['table'] = 'field_data_field_section_material';

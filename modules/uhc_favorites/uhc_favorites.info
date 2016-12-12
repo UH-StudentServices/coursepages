@@ -1,0 +1,12 @@
+name = UHC Favorites
+description = Provides ability to put courses into your favorites and send them via email.
+core = 7.x
+package = UHC
+version = 7.x-1.87
+project = uhc_favorites
+dependencies[] = favoritewidget
+dependencies[] = uhc_course_implementation
+dependencies[] = uhc_genetics
+dependencies[] = uhc_molecular_biosciences
+dependencies[] = uhc_open_university
+dependencies[] = uhc_search_front_page

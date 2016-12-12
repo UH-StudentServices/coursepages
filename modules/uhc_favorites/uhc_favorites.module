@@ -1,0 +1,66 @@
+<?php
+/**
+ * @file
+ * UHC Favorites module file.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function uhc_favorites_menu() {
+  $items = array();
+  $items['favorites'] = array(
+    'title' => 'Favorites',
+    'menu_name' => 'user-menu',
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'uhc_favorites_page',
+    'access callback' => 'uhc_favorites_access_favorites',
+    'file' => 'uhc_favorites.pages.inc',
+    'weight' => -10,
+  );
+  $items['open-university/favorites'] = array(
+    'title' => 'Favorites',
+    'menu_name' => 'user-menu',
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'uhc_favorites_page',
+    'access callback' => 'uhc_favorites_access_favorites_open_university',
+    'file' => 'uhc_favorites.pages.inc',
+    'weight' => -10,
+  );
+  $items['favorites/urls'] = array(
+    'title' => 'Favorite URLs',
+    'page callback' => 'uhc_favorites_urls_callback',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+    'delivery callback' => 'ajax_deliver',
+    'file' => 'uhc_favorites.pages.inc',
+  );
+  return $items;
+}
+
+/**
+ * Preprocess callback for 'favorite_widget'.
+ * @param $variables
+ */
+function uhc_favorites_preprocess_favorite_widget(&$variables) {
+  $variables['delete_from_favorites_label'] = t('Added to favorites');
+}
+
+/**
+ * @return true if open university context is not active
+ */
+function uhc_favorites_access_favorites() {
+  return !uhc_open_university_is_open_university_context();
+}
+
+/**
+ * @return true if open university context active, this fails
+ * for some reason on favorites page so check arg(0) also.
+ */
+function uhc_favorites_access_favorites_open_university() {
+  return arg(0) == 'open-university' || uhc_open_university_is_open_university_context();
+}

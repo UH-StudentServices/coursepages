@@ -62,7 +62,7 @@
           &.studygroup,
           &.studygroupset {
             &:after {
-              margin-left: 2em;
+              //margin-left: 2em;
             }
           }
           &:last-child {
@@ -87,7 +87,7 @@
       > a {
         border-bottom: 1px solid darken($lightsilver, 10%);
         text-transform: uppercase;
-        padding: 20px 20px 20px 55px;
+        padding: 20px 20px 20px 60px;
       }
       &.root {
         > a {
@@ -103,10 +103,10 @@
         & > .item-list {
           margin-bottom: 0;
           ul.root {
-            margin: 1em 1em 1em 1.7em;
+            margin: 15px 15px 15px 60px;
             border-left: 1px solid darken($lightsilver, 10%);
             li {
-              padding-left: 3em;
+              padding-left: 35px;
             }
             > li {
               &:after {

@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * UHC Favorites installation, update and uninstall tasks.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_install().
+ */
+function uhc_favorites_install() {
+  variable_set('favoritewidget_node_types', array('course_implementation' => 'course_implementation'));
+}

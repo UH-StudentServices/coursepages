@@ -14,3 +14,10 @@
 function uhc_rest_api_uninstall() {
   variable_del('uhc_rest_api_opintoni_datetime_format');
 }
+
+/**
+ * Enable UHC SISU Kori API Services module.
+ */
+function uhc_rest_api_update_7001(&$sandbox) {
+  module_enable(array('uhc_sisu_kori_services'));
+}

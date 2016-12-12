@@ -168,7 +168,7 @@ function uhc_genetics_views_default_views() {
   $handler->display->display_options['fields']['field_imp_reference_to_courses_field_course_course_number']['field'] = 'field_imp_reference_to_courses_field_course_course_number';
   $handler->display->display_options['fields']['field_imp_reference_to_courses_field_course_course_number']['label'] = 'ID';
   $handler->display->display_options['fields']['field_imp_reference_to_courses_field_course_course_number']['alter']['text'] = '<a href="[field_imp_reference_to_courses_url]">[field_imp_reference_to_courses_field_course_course_number]</a>';
-  /* Field: Indexed Multilingual Node: URL */
+  /* Field: Indexed Multilingual Content: URL */
   $handler->display->display_options['fields']['url']['id'] = 'url';
   $handler->display->display_options['fields']['url']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['url']['field'] = 'url';
@@ -177,7 +177,7 @@ function uhc_genetics_views_default_views() {
   $handler->display->display_options['fields']['url']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['url']['display_as_link'] = FALSE;
   $handler->display->display_options['fields']['url']['link_to_entity'] = 0;
-  /* Field: Indexed Multilingual Node: Title */
+  /* Field: Indexed Multilingual Content: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
@@ -192,14 +192,14 @@ function uhc_genetics_views_default_views() {
   $handler->display->display_options['fields']['field_imp_reference_to_courses_field_course_type_of_teaching']['link_to_entity'] = 0;
   $handler->display->display_options['fields']['field_imp_reference_to_courses_field_course_type_of_teaching']['view_mode'] = 'full';
   $handler->display->display_options['fields']['field_imp_reference_to_courses_field_course_type_of_teaching']['bypass_access'] = 0;
-  /* Field: Indexed Multilingual Node: Method of study */
+  /* Field: Indexed Multilingual Content: Method of study */
   $handler->display->display_options['fields']['field_imp_method_of_study']['id'] = 'field_imp_method_of_study';
   $handler->display->display_options['fields']['field_imp_method_of_study']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['field_imp_method_of_study']['field'] = 'field_imp_method_of_study';
   $handler->display->display_options['fields']['field_imp_method_of_study']['link_to_entity'] = 0;
   $handler->display->display_options['fields']['field_imp_method_of_study']['view_mode'] = 'full';
   $handler->display->display_options['fields']['field_imp_method_of_study']['bypass_access'] = 0;
-  /* Field: Indexed Multilingual Node: Begin date */
+  /* Field: Indexed Multilingual Content: Begin date */
   $handler->display->display_options['fields']['field_imp_begin_date']['id'] = 'field_imp_begin_date';
   $handler->display->display_options['fields']['field_imp_begin_date']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['field_imp_begin_date']['field'] = 'field_imp_begin_date';
@@ -210,17 +210,24 @@ function uhc_genetics_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Indexed Multilingual Node: Teacher */
+  /* Field: Indexed Multilingual Content: Teacher */
   $handler->display->display_options['fields']['field_imp_teacher']['id'] = 'field_imp_teacher';
   $handler->display->display_options['fields']['field_imp_teacher']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['field_imp_teacher']['field'] = 'field_imp_teacher';
   $handler->display->display_options['fields']['field_imp_teacher']['label'] = 'Teacher(s)';
+  /* Field: Content: Favorite widget */
+  $handler->display->display_options['fields']['favorite_widget']['id'] = 'favorite_widget';
+  $handler->display->display_options['fields']['favorite_widget']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['favorite_widget']['field'] = 'favorite_widget';
+  $handler->display->display_options['fields']['favorite_widget']['label'] = '';
+  $handler->display->display_options['fields']['favorite_widget']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['favorite_widget']['link_to_entity'] = 0;
   /* Sort criterion: Search: Relevance */
   $handler->display->display_options['sorts']['search_api_relevance']['id'] = 'search_api_relevance';
   $handler->display->display_options['sorts']['search_api_relevance']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['sorts']['search_api_relevance']['field'] = 'search_api_relevance';
   $handler->display->display_options['sorts']['search_api_relevance']['order'] = 'DESC';
-  /* Filter criterion: Indexed Multilingual Node: Academic year */
+  /* Filter criterion: Indexed Multilingual Content: Academic year */
   $handler->display->display_options['filters']['academic_year']['id'] = 'academic_year';
   $handler->display->display_options['filters']['academic_year']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['academic_year']['field'] = 'academic_year';
@@ -241,7 +248,7 @@ function uhc_genetics_views_default_views() {
     7 => 0,
     8 => 0,
   );
-  /* Filter criterion: Indexed Multilingual Node: Combined fulltext */
+  /* Filter criterion: Indexed Multilingual Content: Combined fulltext */
   $handler->display->display_options['filters']['search_api_aggregation_1']['id'] = 'search_api_aggregation_1';
   $handler->display->display_options['filters']['search_api_aggregation_1']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['search_api_aggregation_1']['field'] = 'search_api_aggregation_1';
@@ -262,7 +269,7 @@ function uhc_genetics_views_default_views() {
     7 => 0,
     8 => 0,
   );
-  /* Filter criterion: Indexed Multilingual Node: Item language */
+  /* Filter criterion: Indexed Multilingual Content: Item language */
   $handler->display->display_options['filters']['search_api_language']['id'] = 'search_api_language';
   $handler->display->display_options['filters']['search_api_language']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['search_api_language']['field'] = 'search_api_language';
@@ -270,13 +277,13 @@ function uhc_genetics_views_default_views() {
     'current' => 'current',
   );
   $handler->display->display_options['filters']['search_api_language']['group'] = 1;
-  /* Filter criterion: Indexed Multilingual Node: Keywords */
+  /* Filter criterion: Indexed Multilingual Content: Keywords */
   $handler->display->display_options['filters']['field_imp_keywords']['id'] = 'field_imp_keywords';
   $handler->display->display_options['filters']['field_imp_keywords']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['field_imp_keywords']['field'] = 'field_imp_keywords';
   $handler->display->display_options['filters']['field_imp_keywords']['value'] = 'genetiikka';
   $handler->display->display_options['filters']['field_imp_keywords']['group'] = 1;
-  /* Filter criterion: Indexed Multilingual Node: Hierarchy position */
+  /* Filter criterion: Indexed Multilingual Content: Hierarchy position */
   $handler->display->display_options['filters']['field_hierarchy_position']['id'] = 'field_hierarchy_position';
   $handler->display->display_options['filters']['field_hierarchy_position']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['field_hierarchy_position']['field'] = 'field_hierarchy_position';

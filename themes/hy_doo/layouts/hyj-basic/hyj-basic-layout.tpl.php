@@ -13,16 +13,14 @@
       </div>
     </div>
   <?php endif; ?>
-  <?php if ($page['menu_bar']): ?>
-    <div class="l-menu-bar<?php if ($page['top_bar']): ?> with-top-bar<?php endif; ?>">
+  <div class="menu-wrapper">
+    <?php if ($page['menu_bar']): ?>
       <?php print render($page['menu_bar']); ?>
-    </div>
-  <?php endif; ?>
-  <?php if ($page['navigation']): ?>
-    <div class="l-navigation">
+    <?php endif; ?>
+    <?php if ($page['navigation']): ?>
       <?php print render($page['navigation']); ?>
-    </div>
-  <?php endif; ?>
+    <?php endif; ?>
+  </div>
   <?php if ($tabs): ?>
     <div class="tabs-wrapper">
       <?php print render($tabs); ?>

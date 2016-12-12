@@ -1,3 +1,36 @@
+# University of Helsinki Courses v1.87
+Päiväys: 12.11.2016
+
+## Lisäykset
+  - DOO-2103: Oletuskuvien huomioiminen muokkauspuolen osioiden
+    sisältömerkinnässä.
+  - DOO-2633: Lisättiin kerran yössä tapahtuva välimuistien lämmittely
+    oppiainesivuille mahdollisten tyhjistä välimuisteista johtuvien
+    virhetilanteiden minimoimiseksi.
+  - DOO-2659: Saavutettavuus: Lisättiin title-tekstejä joihinkin tekstittömiin
+    linkkeihin ja syöttökenttiin.
+  - DOO-2573, DOO-2575: Drupaliin voidaan nyt tallentaa StudyEvent sisältöä
+    rajapinnan kautta)
+  - DOO-2574, DOO-2576: Drupaliin voidaan nyt tallentaa CourseUnitRealisation
+    sisältöä rajapinnan kautta
+  - DOO-2295: Lisätty tenttitulokset kurssin opiskelijoille.
+  - DOO-2473: Lisättiin kurssisuosikit toiminnallisuus
+  - DOO-2673: Palautteet lähetetään sähköpostitse Efecteen.
+
+## Muutokset
+  - DOO-2654: Odotetaan käyttäjän kuittausta ennen usean tiedoston lataamista.
+  - DOO-2678: Ladataan EU-keksikomponentti niin että se ei hidasta sivun
+    lautumista.
+  - DOO-2618: Navigaatio muutettu styleguiden mukaiseksi.
+  - DOO-2679: Hakusivun infolaatikon tekstiä ja sen käännöksiä muutettu.
+  - DOO-2663: Aikataulunäkymään muutettu tekstejä ja käännöksiä.
+  - DOO-2616: Kirjastolle erillinen RSS-syöte (lajittelu alkamispäivän mukaan,
+    näytetään vain aliopetustapahtumat).
+
+## Päivitykset
+  - DOO-2662: Päivitettiin Chosen jQuery plugin uusimpaan versioon.
+
+
 # University of Helsinki Courses v1.86
 Päiväys: 22.11.2016
 

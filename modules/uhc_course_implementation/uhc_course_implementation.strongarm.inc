@@ -119,7 +119,7 @@ function uhc_course_implementation_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '17',
+          'weight' => '18',
         ),
         'language' => array(
           'weight' => '19',
@@ -128,10 +128,20 @@ function uhc_course_implementation_strongarm() {
           'weight' => '5',
         ),
         'locations' => array(
-          'weight' => '18',
+          'weight' => '19',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '20',
         ),
       ),
-      'display' => array(),
+      'display' => array(
+        'favorite_widget' => array(
+          'default' => array(
+            'weight' => '17',
+            'visible' => TRUE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__course_implementation'] = $strongarm;

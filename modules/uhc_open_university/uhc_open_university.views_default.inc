@@ -38,7 +38,6 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Clear selections  x';
   $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Sorting:';
   $handler->display->display_options['exposed_form']['options']['expose_sort_order'] = FALSE;
-  $handler->display->display_options['exposed_form']['options']['autosubmit'] = FALSE;
   $handler->display->display_options['exposed_form']['options']['text_input_required'] = '';
   $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'filtered_html';
   $handler->display->display_options['pager']['type'] = 'full';
@@ -167,7 +166,7 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'No results';
   $handler->display->display_options['empty']['area']['format'] = 'plain_text';
-  /* Field: Indexed Multilingual Node: Cancelled */
+  /* Field: Indexed Multilingual Content: Cancelled */
   $handler->display->display_options['fields']['field_cancelled']['id'] = 'field_cancelled';
   $handler->display->display_options['fields']['field_cancelled']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['field_cancelled']['field'] = 'field_cancelled';
@@ -175,7 +174,7 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['fields']['field_cancelled']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_cancelled']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_cancelled']['type'] = 'cancelled';
-  /* Field: Indexed Multilingual Node: URL */
+  /* Field: Indexed Multilingual Content: URL */
   $handler->display->display_options['fields']['url']['id'] = 'url';
   $handler->display->display_options['fields']['url']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['url']['field'] = 'url';
@@ -184,7 +183,7 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['fields']['url']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['url']['display_as_link'] = FALSE;
   $handler->display->display_options['fields']['url']['link_to_entity'] = 0;
-  /* Field: Indexed Multilingual Node: Title */
+  /* Field: Indexed Multilingual Content: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
@@ -193,26 +192,26 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['fields']['title_field']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['title_field']['alter']['path'] = '[url]';
   $handler->display->display_options['fields']['title_field']['alter']['prefix'] = '[field_cancelled]';
-  /* Field: Indexed Multilingual Node: Credit */
+  /* Field: Indexed Multilingual Content: Credit */
   $handler->display->display_options['fields']['field_study_credit']['id'] = 'field_study_credit';
   $handler->display->display_options['fields']['field_study_credit']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['field_study_credit']['field'] = 'field_study_credit';
   $handler->display->display_options['fields']['field_study_credit']['label'] = 'Cr';
   $handler->display->display_options['fields']['field_study_credit']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_study_credit']['alter']['text'] = '[field_study_credit-value]  <span class="show-only-in-mobile">Cr</span>';
-  /* Field: Indexed Multilingual Node: Method of study */
+  /* Field: Indexed Multilingual Content: Method of study */
   $handler->display->display_options['fields']['field_imp_method_of_study']['id'] = 'field_imp_method_of_study';
   $handler->display->display_options['fields']['field_imp_method_of_study']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['field_imp_method_of_study']['field'] = 'field_imp_method_of_study';
   $handler->display->display_options['fields']['field_imp_method_of_study']['link_to_entity'] = 0;
   $handler->display->display_options['fields']['field_imp_method_of_study']['view_mode'] = 'full';
   $handler->display->display_options['fields']['field_imp_method_of_study']['bypass_access'] = 0;
-  /* Field: Indexed Multilingual Node: Locality */
+  /* Field: Indexed Multilingual Content: Locality */
   $handler->display->display_options['fields']['field_imp_locality']['id'] = 'field_imp_locality';
   $handler->display->display_options['fields']['field_imp_locality']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['field_imp_locality']['field'] = 'field_imp_locality';
   $handler->display->display_options['fields']['field_imp_locality']['label'] = 'Location';
-  /* Field: Indexed Multilingual Node: Begin date */
+  /* Field: Indexed Multilingual Content: Begin date */
   $handler->display->display_options['fields']['field_imp_begin_date']['id'] = 'field_imp_begin_date';
   $handler->display->display_options['fields']['field_imp_begin_date']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['fields']['field_imp_begin_date']['field'] = 'field_imp_begin_date';
@@ -223,12 +222,19 @@ function uhc_open_university_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
+  /* Field: Content: Favorite widget */
+  $handler->display->display_options['fields']['favorite_widget']['id'] = 'favorite_widget';
+  $handler->display->display_options['fields']['favorite_widget']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['favorite_widget']['field'] = 'favorite_widget';
+  $handler->display->display_options['fields']['favorite_widget']['label'] = '';
+  $handler->display->display_options['fields']['favorite_widget']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['favorite_widget']['link_to_entity'] = 0;
   /* Sort criterion: Search: Relevance */
   $handler->display->display_options['sorts']['search_api_relevance']['id'] = 'search_api_relevance';
   $handler->display->display_options['sorts']['search_api_relevance']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['sorts']['search_api_relevance']['field'] = 'search_api_relevance';
   $handler->display->display_options['sorts']['search_api_relevance']['order'] = 'DESC';
-  /* Filter criterion: Indexed Multilingual Node: Combined fulltext */
+  /* Filter criterion: Indexed Multilingual Content: Combined fulltext */
   $handler->display->display_options['filters']['search_api_aggregation_1']['id'] = 'search_api_aggregation_1';
   $handler->display->display_options['filters']['search_api_aggregation_1']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['search_api_aggregation_1']['field'] = 'search_api_aggregation_1';
@@ -249,7 +255,7 @@ function uhc_open_university_views_default_views() {
     7 => 0,
     8 => 0,
   );
-  /* Filter criterion: Indexed Multilingual Node: Item language */
+  /* Filter criterion: Indexed Multilingual Content: Item language */
   $handler->display->display_options['filters']['search_api_language']['id'] = 'search_api_language';
   $handler->display->display_options['filters']['search_api_language']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['search_api_language']['field'] = 'search_api_language';
@@ -257,14 +263,14 @@ function uhc_open_university_views_default_views() {
     'current' => 'current',
   );
   $handler->display->display_options['filters']['search_api_language']['group'] = 1;
-  /* Filter criterion: Indexed Multilingual Node: End date */
+  /* Filter criterion: Indexed Multilingual Content: End date */
   $handler->display->display_options['filters']['field_imp_end_date']['id'] = 'field_imp_end_date';
   $handler->display->display_options['filters']['field_imp_end_date']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['field_imp_end_date']['field'] = 'field_imp_end_date';
   $handler->display->display_options['filters']['field_imp_end_date']['operator'] = '>=';
   $handler->display->display_options['filters']['field_imp_end_date']['value'] = 'today';
   $handler->display->display_options['filters']['field_imp_end_date']['group'] = 1;
-  /* Filter criterion: Indexed Multilingual Node: Begin date */
+  /* Filter criterion: Indexed Multilingual Content: Begin date */
   $handler->display->display_options['filters']['field_imp_begin_date']['id'] = 'field_imp_begin_date';
   $handler->display->display_options['filters']['field_imp_begin_date']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['field_imp_begin_date']['field'] = 'field_imp_begin_date';
@@ -276,7 +282,7 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['filters']['field_imp_organisation_field_ouh_code']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['field_imp_organisation_field_ouh_code']['field'] = 'field_imp_organisation_field_ouh_code';
   $handler->display->display_options['filters']['field_imp_organisation_field_ouh_code']['value'] = 'H930';
-  /* Filter criterion: Indexed Multilingual Node: Hierarchy position */
+  /* Filter criterion: Indexed Multilingual Content: Hierarchy position */
   $handler->display->display_options['filters']['field_hierarchy_position']['id'] = 'field_hierarchy_position';
   $handler->display->display_options['filters']['field_hierarchy_position']['table'] = 'search_api_index_uhc_portal';
   $handler->display->display_options['filters']['field_hierarchy_position']['field'] = 'field_hierarchy_position';

@@ -59,15 +59,16 @@ function hy_doo_status_messages($variables) {
     if (!empty($status_heading[$type])) {
       $output .= '<h2 class="element-invisible">' . $status_heading[$type] . "</h2>";
     }
+    $close = t('Close');
     if (count($messages) > 1) {
       $output .= '<ul>';
       foreach ($messages as $message) {
         $output .= '  <li>' . $message . '</li>';
       }
-      $output .= '</ul><a class="close" href="#"></a>';
+      $output .= '</ul><a class="close" href="#" title="'.$close.'"></a>';
     }
     else {
-      $output .= '<p>' . $messages[0] . '</p><a class="close" href="#"></a>';
+      $output .= '<p>' . $messages[0] . '</p><a class="close" href="#" title="'.$close.'"></a>';
     }
     $output .= '</div>';
   }
@@ -115,38 +116,6 @@ function hy_doo_theme_registry_alter(&$registry) {
     }
   }
 }
-
-function hy_doo_menu_link(&$variables) {
-  $element = $variables['element'];
-
-  // let's create shibboleth login / logout urls
-  if ($element['#href'] == 'logout') {
-    $logout_return_url = shib_auth_config('logout_url') . request_uri();
-    $element['#href'] = url(shib_auth_get_handler_base() . '/Logout?return=' . $logout_return_url);
-  }
-  if ($element['#href'] == 'login') {
-    $element['#href'] = shib_auth_generate_login_url();
-  }
-  /**
-   * Fatmenu needs these level-classes to work properly.
-   */
-  $sub_menu = '';
-  if ($element['#below']) {
-    $sub_menu = drupal_render($element['#below']);
-  }
-  $output = l($element['#title'], $element['#href'], $element['#localized_options']);
-  $navs = array('og-menu-single', 'menu-open-university-navigation');
-  if (in_array($element['#original_link']['menu_name'], $navs)) {
-    $element['#attributes']['class'][] = 'level-' . $element['#original_link']['depth'];
-    return '<li' . drupal_attributes($element['#attributes']) . '>
-    <span class="triangle"></span>' . $output . $sub_menu . "</li>\n";
-  }
-  else {
-    return '<li' . drupal_attributes($element['#attributes']) . '>
-    <span class="triangle"></span>' . $output . $sub_menu . "</li>\n";
-  }
-}
-
 
 /**
  * Overrides theme_image_url_formatter().
@@ -218,4 +187,36 @@ function hy_doo_breadcrumb($variables) {
     $output .= '</div>';
     return $output;
   }
+}
+
+/**
+ * Theme callback for 'favorite_widget'.
+ * @param $variables
+ * @return string
+ */
+function hy_doo_favorite_widget($variables) {
+  $node = $variables['node'];
+  $add_to_favorites_label = $variables['add_to_favorites_label'];
+  $delete_from_favorites_label = $variables['delete_from_favorites_label'];
+
+  $data = '(function($){
+    $(".favorite-widget--nid--' . $node->nid . '")
+      .favoriteWidget({
+        id: ' . $node->nid . ',
+        addToFavLabel: "' . $add_to_favorites_label . '",
+        delFromFavLabel: "' . $delete_from_favorites_label . '",
+        wrapperClassName: "favoritewidget button__inline",
+        inlineElement: "span",
+        inlineElementClassName: "button button--info icon--favorites"
+    });
+  })(jQuery)
+  ';
+  $options = array(
+    'type' => 'inline',
+    'scope' => 'footer',
+    'group' => JS_DEFAULT,
+    'requires_jquery' => TRUE,
+  );
+  drupal_add_js($data, $options);
+  return '<div class="favorite-widget--nid--' . $node->nid . '"></div>';
 }

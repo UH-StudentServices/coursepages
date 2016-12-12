@@ -1,0 +1,25 @@
+// Responsive navigation
+.main-menu > ul.menu {
+  display: none;
+
+  &.is-open {
+    display: block;
+  }
+
+  &.is-closed {
+    display: none;
+  }
+  @include breakpoint($small) {
+    display: flex;
+    &.is-open {
+      display: flex;
+    }
+  }
+}
+
+// Item width for masonry.
+.fatmenu .is-lvl2 {
+  @include breakpoint($small) {
+    width: 30%;
+  }
+}

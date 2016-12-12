@@ -480,8 +480,14 @@ function uhc_search_portal_feature_section_search_form($field) {
 
     if (empty($node->field_liftup_section)) {
       $student_url = variable_get('uhc_student_home_url', 'https://student.helsinki.fi/opintoni');
+      $student_title = t('My studies');
       $teacher_url = variable_get('uhc_teacher_home_url', 'https://teacher.helsinki.fi/opetukseni');
-      $output .= '<div class="messages info"><p>' . t('Students are advised to access their active courses via My Studies') . '<a href="'.$student_url.'"></a></br>' . t('Teachers are advised to access their active courses via My Teaching') . '<a href="'.$teacher_url.'"></a></p></div>';
+      $teacher_title = t('My teaching');
+      $output .= '<div class="messages info"><p>'
+        . t('Students are advised to access their active courses via My Studies')
+        . '<a href="'.$student_url.'" title="'.$student_title.'"></a></br>'
+        . t('Teachers are advised to access their active courses via My Teaching')
+        . '<a href="'.$teacher_url.'" title="'.$teacher_title.'"></a></p></div>';
     }
     return $output;
   }

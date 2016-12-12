@@ -131,3 +131,11 @@ img.file-icon {
 .pager {
   text-align: center;
 }
+
+@include breakpoint($small) {
+  .main-menu {
+    height: 56px;
+    border-bottom: none;
+  }
+}
+

@@ -1,0 +1,78 @@
+<?php
+/**
+ * @file
+ * Module implementation for providing service endpoints for entities that are
+ * introduced by KORI API.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_services_resources().
+ */
+function uhc_sisu_kori_services_services_resources() {
+  return array(
+    'course_unit_realisation' => array(
+      'operations' => array(
+        /* TODO: 'retrieve' => array(), */
+        /* TODO: 'create' => array(), */
+        'update' => array(
+          'file' => array('type' => 'inc', 'module' => 'uhc_sisu_kori_services', 'name' => 'resources/course_unit_realisation_resource'),
+          'callback' => '_course_unit_realisation_resource_update',
+          'args' => array(
+            array(
+              'name' => 'otm_id',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'string',
+              'description' => 'The otm-id of the course unit realisation to update',
+            ),
+            array(
+              'name' => 'course_unit_realisation',
+              'optional' => FALSE,
+              'source' => 'data',
+              'description' => 'The course unit realisation data to update',
+              'type' => 'array',
+            ),
+          ),
+          'access callback' => '_course_unit_realisation_resource_update_access',
+          'access arguments append' => TRUE,
+        ),
+        /* TODO: 'delete' => array(), */
+        /* TODO: 'index' => array(), */
+      ),
+    ),
+    'study_event' => array(
+      'operations' => array(
+        /* TODO: 'retrieve' => array(), */
+        /* TODO: 'create' => array(), */
+        'update' => array(
+          'file' => array('type' => 'inc', 'module' => 'uhc_sisu_kori_services', 'name' => 'resources/study_event_resource'),
+          'callback' => '_study_event_resource_update',
+          'args' => array(
+            array(
+              'name' => 'otm_id',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'string',
+              'description' => 'The otm-id of the study event to update',
+            ),
+            array(
+              'name' => 'course_unit_realisation',
+              'optional' => FALSE,
+              'source' => 'data',
+              'description' => 'The study event data to create',
+              'type' => 'array',
+            ),
+          ),
+          'access callback' => '_study_event_resource_update_access',
+          'access arguments append' => TRUE,
+        ),
+        /* TODO: 'delete' => array(), */
+        /* TODO: 'index' => array(), */
+      ),
+    ),
+  );
+}

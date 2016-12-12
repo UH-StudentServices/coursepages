@@ -23,6 +23,7 @@
   }
   &.collapsed {
     @include border;
+    z-index: 999;
     overflow: visible;
     max-height: $max-height;
   }

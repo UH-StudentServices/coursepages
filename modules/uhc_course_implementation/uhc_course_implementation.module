@@ -20,7 +20,8 @@ function uhc_course_implementation_field_widget_form_alter(&$element, &$form_sta
     'field_event_ref_to_material' => t('Add material'),
     'field_section_material' => t('Add material'),
     'field_reference_to_course_tasks' => t('Add task'),
-    'field_imp_reference_to_events' => t('Add new event')
+    'field_imp_reference_to_events' => t('Add new event'),
+    'field_imp_results' => t('Add new result')
   );
 
   foreach ($labels as $field_name => $label) {
@@ -30,6 +31,13 @@ function uhc_course_implementation_field_widget_form_alter(&$element, &$form_sta
       if (isset($element['form'])) {
         $element['form']['#weight'] = 0;
       }
+    }
+  }
+
+  // alter file field descriptions
+  if (in_array($context['instance']['field_name'], array('field_material_file', 'field_result_files'))) {
+    foreach (element_children($element) as $key => $child) {
+      $element[$key]['#process'][] = 'uhc_course_implementation_alter_file_description';
     }
   }
 }
@@ -43,7 +51,8 @@ function uhc_course_implementation_inline_entity_form_entity_form_alter(&$entity
   $labels = array(
     'course_material' => t('Add material'),
     'course_task' => t('Add task'),
-    'event' => t('Add new event')
+    'event' => t('Add new event'),
+    'exam_results' => t('Add new result')
   );
 
   foreach ($labels as $bundle => $label)  {
@@ -53,6 +62,15 @@ function uhc_course_implementation_inline_entity_form_entity_form_alter(&$entity
       $entity_form['actions']['ief_edit_save']['#value'] = isset($entity_form['actions']['ief_edit_save']) ? t('Save') : NULL;
     }
   }
+}
+
+/**
+ * Change file field description title and remove description
+ */
+function uhc_course_implementation_alter_file_description($element, &$form_state, $form) {
+  $element['description']['#title'] = t('Title');
+  unset($element['description']['#description']);
+  return $element;
 }
 
 /**
@@ -1121,4 +1139,18 @@ function uhc_course_implementation_taxonomy_term_delete($term) {
 function _uhc_course_implementation_get_teaching_languages($node) {
   $teaching_language_field_items = field_get_items('node', $node, 'field_imp_teaching_language');
   return $teaching_language_field_items ? array_column($teaching_language_field_items, 'value') : array();
+}
+
+/**
+ * Helper function to get referencing course implementation nid
+ */
+function uhc_course_implementation_get_referencing_course_implementation($nid, $field) {
+  $table_name = 'field_data_' . $field;
+  $column_name = $field . '_target_id';
+
+  $query = db_select($table_name)->fields($table_name, array('entity_id'))->condition($column_name, $nid)->execute();
+  while ($entity_id = $query->fetchField()) {
+    return $entity_id;
+  }
+  return NULL;
 }

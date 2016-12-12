@@ -29,15 +29,8 @@
           maxTime: '23:45'
         };
 
-    //Get current CSS breakpoint
-    var breakpoint = {};
-    breakpoint.refreshValue = function () {
-      this.value = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '');
-    };
-    breakpoint.refreshValue();
-
     // no dropdown if mobile
-    if (breakpoint.value == 'mobile') {
+    if (isMobile()) {
       durationPickerSettings.dropdown = false;
       startTimePickerSettings.dropdown = false;
     }

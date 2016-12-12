@@ -232,8 +232,8 @@ function _uhc_course_implementation_inherited_fields_get_resource_url($node) {
     $course_number = _uhc_sources_resolve_course_number($node->field_imp_id[LANGUAGE_NONE][0]['value']);
     $resource_url = str_replace(':id', $course_number, $base_url . $path);
 
-    // Ensure that we have a resource URL to work with
-    if (empty($resource_url)) {
+    // Ensure that we have a valid resource URL to work with.
+    if (empty($course_number) || empty($resource_url)) {
       return NULL;
     }
 

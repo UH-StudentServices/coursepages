@@ -36,6 +36,22 @@
     .cancelled {
       width: 100%;
     }
+    @include breakpoint($small) {
+      .favoritewidget {
+        margin: 1em;
+        padding-right: 1em;
+        min-width: 0;
+        width: 0;
+        .button {
+          width: 0;
+          padding: 0;
+          text-indent: -9999px;
+          &:after {
+            text-indent: 0;
+          }
+        }
+      }
+    }
   }
 
   th {

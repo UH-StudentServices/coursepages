@@ -36,6 +36,7 @@ function uhc_course_implementation_activity_flag_default_flags() {
     'types' => array(
       0 => 'course_material',
       1 => 'event',
+      2 => 'exam_results',
     ),
     'flag_short' => 'Flag this item',
     'flag_long' => '',
@@ -50,13 +51,9 @@ function uhc_course_implementation_activity_flag_default_flags() {
       'full' => 0,
       'teaser' => 0,
       'rss' => 0,
-      'search_index' => 0,
-      'search_result' => 0,
       'diff_standard' => 0,
-      'teaser_images' => 0,
-      'content_suffix' => 0,
-      'sidebar' => 0,
       'token' => 0,
+      'sidebar' => 0,
       'material_block' => 0,
       'meta_information' => 0,
       'teaser_accordion' => 0,
@@ -1583,6 +1580,123 @@ function uhc_course_implementation_activity_default_message_type() {
           "value" : "\\u003Cp\\u003E[message:user:name] redigerade ett material\\u003C\\/p\\u003E\\n",
           "format" : "full_html",
           "safe_value" : "\\u003Cp\\u003E[message:user:name] redigerade ett material\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_results_create'] = entity_import('message_type', '{
+    "name" : "course_implementation_results_create",
+    "description" : "Course implementation - Results create",
+    "argument_keys" : [ "@result_title" ],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-results",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] added results \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\r\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] added results \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] liitti tulokset \\u0022@result_title\\u0022 kurssin opiskelijoille\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] liitti tulokset \\u0022@result_title\\u0022 kurssin opiskelijoille\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] f\\u00e4ste resultat \\u0022@result_title\\u0022 till studerande\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] f\\u00e4ste resultat \\u0022@result_title\\u0022 till studerande\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_results_remove'] = entity_import('message_type', '{
+    "name" : "course_implementation_results_remove",
+    "description" : "Course implementation - Results remove",
+    "argument_keys" : [ "@result_title" ],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-results",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] removed results \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\r\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] removed results \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] poisti tulokset \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] poisti tulokset \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] raderade resultat \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] raderade resultat \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  $items['course_implementation_results_update'] = entity_import('message_type', '{
+    "name" : "course_implementation_results_update",
+    "description" : "Course implementation - Results update",
+    "argument_keys" : [ "@result_title" ],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "target_accordion_class" : ".group-imp-results",
+    "send_mece_notification" : "1",
+    "message_text" : {
+      "en" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] updated results \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\r\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] updated results \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "fi" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti tuloksia \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] p\\u00e4ivitti tuloksia \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n"
+        }
+      ],
+      "sv" : [
+        {
+          "value" : "\\u003Cp\\u003E[message:user:name] redigerade resultat \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n",
+          "format" : "full_html",
+          "safe_value" : "\\u003Cp\\u003E[message:user:name] redigerade resultat \\u0022@result_title\\u0022\\u003C\\/p\\u003E\\n"
         }
       ]
     },

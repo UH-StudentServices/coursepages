@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function uhc_course_implementation_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -44,7 +44,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_accordion_content|node|course_implementation|teaser_accordion'] = $field_group;
+  $field_groups['group_accordion_content|node|course_implementation|teaser_accordion'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -57,7 +57,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Conduct of the course',
-    'weight' => '25',
+    'weight' => '26',
     'children' => array(
       0 => 'field_imp_teacher_se_content',
     ),
@@ -71,7 +71,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_conduct_of_course|node|course_implementation|default'] = $field_group;
+  $field_groups['group_conduct_of_course|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -99,7 +99,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_conduct_of_course|node|course_implementation|form'] = $field_group;
+  $field_groups['group_conduct_of_course|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -127,7 +127,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_course_task_material|node|course_implementation|form'] = $field_group;
+  $field_groups['group_course_task_material|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -140,7 +140,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course overview',
-    'weight' => '13',
+    'weight' => '14',
     'children' => array(
       0 => 'field_additional_info',
       1 => 'field_conduct',
@@ -165,7 +165,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_description_objectives|node|course_implementation|form'] = $field_group;
+  $field_groups['group_description_objectives|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -196,7 +196,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_header_promotion|node|course_implementation|form'] = $field_group;
+  $field_groups['group_header_promotion|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -226,7 +226,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_headline_and_intro|node|course_implementation|form'] = $field_group;
+  $field_groups['group_headline_and_intro|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -239,7 +239,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Feedback',
-    'weight' => '26',
+    'weight' => '28',
     'children' => array(
       0 => 'field_feedback_link',
       1 => 'field_feedback_description',
@@ -254,7 +254,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_imp_feedback|node|course_implementation|default'] = $field_group;
+  $field_groups['group_imp_feedback|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -267,7 +267,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Feedback',
-    'weight' => '12',
+    'weight' => '13',
     'children' => array(
       0 => 'field_feedback_link',
       1 => 'field_feedback_description',
@@ -284,7 +284,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_imp_feedback|node|course_implementation|form'] = $field_group;
+  $field_groups['group_imp_feedback|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -297,7 +297,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Registration and fee',
-    'weight' => '27',
+    'weight' => '29',
     'children' => array(
       0 => 'uhc_ds_fee',
       1 => 'uhc_ds_open_uni_registration',
@@ -312,7 +312,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_imp_fee|node|course_implementation|default'] = $field_group;
+  $field_groups['group_imp_fee|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -342,7 +342,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_imp_header_img|node|course_implementation|form'] = $field_group;
+  $field_groups['group_imp_header_img|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -355,7 +355,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Integration',
-    'weight' => '14',
+    'weight' => '15',
     'children' => array(
       0 => 'field_imp_begin_date',
       1 => 'field_imp_end_date',
@@ -398,7 +398,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_imp_integration|node|course_implementation|form'] = $field_group;
+  $field_groups['group_imp_integration|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -411,7 +411,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Interaction',
-    'weight' => '19',
+    'weight' => '20',
     'children' => array(
       0 => 'field_imp_interaction_link',
       1 => 'field_imp_interactiondescription',
@@ -426,7 +426,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_imp_interaction|node|course_implementation|default'] = $field_group;
+  $field_groups['group_imp_interaction|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -456,7 +456,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_imp_interaction|node|course_implementation|form'] = $field_group;
+  $field_groups['group_imp_interaction|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -485,7 +485,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_imp_material|node|course_implementation|form'] = $field_group;
+  $field_groups['group_imp_material|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -498,7 +498,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Learning environments',
-    'weight' => '17',
+    'weight' => '18',
     'children' => array(
       0 => 'field_moodle_url',
       1 => 'field_wiki_url',
@@ -520,7 +520,63 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_imp_moodle|node|course_implementation|default'] = $field_group;
+  $field_groups['group_imp_moodle|node|course_implementation|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_imp_results|node|course_implementation|default';
+  $field_group->group_name = 'group_imp_results';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'course_implementation';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Results',
+    'weight' => '27',
+    'children' => array(
+      0 => 'field_imp_results',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'label' => 'Results',
+      'instance_settings' => array(
+        'classes' => 'group-imp-results field-group-accordion-item',
+        'show_empty_fields' => 1,
+      ),
+      'formatter' => 'closed',
+    ),
+  );
+  $field_groups['group_imp_results|node|course_implementation|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_imp_results|node|course_implementation|form';
+  $field_group->group_name = 'group_imp_results';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'course_implementation';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Results',
+    'weight' => '12',
+    'children' => array(
+      0 => 'field_imp_results',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'label' => 'Results',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-imp-results field-group-tab',
+        'description' => 'Publish the results preferably in pdf format. Use student numbers, not names of individuals. Results are shown only for students of the course and are available for 6 months. After this, the files are automatically deleted from the system.',
+        'show_empty_fields' => 0,
+      ),
+      'formatter' => 'closed',
+    ),
+  );
+  $field_groups['group_imp_results|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -533,7 +589,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Enrolment',
-    'weight' => '15',
+    'weight' => '16',
     'children' => array(
       0 => 'field_imp_hide_sign_up_button',
     ),
@@ -547,7 +603,7 @@ function uhc_course_implementation_field_group_info() {
       ),
     ),
   );
-  $export['group_imp_signup|node|course_implementation|form'] = $field_group;
+  $field_groups['group_imp_signup|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -579,7 +635,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_imp_teaser_conduct|node|course_implementation|teaser_accordion'] = $field_group;
+  $field_groups['group_imp_teaser_conduct|node|course_implementation|teaser_accordion'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -592,7 +648,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Video',
-    'weight' => '22',
+    'weight' => '23',
     'children' => array(
       0 => 'field_video_description',
       1 => 'field_video_embed_url',
@@ -608,7 +664,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_imp_video|node|course_implementation|default'] = $field_group;
+  $field_groups['group_imp_video|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -639,7 +695,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_imp_video|node|course_implementation|form'] = $field_group;
+  $field_groups['group_imp_video|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -667,7 +723,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_manual_content|field_collection_item|field_imp_teachersection|default'] = $field_group;
+  $field_groups['group_manual_content|field_collection_item|field_imp_teachersection|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = TRUE; /* Edit this to true to make a default field_group disabled initially */
@@ -694,7 +750,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_manual_content|node|course_implementation|default'] = $field_group;
+  $field_groups['group_manual_content|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -723,7 +779,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_manual_content|node|course_implementation|form'] = $field_group;
+  $field_groups['group_manual_content|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -750,7 +806,7 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_messages|node|course_implementation|form'] = $field_group;
+  $field_groups['group_messages|node|course_implementation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -783,7 +839,29 @@ function uhc_course_implementation_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_timetable|node|course_implementation|form'] = $field_group;
+  $field_groups['group_timetable|node|course_implementation|form'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Conduct of the course');
+  t('Course Information');
+  t('Course conduct');
+  t('Course overview');
+  t('Custom Section');
+  t('Custom section');
+  t('Enrolment');
+  t('Feedback');
+  t('Integration');
+  t('Interaction');
+  t('Introduction');
+  t('Learning environments');
+  t('Material');
+  t('Messages');
+  t('Registration and fee');
+  t('Results');
+  t('Tasks');
+  t('Timetable');
+  t('Video');
+
+  return $field_groups;
 }

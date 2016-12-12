@@ -3,7 +3,6 @@
   &:before {
     @include icon($icon);
     @include font-weight-book;
-    margin-right: 20px;
   }
   @include breakpoint($small) {
     display: block;
@@ -11,7 +10,7 @@
     line-height: 0;
     &:before {
       font-size: 15px;
-      line-height: 60px;
+      line-height: 56px;
       margin-right: 0;
     }
   }

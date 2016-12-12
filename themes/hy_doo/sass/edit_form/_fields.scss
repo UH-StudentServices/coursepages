@@ -55,6 +55,11 @@
       font-weight: bold;
     }
   }
+  .field-name-field-event-begin-date {
+    .fieldset-legend {
+      display: none;
+    }
+  }
 }
 
 .filter-wrapper {

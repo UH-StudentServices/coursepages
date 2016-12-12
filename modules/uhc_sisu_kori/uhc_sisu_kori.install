@@ -1,0 +1,70 @@
+<?php
+/**
+ * @file
+ * Integration with installation, uninstallation and update related tasks.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function uhc_sisu_kori_schema() {
+  $schema = array();
+  $schema['course_unit_realisation'] = array(
+    'description' => 'Base table for course unit realisations.',
+    'fields' => array(
+      'otm_id' => array(
+        'description' => 'The primary identifier for a study event.',
+        'type' => 'varchar',
+        'length' => '32',
+        'not null' => TRUE,
+      ),
+      'data' => array(
+        'description' => 'Contains the raw JSON data of the object.',
+        'type' => 'blob',
+        'size' => 'big',
+        'serialize' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('otm_id'),
+  );
+  $schema['study_event'] = array(
+    'description' => 'Base table for study events.',
+    'fields' => array(
+      'otm_id' => array(
+        'description' => 'The primary identifier for a study event.',
+        'type' => 'varchar',
+        'length' => '32',
+        'not null' => TRUE,
+      ),
+      'data' => array(
+        'description' => 'Contains the raw JSON data of the object.',
+        'type' => 'blob',
+        'size' => 'big',
+        'serialize' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('otm_id'),
+  );
+  return $schema;
+}
+
+/**
+ * Mark DB table data column as "serialized".
+ */
+function uhc_sisu_kori_update_7001() {
+  $data_schema = array(
+    'description' => 'Contains the raw JSON data of the object.',
+    'type' => 'blob',
+    'size' => 'big',
+    'serialize' => TRUE,
+    'not null' => TRUE,
+  );
+  db_change_field('course_unit_realisation', 'data', 'data', $data_schema);
+  db_change_field('study_event', 'data', 'data', $data_schema);
+}

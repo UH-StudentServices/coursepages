@@ -1,20 +1,27 @@
 // This is the exposed filter form
 .search-filters {
   position: relative;
+  .views-widget-filter-search_api_aggregation_1 {
+    .views-widget {
+      display: flex;
+      flex-wrap: wrap;
+      > label,
+      .form-item-search {
+        flex-basis: 100%;
+        input {
+          @include breakpoint($small) {
+            @include grid-span(10);
+          }
+        }
+      }
+    }
+  }
   .views-widget-filter-academic_year {
     @include chosen-dropdown;
     @include clearfix;
     label,
     .views-widget {
       display: inline-block;
-    }
-  }
-  .form-item-search {
-    @include clearfix;
-    input {
-      @include breakpoint($small) {
-        @include grid-span(10);
-      }
     }
   }
   .form-item-include-ongoing-courses {

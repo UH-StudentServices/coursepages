@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function uhc_ds_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -21,7 +21,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional information',
-    'weight' => '29',
+    'weight' => '31',
     'children' => array(),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -31,7 +31,7 @@ function uhc_ds_field_group_info() {
       ),
     ),
   );
-  $export['group_additional_information|node|course_implementation|default'] = $field_group;
+  $field_groups['group_additional_information|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -67,7 +67,7 @@ function uhc_ds_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_content_collection_left|field_collection_item|field_content_collection|default'] = $field_group;
+  $field_groups['group_content_collection_left|field_collection_item|field_content_collection|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -101,7 +101,7 @@ function uhc_ds_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_content_collection_right|field_collection_item|field_content_collection|default'] = $field_group;
+  $field_groups['group_content_collection_right|field_collection_item|field_content_collection|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -114,7 +114,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Messages',
-    'weight' => '18',
+    'weight' => '19',
     'children' => array(
       0 => 'comments',
     ),
@@ -127,7 +127,7 @@ function uhc_ds_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_course_messages|node|course_implementation|default'] = $field_group;
+  $field_groups['group_course_messages|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -140,7 +140,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tasks',
-    'weight' => '23',
+    'weight' => '24',
     'children' => array(
       0 => 'field_reference_to_course_tasks',
     ),
@@ -154,7 +154,7 @@ function uhc_ds_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_course_task_material|node|course_implementation|default'] = $field_group;
+  $field_groups['group_course_task_material|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -167,7 +167,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course overview',
-    'weight' => '28',
+    'weight' => '30',
     'children' => array(
       0 => 'uhc_course_implementation_inherited_fields_additional_info',
       1 => 'uhc_course_implementation_inherited_fields_conduct',
@@ -192,7 +192,7 @@ function uhc_ds_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_description_objectives|node|course_implementation|default'] = $field_group;
+  $field_groups['group_description_objectives|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -205,7 +205,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Material',
-    'weight' => '21',
+    'weight' => '22',
     'children' => array(
       0 => 'field_imp_material_description',
       1 => 'course_implementation_material',
@@ -220,7 +220,7 @@ function uhc_ds_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_imp_material|node|course_implementation|default'] = $field_group;
+  $field_groups['group_imp_material|node|course_implementation|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -255,7 +255,7 @@ function uhc_ds_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_message_wrapper|comment|comment_node_course_implementation|full'] = $field_group;
+  $field_groups['group_message_wrapper|comment|comment_node_course_implementation|full'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -268,7 +268,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timetable',
-    'weight' => '20',
+    'weight' => '21',
     'children' => array(
       0 => 'event_reference_block',
       1 => 'uhc_event_teaching_schedule',
@@ -284,7 +284,19 @@ function uhc_ds_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_timetable|node|course_implementation|default'] = $field_group;
+  $field_groups['group_timetable|node|course_implementation|default'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Additional information');
+  t('Content collection left');
+  t('Content collection right');
+  t('Course overview');
+  t('Material');
+  t('Message wrapper');
+  t('Messages');
+  t('Tasks');
+  t('Timetable');
+
+  return $field_groups;
 }

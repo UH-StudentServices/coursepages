@@ -1,0 +1,353 @@
+swagger: '2.0'
+info:
+  title: Coursepages API
+  description: |
+    Course pages API for University of Helsinki coursepage service (DOO Kurssisivut) that is
+    designed to serve ESB.
+
+    Authentication is taken care with SSL/TLS Client implemented by Apache or
+    Nginx serivces. See more information:
+      - https://wiki.openssl.org/index.php/SSL/TLS_Client
+      - https://httpd.apache.org/docs/2.2/ssl/ssl_howto.html#accesscontrol
+      - http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_verify_client
+  version: '2.x.x-dev'
+host: courses.helsinki.fi
+basePath: /api/v2
+tags:
+  - name: KORI API
+    description: Objects where master data relies on KORI API.
+paths:
+  /course_unit_realisation/{otmId}:
+    put:
+      tags:
+        - KORI API
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: otmId
+          in: path
+          description: OTM ID of course unit realisation that needs to be created or updated
+          required: true
+          type: string
+        - name: CourseUnitRealisation
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CourseUnitRealisation'
+      responses:
+        200:
+          description: Content has been created or updated
+        400:
+          description: Invalid JSON
+        406:
+          description: Not acceptable request (example: otmId does not match with the `CourseUnitRealisation` object.
+        500:
+          description: Internal server error
+  /study_event/{otmId}:
+    put:
+      tags:
+        - KORI API
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: otmId
+          in: path
+          description: OTM ID of study event that needs to be created or updated
+          required: true
+          type: string
+        - name: StudyEvent
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/StudyEvent'
+      responses:
+        200:
+          description: Content has been created or updated
+        400:
+          description: Invalid JSON
+        406:
+          description: Not acceptable request (example: otmId does not match with the `StudyEvent` object.
+        500:
+          description: Internal server error
+definitions:
+  PersonWithCourseUnitRealisationResponsibilityInfoType:
+    required:
+      - roleUrn
+    properties:
+      personId:
+        type: string
+        format: otmid
+        default: otm-123456
+      roleUrn:
+        type: string
+        enum:
+          - >-
+            urn:code:course-unit-realisation-responsibility-info-type:responsible-teacher
+          - 'urn:code:course-unit-realisation-responsibility-info-type:teacher'
+          - >-
+            urn:code:course-unit-realisation-responsibility-info-type:administrative-person
+          - >-
+            urn:code:course-unit-realisation-responsibility-info-type:contact-info
+      text:
+        $ref: '#/definitions/LocalizedString'
+    description: >-
+      Describes a given person or textual personified role has a given
+      responsibility
+  Duration:
+    properties:
+      nano:
+        type: integer
+        format: int32
+      negative:
+        type: boolean
+      seconds:
+        type: integer
+        format: int64
+      units:
+        type: array
+        items:
+          $ref: '#/definitions/TemporalUnit'
+      zero:
+        type: boolean
+  StudyGroupSet:
+    required:
+      - localId
+      - name
+      - studySubGroups
+      - subGroupRange
+    properties:
+      localId:
+        type: string
+      name:
+        $ref: '#/definitions/LocalizedString'
+      studySubGroups:
+        type: array
+        items:
+          $ref: '#/definitions/StudySubGroup'
+      subGroupRange:
+        $ref: '#/definitions/IntRange'
+    description: >2-
+       A StudyGroupSet groups a set of StudySubGroups of which the student typically chooses one group.
+      Different type of teaching (lectures, exams, lab groups) of a course unit
+      realisation is reflected by StudyGroupSets.
+
+      Each course unit realisation has at least one sub group set. Eg. study
+      unit instance 'CS101, spring 2015' may have two
+
+      groups sets: "exam" and "lectures" of which "exam" has just one sub group
+      and "lectures" has two sub groups A and B of
+
+      which A has lectures on Mondays and B has lectures on Fridays.
+
+      If different types of teaching are GRADED SEPARATELY, they are modeled as
+      different ASSESSMENT ITEMS. If they are graded together, they are modeled
+      as STUDY GROUP SETS.
+  LocalizedString:
+    properties:
+      en:
+        type: string
+        example: English version
+      fi:
+        type: string
+        example: Finnish version
+      sv:
+        type: string
+        example: Swedish version
+    description: >-
+      A map <langCode, value> of plain strings containing localized versions of
+      a text
+  StudyEvent:
+    required:
+      - duration
+      - exceptions
+      - locationIds
+      - recursEvery
+      - startTime
+    properties:
+      documentState:
+        $ref: '#/definitions/DocumentState'
+      duration:
+        $ref: '#/definitions/Duration'
+      exceptions:
+        type: array
+        description: >-
+          Possible exception dateTimes when there are no events, for example
+          holidays. Must match the start of the event exactly in order for the
+          event to be excluded.
+        items:
+          type: string
+          format: date-time
+      id:
+        type: string
+        format: otmid
+        default: otm-123456
+      locationIds:
+        type: array
+        description: >-
+          Location(s) in which the event series occurs. An exam can take place
+          in several halls at the same time.
+        items:
+          type: string
+          format: otmid
+          default: otm-123456
+      name:
+        $ref: '#/definitions/LocalizedString'
+      recursEvery:
+        type: string
+        description: How often the event recurs
+        enum:
+          - P0D
+          - P1D
+          - P7D
+          - P14D
+          - P1M
+          - P1Y
+      recursUntil:
+        type: string
+        format: date-time
+        description: 'Recurs until this date, end date is excluded'
+      startTime:
+        type: string
+        format: date-time
+        description: When the event occurs for the first time
+    description: >-
+      Study event containing a series of event occurrences and locations for the
+      events
+  TemporalUnit:
+    type: object
+    properties:
+      dateBased:
+        type: boolean
+      durationEstimated:
+        type: boolean
+      timeBased:
+        type: boolean
+  CourseUnitRealisation:
+    required:
+      - assessmentItemIds
+      - endDate
+      - name
+      - organisations
+      - responsibilityInfos
+      - startDate
+      - studyGroupSets
+      - teachingLanguage
+    properties:
+      assessmentItemIds:
+        type: array
+        description: Ids of all assessment items this realisation is a realisation of
+        items:
+          type: string
+          format: otmid
+          default: otm-123456
+      documentState:
+        $ref: '#/definitions/DocumentState'
+      endDate:
+        type: string
+        format: date
+        description: >-
+          End of the date range, during which all the work to be assessed should
+          finished. Study event dates must not be later than this
+      id:
+        type: string
+        format: otmid
+        default: otm-123456
+      name:
+        $ref: '#/definitions/LocalizedString'
+      organisations:
+        type: array
+        items:
+          $ref: '#/definitions/OrganisationRoleShare'
+      responsibilityInfos:
+        type: array
+        items:
+          $ref: '#/definitions/PersonWithCourseUnitRealisationResponsibilityInfoType'
+      startDate:
+        type: string
+        format: date
+      studyGroupSets:
+        type: array
+        items:
+          $ref: '#/definitions/StudyGroupSet'
+      teachingLanguage:
+        type: string
+        format: urn
+        pattern: 'urn:code:*:*'
+        default: 'urn:code:*:*'
+    description: >-
+      A CourseUnitRealisation is a concrete implementation of an assessment
+      item. An example would be 'Biologian perusteet syksyllä 2014'.
+       It may belong to more than one AssessmentItem, because sometimes one lecture series (CUR) can fulfill more than one
+  IntRange:
+    required:
+      - min
+    properties:
+      max:
+        type: integer
+        format: int32
+        description: maximum acceptable value
+      min:
+        type: integer
+        format: int32
+        description: minimum acceptable value
+    description: Acceptable range of integers
+  OrganisationRoleShare:
+    required:
+      - organisationId
+      - roleUrn
+      - share
+    properties:
+      organisationId:
+        type: string
+        format: otmid
+        description: Id of the organisation
+        default: otm-123456
+      roleUrn:
+        type: string
+        format: urn
+        description: The role URN
+        pattern: 'urn:code:*:*'
+        default: 'urn:code:*:*'
+      share:
+        type: number
+        format: double
+        description: >-
+          The share, greater than zero and at most one. The shares of one role
+          must sum to one. But that is currently not enforced.
+    description: >-
+      Describes a given organisation is in a given role with a possible
+      fractional share, if the role is shared
+  StudySubGroup:
+    required:
+      - localId
+      - name
+      - studyEventIds
+      - teachers
+    properties:
+      localId:
+        type: string
+      name:
+        $ref: '#/definitions/LocalizedString'
+      studyEventIds:
+        type: array
+        items:
+          type: string
+          format: otmid
+          default: otm-123456
+      teachers:
+        type: array
+        items:
+          type: string
+          format: otmid
+          default: otm-123456
+    description: Study sub group "aliryhmä"
+  DocumentState:
+    type: string
+    enum:
+      - DRAFT
+      - ACTIVE
+      - DELETED

@@ -1,0 +1,5 @@
+name = KORI API Services
+description = Provides service endpoints for entities that are introduced by KORI API.
+core = 7.x
+package = Services
+dependencies[] = uhc_sisu_kori

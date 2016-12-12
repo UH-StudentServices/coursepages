@@ -48,7 +48,7 @@ function uhc_course_hierarchy_preprocess_page(&$vars) {
       }
     }
 
-    $breadcrumb = array(l($text, $href, array('attributes' => array('class' => array('home-link')))));
+    $breadcrumb = array(l($text, $href, array('attributes' => array('class' => array('breadcrumbs--home icon--home')))));
 
     // Format course hierarchy as empty array, this gets filled by node objects
     $course_hierarchy = array();

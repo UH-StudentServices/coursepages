@@ -1,4 +1,6 @@
-.home-link,
-%home-link {
-  @include menu-item-icon($icon-home);
+.breadcrumbs--home {
+  @include font-size(0px);
+  &:after {
+    @include font-size(12px);
+  }
 }

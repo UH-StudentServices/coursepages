@@ -156,7 +156,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 82,
+        'weight' => 84,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -234,7 +234,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_order' => 0,
         ),
         'type' => 'list_default',
-        'weight' => 33,
+        'weight' => 35,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -298,7 +298,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 68,
+        'weight' => 70,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -367,7 +367,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 67,
+        'weight' => 69,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -436,7 +436,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 64,
+        'weight' => 66,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -818,7 +818,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 95,
+        'weight' => 97,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -885,7 +885,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 94,
+        'weight' => 96,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -952,7 +952,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 93,
+        'weight' => 95,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1055,7 +1055,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 80,
+        'weight' => 82,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1149,7 +1149,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 71,
+        'weight' => 73,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1296,7 +1296,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 72,
+        'weight' => 74,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1369,7 +1369,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 88,
+        'weight' => 90,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1442,7 +1442,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 89,
+        'weight' => 91,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1516,7 +1516,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 86,
+        'weight' => 88,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1618,7 +1618,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 60,
+        'weight' => 62,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1688,7 +1688,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 79,
+        'weight' => 81,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2202,7 +2202,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 85,
+        'weight' => 87,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2266,7 +2266,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 74,
+        'weight' => 76,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2537,7 +2537,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 83,
+        'weight' => 85,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2885,7 +2885,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 87,
+        'weight' => 89,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -2952,7 +2952,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 73,
+        'weight' => 75,
       ),
       'index' => array(
         'label' => 'above',
@@ -3026,7 +3026,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 84,
+        'weight' => 86,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3082,6 +3082,74 @@ function uhc_course_implementation_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-course_implementation-field_imp_results'.
+  $field_instances['node-course_implementation-field_imp_results'] = array(
+    'bundle' => 'course_implementation',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'entityreference',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
+          'links' => 1,
+          'use_content_language' => 1,
+          'view_mode' => 'default',
+        ),
+        'type' => 'entityreference_entity_view',
+        'weight' => 110,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_accordion' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_imp_results',
+    'label' => 'Results',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'inline_entity_form',
+      'settings' => array(
+        'fields' => array(),
+        'type_settings' => array(
+          'allow_existing' => 0,
+          'allow_new' => 1,
+          'delete_references' => 0,
+          'label_plural' => 'nodes',
+          'label_singular' => 'node',
+          'match_operator' => 'CONTAINS',
+          'override_labels' => 0,
+        ),
+      ),
+      'type' => 'inline_entity_form',
+      'weight' => 78,
+    ),
+  );
+
   // Exported field_instance:
   // 'node-course_implementation-field_imp_start_month'.
   $field_instances['node-course_implementation-field_imp_start_month'] = array(
@@ -3100,7 +3168,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 78,
+        'weight' => 80,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3241,7 +3309,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 75,
+        'weight' => 77,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3431,7 +3499,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 24,
+        'weight' => 25,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3561,7 +3629,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 58,
+        'weight' => 61,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3659,7 +3727,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 69,
+        'weight' => 71,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3729,7 +3797,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 61,
+        'weight' => 63,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -3838,8 +3906,8 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
           'field_multiple_limit_order' => 0,
           'links' => 0,
-          'use_content_language' => TRUE,
-          'view_mode' => 'teaser_accordion',
+          'use_content_language' => 1,
+          'view_mode' => 'default',
         ),
         'type' => 'entityreference_entity_view',
         'weight' => 2,
@@ -3916,7 +3984,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 91,
+        'weight' => 93,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4025,7 +4093,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 65,
+        'weight' => 67,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4095,7 +4163,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 90,
+        'weight' => 92,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4204,7 +4272,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 62,
+        'weight' => 64,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4277,7 +4345,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 70,
+        'weight' => 72,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4346,7 +4414,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 63,
+        'weight' => 65,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4415,7 +4483,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 66,
+        'weight' => 68,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4484,7 +4552,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 81,
+        'weight' => 83,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4828,7 +4896,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 92,
+        'weight' => 94,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4932,7 +5000,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 76,
+        'weight' => 78,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -5288,6 +5356,7 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Relations to other study units');
   t('Required prerequisites');
   t('Responsible person');
+  t('Results');
   t('Services');
   t('Start month');
   t('Target group');

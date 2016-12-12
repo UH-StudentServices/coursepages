@@ -22,7 +22,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 96,
+        'weight' => 98,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -115,7 +115,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 103,
+        'weight' => 105,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -208,7 +208,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 98,
+        'weight' => 100,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -301,7 +301,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 99,
+        'weight' => 101,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -394,7 +394,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 100,
+        'weight' => 102,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -487,7 +487,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 106,
+        'weight' => 109,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -580,7 +580,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 97,
+        'weight' => 99,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -673,7 +673,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 105,
+        'weight' => 107,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -766,7 +766,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 102,
+        'weight' => 104,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -859,7 +859,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 101,
+        'weight' => 103,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -952,7 +952,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 104,
+        'weight' => 106,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1045,7 +1045,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 107,
+        'weight' => 110,
       ),
       'sidebar' => array(
         'label' => 'above',

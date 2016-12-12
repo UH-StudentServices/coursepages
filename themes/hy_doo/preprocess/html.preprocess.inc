@@ -11,6 +11,23 @@
 function hy_doo_preprocess_html(&$variables) {
   _hy_doo_preprocess_add_favicon_meta_information();
   _hy_doo_preprocess_generate_head_title($variables);
+  _hy_doo_preprocess_add_omega_mediaqueries();
+}
+
+/**
+ * Add media queries for use in javascript
+ */
+function _hy_doo_preprocess_add_omega_mediaqueries() {
+  drupal_add_js(array(
+    'omega' => array(
+      'mediaQueries' => array(
+        'layout-mobile' => 'screen and (max-width: 48em)',
+        'layout-small' => 'screen and (min-width: 48em)',
+        'layout-medium' => 'screen and (min-width: 62.5em)',
+        'layout-large' => 'screen and (min-width: 75em)',
+      )
+    )
+  ), 'setting');
 }
 
 /**

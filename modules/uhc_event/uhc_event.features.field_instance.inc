@@ -22,7 +22,7 @@ function uhc_event_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 5,
+        'weight' => 60,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -114,7 +114,7 @@ function uhc_event_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 106,
+        'weight' => 108,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -213,11 +213,13 @@ function uhc_event_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'format_type' => 'short',
           'fromto' => 'both',
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
         'weight' => 1,
@@ -246,11 +248,13 @@ function uhc_event_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
         'weight' => 17,
@@ -310,6 +314,7 @@ function uhc_event_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 10,
@@ -348,7 +353,7 @@ function uhc_event_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_event_duration',
-    'label' => 'Event duration',
+    'label' => 'Duration',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
@@ -382,6 +387,11 @@ function uhc_event_field_default_field_instances() {
         ),
       ),
       'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -389,7 +399,8 @@ function uhc_event_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'multiple_value_widget' => 'table',
+        'maxlength_js' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         'size' => 10,
       ),
       'type' => 'text_textfield',
@@ -406,7 +417,7 @@ function uhc_event_field_default_field_instances() {
       ),
     ),
     'deleted' => 0,
-    'description' => 'This event is an exam.',
+    'description' => 'This is an exam',
     'display' => array(
       'content_suffix' => array(
         'label' => 'above',
@@ -420,6 +431,7 @@ function uhc_event_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'list_default',
         'weight' => 9,
@@ -494,6 +506,7 @@ function uhc_event_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'link_default',
         'weight' => 11,
@@ -532,7 +545,7 @@ function uhc_event_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_event_link',
-    'label' => 'Event link',
+    'label' => 'Link',
     'required' => 0,
     'settings' => array(
       'absolute_url' => 1,
@@ -549,6 +562,11 @@ function uhc_event_field_default_field_instances() {
       ),
       'enable_tokens' => 0,
       'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
       'rel_remove' => 'default',
       'title' => 'none',
       'title_label_use_field_label' => 0,
@@ -586,6 +604,7 @@ function uhc_event_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 5,
@@ -614,6 +633,7 @@ function uhc_event_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
         'weight' => 2,
@@ -628,10 +648,45 @@ function uhc_event_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_event_loc_name',
-    'label' => 'Event location name',
+    'label' => 'Location',
     'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 'ds_code',
+          'embed_code' => 'embed_code',
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'embed_code' => array(
+              'weight' => 1,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -639,6 +694,8 @@ function uhc_event_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         'size' => 60,
       ),
       'type' => 'text_textfield',
@@ -665,6 +722,7 @@ function uhc_event_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'location_default',
         'weight' => 12,
@@ -721,17 +779,16 @@ function uhc_event_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Contains events from Oodi as JSON text. Use this field with formatter that renders those events.');
+  t('Duration');
   t('Event begin date');
-  t('Event duration');
   t('Event duration in hours and minutes');
-  t('Event link');
-  t('Event location name');
   t('Events from Oodi');
   t('Events from Oodi (raw)');
   t('Exam');
   t('Example: "Päärakennus, sali 5"');
+  t('Link');
   t('Location');
-  t('This event is an exam.');
+  t('This is an exam');
   t('This is the value that is parsed in the service into "events" property. We also want the original "raw" version too for some specified logic.');
 
   return $field_instances;

@@ -288,7 +288,7 @@ function uhc_course_implementation_activity_node_insert($node) {
  * @see uhc_course_implementation_activity_node_insert()
  */
 function _uhc_course_implementation_activity_flag_generate_activity_message($node) {
-  if (in_array($node->type, array('course_material', 'event'))) {
+  if (in_array($node->type, array('course_material', 'event', 'exam_results'))) {
 
     /** @var $flag flag_flag */
     $flag = flag_get_flag('generate_activity_message');
@@ -325,7 +325,9 @@ function uhc_course_implementation_activity_node_update($node) {
   _uhc_course_implementation_activity_track_material_update($node);
   _uhc_course_implementation_activity_track_material_description_update($node);
   _uhc_course_implementation_activity_track_task_update($node);
-  _uhc_course_implementation_activity_track_event_update_or_delete($node, 'course_implementation_event_update');
+
+  _uhc_course_implementation_activity_track_reference_update_or_delete($node, 'field_imp_results', 'course_implementation_results_update', array('@result_title' => $node->title));
+  _uhc_course_implementation_activity_track_reference_update_or_delete($node, 'field_imp_reference_to_events', 'course_implementation_event_update', array('@event_title' => $node->title));
 
   // Track when updating manually written conduct text. Please note that field
   // machine name may be confusing due to legacy usage.
@@ -440,7 +442,8 @@ function _uhc_course_implementation_activity_track_update_statistics($node, $mes
 function uhc_course_implementation_activity_node_delete($node) {
   _uhc_course_implementation_activity_track_material_delete($node);
   _uhc_course_implementation_activity_track_task_delete($node);
-  _uhc_course_implementation_activity_track_event_update_or_delete($node , 'course_implementation_event_remove');
+  _uhc_course_implementation_activity_track_reference_update_or_delete($node, 'field_imp_results', 'course_implementation_results_remove', array('@result_title' => $node->title));
+  _uhc_course_implementation_activity_track_reference_update_or_delete($node, 'field_imp_reference_to_events', 'course_implementation_event_remove', array('@event_title' => $node->title));
 }
 
 /**
@@ -478,7 +481,8 @@ function _uhc_course_implementation_activity_track_reference_insert($node) {
     // Figure out new references
     $material_values = !empty($node->field_section_material[LANGUAGE_NONE]) ? $node->field_section_material[LANGUAGE_NONE] : array();
     $event_values = !empty($node->field_imp_reference_to_events[LANGUAGE_NONE]) ? $node->field_imp_reference_to_events[LANGUAGE_NONE] : array();
-    $values = array_merge($material_values, $event_values);
+    $result_values = !empty($node->field_imp_results[LANGUAGE_NONE]) ? $node->field_imp_results[LANGUAGE_NONE] : array();
+    $values = array_merge($material_values, $event_values, $result_values);
 
     /** @var $flag flag_flag */
     $flag = flag_get_flag('generate_activity_message');
@@ -507,6 +511,10 @@ function _uhc_course_implementation_activity_track_reference_insert($node) {
       if ($referenced_node->type == 'event') {
         $arguments = array('@event_title' => $referenced_node->title);
         $message_type = 'course_implementation_event_create';
+      }
+      if ($referenced_node->type == 'exam_results') {
+        $arguments = array('@result_title' => $referenced_node->title);
+        $message_type = 'course_implementation_results_create';
       }
 
       // Create message
@@ -681,25 +689,15 @@ function _uhc_course_implementation_activity_track_task_delete($node) {
 }
 
 /**
- * Helper function for tracking event updates and deletes.
+ * Helper function for tracking reference updates and deletes.
  *
  * @param $node
- *   The event node.
  */
-function _uhc_course_implementation_activity_track_event_update_or_delete($node, $message_type) {
-  if ($node->type == 'event') {
-    // Lets get the course imp node referencing this event
-    if ($nid = uhc_event_get_course_implementation($node->nid)) {
+function _uhc_course_implementation_activity_track_reference_update_or_delete($node, $field_name, $message_type, $arguments) {
+  if (in_array($node->type, array('event', 'exam_results'))) {
+    if ($nid = uhc_course_implementation_get_referencing_course_implementation($node->nid, $field_name)) {
       $course_implementation_node = node_load($nid);
-
-      // Make sure that this is a manually added event
-      foreach ($course_implementation_node->field_imp_reference_to_events[LANGUAGE_NONE] as $referenced_event) {
-        if ($referenced_event['target_id'] == $node->nid) {
-          // Create an message and set references and then save it.
-          $arguments = array('@event_title' => $node->title);
-          uhc_course_implementation_activity_create_message($node, $message_type, $arguments);
-        }
-      }
+      uhc_course_implementation_activity_create_message($course_implementation_node, $message_type, $arguments);
     }
   }
 }

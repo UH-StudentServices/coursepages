@@ -23,6 +23,8 @@ projects[admin_views][version] = "1.6"
 projects[advagg][version] = "2.19"
 projects[behavior_weights][version] = "1.0"
 projects[block_class][version] = "2.3"
+projects[cache_warmer][version] = "4.1"
+projects[cache_warmer][patch]["https://www.drupal.org/node/2448147"] = "https://www.drupal.org/files/issues/cache_warmer_call_to_undefined-2448147-2.patch"
 projects[chosen][version] = "2.0"
 projects[ckeditor][version] = "1.17"
 projects[context][version] = "3.7"
@@ -36,6 +38,7 @@ projects[entitycache][version] = "1.2"
 projects[entity_translation][version] = "1.0-beta5"
 projects[entityreference][version] = "1.2"
 projects[entityreference][patch]["https://www.drupal.org/node/1898290"] = https://www.drupal.org/files/issues/selection.patch
+projects[favoritewidget][version] = "1.0-rc1"
 projects[features][version] = "2.10"
 projects[feedback][version] = "2.0-beta1"
 projects[feedback][patch]["https://www.drupal.org/node/2545708"] = "https://www.drupal.org/files/issues/feedback-honeypot_0.patch"
@@ -224,7 +227,7 @@ projects[vertical_tabs_content_marker][type] = module
 projects[vertical_tabs_content_marker][download][type] = git
 projects[vertical_tabs_content_marker][download][branch] = "7.x-1.x"
 projects[vertical_tabs_content_marker][download][url] = http://git.drupal.org/sandbox/lviit/2827780.git
-projects[vertical_tabs_content_marker][download][revision] = 8672f9d2c2256094bae185169981e2ef0ab0e77e
+projects[vertical_tabs_content_marker][download][revision] = bb50539daf5cecca3dfe1367737fbefc752bda29
 
 projects[xmlsitemap][version] = "2.3"
 
@@ -247,13 +250,17 @@ libraries[masonry][directory_name] = masonry
 libraries[masonry][download][type] = file
 libraries[masonry][download][url] = https://github.com/desandro/masonry/archive/v4.1.1.tar.gz
 
+libraries[matchmedia][directory_name] = matchmedia
+libraries[matchmedia][download][type] = file
+libraries[matchmedia][download][url] = https://github.com/paulirish/matchMedia.js/archive/0.3.0.tar.gz
+
 libraries[jquery-hoverintent][directory_name] = jquery-hoverintent
 libraries[jquery-hoverintent][download][type] = file
 libraries[jquery-hoverintent][download][url] = https://github.com/briancherne/jquery-hoverIntent/archive/v1.8.1.tar.gz
 
 libraries[chosenjs][directory_name] = chosen
 libraries[chosenjs][download][type] = file
-libraries[chosenjs][download][url] = https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip
+libraries[chosenjs][download][url] = https://github.com/harvesthq/chosen/releases/download/v1.6.2/chosen_v1.6.2.zip
 
 libraries[ckeditor][directory_name] = ckeditor
 libraries[ckeditor][download][type] = file
@@ -307,4 +314,4 @@ projects[hy_cookie_consent][type] = module
 projects[hy_cookie_consent][download][type] = git
 projects[hy_cookie_consent][download][url] = "git://github.com/UniversityofHelsinki/hy_cookie_consent.git"
 projects[hy_cookie_consent][download][branch] = 7.x-1.x
-projects[hy_cookie_consent][download][revision] = ea1743ab92b2dc8c62eb2fa21d9cfadb8e19fffa
+projects[hy_cookie_consent][download][revision] = 909f20821c323240142962df38fb4095b6b3b681

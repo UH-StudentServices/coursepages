@@ -1,0 +1,59 @@
+<?php
+/**
+ * @file
+ * Module implementation for providing entities that are introduced by KORI API.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function uhc_sisu_kori_entity_info() {
+  return array(
+    'course_unit_realisation' => array(
+      'label' => t('Course unit realisation'),
+      'controller class' => 'EntityAPIController',
+      'base table' => 'course_unit_realisation',
+      'entity keys' => array(
+        'id' => 'otm_id',
+      ),
+    ),
+    'study_event' => array(
+      'label' => t('Study event'),
+      'controller class' => 'EntityAPIController',
+      'base table' => 'study_event',
+      'entity keys' => array(
+        'id' => 'otm_id',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_permission().
+ */
+function uhc_sisu_kori_permission() {
+  return array(
+    'create course_unit_realisation' => array(
+      'title' => t('Create course unit realisations'),
+    ),
+    'edit course_unit_realisation' => array(
+      'title' => t('Edit course unit realisations'),
+    ),
+    'delete course_unit_realisation' => array(
+      'title' => t('Delete course unit realisations'),
+    ),
+    'create study_event' => array(
+      'title' => t('Create study events'),
+    ),
+    'edit study_event' => array(
+      'title' => t('Edit study events'),
+    ),
+    'delete study_event' => array(
+      'title' => t('Delete study events'),
+    ),
+  );
+}

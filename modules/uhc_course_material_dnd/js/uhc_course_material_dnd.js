@@ -49,7 +49,7 @@
         }
       });
     });
-    // disable attach files button when upload in progress
+    // Disable attach files button when upload in progress.
     myDropzone.on("processing", function(file) {
       $('#edit-field-section-material-und-form-actions-ief-dnd-save').attr('disabled', 'disabled');
     });
@@ -57,9 +57,9 @@
     myDropzone.on("error", function(file, message) {
       alert(message);
     });
+    // Enable attach files button when upload is completed.
     myDropzone.on("queuecomplete", function() {
-      $("#edit-field-section-material-und-form-actions-ief-dnd-save").mousedown();
-      $('#edit-field-section-material-und-form').slideToggle();
+      $('#edit-field-section-material-und-form-actions-ief-dnd-save').removeAttr('disabled');
     });
   }
 

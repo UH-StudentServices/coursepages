@@ -13,14 +13,25 @@
   }
 
   @include breakpoint($mobile-only) {
-    background: $white;
-    ul ul.menu li a {
-      @include menu-item-icon($icon-info-stroke);
+    ul ul.menu{
+      display: block !important;
+      li {
+        border-top: 1px solid #d2d2d2;
+        &:first-child {
+          border-top: none;
+        }
+        a {
+          @include menu-item-icon($icon-info-stroke);
+          padding-left: 60px;
+          text-transform: uppercase;
+        }
+      }
     }
-    a {
-      @include link-menu;
-      @include border-bottom;
-      padding: 20px;
+    a:before {
+      left: 0;
+      position: absolute;
+      text-align: center;
+      width: 50px;
     }
     .info-link {
       display: none;
@@ -33,11 +44,11 @@
       position: relative;
       float: left;
       margin-left: 2.5em;
-      line-height: 60px;
-      height: 60px;
+      line-height: 56px;
+      height: 56px;
       .login-link {
         @include link-menu;
-        line-height: 60px;
+        line-height: 56px;
         &:before {
           display: none;
         }
@@ -60,7 +71,7 @@
   z-index: 250;
   position: absolute;
   line-height: 48px;
-  right: 48px;
+  right: 0;
   top: 0;
   width: 48px;
   height: 48px;

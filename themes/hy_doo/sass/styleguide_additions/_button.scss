@@ -45,5 +45,27 @@
     width: 3rem;
     text-align: center;
   }
+  &:hover {
+    background: transparent;
+    color: $silver;
+  }
 }
 
+.favoritewidget {
+  .button {
+    cursor: pointer;
+    border: none;
+    display: block;
+    &:after {
+      @include font-size(20px);
+    }
+  }
+}
+
+.favoritewidget--delfav {
+  .button {
+    &:after {
+      color: $orange;
+    }
+  }
+}

@@ -32,7 +32,7 @@ function uhc_course_tasks_and_material_field_default_field_instances() {
           'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 1,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -142,16 +142,18 @@ function uhc_course_tasks_and_material_field_default_field_instances() {
         'weight' => 0,
       ),
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'entityreference',
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
           'field_multiple_limit_order' => 0,
-          'link' => FALSE,
+          'links' => 0,
+          'use_content_language' => 1,
+          'view_mode' => 'teaser',
         ),
-        'type' => 'entityreference_label',
-        'weight' => 1,
+        'type' => 'entityreference_entity_view',
+        'weight' => 2,
       ),
       'sidebar' => array(
         'label' => 'above',

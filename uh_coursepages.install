@@ -1124,3 +1124,31 @@ function uh_coursepages_update_7032(&$sandbox) {
   db_update('variable_store')->condition('name', 'hy_contact_logo_block_form_css_class')->fields(array('name' => 'uhc_contact_logo_block_form_css_class'))->execute();
   module_disable(array('hy_contact', 'hy_content_suffix'), FALSE);
 }
+
+/**
+ * Enable uhc_cache_warmer and cache_warmer modules.
+ */
+function uh_coursepages_update_7033(&$sandbox) {
+  module_enable(array('uhc_cache_warmer', 'cache_warmer'));
+}
+
+/**
+ * Enable SISU KORI API module.
+ */
+function uh_coursepages_update_7034(&$sandbox) {
+  module_enable(array('uhc_sisu_kori'));
+}
+
+/**
+ * Enable uhc_exam_results
+ */
+function uh_coursepages_update_7035(&$sandbox) {
+  module_enable(array('uhc_exam_results'));
+}
+
+/**
+ * Enable UHC Favorite module.
+ */
+function uh_coursepages_update_7036(&$sandbox) {
+  module_enable(array('uhc_favorites'));
+}

@@ -29,7 +29,9 @@ function uhc_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
   }
 
   $form['#attached']['js'][] = drupal_get_path('module', 'uhc_feedback') . '/js/uhc_feedback.js';
-  $form['message']['#attributes']['placeholder'] = t('Give feedback about the service...');
+  $placeholder = t('Give feedback about the service...');
+  $form['message']['#attributes']['placeholder'] = $placeholder;
+  $form['message']['#attributes']['title'] = $placeholder;
   unset($form['message']['#title']);
   unset($form['messages']);
   unset($form['help']);
@@ -64,4 +66,84 @@ function _uhc_feedback_add_response_email_default_value(&$form) {
  */
 function uhc_feedback_views_api($module = NULL, $api = NULL) {
   return array("api" => "3.0");
+}
+
+/**
+ * Implements hook_feedback_insert().
+ */
+function uhc_feedback_feedback_insert($entry) {
+  uhc_feedback_email_to_efecte($entry);
+}
+
+/**
+ * Composes and sends the submitted feedback message to Efecte system.
+ *
+ * @param $entry object Feedback object.
+ */
+function uhc_feedback_email_to_efecte($entry) {
+  $module = 'uhc_feedback';
+  $key = 'feedback';
+  $to = variable_get('uhc_feedback_efecte_email', 'opetusteknologia@helsinki.fi');
+  global $language;
+  $from = uhc_feedback_get_email($entry);
+
+  $params = array(
+    'subject' => variable_get('uhc_feedback_email_subject', 'Palaute kurssisivuilta'),
+    'message' => uhc_feedback_build_efecte_email_body($entry),
+    'return_path' => variable_get('site_mail', ''),
+    'from' => $from
+  );
+
+  drupal_mail($module, $key, $to, $language, $params, $from);
+}
+
+function uhc_feedback_get_email($entry) {
+  return uhc_feedback_response_expected($entry) && !empty($entry->field_feedback_email[LANGUAGE_NONE][0]['email'])
+    ? $entry->field_feedback_email[LANGUAGE_NONE][0]['email']
+    : variable_get('uhc_feedback_noreply_email', 'noreply@helsinki.fi');
+}
+
+function uhc_feedback_build_efecte_email_body($entry) {
+  global $base_url;
+  $url = !empty($entry->url) ? $entry->url : "$base_url/$entry->location";
+  $time = date('d.m.Y H:i:s', $entry->timestamp);
+  $user = $entry->uid > 0 ? user_load($entry->uid) : FALSE;
+  $user_name = $user ? $user->name : t('Anonymous user');
+  $user_email = uhc_feedback_get_email($entry);
+  $message = check_plain($entry->message);
+  $response_expected = uhc_feedback_response_expected($entry) ? t('I would like to get a response to my feedback') : FALSE;
+  $meta = $entry->useragent;
+
+  $body = array(
+    $url,
+    $time,
+    $user_name,
+    $message,
+    $response_expected,
+    $user_email,
+    $meta
+  );
+
+  $body = array_filter($body, function ($entry) {
+    return !empty($entry);
+  });
+
+  return implode("\n\n", $body);
+}
+
+function uhc_feedback_response_expected($entry) {
+  return !empty($entry->field_feedback_respond[LANGUAGE_NONE][0]['value'])
+    && $entry->field_feedback_respond[LANGUAGE_NONE][0]['value'];
+}
+
+/**
+ * Implements hook_mail().
+ */
+function uhc_feedback_mail($key, &$message, $params) {
+  if ($key == 'feedback') {
+    $message['subject'] = $params['subject'];
+    $message['body'][] = $params['message'];
+    $message['headers']['Return-Path'] = $params['return_path'];
+    $message['headers']['Sender'] = $params['from'];
+  }
 }

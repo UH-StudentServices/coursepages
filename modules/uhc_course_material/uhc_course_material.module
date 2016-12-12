@@ -296,14 +296,6 @@ function uhc_course_material_inline_entity_form_entity_form_validate(&$entity_fo
  * uhc_course_material_inline_entity_form_entity_form_alter() and show only relevant fields accordingly.
  */
 function uhc_course_material_field_widget_form_alter(&$element, &$form_state, $context) {
-
-  // alter field_material_file description
-  if ($context['instance']['field_name'] == 'field_material_file') {
-    foreach (element_children($element) as $key => $child) {
-      $element[$key]['#process'][] = 'uhc_course_material_alter_description';
-    }
-  }
-
   if ($context['instance']['entity_type'] == 'node' &&
       in_array($context['instance']['bundle'], array('course_implementation', 'course_task')) &&
       in_array($context['instance']['field_name'], array('field_section_material', 'field_event_ref_to_material'))) {
@@ -323,15 +315,6 @@ function uhc_course_material_field_widget_form_alter(&$element, &$form_state, $c
       unset($element['actions']['ief_add']);
     }
   }
-}
-
-/**
- * Change field description title and remove description
- */
-function uhc_course_material_alter_description($element, &$form_state, $form) {
-  $element['description']['#title'] = t('Title');
-  unset($element['description']['#description']);
-  return $element;
 }
 
 /**

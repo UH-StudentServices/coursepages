@@ -23,6 +23,7 @@
   .l-region--menu-bar {
     @include container;
     @include clearfix;
+    position: relative;
   }
 
   .l-content-sidebar-left {
@@ -35,19 +36,11 @@
   }
 
   .l-top-bar-wrapper {
-    z-index: 100;
     position: relative;
   }
 
-  .l-menu-bar {
-    z-index: 200;
-    position: relative;
-    background: $white;
-  }
-
-  .l-navigation {
-    z-index: 50;
-    position: relative;
+  .menu-wrapper {
+    border-bottom: 1px solid lighten($silver, 20%);
   }
 }
 

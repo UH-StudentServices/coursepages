@@ -29,9 +29,10 @@ function uhc_teacher_tools_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_plain',
-        'weight' => 33,
+        'weight' => 36,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -135,6 +136,7 @@ function uhc_teacher_tools_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'link_default',
         'weight' => 26,
@@ -220,6 +222,7 @@ function uhc_teacher_tools_field_default_field_instances() {
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
         ),
         'type' => 'link_default',
         'weight' => 28,
@@ -289,9 +292,9 @@ function uhc_teacher_tools_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Copy and place the Moodle enrolment key here. It\'s visibility will be restricted to logged in participants of the course.');
+  t('Enrolment key');
   t('Example: https://moodle.helsinki.fi/course/view.php?id=754');
   t('Example: https://wiki.helsinki.fi/display/support/Perustoiminnot');
-  t('Enrolment key');
   t('URL');
 
   return $field_instances;
