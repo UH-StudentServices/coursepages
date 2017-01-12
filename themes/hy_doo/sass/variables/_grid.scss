@@ -1,1 +1,4 @@
 @include add-gutter(2em);
+@include add-grid(12);
+@include add-grid(16 at $bp-small);
+$output: "float";

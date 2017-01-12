@@ -38,6 +38,7 @@ projects[entitycache][version] = "1.2"
 projects[entity_translation][version] = "1.0-beta5"
 projects[entityreference][version] = "1.2"
 projects[entityreference][patch]["https://www.drupal.org/node/1898290"] = https://www.drupal.org/files/issues/selection.patch
+projects[entityreference][patch]["https://www.drupal.org/node/1368386"] = https://www.drupal.org/files/issues/entityreference-1368386-89.patch
 projects[favoritewidget][version] = "1.0-rc1"
 projects[features][version] = "2.10"
 projects[feedback][version] = "2.0-beta1"

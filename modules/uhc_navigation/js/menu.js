@@ -26,7 +26,7 @@
       }
 
       // Hide menu when clicking outside of it.
-      $(document).on('click', function (e) {
+      $(document).click(function (e) {
         if (
           !$(e.target).closest('.main-menu').length &&
           !$(e.target).closest('.fatmenu').length &&
@@ -234,7 +234,7 @@
        */
       function openFatMenu(fatmenuHeight, currentItem, currMainMenuLi) {
         fatmenu.find('> ul.menu').addClass('is-open').css('height',fatmenuHeight);
-        $(window).on('resize', function(){
+        $(window).resize(function() {
           fatmenu.find('> ul.menu').css('height', $('.fatmenu li.is-lvl1.is-open').height());
         });
 

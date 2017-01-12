@@ -1,13 +1,11 @@
 .l-main,
 .l-content-suffix,
 .l-action-footer,
-.l-region--footer,
-.l-region--info-footer {
+.l-info-footer {
   @include container;
   @include clearfix;
 }
 
-.l-top-bar,
 .l-page {
   position: relative;
 }
@@ -15,28 +13,14 @@
 // At a given Susy Media Layout, use a given amount of columns.
 // Styles for site when the menu-bar is in slim-mode
 @include breakpoint($small) {
-  .l-top-bar {
-    @include container;
-    @include clearfix;
-  }
-
-  .l-region--menu-bar {
-    @include container;
-    @include clearfix;
-    position: relative;
-  }
-
-  .l-content-sidebar-left {
-    @include float-span(6, 16);
-  }
-
   .l-content-sidebar-right {
     @include float-span(4, last);
     margin-left: 4%;
   }
 
-  .l-top-bar-wrapper {
-    position: relative;
+  .menu-bar {
+    @include container;
+    @include clearfix;
   }
 
   .menu-wrapper {
@@ -49,7 +33,6 @@
 }
 
 .l-content {
-
   p:first-child {
     margin-top: 0.2em;
   }

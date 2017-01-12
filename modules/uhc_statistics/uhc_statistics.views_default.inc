@@ -649,7 +649,6 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['relationships']['cid']['id'] = 'cid';
   $handler->display->display_options['relationships']['cid']['table'] = 'node';
   $handler->display->display_options['relationships']['cid']['field'] = 'cid';
-  $handler->display->display_options['relationships']['cid']['label'] = 'Messages';
   /* Relationship: Course material */
   $handler->display->display_options['relationships']['field_section_material_target_id']['id'] = 'field_section_material_target_id';
   $handler->display->display_options['relationships']['field_section_material_target_id']['table'] = 'field_data_field_section_material';
@@ -1245,6 +1244,27 @@ function uhc_statistics_views_default_views() {
     8 => 0,
   );
   $handler->display->display_options['filters']['field_private_value_1']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Results */
+  $handler->display->display_options['filters']['field_imp_results_target_id']['id'] = 'field_imp_results_target_id';
+  $handler->display->display_options['filters']['field_imp_results_target_id']['table'] = 'field_data_field_imp_results';
+  $handler->display->display_options['filters']['field_imp_results_target_id']['field'] = 'field_imp_results_target_id';
+  $handler->display->display_options['filters']['field_imp_results_target_id']['ui_name'] = 'Results';
+  $handler->display->display_options['filters']['field_imp_results_target_id']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_imp_results_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_results_target_id']['expose']['operator_id'] = 'field_imp_results_target_id_op';
+  $handler->display->display_options['filters']['field_imp_results_target_id']['expose']['label'] = 'Results';
+  $handler->display->display_options['filters']['field_imp_results_target_id']['expose']['operator'] = 'field_imp_results_target_id_op';
+  $handler->display->display_options['filters']['field_imp_results_target_id']['expose']['identifier'] = 'field_imp_results_target_id';
+  $handler->display->display_options['filters']['field_imp_results_target_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
 
   /* Display: Statistics by content */
   $handler = $view->new_display('page', 'Statistics by content', 'page_1');
@@ -1316,6 +1336,7 @@ function uhc_statistics_views_default_views() {
     t('Materials'),
     t('Restricted messages'),
     t('Restricted material'),
+    t('Results'),
     t('Data export'),
   );
   $export['statistics_content'] = $view;

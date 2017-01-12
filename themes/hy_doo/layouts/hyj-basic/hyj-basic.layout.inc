@@ -4,7 +4,8 @@ preview = preview.png
 template = hyj-basic-layout
 
 ; Regions
-regions[top_bar]                = Top bar
+regions[top_bar_main]           = Top bar main
+regions[top_bar_sub]            = Top bar sub
 regions[menu_bar]               = Menu bar
 regions[navigation]             = Navigation
 regions[content_prefix]         = Content prefix

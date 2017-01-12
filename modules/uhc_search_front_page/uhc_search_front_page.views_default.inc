@@ -658,14 +658,6 @@ function uhc_search_front_page_views_default_views() {
     7 => 0,
     8 => 0,
   );
-  /* Filter criterion: Indexed Multilingual Content: Item language */
-  $handler->display->display_options['filters']['search_api_language']['id'] = 'search_api_language';
-  $handler->display->display_options['filters']['search_api_language']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['filters']['search_api_language']['field'] = 'search_api_language';
-  $handler->display->display_options['filters']['search_api_language']['value'] = array(
-    'current' => 'current',
-  );
-  $handler->display->display_options['filters']['search_api_language']['group'] = 1;
   /* Filter criterion: Indexed Multilingual Content: Hierarchy position */
   $handler->display->display_options['filters']['field_hierarchy_position']['id'] = 'field_hierarchy_position';
   $handler->display->display_options['filters']['field_hierarchy_position']['table'] = 'search_api_index_uhc_portal';

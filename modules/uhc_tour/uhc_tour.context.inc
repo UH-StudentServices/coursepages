@@ -135,14 +135,9 @@ function uhc_tour_context_default_contexts() {
   <p>Material may consist of attachments, links or references, divided into different sections.</p>
 </li>
 
-<li class="group-course-task-material" data-class="is-active" data-button="Next">
+<li class="group-manual-content" data-class="is-active" data-button="Next">
   <h2>Video</h2>
   <p>Videos can be either linked or embedded.</p>
-</li>
-
-<li class="group-manual-content" data-class="is-active" data-button="Next">
-  <h2>Tasks</h2>
-  <p>Tasks may consist of written instruction and material provided by the teacher. Students are not able to submit their papers via course page.</p>
 </li>
 
 <li class="group-conduct-of-course" data-class="is-active" data-button="Next">

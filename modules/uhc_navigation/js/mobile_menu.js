@@ -8,7 +8,7 @@
     attach: function (context) {
 
       var layoutSmall = Drupal.settings.omega.mediaQueries['layout-small'];
-      var mobileMenus = '#course-hierarchy, #block-menu-menu-header-links, #block-system-user-menu';
+      var mobileMenus = '#course-hierarchy, #block-system-user-menu';
 
       // Media Queries Matching
       if (typeof matchMedia !== 'undefined') {
@@ -28,12 +28,7 @@
           }
           else {
             $(this).after('<span id="' + placeholderId + '"></span>');
-            if (id == 'block-menu-menu-header-links') {
-              $('.main-menu > .menu').prepend($(this));
-            }
-            else {
-              $('.main-menu > .menu').append($(this));
-            }
+            $('.main-menu > .menu').append($(this));
           }
         });
 

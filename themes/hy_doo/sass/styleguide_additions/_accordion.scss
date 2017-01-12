@@ -25,6 +25,7 @@
   }
   &:before {
     @include icon($icon-caret-right);
+    @include transform(translateY(-50%) rotate(0deg));
     background-color: $blue--active;
     left: 0;
     line-height: 2.8em;
@@ -53,6 +54,7 @@
   margin-bottom: 0.5em;
   &:before {
     @include icon($icon-caret-right);
+    @include transform(translateY(-50%) rotate(0deg));
     background-color: $blue;
     color: $white;
     left: 0;
@@ -79,6 +81,7 @@
   background: transparent;
   &:before {
     @include icon($icon-caret-right);
+    @include transform(translateY(-50%) rotate(0deg));
     color: $blue;
     left: auto;
     right: 1em;

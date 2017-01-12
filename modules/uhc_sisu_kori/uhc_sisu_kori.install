@@ -17,9 +17,9 @@ function uhc_sisu_kori_schema() {
     'description' => 'Base table for course unit realisations.',
     'fields' => array(
       'otm_id' => array(
-        'description' => 'The primary identifier for a study event.',
+        'description' => 'The primary identifier for a course unit realisations.',
         'type' => 'varchar',
-        'length' => '32',
+        'length' => '64',
         'not null' => TRUE,
       ),
       'data' => array(
@@ -38,7 +38,7 @@ function uhc_sisu_kori_schema() {
       'otm_id' => array(
         'description' => 'The primary identifier for a study event.',
         'type' => 'varchar',
-        'length' => '32',
+        'length' => '64',
         'not null' => TRUE,
       ),
       'data' => array(
@@ -67,4 +67,23 @@ function uhc_sisu_kori_update_7001() {
   );
   db_change_field('course_unit_realisation', 'data', 'data', $data_schema);
   db_change_field('study_event', 'data', 'data', $data_schema);
+}
+
+/**
+ * Increase otm_id column length from 32 to 64 characters.
+ */
+function uhc_sisu_kori_update_7002() {
+  $column_name = 'otm_id';
+  db_change_field('course_unit_realisation', $column_name, $column_name, array(
+    'description' => 'The primary identifier for a course unit realisations.',
+    'type' => 'varchar',
+    'length' => '64',
+    'not null' => TRUE,
+  ));
+  db_change_field('study_event', $column_name, $column_name, array(
+    'description' => 'The primary identifier for a study event.',
+    'type' => 'varchar',
+    'length' => '64',
+    'not null' => TRUE,
+  ));
 }

@@ -220,3 +220,11 @@ function hy_doo_favorite_widget($variables) {
   drupal_add_js($data, $options);
   return '<div class="favorite-widget--nid--' . $node->nid . '"></div>';
 }
+
+/**
+ * Implements theme_menu_tree_MENU_NAME().
+ * Add styleguide classes to header links menu ul.
+ */
+function hy_doo_menu_tree__menu_header_links($variables) {
+  return '<ul class="links">' . $variables['tree'] . '</ul>';
+}

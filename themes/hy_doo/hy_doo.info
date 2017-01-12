@@ -4,7 +4,7 @@ screenshot = screenshot.png
 base theme = omega
 engine = phptemplate
 core = 7.x
-version = 7.x-1.87
+version = 7.x-1.89-dev
 
 ; Scripts
 scripts[] = js/mobile_detect.js
@@ -20,7 +20,8 @@ stylesheets[all][] = css/hy_doo.hacks.css
 stylesheets[print][] = css/hy_doo.print.css
 
 ; Regions
-regions[top_bar]        = Top bar
+regions[top_bar_main]   = Top bar main
+regions[top_bar_sub]    = Top bar sub
 regions[menu_bar]       = Menu bar
 regions[hero]           = Hero
 regions[header]         = Header

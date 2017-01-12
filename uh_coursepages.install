@@ -1152,3 +1152,10 @@ function uh_coursepages_update_7035(&$sandbox) {
 function uh_coursepages_update_7036(&$sandbox) {
   module_enable(array('uhc_favorites'));
 }
+
+/**
+ * update logo block & contact logo block content.
+ */
+function uh_coursepages_update_7037(&$sandbox) {
+  uh_coursepages_setup_variables();
+}

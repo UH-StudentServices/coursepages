@@ -106,22 +106,22 @@ function uhc_doo_theme_features_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'locale-language' => array(
-          'module' => 'locale',
-          'delta' => 'language',
-          'region' => 'top_bar',
-          'weight' => '-10',
-        ),
         'uh_coursepages-uhc_logo_block' => array(
           'module' => 'uh_coursepages',
           'delta' => 'uhc_logo_block',
-          'region' => 'top_bar',
-          'weight' => '-9',
+          'region' => 'top_bar_main',
+          'weight' => '-10',
         ),
         'menu-menu-header-links' => array(
           'module' => 'menu',
           'delta' => 'menu-header-links',
-          'region' => 'top_bar',
+          'region' => 'top_bar_sub',
+          'weight' => '-10',
+        ),
+        'locale-language' => array(
+          'module' => 'locale',
+          'delta' => 'language',
+          'region' => 'top_bar_sub',
           'weight' => '-8',
         ),
         'uhc_avatar-avatar_block' => array(

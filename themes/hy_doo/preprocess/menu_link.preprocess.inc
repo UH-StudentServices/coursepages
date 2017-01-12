@@ -19,4 +19,7 @@ function hy_doo_preprocess_menu_link(&$variables) {
     $variables['element']['#attributes']['class'][] = 'is-expandable';
   }
 
+  if ($variables['element']['#theme'] == 'menu_link__menu_header_links') {
+    $variables['element']['#localized_options']['attributes']['class'][] = 'links__link';
+  }
 }

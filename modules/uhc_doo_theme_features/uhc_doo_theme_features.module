@@ -63,13 +63,14 @@ function _uhc_doo_theme_features_get_date($object) {
  * Implement hook_js_alter().
  *
  * Use a more recent jQuery version than the one supplied with core if not in
- * node edit/add or admin (which might break with newer jQuery).
+ * node edit/add or admin or tour (which might break with newer jQuery).
  */
 function uhc_doo_theme_features_js_alter(&$javascript) {
   $node_edit = (arg(0) == 'node' && arg(2) == 'edit');
   $node_add = (arg(0) == 'node' && arg(1) == 'add');
   $admin = (arg(0) == 'admin');
-  if (!$node_edit && !$node_add && !$admin) {
+  $tour = (arg(0) == 'node' && arg(1) == variable_get('uhc_tour_demo_nid'));
+  if (!$node_edit && !$node_add && !$admin && !$tour) {
     $javascript['misc/jquery.js']['data'] = libraries_get_path('jquery') . '/dist/jquery.min.js';
     $javascript['misc/jquery.js']['version'] = '2.2.4';
   }

@@ -122,7 +122,7 @@ function uhc_course_implementation_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'Add tasks with instructions and material',
+        'description' => 'This section will be removed in the near future. Do not add tasks here. We recommend that you use Moodle, where students can also return the tasks electronically.',
       ),
       'formatter' => 'closed',
     ),

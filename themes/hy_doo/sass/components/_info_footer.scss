@@ -1,13 +1,15 @@
-.l-info-footer {
-  @include line-break($lightsilver);
+.l-info-footer-wrapper {
   background-color: $color-bg-prefooter;
-  padding-top: 2em;
-  .block {
-    margin-bottom: 2.814em;
-    @include breakpoint($small) {
-      @include float-span(4);
-      &:last-child {
-        @include float-span(4, last);
+  .l-info-footer {
+    @include line-break($lightsilver);
+    padding-top: 2em;
+    .block {
+      margin-bottom: 2.814em;
+      @include breakpoint($small) {
+        @include float-span(4);
+        &:last-child {
+          @include float-span(4, last);
+        }
       }
     }
   }

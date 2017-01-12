@@ -6,16 +6,28 @@
  */
 ?>
 <div class="l-page">
-  <?php if ($page['top_bar']): ?>
-    <div class="l-top-bar-wrapper">
+  <header class="l-header">
+    <?php if ($page['top_bar_main']): ?>
       <div class="l-top-bar">
-        <?php print render($page['top_bar']); ?>
+        <div class="l-top-bar__subregion">
+          <div class="l-top-bar__main">
+            <?php print render($page['top_bar_main']); ?>
+          </div>
+          <?php if ($page['top_bar_sub']): ?>
+            <div class="l-top-bar__sub">
+              <?php print render($page['top_bar_sub']); ?>
+            </div>
+          <?php endif; ?>
+        </div>
       </div>
-    </div>
-  <?php endif; ?>
+    <?php endif; ?>
+  </header>
+
   <div class="menu-wrapper">
     <?php if ($page['menu_bar']): ?>
-      <?php print render($page['menu_bar']); ?>
+      <div class="menu-bar">
+        <?php print render($page['menu_bar']); ?>
+      </div>
     <?php endif; ?>
     <?php if ($page['navigation']): ?>
       <?php print render($page['navigation']); ?>
@@ -89,29 +101,31 @@
     <?php print render($page['after_content']); ?>
   <?php endif; ?>
 
-  <?php if ($page['action_footer']): ?>
-    <div class="l-action-footer-wrapper">
-      <div class="l-action-footer">
-        <?php print render($page['action_footer']); ?>
+  <footer role="contentinfo">
+    <?php if ($page['action_footer']): ?>
+      <div class="l-action-footer-wrapper">
+        <div class="l-action-footer">
+          <?php print render($page['action_footer']); ?>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <?php if ($page['info_footer']): ?>
+      <div class="l-info-footer-wrapper">
+        <div class="l-info-footer">
+          <?php print render($page['info_footer']); ?>
+        </div>
+      </div>
+    <?php endif; ?>
+    <div class="l-footer">
+      <div class="l-footer__subregion">
+        <?php print render($page['footer']); ?>
+      </div>
+      <div class="l-footer__copyright">
+        <p>
+          <?php print '&copy; ' . t('University of Helsinki') . ' ' . date('Y'); ?>
+        </p>
       </div>
     </div>
-  <?php endif; ?>
-
-  <?php if ($page['info_footer']): ?>
-    <div class="l-info-footer-wrapper">
-      <div class="l-info-footer">
-        <?php print render($page['info_footer']); ?>
-      </div>
-    </div>
-  <?php endif; ?>
-
-  <?php if ($page['footer']): ?>
-    <footer class="l-footer" role="contentinfo">
-      <?php print render($page['footer']); ?>
-
-      <div class="copyright">
-          <?php print '&copy; ' . t('University of Helsinki @year', array('@year' => date('Y'))); ?>
-      </div>
-    </footer>
-  <?php endif; ?>
+  </footer>
 </div>

@@ -1,5 +1,4 @@
 @mixin dropdown-menu($max-height: none, $side: 'right', $background: $white) {
-  @include transition(all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
   z-index: 1;
   font-size: 0.85em;
   overflow-x: hidden;
@@ -38,7 +37,7 @@
   a {
     padding: 10px 0;
     display: block;
-    line-height: initial;
+    line-height: normal;
   }
 }
 

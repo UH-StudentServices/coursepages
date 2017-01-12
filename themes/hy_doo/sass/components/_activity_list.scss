@@ -33,6 +33,8 @@
       top: 35px;
       right: -10px;
       ul {
+        max-height: 400px;
+        overflow: scroll;
         li {
           @include border-bottom;
           @include clearfix;

@@ -378,49 +378,39 @@ function uh_coursepages_setup_variables() {
   $hy_contact_config = array(
     'uhc_contact_logo_block_form_content' => array(
       'en' => array(
-        'value' => '
-            <div class="logo">
-              <a href="http://www.helsinki.fi/university/">
-                <svg width="99" height="93" class="site-logo">
-                  <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg" src="/profiles/uh_coursepages/themes/hy_doo/images/ie/helsinki_university_99x93.png" width="99" height="93"></image>
-                </svg>
-              </a>
-            </div>
-            <div class="contact text-bold">
-              <h4>University of Helsinki</h4>
-              <p>P.O. Box 33<br>(Yliopistonkatu 4)<br>00014 University of Helsinki</p>
-              <p>Switchboard:<br>+358 (0) 2941 911</p>
-            </div>',
+        'value' => '<div class="logo-block">
+      <div class="logo-block__logo">
+        <a class="logo theme-big" href="https://www.helsinki.fi/en"></a>
+      </div>
+      <div class="logo-block__content">
+        <h4>University of Helsinki</h4>
+        <p>P.O. Box 33<br>(Yliopistonkatu 4)<br>00014 University of Helsinki</p>
+        <p>Switchboard: <a class="is-tel" href="tel:+3582941911">+358 (0) 2941 911</a></p>
+      </div></div>',
         'format' => 'filtered_html',
       ),
       'fi' => array(
-        'value' => '<div class="logo">
-        <a href="http://www.helsinki.fi/university/">
-          <svg width="99" height="93" class="site-logo">
-            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg" src="/profiles/uh_coursepages/themes/hy_doo/images/ie/helsinki_university_99x93.png" width="99" height="93"></image>
-          </svg>
-        </a>
+        'value' => '<div class="logo-block">
+      <div class="logo-block__logo">
+        <a class="logo theme-big" href="https://www.helsinki.fi/fi"></a>
       </div>
-      <div class="contact text-bold">
+      <div class="logo-block__content">
         <h4>Helsingin Yliopisto</h4>
         <p>PL 33<br>(Yliopistonkatu 4)<br>00014 Helsingin yliopisto</p>
-        <p>Puhelinvaihde:<br>+358 (0) 2941 911</p>
-      </div>',
+        <p>Puhelinvaihde: <a class="is-tel" href="tel:+3582941911">+358 (0) 2941 911</a></p>
+      </div></div>',
         'format' => 'filtered_html',
       ),
       'sv' => array(
-        'value' => '<div class="logo">
-        <a href="http://www.helsinki.fi/university/">
-          <svg width="99" height="93" class="site-logo">
-            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg" src="/profiles/uh_coursepages/themes/hy_doo/images/ie/helsinki_university_99x93.png" width="99" height="93"></image>
-          </svg>
-        </a>
+        'value' => '<div class="logo-block">
+      <div class="logo-block__logo">
+        <a class="logo theme-big" href="https://www.helsinki.fi/sv"></a>
       </div>
-      <div class="contact text-bold">
+      <div class="logo-block__content">
         <h4>Helsingfors universitet</h4>
         <p>PB 33<br>(Universitetsgatan 4)<br>00014 Helsingfors universitet</p>
-        <p>Växel:<br>+358 (0) 2941 911</p>
-      </div>',
+        <p>Växel: <a class="is-tel" href="tel:+3582941911">+358 (0) 2941 911</a></p>
+      </div></div>',
         'format' => 'filtered_html',
       )
     ),
@@ -464,33 +454,15 @@ function uh_coursepages_block_view($delta = '') {
 
       // Open university
       if (array_key_exists('open_university_header_and_footer', $contexts) && isset($open_university_home_paths[$language->language])) {
-        $main_page_href = 'https://www.helsinki.fi/' . $open_university_home_paths[$language->language];
-        $image_path = '/profiles/uh_coursepages/themes/hy_doo/images/hy_logo_white.svg';
-        $image_fallback_path = '/profiles/uh_coursepages/themes/hy_doo/images/ie/helsinki_university_53x50.png';
-        $href = $main_page_href; // The whole logo section is a link in open uni
+        $href = 'https://www.helsinki.fi/' . $open_university_home_paths[$language->language];
         $text = t("Open University");
       }
       else {
-        $main_page_href = 'https://www.helsinki.fi/' . check_plain($language->language);
-        $image_path = '/profiles/uh_coursepages/themes/hy_doo/logo.svg';
-        $image_fallback_path = '/profiles/uh_coursepages/themes/hy_doo/logo.png';
-        global $user;
-        if (in_array('teacher', $user->roles)) {
-          $href = '/teacher';
-          $text = t('My teaching');
-        }
-        else {
-          $href = '/student';
-          $text = t('My studies');
-        }
+        $href = 'https://www.helsinki.fi/' . check_plain($language->language);
+        $text = t('University of Helsinki');
       }
-      $block['content'] = '<a href="' . $main_page_href . '">
-        <svg width="45" height="45" class="site-logo">
-          <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . $image_path . '" src="' . $image_fallback_path . '" width="45" height="45"></image>
-        </svg>
-        </a>
-        <a href="' . $href . '">
-          <h2 class="site-name">' . $text . '</h2>
+      $block['content'] = '<a class="logo" href="' . $href . '">
+        <h1 class="logo__sitename">' . $text . '</h2>
         </a>';
       $block['css_class'] = 'logo-block';
       break;

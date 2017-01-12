@@ -1,3 +1,19 @@
+# University of Helsinki Courses v1.88
+Päiväys: 11.01.2017
+
+## Lisäykset
+  - DOO-2711: Tulokset lisätty statistiikkaan.
+
+## Muutokset
+  - DOO-2616: Kirjaston syötteestä puuttui tuloksia. Muutettiin niin että
+    löytyy enemmän tuloksia.
+  - DOO-2350: Tehtävät-osio on poistumassa. Muutettiin ohjeistusta.
+  - DOO-2660: Headerin ja footerin tyylitys styleguiden mukaan.
+
+## Poistot
+  - DOO-2351: Poistettiin "Tehtävät"-osio opastetusta kierroksesta.
+
+
 # University of Helsinki Courses v1.87
 Päiväys: 12.11.2016
 
@@ -16,6 +32,7 @@ Päiväys: 12.11.2016
   - DOO-2295: Lisätty tenttitulokset kurssin opiskelijoille.
   - DOO-2473: Lisättiin kurssisuosikit toiminnallisuus
   - DOO-2673: Palautteet lähetetään sähköpostitse Efecteen.
+
 
 ## Muutokset
   - DOO-2654: Odotetaan käyttäjän kuittausta ennen usean tiedoston lataamista.
