@@ -606,26 +606,17 @@ function uhc_ds_moodle_key_or_login($field) {
 function uhc_ds_course_hierarchy($field) {
   $node = $field['entity'];
   $root_node = uhc_course_hierarchy_get_course_hierarchy_root($node);
+  if (!node_access('view', $root_node) || !uhc_course_hierarchy_get_course_children($root_node)) {
+    // If we do not have access to view root node, or root node doesn't have any children, forget about the hierarchy.
+    return '';
+  }
+
+  // Setup items list.
   $uri = entity_uri('node', $root_node);
   $label = entity_label('node', $root_node);
   $items = array('attributes' => array('class' => 'course-hierarchy', 'id' => 'course-hierarchy'));
 
-  // Get course id for sorting purposes. If it can't be determined, then set
-  // NULL indicating that it's not sortable.
-  $course_id = isset($node->field_imp_id[LANGUAGE_NONE][0]['value']) ? $node->field_imp_id[LANGUAGE_NONE][0]['value'] : NULL;
-
-  // Default that renderable node is not in my enrollments. This will be checked
-  // further below while looping through enrollments.
-  $in_my_enrollments = FALSE;
-
-  // Avoid duplicates. This is possible as we're resolving enrollment roots and
-  // they might resolve same roots between each studygroupsets and studygroups.
-  $root_ids = array();
-  if (!is_null($course_id)) {
-    $root_ids[] = $course_id;
-  }
-
-  // Add active course page (or its root)
+  // Add items and its children
   $items['items'][] = array(
     'title' => $label,
     'data' => node_access('view', $root_node) ? l($label, $uri['path']) : l($label, '<front>'),
@@ -633,95 +624,13 @@ function uhc_ds_course_hierarchy($field) {
     'children' => uhc_course_hierarchy_get_course_children($root_node),
   );
 
-  // Add personal enrollments too
-  $personal_unique_code = uhc_autofill_metadata_get_current_user_personal_unique_code();
-  $enrollments = uhc_autofill_metadata_get_enrollment_data($personal_unique_code, TRUE);
-  if (!empty($enrollments)) {
-    $exams = variable_get('uhc_migrate_methods_of_study_marked_as_exam', array());
-
-    foreach ($enrollments['data'] as $enrollment) {
-
-      // Depending whether we can resolve enrollment node...
-      $enrollment_node = uhc_course_implementation_load_by_id($enrollment['course_id']);
-      if (isset($enrollment_node) && $node->nid == $enrollment_node->nid) {
-        // If we can resolve the node and happens to be the one we're currently
-        // rendering. Then do nothing else than just track this bit of
-        // information for return logic. See return..
-        $in_my_enrollments = TRUE;
-      }
-      elseif (_uhc_autofill_metadata_enrollments_block_should_display_enrollment($enrollment['type_code'], $exams)) {
-
-        // We should display this enrollment and we were able to resolve the
-        // node...
-        if ($enrollment_node) {
-
-          // Resolve its root node and add to items if it's not already there
-          $root_enrollment_node = uhc_course_hierarchy_get_course_hierarchy_root($enrollment_node);
-          $uri = entity_uri('node', $root_enrollment_node);
-          $label = entity_label('node', $root_enrollment_node);
-          if (!in_array($root_enrollment_node->field_imp_id[LANGUAGE_NONE][0]['value'], $root_ids)) {
-            $items['items'][] = array(
-              'title' => $label,
-              'data' => node_access('view', $root_enrollment_node) ? l($label, $uri['path']) : l($label, '<front>'),
-              'class' => uhc_course_hierarchy_get_attributes($root_enrollment_node),
-              // If we would like to render children items too, you may remove
-              // this comment and following line (but check that JS works)
-              //   'children' => uhc_course_hierarchy_get_course_children($root_enrollment_node),
-            );
-          }
-
-        }
-        elseif(!in_array($enrollment['course_id'], $root_ids)) {
-
-          // We should display this enrollment and we're not able to resolve the
-          // node...
-
-          /*
-           * We apparently do not have this course implementation in our
-           * system and it's not yet in the list.
-           * Lets anyway generate the links with our best guesses:
-           *   1) Link is generated with pattern: /(:lang/):learningopportunity_id/:course_id
-           *   2) Enrollment name is fetched from the enrollment object
-           */
-
-          // Generate URL link that should exist in Drupal.
-          $link = '/' . $enrollment['learningopportunity_id'] . '/' . $enrollment['course_id'];
-
-          // Get enrollment name from $enrollment object
-          global $language;
-          $langcode = $language->language;
-          $enrollment_name = _uhc_autofill_metadata_get_enrollment_name($enrollment, $langcode);
-
-          // Attach this item to the links hierarchy
-          $items['items'][] = array(
-            // Link is the actual output we're use as link item
-            'data' => l($enrollment_name, $link),
-            // Title and course_id is used for sorting and filtering
-            'title' => $enrollment_name,
-          );
-        }
-      }
-    }
-  }
-
-  // After gathering all items, lets sort them by title
-  usort($items['items'], function($a, $b) {
-    if ($a['title'] == $b['title']) {
-      return 0;
-    }
-    return ($a['title'] < $b['title']) ? -1 : 1;
-  });
-
   // Title was originally for sorting, after that's done. Unset it, so it don't
   // potentially confuse theme or other modules.
   foreach ($items['items'] as &$item) {
     unset($item['title']);
   }
 
-  // Don't bother rendering one link without hierarchy and not even being
-  // enrolled to it..
-  $has_children = isset($items['items'][0]['children']) && count($items['items'][0]['children']) > 0;
-  return (count($items['items']) == 1 && !$has_children && !$in_my_enrollments) ? '' : theme('item_list', $items);
+  return theme('item_list', $items);
 }
 
 /**

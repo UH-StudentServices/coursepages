@@ -422,7 +422,33 @@ class CourseNodeMigration extends PortalMigrationBase {
       ->fieldLanguageCondition('name_field', $search_by_language);
     $results = $query->execute();
     if (isset($results['taxonomy_term']) && count($results['taxonomy_term']) > 0) {
+
+      // Return taxonomy term ids
       $return = array_keys($results['taxonomy_term']);
+
+      // For each matched term, check translations are up-to-date.
+      foreach ($return as $match_tid) {
+        $match_term = taxonomy_term_load($match_tid);
+        $translation_updated = FALSE;
+        if (!empty($match_term->name_field)) {
+          foreach ($match_term->name_field as $langcode => $value) {
+            if ($langcode != LANGUAGE_NONE) {
+              if ($faculties[$langcode] != $value[0]['value']) {
+                // Translation has been changed
+                $match_term->name_field[$langcode][0]['value'] = $faculties[$langcode];
+                $translation_updated = TRUE;
+              }
+            }
+          }
+        }
+
+        // If translation has been updated, then save the updates.
+        if ($translation_updated) {
+          taxonomy_term_save($match_term);
+          watchdog('uhc_course_source', 'Updated translations for faculty tid @tid', array('@tid' => $match_tid->tid), WATCHDOG_NOTICE);
+        }
+      }
+
     }
     else {
 

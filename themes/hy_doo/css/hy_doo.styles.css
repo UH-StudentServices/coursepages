@@ -6123,7 +6123,7 @@ ul.pager {
           position: absolute;
           left: 0;
           top: 10%; }
-    .course-hierarchy li.root > .item-list ul.root li.my-enrollment a:after {
+    .course-hierarchy li.root > .item-list ul.root li.my-enrollment > a:after {
       display: inline-block;
       font-family: "hy-icons";
       font-style: normal;

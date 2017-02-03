@@ -303,7 +303,7 @@ projects[uh_mece][type] = module
 projects[uh_mece][download][type] = git
 projects[uh_mece][download][url] = "git://github.com/UH-StudentServices/uh-mece.git"
 projects[uh_mece][download][branch] = 7.x-1.x
-projects[uh_mece][download][revision] = d31cd76ca36c3f8540d75f200e43b84aeb02cbd5
+projects[uh_mece][download][revision] = 209b8017a5d9d44c7bf2fec0049c36701a147438
 
 projects[uh_oodi_queue][type] = module
 projects[uh_oodi_queue][download][type] = git

@@ -34,7 +34,7 @@
               }
             }
           }
-          &.my-enrollment a:after {
+          &.my-enrollment > a:after {
             @include icon($icon-done);
             color: $green;
             position: absolute;

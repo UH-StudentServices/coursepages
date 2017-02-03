@@ -1159,3 +1159,18 @@ function uh_coursepages_update_7036(&$sandbox) {
 function uh_coursepages_update_7037(&$sandbox) {
   uh_coursepages_setup_variables();
 }
+
+/**
+ * set /search as new frontpage.
+ */
+function uh_coursepages_update_7038(&$sandbox) {
+  $search_page = drupal_lookup_path('source', 'search');
+  variable_set('site_frontpage', $search_page);
+}
+
+/**
+ * update contact logo block address.
+ */
+function uh_coursepages_update_7039(&$sandbox) {
+  uh_coursepages_setup_variables();
+}

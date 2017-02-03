@@ -169,7 +169,7 @@ function uhc_favorites_urls_callback() {
   foreach ($nids as $nid) {
     $node = node_load($nid);
     $response[] = array(
-      'uri' => entity_uri('node', $node),
+      'uri' => url('node/'. $node->nid),
       'label' => entity_label('node', $node)
     );
   }

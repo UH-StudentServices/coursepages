@@ -1,3 +1,18 @@
+# University of Helsinki Courses v1.89
+Päiväys: 03.02.2017
+
+## Muutokset
+* DOO-2757: Hakusivusta on tehty uusi etusivu.
+* DOO-2758: Muokkausnäkymän ruotsinkielisiä käännöksiä muutettu.
+* DOO-2760: Yliopiston osoite päivitetty footeriin.
+* DOO-2737: Piilotetaan kurssihierarkia jos ei ole julkista hierarkiaa.
+
+## Korjaukset
+* DOO-2757: Avoimen yliopiston suosikeiden linkit korjattu.
+* DOO-2761: Korjattu: Ilmoittautumista kuvaava check-merkki näkyy myös ryhmässä
+  johon opiskelija ei ole ilmoittautunut.
+
+
 # University of Helsinki Courses v1.88
 Päiväys: 11.01.2017
 
@@ -9,6 +24,8 @@ Päiväys: 11.01.2017
     löytyy enemmän tuloksia.
   - DOO-2350: Tehtävät-osio on poistumassa. Muutettiin ohjeistusta.
   - DOO-2660: Headerin ja footerin tyylitys styleguiden mukaan.
+  - DOO-2737: Yksinkertaistettiin kurssihierarkia sivupalkkia ottamalla pois
+    omien ilmoittautumisten sulautuksen hierarkiaan. 
 
 ## Poistot
   - DOO-2351: Poistettiin "Tehtävät"-osio opastetusta kierroksesta.
@@ -43,6 +60,8 @@ Päiväys: 12.11.2016
   - DOO-2663: Aikataulunäkymään muutettu tekstejä ja käännöksiä.
   - DOO-2616: Kirjastolle erillinen RSS-syöte (lajittelu alkamispäivän mukaan,
     näytetään vain aliopetustapahtumat).
+  - DOO-2749: Päivitettiin moduuli, jossa MECE kutsut aina tehdään "POST"
+    metodilla eikä "post" metodilla.
 
 ## Päivitykset
   - DOO-2662: Päivitettiin Chosen jQuery plugin uusimpaan versioon.

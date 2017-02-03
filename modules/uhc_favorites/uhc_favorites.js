@@ -41,7 +41,7 @@
 
           request.done(function (response, textStatus, jqXHR){
             $.each(response, function(key, value) {
-              $(self).children('.list-of-links').append('<li class="' + classes + '"><a href="' + value.uri.path + '">' + value.label + '</a></li>');
+              $(self).children('.list-of-links').append('<li class="' + classes + '"><a href="' + value.uri + '">' + value.label + '</a></li>');
             })
           });
         });
