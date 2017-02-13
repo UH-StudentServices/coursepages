@@ -1,3 +1,12 @@
+# University of Helsinki Courses v1.90
+Päiväys: 13.02.2017
+
+* DOO-2753: Lisättiin tuki tiedekuntien käännösten päivittämiselle toteutuksen
+  päivittämisen yhteydessä
+* DOO-2755: Lisättiin "Tulokset"-osio demokurssille.
+* DOO-2787: Elisa Chat oppiaineet-sivulle
+
+
 # University of Helsinki Courses v1.89
 Päiväys: 03.02.2017
 

@@ -145,9 +145,14 @@ function uhc_tour_context_default_contexts() {
   <p>The custom section may consist of text and links and the label written by the teacher.</p>
 </li>
 
-<li class="group-imp-feedback" data-class="is-active" data-button="Next">
+<li class="group-imp-results" data-class="is-active" data-button="Next">
   <h2>Conduct of the course</h2>
   <p>The teacher may specify how the course is conducted and how the learning will be evaluated.</p>
+</li>
+
+<li class="group-imp-feedback" data-class="is-active" data-button="Next">
+  <h2>Results</h2>
+  <p>Publish the results preferably in pdf format. Use student numbers, not names of individuals. Results are shown only for students of the course and are available for 6 months. After this, the files are automatically deleted from the system.</p>
 </li>
 
 <li class="group-description-objectives" data-class="is-active" data-button="Next">

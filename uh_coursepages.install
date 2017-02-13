@@ -1174,3 +1174,10 @@ function uh_coursepages_update_7038(&$sandbox) {
 function uh_coursepages_update_7039(&$sandbox) {
   uh_coursepages_setup_variables();
 }
+
+/**
+ * Enable UHC Elisa Chat.
+ */
+function uh_coursepages_update_7040(&$sandbox) {
+  module_enable(array('uhc_elisa_chat'));
+}
