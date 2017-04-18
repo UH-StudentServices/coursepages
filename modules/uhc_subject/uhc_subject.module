@@ -310,13 +310,16 @@ function uhc_subject_preprocess_node(&$variables) {
     'container' => 'study-modules',
   );
 
-  // add filtering js for subject nodes
-  if ($variables['type'] == 'subject' && node_is_page($variables['node']) && !empty($variables['field_study_module'])) {
+  // add filtering js for subject and studies nodes
+  if (in_array($variables['type'], array('subject', 'studies')) && node_is_page($variables['node']) && !empty($variables['field_study_module'])) {
 
     // check for disabled filters in subject node
-    foreach ($variables['field_study_module_filters'] as $filter) {
-      if (array_intersect(array_keys($settings['fields_to_filter']), $filter)) {
-        unset($settings['fields_to_filter'][$filter['value']]);
+    $disabled_filters = field_get_items('node', $variables['node'], 'field_study_module_filters');
+    if ($disabled_filters) {
+      foreach ($disabled_filters as $disabled_filter) {
+        if (array_intersect(array_keys($settings['fields_to_filter']), $disabled_filter)) {
+          unset($settings['fields_to_filter'][$disabled_filter['value']]);
+        }
       }
     }
 
@@ -326,7 +329,7 @@ function uhc_subject_preprocess_node(&$variables) {
   }
 
   // Add classes and data-attributes to course implementations
-  if ($variables['type'] == 'course_implementation' && $variables['view_mode'] == 'teaser_accordion') {
+  if ($variables['type'] == 'course_implementation' && $variables['view_mode'] == 'teaser') {
     $variables['classes_array'][] = $nodes_to_filter_class;
 
     // Add data-attributes to nodes
@@ -344,6 +347,64 @@ function uhc_subject_preprocess_node(&$variables) {
           $rendered_field = render($field_value);
         }
         $variables['attributes_array'][check_plain('data-' . $field)] = check_plain($rendered_field);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_field_multiple_value_form().
+ * Change labels of multiple value form add/remove buttons.
+ */
+function uhc_subject_preprocess_field_multiple_value_form(&$variables) {
+  if ($variables['element']['#field_name'] == 'field_study_module') {
+    foreach (element_children($variables['element']) as $child) {
+      if (isset($variables['element']['add_more']['#value'])) {
+        $variables['element']['add_more']['#value'] = t('Add study module');
+      }
+      if (isset($variables['element'][$child]['remove_button']['#value'])) {
+        $variables['element'][$child]['remove_button']['#value'] = t('Remove study module');
+      }
+    }
+  }
+  if ($variables['element']['#field_name'] == 'field_subject_ref_to_courses') {
+    foreach (element_children($variables['element']) as $child) {
+      if (isset($variables['element']['add_more']['#value'])) {
+        $variables['element']['add_more']['#value'] = t('Add reference to course');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_collection_fieldset_field_as_label_alter().
+ *
+ * Use the referred course title as the study module accordion title if the
+ * study module manual title is missing.
+ *
+ * Use the related content title as the related content accordion title.
+ */
+function uhc_subject_field_collection_fieldset_field_as_label_alter(&$title, array $context) {
+  $field_collection_item_wrapper = isset($context['field_collection_item_wrapper']) ? $context['field_collection_item_wrapper'] : NULL;
+  $field_as_label = isset($context['field_as_label']) ? $context['field_as_label'] : NULL;
+
+  if ($field_collection_item_wrapper && $field_as_label) {
+    if ($field_as_label == 'field_study_module_title') {
+      $title = check_plain($field_collection_item_wrapper->field_study_module_title->value());
+      $reference = $field_collection_item_wrapper->field_subject_ref_study_module->value();
+      $link = $field_collection_item_wrapper->field_study_module_link_title->value();
+
+      if (empty($title) && !empty($link)) {
+        $title = check_plain($link['title']);
+      }
+      elseif (empty($title) && !empty($reference)) {
+        $title = check_plain($reference->title);
+      }
+    } elseif ($field_as_label == 'field_related_content_title') {
+      $field_items = field_get_items('field_collection_item', $field_collection_item_wrapper->raw(), 'field_related_content_title');
+
+      if ($field_items) {
+        $title = check_plain($field_items[0]['value']);
       }
     }
   }

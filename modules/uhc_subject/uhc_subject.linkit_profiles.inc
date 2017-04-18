@@ -19,23 +19,27 @@ function uhc_subject_default_linkit_profiles() {
   $linkit_profile->profile_type = '2';
   $linkit_profile->data = array(
     'search_plugins' => array(
-      'entity:node' => array(
-        'enabled' => 1,
+      'entity:file' => array(
+        'enabled' => 0,
+        'weight' => '-10',
+      ),
+      'entity:search_api_index' => array(
+        'enabled' => 0,
         'weight' => '-10',
       ),
       'entity:taxonomy_term' => array(
         'enabled' => 0,
         'weight' => '-10',
       ),
-      'entity:file' => array(
-        'enabled' => 0,
+      'entity:node' => array(
+        'enabled' => 1,
         'weight' => '-10',
       ),
       'entity:comment' => array(
         'enabled' => 0,
         'weight' => '-10',
       ),
-      'entity:search_api_index' => array(
+      'entity:search_api_autocomplete_search' => array(
         'enabled' => 0,
         'weight' => '-10',
       ),
@@ -49,7 +53,7 @@ function uhc_subject_default_linkit_profiles() {
       ),
     ),
     'entity:node' => array(
-      'result_description' => '',
+      'result_description' => '[node:url]',
       'bundles' => array(
         'contact_card' => 0,
         'course' => 0,
@@ -58,9 +62,11 @@ function uhc_subject_default_linkit_profiles() {
         'course_material' => 0,
         'course_task' => 0,
         'event' => 0,
+        'exam_results' => 0,
         'liftup' => 0,
         'online_service' => 0,
         'portal_page' => 0,
+        'studies_landing_page' => 0,
         'subject' => 0,
       ),
       'group_by_bundle' => 0,
@@ -81,6 +87,7 @@ function uhc_subject_default_linkit_profiles() {
         'subject_category' => 0,
         'faculty' => 0,
         'material_sections' => 0,
+        'organisations_of_university_of_helsinki' => 0,
       ),
       'group_by_bundle' => 0,
     ),
@@ -94,9 +101,11 @@ function uhc_subject_default_linkit_profiles() {
         'comment_node_course_material' => 0,
         'comment_node_course_task' => 0,
         'comment_node_event' => 0,
+        'comment_node_exam_results' => 0,
         'comment_node_liftup' => 0,
         'comment_node_online_service' => 0,
         'comment_node_portal_page' => 0,
+        'comment_node_studies_landing_page' => 0,
         'comment_node_subject' => 0,
       ),
       'group_by_bundle' => 0,
@@ -105,6 +114,9 @@ function uhc_subject_default_linkit_profiles() {
       'result_description' => '',
     ),
     'entity:search_api_index' => array(
+      'result_description' => '',
+    ),
+    'entity:search_api_autocomplete_search' => array(
       'result_description' => '',
     ),
     'entity:file' => array(

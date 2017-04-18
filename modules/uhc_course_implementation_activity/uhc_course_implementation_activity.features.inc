@@ -56,7 +56,6 @@ function uhc_course_implementation_activity_flag_default_flags() {
       'sidebar' => 0,
       'material_block' => 0,
       'meta_information' => 0,
-      'teaser_accordion' => 0,
       'revision' => 0,
     ),
     'show_as_field' => 0,

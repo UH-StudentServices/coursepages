@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function uhc_course_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -25,7 +25,7 @@ function uhc_course_field_group_info() {
     'children' => array(
       0 => 'field_objective',
       1 => 'field_req_prerequisites',
-      2 => 'uhc_ds_course_reference_accordion',
+      2 => 'uhc_ds_course_node_references',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -43,7 +43,7 @@ function uhc_course_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_accordion_content|node|course|teaser'] = $field_group;
+  $field_groups['group_accordion_content|node|course|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -71,7 +71,7 @@ function uhc_course_field_group_info() {
       ),
     ),
   );
-  $export['group_course_drupal|node|course|form'] = $field_group;
+  $field_groups['group_course_drupal|node|course|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -99,7 +99,7 @@ function uhc_course_field_group_info() {
       ),
     ),
   );
-  $export['group_course_header_image|node|course|form'] = $field_group;
+  $field_groups['group_course_header_image|node|course|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -126,7 +126,7 @@ function uhc_course_field_group_info() {
       ),
     ),
   );
-  $export['group_course_header_promotion|node|course|form'] = $field_group;
+  $field_groups['group_course_header_promotion|node|course|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -164,7 +164,15 @@ function uhc_course_field_group_info() {
       ),
     ),
   );
-  $export['group_course_integration|node|course|form'] = $field_group;
+  $field_groups['group_course_integration|node|course|form'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Accordion content');
+  t('Drupal system');
+  t('Image');
+  t('Integration');
+  t('Promotion');
+
+  return $field_groups;
 }

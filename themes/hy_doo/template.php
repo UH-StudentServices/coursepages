@@ -40,6 +40,16 @@ function hy_doo_preprocess_views_view(&$vars) {
 }
 
 /**
+ * Implement hook_preprocess_views_view_list().
+ * Template for views lists with grouping as accordions
+ */
+function hy_doo_preprocess_views_view_list(&$vars) {
+  if (in_array($vars['view']->name, array('subjects_by_category', 'studies_by_category'))) {
+    $vars['theme_hook_suggestions'][] = 'views_view_list__group_by_accordion';
+  }
+}
+
+/**
  * Override theme_status_messages().
  *
  * @param $variables
@@ -207,7 +217,13 @@ function hy_doo_favorite_widget($variables) {
         delFromFavLabel: "' . $delete_from_favorites_label . '",
         wrapperClassName: "favoritewidget button__inline",
         inlineElement: "span",
-        inlineElementClassName: "button button--info icon--favorites"
+        inlineElementClassName: "button button--info icon--favorites",
+        addedCallback: function (event, data) {
+          Drupal.behaviors.uhc_favorites.setFavoritesLink();
+        },
+        removedCallback:function (event, data) {
+          Drupal.behaviors.uhc_favorites.setFavoritesLink();
+        }
     });
   })(jQuery)
   ';

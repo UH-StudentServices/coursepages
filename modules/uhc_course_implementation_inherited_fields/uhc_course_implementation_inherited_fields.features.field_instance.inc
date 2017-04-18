@@ -22,7 +22,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 98,
+        'weight' => 96,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -31,12 +31,6 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -115,7 +109,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 105,
+        'weight' => 103,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -124,12 +118,6 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -208,7 +196,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 100,
+        'weight' => 98,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -217,12 +205,6 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -301,7 +283,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 101,
+        'weight' => 99,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -310,12 +292,6 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -383,8 +359,8 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
   );
 
   // Exported field_instance:
-  // 'node-course_implementation-field_inherited_objective'.
-  $field_instances['node-course_implementation-field_inherited_objective'] = array(
+  // 'node-course_implementation-field_inherited_learning_support'.
+  $field_instances['node-course_implementation-field_inherited_learning_support'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
     'deleted' => 0,
@@ -394,7 +370,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 102,
+        'weight' => 110,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -408,7 +384,88 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'teaser_accordion' => array(
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_inherited_learning_support',
+    'label' => 'Activities and teaching methods in support of learning',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 'ds_code',
+          'embed_code' => 'embed_code',
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'embed_code' => array(
+              'weight' => 1,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_truncate_html' => 0,
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 78,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-course_implementation-field_inherited_objective'.
+  $field_instances['node-course_implementation-field_inherited_objective'] = array(
+    'bundle' => 'course_implementation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 100,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -476,8 +533,8 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
   );
 
   // Exported field_instance:
-  // 'node-course_implementation-field_inherited_rel_to_other_stu'.
-  $field_instances['node-course_implementation-field_inherited_rel_to_other_stu'] = array(
+  // 'node-course_implementation-field_inherited_optional_studies'.
+  $field_instances['node-course_implementation-field_inherited_optional_studies'] = array(
     'bundle' => 'course_implementation',
     'default_value' => NULL,
     'deleted' => 0,
@@ -501,7 +558,88 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'teaser_accordion' => array(
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_inherited_optional_studies',
+    'label' => 'Recommended optional studies',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 'ds_code',
+          'embed_code' => 'embed_code',
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'embed_code' => array(
+              'weight' => 1,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_truncate_html' => 0,
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 79,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-course_implementation-field_inherited_rel_to_other_stu'.
+  $field_instances['node-course_implementation-field_inherited_rel_to_other_stu'] = array(
+    'bundle' => 'course_implementation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 107,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -580,7 +718,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 99,
+        'weight' => 97,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -589,12 +727,6 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -673,7 +805,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 107,
+        'weight' => 105,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -682,12 +814,6 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -766,7 +892,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 104,
+        'weight' => 102,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -775,12 +901,6 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -859,7 +979,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 103,
+        'weight' => 101,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -868,12 +988,6 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -952,7 +1066,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 106,
+        'weight' => 104,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -961,12 +1075,6 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1045,7 +1153,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 110,
+        'weight' => 108,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1054,12 +1162,6 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1128,6 +1230,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Activities and teaching methods in support of learning');
   t('Additional information');
   t('Contents');
   t('Course conduct');
@@ -1135,6 +1238,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
   t('Evaluation');
   t('Objective');
   t('Realisation and working methods');
+  t('Recommended optional studies');
   t('Relations to other study units');
   t('Required prerequisites');
   t('Responsible person');

@@ -101,9 +101,6 @@ function uhc_contact_card_strongarm() {
       'meta_information' => array(
         'custom_settings' => FALSE,
       ),
-      'teaser_accordion' => array(
-        'custom_settings' => FALSE,
-      ),
       'revision' => array(
         'custom_settings' => FALSE,
       ),
@@ -126,7 +123,7 @@ function uhc_contact_card_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'language_content_type_contact_card';
-  $strongarm->value = '0';
+  $strongarm->value = '1';
   $export['language_content_type_contact_card'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -172,6 +169,16 @@ function uhc_contact_card_strongarm() {
   $strongarm->name = 'node_submitted_contact_card';
   $strongarm->value = 0;
   $export['node_submitted_contact_card'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_settings_node_contact_card';
+  $strongarm->value = array(
+    'status' => '0',
+    'priority' => '0.5',
+  );
+  $export['xmlsitemap_settings_node_contact_card'] = $strongarm;
 
   return $export;
 }

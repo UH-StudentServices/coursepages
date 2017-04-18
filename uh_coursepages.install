@@ -783,6 +783,60 @@ function uh_coursepages_install() {
 }
 
 /**
+ * Helper function for copying over FI title values for a workaround for
+ * unknown problem. See uh_coursepages_update_7045.
+ */
+function _uh_coursepages_copy_fi_titles_aside() {
+  $fields = array('field_study_module', 'field_related_content_section');
+  $bundles = array();
+  $titles = array();
+  foreach ($fields as $field_name) {
+    $field = field_info_field($field_name);
+    foreach ($field['bundles'] as $entity_type => $entity_bundles) {
+      if (!isset($bundles[$entity_type])) {
+        $bundles[$entity_type] = $entity_bundles;
+      }
+      else {
+        $bundles[$entity_type] = array_merge($bundles[$entity_type], $entity_bundles);
+        $bundles[$entity_type] = array_unique($bundles[$entity_type]);
+      }
+    }
+  }
+  $nodes = node_load_multiple(array(), array('type' => $bundles['node']));
+  foreach ($nodes as $node) {
+    if (empty($node->title_field[LANGUAGE_NONE]) && !empty($node->title_field['fi'])) {
+      $titles[$node->nid] = $node->title_field['fi'];
+    }
+  }
+  variable_set('uh_coursepages_temp_fi_titles', $titles);
+}
+
+/**
+ * Helper function for restoring FI title values for a workaround for unknown
+ * problem. See uh_coursepages_update_7045.
+ */
+function _uh_coursepages_restore_fi_titles_from_aside() {
+  $titles = variable_get('uh_coursepages_temp_fi_titles', array());
+  if (empty($titles)) {
+    return;
+  }
+  $nodes = node_load_multiple(array_keys($titles));
+  foreach ($nodes as $node) {
+    if (isset($titles[$node->nid])) {
+      if (empty($node->title_field['fi'][0]['value'])) {
+        $node->title_field['fi'] = $titles[$node->nid];
+        if (empty($node->title) && !empty($titles[$node->nid][0]['value'])) {
+          $node->title = $titles[$node->nid][0]['value'];
+        }
+        node_save($node);
+      }
+    }
+  }
+
+  variable_del('uh_coursepages_temp_fi_titles');
+}
+
+/**
  * uninstall uhc_course_implementation_language_suggester. a simplified version of
  * the functionality can be found in uhc_course_implementation.
  */
@@ -849,6 +903,7 @@ function uh_coursepages_update_dependencies() {
   $dependencies['uhc_sources'][7002] = array(
     'uh_coursepages' => 7004,
   );
+
   return $dependencies;
 }
 
@@ -1180,4 +1235,85 @@ function uh_coursepages_update_7039(&$sandbox) {
  */
 function uh_coursepages_update_7040(&$sandbox) {
   module_enable(array('uhc_elisa_chat'));
+}
+
+/**
+ * Enable UHC studies.
+ */
+function uh_coursepages_update_7041(&$sandbox) {
+  module_enable(array('uhc_studies'));
+}
+
+/**
+ * Enable view reference tabs formatter.
+ */
+function uh_coursepages_update_7042(&$sandbox) {
+  module_enable(array('view_reference_tabs_formatter'));
+}
+
+/**
+ * List only enabled languages. We do not want to display Norwegian in the
+ * language selector.
+ */
+function uh_coursepages_update_7043(&$sandbox) {
+  variable_set('entity_translation_languages_enabled', TRUE);
+}
+/**
+ * Enable field collection fieldset.
+ */
+function uh_coursepages_update_7044(&$sandbox) {
+  module_enable(array('field_collection_fieldset'));
+}
+
+/**
+ * Make field_related_content_section translatable. copy und values to all translations.
+ */
+function uh_coursepages_update_7045(&$sandbox) {
+  features_revert_module('uhc_subject');
+
+  // For unknown reason, we lose FI title values during the process below, so
+  // write them aside.
+  _uh_coursepages_copy_fi_titles_aside();
+
+  $fields = array('field_study_module', 'field_related_content_section');
+
+  foreach ($fields as $field) {
+    // Batch process for copying existing translation values
+    $translatable = 1;
+    $copy_all_languages = 1;
+
+    $operations = array(
+      array('entity_translation_translatable_batch', array($translatable, $field, $copy_all_languages)),
+    );
+
+    $batch = array(
+      'title' => t('Enabling translation'),
+      'operations' => $operations,
+      'finished' => '_uh_coursepages_restore_fi_titles_from_aside',
+      'file' => drupal_get_path('module', 'entity_translation') . '/entity_translation.admin.inc',
+    );
+
+    batch_set($batch);
+  }
+}
+
+/**
+ * Migrate field_related_content_title to untranslatable field.
+ */
+function uh_coursepages_update_7046(&$sandbox) {
+  // Batch process for copying existing translation values
+  $translatable = 0;
+  $copy_all_languages = 1;
+
+  $operations = array(
+    array('entity_translation_translatable_batch', array($translatable, 'field_related_content_title', $copy_all_languages)),
+  );
+
+  $batch = array(
+    'title' => t('Disabling translation'),
+    'operations' => $operations,
+    'file' => drupal_get_path('module', 'entity_translation') . '/entity_translation.admin.inc',
+  );
+
+  batch_set($batch);
 }

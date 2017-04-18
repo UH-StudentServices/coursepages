@@ -142,9 +142,6 @@ function uhc_liftups_strongarm() {
       'meta_information' => array(
         'custom_settings' => FALSE,
       ),
-      'teaser_accordion' => array(
-        'custom_settings' => FALSE,
-      ),
       'revision' => array(
         'custom_settings' => FALSE,
       ),

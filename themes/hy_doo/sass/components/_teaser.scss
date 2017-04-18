@@ -1,55 +1,29 @@
 .node--teaser.node--course-implementation {
+  @include font-size(15px);
   @include border-bottom;
-  padding: 0.8em 0;
+  @include font-weight-medium;
+  display: flex;
+  cursor: pointer;
+  .cancelled {
+    flex-basis: 10%;
+    margin-right: 1em;
+    display: flex;
+    span {
+      align-self: center;
+    }
+  }
+  .org-location-date {
+    color: $blue;
+    letter-spacing: -0.05em;
+    padding: 0.8em 0;
+  }
   &.exam {
     border-left: 3px solid $orange;
+    padding-left: 0.8em;
   }
-  .field {
-    padding-left: 1em;
-    @include breakpoint($small) {
-      float: left;
-      width: 50%;
-    }
-  }
-}
-
-.node--course-implementation--teaser-accordion {
-  .cancelled {
-    position: absolute;
-    width: auto;
-    top: 0;
-    height: 100%;
-    & + .org-location-date {
-      margin-left: 7em;
-    }
-  }
-  .field-group-accordion-item  {
-    @include border-bottom;
-    > h3 {
-      @extend .accordion-content-label;
-      @include border-bottom;
-    }
-  }
-  .button {
-    display: inline-block;
-    margin-bottom: 2em;
-  }
-  @include breakpoint($medium) {
-    .accordion-content-item {
-      @include clearfix;
-      @include border-bottom;
-
-      .label-above {
-        @include float-span(3);
-        @include hyphenate;
-        @include font-weight-book;
-        text-transform: none;
-        font-size: inherit;
-        margin-top: 0.2em;
-      }
-      > div:last-child {
-        @include float-span(13, last);
-      }
+  &:hover {
+    .org-location-date {
+      color: $blue--active;
     }
   }
 }

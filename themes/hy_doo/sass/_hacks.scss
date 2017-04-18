@@ -12,3 +12,15 @@
 .hide-labels label {
   display: none;
 }
+
+.horizontal-tab-button {
+  &.ui-tabs-selected > a {
+    background-color: $darkblue;
+    color: $white;
+    @include breakpoint($small) {
+      transition-property: all;
+      background-color: rgba(255, 255, 255, 1);
+      color: $darkblue;
+    }
+  }
+}

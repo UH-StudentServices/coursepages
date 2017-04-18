@@ -86,3 +86,23 @@ function uhc_course_tasks_and_material_resolve_referencing_course_implementation
     }
   }
 }
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ *
+ * Hide unnecessary field labels from the edit form.
+ */
+function uhc_course_tasks_and_material_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if ($entity_form['#bundle'] == 'course_task') {
+    $entity_form['field_event_ref_to_material'][LANGUAGE_NONE]['#title'] = NULL;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Hide unnecessary field labels from the edit form.
+ */
+function uhc_course_tasks_and_material_form_course_implementation_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['field_reference_to_course_tasks'][LANGUAGE_NONE]['#title'] = NULL;
+}

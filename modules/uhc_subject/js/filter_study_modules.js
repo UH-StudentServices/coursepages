@@ -147,7 +147,7 @@
       // hide course if all it's implementations are hidden
       function hide_empty_courses() {
         // loop each course
-        $('.field-collection-item-field-study-module > .field-group-accordion-item', '.' + container).each(function() {
+        $('.entity-field-collection-item > .field-group-accordion-item', '.' + container).each(function() {
           // lets check if we have any non hidden imps in this course
           if ($('.' + nodes_to_filter, this).hasClass('visible')) {
             // show accordion only if it's open
@@ -165,7 +165,7 @@
         });
 
         //Hide study module title if all study modules are hidden
-        $('.field-collection-item-field-study-module', '.' + container).each(function() {
+        $('.entity-field-collection-item', '.' + container).each(function() {
           if ($(this).children('h3.ds-teaser-accordion--title').hasClass('visible')) {
             $(this).children('.accordion-item-title').show();
           } else {

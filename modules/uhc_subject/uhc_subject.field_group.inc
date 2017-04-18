@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function uhc_subject_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -35,7 +35,7 @@ function uhc_subject_field_group_info() {
       ),
     ),
   );
-  $export['group_contact_information|node|subject|form'] = $field_group;
+  $field_groups['group_contact_information|node|subject|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -64,7 +64,7 @@ function uhc_subject_field_group_info() {
       ),
     ),
   );
-  $export['group_header_promotion|node|subject|form'] = $field_group;
+  $field_groups['group_header_promotion|node|subject|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -91,7 +91,7 @@ function uhc_subject_field_group_info() {
       ),
     ),
   );
-  $export['group_liftups|node|subject|form'] = $field_group;
+  $field_groups['group_liftups|node|subject|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -118,7 +118,7 @@ function uhc_subject_field_group_info() {
       ),
     ),
   );
-  $export['group_related_content|node|subject|form'] = $field_group;
+  $field_groups['group_related_content|node|subject|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -148,7 +148,15 @@ function uhc_subject_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_study_modules|node|subject|form'] = $field_group;
+  $field_groups['group_study_modules|node|subject|form'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Contact information');
+  t('Liftups');
+  t('Promotion');
+  t('Related content');
+  t('Study modules');
+
+  return $field_groups;
 }

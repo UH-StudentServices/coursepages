@@ -90,12 +90,14 @@ img.file-icon {
 }
 
 .box-story {
-   position: relative;
-   padding-bottom: 3em;
-  .box-story__link {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+  .gridder-box & {
+     position: relative;
+     padding-bottom: 3em;
+    .box-story__link {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
   }
   .box-story__content {
     @include font-family-bodytext;

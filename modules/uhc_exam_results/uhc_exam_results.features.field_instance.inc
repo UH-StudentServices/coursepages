@@ -109,13 +109,13 @@ function uhc_exam_results_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'file',
+        'module' => 'uhc_exam_results',
         'settings' => array(
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
           'field_multiple_limit_order' => 0,
         ),
-        'type' => 'file_default',
+        'type' => 'file_exam_result',
         'weight' => 2,
       ),
       'sidebar' => array(

@@ -695,6 +695,11 @@ function _uhc_course_implementation_activity_track_task_delete($node) {
  */
 function _uhc_course_implementation_activity_track_reference_update_or_delete($node, $field_name, $message_type, $arguments) {
   if (in_array($node->type, array('event', 'exam_results'))) {
+    if ($node->type == 'exam_results' && user_is_anonymous()) {
+      // Do not track automatic exam results deletions.
+      return;
+    }
+
     if ($nid = uhc_course_implementation_get_referencing_course_implementation($node->nid, $field_name)) {
       $course_implementation_node = node_load($nid);
       uhc_course_implementation_activity_create_message($course_implementation_node, $message_type, $arguments);

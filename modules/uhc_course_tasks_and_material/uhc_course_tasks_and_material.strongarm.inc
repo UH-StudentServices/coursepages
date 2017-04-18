@@ -70,9 +70,6 @@ function uhc_course_tasks_and_material_strongarm() {
       'sidebar' => array(
         'custom_settings' => TRUE,
       ),
-      'teaser_accordion' => array(
-        'custom_settings' => TRUE,
-      ),
       'full' => array(
         'custom_settings' => FALSE,
       ),

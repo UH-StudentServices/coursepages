@@ -129,7 +129,8 @@
     border: none;
   }
 
-  .ief-form {
+  .ief-form,
+  .field-type-field-collection fieldset:not(.collapsed) {
     background: lighten($lightsilver, 5%);
     border: 2px solid $lightsilver;
     margin: 2em 0;
@@ -150,6 +151,42 @@
     }
     .ief-form {
       background: $lightsilver;
+    }
+  }
+  .field-type-field-collection {
+    fieldset.collapsible {
+      margin: 0 -1em 0 -2em;
+      > legend {
+        width: 100%;
+        > .fieldset-legend {
+          position: relative;
+          padding: 0;
+          .fieldset-title {
+            display: block;
+            position: relative;
+            z-index: 10;
+          }
+          &:after {
+            @include icon($icon-caret-down);
+            color: $blue;
+            position: absolute;
+            right: 0;
+            top: 2px;
+          }
+        }
+      }
+      &.collapsed {
+        margin: 0;
+        > .fieldset-wrapper {
+          display: none;
+        }
+        > legend > .fieldset-legend:after {
+          @include icon($icon-caret-right);
+        }
+      }
+      > .fieldset-wrapper > input[type="submit"] {
+        margin-top: 3em;
+      }
     }
   }
   .form-actions {

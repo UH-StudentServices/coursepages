@@ -22,35 +22,217 @@ function uhc_exam_results_node_view($node, $view_mode, $langcode) {
 /**
  * Implements hook_field_access().
  *
- * Show results only to course teacher and students.
+ * Show results only to course teacher and students, except on demo node.
  */
 function uhc_exam_results_field_access($op, $field, $entity_type, $entity, $account) {
   // this check breaks node edit of exam results, but we don't need it there
   if ($field['field_name'] == 'field_imp_results' && $op != 'edit') {
-    return uhc_course_collaboration_private_current_user_has_access_to_private_content();
+    return uhc_course_collaboration_private_current_user_has_access_to_private_content() ||
+      ($entity_type == 'node' && uhc_tour_is_demo_node($entity));
   }
 }
 
 /**
  * Implements hook_cron().
- *
- * Delete exam results after expire time.
  */
 function uhc_exam_results_cron() {
-  $six_months_in_days = 183;
-  $expire_days = variable_get('uhc_exam_results_expire_after_days', $six_months_in_days);
+  uhc_exam_results_empty_file_contents_on_expiration();
+}
+
+/**
+ * "Delete" exam results files on expiration. Instead of actual deletion, the
+ * original file is replaced with an empty file, since we want to display
+ * information about the deletion of the file to the user. This requires
+ * preserving all the file reference data, so we can not just delete the file.
+ */
+function uhc_exam_results_empty_file_contents_on_expiration() {
+  $files = uhc_exam_results_get_expired_files(uhc_exam_results_get_expire_days());
+
+  if (!empty($files)) {
+    foreach ($files as $file) {
+      uhc_exam_results_empty_and_unpublish_file($file);
+    }
+
+    watchdog('uhc_exam_results', '@count expired exam results files deleted.', array('@count' => count($files)), WATCHDOG_INFO);
+  }
+}
+
+/**
+ * @param int $expire_days
+ * @return stdClass[]
+ */
+function uhc_exam_results_get_expired_files($expire_days) {
+  $file_ids = uhc_exam_results_get_expired_file_ids($expire_days);
+
+  return !empty($file_ids) ? file_load_multiple($file_ids) : array();
+}
+
+/**
+ * @param int $expire_days
+ * @return int[]
+ */
+function uhc_exam_results_get_expired_file_ids($expire_days) {
   $expire_time = time() - strtotime($expire_days . ' day', 0);
 
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'node');
-  $query->propertyCondition('type', 'exam_results');
-  $query->propertyCondition('created', $expire_time, '<');
-  $results = $query->execute();
+  $query = db_select('file_managed', 'fm');
+  $query->fields('fm', array('fid'));
+  $query->leftJoin('file_usage', 'fu', 'fm.fid = fu.fid');
+  $query->leftJoin('node', 'n', 'n.nid = fu.id');
+  $query->condition('n.type', 'exam_results');
+  $query->condition('fm.status', 1);
+  $query->condition('fm.timestamp', $expire_time, '<');
+  $file_ids_result = $query->execute();
 
-  if ($results) {
-    foreach ($results as $result) {
-      node_delete_multiple(array_keys($result));
-      watchdog('uhc_exam_results', '@count expired exam results deleted.', array('@count' => count($result)), WATCHDOG_INFO);
-    }
+  return !empty($file_ids_result) ? $file_ids_result->fetchCol() : array();
+}
+
+/**
+ * @return int
+ */
+function uhc_exam_results_get_expire_days() {
+  $six_months_in_days = 183;
+
+  return variable_get('uhc_exam_results_expire_after_days', $six_months_in_days);
+}
+
+/**
+ * @param stdClass $file
+ */
+function uhc_exam_results_empty_and_unpublish_file($file) {
+  file_save_data('', $file->uri, FILE_EXISTS_REPLACE);
+  $file->status = 0;
+  $file->timestamp = time();
+  file_save($file);
+}
+
+/**
+ * Implements hook_file_presave().
+ */
+function uhc_exam_results_file_presave($file) {
+  uhc_exam_results_preserve_status_and_timestamp_of_emptied_files($file);
+}
+
+/**
+ * Preserves the status and timestamp of emptied files on save. These are needed
+ * for displaying the "deletion" date on exam results file listing.
+ *
+ * @param $file
+ */
+function uhc_exam_results_preserve_status_and_timestamp_of_emptied_files($file) {
+  if (user_is_logged_in() && isset($file->fid) && $file->filesize == 0) {
+    $file->status = 0;
+    $file->timestamp = $file->original->timestamp;
   }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function uhc_exam_results_field_formatter_info() {
+  return array(
+    'file_exam_result' => array(
+      'label' => t('Exam result file'),
+      'field types' => array('file'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function uhc_exam_results_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'file_exam_result':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#theme' => 'uhc_exam_results_file_link',
+          '#file' => (object) $item,
+        );
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Custom override for theme_file_link.
+ *
+ * Returns HTML for a link to a file.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - file: A file object to which the link will be created.
+ *   - icon_directory: (optional) A path to a directory of icons to be used for
+ *     files. Defaults to the value of the "file_icon_directory" variable.
+ *
+ * @ingroup themeable
+ */
+function theme_uhc_exam_results_file_link($variables) {
+  $file = $variables['file'];
+  $url = file_create_url($file->uri);
+
+  // Get file info
+  $expire = $file->status == 1 ? $file->timestamp + (uhc_exam_results_get_expire_days() * 86400) : $file->timestamp;
+  $date = date('d.m.Y', $expire);
+  $info =  theme('html_tag', array(
+    'element' => array(
+      '#tag' => 'span',
+      '#attributes' => array(
+        'class' => 'list-of-links__link-info',
+        ),
+      '#value' => $file->status == 1 ? t('Available until @date', array('@date' => $date)) : t('Deleted @date', array('@date' => $date)),
+    ),
+  ));
+
+  // Use the description as the link title if available.
+  $title = theme('html_tag', array(
+    'element' => array(
+      '#tag' => 'span',
+      '#value' => empty($file->description) ? $file->filename : $file->description,
+    ),
+  ));
+
+  // if file is not expired, output as link
+  if ($file->status == 1) {
+    $output = l($title . $info, $url, array(
+      'attributes' => array(
+        'class' => array(
+          'list-of-links__link',
+          'button--action',
+          'icon--arrow-right',
+          'theme-transparent',
+          'list-of-links__columns',
+        ),
+        'title' => $title,
+      ),
+      'html' => TRUE,
+    ));
+  }
+  else {
+    $output = theme('html_tag', array(
+      'element' => array(
+        '#tag' => 'div',
+        '#attributes' => array(
+          'class' => 'list-of-links__columns',
+          ),
+        '#value' => $title . $info,
+      ),
+    ));
+  }
+
+  return $output;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function uhc_exam_results_theme() {
+  return array(
+    'uhc_exam_results_file_link' => array(
+      'variables' => array('file' => NULL, 'icon_directory' => NULL),
+    ),
+  );
 }

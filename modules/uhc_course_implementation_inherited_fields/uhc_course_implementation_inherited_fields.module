@@ -126,6 +126,18 @@ function uhc_course_implementation_inherited_fields_get_field_list() {
       'json_description_property' => 'realisation_and_working_methods',
       'label' => t('Realisation and working methods'),
     ),
+    'uhc_course_implementation_inherited_fields_optional_studies' => array(
+      'original_field' => NULL,
+      'inherited_field' => 'field_inherited_optional_studies',
+      'json_description_property' => 'optional_studies',
+      'label' => t('Recommended optional studies'),
+    ),
+    'uhc_course_implementation_inherited_fields_learning_support' => array(
+      'original_field' => NULL,
+      'inherited_field' => 'field_inherited_learning_support',
+      'json_description_property' => 'learning_support',
+      'label' => t('Activities and teaching methods in support of learning'),
+    ),
   );
 }
 
@@ -140,7 +152,7 @@ function uhc_course_implementation_inherited_fields_ds_field($field) {
   $node = $field['entity'];
   $field_name = $field['properties']['original_field_name'];
   $inherited_field_name = $field['properties']['inherited_field_name'];
-  if (is_null($node) || is_null($field_name) || is_null($inherited_field_name)) {
+  if (is_null($node) || (is_null($field_name) && is_null($inherited_field_name))) {
     return NULL;
   }
 

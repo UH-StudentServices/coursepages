@@ -2743,6 +2743,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'entity_translation',
   );
@@ -3977,16 +3978,6 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: 'view title_and_credit_linked on node'.
-  $permissions['view title_and_credit_linked on node'] = array(
-    'name' => 'view title_and_credit_linked on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view uhc_ds_course_hierarchy on node'.
   $permissions['view uhc_ds_course_hierarchy on node'] = array(
     'name' => 'view uhc_ds_course_hierarchy on node',
@@ -3997,14 +3988,12 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view uhc_ds_course_reference_accordion on node'.
-  $permissions['view uhc_ds_course_reference_accordion on node'] = array(
-    'name' => 'view uhc_ds_course_reference_accordion on node',
+  // Exported permission: 'view uhc_ds_course_node_references on node'.
+  $permissions['view uhc_ds_course_node_references on node'] = array(
+    'name' => 'view uhc_ds_course_node_references on node',
     'roles' => array(
-      'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
-      'teacher' => 'teacher',
     ),
     'module' => 'ds_extras',
   );

@@ -46,12 +46,6 @@ function uhc_teacher_tools_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 44,
       ),
-      'teaser_accordion' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 50,
-      ),
       'teaser_images' => array(
         'label' => 'above',
         'settings' => array(),
@@ -153,12 +147,6 @@ function uhc_teacher_tools_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 43,
       ),
-      'teaser_accordion' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 52,
-      ),
       'teaser_images' => array(
         'label' => 'above',
         'settings' => array(),
@@ -234,12 +222,6 @@ function uhc_teacher_tools_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',

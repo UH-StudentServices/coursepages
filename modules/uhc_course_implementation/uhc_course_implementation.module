@@ -474,6 +474,12 @@ function uhc_course_implementation_ds_fields_info($entity_type) {
       'field_type' => DS_FIELD_TYPE_FUNCTION,
       'ui_limit' => array('course_implementation|*'),
     );
+    $ds_fields['node']['uhc_course_implementation_exam_results_info_text'] = array(
+      'function' => 'uhc_course_implementation_exam_results_info_text',
+      'title' => 'Exam results info text',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course_implementation|*'),
+    );
   }
   return $ds_fields;
 }
@@ -660,6 +666,19 @@ function uhc_course_implementation_help_texts_messages(&$content, $node, $drupal
     $content .= '<div class="messages views-system-message status alternative"><p>' . t('These events are imported from WebOodi') . '</p></div>';
   }
 
+}
+
+/**
+ * Callback for exam results info text.
+ */
+function uhc_course_implementation_exam_results_info_text($field) {
+  if (empty($field['entity']->field_imp_results)) {
+    return '';
+  }
+
+  return '<div class="messages views-system-message status info alternative"><p>'
+    . t('Results are available for six months after they have been published')
+    . '</p></div>';
 }
 
 /**
@@ -1153,4 +1172,32 @@ function uhc_course_implementation_get_referencing_course_implementation($nid, $
     return $entity_id;
   }
   return NULL;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Remove an unnecessary custom section field title to simplify the form.
+ */
+function uhc_course_implementation_form_course_implementation_node_form_alter(&$form, &$form_state, $form_id) {
+  if (!empty($form['field_imp_teachersection'][LANGUAGE_NONE])) {
+    $form['field_imp_teachersection'][LANGUAGE_NONE]['#title'] = '';
+  }
+}
+
+/**
+ * Implements hook_field_collection_item_view_alter().
+ *
+ * When no translation is available for this particular field collection, we
+ * disable the default "translation unavailable" message callback so the UND
+ * entity gets displayed instead.
+ */
+function uhc_course_implementation_field_collection_item_view_alter(&$build) {
+  if ($build['#bundle'] == 'field_imp_teachersection') {
+    foreach ($build['#post_render'] as $key => $value) {
+      if ($value == 'entity_translation_unavailable') {
+        unset($build['#post_render'][$key]);
+      }
+    }
+  }
 }

@@ -23,8 +23,7 @@ class uhc_tour_context_condition_demo_content extends context_condition {
    * course implementation demo page.
    */
   function execute($node) {
-    $demo_nid = variable_get('uhc_tour_demo_nid', 0);
-    if (!empty($demo_nid) && $node->nid == $demo_nid) {
+    if (uhc_tour_is_demo_node($node)) {
       foreach ($this->get_contexts() as $context) {
         $this->condition_met($context);
       }

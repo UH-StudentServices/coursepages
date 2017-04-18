@@ -21,6 +21,10 @@ function uhc_open_university_context_default_contexts() {
       'values' => array(
         'open-university' => 'open-university',
         'open-university/*' => 'open-university/*',
+        'avoin-yliopisto' => 'avoin-yliopisto',
+        'avoin-yliopisto/*' => 'avoin-yliopisto/*',
+        'oppna-universitet' => 'oppna-universitet',
+        'oppna-universitet/*' => 'oppna-universitet/*',
         '~node/*/edit' => '~node/*/edit',
       ),
     ),

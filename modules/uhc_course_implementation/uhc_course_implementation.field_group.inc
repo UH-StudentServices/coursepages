@@ -13,42 +13,6 @@ function uhc_course_implementation_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_accordion_content|node|course_implementation|teaser_accordion';
-  $field_group->group_name = 'group_accordion_content';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'course_implementation';
-  $field_group->mode = 'teaser_accordion';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Course Information',
-    'weight' => '1',
-    'children' => array(
-      0 => 'course_overview_link',
-      1 => 'uhc_course_implementation_inherited_fields_additional_info',
-      2 => 'uhc_course_implementation_inherited_fields_conduct',
-      3 => 'uhc_ds_fee',
-    ),
-    'format_type' => 'div',
-    'format_settings' => array(
-      'label' => 'Course Information',
-      'instance_settings' => array(
-        'id' => '',
-        'classes' => 'field-group-accordion-item',
-        'description' => '',
-        'show_label' => '1',
-        'label_element' => 'h3',
-        'effect' => 'none',
-        'speed' => 'fast',
-        'show_empty_fields' => 0,
-      ),
-      'formatter' => 'open',
-    ),
-  );
-  $field_groups['group_accordion_content|node|course_implementation|teaser_accordion'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
   $field_group->identifier = 'group_conduct_of_course|node|course_implementation|default';
   $field_group->group_name = 'group_conduct_of_course';
   $field_group->entity_type = 'node';
@@ -122,7 +86,7 @@ function uhc_course_implementation_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'This section will be removed in the near future. Do not add tasks here. We recommend that you use Moodle, where students can also return the tasks electronically.',
+        'description' => 'As a teacher, you can enter course assignments here for students. However, assignments cannot be returned through this service. If you wish students to return their assignments electronically, we recommend using Moodle.',
       ),
       'formatter' => 'closed',
     ),
@@ -536,6 +500,7 @@ function uhc_course_implementation_field_group_info() {
     'weight' => '27',
     'children' => array(
       0 => 'field_imp_results',
+      1 => 'uhc_course_implementation_exam_results_info_text',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -604,38 +569,6 @@ function uhc_course_implementation_field_group_info() {
     ),
   );
   $field_groups['group_imp_signup|node|course_implementation|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_imp_teaser_conduct|node|course_implementation|teaser_accordion';
-  $field_group->group_name = 'group_imp_teaser_conduct';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'course_implementation';
-  $field_group->mode = 'teaser_accordion';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Course conduct',
-    'weight' => '43',
-    'children' => array(
-      0 => 'field_imp_teacher_se_content',
-    ),
-    'format_type' => 'div',
-    'format_settings' => array(
-      'label' => 'Course conduct',
-      'instance_settings' => array(
-        'id' => '',
-        'classes' => 'ds-teaser-accordion--content-field',
-        'description' => '',
-        'show_label' => '0',
-        'label_element' => 'h3',
-        'effect' => 'none',
-        'speed' => 'none',
-      ),
-      'formatter' => 'open',
-    ),
-  );
-  $field_groups['group_imp_teaser_conduct|node|course_implementation|teaser_accordion'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -844,8 +777,6 @@ function uhc_course_implementation_field_group_info() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Conduct of the course');
-  t('Course Information');
-  t('Course conduct');
   t('Course overview');
   t('Custom Section');
   t('Custom section');

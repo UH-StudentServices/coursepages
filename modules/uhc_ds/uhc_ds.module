@@ -95,12 +95,12 @@ function uhc_ds_ds_fields_info($entity_type) {
       }
     }
 
-    $ds_fields['uhc_ds_course_reference_accordion'] = array(
-      'title' => 'Course Reference Accordion Block',
+    $ds_fields['uhc_ds_course_node_references'] = array(
+      'title' => 'Course node references',
       'field_type' => DS_FIELD_TYPE_FUNCTION,
-      'function' => 'uhc_ds_course_reference_accordion_block',
+      'function' => 'uhc_ds_course_node_references',
       'properties' => array(
-        'field_name' => 'field_course_reference_accordion',
+        'field_name' => 'field_course_node_references',
       ),
     );
 
@@ -182,15 +182,6 @@ function uhc_ds_ds_fields_info($entity_type) {
       'function' => 'uhc_ds_finna_link',
       'properties' => array(
         'field_name' => 'finna_link',
-      ),
-    );
-
-    $ds_fields['uhc_ds_location_and_time'] = array(
-      'title' => 'Location and time',
-      'field_type' => DS_FIELD_TYPE_FUNCTION,
-      'function' => 'uhc_ds_location_and_time',
-      'properties' => array(
-        'field_name' => 'location_and_time',
       ),
     );
 
@@ -300,10 +291,10 @@ function uhc_ds_content_with_specific_langsort($field = NULL) {
  * Callback for rendering course node reference accordion views. Uses node ID as an
  * argument to make the view's work when displayed on subject nodes.
  */
-function uhc_ds_course_reference_accordion_block($field) {
-  $output = views_embed_view('course_node_references', 'block_2', $field['entity']->nid);
-  if (views_get_view_result('course_node_references', 'block_3', $field['entity']->nid)) {
-    $output .= views_embed_view('course_node_references', 'block_3', $field['entity']->nid);
+function uhc_ds_course_node_references($field) {
+  $output = views_embed_view('course_node_references', 'block', $field['entity']->nid);
+  if (views_get_view_result('course_node_references', 'block_1', $field['entity']->nid)) {
+    $output .= views_embed_view('course_node_references', 'block_1', $field['entity']->nid);
   }
   return $output;
 }
@@ -333,12 +324,30 @@ function uhc_ds_status_org_location_date($field) {
   $end_date = isset($values['field_imp_end_date']['#items'][0]['value']) ? ' - ' . date('j.n.Y', strtotime($values['field_imp_end_date']['#items'][0]['value'])) : '';
   $time = ' ' . $begin_date . $end_date;
 
-  $organiser = isset($values['field_imp_course_organiser'][0]['#markup']) ? $values['field_imp_course_organiser'][0]['#markup'] : '';
+  $organiser = isset($values['field_imp_course_organiser'][0]['#markup']) ? $values['field_imp_course_organiser'][0]['#markup'] : uhc_ds_get_imp_course_organiser_fallback($node);
   $locality = isset($values['field_imp_locality']) ? render($values['field_imp_locality']) : '';
   $course = node_load(field_get_items('node', $node, 'field_imp_reference_to_courses')[0]['target_id']);
 
-  return render($status) . '<div class="org-location-date"><div>' . uhc_dc_render_differing_title_and_credits($course, $node) . '</div><div>' . $organiser . $locality . $time . '</div></div>';
+  // when not viewing a course node, display title and credits only if they differ from the ones in the course.
+  $title_and_credits = '';
+  if (arg(0) == 'node') {
+    $node_viewed = menu_get_object();
+    if ($node_viewed->type == 'course') {
+      $title_and_credits = uhc_ds_title_and_credit($field);
+    }
+    else {
+      $title_and_credits = uhc_dc_render_differing_title_and_credits($course, $node);
+    }
+  }
 
+  return render($status) . '<div class="org-location-date"><div>' . $title_and_credits . '</div><div>' . $organiser . $locality . $time . '</div></div>';
+
+}
+
+function uhc_ds_get_imp_course_organiser_fallback($node) {
+  $organiser_fi = field_view_field('node', $node, 'field_imp_course_organiser', array('label' => 'hidden'), 'fi');
+
+  return isset($organiser_fi[0]['#markup']) ? $organiser_fi[0]['#markup'] : '';
 }
 
 /**
@@ -657,27 +666,31 @@ function uhc_ds_finna_link($field) {
 }
 
 /**
- * Renders location and time in certain wanted format combining multiple fields.
+ * Implements hook_ds_pre_render_alter().
+ *
+ * Add fallback organiser (using Finnish value, if the value for the current
+ * language is missing.
  */
-function uhc_ds_location_and_time($field) {
-  $node = $field['entity'];
-  $date_format = 'j.n.Y';
+function uhc_ds_ds_pre_render_alter(&$layout_render_array, $context, &$vars) {
+  if ($context['entity_type'] == 'node' && $context['bundle'] == 'course_implementation' && $context['view_mode'] == 'full') {
+    $node = $context['entity'];
+    $has_organiser = FALSE;
 
-  // Locality
-  $field_imp_locality = field_get_items('node', $node, 'field_imp_locality');
-  $locality = !empty($field_imp_locality[0]['safe_value']) ? $field_imp_locality[0]['safe_value'] : '';
+    foreach ($layout_render_array['course_metadata'] as $field) {
+      if ($field['#field_name'] == 'field_imp_course_organiser' && isset($field['#items'][0]['value'])) {
+        $has_organiser = TRUE;
+        break;
+      }
+    }
 
-  // Begin date (TODO: What if empty begin date?)
-  $field_imp_begin_date = field_get_items('node', $node, 'field_imp_begin_date');
-  $begin_date = !empty($field_imp_begin_date[0]['value']) ? format_date(strtotime($field_imp_begin_date[0]['value']), 'custom', $date_format) : '';
+    if (!$has_organiser) {
+      $organiser_fi = field_view_field('node', $node, 'field_imp_course_organiser', array('label' => 'hidden'), 'fi');
 
-  // End date (TODO: What if empty end date?)
-  $field_imp_end_date = field_get_items('node', $node, 'field_imp_end_date');
-  $end_date = !empty($field_imp_end_date[0]['value']) ? format_date(strtotime($field_imp_end_date[0]['value']), 'custom', $date_format) : '';
-
-  // Range date
-  $date = $begin_date . ' - ' . $end_date;
-
-  // Return locality and date range
-  return "$locality $date";
+      if ($organiser_fi) {
+        // Need to set the field weight to render at correct position.
+        $organiser_fi['#weight'] = 10;
+        array_push($layout_render_array['course_metadata'], $organiser_fi);
+      }
+    }
+  }
 }

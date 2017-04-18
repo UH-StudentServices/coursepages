@@ -36,12 +36,6 @@ function uhc_event_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'teaser_accordion' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
@@ -123,12 +117,6 @@ function uhc_event_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -242,23 +230,6 @@ function uhc_event_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 7,
       ),
-      'teaser_accordion' => array(
-        'label' => 'hidden',
-        'module' => 'date',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'field_multiple_limit_order' => 0,
-          'format_type' => 'long',
-          'fromto' => 'both',
-          'multiple_from' => '',
-          'multiple_number' => '',
-          'multiple_to' => '',
-          'show_remaining_days' => FALSE,
-        ),
-        'type' => 'date_default',
-        'weight' => 17,
-      ),
       'teaser_images' => array(
         'label' => 'above',
         'settings' => array(),
@@ -332,12 +303,6 @@ function uhc_event_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -454,12 +419,6 @@ function uhc_event_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'teaser_accordion' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser_images' => array(
         'label' => 'above',
         'settings' => array(),
@@ -524,12 +483,6 @@ function uhc_event_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -626,17 +579,6 @@ function uhc_event_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
-      ),
-      'teaser_accordion' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'field_multiple_limit_order' => 0,
-        ),
-        'type' => 'text_default',
-        'weight' => 2,
       ),
       'teaser_images' => array(
         'label' => 'above',
@@ -740,12 +682,6 @@ function uhc_event_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_accordion' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',

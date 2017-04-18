@@ -51,7 +51,24 @@ function uhc_rest_api_default_services_endpoint() {
   $endpoint->server = 'rest_server';
   $endpoint->path = 'api/v2';
   $endpoint->authentication = array();
-  $endpoint->server_settings = array();
+  $endpoint->server_settings = array(
+    'formatters' => array(
+      'bencode' => TRUE,
+      'json' => TRUE,
+      'xml' => TRUE,
+      'yaml' => TRUE,
+      'jsonp' => FALSE,
+      'php' => FALSE,
+    ),
+    'parsers' => array(
+      'application/json' => TRUE,
+      'application/x-yaml' => TRUE,
+      'application/xml' => TRUE,
+      'multipart/form-data' => TRUE,
+      'text/xml' => TRUE,
+      'application/x-www-form-urlencoded' => FALSE,
+    ),
+  );
   $endpoint->resources = array(
     'course_unit_realisation' => array(
       'operations' => array(

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UHC Studies feature.
+ */
+
+include_once 'uhc_studies.features.inc';

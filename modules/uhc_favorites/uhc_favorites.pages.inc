@@ -19,28 +19,21 @@ function uhc_favorites_page() {
   $lead_text = t('You can collect interesting courses as favorites and send the list by e-mail. Favorites are stored in the page cookie and remain there for a year. Favorites will be lost if you delete your browser’s cookies.');
   $element['lead_text'] = array(
     '#type' => 'container',
-    '#attributes' => array('class' => array('intro-text')),
+    '#attributes' => array('class' => array('intro-text', 'ds-grid-12')),
     '#children' => '<p>' . $lead_text . '</p>',
-  );
-
-  // Include lead text that describes this page
-  $element['favorites_list'] = array(
-    '#type' => 'container',
-    '#attributes' => array('class' => array('favorites-list tube--large')),
-    '#children' => '<div id="favorites-list-items" class="favorites-list--list"></div><div class="favorites-list--clear"></div>',
   );
 
   // Attach form that allows sending the list
   $element['send_by_email'] = drupal_get_form('uhc_favorites_send_by_email_form');
 
-  // Attach JS, so that we can inject favorite content
-  $element['#attached']['js'] = array(
-    drupal_get_path('module', 'uhc_favorites') .'/uhc_favorites.js',
-    array(
-      'data' => array('clearlist_label' => t('Clear list')),
-      'type' => 'setting'
-    ),
+  // Include lead text that describes this page
+  $element['favorites_list'] = array(
+    '#type' => 'container',
+    '#attributes' => array('class' => array('favorites-list clearfix tube--large')),
+    '#children' => '<div id="favorites-list-items" class="favorites-list--list"></div><div class="favorites-list--clear"></div>',
   );
+
+  // Attach ajax, so that we can inject favorite content
   $element['#attached']['library'] = array(
     array('system', 'drupal.ajax')
   );
@@ -54,7 +47,8 @@ function uhc_favorites_page() {
  * @return array
  */
 function uhc_favorites_send_by_email_form($form, &$form_state) {
-  $form['title'] = array('#markup' => '<h2>' . t('Send by email') . '</h2>');
+  $form['#attributes'] = array('class' => array('ds-grid-4', 'ds-grid-last'));
+  $form['title'] = array('#markup' => '<h4>' . t('Send by email') . '</h4>');
   $form['nids'] = array(
     // This value will be filled up by JS
     '#type' => 'hidden',

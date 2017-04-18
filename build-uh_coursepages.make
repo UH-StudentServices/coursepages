@@ -36,14 +36,20 @@ projects[email][version] = "1.3"
 projects[entity][version] = "1.8"
 projects[entitycache][version] = "1.2"
 projects[entity_translation][version] = "1.0-beta5"
+projects[entity_translation][patch]["https://www.drupal.org/node/2777995"] = https://www.drupal.org/files/issues/entity-translation_title-overriding-fix-2777995-1_0.patch
 projects[entityreference][version] = "1.2"
 projects[entityreference][patch]["https://www.drupal.org/node/1898290"] = https://www.drupal.org/files/issues/selection.patch
 projects[entityreference][patch]["https://www.drupal.org/node/1368386"] = https://www.drupal.org/files/issues/entityreference-1368386-89.patch
-projects[favoritewidget][version] = "1.0-rc1"
+projects[favoritewidget][download][type] = git
+projects[favoritewidget][download][url] = http://git.drupal.org/project/favoritewidget.git
+projects[favoritewidget][download][revision] = d4284050bf6e4664214459fbad3b2be0fa6f3cfb
 projects[features][version] = "2.10"
 projects[feedback][version] = "2.0-beta1"
 projects[feedback][patch]["https://www.drupal.org/node/2545708"] = "https://www.drupal.org/files/issues/feedback-honeypot_0.patch"
-projects[field_collection][version] = "1.0-beta8"
+projects[field_collection][download][type] = git
+projects[field_collection][download][url] = http://git.drupal.org/project/field_collection.git
+projects[field_collection][download][revision] = 280de245ccf15f297c7dbaa909407372d4a6f1ee
+projects[field_collection_fieldset][version] = "2.6"
 projects[field_formatter_settings][version] = "1.1"
 projects[field_group][version] = "1.5"
 projects[field_group][patch]["https://www.drupal.org/node/1482958"] = "https://www.drupal.org/files/issues/empty-config-1482958-27.patch"
@@ -164,7 +170,8 @@ projects[shib_auth][patch]["https://www.drupal.org/node/2416637"] = https://www.
 ; shibboleth module allows multiple accounts with shared emails.
 projects[sharedemail][version] = 1.0
 
-projects[inline_entity_form][version] = "1.6"
+projects[inline_entity_form][version] = "1.8"
+
 projects[pathologic][version] = 2.12
 
 projects[embed_views][version] = 1.2
@@ -204,7 +211,7 @@ projects[better_formats][patch]["https://www.drupal.org/node/2471589"] = "https:
 
 ; With these modules we can provide course information in JSON format for
 ; external clients like Opintoni project.
-projects[services][version] = 3.17
+projects[services][version] = 3.19
 projects[services_views][version] = 1.1
 projects[image_url_formatter][version] = 1.4
 
@@ -229,6 +236,12 @@ projects[vertical_tabs_content_marker][download][type] = git
 projects[vertical_tabs_content_marker][download][branch] = "7.x-1.x"
 projects[vertical_tabs_content_marker][download][url] = http://git.drupal.org/sandbox/lviit/2827780.git
 projects[vertical_tabs_content_marker][download][revision] = bb50539daf5cecca3dfe1367737fbefc752bda29
+
+projects[view_reference_tabs_formatter][type] = module
+projects[view_reference_tabs_formatter][download][type] = git
+projects[view_reference_tabs_formatter][download][branch] = "7.x-1.x"
+projects[view_reference_tabs_formatter][download][url] = http://git.drupal.org/sandbox/lviit/2862420.git
+projects[view_reference_tabs_formatter][download][revision] = 70ff6106c11e9598c585202ee859d379d79914d6
 
 projects[xmlsitemap][version] = "2.3"
 

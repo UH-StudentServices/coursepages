@@ -18,7 +18,7 @@
             showLessText = Drupal.settings.show_past_imps.hide_past_text;
 
         $('.course-node-references-past').once('uhc_doo_show_past_imps', function() {
-          $(this).before('<a href="#" class="show-past-imps">' + showMoreText + '</a>');
+          $(this).before('<a href="#" class="show-past-imps tube">' + showMoreText + '</a>');
           $(this).prev('.show-past-imps').click(function(event){
             event.preventDefault();
             $(this).next().slideToggle('slow');

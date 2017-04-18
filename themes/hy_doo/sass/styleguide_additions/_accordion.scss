@@ -25,12 +25,16 @@
   }
   &:before {
     @include icon($icon-caret-right);
-    @include transform(translateY(-50%) rotate(0deg));
+    @include transform(rotate(0deg));
     background-color: $blue--active;
     left: 0;
+    top: 0;
     line-height: 2.8em;
     padding-left: 1em;
     padding-right: 1em;
+  }
+  &.is-active:before {
+    @include transform(rotate(90deg));
   }
   &:hover,
   &.is-active {
@@ -54,13 +58,17 @@
   margin-bottom: 0.5em;
   &:before {
     @include icon($icon-caret-right);
-    @include transform(translateY(-50%) rotate(0deg));
+    @include transform(rotate(0deg));
     background-color: $blue;
     color: $white;
     left: 0;
+    top: 0;
     line-height: 3em;
     padding-left: 1em;
     padding-right: 1em;
+  }
+  &.is-active:before {
+    @include transform(rotate(90deg));
   }
   &:hover,
   &.is-active {
@@ -128,6 +136,10 @@
   @include border-side('bottom');
   @include font-weight-bold;
   padding: 0.9em 1em 0.8em 4em;
+
+  a {
+    color: $blue;
+  }
 
   &:after {
     @include icon($icon-hy-logo);

@@ -209,29 +209,6 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
-  // Exported permission: 'view course_reference_block on node'.
-  $permissions['view course_reference_block on node'] = array(
-    'name' => 'view course_reference_block on node',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-    ),
-    'module' => 'ds_extras',
-  );
-
-  // Exported permission: 'view course_reference_block_past on node'.
-  $permissions['view course_reference_block_past on node'] = array(
-    'name' => 'view course_reference_block_past on node',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
   // Exported permission: 'view ds_switch_field on node'.
   $permissions['view ds_switch_field on node'] = array(
     'name' => 'view ds_switch_field on node',
@@ -486,6 +463,15 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view uhc_course_implementation_exam_results_info_text on node'.
+  $permissions['view uhc_course_implementation_exam_results_info_text on node'] = array(
+    'name' => 'view uhc_course_implementation_exam_results_info_text on node',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   // Exported permission: 'view uhc_course_implementation_inherited_fields_additional_info on node'.
   $permissions['view uhc_course_implementation_inherited_fields_additional_info on node'] = array(
     'name' => 'view uhc_course_implementation_inherited_fields_additional_info on node',
@@ -526,6 +512,26 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view uhc_course_implementation_inherited_fields_learning_support on node'.
+  $permissions['view uhc_course_implementation_inherited_fields_learning_support on node'] = array(
+    'name' => 'view uhc_course_implementation_inherited_fields_learning_support on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_implementation_inherited_fields_optional_studies on node'.
+  $permissions['view uhc_course_implementation_inherited_fields_optional_studies on node'] = array(
+    'name' => 'view uhc_course_implementation_inherited_fields_optional_studies on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   // Exported permission: 'view uhc_course_implementation_timetable_help_texts on node'.
   $permissions['view uhc_course_implementation_timetable_help_texts on node'] = array(
     'name' => 'view uhc_course_implementation_timetable_help_texts on node',
@@ -559,16 +565,6 @@ function uhc_ds_user_default_permissions() {
   // Exported permission: 'view uhc_ds_link_to_subject on node'.
   $permissions['view uhc_ds_link_to_subject on node'] = array(
     'name' => 'view uhc_ds_link_to_subject on node',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'ds_extras',
-  );
-
-  // Exported permission: 'view uhc_ds_location_and_time on node'.
-  $permissions['view uhc_ds_location_and_time on node'] = array(
-    'name' => 'view uhc_ds_location_and_time on node',
     'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',

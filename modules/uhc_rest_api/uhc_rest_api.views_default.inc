@@ -339,14 +339,14 @@ function uhc_rest_api_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Event duration */
+  /* Field: Content: Duration */
   $handler->display->display_options['fields']['field_event_duration']['id'] = 'field_event_duration';
   $handler->display->display_options['fields']['field_event_duration']['table'] = 'field_data_field_event_duration';
   $handler->display->display_options['fields']['field_event_duration']['field'] = 'field_event_duration';
   $handler->display->display_options['fields']['field_event_duration']['relationship'] = 'field_imp_reference_to_events_target_id';
   $handler->display->display_options['fields']['field_event_duration']['label'] = 'end';
   $handler->display->display_options['fields']['field_event_duration']['element_label_colon'] = FALSE;
-  /* Field: Content: Event location name */
+  /* Field: Content: Location */
   $handler->display->display_options['fields']['field_event_loc_name']['id'] = 'field_event_loc_name';
   $handler->display->display_options['fields']['field_event_loc_name']['table'] = 'field_data_field_event_loc_name';
   $handler->display->display_options['fields']['field_event_loc_name']['field'] = 'field_event_loc_name';

@@ -70,7 +70,8 @@ function uhc_doo_theme_features_js_alter(&$javascript) {
   $node_add = (arg(0) == 'node' && arg(1) == 'add');
   $admin = (arg(0) == 'admin');
   $tour = (arg(0) == 'node' && arg(1) == variable_get('uhc_tour_demo_nid'));
-  if (!$node_edit && !$node_add && !$admin && !$tour) {
+  $tabs = isset($javascript['misc/ui/jquery.ui.tabs.min.js']);
+  if (!$node_edit && !$node_add && !$admin && !$tour && !$tabs) {
     $javascript['misc/jquery.js']['data'] = libraries_get_path('jquery') . '/dist/jquery.min.js';
     $javascript['misc/jquery.js']['version'] = '2.2.4';
   }

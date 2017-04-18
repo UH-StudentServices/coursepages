@@ -118,9 +118,6 @@ function uhc_event_strongarm() {
       'sidebar' => array(
         'custom_settings' => TRUE,
       ),
-      'teaser_accordion' => array(
-        'custom_settings' => TRUE,
-      ),
       'full' => array(
         'custom_settings' => FALSE,
       ),

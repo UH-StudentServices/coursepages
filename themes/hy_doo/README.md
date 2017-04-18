@@ -13,7 +13,7 @@ Getting started (for development):
   - Install npm packages (to install bower and gulp)
       $ npm install
   - Install bower dependencies like HY Styleguide
-      $ gulp build
+      $ gulp styleguide-update
   - Optional: Initialize SASS watcher
       $ gulp watch
   - Optional: Automatically reload changes in your browser (disable css caching in drupal first)

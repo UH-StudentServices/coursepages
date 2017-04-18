@@ -35,6 +35,8 @@ function uhc_course_implementation_inherited_fields_field_group_info() {
       9 => 'field_inherited_target_group',
       10 => 'field_inherited_timing',
       11 => 'field_inherited_working_methods',
+      12 => 'field_inherited_optional_studies',
+      13 => 'field_inherited_learning_support',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

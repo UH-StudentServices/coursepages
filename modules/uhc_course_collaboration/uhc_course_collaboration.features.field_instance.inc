@@ -45,12 +45,6 @@ function uhc_course_collaboration_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 47,
       ),
-      'teaser_accordion' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 39,
-      ),
       'teaser_images' => array(
         'label' => 'above',
         'settings' => array(),

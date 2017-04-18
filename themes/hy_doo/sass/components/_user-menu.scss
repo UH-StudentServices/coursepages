@@ -1,14 +1,22 @@
 .block--system-user-menu {
-  > ul > li {
-    cursor: pointer;
-    .info-link {
-      @include menu-item-icon($icon-info-stroke);
-    }
-    .logout-link {
-      @include menu-item-icon($icon-logout);
-    }
-    .login-link {
-      @include menu-item-icon($icon-login);
+
+  .info-link {
+    @include menu-item-icon($icon-info-stroke);
+  }
+  .logout-link {
+    @include menu-item-icon($icon-logout);
+  }
+  .login-link {
+    @include menu-item-icon($icon-login);
+  }
+  .favorites-link {
+    @include menu-item-icon($icon-favorites);
+    .favorites-link__count {
+      @include font-size(14px);
+      margin-left: 3px;
+      @include breakpoint($small) {
+        line-height: 56px;
+      }
     }
   }
 

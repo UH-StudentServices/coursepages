@@ -1,3 +1,41 @@
+# University of Helsinki Courses v1.92
+Päiväys: 18.04.2017
+
+## Lisäykset
+- DOO-2755: Näytetään demokurssilla tenttitulokset kaikille käyttäjille.
+- DOO-2853: Lisätty Studies langing page -sisältötyyppi.
+- DOO-2854: Esitetään Studies landing pagen view attachmentit tabeina.
+- DOO-2685: Näytetään suomenkielinen toteuttajan nimi oppiaine- ja
+  toteutussivulla mikäli aktiivisella kielellä ei löydy toteuttajaa.
+- DOO-2855: Oppiaine ja opintoni-sivulta haitarin kolmas taso muutettu suoraan
+  linkiksi toteutukseen.
+- DOO-2859: Listataan kielivalintaan vain aktiiviset kielet.
+- DOO-2616: Tekninen: Kirjastosyöte versionhallintaan.
+- DOO-2856: Opintokokonaisuuksien ylläpidon käytettävyysparannuksia.
+- DOO-2831: Lisätty Studies sisältötyyppi.
+- DOO-2875: Lisätty event tracking suosikkien lisäämiseen ja sähköpostin lähettämiseen.
+- DOO-2822: Lisättiin kaksi uutta opintojakson kuvauskenttää kurssiesitteeseen.
+
+## Muutokset
+- DOO-2818: Tenttitulosten automaattinen poisto ei enää luo aktiviteettiviestiä.
+- DOO-2714: Tehtävät-osion infotekstin päivitys.
+- DOO-2849: Tehtävät-osion lomakkeen siistimistä (turhat otsikot pois).
+- DOO-2702: Tenttitulosten saatavuus- ja poistumispäivien kommunikointi.
+  Poistetaan vain tulostiedostot, ei koko tulososion sisältöä.
+- DOO-2740: Suosikit-sivulla sähköpostin lähettäminen siirretty oikeaan palstaan.
+- DOO-2832: Sisäisten linkkien widget näyttää otsikon lisäksi url:n autocompletessä.
+- DOO-2759: Custom section -osion lomakkeen siistimistä (turha otsikko pois).
+
+## Korjaukset
+- DOO-2742: Korjattu suosikit-sivulla suosikin perässä oleva nuoli linkiksi.
+- DOO-2887: Korjattu tilanne jossa käännöstä poistettaessa alkuperäinen otsikko
+	korvaantuu käännöksen otsikolla.
+- DOO-2881: Korjattu haitariotsikoiden teemaus samsung browserilla.
+
+## Päivitykset
+- DOO-2827: Services-moduulin tietoturvapäivitys.
+
+
 # University of Helsinki Courses v1.91
 Päiväys: 17.03.2017
 

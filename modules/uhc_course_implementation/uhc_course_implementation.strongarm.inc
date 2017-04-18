@@ -103,9 +103,6 @@ function uhc_course_implementation_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
-      'teaser_accordion' => array(
-        'custom_settings' => TRUE,
-      ),
       'material_block' => array(
         'custom_settings' => FALSE,
       ),

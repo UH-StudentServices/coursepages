@@ -1,11 +1,11 @@
 @mixin menu-item-icon($icon) {
   color: $blue;
+  display: flex;
   &:before {
     @include icon($icon);
     @include font-weight-book;
   }
   @include breakpoint($small) {
-    display: block;
     font-size: 0px;
     line-height: 0;
     &:before {

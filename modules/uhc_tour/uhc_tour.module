@@ -165,3 +165,11 @@ function uhc_tour_submit_node_form(&$form, &$form_state) {
     }
   }
 }
+
+/**
+ * Check if node is the demo node.
+ */
+function uhc_tour_is_demo_node($node) {
+  $demo_nid = variable_get('uhc_tour_demo_nid', 0);
+  return !empty($demo_nid) && $node->nid == $demo_nid;
+}

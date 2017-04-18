@@ -106,6 +106,30 @@ function uhc_course_implementation_inherited_fields_field_default_field_bases() 
     'type' => 'text_long',
   );
 
+  // Exported field_base: 'field_inherited_learning_support'.
+  $field_bases['field_inherited_learning_support'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_inherited_learning_support',
+    'field_permissions' => array(
+      'type' => 2,
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 1,
+    'type' => 'text_long',
+  );
+
   // Exported field_base: 'field_inherited_objective'.
   $field_bases['field_inherited_objective'] = array(
     'active' => 1,
@@ -113,6 +137,30 @@ function uhc_course_implementation_inherited_fields_field_default_field_bases() 
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_inherited_objective',
+    'field_permissions' => array(
+      'type' => 2,
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 1,
+    'type' => 'text_long',
+  );
+
+  // Exported field_base: 'field_inherited_optional_studies'.
+  $field_bases['field_inherited_optional_studies'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_inherited_optional_studies',
     'field_permissions' => array(
       'type' => 2,
     ),

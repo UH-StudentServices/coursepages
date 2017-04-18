@@ -64,3 +64,17 @@ function uhc_favorites_access_favorites() {
 function uhc_favorites_access_favorites_open_university() {
   return arg(0) == 'open-university' || uhc_open_university_is_open_university_context();
 }
+
+/**
+ * Implements hook_preprocess_link().
+ */
+function uhc_favorites_preprocess_link(&$variables) {
+  // Add 'favorites-link' class for favorites link, so we can attach JS
+  // functionality to it.
+  $paths = array('open-university/favorites', 'favorites');
+  if (in_array($variables['path'], $paths) && $variables['text'] == t('Favorites')) {
+    $variables['options']['attributes']['class'][] = 'favorites-link';
+    drupal_add_js(drupal_get_path('module', 'uhc_favorites') .'/uhc_favorites.js');
+    drupal_add_js(array('clearlist_label' => t('Clear list')), 'setting');
+  }
+}

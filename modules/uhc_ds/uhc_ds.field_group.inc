@@ -181,6 +181,8 @@ function uhc_ds_field_group_info() {
       9 => 'uhc_course_implementation_inherited_fields_target_group',
       10 => 'uhc_course_implementation_inherited_fields_timing',
       11 => 'uhc_course_implementation_inherited_fields_working_methods',
+      12 => 'uhc_course_implementation_inherited_fields_optional_studies',
+      13 => 'uhc_course_implementation_inherited_fields_learning_support',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(

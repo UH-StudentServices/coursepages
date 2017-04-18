@@ -46,9 +46,27 @@ function uhc_course_implementation_inherited_fields_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_inherited_learning_support'.
+  $permissions['create field_inherited_learning_support'] = array(
+    'name' => 'create field_inherited_learning_support',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'create field_inherited_objective'.
   $permissions['create field_inherited_objective'] = array(
     'name' => 'create field_inherited_objective',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'create field_inherited_optional_studies'.
+  $permissions['create field_inherited_optional_studies'] = array(
+    'name' => 'create field_inherited_optional_studies',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -154,9 +172,27 @@ function uhc_course_implementation_inherited_fields_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_inherited_learning_support'.
+  $permissions['edit field_inherited_learning_support'] = array(
+    'name' => 'edit field_inherited_learning_support',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit field_inherited_objective'.
   $permissions['edit field_inherited_objective'] = array(
     'name' => 'edit field_inherited_objective',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit field_inherited_optional_studies'.
+  $permissions['edit field_inherited_optional_studies'] = array(
+    'name' => 'edit field_inherited_optional_studies',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -262,9 +298,27 @@ function uhc_course_implementation_inherited_fields_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit own field_inherited_learning_support'.
+  $permissions['edit own field_inherited_learning_support'] = array(
+    'name' => 'edit own field_inherited_learning_support',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit own field_inherited_objective'.
   $permissions['edit own field_inherited_objective'] = array(
     'name' => 'edit own field_inherited_objective',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_inherited_optional_studies'.
+  $permissions['edit own field_inherited_optional_studies'] = array(
+    'name' => 'edit own field_inherited_optional_studies',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -378,9 +432,31 @@ function uhc_course_implementation_inherited_fields_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_inherited_learning_support'.
+  $permissions['view field_inherited_learning_support'] = array(
+    'name' => 'view field_inherited_learning_support',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view field_inherited_objective'.
   $permissions['view field_inherited_objective'] = array(
     'name' => 'view field_inherited_objective',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view field_inherited_optional_studies'.
+  $permissions['view field_inherited_optional_studies'] = array(
+    'name' => 'view field_inherited_optional_studies',
     'roles' => array(
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
@@ -510,9 +586,31 @@ function uhc_course_implementation_inherited_fields_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view own field_inherited_learning_support'.
+  $permissions['view own field_inherited_learning_support'] = array(
+    'name' => 'view own field_inherited_learning_support',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view own field_inherited_objective'.
   $permissions['view own field_inherited_objective'] = array(
     'name' => 'view own field_inherited_objective',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_inherited_optional_studies'.
+  $permissions['view own field_inherited_optional_studies'] = array(
+    'name' => 'view own field_inherited_optional_studies',
     'roles' => array(
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
