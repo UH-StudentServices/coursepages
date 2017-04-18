@@ -115,7 +115,7 @@ function _uhc_favorites_get_nid_values(&$form_state) {
 function uhc_favorites_send_by_email_form_submit($form, &$form_state) {
 
   // Specify email subject
-  $subject = t('Course favorites');
+  $subject = t('Courses.helsinki.fi/Favorites');
 
   // Extract nids and create links to the courses
   $links = array();
@@ -134,12 +134,17 @@ function uhc_favorites_send_by_email_form_submit($form, &$form_state) {
     return;
   }
 
+  // Build the message
+  $message = t('Favorites') . PHP_EOL . PHP_EOL;
+  $message .= implode(PHP_EOL, $links) . PHP_EOL . PHP_EOL;
+  $message .= t('Do not reply to this message – the message has been sent automatically.');
+
   // Set message metadata and content
   global $language;
   $to = check_plain($form_state['values']['email']);
   $params = array(
     'subject' => $subject,
-    'message' => implode(PHP_EOL, $links),
+    'message' => $message,
 
   );
 

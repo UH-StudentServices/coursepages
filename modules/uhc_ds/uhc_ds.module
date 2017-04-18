@@ -589,8 +589,11 @@ function uhc_ds_moodle_key_or_login($field) {
   $value = field_view_value('node', $node, 'field_moodle_key', $moodle_key[0]);
 
   if ($moodle_key) {
-    if (!uhc_course_collaboration_private_current_user_has_access_to_private_content()) {
+    if (!uhc_course_collaboration_private_current_user_has_access_to_private_content() && user_is_anonymous()) {
       $value['#markup'] = l(t('Log in'), shib_auth_generate_login_url()) . ' ' . t('to view the registration key for Moodle.');
+    }
+    elseif (!uhc_course_collaboration_private_current_user_has_access_to_private_content() && !user_is_anonymous()) {
+      $value['#markup'] = t('Sign up for the course to view the registration key for Moodle.');
     }
     else {
       $value['#markup'] = t('Enrolment key') . ': ' . $value['#markup'];

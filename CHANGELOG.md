@@ -1,3 +1,14 @@
+# University of Helsinki Courses v1.91
+Päiväys: 17.03.2017
+
+## Lisäykset
+- DOO-2793: Mahdollisuus liittää LaTeX tiedostoja tentti tuloksiin sekä kurssin
+  materiaaleihin
+- DOO-2786: Lisättiin kehotus ilmoittatumiselle, kun Moodle avainta ei näytetä
+  kirjautuneelle käyttäjälle.
+- DOO-2704: Lisättiin tekstiä kuvaamaan suosikkien linkkilistaa
+
+
 # University of Helsinki Courses v1.90
 Päiväys: 13.02.2017
 

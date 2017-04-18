@@ -140,7 +140,7 @@ function uhc_exam_results_field_default_field_instances() {
       'description_field' => 1,
       'entity_translation_sync' => FALSE,
       'file_directory' => '',
-      'file_extensions' => 'txt pdf doc docx ppt pptx xls xlsx jpg jpeg png gif svg bmp avi mov csv xml por sas sav ascii dta r rmd aif m4a mp3 ogg wav wma mpeg4 mpegps mp4 wmv flv mxf shp dbf geotiff netcdf warc',
+      'file_extensions' => 'txt pdf doc docx ppt pptx xls xlsx jpg jpeg png gif svg bmp avi mov csv xml por sas sav ascii dta r rmd aif m4a mp3 ogg wav wma mpeg4 mpegps mp4 wmv flv mxf shp dbf geotiff netcdf warc tex',
       'filefield_paths' => array(
         'active_updating' => 0,
         'file_name' => array(
