@@ -1,3 +1,10 @@
+# University of Helsinki Courses v1.96
+Päiväys: 29.06.2017
+
+## Päivitykset
+- Päivitettiin tietoturvapäivitys services moduuliin
+
+
 # University of Helsinki Courses v1.95
 Päiväys: 20.06.2017
 

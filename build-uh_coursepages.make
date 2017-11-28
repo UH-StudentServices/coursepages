@@ -210,7 +210,7 @@ projects[better_formats][patch]["https://www.drupal.org/node/2471589"] = "https:
 
 ; With these modules we can provide course information in JSON format for
 ; external clients like Opintoni project.
-projects[services][version] = 3.19
+projects[services][version] = 3.20
 projects[services_views][version] = 1.1
 projects[image_url_formatter][version] = 1.4
 
