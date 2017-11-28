@@ -135,7 +135,7 @@
   @include border-side('top');
   @include border-side('bottom');
   @include font-weight-bold;
-  padding: 0.9em 1em 0.8em 4em;
+  padding: 0.9em 2em 0.8em 4em;
 
   a {
     color: $blue;

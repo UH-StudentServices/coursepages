@@ -19,7 +19,7 @@ function uhc_favorites_page() {
   $lead_text = t('You can collect interesting courses as favorites and send the list by e-mail. Favorites are stored in the page cookie and remain there for a year. Favorites will be lost if you delete your browser’s cookies.');
   $element['lead_text'] = array(
     '#type' => 'container',
-    '#attributes' => array('class' => array('intro-text', 'ds-grid-12')),
+    '#attributes' => array('class' => array('ds-grid-12')),
     '#children' => '<p>' . $lead_text . '</p>',
   );
 

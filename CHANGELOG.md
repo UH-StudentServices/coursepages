@@ -1,3 +1,30 @@
+# University of Helsinki Courses v1.98
+Päiväys: 22.07.2017
+
+## Lisäykset
+- DOO-2726: Tuontijonon tarkastelutyökalu.
+- DOO-3041, DOO-3042: Toteutuksen lisäorganisaatio.
+- DOO-3057: Lisättiin "Suosikit" otsikko hakutulos sarakkeelle.
+- DOO-3008: Lisättiin klikkaus-seuranta liittyvien sisältölinkkeihin.
+
+## Muutokset
+- DOO-3056: Tuki pitkien sanojen hakemiselle.
+- DOO-3038: Jaksosivun kuvauksiin varakielilogiikka.
+- DOO-3058: Suosikit-sivun esittelytekstin tummennus.
+- DOO-3067: Selvennettiin rajoitetun materiaalin ohjetekstejä.
+
+## Korjaukset
+- DOO-3047: Mobiilivalikon ulkoasukorjaus.
+- DOO-3064: Piilotettiin info-linkki avoimen yliopiston sivuilta.
+- DOO-3035: Liittyvän sisällön näyttäminen aktiivisella kielellä.
+- DOO-3009: Pitkä opintokokonaisuuden otsikko, ulkoasuongelma.
+- DOO-3025: Korjattiin ongelma, jossa siivottu kurssikäyttöoikeus muodosti
+            tyngän käyttöoikeuden (estäen muokkaamasta kursseja).
+
+## Päivitykset
+- DOO-3098: Entity Reference
+- DOO-3097: Views
+
 # University of Helsinki Courses v1.97
 Päiväys: 11.07.2017
 

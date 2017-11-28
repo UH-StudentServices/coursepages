@@ -134,9 +134,11 @@ img.file-icon {
   text-align: center;
 }
 
-.main-menu {
-  border-bottom: none;
-  li.is-lvl1 > a, li.is-lvl1.is-expandable > a {
-    padding: 0.6em 0.65em 0.6em 1.2em;
+@include breakpoint($small) {
+  .main-menu {
+    border-bottom: none;
+    li.is-lvl1 > a, li.is-lvl1.is-expandable > a {
+      padding: 0.6em 0.65em 0.6em 1.2em;
+    }
   }
 }

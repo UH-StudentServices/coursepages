@@ -8,7 +8,7 @@ class UHCOodiMultilingualValue {
    *
    * @todo: Could this be from Drupal configuration?
    */
-  protected $preferredOrderOfLanguage = array('fi', 'en', 'sv');
+  protected $preferredOrderOfLanguage = array('fi', 'sv', 'en');
 
   /**
    * @var array
@@ -60,10 +60,19 @@ class UHCOodiMultilingualValue {
       }
     }
     else {
-      // Or else get the value of specified language
+      // Or else get the value of specified language.
       foreach ($this->translations as $translation) {
         if ($translation['langcode'] == $this->language) {
           return $translation['text'];
+        }
+      }
+
+      // Fallback to preferred language.
+      foreach ($this->preferredOrderOfLanguage as $preferredLanguage) {
+        foreach ($this->translations as $translation) {
+          if ($translation['langcode'] == $preferredLanguage) {
+            return $translation['text'];
+          }
         }
       }
     }

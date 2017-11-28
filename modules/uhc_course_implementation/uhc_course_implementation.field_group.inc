@@ -348,7 +348,8 @@ function uhc_course_implementation_field_group_info() {
       24 => 'field_hierarchy_children',
       25 => 'field_hierarchy_parent_id',
       26 => 'field_hierarchy_position',
-      27 => 'group_from_course',
+      27 => 'field_imp_extra_organisation',
+      28 => 'group_from_course',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -444,7 +445,7 @@ function uhc_course_implementation_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-imp-material field-group-tab',
-        'description' => 'Add lecture notes, literature, links etc. It is not advisable to add private material because it might be accessible through direct links. Please attach only material which you have sufficient rights to use!',
+        'description' => 'Add lecture notes, literature, links etc. It is not advisable to add confidential material because it might be accessible through direct links. Please attach only material which you have sufficient rights to use!',
       ),
       'formatter' => 'closed',
     ),

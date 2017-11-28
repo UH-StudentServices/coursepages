@@ -8543,7 +8543,7 @@ h2.study-module-select-title {
   border-bottom: 1px solid #EBEBEB;
   font-weight: 700;
   font-style: normal;
-  padding: 0.9em 1em 0.8em 4em; }
+  padding: 0.9em 2em 0.8em 4em; }
   @media (min-width: 48em) {
     .accordion-item-title > h3 {
       font-size: 15px; } }
@@ -9136,10 +9136,11 @@ img.file-icon {
 .pager {
   text-align: center; }
 
-.main-menu {
-  border-bottom: none; }
-  .main-menu li.is-lvl1 > a, .main-menu li.is-lvl1.is-expandable > a {
-    padding: 0.6em 0.65em 0.6em 1.2em; }
+@media (min-width: 48em) {
+  .main-menu {
+    border-bottom: none; }
+    .main-menu li.is-lvl1 > a, .main-menu li.is-lvl1.is-expandable > a {
+      padding: 0.6em 0.65em 0.6em 1.2em; } }
 
 .main-menu > ul.menu {
   display: none; }

@@ -216,7 +216,7 @@ function uhc_molecular_biosciences_views_default_views() {
   $handler->display->display_options['fields']['favorite_widget']['id'] = 'favorite_widget';
   $handler->display->display_options['fields']['favorite_widget']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['favorite_widget']['field'] = 'favorite_widget';
-  $handler->display->display_options['fields']['favorite_widget']['label'] = '';
+  $handler->display->display_options['fields']['favorite_widget']['label'] = 'Favorites';
   $handler->display->display_options['fields']['favorite_widget']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['favorite_widget']['link_to_entity'] = 0;
   /* Sort criterion: Search: Relevance */
@@ -331,6 +331,7 @@ function uhc_molecular_biosciences_views_default_views() {
     t('<a href="[url]">[title_field]</a>'),
     t('Begin date'),
     t('Teacher(s)'),
+    t('Favorites'),
     t('Academic year'),
     t('Search by keyword'),
     t('If you want to see all the courses, leave the search field empty.'),

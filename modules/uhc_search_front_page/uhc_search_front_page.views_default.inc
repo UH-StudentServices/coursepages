@@ -328,7 +328,7 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['fields']['favorite_widget']['id'] = 'favorite_widget';
   $handler->display->display_options['fields']['favorite_widget']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['favorite_widget']['field'] = 'favorite_widget';
-  $handler->display->display_options['fields']['favorite_widget']['label'] = '';
+  $handler->display->display_options['fields']['favorite_widget']['label'] = 'Favorites';
   $handler->display->display_options['fields']['favorite_widget']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['favorite_widget']['link_to_entity'] = 0;
   $handler->display->display_options['path'] = 'search/results';
@@ -705,6 +705,7 @@ function uhc_search_front_page_views_default_views() {
     t('Table'),
     t('Show:'),
     t('Teacher(s)'),
+    t('Favorites'),
     t('Facets block'),
     t('Front page search facets'),
     t('Feed'),

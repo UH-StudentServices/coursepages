@@ -157,6 +157,9 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_imp_organisation', 'organisations')
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'resolveTidFromOrganisations'));
+    $this->addFieldMapping('field_imp_extra_organisation', 'courses_extra_organisations')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'resolveTidFromOrganisations'));
   }
 
   /**
@@ -198,6 +201,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       'teachers'                       => 'Teachers',
       'officials'                      => 'Officials (administrators)',
       'organisations'                  => 'Organisations',
+      'courses_extra_organisations'    => 'Extra organisations',
       'descriptions'                   => 'Descriptions',
       'hidden'                         => 'Indicates whether this course should be hidden or not.',
       'status'                         => 'Indicates whether this course should be published or not.',
@@ -236,6 +240,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     CourseImplementationNodeMigration::prepareInstructionLocality($row);
     CourseImplementationNodeMigration::prepareDescriptions($row, $description_elements);
     CourseImplementationNodeMigration::prepareHierarchy($row);
+    CourseImplementationNodeMigration::prepareOrganisations($row);
 
     // All these properties may contain problematic string content that needs
     // some processing to make it nicely renderable in Drupal.
@@ -605,6 +610,19 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       }
 
       $row->child_ids = $course_implementation_ids;
+    }
+  }
+
+  /**
+   * Prepares organisation information. Merges extra organisations with
+   * organisations. We need to do this to be able to use the extra organisations
+   * as organisation facet values in the course search.
+   *
+   * @param $row
+   */
+  static public function prepareOrganisations(&$row) {
+    if (!empty($row->organisations) && !empty($row->courses_extra_organisations)) {
+      $row->organisations = array_merge($row->organisations, $row->courses_extra_organisations);
     }
   }
 

@@ -4,7 +4,7 @@ screenshot = screenshot.png
 base theme = omega
 engine = phptemplate
 core = 7.x
-version = 7.x-1.97
+version = 7.x-1.98
 
 ; Scripts
 scripts[] = js/mobile_detect.js

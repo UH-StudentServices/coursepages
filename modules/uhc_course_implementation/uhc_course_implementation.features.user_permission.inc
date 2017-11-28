@@ -30,6 +30,15 @@ function uhc_course_implementation_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_imp_extra_organisation'.
+  $permissions['create field_imp_extra_organisation'] = array(
+    'name' => 'create field_imp_extra_organisation',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'create field_imp_flexible_start'.
   $permissions['create field_imp_flexible_start'] = array(
     'name' => 'create field_imp_flexible_start',
@@ -78,6 +87,15 @@ function uhc_course_implementation_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit field_imp_extra_organisation'.
+  $permissions['edit field_imp_extra_organisation'] = array(
+    'name' => 'edit field_imp_extra_organisation',
+    'roles' => array(
+      'administrator' => 'administrator',
     ),
     'module' => 'field_permissions',
   );
@@ -133,6 +151,15 @@ function uhc_course_implementation_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_imp_extra_organisation'.
+  $permissions['edit own field_imp_extra_organisation'] = array(
+    'name' => 'edit own field_imp_extra_organisation',
+    'roles' => array(
+      'administrator' => 'administrator',
     ),
     'module' => 'field_permissions',
   );
@@ -196,6 +223,17 @@ function uhc_course_implementation_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_imp_extra_organisation'.
+  $permissions['view field_imp_extra_organisation'] = array(
+    'name' => 'view field_imp_extra_organisation',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view field_imp_flexible_start'.
   $permissions['view field_imp_flexible_start'] = array(
     'name' => 'view field_imp_flexible_start',
@@ -249,6 +287,15 @@ function uhc_course_implementation_user_default_permissions() {
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_imp_extra_organisation'.
+  $permissions['view own field_imp_extra_organisation'] = array(
+    'name' => 'view own field_imp_extra_organisation',
+    'roles' => array(
+      'administrator' => 'administrator',
     ),
     'module' => 'field_permissions',
   );

@@ -621,22 +621,22 @@ function uhc_ds_link_to_related_subjects($field) {
     ),
   );
 
+  global $language;
+  $current_language = $language->language;
+
   foreach ($subjects as $subject) {
     $query = db_select('field_data_field_related_content_section', 'sub_to_fc');
-    $query->join('field_data_field_related_content', 'fc_to_rc',
-      'sub_to_fc.field_related_content_section_value = fc_to_rc.entity_id');
-    $query->join('field_data_field_related_content_visibility', 'fc_to_visibility',
-      'sub_to_fc.field_related_content_section_value = fc_to_visibility.entity_id');
-    // NOTE: field_related_content_title as in the title column in field_related_content, not
-    // the field field_related_content_title
-    $query->condition('sub_to_fc.entity_id', $subject->nid, '=')
-      ->condition('fc_to_visibility.field_related_content_visibility_value', 1, '=')
-      ->fields('fc_to_rc', array(
-        'field_related_content_url',
-        'field_related_content_title'
-      ))
-      ->fields('fc_to_visibility', array('field_related_content_visibility_value'));
+    $query->join('field_data_field_related_content', 'fc_to_rc', 'sub_to_fc.field_related_content_section_value = fc_to_rc.entity_id');
+    $query->join('field_data_field_related_content_visibility', 'fc_to_visibility', 'sub_to_fc.field_related_content_section_value = fc_to_visibility.entity_id');
+    $query->condition('sub_to_fc.entity_id', $subject->nid);
+    $query->condition('sub_to_fc.language', array($current_language, LANGUAGE_NONE));
+    $query->condition('fc_to_visibility.field_related_content_visibility_value', 1);
+    // NOTE: field_related_content_title as in the title column in
+    // field_related_content, not the field field_related_content_title.
+    $query->fields('fc_to_rc', array('field_related_content_url', 'field_related_content_title'));
+    $query->fields('fc_to_visibility', array('field_related_content_visibility_value'));
     $query = $query->execute();
+
     while ($related_content = $query->fetchObject()) {
       $items['items'][] = l($related_content->field_related_content_title, $related_content->field_related_content_url, $options);
     }

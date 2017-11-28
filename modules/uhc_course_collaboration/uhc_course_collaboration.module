@@ -109,17 +109,19 @@ function uhc_course_collaboration_og_role_revoke($entity_type, $gid, $uid, $rid)
  * Implements hook_og_membership_delete().
  */
 function uhc_course_collaboration_og_membership_delete(OgMembership $og_membership) {
-  uhc_course_collaboration_sync_drupal_roles_based_on_og_roles($og_membership->etid);
+  uhc_course_collaboration_sync_drupal_roles_based_on_og_roles($og_membership->etid, TRUE);
 }
 
 /**
  * Sets or unsets Drupal roles of given user depending on og memberships.
  *
  * @param $uid int Drupal user UID.
+ * @param $skip_og_membership boolean Specify whether to skip OG membership
+ *        processing
  */
-function uhc_course_collaboration_sync_drupal_roles_based_on_og_roles($uid) {
-  uhc_course_collaboration_sync_drupal_role($uid, 'teacher', 'Teacher');
-  uhc_course_collaboration_sync_drupal_role($uid, 'course administrator', 'Course administrator');
+function uhc_course_collaboration_sync_drupal_roles_based_on_og_roles($uid, $skip_og_membership = FALSE) {
+  uhc_course_collaboration_sync_drupal_role($uid, 'teacher', 'Teacher', $skip_og_membership);
+  uhc_course_collaboration_sync_drupal_role($uid, 'course administrator', 'Course administrator', $skip_og_membership);
 }
 
 /**
@@ -129,15 +131,20 @@ function uhc_course_collaboration_sync_drupal_roles_based_on_og_roles($uid) {
  * @param $uid int Drupal user UID.
  * @param $drupal_role_name string Drupal role name.
  * @param $og_role_name string Organic groups role name.
+ * @param $skip_og_membership boolean Specify whether to skip OG membership
+ *        processing
  * @throws Exception
  */
-function uhc_course_collaboration_sync_drupal_role($uid, $drupal_role_name, $og_role_name) {
+function uhc_course_collaboration_sync_drupal_role($uid, $drupal_role_name, $og_role_name, $skip_og_membership = FALSE) {
   $drupal_role = user_role_load_by_name($drupal_role_name);
   $account = user_load($uid, TRUE);
   if (uhc_course_collaboration_has_grants_left($account, $og_role_name)) {
     // Add role if grants left and it doesn't already have the role
     if (!user_has_role($drupal_role->rid)) {
       $account->roles[$drupal_role->rid] = $drupal_role->name;
+      if ($skip_og_membership === TRUE) {
+        $account->skip_og_membership = TRUE;
+      }
       user_save($account);
     }
   }
@@ -148,6 +155,9 @@ function uhc_course_collaboration_sync_drupal_role($uid, $drupal_role_name, $og_
         // Remove role when no grants are left
         if ($rid == $drupal_role->rid) {
           unset($account->roles[$rid]);
+          if ($skip_og_membership === TRUE) {
+            $account->skip_og_membership = TRUE;
+          }
           user_save($account);
           break;
         }
@@ -554,6 +564,7 @@ function uhc_course_collaboration_cron() {
         foreach ($user->og_user_node[LANGUAGE_NONE] as $key => $value) {
           if ($value['target_id'] == $membership->gid) {
             unset($user->og_user_node[LANGUAGE_NONE][$key]);
+            $user->skip_og_membership = TRUE;
             user_save($user);
             watchdog('uhc_course_collaboration', 'Unset value user', array(), WATCHDOG_ERROR);
             break;

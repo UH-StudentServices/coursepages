@@ -1092,7 +1092,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 37,
+      'weight' => 36,
     ),
   );
 
@@ -1158,7 +1158,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 31,
+      'weight' => 30,
     ),
   );
 
@@ -1227,7 +1227,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 43,
+      'weight' => 42,
     ),
   );
 
@@ -1293,7 +1293,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 32,
+      'weight' => 31,
     ),
   );
 
@@ -1360,7 +1360,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 33,
+      'weight' => 32,
     ),
   );
 
@@ -1427,7 +1427,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 34,
+      'weight' => 33,
     ),
   );
 
@@ -1525,6 +1525,58 @@ function uhc_course_implementation_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 48,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-course_implementation-field_imp_extra_organisation'.
+  $field_instances['node-course_implementation-field_imp_extra_organisation'] = array(
+    'bundle' => 'course_implementation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
+        ),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 110,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_imp_extra_organisation',
+    'label' => 'Extra organisation',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 44,
     ),
   );
 
@@ -1712,7 +1764,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 41,
+      'weight' => 40,
     ),
   );
 
@@ -2600,7 +2652,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 39,
+      'weight' => 38,
     ),
   );
 
@@ -2767,7 +2819,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 29,
+      'weight' => 28,
     ),
   );
 
@@ -2835,7 +2887,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'options_select',
-      'weight' => 44,
+      'weight' => 43,
     ),
   );
 
@@ -2902,7 +2954,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete_tags',
-      'weight' => 30,
+      'weight' => 29,
     ),
   );
 
@@ -3092,7 +3144,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 40,
+      'weight' => 39,
     ),
   );
 
@@ -3162,7 +3214,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 35,
+      'weight' => 34,
     ),
   );
 
@@ -3225,7 +3277,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 36,
+      'weight' => 35,
     ),
   );
 
@@ -3459,7 +3511,7 @@ function uhc_course_implementation_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 42,
+      'weight' => 41,
     ),
   );
 
@@ -4184,7 +4236,7 @@ function uhc_course_implementation_field_default_field_instances() {
         'size' => 8,
       ),
       'type' => 'text_textfield',
-      'weight' => 38,
+      'weight' => 37,
     ),
   );
 
@@ -5073,6 +5125,7 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Enrolment begin date');
   t('Enrolment end date');
   t('Events');
+  t('Extra organisation');
   t('Fee');
   t('Flexible courses are courses that can be enrolled to even after the course has been started. Add the last enrolment date here. Courses having this date will display information regarding flexible start until the date you have added.');
   t('Flexible start');
@@ -5088,19 +5141,19 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Intro text');
   t('Keywords');
   t('Label');
+  t('Learning outcomes');
   t('Locality');
   t('Material description');
   t('Materials');
   t('Method of study');
   t('Name');
-  t('Learning outcomes');
   t('Open university registration');
   t('Organisation');
   t('Please specify how the students are able to interact online in this course. Recommended services are Moodle, Yammer, Presemo and Flinga but there are other services too. Sometimes it might be a good idea to ask the students for their opinion.');
+  t('Prerequisites');
   t('Reference to course tasks');
   t('Reference to course(s)');
   t('Relations to other study units');
-  t('Prerequisites');
   t('Responsible person');
   t('Results');
   t('Services');

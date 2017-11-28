@@ -281,18 +281,23 @@ function uhc_open_university_form_apply_sort(&$form, &$form_state) {
   }
 }
 
-// hide info-link from user menu if in open university section
+/**
+ * Implements hook_translated_menu_link_alter().
+ *
+ * Hide info-link from user menu if in Open University section.
+ */
 function uhc_open_university_translated_menu_link_alter(&$item, $map) {
   $menu_item_has_info_link_class = $item['menu_name'] == 'user-menu'
     && isset($item['options']['attributes']['class'][0])
     && $item['options']['attributes']['class'][0] == 'info-link';
 
   if ($menu_item_has_info_link_class) {
-    $open_university_path = arg(0) == 'open-university';
-    $node = arg(0) == 'node' ? node_load(arg(1)) : NULL;
-    $open_university_node = !empty($node) && uhc_open_university_is_open_university_course_or_implementation($node);
+    $open_university_path = in_array(arg(0), array('open-university', 'avoin-yliopisto', 'oppna-universitet'));
 
-    if ($open_university_path || $open_university_node) {
+    if ($open_university_path) {
+      $item['hidden'] = 1;
+    }
+    elseif (arg(0) == 'node' && uhc_open_university_is_open_university_context(node_load(arg(1)))) {
       $item['hidden'] = 1;
     }
   }

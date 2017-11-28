@@ -52,6 +52,11 @@ function uhc_dev_feature_menu() {
     'delivery callback' => 'drupal_json_output',
     'access arguments' => array('test integration requests'),
   );
+  $items['test/queue'] = array(
+    'page callback' => '_uhc_dev_feature_get_queue',
+    'delivery callback' => 'drupal_json_output',
+    'access arguments' => array('test integration requests'),
+  );
   $items['test/teacher/modifyrights'] = array(
     'page callback' => '_uhc_dev_feature_integration_get_teacher_modify_rights',
     'delivery callback' => 'drupal_json_output',
@@ -104,4 +109,80 @@ function _uhc_dev_feature_integration_get_teacher_modify_rights($email) {
 
 function _uhc_dev_feature_return_json_response($url) {
   return drupal_json_decode(file_get_contents($url));
+}
+
+function _uhc_dev_feature_get_queue() {
+  $query = db_select('queue', 'q')->fields('q');
+  $results = $query->execute();
+  $queue = [];
+  $queue['total'] = $results->rowCount();
+  $queue['courseunitrealisations'] = [];
+  $queue['learningopportunities'] = [];
+  $queue['courseunitrealisation'] = [];
+  $queue['learningopportunity'] = [];
+
+  foreach ($results as $result) {
+
+    if (!empty($result->data)) {
+      $data = unserialize($result->data);
+
+      if (isset($data['entityId'], $data['entityType'])) {
+        $item = new stdClass();
+        $item->id = $data['entityId'];
+        $item->created = date('Y-m-d H:i:s', $result->created);
+        $queue[$data['entityType']][] = $item;
+      }
+    }
+  }
+
+  $queue['courseunitrealisations'] = count($queue['courseunitrealisation']);
+  $queue['learningopportunities'] = count($queue['learningopportunity']);
+
+  return $queue;
+}
+
+/**
+ * Get the IDs of course implementations matching the following criteria:
+ *
+ * - Status is published
+ * - Hierarchy position is root
+ * - Title contains words longer than $character_count characters
+ *
+ * Word delimiters: ' ', '/'
+ *
+ * @param int $character_count
+ * @return int[] Implementation IDs
+ */
+function get_implementations_having_titles_containing_words_longer_than($character_count) {
+  $query = db_select('field_data_title_field', 'tf');
+  $query->join('field_data_field_imp_id', 'fid', 'tf.entity_id = fid.entity_id');
+  $query->join('node', 'n', 'tf.entity_id = n.nid');
+  $query->join('field_data_field_hierarchy_position', 'fhp', 'tf.entity_id = fhp.entity_id');
+  $query->fields('tf', ['title_field_value']);
+  $query->fields('fid', ['field_imp_id_value']);
+  $query->condition('tf.bundle', 'course_implementation');
+  $query->condition('n.status', 1);
+  $query->condition('fhp.field_hierarchy_position_value', 'root');
+  $query->groupBy('field_imp_id_value');
+  $query->orderBy('title_field_value');
+
+  $results = $query->execute();
+  $implementation_ids = [];
+
+  foreach ($results as $result) {
+    $implementation_id = $result->field_imp_id_value;
+    $title = $result->title_field_value;
+    $processed_title = str_replace('/', ' ', $title);
+    $words = explode(' ', $processed_title);
+
+    foreach ($words as $word) {
+      if (mb_strlen($word, 'UTF-8') > $character_count) {
+        print "$implementation_id $title" . "\n";
+        $implementation_ids[] = $implementation_id;
+        break;
+      }
+    }
+  }
+
+  return $implementation_ids;
 }

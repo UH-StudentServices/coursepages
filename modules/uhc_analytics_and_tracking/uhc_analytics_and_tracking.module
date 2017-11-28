@@ -180,6 +180,16 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
     'action' => 'click',
   );
 
+  // Related content link tracking from subject, studies and course
+  // implementation pages.
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.related-content-section a.list-of-links__link, .ds-node-sidebar .list-of-links a',
+    'category' => 'Related content links',
+    'label' => '!text',
+    'action' => 'click',
+  );
+
   return $selectors;
 }
 

@@ -434,7 +434,7 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['fields']['favorite_widget']['id'] = 'favorite_widget';
   $handler->display->display_options['fields']['favorite_widget']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['favorite_widget']['field'] = 'favorite_widget';
-  $handler->display->display_options['fields']['favorite_widget']['label'] = '';
+  $handler->display->display_options['fields']['favorite_widget']['label'] = 'Favorites';
   $handler->display->display_options['fields']['favorite_widget']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['favorite_widget']['link_to_entity'] = 0;
   /* Field: Indexed Multilingual Content: Flexible start */
@@ -494,6 +494,7 @@ function uhc_open_university_views_default_views() {
     t('If you want to see all the courses, leave the search field empty.'),
     t('Desktop'),
     t('Table'),
+    t('Favorites'),
     t('Flexible start'),
     t('Facets block'),
     t('Open university search facets'),
