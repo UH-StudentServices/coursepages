@@ -56,7 +56,7 @@ class ViewsHandlerFilterAcademicYear extends SearchApiViewsHandlerFilter {
     return $options;
   }
 
-  protected function getSemester($timestamp = NULL) {
+  public function getSemester($timestamp = NULL) {
     $timestamp = !is_int($timestamp) ? time() : $timestamp;
 
     $previous_august = strtotime("previous year 1st august", $timestamp);

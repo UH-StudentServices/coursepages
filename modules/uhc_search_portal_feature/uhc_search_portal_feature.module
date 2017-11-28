@@ -440,8 +440,10 @@ function uhc_search_portal_feature_facet_items_alter(&$build, &$settings) {
  * Implements hook_search_api_query_alter().
  */
 function uhc_search_portal_feature_search_api_query_alter(SearchApiQueryInterface $query) {
+  $search_id = $query->getOption('search id');
+
   // Alter search autocomplete to take filters defined in the view into account
-  if ($query->getOption('search id') == 'search_api_autocomplete:search_api_views_uhc_search_open_university') {
+  if ($search_id == 'search_api_autocomplete:search_api_views_uhc_search_open_university') {
     $view = views_get_view('uhc_search_open_university');
     $view->build();
     foreach ($view->filter as $id => $filter) {
@@ -458,12 +460,33 @@ function uhc_search_portal_feature_search_api_query_alter(SearchApiQueryInterfac
     }
   }
   // Alter facets to take the search word in the exposed filter into account
-  elseif ($query->getOption('search id') == 'search_api_views:uhc_search_open_university:search_api_views_facets_block_1') {
+  elseif ($search_id == 'search_api_views:uhc_search_open_university:search_api_views_facets_block_1') {
     if (isset($_GET['search'])) {
       $query->condition('search_api_aggregation_1', check_plain($_GET['search']), '=');
     }
   }
+  // Front page search: Add current academic year as a query filter, if it is not set.
+  if ($search_id == 'search_api_views:uhc_portal_search_front_page_:search_api_views_facets_block_1') {
+    if (!_uhc_search_portal_feature_isset_academic_year($query)) {
+      $query->condition('academic_year', (new ViewsHandlerFilterAcademicYear())->getSemester());
+    }
+  }
   return $query;
+}
+
+/**
+ * @param SearchApiQueryInterface $query
+ * @return bool Does the query contain academic year?
+ */
+function _uhc_search_portal_feature_isset_academic_year(SearchApiQueryInterface $query) {
+  /** @var $filter SearchApiQueryFilter */
+  foreach ($query->getFilter()->getFilters() as $filter) {
+    foreach ($filter->getFilters() as $filter_values)
+      if (in_array('academic_year', $filter_values)) {
+        return TRUE;
+      }
+  }
+  return FALSE;
 }
 
 /**

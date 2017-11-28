@@ -1,3 +1,10 @@
+# University of Helsinki Courses v1.104
+Päiväys: 13.11.2017
+
+## Korjaukset
+  - DOO-3105: Hakusivun yksikkö-rajaustekijässä näkyvät lukumäärät liian isoja.
+
+
 # University of Helsinki Courses v1.103
 Päiväys: 2.11.2017
 

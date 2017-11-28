@@ -1,7 +1,7 @@
 name = UHC Course
 core = 7.x
 package = UHC
-version = 7.x-1.103
+version = 7.x-1.104
 project = uhc_course
 dependencies[] = ctools
 dependencies[] = entity_token

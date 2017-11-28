@@ -416,7 +416,6 @@ function uhc_course_implementation_get_academic_year($node, array $options, $nam
  *
  * @param $node
  * @return DateTime|null
- * @see UHCSearchPortalFeatureViewsHandlerFilterSemester::getCurrentSemester()
  */
 function _uhc_course_implementation_get_academic_year_end_date($node) {
   $date = _uhc_course_implementation_get_begin_date($node);
