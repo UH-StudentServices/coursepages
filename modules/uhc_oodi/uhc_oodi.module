@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * UHC Oodi Drupal module file.
+ */
+
+/**
+ * Implements hook_flush_caches().
+ */
+function uhc_oodi_flush_caches() {
+  return array('cache_uhc_oodi');
+}

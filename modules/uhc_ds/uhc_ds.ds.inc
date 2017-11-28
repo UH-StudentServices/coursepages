@@ -784,7 +784,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
-          'lb' => 'Evaluation',
+          'lb' => 'Assessment practices and criteria',
           'lb-col' => TRUE,
           'lbw' => 1,
           'prefix' => '<div class="accordion-content-item">',
@@ -799,7 +799,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
-          'lb' => 'Objective',
+          'lb' => 'Learning outcomes',
           'lb-col' => TRUE,
           'lbw' => 1,
           'prefix' => '<div class="accordion-content-item">',
@@ -829,7 +829,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
-          'lb' => 'Required pre-requisites',
+          'lb' => 'Prerequisites',
           'lb-col' => TRUE,
           'lbw' => 1,
           'prefix' => '<div class="accordion-content-item">',
@@ -904,7 +904,7 @@ function uhc_ds_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
-          'lb' => 'Realisation and working methods',
+          'lb' => 'Completion methods',
           'lb-col' => TRUE,
           'lbw' => 1,
           'prefix' => '<div class="accordion-content-item">',
@@ -1395,10 +1395,145 @@ function uhc_ds_ds_field_settings_info() {
         ),
       ),
     ),
-    'uhc_ds_course_node_references' => array(
+    'uhc_ds_course_node_references_table_list' => array(
       'weight' => '2',
       'label' => 'hidden',
       'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_target_group' => array(
+      'weight' => '3',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_previous_studies' => array(
+      'weight' => '4',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_objective' => array(
+      'weight' => '5',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_timing' => array(
+      'weight' => '6',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_contents' => array(
+      'weight' => '7',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_completion' => array(
+      'weight' => '8',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_learning_support' => array(
+      'weight' => '9',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_study_materials' => array(
+      'weight' => '10',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_evaluation' => array(
+      'weight' => '11',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_optional_studies' => array(
+      'weight' => '12',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_rel_to_study_units' => array(
+      'weight' => '13',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_other_information' => array(
+      'weight' => '14',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'uhc_course_oodi_realisation_and_working_methods' => array(
+      'weight' => '15',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
     ),
     'field_course_course_number' => array(
       'formatter_settings' => array(
@@ -3413,13 +3548,39 @@ function uhc_ds_ds_layout_settings_info() {
         1 => 'scope',
       ),
       'course_content' => array(
-        2 => 'uhc_ds_course_node_references',
+        2 => 'uhc_ds_course_node_references_table_list',
+        3 => 'uhc_course_oodi_target_group',
+        4 => 'uhc_course_oodi_previous_studies',
+        5 => 'uhc_course_oodi_objective',
+        6 => 'uhc_course_oodi_timing',
+        7 => 'uhc_course_oodi_contents',
+        8 => 'uhc_course_oodi_completion',
+        9 => 'uhc_course_oodi_learning_support',
+        10 => 'uhc_course_oodi_study_materials',
+        11 => 'uhc_course_oodi_evaluation',
+        12 => 'uhc_course_oodi_optional_studies',
+        13 => 'uhc_course_oodi_rel_to_study_units',
+        14 => 'uhc_course_oodi_other_information',
+        15 => 'uhc_course_oodi_realisation_and_working_methods',
       ),
     ),
     'fields' => array(
       'field_course_course_number' => 'course_metadata',
       'scope' => 'course_metadata',
-      'uhc_ds_course_node_references' => 'course_content',
+      'uhc_ds_course_node_references_table_list' => 'course_content',
+      'uhc_course_oodi_target_group' => 'course_content',
+      'uhc_course_oodi_previous_studies' => 'course_content',
+      'uhc_course_oodi_objective' => 'course_content',
+      'uhc_course_oodi_timing' => 'course_content',
+      'uhc_course_oodi_contents' => 'course_content',
+      'uhc_course_oodi_completion' => 'course_content',
+      'uhc_course_oodi_learning_support' => 'course_content',
+      'uhc_course_oodi_study_materials' => 'course_content',
+      'uhc_course_oodi_evaluation' => 'course_content',
+      'uhc_course_oodi_optional_studies' => 'course_content',
+      'uhc_course_oodi_rel_to_study_units' => 'course_content',
+      'uhc_course_oodi_other_information' => 'course_content',
+      'uhc_course_oodi_realisation_and_working_methods' => 'course_content',
     ),
     'classes' => array(
       'layout_class' => array(

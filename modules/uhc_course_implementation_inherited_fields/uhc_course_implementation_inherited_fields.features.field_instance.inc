@@ -301,7 +301,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_inherited_evaluation',
-    'label' => 'Evaluation',
+    'label' => 'Assessment practices and criteria',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
@@ -475,7 +475,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_inherited_objective',
-    'label' => 'Objective',
+    'label' => 'Learning outcomes',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
@@ -736,7 +736,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_inherited_req_prerequisite',
-    'label' => 'Required prerequisites',
+    'label' => 'Prerequisites',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
@@ -1171,7 +1171,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_inherited_working_methods',
-    'label' => 'Realisation and working methods',
+    'label' => 'Completion methods',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
@@ -1235,12 +1235,12 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
   t('Contents');
   t('Course conduct');
   t('Course study materials');
-  t('Evaluation');
-  t('Objective');
-  t('Realisation and working methods');
+  t('Assessment practices and criteria');
+  t('Learning outcomes');
+  t('Completion methods');
   t('Recommended optional studies');
   t('Relations to other study units');
-  t('Required prerequisites');
+  t('Prerequisites');
   t('Responsible person');
   t('Target group');
   t('Timing');

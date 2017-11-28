@@ -54,7 +54,7 @@ function hy_doo_preprocess_node(&$variables) {
       // Required pre-requisites
       if (isset($variables['field_req_prerequisites']['#items'][0]) &&
           !text_field_is_empty($variables['field_req_prerequisites']['#items'][0], $variables['field_req_prerequisites'])) {
-        $accordion[t('Course description')] = '<h4>' . t('Required pre-requisites') . '</h4>';
+        $accordion[t('Course description')] = '<h4>' . t('Prerequisites') . '</h4>';
         $accordion[t('Course description')] .= render($variables['field_req_prerequisites']);
       }
 

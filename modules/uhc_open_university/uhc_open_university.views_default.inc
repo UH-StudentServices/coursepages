@@ -105,9 +105,15 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['header']['block_3']['id'] = 'block_3';
   $handler->display->display_options['header']['block_3']['table'] = 'views';
   $handler->display->display_options['header']['block_3']['field'] = 'block';
-  $handler->display->display_options['header']['block_3']['label'] = 'Subject';
+  $handler->display->display_options['header']['block_3']['label'] = 'Topic';
   $handler->display->display_options['header']['block_3']['block_to_insert'] = 'facetapi:hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX';
-  $handler->display->display_options['header']['block_3']['title'] = 'Subject';
+  $handler->display->display_options['header']['block_3']['title'] = 'Topic';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_8']['id'] = 'block_8';
+  $handler->display->display_options['header']['block_8']['table'] = 'views';
+  $handler->display->display_options['header']['block_8']['field'] = 'block';
+  $handler->display->display_options['header']['block_8']['label'] = 'Degree programme';
+  $handler->display->display_options['header']['block_8']['block_to_insert'] = 'facetapi:Dh4O3zt1eZPs8x4ZWjslzbxniYwSMXme';
   /* Header: Global: Block area */
   $handler->display->display_options['header']['block_1']['id'] = 'block_1';
   $handler->display->display_options['header']['block_1']['table'] = 'views';
@@ -150,12 +156,6 @@ function uhc_open_university_views_default_views() {
   $handler->display->display_options['header']['block_5']['label'] = 'Teaching language';
   $handler->display->display_options['header']['block_5']['block_to_insert'] = 'facetapi:as918Au1kK03VaWu2iPYsRfNZ1iJWE7X';
   $handler->display->display_options['header']['block_5']['title'] = 'Teaching language';
-  /* Header: Global: Block area */
-  $handler->display->display_options['header']['block_8']['id'] = 'block_8';
-  $handler->display->display_options['header']['block_8']['table'] = 'views';
-  $handler->display->display_options['header']['block_8']['field'] = 'block';
-  $handler->display->display_options['header']['block_8']['label'] = 'Degree programme';
-  $handler->display->display_options['header']['block_8']['block_to_insert'] = 'facetapi:Dh4O3zt1eZPs8x4ZWjslzbxniYwSMXme';
   /* Header: Global: Result summary */
   $handler->display->display_options['header']['result']['id'] = 'result';
   $handler->display->display_options['header']['result']['table'] = 'views';
@@ -474,14 +474,14 @@ function uhc_open_university_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
-    t('Subject'),
+    t('Topic'),
+    t('Degree programme'),
     t('Faculty'),
     t('Type of teaching'),
     t('Start month'),
     t('Method of study'),
     t('Location'),
     t('Teaching language'),
-    t('Degree programme'),
     t('<h2>Results (@total)</h2>'),
     t('No results'),
     t('Name'),

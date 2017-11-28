@@ -30,6 +30,9 @@
   .message-wrapper {
     float: left;
     width: 89%;
+    .links a {
+      padding-right: 1em;
+    }
     .message-header {
       .message-author {
         @include font-size(20px);

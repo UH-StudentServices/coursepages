@@ -542,6 +542,136 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view uhc_course_oodi_completion on node'.
+  $permissions['view uhc_course_oodi_completion on node'] = array(
+    'name' => 'view uhc_course_oodi_completion on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_contents on node'.
+  $permissions['view uhc_course_oodi_contents on node'] = array(
+    'name' => 'view uhc_course_oodi_contents on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_evaluation on node'.
+  $permissions['view uhc_course_oodi_evaluation on node'] = array(
+    'name' => 'view uhc_course_oodi_evaluation on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_learning_support on node'.
+  $permissions['view uhc_course_oodi_learning_support on node'] = array(
+    'name' => 'view uhc_course_oodi_learning_support on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_objective on node'.
+  $permissions['view uhc_course_oodi_objective on node'] = array(
+    'name' => 'view uhc_course_oodi_objective on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_optional_studies on node'.
+  $permissions['view uhc_course_oodi_optional_studies on node'] = array(
+    'name' => 'view uhc_course_oodi_optional_studies on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_other_information on node'.
+  $permissions['view uhc_course_oodi_other_information on node'] = array(
+    'name' => 'view uhc_course_oodi_other_information on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_previous_studies on node'.
+  $permissions['view uhc_course_oodi_previous_studies on node'] = array(
+    'name' => 'view uhc_course_oodi_previous_studies on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_realisation_and_working_methods on node'.
+  $permissions['view uhc_course_oodi_realisation_and_working_methods on node'] = array(
+    'name' => 'view uhc_course_oodi_realisation_and_working_methods on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_rel_to_study_units on node'.
+  $permissions['view uhc_course_oodi_rel_to_study_units on node'] = array(
+    'name' => 'view uhc_course_oodi_rel_to_study_units on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_study_materials on node'.
+  $permissions['view uhc_course_oodi_study_materials on node'] = array(
+    'name' => 'view uhc_course_oodi_study_materials on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_target_group on node'.
+  $permissions['view uhc_course_oodi_target_group on node'] = array(
+    'name' => 'view uhc_course_oodi_target_group on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_course_oodi_timing on node'.
+  $permissions['view uhc_course_oodi_timing on node'] = array(
+    'name' => 'view uhc_course_oodi_timing on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   // Exported permission: 'view uhc_ds_course_number on node'.
   $permissions['view uhc_ds_course_number on node'] = array(
     'name' => 'view uhc_ds_course_number on node',

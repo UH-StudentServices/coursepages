@@ -1,7 +1,7 @@
 name = UHC Content Administration
 core = 7.x
 package = UHC
-version = 7.x-1.96
+version = 7.x-1.97
 project = uhc_content_administration_feature
 dependencies[] = actions_permissions
 dependencies[] = admin_menu
@@ -431,6 +431,7 @@ features[user_permission][] = view own field_video_link
 features[user_permission][] = view own field_working_methods
 features[user_permission][] = view uhc_ds_course_hierarchy on node
 features[user_permission][] = view uhc_ds_course_node_references on node
+features[user_permission][] = view uhc_ds_course_node_references_table_list on node
 features[user_permission][] = view uhc_ds_enrollment_period on node
 features[user_permission][] = view uhc_ds_fee on node
 features[user_permission][] = view uhc_ds_finna_link on node

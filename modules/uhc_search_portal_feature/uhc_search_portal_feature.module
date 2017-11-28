@@ -287,7 +287,7 @@ function _uhc_search_portal_feature_translate_facet_block_title(&$data, $block) 
       'u1d1Lx0rPaqN5rZzf9O8SX4IxIGxkUQG' => t('Location'),
       'R1BRVcBSjxhf1KDt3dthdTfNu1qhp5en' => t('Faculty'),
       'as918Au1kK03VaWu2iPYsRfNZ1iJWE7X' => t('Teaching language'),
-      'hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX' => t('Subject'),
+      'hJ4IV71A4mz2cwcDDKqg90v7Q1luMlbX' => t('Topic'),
       'UHyOu2m5IufOONBzgYtqiXaxReuk8K7e' => t('Unit'),
       'Dh4O3zt1eZPs8x4ZWjslzbxniYwSMXme' => t('Degree programme'),
     );

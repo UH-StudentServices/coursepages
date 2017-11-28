@@ -157,7 +157,7 @@ function uhc_subject_field_default_field_instances() {
     'bundle' => 'field_related_content_section',
     'default_value' => array(
       0 => array(
-        'value' => 1,
+        'value' => 0,
       ),
     ),
     'deleted' => 0,

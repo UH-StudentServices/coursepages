@@ -1,10 +1,26 @@
-// This is the results view (which also includes facet search elements)
-.view.course-search {
-  @include breakpoint($mobile-only) {
-    // Space for overlapping sort div
-    margin-bottom: 9em;
-    z-index: 1;
+// This is the results view (which also may include facet search elements)
+
+.view.course-list {
+  th, td {
+    &.views-field-field-imp-giver-locality,
+    &.views-field-field-imp-course-organiser {
+      display: none;
+    }
   }
+}
+body.open-university {
+  .view.course-list {
+    th, td {
+      &.views-field-field-imp-giver-locality,
+      &.views-field-field-imp-course-organiser {
+        display: table-cell;
+      }
+    }
+  }
+}
+
+.view.course-list,
+.view.course-search {
 
   // Views-table styles
   th, td {
@@ -27,6 +43,7 @@
         .cancelled {
           display: table-cell;
           width: auto;
+          padding: 1.3em 2em;
           & + a {
             padding-left: 1em;
           }
@@ -35,6 +52,7 @@
     }
     .cancelled {
       width: 100%;
+      padding: 0.2em;
     }
     @include breakpoint($small) {
       .favoritewidget {
@@ -93,5 +111,12 @@
     @include breakpoint($small) {
       display: table-header-group;
     }
+  }
+}
+.view.course-search {
+  @include breakpoint($mobile-only) {
+    // Space for overlapping sort div
+    margin-bottom: 9em;
+    z-index: 1;
   }
 }

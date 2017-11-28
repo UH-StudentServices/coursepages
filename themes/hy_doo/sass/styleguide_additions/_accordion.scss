@@ -167,8 +167,16 @@
   }
 }
 
-.field-collection-item-field-study-module p {
-  margin-bottom: 0;
+.field-collection-item-field-study-module {
+  .field-group-accordion-item {
+    margin-top: 0;
+    .accordion-content-label {
+      margin-top: 1em;
+    }
+  }
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .ghost-accordion {

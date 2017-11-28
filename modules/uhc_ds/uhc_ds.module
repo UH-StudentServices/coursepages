@@ -98,15 +98,29 @@ function uhc_ds_ds_fields_info($entity_type) {
     $ds_fields['uhc_ds_course_node_references'] = array(
       'title' => 'Course node references',
       'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course|*'),
       'function' => 'uhc_ds_course_node_references',
       'properties' => array(
         'field_name' => 'field_course_node_references',
+        'view_name' => 'course_node_references',
+      ),
+    );
+
+    $ds_fields['uhc_ds_course_node_references_table_list'] = array(
+      'title' => 'Course node references (as table list)',
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course|*'),
+      'function' => 'uhc_ds_course_node_references',
+      'properties' => array(
+        'field_name' => 'field_course_node_references',
+        'view_name' => 'list_of_course_imps_in_course_node_view',
       ),
     );
 
     $ds_fields['uhc_ds_imp_status_org_location_date'] = array(
       'title' => 'Course Implementation status, organisation, location and date',
       'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course_implementation|*'),
       'function' => 'uhc_ds_status_org_location_date',
       'properties' => array(
         'field_name' => 'field_imp_status_org_location_date',
@@ -116,6 +130,7 @@ function uhc_ds_ds_fields_info($entity_type) {
     $ds_fields['uhc_ds_title_and_credit'] = array(
       'title' => 'Title and credit',
       'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course|*'),
       'function' => 'uhc_ds_title_and_credit',
       'properties' => array(
         'field_name' => 'title_and_credit',
@@ -125,6 +140,7 @@ function uhc_ds_ds_fields_info($entity_type) {
     $ds_fields['uhc_ds_enrollment_period'] = array(
       'title' => 'Enrolment period',
       'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course_implementation|*'),
       'function' => 'uhc_ds_enrollment_period',
       'properties' => array(
         'field_name' => 'enrollment_period',
@@ -134,6 +150,7 @@ function uhc_ds_ds_fields_info($entity_type) {
     $ds_fields['uhc_ds_table_of_contents'] = array(
       'title' => 'Table of contents',
       'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('portal_page|*'),
       'function' => 'uhc_ds_table_of_contents',
       'properties' => array(
         'field_name' => 'table_of_contents',
@@ -143,6 +160,7 @@ function uhc_ds_ds_fields_info($entity_type) {
     $ds_fields['uhc_ds_link_to_subject'] = array(
       'title' => 'Link to subject',
       'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course_implementation|*'),
       'function' => 'uhc_ds_link_to_subject',
       'properties' => array(
         'field_name' => 'link_to_subject',
@@ -152,15 +170,17 @@ function uhc_ds_ds_fields_info($entity_type) {
     $ds_fields['uhc_ds_moodle_key_or_login'] = array(
       'title' => 'Moodle key or login',
       'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course_implementation|*'),
       'function' => 'uhc_ds_moodle_key_or_login',
       'properties' => array(
-          'field_name' => 'moodle_key_or_login',
+        'field_name' => 'moodle_key_or_login',
       ),
     );
 
     $ds_fields['uhc_ds_link_to_related_subjects'] = array(
       'title' => 'Link to related subjects',
       'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course_implementation|*'),
       'function' => 'uhc_ds_link_to_related_subjects',
       'properties' => array(
         'field_name' => 'link_to_related_subjects',
@@ -170,6 +190,7 @@ function uhc_ds_ds_fields_info($entity_type) {
     $ds_fields['uhc_ds_course_hierarchy'] = array(
       'title' => 'Course hierarchy',
       'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'ui_limit' => array('course_implementation|*'),
       'function' => 'uhc_ds_course_hierarchy',
       'properties' => array(
         'field_name' => 'course_hierarchy',
@@ -292,9 +313,12 @@ function uhc_ds_content_with_specific_langsort($field = NULL) {
  * argument to make the view's work when displayed on subject nodes.
  */
 function uhc_ds_course_node_references($field) {
-  $output = views_embed_view('course_node_references', 'block', $field['entity']->nid);
-  if (views_get_view_result('course_node_references', 'block_1', $field['entity']->nid)) {
-    $output .= views_embed_view('course_node_references', 'block_1', $field['entity']->nid);
+  if (empty($field['properties']['view_name'])) {
+    return NULL;
+  }
+  $output = views_embed_view($field['properties']['view_name'], 'block', $field['entity']->nid);
+  if (views_get_view_result($field['properties']['view_name'], 'block_1', $field['entity']->nid)) {
+    $output .= views_embed_view($field['properties']['view_name'], 'block_1', $field['entity']->nid);
   }
   return $output;
 }

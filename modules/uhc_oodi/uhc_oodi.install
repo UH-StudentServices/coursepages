@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ *   Contains installation, update and uninstallation Drupal module integration.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function uhc_oodi_schema() {
+  $schema = array();
+  $schema['cache_uhc_oodi'] = drupal_get_schema_unprocessed('system', 'cache');
+  return $schema;
+}

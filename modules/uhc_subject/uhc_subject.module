@@ -416,10 +416,15 @@ function uhc_subject_field_collection_fieldset_field_as_label_alter(&$title, arr
 
 /**
  * Implements hook_field_widget_form_alter.
- * Show related content visibility field only on subject nodes.
+ * Show related content visibility field only on studies and subject nodes.
  */
 function uhc_subject_field_widget_form_alter(&$element, &$form_state, $context) {
-  if (isset($element['#field_name']) && $element['#field_name'] == 'field_related_content_visibility' && $context['form']['#bundle'] != 'subject') {
+  $hide_related_content_visibility = isset($element['#field_name'])
+    && $element['#field_name'] == 'field_related_content_visibility'
+    && isset($context['form']['#bundle'])
+    && !in_array($context['form']['#bundle'], array('studies', 'subject'));
+
+  if ($hide_related_content_visibility) {
     $element['#default_value'] = 0;
     $element['#access'] = FALSE;
   }

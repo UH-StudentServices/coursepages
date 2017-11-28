@@ -3195,6 +3195,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'field_permissions',
   );
@@ -4082,6 +4083,16 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'view uhc_ds_course_node_references on node'.
   $permissions['view uhc_ds_course_node_references on node'] = array(
     'name' => 'view uhc_ds_course_node_references on node',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
+  // Exported permission: 'view uhc_ds_course_node_references_table_list on node'.
+  $permissions['view uhc_ds_course_node_references_table_list on node'] = array(
+    'name' => 'view uhc_ds_course_node_references_table_list on node',
     'roles' => array(
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',

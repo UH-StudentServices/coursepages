@@ -82,6 +82,192 @@ function _uhc_course_node_get_referencing_course_imp_nodes($node) {
 }
 
 /**
+ * Implements hook_ds_fields_info().
+ *
+ * Introduce fields for bringing course fields to course implementation.
+ */
+function uhc_course_ds_fields_info($entity_type) {
+  if ($entity_type == 'node') {
+
+    $ds_fields['uhc_course_oodi_target_group'] = array(
+      'title' => 'Target group',
+      'properties' => array(
+        'description' => 'target_group',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_previous_studies'] = array(
+      'title' => 'Prerequisites',
+      'properties' => array(
+        'description' => 'previous_studies',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_objective'] = array(
+      'title' => 'Learning outcomes',
+      'properties' => array(
+        'description' => 'objective',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_timing'] = array(
+      'title' => 'Timing',
+      'properties' => array(
+        'description' => 'timing',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_contents'] = array(
+      'title' => 'Contents',
+      'properties' => array(
+        'description' => 'contents',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_completion'] = array(
+      'title' => 'Completion',
+      'properties' => array(
+        'description' => 'completion',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_learning_support'] = array(
+      'title' => 'Activities and teaching methods in support of learning',
+      'properties' => array(
+        'description' => 'learning_support',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_study_materials'] = array(
+      'title' => 'Study materials',
+      'properties' => array(
+        'description' => 'study_materials',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_evaluation'] = array(
+      'title' => 'Assessment practices and criteria',
+      'properties' => array(
+        'description' => 'evaluation',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_optional_studies'] = array(
+      'title' => 'Recommended optional studies',
+      'properties' => array(
+        'description' => 'optional_studies',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_rel_to_study_units'] = array(
+      'title' => 'Relation to other study units',
+      'properties' => array(
+        'description' => 'relations_to_other_study_units',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_other_information'] = array(
+      'title' => 'Additional information',
+      'properties' => array(
+        'description' => 'other_information',
+      ),
+    );
+    $ds_fields['uhc_course_oodi_realisation_and_working_methods'] = array(
+      'title' => 'Completion methods',
+      'properties' => array(
+        'description' => 'realisation_and_working_methods',
+      ),
+    );
+
+    // All fields has same field_type and ui_limit
+    foreach ($ds_fields as $key => $value) {
+      $ds_fields[$key]['field_type'] = DS_FIELD_TYPE_FUNCTION;
+      $ds_fields[$key]['ui_limit'] = array('course|*');
+      $ds_fields[$key]['function'] = 'uhc_course_field_from_oodi';
+    }
+
+    return array('node' => $ds_fields);
+  }
+}
+
+/**
+ * DS Field callback for returning given field value from $node`s corresponding
+ * Oodi learning opportunity object.
+ */
+function uhc_course_field_from_oodi($field) {
+  // This callback works only with descriptions for now..
+  if (empty($field['properties']['description'])) {
+    return NULL;
+  }
+
+  $field_name = 'field_course_course_number';
+  $node = $field['entity'];
+  $description_name = $field['properties']['description'];
+  $langcode = locale_language_from_interface();
+
+  // In order to request learning opportunity, we need to resolve course number.
+  if ($field_value = field_get_items('node', $node, $field_name)) {
+    $course_number = !empty($field_value[0]['value']) ? $field_value[0]['value'] : '';
+
+    // Return NULL if no course number found
+    if (empty($course_number)) {
+      return NULL;
+    }
+
+    try {
+
+      // Create connection and setup learning opportunity
+      $connection = new UHCOodiConnection(variable_get('uhc_sources_base_url', NULL), array('timeout' => 5));
+      $learningopportunity = new UHCOodiLearningOpportunity($connection, new UHCOodiCache());
+      $learningopportunity->setConfigDescription(variable_get('uhc_course_source_predefined_description_names', array()));
+
+      // Load learning opportunity by course number and get its multilingual
+      // value.
+      $translations = $learningopportunity->loadById($course_number)->getDescription($description_name);
+      $multilingual_value = new UHCOodiMultilingualValue($translations);
+
+      // Return value of interface language.
+      return theme('oodi_field', array('title' => $field['title'], 'value' => $multilingual_value->language($langcode)->getValue()));
+
+    } catch (\Exception $e) {
+      watchdog('uhc_course','Failed to fetch field value "@field" for "@id" because "@message"', array('@field' => $description_name, '@id' => $course_number, '@message' => $e->getMessage()), WATCHDOG_ERROR);
+    }
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function uhc_course_theme($existing, $type, $theme, $path) {
+  return array(
+    'oodi_field' => array(
+      'variables' => array('title' => NULL, 'value' => NULL),
+    ),
+  );
+}
+
+/**
+ * Preprocessor callback for oodi field.
+ *
+ * @param $variables
+ */
+function template_preprocess_oodi_field(&$variables) {
+
+  // Translate and sanitize title
+  if (!empty($variables['title'])) {
+    $variables['title'] = check_plain(t($variables['title']));
+  }
+
+  // Format value
+  $variables['value'] = check_markup($variables['value'], 'filtered_html');
+
+}
+
+/**
+ * Default theme callback for oodi fields.
+ *
+ * @param $variables
+ *
+ * @return string
+ */
+function theme_oodi_field($variables) {
+  if (empty($variables['value'])) {
+    return NULL;
+  }
+  return '<div class="tube"><h3>' . $variables['title'] . '</h3><div class="oodi-field">' . $variables['value'] . '</div></div>';
+}
+
+/**
  * Helper function for determining if given $node is a course implementation
  * that is held in past academic years.
  *

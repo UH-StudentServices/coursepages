@@ -1,3 +1,35 @@
+# University of Helsinki Courses v1.97
+Päiväys: 11.07.2017
+
+## Lisäykset
+- DOO-2968: Lisättiin jaksosivulle kuvaustekstit
+
+## Muutokset
+- Rajattiin kenttien näyttöasetuksia niihin tarkoitettuihin sisältötyyppeihin.
+- DOO-2968: Muutettiin jaksosivun kurssilistausta taulukkomaiseksi
+- DOO-3039: Avoimen yliopiston hakusivun Oppiaine-rajaustekijän nimen muutos.
+- DOO-2823: Jaksojen kuvaustekstikenttien nimimuutokset
+- DOO-3052: Aloita joustavasti -ohjetekstin muokkaus FI
+
+## Korjaukset
+- DOO-2833: Korjattiin väärän/olemattoman rajauslohkon konfigurointi sekä
+  siirrettiin se oppiaineen ja tiedekunnan väliin.
+- DOO-3013: Viestitoiminnon muokkaus- ja poistolinkit kiinni toisissaan.
+- DOO-3015: Studies sivun toteutus-listauksen tiivistys.
+- DOO-3043: Organisaatiotieto ei näy kirjautuneelle käyttäjälle.
+- DOO-3035: Studies-sivun liittyvää sisältöä ei voi linkittää kurssisivulle.
+
+## Päivitykset
+- Drupal
+- Chosen
+- CTools
+- Manual Crop
+- Module Filter
+- Varnish
+- Views Bulk Operations
+- Views Data Export
+
+
 # University of Helsinki Courses v1.96
 Päiväys: 29.06.2017
 

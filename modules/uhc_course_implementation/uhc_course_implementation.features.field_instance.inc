@@ -436,14 +436,45 @@ function uhc_course_implementation_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_evaluation',
-    'label' => 'Evaluation',
+    'label' => 'Assessment practices and criteria',
     'required' => 0,
     'settings' => array(
-      'context' => 'debug',
-      'context_default' => 'sdl_editor_representation',
-      'dnd_enabled' => 0,
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 'ds_code',
+          'embed_code' => 'embed_code',
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'embed_code' => array(
+              'weight' => 1,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'entity_translation_sync' => FALSE,
-      'mee_enabled' => 0,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -451,6 +482,10 @@ function uhc_course_implementation_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_truncate_html' => 0,
         'rows' => 5,
       ),
       'type' => 'text_textarea',
@@ -3556,7 +3591,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_objective',
-    'label' => 'Objective',
+    'label' => 'Learning outcomes',
     'required' => 0,
     'settings' => array(
       'context' => 'debug',
@@ -3898,7 +3933,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_req_prerequisites',
-    'label' => 'Required prerequisites',
+    'label' => 'Prerequisites',
     'required' => 0,
     'settings' => array(
       'context' => 'debug',
@@ -4641,7 +4676,7 @@ function uhc_course_implementation_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_working_methods',
-    'label' => 'Realisation and working methods',
+    'label' => 'Completion methods',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
@@ -5016,10 +5051,12 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Additional timetable information');
   t('Administrator number');
   t('An absolute URL address to feedback. Example: https://elomake.helsinki.fi/lomakkeet/60586/lomake.html');
+  t('Assessment practices and criteria');
   t('Attach tasks to this course');
   t('Begin date');
   t('Cancelled');
   t('Checked when course implementation is cancelled.');
+  t('Completion methods');
   t('Content');
   t('Contents');
   t('Course conduct');
@@ -5035,7 +5072,6 @@ function uhc_course_implementation_field_default_field_instances() {
   t('End date');
   t('Enrolment begin date');
   t('Enrolment end date');
-  t('Evaluation');
   t('Events');
   t('Fee');
   t('Flexible courses are courses that can be enrolled to even after the course has been started. Add the last enrolment date here. Courses having this date will display information regarding flexible start until the date you have added.');
@@ -5057,15 +5093,14 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Materials');
   t('Method of study');
   t('Name');
-  t('Objective');
+  t('Learning outcomes');
   t('Open university registration');
   t('Organisation');
   t('Please specify how the students are able to interact online in this course. Recommended services are Moodle, Yammer, Presemo and Flinga but there are other services too. Sometimes it might be a good idea to ask the students for their opinion.');
-  t('Realisation and working methods');
   t('Reference to course tasks');
   t('Reference to course(s)');
   t('Relations to other study units');
-  t('Required prerequisites');
+  t('Prerequisites');
   t('Responsible person');
   t('Results');
   t('Services');

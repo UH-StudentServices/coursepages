@@ -76,13 +76,13 @@ function uhc_course_implementation_inherited_fields_get_field_list() {
       'original_field' => 'field_evaluation',
       'inherited_field' => 'field_inherited_evaluation',
       'json_description_property' => 'evaluation',
-      'label' => t('Evaluation'),
+      'label' => t('Assessment practices and criteria'),
     ),
     'uhc_course_implementation_inherited_fields_objective' => array(
       'original_field' => 'field_objective',
       'inherited_field' => 'field_inherited_objective',
       'json_description_property' => 'objective',
-      'label' => t('Objective'),
+      'label' => t('Learning outcomes'),
     ),
     'uhc_course_implementation_inherited_fields_rel_to_other_study_units' => array(
       'original_field' => 'field_rel_to_other_study_units',
@@ -94,7 +94,7 @@ function uhc_course_implementation_inherited_fields_get_field_list() {
       'original_field' => 'field_req_prerequisites',
       'inherited_field' => 'field_inherited_req_prerequisite',
       'json_description_property' => 'previous_studies',
-      'label' => t('Required pre-requisites'),
+      'label' => t('Prerequisites'),
     ),
     'uhc_course_implementation_inherited_fields_responsible_person' => array(
       'original_field' => 'field_responsible_person',
@@ -124,7 +124,7 @@ function uhc_course_implementation_inherited_fields_get_field_list() {
       'original_field' => 'field_working_methods',
       'inherited_field' => 'field_inherited_working_methods',
       'json_description_property' => 'realisation_and_working_methods',
-      'label' => t('Realisation and working methods'),
+      'label' => t('Completion methods'),
     ),
     'uhc_course_implementation_inherited_fields_optional_studies' => array(
       'original_field' => NULL,
