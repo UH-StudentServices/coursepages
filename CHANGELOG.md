@@ -1,3 +1,10 @@
+# University of Helsinki Courses v1.100
+Päiväys: 01.09.2017
+
+## Lisäykset
+  - DOO-3129: Lisättiin mahdollisuus ottaa käyttöön kevenntty versio etusivun hausta.
+
+
 # University of Helsinki Courses v1.99
 Päiväys: 31.08.2017
 

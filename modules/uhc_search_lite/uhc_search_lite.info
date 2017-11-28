@@ -1,0 +1,6 @@
+name = UHC Search Lite
+description = Minimalistic fast search for courses.
+core = 7.x
+package = UHC
+version = 7.x-1.100
+project = uhc_search_lite

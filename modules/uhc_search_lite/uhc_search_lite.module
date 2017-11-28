@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function uhc_search_lite_block_view_alter(&$data, $block) {
+  if ($block->module == 'views') {
+    // TODO: Where this delta comes from?
+    $delta = variable_get('uhc_search_lite_block_delta', '0580398bf6a2f9d60b32760e9900b13c');
+    if ($block->delta == $delta) {
+      global $language;
+      $settings = array(
+        'uhc_search_lite' => array(
+          'language' => $language->language,
+          'baseUrl' => variable_get('uhc_search_lite_base_url', '/api/solr'),
+          'index_id' => variable_get('uhc_search_lite_index_id', 'uhc_portal'),
+          'hierarchy_position' => variable_get('uhc_search_lite_hierarchy_position', 'root'),
+          'academic_year' => variable_get('uhc_search_lite_academic_year', '2017 - 2018'),
+          'hash' => variable_get('uhc_search_lite_hash', '5x6daf'),
+        ),
+      );
+      $data['content']['#markup'] = theme('uhc_search_lite_box', array(
+        'label' => t('Search'),
+        'placeholder' => t('For example name of the course or topic.'),
+        'button_label' => t('Show results'),
+      ));
+      $data['content']['#attached']['js'][] = array('type' => 'setting', 'data' => $settings);
+      $data['content']['#attached']['js'][] = drupal_get_path('module', 'uhc_search_lite') . '/js/search-lite.js';
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function uhc_search_lite_theme($existing, $type, $theme, $path) {
+  return array(
+    'uhc_search_lite_box' => array(
+      'variables' => array('label' => NULL, 'placeholder' => NULL),
+    ),
+  );
+}
+
+/**
+ * Callback for search lite search box.
+ */
+function theme_uhc_search_lite_box(&$variables) {
+
+  $output = '<div id="search-lite" style="margin-bottom: 60px">';
+  $output .= '<div class="messages info">';
+  $output .= '<p>' . t('You are using an minimalistic version of course search.') . '<br/>' . t('Full version will become available after high traffic has settled down.') . '</p>';
+  $output .= '</div>';
+  $output .= '<form class="search-form">';
+  $output .= '<label for="search-lite--keyword search-form__label">' . $variables['label'] . '</label>';
+  $output .= '<input type="text" id="search-lite--keyword search-form__input"" class="search-lite search-lite--keyword" placeholder="'. $variables['placeholder'] . '" />';
+  $output .= '<input class="search-form__submit" type="submit" value="' . $variables['button_label'] . '"><span class="search-lite--loader"></span>';
+  $output .= '<div class="search-lite search-lite--results" style="padding-top: 40px;"></div>';
+  $output .= '</div>';
+  $output .= '</form>';
+
+  return $output;
+}

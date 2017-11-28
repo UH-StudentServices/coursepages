@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_search_lite_uninstall() {
+  variable_del('uhc_search_lite_block_delta');
+  variable_del('uhc_search_lite_base_url');
+  variable_del('uhc_search_lite_index_id');
+  variable_del('uhc_search_lite_hierarchy_position');
+  variable_del('uhc_search_lite_academic_year');
+  variable_del('uhc_search_lite_hash');
+}
