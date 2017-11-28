@@ -542,7 +542,25 @@ function uhc_course_collaboration_cron() {
   // Deleting each membership, should delete their grants as well.
   $count = 0;
   foreach (uhc_course_collaboration_get_cleanable_membership_ids($threshold_days, $limit) as $id) {
-    og_membership_delete($id);
+    if ($membership = og_membership_load($id)) {
+
+      // Remove the membership itself
+      og_membership_delete($id);
+
+      // Apart from removing membership, remove it from $user entity too so it
+      // wont appear back as pending membership.
+      if ($user = user_load($membership->etid) && !empty($user->og_user_node[LANGUAGE_NONE])) {
+        watchdog('uhc_course_collaboration', 'Loaded user', array(), WATCHDOG_ERROR);
+        foreach ($user->og_user_node[LANGUAGE_NONE] as $key => $value) {
+          if ($value['target_id'] == $membership->gid) {
+            unset($user->og_user_node[LANGUAGE_NONE][$key]);
+            user_save($user);
+            watchdog('uhc_course_collaboration', 'Unset value user', array(), WATCHDOG_ERROR);
+            break;
+          }
+        }
+      }
+    }
     watchdog('uhc_course_collaboration','Deleted membership ID @id during cleanup process.', array('@id' => $id), WATCHDOG_INFO);
     $count++;
   }

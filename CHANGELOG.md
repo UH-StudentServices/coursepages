@@ -1,3 +1,11 @@
+# University of Helsinki Courses v1.95
+Päiväys: 20.06.2017
+
+## Korjaukset
+- DOO-3025: Korjattiin ongelma, jossa kurssien käyttöoikeusmäärittely aiheutti
+  ikuisen ohjauskierteen kurssisivuilla tietyille käyttäjille.
+
+
 # University of Helsinki Courses v1.94
 Päiväys: 08.06.2017
 

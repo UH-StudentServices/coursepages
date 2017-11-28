@@ -2,5 +2,5 @@ name = UHC Elisa Chat
 description = Adds Elisa Chat to specified pages.
 core = 7.x
 package = UHC
-version = 7.x-1.94
+version = 7.x-1.95
 project = uhc_elisa_chat
