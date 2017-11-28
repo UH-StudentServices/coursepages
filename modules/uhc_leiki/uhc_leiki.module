@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function uhc_leiki_menu() {
+  $item['admin/config/system/leiki'] = array(
+    'title' => 'Leiki settings',
+    'description' => 'Leiki integration settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('uhc_leiki_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'uhc_leiki.admin.inc',
+  );
+  return $item;
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function uhc_leiki_page_alter(&$page) {
+  $leiki_base_url = variable_get('uhc_leiki_base_url', '//suositukset.student.helsinki.fi/focus');
+  $leiki_enabled = variable_get('uhc_leiki_enabled', FALSE);
+  if ($leiki_enabled) {
+    $script = 'var _leikiw = _leikiw || [];';
+    $script .= '_leikiw.push({';
+    $script .= '  name: "tr1",';
+    $script .= '  server: "' . $leiki_base_url . '",';
+    $script .= '  loadAlways: true,';
+    $script .= '  isJson : true';
+    $script .= '});';
+    $script .= '(function() {';
+    $script .= '  var t = new Date().getTime(); t -= t % (1000*60*60*24*30);';
+    $script .= '  var l = document.createElement("script"); l.type = "text/javascript"; l.async = true;';
+    $script .= '  l.src = "' . $leiki_base_url . '/widgets/loader/loader-min.js?t="+t;';
+    $script .= '  var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(l, s);';
+    $script .= '})();';
+    drupal_add_js($script, array('scope' => 'footer', 'type' => 'inline', 'requires_jquery' => FALSE));
+  }
+}

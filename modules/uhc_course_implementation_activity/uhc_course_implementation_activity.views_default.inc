@@ -178,6 +178,7 @@ function uhc_course_implementation_activity_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Course activity';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -295,6 +296,7 @@ function uhc_course_implementation_activity_views_default_views() {
   $handler = $view->new_display('feed', 'Feed', 'feed_1');
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'rss';
+  $handler->display->display_options['style_options']['description'] = 'Course activity';
   $handler->display->display_options['row_plugin'] = 'rss_fields';
   $handler->display->display_options['row_options']['title_field'] = 'title_field';
   $handler->display->display_options['row_options']['link_field'] = 'nid';
@@ -384,8 +386,10 @@ function uhc_course_implementation_activity_views_default_views() {
     'course_implementation_update_statistics' => 'course_implementation_update_statistics',
   );
   $handler->display->display_options['path'] = 'course_implementation_activity/rss/%';
+  $handler->display->display_options['sitename_title'] = 0;
   $translatables['rss_course_implementation_activity'] = array(
     t('Master'),
+    t('Course activity'),
     t('more'),
     t('Apply'),
     t('Reset'),

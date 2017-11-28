@@ -1,3 +1,25 @@
+# University of Helsinki Courses v1.99
+Päiväys: 31.08.2017
+
+## Lisäykset
+  - DOO-3100: Leikin seuranta-widget kurssisivuille
+  - DOO-3079: Course implementation activity RSS: Lisättiin otsikko ja kuvaus.
+  - DOO-3101: Lisättiin Optimen kielet tuettujen opetuskielien joukkoon
+
+## Muutokset
+  - DOO-2457: Pysyvän ilmoituksen mobiilinäkymän tiivistäminen
+  - DOO-3101: Lisättiin tuki kaikille ISO-639 standardin opetuskielille
+  - DOO-3114: Näytetään opetuskielellälukukehote vain opetuskielen
+    ollessa joko "en", "fi" tai "sv".
+  - DOO-3128: Poistettiin etusivun haun sivutus suorituskykysyistä.
+
+## Korjaukset
+  - DOO-3078: Korjattiin lukuvuosisuodattimen nollausongelma
+  - DOO-3102: Palautteen antamisen jälkeen aikataulut eivät näy
+  - DOO-3106: Korjattiin jaksotekstien tyhjennyslogiikkaa toteutuksen sivulla
+  - DOO-3118: Ruotsinnoksien korjauksia
+
+
 # University of Helsinki Courses v1.98
 Päiväys: 22.07.2017
 

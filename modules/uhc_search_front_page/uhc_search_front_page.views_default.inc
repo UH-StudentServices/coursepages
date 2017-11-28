@@ -261,15 +261,46 @@ function uhc_search_front_page_views_default_views() {
   $handler = $view->new_display('page', 'Desktop', 'desktop');
   $handler->display->display_options['display_description'] = 'Table';
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Show:';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 20, 50, 100';
   $handler->display->display_options['exposed_block'] = TRUE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['id'] = 'result';
+  $handler->display->display_options['header']['result']['table'] = 'views';
+  $handler->display->display_options['header']['result']['field'] = 'result';
+  $handler->display->display_options['header']['result']['content'] = '<h2>Results (max 100)</h2>';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_3']['id'] = 'block_3';
+  $handler->display->display_options['header']['block_3']['table'] = 'views';
+  $handler->display->display_options['header']['block_3']['field'] = 'block';
+  $handler->display->display_options['header']['block_3']['label'] = 'Organisation';
+  $handler->display->display_options['header']['block_3']['block_to_insert'] = 'facetapi:UHyOu2m5IufOONBzgYtqiXaxReuk8K7e';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block']['id'] = 'block';
+  $handler->display->display_options['header']['block']['table'] = 'views';
+  $handler->display->display_options['header']['block']['field'] = 'block';
+  $handler->display->display_options['header']['block']['label'] = 'Method of study';
+  $handler->display->display_options['header']['block']['block_to_insert'] = 'facetapi:do4BdKvyCgpZP4td6B6GmQ8iCUJ40HBx';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_1']['id'] = 'block_1';
+  $handler->display->display_options['header']['block_1']['table'] = 'views';
+  $handler->display->display_options['header']['block_1']['field'] = 'block';
+  $handler->display->display_options['header']['block_1']['label'] = 'Start month';
+  $handler->display->display_options['header']['block_1']['block_to_insert'] = 'facetapi:cEQesYoZJTu7ITT2OD5RXHP0T0bqniOh';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_4']['id'] = 'block_4';
+  $handler->display->display_options['header']['block_4']['table'] = 'views';
+  $handler->display->display_options['header']['block_4']['field'] = 'block';
+  $handler->display->display_options['header']['block_4']['label'] = 'Teaching language';
+  $handler->display->display_options['header']['block_4']['block_to_insert'] = 'facetapi:as918Au1kK03VaWu2iPYsRfNZ1iJWE7X';
+  /* Header: Global: Block area */
+  $handler->display->display_options['header']['block_2']['id'] = 'block_2';
+  $handler->display->display_options['header']['block_2']['table'] = 'views';
+  $handler->display->display_options['header']['block_2']['field'] = 'block';
+  $handler->display->display_options['header']['block_2']['label'] = 'Type of teaching';
+  $handler->display->display_options['header']['block_2']['block_to_insert'] = 'facetapi:ebLMT1Egl05afck7AKCq6EMM2B4VuGer';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Reference to course(s): Course number (indexed) */
   $handler->display->display_options['fields']['field_imp_reference_to_courses_field_course_course_number']['id'] = 'field_imp_reference_to_courses_field_course_course_number';
@@ -703,7 +734,7 @@ function uhc_search_front_page_views_default_views() {
     t('If you want to see all the courses, leave the search field empty.'),
     t('Desktop'),
     t('Table'),
-    t('Show:'),
+    t('<h2>Results (max 100)</h2>'),
     t('Teacher(s)'),
     t('Favorites'),
     t('Facets block'),

@@ -893,6 +893,7 @@ function uhc_course_implementation_preprocess_node(&$vars) {
 function uhc_course_implementation_display_view_in_teaching_language_message($node) {
   global $language;
   $teaching_languages = field_get_items('node', $node, 'field_imp_teaching_language');
+  $viewable_teaching_languages = array_values(locale_language_list('language'));
 
   if (!empty($teaching_languages)) {
     $teaching_language_codes = array();
@@ -901,7 +902,10 @@ function uhc_course_implementation_display_view_in_teaching_language_message($no
       $teaching_language_codes[] = $teaching_language['value'];
     }
 
-    if (!in_array($language->language, $teaching_language_codes)) {
+    $display_view_in_teaching_language_message = !empty(array_intersect($viewable_teaching_languages, $teaching_language_codes))
+      && !in_array($language->language, $teaching_language_codes);
+
+    if ($display_view_in_teaching_language_message) {
       uh_coursepages_set_message(t('Please read this page in teaching language'), 'status', FALSE);
     }
   }

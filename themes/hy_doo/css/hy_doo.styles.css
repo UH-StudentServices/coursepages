@@ -8908,7 +8908,8 @@ span.links__link.theme-language {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       content: "";
-      margin-left: 0.5em; }
+      margin-left: 0.5em;
+      vertical-align: bottom; }
   .messages .close {
     display: inline-block;
     float: right; }
@@ -8927,6 +8928,14 @@ span.links__link.theme-language {
     padding-bottom: 0; }
   .messages__sticky {
     z-index: 999; }
+    @media (max-width: 48em) {
+      .messages__sticky {
+        font-size: 9.625px;
+        font-size: 0.6875rem;
+        padding: 0.5em 0.5em; } }
+  @media (max-width: 48em) and (min-width: 48em) {
+    .messages__sticky {
+      font-size: 11px; } }
   .messages.status {
     background-color: #b2e576;
     color: #222; }
@@ -8946,8 +8955,9 @@ span.links__link.theme-language {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       content: "";
-      font-size: 1.3em;
-      margin-right: 0.7em; }
+      font-size: 1.5em;
+      margin-right: 0.7em;
+      vertical-align: text-bottom; }
   .messages.warning {
     background-color: #52c6af;
     color: #FFF; }
@@ -8967,8 +8977,9 @@ span.links__link.theme-language {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       content: "";
-      font-size: 1.3em;
-      margin-right: 0.7em; }
+      font-size: 1.5em;
+      margin-right: 0.7em;
+      vertical-align: text-bottom; }
   .messages.error {
     background-color: #964822;
     color: #FFF; }
@@ -8988,8 +8999,9 @@ span.links__link.theme-language {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       content: "";
-      font-size: 1.3em;
-      margin-right: 0.7em; }
+      font-size: 1.5em;
+      margin-right: 0.7em;
+      vertical-align: text-bottom; }
   .messages.info {
     background-color: #F8F8F8;
     color: #222; }
@@ -9009,8 +9021,9 @@ span.links__link.theme-language {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       content: "";
-      font-size: 1.3em;
-      margin-right: 0.7em; }
+      font-size: 1.5em;
+      margin-right: 0.7em;
+      vertical-align: text-bottom; }
 
 html {
   box-sizing: border-box; }

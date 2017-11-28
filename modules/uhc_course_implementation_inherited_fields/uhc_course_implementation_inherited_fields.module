@@ -289,7 +289,7 @@ function _uhc_course_implementation_inherited_fields_copy_from_json($node, $json
         }
         else {
           // Ensure that no value is set for this specific language
-          unset($node->{$field['inherited_field']}[$langcode]);
+          $node->{$field['inherited_field']}[$langcode] = array();
         }
       }
     }

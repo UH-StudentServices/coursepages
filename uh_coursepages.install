@@ -1317,3 +1317,10 @@ function uh_coursepages_update_7046(&$sandbox) {
 
   batch_set($batch);
 }
+
+/**
+ * Enable Leiki module.
+ */
+function uh_coursepages_update_7047(&$sandbox) {
+  module_enable(array('uhc_leiki'));
+}

@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_leiki_uninstall() {
+  variable_del('uhc_leiki_base_url');
+  variable_del('uhc_leiki_enabled');
+}

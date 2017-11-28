@@ -1714,7 +1714,7 @@ function uhc_field_base_field_default_field_bases() {
       'enabled' => array(
         1 => 1,
         2 => 0,
-        3 => 0,
+        3 => 3,
         'authors_default' => 0,
         'current_interface' => 0,
         'site_default' => 0,
@@ -1727,11 +1727,7 @@ function uhc_field_base_field_default_field_bases() {
         'name_native' => 0,
       ),
       'groups' => '',
-      'languages' => array(
-        'en' => 'en',
-        'fi' => 'fi',
-        'sv' => 'sv',
-      ),
+      'languages' => array(),
     ),
     'translatable' => 0,
     'type' => 'language_field',

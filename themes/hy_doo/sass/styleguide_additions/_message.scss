@@ -8,6 +8,7 @@
   width: 100%;
   position: relative;
   padding: 1.3em 2em;
+
   p, ul {
     @include font-family-main;
     display: inline-block;
@@ -21,6 +22,7 @@
     &:after {
       @include icon($icon-link-arrow);
       margin-left: 0.5em;
+      vertical-align: bottom;
     }
   }
   .close {
@@ -38,6 +40,11 @@
   }
   &__sticky {
     z-index: 999;
+
+    @include breakpoint($mobile-only) {
+      @include font-size(11px);
+      padding: 0.5em 0.5em;
+    }
   }
   @each $name, $type in $messages {
     &.#{$name} {
@@ -56,8 +63,9 @@
       li:before,
       p:before {
         @include icon(map-get(map-get($messages, $name), "icon"));
-        font-size: 1.3em;
+        font-size: 1.5em;
         margin-right: 0.7em;
+        vertical-align: text-bottom;
       }
     }
   }

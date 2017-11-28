@@ -253,10 +253,32 @@
         $('.block--facetapi').removeClass('collapsed');
         if (changes > 0) {
           // Use the search term in the fulltext search field but preserve other GET parameters
-          var query = window.location.search.split('&');
-          query[0] = '?search=' + $('#edit-search').val();
-          query = query.join('&');
-          window.location.replace(window.location.origin + '/' + new_path.concat(added_filters).join('/') + query);
+          var query = window.location.search.substring(1).split('&');
+
+          // Loop and replace existing queries
+          for (var i = 0; i < query.length; i++) {
+            var parameter = query[i].split('=');
+
+            // Ensure that search parameter is set from form value
+            switch (parameter[0]) {
+                case 'search':
+                  query[i] = parameter[0] + '=' + $('#edit-search').val();
+                  break;
+                case 'academic_year':
+                  query[i] = parameter[0] + '=' + $('#edit-academic-year').val();
+                  break;
+            }
+          }
+
+          // Ensure that we always have search and academic year parameter at least in the query
+          if (query.filter(function(element) { return element.slice(0, 6) == 'search' }).length == 0) {
+            query.push('search=' + $('#edit-search').val());
+          }
+          if (query.filter(function(element) { return element.slice(0, 13) == 'academic_year' }).length == 0) {
+            query.push('academic_year=' + $('#edit-academic-year').val());
+          }
+
+          window.location.replace(window.location.origin + '/' + new_path.concat(added_filters).join('/') + '?' + query.join('&'));
         }
       }
     }
