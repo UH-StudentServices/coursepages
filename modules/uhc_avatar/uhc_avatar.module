@@ -127,14 +127,14 @@ function uhc_avatar_get_avatar_api_response($oodi_uid) {
   $api_response = drupal_http_request($api_url, array('timeout' => 2.0));
 
   if ($api_response->code == 200) {
-    $api_response = drupal_json_decode($api_response->data);
+    $api_response = (object) drupal_json_decode($api_response->data);
   }
   elseif ($api_response->code == 404) {
     uhc_avatar_log('No avatar found for Oodi UID @oodi_uid', array('@oodi_uid' => $oodi_uid));
   }
   else {
-    $api_response = FALSE;
     $error = isset($api_response->error) ? $api_response->error : '';
+    $api_response = FALSE;
 
     uhc_avatar_log(
       'Failed to get avatar API response for Oodi UID @oodi_uid. Error: @error',
@@ -143,7 +143,7 @@ function uhc_avatar_get_avatar_api_response($oodi_uid) {
     );
   }
 
-  return (object) $api_response;
+  return $api_response;
 }
 
 /**

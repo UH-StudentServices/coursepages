@@ -235,8 +235,33 @@ function uhc_sources_create_stub_node($id, $node_type) {
       $id_field_name => array(LANGUAGE_NONE => array(array('value' => $id)))
     );
 
+    // Create node
     $node = entity_create('node', $values);
+
+    // Create translations
+    $node->language = 'en';
+    $translation_handler = entity_translation_get_handler('node', $node);
+    $translation_handler->setOriginalLanguage($node->language);
+    foreach (PortalMigrationBase::getSupportedLanguages() as $lang) {
+
+      // Specify our translation
+      $translation = array(
+        'translate' => 0,
+        'status' => 1,
+        'language' => $lang,
+      );
+
+      // Set the source language of the translation
+      if ($node->language != $lang) {
+        $translation['source'] = $node->language;
+      }
+
+      $translation_handler->setTranslation($translation, $node);
+    }
+
+    // Save the node and translations
     node_save($node);
+    $translation_handler->saveTranslations();
 
     // For static usage, we store this to static variable if this gets called
     // more than once for given ID.

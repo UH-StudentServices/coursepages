@@ -204,3 +204,40 @@ function uhc_sources_update_7007() {
     ->fields(array('permission' => 'access queue status page'))
     ->execute();
 }
+
+/**
+ * Re-queue STUB items in search_api_et_item.
+ */
+function uhc_sources_update_7008() {
+  $query = db_query("SELECT fi.entity_id nid, fi.field_imp_id_value course_imp_id FROM {search_api_et_item} saei JOIN field_data_field_imp_id fi ON fi.entity_id = SUBSTRING_INDEX(saei.item_id, '/', 1) WHERE saei.item_id LIKE '%/und';");
+  $course_imps = array();
+  while ($item = $query->fetchAssoc()) {
+    if ($item['course_imp_id'] == 'demo course') {
+      // Don't deal with demo course
+      continue;
+    }
+
+    // For STUB cases, we'll remove node, maps and queue them for import
+    $node = node_load($item['nid']);
+    if (substr($node->title, 0, 4) == 'STUB') {
+      $course_imps[] = $item['course_imp_id'];
+      $map = new MigrateSQLMap('CourseImplementationNode', array('id'), array('nid'));
+      if ($row = $map->getRowBySource(array($item['course_imp_id']))) {
+        $map->delete([$item['course_imp_id']]);
+        node_delete($item['nid']);
+      }
+    }
+  }
+
+  // Queue chosen items
+  $queue = new UHOodiQueue(UHOodiQueue::PRIORITY_LOW);
+  foreach ($course_imps as $id) {
+    $item = array(
+      'action' => 'update',
+      'entityType' => 'courseunitrealisation',
+      'entityId' => $id,
+    );
+    $queue->validateItem($item);
+    $queue->createItem($item);
+  }
+}

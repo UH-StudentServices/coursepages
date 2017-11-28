@@ -53,7 +53,7 @@ input[type="submit"] {
 input[type="text"],
 textarea {
   @include font-weight-medium;
-  border: 2px solid $lightsilver;
+  border: 2px solid darken($lightsilver, 10%);
   font-size: 14px;
   width: 100%;
   padding: 0.7em;

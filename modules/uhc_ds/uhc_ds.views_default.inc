@@ -411,6 +411,13 @@ function uhc_ds_views_default_views() {
   $handler->display->display_options['fields']['field_study_credit']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_study_credit']['alter']['text'] = '[field_study_credit-value] <span class="show-only-in-mobile">Cr</span>';
   $handler->display->display_options['fields']['field_study_credit']['element_label_colon'] = FALSE;
+  /* Field: Content: Method of study */
+  $handler->display->display_options['fields']['field_imp_method_of_study']['id'] = 'field_imp_method_of_study';
+  $handler->display->display_options['fields']['field_imp_method_of_study']['table'] = 'field_data_field_imp_method_of_study';
+  $handler->display->display_options['fields']['field_imp_method_of_study']['field'] = 'field_imp_method_of_study';
+  $handler->display->display_options['fields']['field_imp_method_of_study']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
+  $handler->display->display_options['fields']['field_imp_method_of_study']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_imp_method_of_study']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Begin date */
   $handler->display->display_options['fields']['field_imp_begin_date']['id'] = 'field_imp_begin_date';
   $handler->display->display_options['fields']['field_imp_begin_date']['table'] = 'field_data_field_imp_begin_date';
@@ -579,6 +586,7 @@ function uhc_ds_views_default_views() {
     t('[field_cancelled]  [title_field] [field_imp_flexible_start]'),
     t('Cr'),
     t('[field_study_credit-value] <span class="show-only-in-mobile">Cr</span>'),
+    t('Method of study'),
     t('Time'),
     t('[field_imp_begin_date] - [field_imp_end_date]'),
     t('Location'),

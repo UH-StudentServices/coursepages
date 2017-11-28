@@ -158,3 +158,15 @@ function uhc_feedback_mail($key, &$message, $params) {
     $message['headers']['Sender'] = $params['from'];
   }
 }
+
+/**
+ * Implements hook_page_alter().
+ */
+function uhc_feedback_page_alter(&$page) {
+  $show_feedback_form = isset($page['page_bottom']['feedback'])
+    && (uhc_open_university_is_open_university_context() || user_is_logged_in());
+
+  if (!$show_feedback_form) {
+    unset($page['page_bottom']['feedback']);
+  }
+}

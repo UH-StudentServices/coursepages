@@ -1,3 +1,25 @@
+# University of Helsinki Courses v1.102
+Päiväys: 23.10.2017
+
+## Lisäykset
+ - DOO-3187: Näytetään opiskelumuoto jaksosivulla
+
+## Muutokset
+ - DOO-2725: Piilota Palaute-nappi anonyymiltä käyttäjältä (ei koske
+   Avoimen yliopiston sivuja).
+ - DOO-3180: Tummennettiin vapaateksti-elementin reunuksia, jotta
+   elementti erottuu paremmin.
+
+## Korjaukset
+ - DOO-3193: Avatarkuvan osoitteen välittäminen mukaan mece-viesteihin
+   ei aina onnistu.
+ - DOO-3186: Paikkakunta-sarake näkyy tutkinto-opetuksen jaksosivulla,
+   vaikka ei pitäisi.
+ - DOO-3108, DOO-3170: Korjattiin ongelma, jossa tyngät kurssit olivat
+   päätyneet hakuindeksiin kielineutraaleina, joka aiheutti niiden
+   puuttumisen hakutuloksista.
+
+
 # University of Helsinki Courses v1.101
 Päiväys: 21.09.2017
 

@@ -74,6 +74,8 @@ function uhc_favorites_preprocess_link(&$variables) {
   $paths = array('open-university/favorites', 'favorites');
   if (in_array($variables['path'], $paths) && $variables['text'] == t('Favorites')) {
     $variables['options']['attributes']['class'][] = 'favorites-link';
+    drupal_add_library('system', 'jquery.cookie');
+    drupal_add_library('system', 'ui.widget');
     drupal_add_js(drupal_get_path('module', 'uhc_favorites') .'/uhc_favorites.js');
     drupal_add_js(array('clearlist_label' => t('Clear list')), 'setting');
   }

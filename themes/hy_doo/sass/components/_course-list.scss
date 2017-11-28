@@ -3,6 +3,7 @@
 .view.course-list {
   th, td {
     &.views-field-field-imp-giver-locality,
+    &.views-field-field-imp-locality,
     &.views-field-field-imp-course-organiser {
       display: none;
     }
@@ -12,6 +13,7 @@ body.open-university {
   .view.course-list {
     th, td {
       &.views-field-field-imp-giver-locality,
+      &.views-field-field-imp-locality,
       &.views-field-field-imp-course-organiser {
         display: table-cell;
       }

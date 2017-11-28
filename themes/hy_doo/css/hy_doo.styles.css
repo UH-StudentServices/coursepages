@@ -6247,10 +6247,10 @@ ul.pager {
 .group-description-objectives .label-above.course:after {
   background: #52c6af; }
 
-.view.course-list th.views-field-field-imp-giver-locality, .view.course-list th.views-field-field-imp-course-organiser, .view.course-list td.views-field-field-imp-giver-locality, .view.course-list td.views-field-field-imp-course-organiser {
+.view.course-list th.views-field-field-imp-giver-locality, .view.course-list th.views-field-field-imp-locality, .view.course-list th.views-field-field-imp-course-organiser, .view.course-list td.views-field-field-imp-giver-locality, .view.course-list td.views-field-field-imp-locality, .view.course-list td.views-field-field-imp-course-organiser {
   display: none; }
 
-body.open-university .view.course-list th.views-field-field-imp-giver-locality, body.open-university .view.course-list th.views-field-field-imp-course-organiser, body.open-university .view.course-list td.views-field-field-imp-giver-locality, body.open-university .view.course-list td.views-field-field-imp-course-organiser {
+body.open-university .view.course-list th.views-field-field-imp-giver-locality, body.open-university .view.course-list th.views-field-field-imp-locality, body.open-university .view.course-list th.views-field-field-imp-course-organiser, body.open-university .view.course-list td.views-field-field-imp-giver-locality, body.open-university .view.course-list td.views-field-field-imp-locality, body.open-university .view.course-list td.views-field-field-imp-course-organiser {
   display: table-cell; }
 
 .view.course-list th, .view.course-list td,
@@ -8768,7 +8768,7 @@ input[type="text"],
 textarea {
   font-weight: 600;
   font-style: normal;
-  border: 2px solid #EBEBEB;
+  border: 2px solid #d2d2d2;
   font-size: 14px;
   width: 100%;
   padding: 0.7em; }
