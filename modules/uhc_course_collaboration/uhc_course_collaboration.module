@@ -374,7 +374,7 @@ function uhc_course_collaboration_set_or_delete_student_membership($node) {
   if ($course_student) {
     if (!$has_student_membership) {
       uhc_course_collaboration_set_membership($node, $user, $student_role_name);
-      $modified_membership = FALSE;
+      $modified_membership = TRUE;
     }
   }
   elseif ($has_student_membership) {
@@ -383,7 +383,7 @@ function uhc_course_collaboration_set_or_delete_student_membership($node) {
     foreach ($all_roles as $role_id => $role) {
       if ($all_roles[$role_id] == $student_role_name) {
         og_role_revoke($group_type, $node->nid, $user->uid, $role_id);
-        $modified_membership = FALSE;
+        $modified_membership = TRUE;
       }
     }
   }

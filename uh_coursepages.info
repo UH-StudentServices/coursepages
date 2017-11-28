@@ -1,7 +1,7 @@
 name = Helsinki University Portal
 description = Install with pre-configured features for courses in genetics.
 core = 7.x
-version = 7.x-1.102
+version = 7.x-1.103
 dependencies[] = block
 dependencies[] = file
 dependencies[] = image
@@ -101,6 +101,7 @@ dependencies[] = uhc_subject
 dependencies[] = uhc_online_services
 dependencies[] = uhc_rest_api
 dependencies[] = uhc_activemq_connector
+dependencies[] = uhc_migrate_message_report
 
 ; Project contrib
 dependencies[] = uh_taxonomy_organisations_migrate

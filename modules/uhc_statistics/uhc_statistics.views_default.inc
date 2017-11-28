@@ -84,6 +84,17 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['link_to_entity'] = 1;
+  /* Field: Content: Organisation */
+  $handler->display->display_options['fields']['field_imp_organisation']['id'] = 'field_imp_organisation';
+  $handler->display->display_options['fields']['field_imp_organisation']['table'] = 'field_data_field_imp_organisation';
+  $handler->display->display_options['fields']['field_imp_organisation']['field'] = 'field_imp_organisation';
+  $handler->display->display_options['fields']['field_imp_organisation']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['field_imp_organisation']['settings'] = array(
+    'field_multiple_limit' => '-1',
+    'field_multiple_limit_offset' => '0',
+    'field_multiple_limit_order' => '0',
+  );
+  $handler->display->display_options['fields']['field_imp_organisation']['delta_offset'] = '0';
   /* Field: COUNT(DISTINCT Message: Timestamp) */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'message';
@@ -181,6 +192,29 @@ function uhc_statistics_views_default_views() {
   );
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Content: Method of study (field_imp_method_of_study) */
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['id'] = 'field_imp_method_of_study_tid';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['table'] = 'field_data_field_imp_method_of_study';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['field'] = 'field_imp_method_of_study_tid';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['operator_id'] = 'field_imp_method_of_study_tid_op';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['label'] = 'Method of study';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['operator'] = 'field_imp_method_of_study_tid_op';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['identifier'] = 'field_imp_method_of_study_tid';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['vocabulary'] = 'method_of_study';
   /* Filter criterion: Message: Timestamp */
   $handler->display->display_options['filters']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['filters']['timestamp']['table'] = 'message';
@@ -263,6 +297,7 @@ function uhc_statistics_views_default_views() {
     'course_implementation_analytics_view' => 'course_implementation_analytics_view',
     'course_implementation_moodle_course_area_create' => 'course_implementation_moodle_course_area_create',
   );
+  $handler->display->display_options['filters']['type_1']['group'] = 1;
   $handler->display->display_options['filters']['type_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['type_1']['expose']['operator_id'] = 'type_1_op';
   $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Type of activity';
@@ -571,11 +606,12 @@ function uhc_statistics_views_default_views() {
     t('Message referencing Content from field_message_ref_to_course_imp'),
     t('User'),
     t('Title'),
+    t('Organisation'),
     t('Number of activities'),
     t('Last activity'),
     t('Keywords (field_imp_keywords)'),
     t('Keyword'),
-    t('Organisation'),
+    t('Method of study'),
     t('Last updated (between)'),
     t('Begin date (between)'),
     t('Edited by user role'),
@@ -659,6 +695,17 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
+  /* Field: Content: Organisation */
+  $handler->display->display_options['fields']['field_imp_organisation']['id'] = 'field_imp_organisation';
+  $handler->display->display_options['fields']['field_imp_organisation']['table'] = 'field_data_field_imp_organisation';
+  $handler->display->display_options['fields']['field_imp_organisation']['field'] = 'field_imp_organisation';
+  $handler->display->display_options['fields']['field_imp_organisation']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['field_imp_organisation']['settings'] = array(
+    'field_multiple_limit' => '-1',
+    'field_multiple_limit_offset' => '0',
+    'field_multiple_limit_order' => '0',
+  );
+  $handler->display->display_options['fields']['field_imp_organisation']['delta_offset'] = '0';
   /* Field: COUNT(DISTINCT Content: Custom section (field_imp_teachersection:delta)) */
   $handler->display->display_options['fields']['delta']['id'] = 'delta';
   $handler->display->display_options['fields']['delta']['table'] = 'field_data_field_imp_teachersection';
@@ -738,11 +785,35 @@ function uhc_statistics_views_default_views() {
   );
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['vocabulary'] = 'organisations_of_university_of_helsinki';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Content: Method of study (field_imp_method_of_study) */
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['id'] = 'field_imp_method_of_study_tid';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['table'] = 'field_data_field_imp_method_of_study';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['field'] = 'field_imp_method_of_study_tid';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['operator_id'] = 'field_imp_method_of_study_tid_op';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['label'] = 'Method of study';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['operator'] = 'field_imp_method_of_study_tid_op';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['identifier'] = 'field_imp_method_of_study_tid';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_imp_method_of_study_tid']['vocabulary'] = 'method_of_study';
   /* Filter criterion: Content: Begin date (field_imp_begin_date) */
   $handler->display->display_options['filters']['field_imp_begin_date_value']['id'] = 'field_imp_begin_date_value';
   $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
   $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
   $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['group'] = 1;
   $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
   $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
@@ -1140,6 +1211,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['filters']['field_imp_material_description_value']['table'] = 'field_data_field_imp_material_description';
   $handler->display->display_options['filters']['field_imp_material_description_value']['field'] = 'field_imp_material_description_value';
   $handler->display->display_options['filters']['field_imp_material_description_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_imp_material_description_value']['group'] = 1;
   $handler->display->display_options['filters']['field_imp_material_description_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_imp_material_description_value']['expose']['operator_id'] = 'field_imp_material_description_value_op';
   $handler->display->display_options['filters']['field_imp_material_description_value']['expose']['label'] = 'Material description';
@@ -1160,6 +1232,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['filters']['field_section_material_target_id']['table'] = 'field_data_field_section_material';
   $handler->display->display_options['filters']['field_section_material_target_id']['field'] = 'field_section_material_target_id';
   $handler->display->display_options['filters']['field_section_material_target_id']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_section_material_target_id']['group'] = 1;
   $handler->display->display_options['filters']['field_section_material_target_id']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_section_material_target_id']['expose']['operator_id'] = 'field_section_material_target_id_op';
   $handler->display->display_options['filters']['field_section_material_target_id']['expose']['label'] = 'Materials';
@@ -1181,6 +1254,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['filters']['cid']['field'] = 'cid';
   $handler->display->display_options['filters']['cid']['relationship'] = 'cid';
   $handler->display->display_options['filters']['cid']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['cid']['group'] = 1;
   $handler->display->display_options['filters']['cid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['cid']['expose']['operator_id'] = 'cid_op';
   $handler->display->display_options['filters']['cid']['expose']['label'] = 'Messages';
@@ -1204,6 +1278,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['filters']['field_private_value']['value'] = array(
     1 => '1',
   );
+  $handler->display->display_options['filters']['field_private_value']['group'] = 1;
   $handler->display->display_options['filters']['field_private_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_private_value']['expose']['operator_id'] = 'field_private_value_op';
   $handler->display->display_options['filters']['field_private_value']['expose']['label'] = 'Restricted messages';
@@ -1228,6 +1303,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['filters']['field_private_value_1']['value'] = array(
     1 => '1',
   );
+  $handler->display->display_options['filters']['field_private_value_1']['group'] = 1;
   $handler->display->display_options['filters']['field_private_value_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_private_value_1']['expose']['operator_id'] = 'field_private_value_1_op';
   $handler->display->display_options['filters']['field_private_value_1']['expose']['label'] = 'Restricted material';
@@ -1250,6 +1326,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['filters']['field_imp_results_target_id']['field'] = 'field_imp_results_target_id';
   $handler->display->display_options['filters']['field_imp_results_target_id']['ui_name'] = 'Results';
   $handler->display->display_options['filters']['field_imp_results_target_id']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_imp_results_target_id']['group'] = 1;
   $handler->display->display_options['filters']['field_imp_results_target_id']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_imp_results_target_id']['expose']['operator_id'] = 'field_imp_results_target_id_op';
   $handler->display->display_options['filters']['field_imp_results_target_id']['expose']['label'] = 'Results';
@@ -1305,15 +1382,16 @@ function uhc_statistics_views_default_views() {
     t('last »'),
     t('This statistics view displays the amount of course implementations where the selected field has content. It is best to select a single field only as a filter and have the rest set as "-any-".'),
     t('<h2>@total results</h2>'),
-    t('Messages'),
+    t('Comments'),
     t('Course material'),
     t('Title'),
+    t('Organisation'),
     t('Number of custom sections'),
     t('.'),
     t(','),
     t('Keywords (field_imp_keywords)'),
     t('Keyword'),
-    t('Organisation'),
+    t('Method of study'),
     t('Begin date (between)'),
     t('Moodle URL'),
     t('Interaction description'),
@@ -1334,6 +1412,7 @@ function uhc_statistics_views_default_views() {
     t('Course conduct'),
     t('Material description'),
     t('Materials'),
+    t('Messages'),
     t('Restricted messages'),
     t('Restricted material'),
     t('Results'),

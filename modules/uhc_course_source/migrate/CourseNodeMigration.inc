@@ -20,7 +20,7 @@ class CourseNodeMigration extends PortalMigrationBase {
     parent::__construct($arguments);
 
     // Declare the items that we're up to migrate.
-    $ids = is_array($arguments['predefined_ids']) && !empty($arguments['predefined_ids']) ? $arguments['predefined_ids'] : array();
+    $ids = isset($arguments['predefined_ids']) && is_array($arguments['predefined_ids']) && !empty($arguments['predefined_ids']) ? $arguments['predefined_ids'] : array();
     $this->predefined_ids = $ids;
 
     // Define the item importing class based on predefined_item existance.

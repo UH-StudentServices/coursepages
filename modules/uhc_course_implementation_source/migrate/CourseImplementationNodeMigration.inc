@@ -21,7 +21,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     parent::__construct($arguments);
 
     // Declare the items that we're up to migrate.
-    $ids = is_array($arguments['predefined_ids']) && !empty($arguments['predefined_ids']) ? $arguments['predefined_ids'] : array();
+    $ids = isset($arguments['predefined_ids']) && is_array($arguments['predefined_ids']) && !empty($arguments['predefined_ids']) ? $arguments['predefined_ids'] : array();
     $this->predefined_ids = $ids;
 
     // Define the item importing class and options based on predefined_item
@@ -278,16 +278,16 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
    * @return bool TRUE if the row should skip migration, otherwise FALSE.
    */
   public function shouldRowBeSkipped($row) {
-    // Invoke "hook_uhc_course_implementation_source_allow_source_row" to see if
-    // any of modules wants to allow this course implementation row.
-    $returns = module_invoke_all('uhc_course_implementation_source_allow_source_row', $row);
-    foreach ($returns as $allow) {
-      if ($allow === TRUE) {
-        // Return FALSE if row should not be skipped
-        return FALSE;
+    // Invoke "hook_uhc_course_implementation_source_deny_source_row" to see if
+    // any of modules wants to deny this course implementation row.
+    $returns = module_invoke_all('uhc_course_implementation_source_deny_source_row', $row);
+    foreach ($returns as $return) {
+      if ($return instanceof SkippableItem) {
+        $this->queueMessage($return->getReason(), MigrationBase::MESSAGE_WARNING);
+        return TRUE;
       }
     }
-    return TRUE;
+    return FALSE;
   }
 
   /**

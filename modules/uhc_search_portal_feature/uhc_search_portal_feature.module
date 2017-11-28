@@ -222,6 +222,12 @@ function uhc_search_portal_feature_back_to_view_on_reset(&$form, &$form_state) {
   if ($form_state['triggering_element']['#id'] == 'edit-reset') {
     // Redirect to view's path
     $path = $form_state['view']->display_handler->get_option('path');
+
+    // Front page search: Redirect to "search".
+    if ($form['#id'] == 'views-exposed-form-uhc-portal-search-front-page--desktop') {
+      $path = 'search';
+    }
+
     if (!empty($path)) {
       $form_state['redirect'] = $path;
     }

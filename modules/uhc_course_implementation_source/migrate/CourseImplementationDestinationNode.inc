@@ -60,7 +60,11 @@ class CourseImplementationDestinationNode extends PortalDestinationNode {
       ->entityCondition('bundle', 'course_implementation')
       ->fieldCondition('field_imp_id', 'value', $course_implementation_id)
       ->execute();
-    return !empty($result['node']) ? reset(array_keys($result['node'])) : NULL;
+    if (!empty($result['node'])) {
+      $keys = array_keys($result['node']);
+      return reset($keys);
+    }
+    return NULL;
   }
 
   /**

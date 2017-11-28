@@ -149,6 +149,7 @@ projects[url_alias_permissions][version] = "1.0"
 projects[variable][version] = "2.5"
 projects[varnish][version] = "1.4"
 projects[views][version] = "3.17"
+projects[views][patch]["https://www.drupal.org/node/2823977"] = https://www.drupal.org/files/issues/views-pass-view-as-reference-2823977-15-7.53.patch
 projects[views][patch]["https://www.drupal.org/node/477984"] = https://www.drupal.org/files/issues/views-n477984-95.patch
 projects[views_bulk_operations][version] = "3.4"
 projects[views_block_area][version] = "1.2"

@@ -60,8 +60,10 @@ class PortalItemBase extends MigrateItemJSON {
 
       // If failed loading JSON
       if (!$json) {
-        $this->uhcLogMessage($id, 'Loading of !objecturl failed', array('!objecturl' => $item_url), WATCHDOG_ERROR);
-        return new SkippableItem();
+        $message = 'Loading of !objecturl failed';
+        $params = array('!objecturl' => $item_url);
+        $this->uhcLogMessage($id, $message, $params, WATCHDOG_ERROR);
+        return new SkippableItem($message, $params);
       }
     }
 
@@ -70,8 +72,10 @@ class PortalItemBase extends MigrateItemJSON {
      */
     $simulate_fail_item = variable_get('uhc_sources_simulate_failure');
     if (!is_null($simulate_fail_item) && $id == $simulate_fail_item) {
-      $this->uhcLogMessage($id, 'Failed getting item due to simulated failure in "@id"', array('@id' => $id));
-      return new SkippableItem();
+      $message = 'Failed getting item due to simulated failure in "@id"';
+      $params = array('@id' => $id);
+      $this->uhcLogMessage($id, $message, $params);
+      return new SkippableItem($message, $params);
     }
 
     /*
@@ -83,14 +87,18 @@ class PortalItemBase extends MigrateItemJSON {
         return $json->data;
       }
       else {
-        $this->uhcLogMessage($id, 'REST backend responded with status @status while fetching @id', array('@id' => $id, '@status' => $json->status), WATCHDOG_INFO);
-        return new SkippableItem();
+        $message = 'REST backend responded with status @status while fetching @id';
+        $params = array('@id' => $id, '@status' => $json->status);
+        $this->uhcLogMessage($id, $message, $params, WATCHDOG_INFO);
+        return new SkippableItem($message, $params);
       }
     }
 
     // We do not expect to end up here
-    $this->uhcLogMessage($id, 'Malformed response from REST backend while fetching @id', array('@id' => $id), WATCHDOG_ERROR);
-    return new SkippableItem();
+    $message = 'Malformed response from REST backend while fetching @id';
+    $params = array('@id' => $id);
+    $this->uhcLogMessage($id, $message, $params, WATCHDOG_ERROR);
+    return new SkippableItem($message, $params);
 
   }
 

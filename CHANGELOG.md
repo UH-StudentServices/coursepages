@@ -1,3 +1,15 @@
+# University of Helsinki Courses v1.103
+Päiväys: 2.11.2017
+
+## Lisäykset
+  - DOO-2391: Lisättiin kurssien sisäänluvun ongelmien raportointinäkymä.
+  - DOO-3226: Lisättiin käyttöstatistiikkaan mahdollisuus suodattaa opiskelumuodon mukaan.
+
+## Korjaukset
+  - DOO-3214: Korjattiin ongelma, jossa opiskelijan käyttöoikeuden muutos ei päivittänyt kurssisivua.
+  - DOO-3127: Korjattu: Rajaustekijöiden tyhjentäminen poistaa rajaustekijät näkyviltä.
+
+
 # University of Helsinki Courses v1.102
 Päiväys: 23.10.2017
 

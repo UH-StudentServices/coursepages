@@ -11,7 +11,15 @@
 /**
  * Class SkippableItem
  *
- * This class is used for returning item which should be skipped.
+ * This class is used for returning item which should be skipped and can tell
+ * the reason if given.
  */
 class SkippableItem extends stdClass {
+  private $reason;
+  public function __construct($reason = '', array $params = array()) {
+    $this->reason = format_string($reason, $params);
+  }
+  public function getReason() {
+    return $this->reason;
+  }
 }

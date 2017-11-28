@@ -85,6 +85,13 @@ function uhc_course_implementation_source_update_7005() {
 }
 
 /**
+ * Truncate all migrate messages.
+ */
+function uhc_course_implementation_source_update_7006() {
+  db_truncate(Migration::getInstance('CourseImplementationNode')->getMap()->getMessageTable())->execute();
+}
+
+/**
  * Function that queries all course implementation map rows that has NULL as
  * destination id and deletes them.
  */

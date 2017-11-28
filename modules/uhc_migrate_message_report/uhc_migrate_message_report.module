@@ -1,0 +1,37 @@
+<?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function uhc_migrate_message_report_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'uhc_migrate_message_report') . '/includes',
+  );
+}
+
+/**
+ * @return string
+ *   Returns table name of the migration containing relevant migrate messages.
+ */
+function _uhc_migrate_message_report_get_table_name() {
+
+  /** @var \CourseImplementationNodeMigration $migration */
+  $migration = Migration::getInstance('CourseImplementationNode');
+  if (is_null($migration)) {
+    return '';
+  }
+
+  /** @var MigrateSQLMap $map */
+  $map = $migration->getMap();
+  if ($map instanceof MigrateSQLMap) {
+    return $map->getMessageTable();
+  }
+
+  return '';
+}

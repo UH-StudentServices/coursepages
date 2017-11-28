@@ -47,7 +47,10 @@ class PortalMigrationBase extends Migration {
    */
   public function shouldRowBeSkipped($row) {
     // By default, we skip the row if it's skippable item.
-    return ($row instanceof SkippableItem);
+    if ($row instanceof SkippableItem) {
+      return TRUE;
+    }
+    return FALSE;
   }
 
   /**

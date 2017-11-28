@@ -1331,3 +1331,10 @@ function uh_coursepages_update_7047(&$sandbox) {
 function uh_coursepages_update_7048(&$sandbox) {
   module_enable(array('views_litepager'));
 }
+
+/**
+ * Enable Migrate Messages module.
+ */
+function uh_coursepages_update_7049(&$sandbox) {
+  module_enable(array('uhc_migrate_message_report'));
+}

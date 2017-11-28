@@ -371,7 +371,7 @@ function _uhc_course_implementation_activity_track_section($node, $fields, $mess
 
     // check if section is empty in original node
     foreach ($fields as $field_name) {
-      if ($original->$field_name) {
+      if (!empty($original->$field_name)) {
         $original_section_empty = FALSE;
         break;
       }
@@ -379,7 +379,7 @@ function _uhc_course_implementation_activity_track_section($node, $fields, $mess
 
     // check if section is empty in updated node
     foreach ($fields as $field_name) {
-      if ($node->{$field_name}[LANGUAGE_NONE]) {
+      if (!empty($node->{$field_name}[LANGUAGE_NONE])) {
         $updated_section_empty = FALSE;
         break;
       }
@@ -640,8 +640,8 @@ function _uhc_course_implementation_activity_track_task_insert($node) {
   if ($node->type == 'course_implementation') {
 
     // Figure out new tasks
-    $original_target_ids = _uhc_course_implementation_activity_get_target_ids($node->original->field_reference_to_course_tasks);
-    $target_ids = _uhc_course_implementation_activity_get_target_ids($node->field_reference_to_course_tasks);
+    $original_target_ids = !empty($node->original->field_reference_to_course_tasks) ? _uhc_course_implementation_activity_get_target_ids($node->original->field_reference_to_course_tasks) : array();
+    $target_ids = !empty($node->field_reference_to_course_tasks) ? _uhc_course_implementation_activity_get_target_ids($node->field_reference_to_course_tasks) : array();
     $added_target_ids = array_diff($target_ids, $original_target_ids);
 
     // Loop over each new task
