@@ -103,7 +103,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Course overview',
+    'label' => 'Description',
     'weight' => '14',
     'children' => array(
       0 => 'field_additional_info',
@@ -119,7 +119,7 @@ function uhc_course_implementation_field_group_info() {
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'label' => 'Course overview',
+      'label' => 'Description',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-course-overview field-group-tab',
@@ -779,9 +779,9 @@ function uhc_course_implementation_field_group_info() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Conduct of the course');
-  t('Course overview');
   t('Custom Section');
   t('Custom section');
+  t('Description');
   t('Enrolment');
   t('Feedback');
   t('Integration');

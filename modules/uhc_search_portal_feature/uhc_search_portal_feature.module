@@ -144,6 +144,7 @@ function uhc_search_portal_feature_views_pre_view(&$view, &$display_id, &$args) 
 function uhc_search_portal_feature_views_post_execute(&$view) {
   if (uhc_search_portal_feature_is_search_results_page($view)) {
     uhc_search_portal_feature_add_noindex_meta_tag();
+    uhc_search_portal_feature_modify_result_header($view);
   }
 }
 
@@ -196,6 +197,21 @@ function uhc_search_portal_feature_add_noindex_meta_tag() {
   );
 
   drupal_add_html_head($noindex_meta_tag, 'robots');
+}
+
+/**
+ * When using views_litepager module, it is not possible to display the total
+ * result count using the default @total token. This constructs and injects the
+ * result count to the result header.
+ */
+function uhc_search_portal_feature_modify_result_header(&$view) {
+  if (isset($view->header['result']->options['content'])) {
+    $search_api_results = $view->query->getSearchApiResults();
+
+    if (isset($search_api_results['result count'])) {
+      $view->header['result']->options['content'] = t('<h2>Results (@total)</h2>', array('@total' => $search_api_results['result count']));
+    }
+  }
 }
 
 /**
@@ -318,10 +334,48 @@ function _uhc_search_portal_feature_set_block_titles($block, $titles) {
 /**
  * Implements hook_search_api_views_query_alter().
  *
- * Remove begin date filter from course search query when querying for ongoing
- * courses.
+ * Front page search: Copy the search text from the combined fulltext search to
+ * the title fulltext search. Title search matches should be more relevant than
+ * other search matches.
+ *
+ * Open University search: Remove begin date filter from course search query
+ * when querying for ongoing courses.
  */
 function uhc_search_portal_feature_search_api_views_query_alter(view &$view, SearchApiViewsQuery &$query) {
+
+  // Copy the search text from the combined fulltext search to the title
+  // fulltext search.
+  if ($view->name == 'uhc_portal_search_front_page_') {
+    foreach ($query->where as &$where) {
+      foreach ($where['conditions'] as $key => $condition) {
+        if ($condition[0] == 'search_api_aggregation_1') {
+          $search = $condition[1];
+          break;
+        }
+      }
+    }
+    // Remove the title fulltext search if there is no search text.
+    if (empty($search)) {
+      foreach ($query->where as &$where) {
+        foreach ($where['conditions'] as $key => &$condition) {
+          if ($condition[0] == 'search_api_aggregation_3') {
+            unset($where['conditions'][$key]);
+            break;
+          }
+        }
+      }
+    }
+    else {
+      foreach ($query->where as &$where) {
+        foreach ($where['conditions'] as $key => &$condition) {
+          if ($condition[0] == 'search_api_aggregation_3') {
+            $condition[1] = $search;
+            break;
+          }
+        }
+      }
+    }
+  }
 
   // Ongoing courses option (Open University). Note that this should overwrite
   // the semester selection, since it does not make sense to limit the results
@@ -514,5 +568,19 @@ function uhc_search_portal_feature_entity_presave($entity, $type) {
   }, $query->fetchAllAssoc('entity_id')));
   if ($results) {
     search_api_track_item_change('search_api_et_node', $results);
+  }
+}
+
+/**
+ * Implements hook_search_api_solr_query_alter().
+ *
+ * We need to have the q parameter in the Solr query to trigger relevance
+ * calculations. This function adds the parameter. Ignore if Open University
+ * search.
+ */
+function uhc_search_portal_feature_search_api_solr_query_alter(array &$call_args, SearchApiQueryInterface $query) {
+  if (current_path() != 'open-university/search') {
+    $search = !empty($_GET['search']) ? $_GET['search'] : '';
+    $call_args['params']['q'] = $search;
   }
 }

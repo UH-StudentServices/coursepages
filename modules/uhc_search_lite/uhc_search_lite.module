@@ -19,7 +19,13 @@ function uhc_search_lite_block_view_alter(&$data, $block) {
           'hash' => variable_get('uhc_search_lite_hash', '5x6daf'),
         ),
       );
+      $weboodi_href_by_language = array(
+        'fi' => 'https://weboodi.helsinki.fi/hy/etusivu.html',
+        'en' => 'https://weboodi.helsinki.fi/hy/etusivu.html?Kieli=1',
+        'sv' => 'https://weboodi.helsinki.fi/hy/etusivu.html?Kieli=2',
+      );
       $data['content']['#markup'] = theme('uhc_search_lite_box', array(
+        'weboodi_href' => ($weboodi_href_by_language[$language->language] ? $weboodi_href_by_language[$language->language] : $weboodi_href_by_language['fi']),
         'label' => t('Search'),
         'placeholder' => t('For example name of the course or topic.'),
         'button_label' => t('Show results'),
@@ -36,7 +42,7 @@ function uhc_search_lite_block_view_alter(&$data, $block) {
 function uhc_search_lite_theme($existing, $type, $theme, $path) {
   return array(
     'uhc_search_lite_box' => array(
-      'variables' => array('label' => NULL, 'placeholder' => NULL),
+      'variables' => array('weboodi_href' => NULL, 'label' => NULL, 'placeholder' => NULL),
     ),
   );
 }
@@ -45,10 +51,11 @@ function uhc_search_lite_theme($existing, $type, $theme, $path) {
  * Callback for search lite search box.
  */
 function theme_uhc_search_lite_box(&$variables) {
-
   $output = '<div id="search-lite" style="margin-bottom: 60px">';
   $output .= '<div class="messages info">';
-  $output .= '<p>' . t('You are using an minimalistic version of course search.') . '<br/>' . t('Full version will become available after high traffic has settled down.') . '</p>';
+  $output .= '<p>';
+  $output .= t('You are using the light version of course search due to high visitor traffic.') . '<br/>' . t('You can find all the courses also in <a href="@href">WebOodi</a>.', array('@href' => $variables['weboodi_href']));
+  $output .= '</p>';
   $output .= '</div>';
   $output .= '<form class="search-form">';
   $output .= '<label for="search-lite--keyword search-form__label">' . $variables['label'] . '</label>';

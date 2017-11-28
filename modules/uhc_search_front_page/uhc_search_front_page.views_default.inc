@@ -261,16 +261,18 @@ function uhc_search_front_page_views_default_views() {
   $handler = $view->new_display('page', 'Desktop', 'desktop');
   $handler->display->display_options['display_description'] = 'Table';
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '100';
+  $handler->display->display_options['pager']['type'] = 'lite';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['defaults']['header'] = FALSE;
   /* Header: Global: Result summary */
   $handler->display->display_options['header']['result']['id'] = 'result';
   $handler->display->display_options['header']['result']['table'] = 'views';
   $handler->display->display_options['header']['result']['field'] = 'result';
-  $handler->display->display_options['header']['result']['content'] = '<h2>Results (max 100)</h2>';
+  $handler->display->display_options['header']['result']['content'] = '<h2>Results (@total)</h2>';
   /* Header: Global: Block area */
   $handler->display->display_options['header']['block_3']['id'] = 'block_3';
   $handler->display->display_options['header']['block_3']['table'] = 'views';
@@ -362,6 +364,82 @@ function uhc_search_front_page_views_default_views() {
   $handler->display->display_options['fields']['favorite_widget']['label'] = 'Favorites';
   $handler->display->display_options['fields']['favorite_widget']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['favorite_widget']['link_to_entity'] = 0;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Indexed Multilingual Content: Academic year */
+  $handler->display->display_options['filters']['academic_year']['id'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['filters']['academic_year']['field'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['group'] = 1;
+  $handler->display->display_options['filters']['academic_year']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['academic_year']['expose']['operator_id'] = 'academic_year_op';
+  $handler->display->display_options['filters']['academic_year']['expose']['label'] = 'Academic year';
+  $handler->display->display_options['filters']['academic_year']['expose']['operator'] = 'academic_year_op';
+  $handler->display->display_options['filters']['academic_year']['expose']['identifier'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['expose']['required'] = TRUE;
+  $handler->display->display_options['filters']['academic_year']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['academic_year']['group_info']['label'] = 'Academic year';
+  $handler->display->display_options['filters']['academic_year']['group_info']['identifier'] = 'academic_year';
+  $handler->display->display_options['filters']['academic_year']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['academic_year']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
+  /* Filter criterion: Indexed Multilingual Content: Item language */
+  $handler->display->display_options['filters']['search_api_language']['id'] = 'search_api_language';
+  $handler->display->display_options['filters']['search_api_language']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['filters']['search_api_language']['field'] = 'search_api_language';
+  $handler->display->display_options['filters']['search_api_language']['value'] = array(
+    'current' => 'current',
+  );
+  $handler->display->display_options['filters']['search_api_language']['group'] = 1;
+  /* Filter criterion: Indexed Multilingual Content: Hierarchy position */
+  $handler->display->display_options['filters']['field_hierarchy_position']['id'] = 'field_hierarchy_position';
+  $handler->display->display_options['filters']['field_hierarchy_position']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['filters']['field_hierarchy_position']['field'] = 'field_hierarchy_position';
+  $handler->display->display_options['filters']['field_hierarchy_position']['value'] = 'root';
+  $handler->display->display_options['filters']['field_hierarchy_position']['group'] = 1;
+  /* Filter criterion: Indexed Multilingual Content: Fulltext title */
+  $handler->display->display_options['filters']['search_api_aggregation_3']['id'] = 'search_api_aggregation_3';
+  $handler->display->display_options['filters']['search_api_aggregation_3']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['filters']['search_api_aggregation_3']['field'] = 'search_api_aggregation_3';
+  $handler->display->display_options['filters']['search_api_aggregation_3']['value'] = 'search_api_aggregation_1';
+  $handler->display->display_options['filters']['search_api_aggregation_3']['group'] = 2;
+  /* Filter criterion: Indexed Multilingual Content: Combined fulltext */
+  $handler->display->display_options['filters']['search_api_aggregation_1']['id'] = 'search_api_aggregation_1';
+  $handler->display->display_options['filters']['search_api_aggregation_1']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['filters']['search_api_aggregation_1']['field'] = 'search_api_aggregation_1';
+  $handler->display->display_options['filters']['search_api_aggregation_1']['group'] = 2;
+  $handler->display->display_options['filters']['search_api_aggregation_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['operator_id'] = 'search_api_aggregation_1_op';
+  $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['label'] = 'Search';
+  $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['description'] = 'If you want to see all the courses, leave the search field empty.';
+  $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['operator'] = 'search_api_aggregation_1_op';
+  $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['identifier'] = 'search';
+  $handler->display->display_options['filters']['search_api_aggregation_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
   $handler->display->display_options['path'] = 'search/results';
 
   /* Display: Facets block */
@@ -734,7 +812,6 @@ function uhc_search_front_page_views_default_views() {
     t('If you want to see all the courses, leave the search field empty.'),
     t('Desktop'),
     t('Table'),
-    t('<h2>Results (max 100)</h2>'),
     t('Teacher(s)'),
     t('Favorites'),
     t('Facets block'),

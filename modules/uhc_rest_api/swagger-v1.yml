@@ -20,6 +20,34 @@ tags:
   - name: Course implementations
   - name: Events
 paths:
+  /course_implementation/{ids}:
+    get:
+      description: |
+        Retrieve corresponding `courseunitrealistaion` from Drupal that is internally called `course_implementation`.
+        Course implementations are retrieved using `courseunitrealisation` ID(s), not by Drupal´s internal `nid`.
+      tags:
+        - Course implementations
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: ids
+          in: path
+          description: ID or multiple IDs separated by comma.
+          type: string
+          required: true
+      responses:
+        "200":
+          description: Returns collection of `CourseImplementationWithEvents` object.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CourseImplementationWithEvents'
+        "404":
+          description: Not found.
+        "500":
+          description: Internal server error.
   /course_implementations:
     get:
       description: |
@@ -180,6 +208,50 @@ definitions:
       wiki_url:
         type: string
         description: URL address to the linked Wiki page
+  CourseImplementationWithEvents:
+    type: object
+    required:
+      - nid
+      - title
+      - url
+    properties:
+      courseImplementationId:
+        type: integer
+        description: Course implementation's ID
+      events:
+        type: array
+        items:
+          $ref: '#/definitions/EventOfCourseImplementation'
+      nid:
+        type: integer
+        description: Node ID
+      title:
+        type: string
+        description: Node title
+      header_image_url:
+        type: string
+        description: URL address of the header promotion image
+      header_image_attribution:
+        type: string
+        description: Image attribution text of the header promotion image
+      header_headline:
+        type: string
+        description: Header promotion headline
+      header_text:
+        type: string
+        description: Header promotion text
+      url:
+        type: string
+        description: URL address to the course page
+      has_material:
+        type: boolean
+        description: Indicates whether the course has materials added
+      moodle_url:
+        type: string
+        description: URL address to the linked Moodle page
+      wiki_url:
+        type: string
+        description: URL address to the linked Wiki page
   Event:
     type: object
     required:
@@ -189,6 +261,28 @@ definitions:
       course_implementation_id:
         type: integer
         description: Courseunitrealisation´ ID. Do not confuse this with `nid`.
+      title:
+        type: string
+        description: Title of the event
+      begin:
+        type: string
+        format: dateTime
+        description: Beginning date and time for the event in ISO 8601 format
+      end:
+        type: string
+        format: dateTime
+        description: End date and time for the event in ISO 8601 format
+      where:
+        type: string
+        description: Location of the event
+      exam:
+        type: boolean
+        description: Indiciates if the event is considered as an "exam"
+  EventOfCourseImplementation:
+    type: object
+    required:
+      - title
+    properties:
       title:
         type: string
         description: Title of the event

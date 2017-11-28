@@ -20,6 +20,12 @@ function uhc_rest_api_menu() {
     'access arguments' => array('access content'),
   );
 
+  $items['api/v1/course_implementation'] = array(
+    'page callback' => '_uhc_rest_api_course_implementation',
+    'delivery callback' => 'uhc_rest_api_deliver',
+    'access arguments' => array('access content'),
+  );
+
   return $items;
 }
 
@@ -51,6 +57,7 @@ function uhc_rest_api_deliver($page_callback_result) {
     }
   }
   elseif (isset($page_callback_result)) {
+    drupal_add_http_header('Cache-Control', 'max-age=60, must-revalidate');
     drupal_json_output($page_callback_result);
   }
 }
@@ -252,4 +259,30 @@ function uhc_rest_api_process_empty_field_values($output) {
   }
 
   return $output;
+}
+
+/**
+ * @param string $course_implementation_ids Comma-separated list of course implementation IDs.
+ * @return stdClass[] response
+ */
+function _uhc_rest_api_course_implementation($course_implementation_ids) {
+  global $language;
+  $course_implementation_ids = explode(',', $course_implementation_ids);
+  $uhcCourseImplementationApi = _uhc_rest_api_get_course_implementation_api($course_implementation_ids, $language->language);
+
+  return $uhcCourseImplementationApi->get();
+}
+
+/**
+ * @return UHCCourseImplementationApi
+ */
+function _uhc_rest_api_get_course_implementation_api($course_implementation_ids, $language_code) {
+  static $uhcCourseImplementationApi = FALSE;
+
+  if (!$uhcCourseImplementationApi) {
+    $uhcApiCourseImplementationFormatter = new UHCApiCourseImplementationFormatter(new UHCApiEventFormatter(), $language_code);
+    $uhcCourseImplementationApi = new UHCCourseImplementationApi($course_implementation_ids, $language_code, $uhcApiCourseImplementationFormatter, new UHCApiCache());
+  }
+
+  return $uhcCourseImplementationApi;
 }

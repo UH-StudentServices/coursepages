@@ -1324,3 +1324,10 @@ function uh_coursepages_update_7046(&$sandbox) {
 function uh_coursepages_update_7047(&$sandbox) {
   module_enable(array('uhc_leiki'));
 }
+
+/**
+ * Enable Views Litepager module.
+ */
+function uh_coursepages_update_7048(&$sandbox) {
+  module_enable(array('views_litepager'));
+}

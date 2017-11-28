@@ -1,3 +1,25 @@
+# University of Helsinki Courses v1.101
+Päiväys: 21.09.2017
+
+## Lisäykset
+  - DOO-3135: Toteutettiin uusi course_implementation-rajapinta, joka
+    palauttaa yhdellä kutsulla kurssin/kurssien promotiedot että käsin
+    lisätyt tapahtumat.
+
+## Muutokset
+  - DOO-3131: Parannettiin kevennetyn haun infotekstiä.
+  - DOO-3115: Moodle-pilotista vinkkaaminen kurssisivun muokkausnäkymässä
+  - DOO-3111: Jaksosivu listaa nyt pelkästään päätason toteutus kurssisivuja.
+  - DOO-3143: Etusivun hakuun relevanssijärjestys.
+  - DOO-3165: Nimettiin kurssiesite uudelleen.
+  - DOO-3156: Etusivun hakuun kevytsivutus.
+  - DOO-3176: Nimettiin kurssiesite uudelleen aikataulun infossa.
+  - DOO-3055: Aloita joustavasti -ohjetekstin muokkaus (en, sv).
+
+## Korjaukset
+  - DOO-3155: Field Group -moduulin päivitys (patch, PHP 7 -tuki)
+
+
 # University of Helsinki Courses v1.100
 Päiväys: 01.09.2017
 

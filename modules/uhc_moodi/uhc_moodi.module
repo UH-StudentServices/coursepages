@@ -55,11 +55,13 @@ function uhc_moodi_access() {
 function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
   if (!empty($course_implementation_id)) {
 
+    global $language;
+
     // Fieldset for Moodi input elements.
     $form['uhc_moodi_fieldset'] = array(
       '#type' => 'fieldset',
       '#title' => t('Create a new Moodle course area and synchronize students from WebOodi'),
-      '#description' => t('This creates a new Moodle-area and adds the course students and teachers from WebOodi as members using automatic synchronization. This is the primary and recommended way to create Moodle-areas. The URL created for the moodle-area will be automatically added as a button to the course page. The URL is also visible to students in the My Studies -page.'),
+      '#description' => uhc_moodi_get_moodle_description($language->language),
       '#weight' => -99,
       '#collapsible' => FALSE,
       '#collapsed' => TRUE,
@@ -136,6 +138,18 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
   }
 
   return $form;
+}
+
+function uhc_moodi_get_moodle_description($language_code) {
+  $moodle_pilot_email_by_language_code = array(
+    'en' => 'edutech@helsinki.fi',
+    'fi' => 'opetusteknologia@helsinki.fi',
+    'sv' => 'edutech@helsinki.fi'
+  );
+
+  return t('This function is not yet available. If you are interested in participating the pilot use of the function, please contact <a href="mailto:@moodle_pilot_email">@moodle_pilot_email</a>.',
+    array('@moodle_pilot_email' => $moodle_pilot_email_by_language_code[$language_code])
+  );
 }
 
 /**

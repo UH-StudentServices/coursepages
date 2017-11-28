@@ -166,7 +166,7 @@ function uhc_ds_field_group_info() {
   $field_group->mode = 'default';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Course overview',
+    'label' => 'Description',
     'weight' => '32',
     'children' => array(
       0 => 'uhc_course_implementation_inherited_fields_additional_info',
@@ -186,7 +186,7 @@ function uhc_ds_field_group_info() {
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'label' => 'Course overview',
+      'label' => 'Description',
       'instance_settings' => array(
         'classes' => 'group-description-objectives field-group-accordion-item',
         'show_empty_fields' => 0,
@@ -293,7 +293,7 @@ function uhc_ds_field_group_info() {
   t('Additional information');
   t('Content collection left');
   t('Content collection right');
-  t('Course overview');
+  t('Description');
   t('Material');
   t('Message wrapper');
   t('Messages');

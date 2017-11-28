@@ -524,6 +524,12 @@ function uhc_ds_views_default_views() {
   $handler->display->display_options['filters']['field_imp_end_date_value']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
   $handler->display->display_options['filters']['field_imp_end_date_value']['operator'] = '>=';
   $handler->display->display_options['filters']['field_imp_end_date_value']['default_date'] = 'now';
+  /* Filter criterion: Content: Hierarchy position (field_hierarchy_position) */
+  $handler->display->display_options['filters']['field_hierarchy_position_value']['id'] = 'field_hierarchy_position_value';
+  $handler->display->display_options['filters']['field_hierarchy_position_value']['table'] = 'field_data_field_hierarchy_position';
+  $handler->display->display_options['filters']['field_hierarchy_position_value']['field'] = 'field_hierarchy_position_value';
+  $handler->display->display_options['filters']['field_hierarchy_position_value']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
+  $handler->display->display_options['filters']['field_hierarchy_position_value']['value'] = 'root';
 
   /* Display: Implementation list - past */
   $handler = $view->new_display('block', 'Implementation list - past', 'block_1');
@@ -554,6 +560,12 @@ function uhc_ds_views_default_views() {
   $handler->display->display_options['filters']['field_imp_end_date_value']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
   $handler->display->display_options['filters']['field_imp_end_date_value']['operator'] = '<';
   $handler->display->display_options['filters']['field_imp_end_date_value']['default_date'] = 'now';
+  /* Filter criterion: Content: Hierarchy position (field_hierarchy_position) */
+  $handler->display->display_options['filters']['field_hierarchy_position_value']['id'] = 'field_hierarchy_position_value';
+  $handler->display->display_options['filters']['field_hierarchy_position_value']['table'] = 'field_data_field_hierarchy_position';
+  $handler->display->display_options['filters']['field_hierarchy_position_value']['field'] = 'field_hierarchy_position_value';
+  $handler->display->display_options['filters']['field_hierarchy_position_value']['relationship'] = 'reverse_field_imp_reference_to_courses_node';
+  $handler->display->display_options['filters']['field_hierarchy_position_value']['value'] = 'root';
   $translatables['list_of_course_imps_in_course_node_view'] = array(
     t('Master'),
     t('more'),

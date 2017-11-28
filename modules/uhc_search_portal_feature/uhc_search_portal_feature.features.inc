@@ -113,6 +113,7 @@ function uhc_search_portal_feature_default_search_api_index() {
         "nid" : { "type" : "integer" },
         "search_api_aggregation_1" : { "type" : "text" },
         "search_api_aggregation_2" : { "type" : "text" },
+        "search_api_aggregation_3" : { "type" : "text", "boost" : "21.0" },
         "search_api_language" : { "type" : "string" },
         "title_field" : { "type" : "string" },
         "type" : { "type" : "string" },
@@ -176,18 +177,18 @@ function uhc_search_portal_feature_default_search_api_index() {
                   "field_inherited_conduct:value",
                   "field_inherited_contents:value",
                   "field_inherited_evaluation:value",
-                  "field_imp_reference_to_courses:field_imp_fee:value",
                   "field_inherited_objective:value",
+                  "field_inherited_rel_to_other_stu:value",
                   "field_inherited_req_prerequisite:value",
+                  "field_inherited_responsible_pers:value",
                   "field_inherited_study_materials:value",
                   "field_inherited_target_group:value",
                   "field_inherited_timing:value",
-                  "field_inherited_rel_to_other_stu:value",
-                  "field_inherited_responsible_pers:value",
-                  "field_imp_reference_to_courses:field_open_uni_registration:value",
-                  "field_inherited_working_methods:value"
+                  "field_inherited_working_methods:value",
+                  "field_imp_reference_to_courses:field_imp_fee:value",
+                  "field_imp_reference_to_courses:field_open_uni_registration:value"
                 ],
-                "description" : "A Fulltext aggregation of the following fields: Title, ID, Teacher, Course organiser, Locality, Subject, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Teacher, Reference to course(s) \\u00bb Course organiser, Reference to course(s) \\u00bb Locality, Reference to course(s) \\u00bb Course number, Reference to course(s) \\u00bb Theme, Reference to course(s) \\u00bb Subject, Additional information \\u00bb Text, Course conduct \\u00bb Text, Contents \\u00bb Text, Evaluation \\u00bb Text, Fee \\u00bb Text, Objective \\u00bb Text, Required prerequisites \\u00bb Text, Course study materials \\u00bb Text, Target group \\u00bb Text, Timing \\u00bb Text, Relations to other study units \\u00bb Text, Responsible person \\u00bb Text, Open university registration \\u00bb Text, Realisation and working methods \\u00bb Text, Reference to course(s) \\u00bb Additional information \\u00bb Text, Reference to course(s) \\u00bb Course conduct \\u00bb Text, Reference to course(s) \\u00bb Contents \\u00bb Text, Reference to course(s) \\u00bb Evaluation \\u00bb Text, Reference to course(s) \\u00bb Fee \\u00bb Text, Reference to course(s) \\u00bb Objective \\u00bb Text, Reference to course(s) \\u00bb Required prerequisites \\u00bb Text, Reference to course(s) \\u00bb Course study materials \\u00bb Text, Reference to course(s) \\u00bb Target group \\u00bb Text, Reference to course(s) \\u00bb Timing \\u00bb Text, Reference to course(s) \\u00bb Relations to other study units \\u00bb Text, Reference to course(s) \\u00bb Responsible person \\u00bb Text, Reference to course(s) \\u00bb Open university registration \\u00bb Text, Reference to course(s) \\u00bb Realisation and working methods \\u00bb Text."
+                "description" : "A Fulltext aggregation of the following fields: Title, ID, Teacher, Course organiser, Locality, Subject, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Teacher, Reference to course(s) \\u00bb Course organiser, Reference to course(s) \\u00bb Locality, Reference to course(s) \\u00bb Course number, Reference to course(s) \\u00bb Theme, Reference to course(s) \\u00bb Subject, Additional information \\u00bb Text, Course conduct \\u00bb Text, Contents \\u00bb Text, Assessment practices and criteria \\u00bb Text, Fee \\u00bb Text, Learning outcomes \\u00bb Text, Prerequisites \\u00bb Text, Course study materials \\u00bb Text, Target group \\u00bb Text, Timing \\u00bb Text, Relations to other study units \\u00bb Text, Responsible person \\u00bb Text, Open university registration \\u00bb Text, Completion methods \\u00bb Text, Additional information \\u00bb Text, Course conduct \\u00bb Text, Contents \\u00bb Text, Assessment practices and criteria \\u00bb Text, Learning outcomes \\u00bb Text, Relations to other study units \\u00bb Text, Prerequisites \\u00bb Text, Responsible person \\u00bb Text, Course study materials \\u00bb Text, Target group \\u00bb Text, Timing \\u00bb Text, Completion methods \\u00bb Text, Reference to course(s) \\u00bb Fee \\u00bb Text, Reference to course(s) \\u00bb Open university registration \\u00bb Text."
               },
               "search_api_aggregation_2" : {
                 "name" : "Autocomplete",
@@ -204,7 +205,13 @@ function uhc_search_portal_feature_default_search_api_index() {
                   "field_objective:value",
                   "field_inherited_objective:value"
                 ],
-                "description" : "A Fulltext aggregation of the following fields: Title, ID, Teacher, Locality, Subject, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Course number, Reference to course(s) \\u00bb Subject, Objective \\u00bb Text, Reference to course(s) \\u00bb Objective \\u00bb Text."
+                "description" : "A Fulltext aggregation of the following fields: Title, ID, Teacher, Locality, Subject, Reference to course(s) \\u00bb Title, Reference to course(s) \\u00bb Course number, Reference to course(s) \\u00bb Subject, Learning outcomes \\u00bb Text, Learning outcomes \\u00bb Text."
+              },
+              "search_api_aggregation_3" : {
+                "name" : "Fulltext title",
+                "type" : "fulltext",
+                "fields" : [ "title_field" ],
+                "description" : "A Fulltext aggregation of the following fields: Title."
               }
             }
           }

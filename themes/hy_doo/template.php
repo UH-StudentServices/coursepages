@@ -125,6 +125,9 @@ function hy_doo_theme_registry_alter(&$registry) {
       break;
     }
   }
+
+  // Use custom pager function for pager_lite (class names).
+  $registry['pager_lite']['function'] = 'hy_doo_custom_pager_lite';
 }
 
 /**
@@ -265,4 +268,54 @@ function hy_doo_preprocess_field_collection_view(&$variables) {
     $variables['element']['#attributes']['class'][] = 'subheading';
   }
 
+}
+
+/**
+ * Changes the texts and the class names of previous and next links to match the
+ * text conventions and styleguide.
+ *
+ * "pager-next" -> "pager__next"
+ * "pager-previous" -> "pager__previous"
+ */
+function hy_doo_custom_pager_lite($variables) {
+  $tags = $variables['tags'];
+  $element = $variables['element'];
+  $parameters = $variables['parameters'];
+  global $pager_page_array, $pager_total;
+
+  // current is the page we are currently paged to
+  $pager_current = $pager_page_array[$element] + 1;
+
+
+  $li_previous = theme('pager_previous', array('text' => (isset($tags[1]) ? $tags[1] : t('‹ previous')), 'element' => $element, 'interval' => 1, 'parameters' => $parameters));
+  if (empty($li_previous)) {
+    $li_previous = "&nbsp;";
+  }
+
+  $li_next = theme('pager_lite_next', array('text' => (isset($tags[3]) ? $tags[3] : t('next ›')), 'element' => $element, 'interval' => 1, 'parameters' => $parameters));
+  if (empty($li_next)) {
+    $li_next = "&nbsp;";
+  }
+
+  $items[] = array(
+    'class' => array('pager__previous'),
+    'data' => $li_previous,
+  );
+
+  $items[] = array(
+    'class' => array('pager-current'),
+    'data' => format_plural($pager_current, 'Page 1', 'Page @count'),
+  );
+
+  $items[] = array(
+    'class' => array('pager__next'),
+    'data' => $li_next,
+  );
+  return theme('item_list', array(
+    'items' => $items,
+    'title' => NULL,
+    'type' => 'ul',
+    'attributes' => array('class' => array('pager')),
+    )
+  );
 }

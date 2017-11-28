@@ -161,7 +161,7 @@ function uhc_tour_context_default_contexts() {
 </li>
 
 <li data-class="is-active" data-button="Next">
-  <h2>Course overview</h2>
+  <h2>Description</h2>
   <p>This information is imported from WebOodi and can not be edited here.</p>
 </li>
 

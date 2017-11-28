@@ -230,7 +230,7 @@ function _uhc_course_implementation_handle_objectives_accordion_processing(&$ele
       'class' => 'messages status alternative accordion-content-item',
     ),
     'items' => array(
-      t('Course overview information comes from Oodi.'),
+      t('Information comes from Oodi.'),
     ),
   );
 
@@ -623,7 +623,7 @@ function uhc_course_implementation_help_texts_description(&$content, $node, $dru
 
     // If has timetable and its not only from Drupal, but it's not an exam...
     if ($either_timetable_content && !$schedule_only_from_drupal && !$is_exam) {
-      $help_text = t('Here is the course’s teaching schedule. Check the course overview for possible other schedules.');
+      $help_text = t('Here is the course’s teaching schedule. Check the description for possible other schedules.');
       break;
     }
 
@@ -1129,7 +1129,7 @@ function uhc_course_implementation_field_formatter_view($entity_type, $entity, $
 
         if ($flexible_start_until_date >= $now) {
           $label = t('Flexible start');
-          $description = t('You can enrol and start your studies flexibly.');
+          $description = t('You can register and begin your studies flexibly. To find out when to register, click on Enrol in the study programme.');
 
           $markup = '<span class="label-row help">';
           $markup .= '<label class="label-row__item flexible-start help" title="' . $description . '">' . $label . '</label>';

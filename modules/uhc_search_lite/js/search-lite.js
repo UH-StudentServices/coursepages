@@ -45,14 +45,16 @@
       this.searchTimeout= setTimeout(function() {
         if (keyword.length > 0) {
           this.searchParameters = [
-            'fq=ss_search_api_language%3A' + Drupal.settings.uhc_search_lite.language,
-            'fq=ss_field_hierarchy_position%3A' + Drupal.settings.uhc_search_lite.hierarchy_position,
-            'fq=index_id%3A' + Drupal.settings.uhc_search_lite.index_id,
-            'fq=tm_search_api_aggregation_1%3A' + keyword,
-            // TODO: Use variable!
-            'fq=ss_academic_year%3A%22' + Drupal.settings.uhc_search_lite.academic_year + '%22',
-            'fq=hash%3A' + Drupal.settings.uhc_search_lite.hash,
-            'fl=ss_field_imp_reference_to_courses%24field_course_course_number%2Cis_nid%2Css_url%2Css_title_field%2Css_field_imp_teacher%2Css_search_api_language%2Cds_field_imp_begin_date%2Cds_field_imp_end_date',
+            'qf=' + encodeURI('tm_search_api_aggregation_1^1.0'),
+            'qf=' + encodeURI('tm_search_api_aggregation_3^21.0'),
+            'fq=' + encodeURI('ss_search_api_language:' + Drupal.settings.uhc_search_lite.language),
+            'fq=' + encodeURI('ss_field_hierarchy_position:' + Drupal.settings.uhc_search_lite.hierarchy_position),
+            'fq=' + encodeURI('index_id:' + Drupal.settings.uhc_search_lite.index_id),
+            'fq=' + encodeURI('((tm_search_api_aggregation_3:(' + keyword + ')) OR (tm_search_api_aggregation_1:(' + keyword + ')))'),
+            'fq=' + encodeURI('ss_academic_year:"' + Drupal.settings.uhc_search_lite.academic_year + '"'),
+            'fq=' + encodeURI('hash:' + Drupal.settings.uhc_search_lite.hash),
+            'fl=' + encodeURI('ss_field_imp_reference_to_courses$field_course_course_number,is_nid,ss_url,ss_title_field,ss_field_imp_teacher,ss_search_api_language,ds_field_imp_begin_date,ds_field_imp_end_date'),
+            'sort=score desc',
             'wt=json',
             'indent=true',
             'start=0',
