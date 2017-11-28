@@ -244,3 +244,25 @@ function hy_doo_favorite_widget($variables) {
 function hy_doo_menu_tree__menu_header_links($variables) {
   return '<ul class="links">' . $variables['tree'] . '</ul>';
 }
+
+/**
+ * Implements hook_preprocess_field_collection_view().
+ */
+function hy_doo_preprocess_field_collection_view(&$variables) {
+  if (!isset($variables['element']['entity']['field_collection_item'])) {
+    return;
+  }
+
+  // Resolve the corresponding $entity, so we can decide whether to add the
+  // class or not.
+  $key = array_keys($variables['element']['entity']['field_collection_item'])[0];
+  $entity = $variables['element']['entity']['field_collection_item'][$key]['#entity'];
+  $field_study_module_subheading = field_get_items('field_collection_item', $entity, 'field_study_module_subheading');
+  $subheading_value = !empty($field_study_module_subheading[0]['value']) ? TRUE : FALSE;
+
+  // If subheading checkbox has been checked, then add the class
+  if ($subheading_value) {
+    $variables['element']['#attributes']['class'][] = 'subheading';
+  }
+
+}

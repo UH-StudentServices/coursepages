@@ -529,3 +529,55 @@ function uhc_course_collaboration_get_course_students($course_imp_id) {
   $response = drupal_json_decode(file_get_contents($url));
   return isset($response['data']['students']) ? $response['data']['students'] : array();
 }
+
+/**
+ * Implements hook_cron().
+ */
+function uhc_course_collaboration_cron() {
+
+  // Query top 50 oldest memberships that are created before two weeks ago.
+  $limit = (int) variable_get('uhc_course_collaboration_og_cleanup_limit', 50);
+  $threshold_days = (int) variable_get('uhc_course_collaboration_og_cleanup_threshold_days', 14);
+
+  // Deleting each membership, should delete their grants as well.
+  $count = 0;
+  foreach (uhc_course_collaboration_get_cleanable_membership_ids($threshold_days, $limit) as $id) {
+    og_membership_delete($id);
+    watchdog('uhc_course_collaboration','Deleted membership ID @id during cleanup process.', array('@id' => $id), WATCHDOG_INFO);
+    $count++;
+  }
+
+  if ($count > 0) {
+    watchdog('uhc_course_collaboration','Deleted @count memberships during cleanup process.', array('@count' => $count), WATCHDOG_INFO);
+  }
+  else {
+    watchdog('uhc_course_collaboration','No cleanable memberships.', array(), WATCHDOG_INFO);
+  }
+}
+
+/**
+ * Function for retrieving list of membership IDs that could be potentially
+ * cleaned up.
+ *
+ * @param int $threshold_days
+ *   How old membership potentially removable membership should be at least
+ *   (number of days)? Default 14 days.
+ * @param int $limit
+ *   Maximum number of IDs to return. Default 50.
+ *
+ * @return array
+ *   List of membership IDs.
+ */
+function uhc_course_collaboration_get_cleanable_membership_ids($threshold_days = 14, $limit = 50) {
+  $threshold_seconds = 60 * 60 * 24 * $threshold_days;
+  $max_created_time = time() - $threshold_seconds;
+
+  $query = db_select('og_membership');
+  $query->fields('og_membership', array('id'))
+    ->condition('etid', 0, '>')
+    ->condition('created', $max_created_time, '<')
+    ->orderBy('created')
+    ->range(0, $limit);
+
+  return $query->execute()->fetchCol();
+}

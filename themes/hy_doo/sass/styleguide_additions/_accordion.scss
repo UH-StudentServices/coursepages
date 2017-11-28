@@ -155,6 +155,22 @@
   }
 }
 
+.subheading {
+  .accordion-item-title > h3 {
+    padding: 0;
+    border-top: none;
+    border-bottom: none;
+    &:after {
+      background: none;
+      content: '';
+    }
+  }
+}
+
+.field-collection-item-field-study-module p {
+  margin-bottom: 0;
+}
+
 .ghost-accordion {
   @include font-size(15px);
   position: relative;

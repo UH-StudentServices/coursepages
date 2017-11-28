@@ -74,6 +74,7 @@ function uhc_search_portal_feature_default_search_api_index() {
         "field_imp_organisation" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
         "field_imp_organisation:field_ouh_code" : { "type" : "list\\u003Cstring\\u003E" },
         "field_imp_reference_to_courses:field_course_course_number" : { "type" : "string" },
+        "field_imp_reference_to_courses:field_course_degree_programme" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_imp_reference_to_courses:field_course_faculty" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_imp_reference_to_courses:field_course_subject" : { "type" : "list\\u003Cstring\\u003E" },
         "field_imp_reference_to_courses:field_course_theme" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },

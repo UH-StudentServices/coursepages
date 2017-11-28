@@ -2,5 +2,5 @@ name = UHC Avatar
 description = Provides avatar (user image) related functionality
 core = 7.x
 package = UHC
-version = 7.x-1.93
+version = 7.x-1.94
 project = uhc_avatar

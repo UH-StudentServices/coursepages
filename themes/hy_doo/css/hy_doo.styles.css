@@ -6479,6 +6479,24 @@ ul.pager {
 .label-row.help + .description-toggle {
   display: inline !important; }
 
+body.open-university .ds-node-metadata .field-imp-organisation,
+body.open-university .view-id-course_node_references .field-imp-organisation {
+  display: none; }
+
+body.open-university .ds-node-metadata .field-imp-locality:before,
+body.open-university .view-id-course_node_references .field-imp-locality:before {
+  content: ", "; }
+
+body:not(.open-university) .ds-node-metadata .field-imp-course-organiser,
+body:not(.open-university) .ds-node-metadata .field-imp-locality,
+body:not(.open-university) .view-id-course_node_references .field-imp-course-organiser {
+  display: none; }
+
+.ds-node-metadata .field-imp-organisation:before {
+  content: ' ';
+  clear: right;
+  display: block; }
+
 .event-list .event-list-header {
   margin-top: 1em; }
   .event-list .event-list-header .event-time,
@@ -7805,6 +7823,9 @@ h2.study-module-select-title {
 .node-form .field-name-field-event-begin-date .fieldset-legend {
   display: none; }
 
+.node-form .form-item-field-imp-flexible-start-und-0-value-date label {
+  display: none; }
+
 .filter-wrapper {
   display: none; }
 
@@ -8507,6 +8528,17 @@ h2.study-module-select-title {
     padding-left: 0.25em;
     padding-right: 0.25em;
     position: absolute; }
+
+.subheading .accordion-item-title > h3 {
+  padding: 0;
+  border-top: none;
+  border-bottom: none; }
+  .subheading .accordion-item-title > h3:after {
+    background: none;
+    content: ''; }
+
+.field-collection-item-field-study-module p {
+  margin-bottom: 0; }
 
 .ghost-accordion {
   font-size: 13.125px;

@@ -1,7 +1,7 @@
 name = UHC Course
 core = 7.x
 package = UHC
-version = 7.x-1.93
+version = 7.x-1.94
 project = uhc_course
 dependencies[] = ctools
 dependencies[] = entity_token
@@ -36,6 +36,7 @@ features[field_group][] = group_course_header_promotion|node|course|form
 features[field_group][] = group_course_integration|node|course|form
 features[field_instance][] = node-course-field_course_course_number
 features[field_instance][] = node-course-field_course_course_tags
+features[field_instance][] = node-course-field_course_degree_programme
 features[field_instance][] = node-course-field_course_faculty
 features[field_instance][] = node-course-field_course_subject
 features[field_instance][] = node-course-field_course_theme

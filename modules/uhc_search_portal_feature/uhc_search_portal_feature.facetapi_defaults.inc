@@ -116,6 +116,38 @@ function uhc_search_portal_feature_facetapi_default_facet_settings() {
   $facet = new stdClass();
   $facet->disabled = FALSE; /* Edit this to true to make a default facet disabled initially */
   $facet->api_version = 1;
+  $facet->name = 'search_api@uhc_portal::field_imp_reference_to_courses:field_course_degree_programme';
+  $facet->searcher = 'search_api@uhc_portal';
+  $facet->realm = '';
+  $facet->facet = 'field_imp_reference_to_courses:field_course_degree_programme';
+  $facet->enabled = FALSE;
+  $facet->settings = array(
+    'operator' => 'or',
+    'hard_limit' => '-1',
+    'dependencies' => array(
+      'facets' => array(),
+      'reverse_dependency' => FALSE,
+      'force_deactivation' => TRUE,
+      'regex' => FALSE,
+    ),
+    'facet_mincount' => '1',
+    'facet_missing' => '0',
+    'flatten' => '0',
+    'individual_parent' => '0',
+    'query_type' => 'term',
+    'limit_active_items' => 0,
+    'default_true' => '1',
+    'facet_search_ids' => array(),
+    'exclude' => 0,
+    'pretty_paths_alias' => 'field_imp_reference_to_courses:field_course_degree_programme',
+    'pretty_paths_taxonomy_pathauto' => 0,
+    'pretty_paths_taxonomy_pathauto_vocabulary' => 'degree_programme',
+  );
+  $export['search_api@uhc_portal::field_imp_reference_to_courses:field_course_degree_programme'] = $facet;
+
+  $facet = new stdClass();
+  $facet->disabled = FALSE; /* Edit this to true to make a default facet disabled initially */
+  $facet->api_version = 1;
   $facet->name = 'search_api@uhc_portal::field_imp_reference_to_courses:field_course_faculty';
   $facet->searcher = 'search_api@uhc_portal';
   $facet->realm = '';
@@ -1255,6 +1287,42 @@ function uhc_search_portal_feature_facetapi_default_facet_settings() {
     'rewrite_items' => 1,
   );
   $export['search_api@uhc_portal:block:field_imp_teaching_language:value'] = $facet;
+
+  $facet = new stdClass();
+  $facet->disabled = FALSE; /* Edit this to true to make a default facet disabled initially */
+  $facet->api_version = 1;
+  $facet->name = 'search_api@uhc_portal:block:field_inherited_degree_programme';
+  $facet->searcher = 'search_api@uhc_portal';
+  $facet->realm = 'block';
+  $facet->facet = 'field_inherited_degree_programme';
+  $facet->enabled = TRUE;
+  $facet->settings = array(
+    'weight' => 0,
+    'widget' => 'facetapi_links',
+    'filters' => array(),
+    'active_sorts' => array(
+      'active' => 'active',
+      'count' => 'count',
+      'display' => 'display',
+    ),
+    'sort_weight' => array(
+      'active' => -50,
+      'count' => -49,
+      'display' => -48,
+    ),
+    'sort_order' => array(
+      'active' => 3,
+      'count' => 3,
+      'display' => 4,
+    ),
+    'empty_behavior' => 'none',
+    'facet_more_text' => 'Show more',
+    'facet_fewer_text' => 'Show fewer',
+    'soft_limit' => 20,
+    'nofollow' => 1,
+    'show_expanded' => 0,
+  );
+  $export['search_api@uhc_portal:block:field_inherited_degree_programme'] = $facet;
 
   $facet = new stdClass();
   $facet->disabled = FALSE; /* Edit this to true to make a default facet disabled initially */

@@ -240,7 +240,7 @@ function _uhc_course_implementation_handle_objectives_accordion_processing(&$ele
     ),
     'items' => array(
       1 => array(
-        'data' => t("Degree requirements information"),
+        'data' => t("Curriculum information"),
         'class' => 'study-object',
       ),
       2 => array(

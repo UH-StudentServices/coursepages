@@ -139,7 +139,59 @@ function uhc_course_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 11,
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'node-course-field_course_degree_programme'.
+  $field_instances['node-course-field_course_degree_programme'] = array(
+    'bundle' => 'course',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
+        ),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 44,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_course_degree_programme',
+    'label' => 'Degree programme',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 13,
     ),
   );
 
@@ -198,7 +250,7 @@ function uhc_course_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 20,
+      'weight' => 11,
     ),
   );
 
@@ -294,7 +346,7 @@ function uhc_course_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 21,
+      'weight' => 12,
     ),
   );
 
@@ -350,7 +402,7 @@ function uhc_course_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 10,
+      'weight' => 8,
     ),
   );
 
@@ -617,7 +669,7 @@ function uhc_course_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 14,
+      'weight' => 10,
     ),
   );
 
@@ -867,6 +919,7 @@ function uhc_course_field_default_field_instances() {
   t('Course number');
   t('Course tags');
   t('Credit');
+  t('Degree programme');
   t('Faculty');
   t('Header image');
   t('Header image caption');

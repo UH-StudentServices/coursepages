@@ -1,3 +1,38 @@
+# University of Helsinki Courses v1.94
+Päiväys: 08.06.2017
+
+## Lisäykset
+- DOO-2982: Lisättiin yli kaksi viikkoa vanhojen kurssioikeuksien automaattinen
+  siivous.
+- DOO-2880: Lisätty Elisan Chat avoimen uudelle opintojen laskeutumissivulle.
+  Lisätty uudelleenohjaus vanhalta sivulta uudelle.
+- DOO-2833: Lisättiin suodatusvalinta koulutusohjelmille avoimen yliopiston
+  hakuun.
+- DOO-2905: Lisättiin editoreille mahdollisuus muokata manuaalisesti
+  studies-sivujen URL-aliaksia.
+- DOO-2980: Lisättiin mahdollisuus käyttää väliotsikoita opintokokonaisuuksissa
+
+## Muutokset
+- DOO-2882: Siistittiin joustavan aloituksen päivämäärän muokkausnäkymää.
+- DOO-2902: Lisättiin avoimen yliopiston kurssihakuun joustavasti
+  aloitettavien kurssien hakemisen ohjeistusta.
+- DOO-2947, DOO-2977: Tekstipäivityksiä.
+- DOO-2884, DOO-2885, DOO-2890: Moodi/Moodle -tekstipäivityksiä.
+- DOO-2948: Kurssin organisaation näyttölogiikkaa muutettu.
+- DOO-2989: Opintojen listaus koulutusohjelmittain listataan nyt
+  aakkosjärjestyksessä.
+- DOO-2997: Avoimen yliopiston osiossa lähetetyt palautteet lähetetään nyt eri
+  sähköposti osoitteeseen.
+- DOO-2985: Otettiin englannin kielisiin sivuihin /en etuliite käyttöön, jotta
+  esimerkiksi ristiin-linkitys eri kieliin onnistuu leipätekstissä.
+
+## Korjaukset
+- DOO-2975: Korjattiin studies-sisältötyypin muokkauksen virhetilanne.
+
+## Päivitykset
+- DOO-2096: Päivitettiin title moduuli uusimpaan versioon
+
+
 # University of Helsinki Courses v1.93
 Päiväys: 11.05.2017
 

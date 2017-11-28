@@ -76,6 +76,9 @@ function uhc_course_strongarm() {
         'locations' => array(
           'weight' => '4',
         ),
+        'xmlsitemap' => array(
+          'weight' => '30',
+        ),
       ),
       'display' => array(
         'study_cart_link_entity_view_1' => array(

@@ -9,6 +9,15 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function uhc_feedback_uninstall() {
+  variable_del('uhc_feedback_open_university_email');
+  variable_del('uhc_feedback_efecte_email');
+  variable_del('uhc_feedback_noreply_email');
+}
+
+/**
  * Enable conditional_fields module.
  */
 function uhc_feedback_update_7001(&$sandbox) {

@@ -32,6 +32,10 @@ function uhc_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
   $placeholder = t('Give feedback about the service...');
   $form['message']['#attributes']['placeholder'] = $placeholder;
   $form['message']['#attributes']['title'] = $placeholder;
+  $form['is_open_university'] = array(
+    '#type' => 'value',
+    '#value' => uhc_open_university_is_open_university_context(),
+  );
   unset($form['message']['#title']);
   unset($form['messages']);
   unset($form['help']);
@@ -49,6 +53,7 @@ function uhc_feedback_form_submit($form, &$form_state) {
   entity_form_submit_build_entity('feedback', $entry, $form, $form_state);
   $entry->message = $form_state['values']['message'];
   $entry->location = $form_state['values']['location'];
+  $entry->is_open_university = (bool) $form_state['values']['is_open_university'];
   feedback_save($entry);
 
   drupal_set_message(t('Thank you'));
@@ -72,24 +77,30 @@ function uhc_feedback_views_api($module = NULL, $api = NULL) {
  * Implements hook_feedback_insert().
  */
 function uhc_feedback_feedback_insert($entry) {
-  uhc_feedback_email_to_efecte($entry);
+  if ($entry->is_open_university) {
+    $to = variable_get('uhc_feedback_open_university_email', 'avoin-yleinen@helsinki.fi');
+  }
+  else {
+    $to = variable_get('uhc_feedback_efecte_email', 'opetusteknologia@helsinki.fi');
+  }
+  uhc_feedback_email_to($entry, $to);
 }
 
 /**
- * Composes and sends the submitted feedback message to Efecte system.
+ * Composes and sends the submitted feedback message to given email address.
  *
  * @param $entry object Feedback object.
+ * @param $to string Email address
  */
-function uhc_feedback_email_to_efecte($entry) {
+function uhc_feedback_email_to($entry, $to) {
   $module = 'uhc_feedback';
   $key = 'feedback';
-  $to = variable_get('uhc_feedback_efecte_email', 'opetusteknologia@helsinki.fi');
   global $language;
   $from = uhc_feedback_get_email($entry);
 
   $params = array(
     'subject' => variable_get('uhc_feedback_email_subject', 'Palaute kurssisivuilta'),
-    'message' => uhc_feedback_build_efecte_email_body($entry),
+    'message' => uhc_feedback_build_email_body($entry),
     'return_path' => variable_get('site_mail', ''),
     'from' => $from
   );
@@ -103,7 +114,7 @@ function uhc_feedback_get_email($entry) {
     : variable_get('uhc_feedback_noreply_email', 'noreply@helsinki.fi');
 }
 
-function uhc_feedback_build_efecte_email_body($entry) {
+function uhc_feedback_build_email_body($entry) {
   global $base_url;
   $url = !empty($entry->url) ? $entry->url : "$base_url/$entry->location";
   $time = date('d.m.Y H:i:s', $entry->timestamp);

@@ -17,6 +17,14 @@ function uhc_course_collaboration_install() {
 }
 
 /**
+ * Implements hook_uninstall().
+ */
+function uhc_course_collaboration_uninstall() {
+  variable_del('uhc_course_collaboration_og_cleanup_limit');
+  variable_del('uhc_course_collaboration_og_cleanup_threshold_days');
+}
+
+/**
  * Enable field extra widgets and use it on 'og_user_node'.
  */
 function uhc_course_collaboration_update_7001() {

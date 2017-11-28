@@ -124,6 +124,9 @@ class CourseNodeMigration extends PortalMigrationBase {
     $this->addFieldMapping('field_course_faculty',  'faculties')
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'resolveFacultyTid'));
+    $this->addFieldMapping('field_course_degree_programme',  'degree_programme')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'resolveDegreeProgrammeTid'));
   }
 
   /**
@@ -155,6 +158,7 @@ class CourseNodeMigration extends PortalMigrationBase {
       'credit_points_min'               => 'Minimum credit points',
       'credit_points'                   => 'Computed scale of credit points',
       'faculties'                       => 'Faculty of course',
+      'degree_programme'                => 'Degree programme',
       'realisation_and_working_methods' => 'Multilingual: Realisation and working methods',
     );
   }
@@ -400,25 +404,34 @@ class CourseNodeMigration extends PortalMigrationBase {
   }
 
   /**
-   * Method for resolving taxonomy term id for given faculty.
+   * Method for resolving taxonomy term id for given degree programme.
+   *
    * @param $values
    *   An list of values indexed by language code.
+   * @param $vocabulary_name
+   *   Vocabulary machine name that resolving is limited to.
+   *
    * @return array|mixed|null
    */
-  static function resolveFacultyTid($values) {
+  static function resolveTid($values, $vocabulary_name) {
 
-    $faculties = array();
+    $source_values = array();
 
     foreach ($values as $value) {
-      $faculties[$value->langcode] = $value->text;
+      $source_values[$value->langcode] = $value->text;
+    }
+
+    // When no values, don't even bother...
+    if (empty($source_values)) {
+      return NULL;
     }
 
     // Query these keywords against taxonomy term's name field
     $search_by_language = 'en';
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'taxonomy_term')
-      ->entityCondition('bundle', 'faculty')
-      ->fieldCondition('name_field', 'value', $faculties[$search_by_language])
+      ->entityCondition('bundle', $vocabulary_name)
+      ->fieldCondition('name_field', 'value', $source_values[$search_by_language])
       ->fieldLanguageCondition('name_field', $search_by_language);
     $results = $query->execute();
     if (isset($results['taxonomy_term']) && count($results['taxonomy_term']) > 0) {
@@ -433,9 +446,9 @@ class CourseNodeMigration extends PortalMigrationBase {
         if (!empty($match_term->name_field)) {
           foreach ($match_term->name_field as $langcode => $value) {
             if ($langcode != LANGUAGE_NONE) {
-              if ($faculties[$langcode] != $value[0]['value']) {
+              if ($source_values[$langcode] != $value[0]['value']) {
                 // Translation has been changed
-                $match_term->name_field[$langcode][0]['value'] = $faculties[$langcode];
+                $match_term->name_field[$langcode][0]['value'] = $source_values[$langcode];
                 $translation_updated = TRUE;
               }
             }
@@ -445,7 +458,7 @@ class CourseNodeMigration extends PortalMigrationBase {
         // If translation has been updated, then save the updates.
         if ($translation_updated) {
           taxonomy_term_save($match_term);
-          watchdog('uhc_course_source', 'Updated translations for faculty tid @tid', array('@tid' => $match_tid->tid), WATCHDOG_NOTICE);
+          watchdog('uhc_course_source', 'Updated translations for @vocabulary tid @tid', array('@vocabulary' => $vocabulary_name, '@tid' => $match_tid->tid), WATCHDOG_NOTICE);
         }
       }
 
@@ -453,18 +466,18 @@ class CourseNodeMigration extends PortalMigrationBase {
     else {
 
       // Build new taxonomy term entity object
-      $faculty_vocabulary = taxonomy_vocabulary_machine_name_load('faculty');
+      $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_name);
       $term_values = array(
-        'vid' => $faculty_vocabulary->vid,
-        'vocabulary_machine_name' => $faculty_vocabulary->machine_name,
-        'name' => $faculties['en'],
+        'vid' => $vocabulary->vid,
+        'vocabulary_machine_name' => $vocabulary->machine_name,
+        'name' => $source_values['en'],
         'description_field' => array(),
         'format' => 'plain_text',
         'weight' => 0,
         'name_field' => array(
-          'en' => array(array('value' => $faculties['en'])),
-          'fi' => array(array('value' => $faculties['fi'])),
-          'sv' => array(array('value' => $faculties['sv'])),
+          'en' => array(array('value' => $source_values['en'])),
+          'fi' => array(array('value' => $source_values['fi'])),
+          'sv' => array(array('value' => $source_values['sv'])),
         ),
       );
       $term = entity_create('taxonomy_term', $term_values);
@@ -505,6 +518,26 @@ class CourseNodeMigration extends PortalMigrationBase {
     }
 
     return $return;
+  }
+
+  /**
+   * Method for resolving taxonomy term id for given faculty.
+   * @param $values
+   *   An list of values indexed by language code.
+   * @return array|mixed|null
+   */
+  static function resolveFacultyTid($values) {
+    return self::resolveTid($values, 'faculty');
+  }
+
+  /**
+   * Method for resolving taxonomy term id for given degree programme.
+   * @param $values
+   *   An list of values indexed by language code.
+   * @return array|mixed|null
+   */
+  static function resolveDegreeProgrammeTid($values) {
+    return self::resolveTid($values, 'degree_programme');
   }
 
   ##############################################################################

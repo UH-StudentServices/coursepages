@@ -401,6 +401,9 @@ function uhc_subject_field_collection_fieldset_field_as_label_alter(&$title, arr
       elseif (empty($title) && !empty($reference)) {
         $title = check_plain($reference->title);
       }
+      elseif (empty($title)) {
+        $title = t('Study module');
+      }
     } elseif ($field_as_label == 'field_related_content_title') {
       $field_items = field_get_items('field_collection_item', $field_collection_item_wrapper->raw(), 'field_related_content_title');
 

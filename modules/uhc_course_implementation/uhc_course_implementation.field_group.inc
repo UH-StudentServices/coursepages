@@ -21,7 +21,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Conduct of the course',
-    'weight' => '27',
+    'weight' => '28',
     'children' => array(
       0 => 'field_imp_teacher_se_content',
     ),
@@ -203,7 +203,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Feedback',
-    'weight' => '29',
+    'weight' => '30',
     'children' => array(
       0 => 'field_feedback_link',
       1 => 'field_feedback_description',
@@ -261,7 +261,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Registration and fee',
-    'weight' => '30',
+    'weight' => '31',
     'children' => array(
       0 => 'uhc_ds_fee',
       1 => 'uhc_ds_open_uni_registration',
@@ -375,7 +375,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Interaction',
-    'weight' => '21',
+    'weight' => '22',
     'children' => array(
       0 => 'field_imp_interaction_link',
       1 => 'field_imp_interactiondescription',
@@ -462,7 +462,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Learning environments',
-    'weight' => '19',
+    'weight' => '20',
     'children' => array(
       0 => 'field_moodle_url',
       1 => 'field_wiki_url',
@@ -497,7 +497,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Results',
-    'weight' => '28',
+    'weight' => '29',
     'children' => array(
       0 => 'field_imp_results',
       1 => 'uhc_course_implementation_exam_results_info_text',
@@ -582,7 +582,7 @@ function uhc_course_implementation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Video',
-    'weight' => '24',
+    'weight' => '25',
     'children' => array(
       0 => 'field_video_description',
       1 => 'field_video_embed_url',

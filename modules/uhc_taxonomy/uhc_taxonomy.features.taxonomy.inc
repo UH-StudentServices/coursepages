@@ -9,6 +9,29 @@
  */
 function uhc_taxonomy_taxonomy_default_vocabularies() {
   return array(
+    'degree_programme' => array(
+      'name' => 'Degree programme',
+      'machine_name' => 'degree_programme',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
     'method_of_study' => array(
       'name' => 'Method of study',
       'machine_name' => 'method_of_study',

@@ -62,3 +62,33 @@
 .label-row.help + .description-toggle {
   display: inline !important;
 }
+
+// Open University context: Do not display organisation.
+body.open-university {
+  .ds-node-metadata .field-imp-organisation,
+  .view-id-course_node_references .field-imp-organisation {
+    display: none;
+  }
+
+  // Add a comma before locality field.
+  .ds-node-metadata .field-imp-locality:before,
+  .view-id-course_node_references .field-imp-locality:before{
+    content: ", ";
+  }
+}
+
+// Other than Open University context: Do not display organiser nor locality.
+body:not(.open-university) {
+  .ds-node-metadata .field-imp-course-organiser,
+  .ds-node-metadata .field-imp-locality,
+  .view-id-course_node_references .field-imp-course-organiser {
+    display: none;
+  }
+}
+
+// Simulate a line break before (but not after) the organisation element.
+.ds-node-metadata .field-imp-organisation:before {
+  content: ' ';
+  clear: right;
+  display: block;
+}

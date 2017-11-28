@@ -149,10 +149,9 @@ function uhc_course_field_group_info() {
       5 => 'field_objective',
       6 => 'field_req_prerequisites',
       7 => 'field_study_credit',
-      8 => 'field_study_materials',
-      9 => 'field_target_group',
-      10 => 'field_course_subject',
-      11 => 'field_course_faculty',
+      8 => 'field_course_subject',
+      9 => 'field_course_faculty',
+      10 => 'field_course_degree_programme',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

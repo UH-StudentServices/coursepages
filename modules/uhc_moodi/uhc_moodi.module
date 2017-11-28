@@ -66,7 +66,9 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
     );
 
     $moodi_response = uhc_moodi_get_controller()->get($course_implementation_id);
+
     if (uhc_moodi_access()) {
+
       // Moodi create button.
       $form['uhc_moodi_fieldset']['uhc_moodi_create_button'] = array(
         '#type' => 'submit',
@@ -78,7 +80,7 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
         ),
       );
 
-      //fieldset info, shown as a info bubble
+      // Fieldset info, shown as a info bubble.
       $form['uhc_moodi_fieldset']['uhc_moodi_fieldset_info'] = array(
         '#type' => 'markup',
         '#prefix' => '<div class="description fieldset-info">',
@@ -90,7 +92,7 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
       $show_status = !empty(uhc_moodi_get_moodle_url($moodi_response)) || uhc_moodi_is_error_response($moodi_response);
 
       if ($show_status) {
-        $status_markup = '<h4>Moodle status</h4>' . uhc_moodi_get_status_markup($moodi_response);
+        $status_markup = '<h4>' . uhc_moodi_get_status_title($moodi_response) . '</h4>' . uhc_moodi_get_status_markup($moodi_response);
         $form['uhc_moodi_fieldset']['uhc_moodi_status_area'] = array(
           '#type' => 'markup',
           '#prefix' => uhc_moodi_get_status_prefix($moodi_response),
@@ -137,19 +139,33 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
 }
 
 /**
+ * Returns status title based on Moodi response.
+ *
+ * @param $moodi_response object Moodi response.
+ * @return string Status title.
+ */
+function uhc_moodi_get_status_title($moodi_response) {
+  return uhc_moodi_is_error_response($moodi_response) ? t('Error') : t('Moodle status OK');
+}
+
+/**
  * Builds and returns status area markup based on Moodi response.
  *
  * @param $moodi_response object Moodi response.
  * @return mixed|null|string Status area markup.
  */
 function uhc_moodi_get_status_markup($moodi_response) {
+  $status_markup = '';
   $moodi_response_data = uhc_moodi_get_data($moodi_response);
 
-  if (!empty($moodi_response_data->message)) {
-    $status_markup = check_plain($moodi_response_data->message);
+  if (!empty($moodi_response_data->moodleCourseId) || !empty(uhc_moodi_get_moodle_url($moodi_response))) {
+    $status_markup .= t('The Moodle area is created and the students and teachers are enrolled from WebOodi to Moodle. Enrolments are synchronized every two hours.');
+  }
+  elseif (!empty($moodi_response_data->message)) {
+    $status_markup .= check_plain($moodi_response_data->message);
   }
   else {
-    $status_markup = t('Something went wrong.');
+    $status_markup .= t('Something went wrong. Please try later again and contact moodle@helsinki.fi if necessary.');
 
     if (!empty($moodi_response->error)) {
       $error = check_plain($moodi_response->error);
@@ -161,17 +177,15 @@ function uhc_moodi_get_status_markup($moodi_response) {
 
   if (!empty($moodle_area_url)) {
     $moodle_area_link = l($moodle_area_url, $moodle_area_url);
-    $status_markup = "<div><p>$moodle_area_link</p></div>";
+    $status_markup .= "<div><p>$moodle_area_link</p></div>";
     $status_markup = uhc_moodi_append_import_in_progress_status_markup($moodi_response_data, $status_markup);
-    $status_markup = uhc_moodi_append_student_enrollment_status_markup($moodi_response_data, $status_markup);
-    $status_markup = uhc_moodi_append_teacher_enrollment_status_markup($moodi_response_data, $status_markup);
   }
 
   return $status_markup;
 }
 
 /**
- * Builds and returns "import in progress" status markup basde on Moodi
+ * Builds and returns "import in progress" status markup based on Moodi
  * response.
  *
  * @param $moodi_response_data object Moodi response data.
@@ -183,82 +197,6 @@ function uhc_moodi_append_import_in_progress_status_markup($moodi_response_data,
     $status_markup .= '<div class="moodi-import-status">';
     $status_markup .= t('Currently importing and synchronizing students and teachers...');
     $status_markup .= '</div>';
-  }
-
-  return $status_markup;
-}
-
-/**
- * Builds and returns student enrollment status markup based on Moodi response.
- *
- * @param $moodi_response_data object Moodi response data.
- * @param $status_markup string Status markup.
- * @return string Status markup.
- */
-function uhc_moodi_append_student_enrollment_status_markup($moodi_response_data, $status_markup) {
-  if ($moodi_response_data->importStatus == MOODI_IMPORT_STATUS_COMPLETED &&
-      !empty($moodi_response_data->courseEnrollmentStatus->studentEnrollments)) {
-    $header = array(t('Student number'), t('Status'));
-    $rows = array();
-    foreach ($moodi_response_data->courseEnrollmentStatus->studentEnrollments as $enrollment) {
-
-      // Ensure that we actually have student number and course enrollment
-      // status codes that we're about to create a row for...
-      if (!isset($enrollment->studentNumber) || !isset($enrollment->courseEnrollmentStatusCode)) {
-        // Skip this if we're missing either value
-        continue;
-      }
-
-      // Define cells
-      $cells = array(
-        array('data' => check_plain($enrollment->studentNumber), 'width' => '50%'),
-        array('data' => check_plain($enrollment->courseEnrollmentStatusCode), 'width' => '50%'),
-      );
-
-      // Define row
-      $class = $enrollment->courseEnrollmentStatusCode != 'OK' ? 'warning' : '';
-      $rows[] = array('data' => $cells, 'class' => array($class));
-    }
-
-    $status_markup .= theme('table', array('header' => $header, 'rows' => $rows));
-  }
-
-  return $status_markup;
-}
-
-/**
- * Builds and returns teacher enrollment status markup based on Moodi response.
- *
- * @param $moodi_response_data object Moodi response data.
- * @param $status_markup string Status markup.
- * @return string Status markup.
- */
-function uhc_moodi_append_teacher_enrollment_status_markup($moodi_response_data, $status_markup) {
-  if ($moodi_response_data->importStatus == MOODI_IMPORT_STATUS_COMPLETED &&
-      !empty($moodi_response_data->courseEnrollmentStatus->teacherEnrollments)) {
-    $header = array(t('Teacher ID'), t('Status'));
-    $rows = array();
-    foreach ($moodi_response_data->courseEnrollmentStatus->teacherEnrollments as $enrollment) {
-
-      // Ensure that we actually have teacher ID and course enrollment status
-      // codes that we're about to create a row for...
-      if (!isset($enrollment->teacherId) || !isset($enrollment->courseEnrollmentStatusCode)) {
-        // Skip this if we're missing either value
-        continue;
-      }
-
-      // Define cells
-      $cells = array(
-        array('data' => check_plain($enrollment->teacherId), 'width' => '50%'),
-        array('data' => check_plain($enrollment->courseEnrollmentStatusCode), 'width' => '50%'),
-      );
-
-      // Define row
-      $class = $enrollment->courseEnrollmentStatusCode != 'OK' ? 'warning' : '';
-      $rows[] = array('data' => $cells, 'class' => array($class));
-    }
-
-    $status_markup .= theme('table', array('header' => $header, 'rows' => $rows));
   }
 
   return $status_markup;
@@ -348,15 +286,25 @@ function uhc_moodi_create_button_ajax_callback($form, &$form_state) {
     $moodi_get_response = uhc_moodi_get_controller()->get($course_implementation_id);
 
     $element['#prefix'] = uhc_moodi_get_status_prefix($moodi_create_response);
-    $element['#markup'] = '<h4>Creation result</h4>';
+    $element['#markup'] = '<h4>' . uhc_moodi_get_creation_result_title($moodi_create_response) . '</h4>';
     $element['#markup'] .= uhc_moodi_get_status_markup($moodi_create_response);
-    $element['#markup'] .= '<h4>Moodle status</h4>';
+    $element['#markup'] .= '<h4>' . uhc_moodi_get_status_title($moodi_create_response) . '</h4>';
     $element['#markup'] .= uhc_moodi_get_status_markup($moodi_get_response);
 
     uhc_moodi_handle_create_response($moodi_create_response, $form);
   }
 
   return $element;
+}
+
+/**
+ * Returns creation result title based on Moodi response.
+ *
+ * @param $moodi_response object Moodi response.
+ * @return string Creation result title.
+ */
+function uhc_moodi_get_creation_result_title($moodi_response) {
+  return uhc_moodi_is_error_response($moodi_response) ? t('Creation failed') : t('Moodle status OK');
 }
 
 /**

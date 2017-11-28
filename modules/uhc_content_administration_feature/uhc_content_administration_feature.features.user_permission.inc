@@ -92,6 +92,13 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'taxonomy_access_fix',
   );
 
+  // Exported permission: 'add terms in degree_programme'.
+  $permissions['add terms in degree_programme'] = array(
+    'name' => 'add terms in degree_programme',
+    'roles' => array(),
+    'module' => 'taxonomy_access_fix',
+  );
+
   // Exported permission: 'add terms in months'.
   $permissions['add terms in months'] = array(
     'name' => 'add terms in months',
@@ -256,6 +263,15 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'create field_course_course_tags'.
   $permissions['create field_course_course_tags'] = array(
     'name' => 'create field_course_course_tags',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'create field_course_degree_programme'.
+  $permissions['create field_course_degree_programme'] = array(
+    'name' => 'create field_course_degree_programme',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -983,6 +999,13 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
+  // Exported permission: 'delete terms in degree_programme'.
+  $permissions['delete terms in degree_programme'] = array(
+    'name' => 'delete terms in degree_programme',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
   // Exported permission: 'delete terms in months'.
   $permissions['delete terms in months'] = array(
     'name' => 'delete terms in months',
@@ -1199,6 +1222,15 @@ function uhc_content_administration_feature_user_default_permissions() {
   // Exported permission: 'edit field_course_course_tags'.
   $permissions['edit field_course_course_tags'] = array(
     'name' => 'edit field_course_course_tags',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit field_course_degree_programme'.
+  $permissions['edit field_course_degree_programme'] = array(
+    'name' => 'edit field_course_degree_programme',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -1837,6 +1869,15 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit own field_course_degree_programme'.
+  $permissions['edit own field_course_degree_programme'] = array(
+    'name' => 'edit own field_course_degree_programme',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit own field_course_faculty'.
   $permissions['edit own field_course_faculty'] = array(
     'name' => 'edit own field_course_faculty',
@@ -2350,6 +2391,15 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'url_alias_permissions',
   );
 
+  // Exported permission: 'edit studies URL alias'.
+  $permissions['edit studies URL alias'] = array(
+    'name' => 'edit studies URL alias',
+    'roles' => array(
+      'editor-in-chief of communications' => 'editor-in-chief of communications',
+    ),
+    'module' => 'url_alias_permissions',
+  );
+
   // Exported permission: 'edit subject URL alias'.
   $permissions['edit subject URL alias'] = array(
     'name' => 'edit subject URL alias',
@@ -2367,6 +2417,13 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
     ),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'edit terms in degree_programme'.
+  $permissions['edit terms in degree_programme'] = array(
+    'name' => 'edit terms in degree_programme',
+    'roles' => array(),
     'module' => 'taxonomy',
   );
 
@@ -2875,6 +2932,15 @@ function uhc_content_administration_feature_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_course_degree_programme'.
+  $permissions['view field_course_degree_programme'] = array(
+    'name' => 'view field_course_degree_programme',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view field_course_faculty'.
   $permissions['view field_course_faculty'] = array(
     'name' => 'view field_course_faculty',
@@ -3128,6 +3194,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'name' => 'view field_imp_organisation',
     'roles' => array(
       'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
     ),
     'module' => 'field_permissions',
   );
@@ -3461,6 +3528,15 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_course_degree_programme'.
+  $permissions['view own field_course_degree_programme'] = array(
+    'name' => 'view own field_course_degree_programme',
+    'roles' => array(
+      'administrator' => 'administrator',
     ),
     'module' => 'field_permissions',
   );

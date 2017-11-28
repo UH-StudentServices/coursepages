@@ -300,8 +300,9 @@ function uhc_ds_course_node_references($field) {
 }
 
 /**
-* Render status, organization, location, and date for Course implementation nodes.
-*/
+ * Render status, organization/organiser, location, date and flexible start info
+ * for Course implementation nodes.
+ */
 function uhc_ds_status_org_location_date($field) {
   $node = $field['entity'];
 
@@ -325,8 +326,11 @@ function uhc_ds_status_org_location_date($field) {
   $end_date = isset($values['field_imp_end_date']['#items'][0]['value']) ? ' - ' . date('j.n.Y', strtotime($values['field_imp_end_date']['#items'][0]['value'])) : '';
   $time = ' ' . $begin_date . $end_date;
 
+  $open_university = uhc_open_university_is_open_university_course_or_implementation($node);
+  $organisation_names = $open_university ? '' : uhc_ds_get_rendered_organisation_names($node);
   $organiser = isset($values['field_imp_course_organiser'][0]['#markup']) ? $values['field_imp_course_organiser'][0]['#markup'] : uhc_ds_get_imp_course_organiser_fallback($node);
-  $locality = isset($values['field_imp_locality']) ? render($values['field_imp_locality']) : '';
+  $rendered_organiser = $open_university ? '<span class="field-imp-course-organiser">' . $organiser . '</span>' : '';
+  $locality = $open_university && isset($values['field_imp_locality']) ? render($values['field_imp_locality']) : '';
   $course = node_load(field_get_items('node', $node, 'field_imp_reference_to_courses')[0]['target_id']);
   $flexible_start = isset($values['field_imp_flexible_start']) ? render($values['field_imp_flexible_start']) : '';
 
@@ -342,8 +346,33 @@ function uhc_ds_status_org_location_date($field) {
     }
   }
 
-  return render($status) . '<div class="org-location-date"><div>' . $title_and_credits . '</div><div>' . $organiser . $locality . $time . $flexible_start . '</div></div>';
+  $rendered_title_and_credits = '<div class="org-location-date"><div>' . $title_and_credits . '</div><div>';
 
+  return render($status)
+    . $rendered_title_and_credits
+    . $organisation_names
+    . $rendered_organiser
+    . $locality
+    . $time
+    . $flexible_start
+    . '</div></div>';
+}
+
+/**
+ * @param $node
+ * @return string
+ */
+function uhc_ds_get_rendered_organisation_names($node) {
+  $organisation_field_items = field_get_items('node', $node, 'field_imp_organisation');
+  $rendered_organisation_names = array();
+
+  if (!empty($organisation_field_items)) {
+    $rendered_organisation_names = array_map(function ($term) {
+      return '<span class="field-imp-organisation">' . check_plain($term->name) . '</span>';
+    }, taxonomy_term_load_multiple(array_column($organisation_field_items, 'tid')));
+  }
+
+  return implode(', ', $rendered_organisation_names);
 }
 
 function uhc_ds_get_imp_course_organiser_fallback($node) {
