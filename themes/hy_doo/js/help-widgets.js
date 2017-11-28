@@ -8,7 +8,7 @@
 (function ($) {
   Drupal.behaviors.uhc_help_widgets = {
     attach: function (context, settings) {
-      $('form .description').once('uhc_help_widgets', function () {
+      $("form .description, .help.description").once('uhc_help_widgets', function () {
 
         // try to find corresponding label and move description after it
         if ($(this).siblings('label').length) {
@@ -29,11 +29,19 @@
           $(this).children('.description').toggleClass('collapsed');
         });
 
+        // toggle collapsed description, close others
+        $(this).parent('.description-toggle').siblings('.label-row').children('label').click(function (event) {
+          event.stopPropagation();
+          event.preventDefault();
+          $('.description').removeClass('collapsed');
+          $(this).parent('.label-row').siblings('.description-toggle').children('.description').toggleClass('collapsed');
+        });
+
       });
 
       // close description when clicking outside
-      $(document).bind('touchstart click', function(event) {
-        if (!$(event.target).closest('.description-toggle').length) {
+      $(document).bind('touchstart click', function (event) {
+        if (!$(event.target).closest('.description-toggle').length && !$(event.target).hasClass('help')) {
           $('.description').removeClass('collapsed');
         }
       });

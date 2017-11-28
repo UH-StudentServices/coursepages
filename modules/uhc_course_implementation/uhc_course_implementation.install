@@ -12,6 +12,7 @@
  */
 function uhc_course_implementation_uninstall() {
   // Clean up variables
+  variable_del('uhc_course_implementation_standard_enrollment_url');
   variable_del('uhc_course_implementation_eletronic_exam_room_tid');
   db_query("DELETE FROM {variable} WHERE name LIKE 'uhc_course_implementation_timetable_examinarium_url_%'");
 }

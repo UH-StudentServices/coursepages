@@ -1,0 +1,7 @@
+span.links__link.theme-language {
+  color: $mediumsilver;
+
+  @include breakpoint($small) {
+    color: $lightgray;
+  }
+}

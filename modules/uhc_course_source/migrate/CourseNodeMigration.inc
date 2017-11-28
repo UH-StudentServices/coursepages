@@ -544,7 +544,14 @@ class CourseNodeMigration extends PortalMigrationBase {
    * @see CourseNodeMigration::prepareMultilingualRootTexts()
    */
   static public function prepareTitle(&$row) {
-    $row->title = (!empty($row->names['fi']) ? $row->names['fi'] : NULL);
+    $title = NULL;
+    foreach (array('en', 'fi', 'sv') as $lang) {
+      if (!empty($row->names[$lang])) {
+        $title = $row->names[$lang];
+        break;
+      }
+    }
+    $row->title = $title;
   }
 
   /**

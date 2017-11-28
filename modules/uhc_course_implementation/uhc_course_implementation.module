@@ -378,7 +378,7 @@ function uhc_course_implementation_get_enrollment_url($node, array $options, $na
   }
   else {
     // Standard URL
-    $url = 'https://weboodi.helsinki.fi/hy/alkusivu.jsp?Kieli=:langnum&avattavaSivu=opettaptied&OpetTap=:id';
+    $url = variable_get('uhc_course_implementation_standard_enrollment_url', 'https://weboodi.helsinki.fi/hy/opettaptied.jsp?OpetTap=:id&Kieli=:langnum');
   }
 
   // Construct absolute URL with attributes
@@ -1082,7 +1082,7 @@ function uhc_course_implementation_load_by_id($course_implementation_id) {
 /**
  * Implements hook_field_formatter_info().
  *
- * Field formatter for course implementation status.
+ * Field formatter for course implementation status and flexible start date.
  */
 function uhc_course_implementation_field_formatter_info() {
   return array(
@@ -1091,14 +1091,20 @@ function uhc_course_implementation_field_formatter_info() {
       'field types' => array('list_boolean'),
       'description' => t('Displays a true value as a cancelled message.'),
     ),
+    'flexible_start' => array(
+      'label' => t('Flexible start'),
+      'field types' => array('date', 'datestamp', 'datetime'),
+    ),
   );
 }
 
 /**
  * Implements hook_field_formatter_view().
  *
- * Formats course implementation status value (integer) as translated status
- * text.
+ * Formats:
+ *
+ * - Course implementation status value (integer) as translated status text
+ * - Course implementation flexible start date field
  */
 function uhc_course_implementation_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $element = array();
@@ -1106,6 +1112,27 @@ function uhc_course_implementation_field_formatter_view($entity_type, $entity, $
     foreach ($items as $delta => $item) {
       if ($item['value']) {
         $markup = '<span class="cancelled messages alternative error"><span>' . t('Cancelled') . '</span></span>';
+        $element[$delta] = array('#markup' => $markup);
+      }
+    }
+  }
+  elseif ($display['type'] == 'flexible_start') {
+    foreach ($items as $delta => $item) {
+      if ($item['value']) {
+        $flexible_start_until_date = new DateTime($item['value']);
+        $now = new DateTime(date('Y-m-d'));
+        $markup = NULL;
+
+        if ($flexible_start_until_date >= $now) {
+          $label = t('Flexible start');
+          $description = t('You can enrol and start your studies flexibly.');
+
+          $markup = '<span class="label-row help">';
+          $markup .= '<label class="label-row__item flexible-start help" title="' . $description . '">' . $label . '</label>';
+          $markup .= '</span>';
+          $markup .= '<span class="help description">' . $description . '</span>';
+        }
+
         $element[$delta] = array('#markup' => $markup);
       }
     }
@@ -1193,7 +1220,7 @@ function uhc_course_implementation_form_course_implementation_node_form_alter(&$
  * entity gets displayed instead.
  */
 function uhc_course_implementation_field_collection_item_view_alter(&$build) {
-  if ($build['#bundle'] == 'field_imp_teachersection') {
+  if ($build['#bundle'] == 'field_imp_teachersection' && !empty($build['#post_render'])) {
     foreach ($build['#post_render'] as $key => $value) {
       if ($value == 'entity_translation_unavailable') {
         unset($build['#post_render'][$key]);

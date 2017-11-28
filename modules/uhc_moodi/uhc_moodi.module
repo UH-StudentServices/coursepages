@@ -86,17 +86,21 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
         '#markup' => t('Automatic synchronization means that students with confirmed enrollments are moved to a new moodle-area from the learning opportunity found in WebOodi that corresponds this course. Enrollments are synchronized every 10 minutes, but unfortunately at this point cancellations and removals are not taken into account. Teachers and responsible teachers are given the same treatment as students.'),
       );
 
-      // Status area.
-      $status_markup = '<h4>Moodle status</h4>' . uhc_moodi_get_status_markup($moodi_response);
-      $form['uhc_moodi_fieldset']['uhc_moodi_status_area'] = array(
-        '#type' => 'markup',
-        '#prefix' => uhc_moodi_get_status_prefix($moodi_response),
-        '#suffix' => '</div>',
-        '#markup' => $status_markup,
-        '#attached' => array('js' => array(
-          drupal_get_path('module', 'uhc_moodi') . '/js/uhc_moodi_copy_moodle_url.js',
-        )),
-      );
+      // Show status area when the Moodle URL exists or on error response.
+      $show_status = !empty(uhc_moodi_get_moodle_url($moodi_response)) || uhc_moodi_is_error_response($moodi_response);
+
+      if ($show_status) {
+        $status_markup = '<h4>Moodle status</h4>' . uhc_moodi_get_status_markup($moodi_response);
+        $form['uhc_moodi_fieldset']['uhc_moodi_status_area'] = array(
+          '#type' => 'markup',
+          '#prefix' => uhc_moodi_get_status_prefix($moodi_response),
+          '#suffix' => '</div>',
+          '#markup' => $status_markup,
+          '#attached' => array('js' => array(
+            drupal_get_path('module', 'uhc_moodi') . '/js/uhc_moodi_copy_moodle_url.js',
+          )),
+        );
+      }
     }
     else {
       $form['uhc_moodi_fieldset']['uhc_moodi_not_available'] = array(
@@ -324,6 +328,10 @@ function uhc_moodi_get_moodle_url($moodi_response) {
   $moodi_response_data = uhc_moodi_get_data($moodi_response);
 
   return !empty($moodi_response_data->url) ? $moodi_response_data->url : '';
+}
+
+function uhc_moodi_is_error_response($moodi_response) {
+  return !in_array($moodi_response->code, array(200, 404));
 }
 
 /**

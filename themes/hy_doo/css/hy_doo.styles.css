@@ -4855,6 +4855,50 @@ ul.pager {
   margin-right: 0.5em; }
 
 /*
+ section: 13.1
+ title: Label row
+ template: 13_1_1-label-row
+*/
+.label-row {
+  margin-bottom: 0.5em;
+  position: relative; }
+
+.label-row__item {
+  font-size: 10.5px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-style: normal;
+  background: #0882B3;
+  color: #FFF;
+  padding: 0.3em 0.7em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #0882B3;
+  border-top: 1px solid #0882B3;
+  display: inline-block;
+  height: 2.2em;
+  position: relative;
+  z-index: 1; }
+  @media (min-width: 48em) {
+    .label-row__item {
+      font-size: 12px; } }
+  .label-row__item.theme-secondary {
+    background: none;
+    color: #0882B3;
+    left: 0;
+    padding-right: 0;
+    position: absolute;
+    text-align: right;
+    top: 0;
+    width: 100%;
+    z-index: 0; }
+  .label-row__item.theme-yliopisto-lehti {
+    background-color: #fa9500;
+    border-color: #fa9500; }
+    .label-row__item.theme-yliopisto-lehti.theme-secondary {
+      background: none;
+      color: #fa9500; }
+
+/*
  section: 5.1
  title: Main menu
  template: 5_1_main-menu
@@ -6424,6 +6468,16 @@ ul.pager {
   @media (min-width: 75em) {
     .ds-node-metadata .teaching-languages {
       float: right; } }
+  .ds-node-metadata .label-row.help {
+    display: inline-block; }
+  .ds-node-metadata .flexible-start {
+    line-height: 1.5em; }
+    @media (min-width: 48em) {
+      .ds-node-metadata .flexible-start {
+        margin: 0 0 0 0.8em; } }
+
+.label-row.help + .description-toggle {
+  display: inline !important; }
 
 .event-list .event-list-header {
   margin-top: 1em; }
@@ -6638,16 +6692,16 @@ ul.pager {
         #block-feedback-form.open #feedback-form-toggle:after {
           font-size: 14px; } }
 
-form .description-toggle {
+.description-toggle {
   font-size: 15.75px;
   font-size: 1.125rem;
   display: inline-block;
   position: relative;
   cursor: help; }
   @media (min-width: 48em) {
-    form .description-toggle {
+    .description-toggle {
       font-size: 18px; } }
-  form .description-toggle:after {
+  .description-toggle:after {
     display: inline-block;
     font-family: "hy-icons";
     font-style: normal;
@@ -6660,11 +6714,11 @@ form .description-toggle {
     display: inline-block;
     color: #0098d0; }
   @media (max-width: 48em) {
-    form .description-toggle {
+    .description-toggle {
       float: left;
       padding-right: 0.5em; } }
 
-form .description {
+.description {
   z-index: 1;
   font-size: 0.85em;
   overflow-x: hidden;
@@ -6687,7 +6741,7 @@ form .description {
   color: #FFF;
   position: absolute;
   padding: 0 1em; }
-  form .description:before {
+  .description:before {
     width: 0;
     height: 0;
     content: '';
@@ -6697,7 +6751,7 @@ form .description {
     position: absolute;
     top: -11px;
     left: 12px; }
-  form .description:after {
+  .description:after {
     width: 0;
     height: 0;
     content: '';
@@ -6707,13 +6761,31 @@ form .description {
     position: absolute;
     top: -10px;
     left: 12px; }
-  form .description.collapsed {
+  .description.collapsed {
     border: 1px solid #EBEBEB;
     z-index: 999;
     overflow: visible;
     max-height: none; }
-  form .description.collapsed {
+  .description.collapsed {
     padding: 1em; }
+
+.label-row.help + .description-toggle {
+  display: block; }
+  .label-row.help + .description-toggle:after {
+    display: none; }
+  .label-row.help + .description-toggle .description {
+    top: 0;
+    left: 0; }
+  .label-row.help + .description-toggle .help:after, .label-row.help + .description-toggle .help:before {
+    display: none; }
+
+.label-row.help {
+  display: block;
+  white-space: nowrap;
+  padding: 0.5em 0 0 0; }
+  @media (min-width: 48em) {
+    .label-row.help {
+      padding: 0; } }
 
 .l-info-footer-wrapper {
   background-color: #f2f2f2; }
@@ -7406,6 +7478,8 @@ h2.study-module-select-title {
     padding-left: 0.8em; }
   .node--teaser.node--course-implementation:hover .org-location-date {
     color: #0882B3; }
+  .node--teaser.node--course-implementation .label-row.help {
+    padding-top: 0.5em; }
 
 .block--system-user-menu .info-link {
   color: #0098d0;
@@ -7556,9 +7630,11 @@ h2.study-module-select-title {
     .block--system-user-menu > ul > li {
       position: relative;
       float: left;
-      margin-left: 2.5em;
+      margin-left: 2em;
       line-height: 56px;
       height: 56px; }
+      .block--system-user-menu > ul > li:first-child {
+        margin-left: 0; }
       .block--system-user-menu > ul > li .login-link {
         font-size: 13.125px;
         font-size: 0.9375rem;
@@ -8651,6 +8727,12 @@ form label,
 img.file-icon {
   display: none; }
 
+span.links__link.theme-language {
+  color: #d2d2d2; }
+  @media (min-width: 48em) {
+    span.links__link.theme-language {
+      color: #777777; } }
+
 .list-of-links__columns {
   font-size: 13.125px;
   font-size: 0.9375rem;
@@ -8979,10 +9061,10 @@ img.file-icon {
 .pager {
   text-align: center; }
 
-@media (min-width: 48em) {
-  .main-menu {
-    height: 56px;
-    border-bottom: none; } }
+.main-menu {
+  border-bottom: none; }
+  .main-menu li.is-lvl1 > a, .main-menu li.is-lvl1.is-expandable > a {
+    padding: 0.6em 0.65em 0.6em 1.2em; }
 
 .main-menu > ul.menu {
   display: none; }

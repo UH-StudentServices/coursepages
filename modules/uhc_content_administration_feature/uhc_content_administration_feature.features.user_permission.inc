@@ -136,6 +136,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'node',
   );
@@ -780,6 +781,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'node',
   );
@@ -878,6 +880,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'node',
   );
@@ -996,6 +999,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'node',
   );
@@ -1707,6 +1711,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'open university editor' => 'open university editor',
     ),
     'module' => 'node',
   );
@@ -2772,6 +2777,16 @@ function uhc_content_administration_feature_user_default_permissions() {
       'teacher' => 'teacher',
     ),
     'module' => 'search_api_autocomplete',
+  );
+
+  // Exported permission: 'view any unpublished contact_card content'.
+  $permissions['view any unpublished contact_card content'] = array(
+    'name' => 'view any unpublished contact_card content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'open university editor' => 'open university editor',
+    ),
+    'module' => 'view_unpublished',
   );
 
   // Exported permission: 'view any unpublished course_implementation content'.

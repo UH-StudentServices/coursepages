@@ -306,15 +306,16 @@ function uhc_ds_status_org_location_date($field) {
   $node = $field['entity'];
 
   $imp_fields = array(
-    'field_imp_begin_date',
-    'field_imp_end_date',
-    'field_imp_course_organiser',
-    'field_imp_locality',
+    'field_imp_begin_date' => array('label' => 'hidden'),
+    'field_imp_end_date' => array('label' => 'hidden'),
+    'field_imp_course_organiser' => array('label' => 'hidden'),
+    'field_imp_locality' => array('label' => 'hidden'),
+    'field_imp_flexible_start' => array('type' => 'flexible_start', 'label' => 'hidden'),
   );
 
   // extract field values
-  foreach ($imp_fields as $imp_field) {
-    $values[$imp_field] = field_view_field('node', $node, $imp_field, array('label' => 'hidden'));
+  foreach ($imp_fields as $imp_field => $display) {
+    $values[$imp_field] = field_view_field('node', $node, $imp_field, $display);
   }
 
   $status = field_view_field('node', $node, 'field_cancelled', array('type' => 'cancelled', 'label' => 'hidden'));
@@ -327,6 +328,7 @@ function uhc_ds_status_org_location_date($field) {
   $organiser = isset($values['field_imp_course_organiser'][0]['#markup']) ? $values['field_imp_course_organiser'][0]['#markup'] : uhc_ds_get_imp_course_organiser_fallback($node);
   $locality = isset($values['field_imp_locality']) ? render($values['field_imp_locality']) : '';
   $course = node_load(field_get_items('node', $node, 'field_imp_reference_to_courses')[0]['target_id']);
+  $flexible_start = isset($values['field_imp_flexible_start']) ? render($values['field_imp_flexible_start']) : '';
 
   // when not viewing a course node, display title and credits only if they differ from the ones in the course.
   $title_and_credits = '';
@@ -340,7 +342,7 @@ function uhc_ds_status_org_location_date($field) {
     }
   }
 
-  return render($status) . '<div class="org-location-date"><div>' . $title_and_credits . '</div><div>' . $organiser . $locality . $time . '</div></div>';
+  return render($status) . '<div class="org-location-date"><div>' . $title_and_credits . '</div><div>' . $organiser . $locality . $time . $flexible_start . '</div></div>';
 
 }
 

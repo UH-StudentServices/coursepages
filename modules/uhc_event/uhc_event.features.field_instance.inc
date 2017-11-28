@@ -22,7 +22,7 @@ function uhc_event_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 60,
+        'weight' => 58,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -108,7 +108,7 @@ function uhc_event_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 108,
+        'weight' => 106,
       ),
       'sidebar' => array(
         'label' => 'above',

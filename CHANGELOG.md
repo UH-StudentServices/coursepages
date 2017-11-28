@@ -1,3 +1,31 @@
+# University of Helsinki Courses v1.93
+Päiväys: 11.05.2017
+
+## Lisäykset
+- DOO-2907: Lisätty avoimen editorille oikeudet Lisätä ja muokata contact cardeja.
+- DOO-2882: Joustavasti aloitettavan kurssin indikointi kurssisivulla.
+- DOO-2932: Joustavasti aloitettavan kurssin indikointi avoimen yliopiston haussa.
+- DOO-2933: Joustavasti aloitettavan kurssin indikointi oppiaine-, opinnot- ja jaksosivuilla.
+- DOO-2930: Lisättiin käännös tekstille "Add your own sections with their own labels.".
+
+## Muutokset
+- DOO-2676: Kielivalinta ei ole aktiivinen, jos sivusta ei ole kieliversiota.
+- DOO-2888: Piilotettu "Näytä nämä tiedot myös kurssisivulla" -kenttä related
+  contentista, jos muokataan jotain muuta kuin oppiainetta.
+- DOO-2889: Ei näytetä Moodlen statuslaatikkoa kun aluetta ei ole vielä luotu.
+- DOO-2897: Muutettiin kurssin ilmoittautumisosoitteen muotoa.
+
+## Korjaukset
+- DOO-2879: Tiivistetty avoimen yliopiston valikkoa ja korjattu sen rivittyminen.
+- DOO-2886: Korattiin ongelma, jossa englannin kieliset jakson otsikot
+  tallentuivat väärin
+- DOO-2921: Korjattu tilanne jossa muokkausnäkymässä ei saa avattua enää related content
+  fieldsettejä.
+- DOO-2886: Korjattiin ongelma, jossa englannin kieliset jakson otsikot
+  tallentuivat väärin.
+- DOO-2931: PHP notice -korjauksia (tekninen).
+
+
 # University of Helsinki Courses v1.92
 Päiväys: 18.04.2017
 

@@ -1,7 +1,7 @@
 name = UHC Content Administration
 core = 7.x
 package = UHC
-version = 7.x-1.92
+version = 7.x-1.93
 project = uhc_content_administration_feature
 dependencies[] = actions_permissions
 dependencies[] = admin_menu
@@ -309,6 +309,7 @@ features[user_permission][] = translate interface
 features[user_permission][] = translate node entities
 features[user_permission][] = unflag generate_activity_message
 features[user_permission][] = use search_api_autocomplete for search_api_views_uhc_search_open_university
+features[user_permission][] = view any unpublished contact_card content
 features[user_permission][] = view any unpublished course_implementation content
 features[user_permission][] = view any unpublished subject content
 features[user_permission][] = view field_additional_info

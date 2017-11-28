@@ -291,7 +291,159 @@ function uhc_open_university_views_default_views() {
   /* Display: Desktop */
   $handler = $view->new_display('page', 'Desktop', 'desktop');
   $handler->display->display_options['display_description'] = 'Table';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'field_cancelled' => 'field_cancelled',
+    'url' => 'url',
+    'title_field' => 'title_field',
+    'field_study_credit' => 'field_study_credit',
+    'field_imp_method_of_study' => 'field_imp_method_of_study',
+    'field_imp_locality' => 'field_imp_locality',
+    'field_imp_begin_date' => 'field_imp_begin_date',
+    'favorite_widget' => 'favorite_widget',
+    'field_imp_flexible_start' => 'title_field',
+  );
+  $handler->display->display_options['style_options']['default'] = 'title_field';
+  $handler->display->display_options['style_options']['info'] = array(
+    'field_cancelled' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'url' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'title_field' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_study_credit' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_imp_method_of_study' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_imp_locality' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_imp_begin_date' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'favorite_widget' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_imp_flexible_start' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['override'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['exposed_block'] = TRUE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Indexed Multilingual Content: Cancelled */
+  $handler->display->display_options['fields']['field_cancelled']['id'] = 'field_cancelled';
+  $handler->display->display_options['fields']['field_cancelled']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['field_cancelled']['field'] = 'field_cancelled';
+  $handler->display->display_options['fields']['field_cancelled']['label'] = '';
+  $handler->display->display_options['fields']['field_cancelled']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_cancelled']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_cancelled']['type'] = 'cancelled';
+  /* Field: Indexed Multilingual Content: URL */
+  $handler->display->display_options['fields']['url']['id'] = 'url';
+  $handler->display->display_options['fields']['url']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['url']['field'] = 'url';
+  $handler->display->display_options['fields']['url']['label'] = '';
+  $handler->display->display_options['fields']['url']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['url']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['url']['display_as_link'] = FALSE;
+  $handler->display->display_options['fields']['url']['link_to_entity'] = 0;
+  /* Field: Indexed Multilingual Content: Title */
+  $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
+  $handler->display->display_options['fields']['title_field']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
+  $handler->display->display_options['fields']['title_field']['label'] = 'Name';
+  $handler->display->display_options['fields']['title_field']['alter']['text'] = '<a href="[field_imp_reference_to_courses_url]">[title_field]</a>';
+  $handler->display->display_options['fields']['title_field']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title_field']['alter']['path'] = '[url]';
+  $handler->display->display_options['fields']['title_field']['alter']['prefix'] = '[field_cancelled]';
+  /* Field: Indexed Multilingual Content: Credit */
+  $handler->display->display_options['fields']['field_study_credit']['id'] = 'field_study_credit';
+  $handler->display->display_options['fields']['field_study_credit']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['field_study_credit']['field'] = 'field_study_credit';
+  $handler->display->display_options['fields']['field_study_credit']['label'] = 'Cr';
+  $handler->display->display_options['fields']['field_study_credit']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_study_credit']['alter']['text'] = '[field_study_credit-value]  <span class="show-only-in-mobile">Cr</span>';
+  /* Field: Indexed Multilingual Content: Method of study */
+  $handler->display->display_options['fields']['field_imp_method_of_study']['id'] = 'field_imp_method_of_study';
+  $handler->display->display_options['fields']['field_imp_method_of_study']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['field_imp_method_of_study']['field'] = 'field_imp_method_of_study';
+  $handler->display->display_options['fields']['field_imp_method_of_study']['link_to_entity'] = 0;
+  $handler->display->display_options['fields']['field_imp_method_of_study']['view_mode'] = 'full';
+  $handler->display->display_options['fields']['field_imp_method_of_study']['bypass_access'] = 0;
+  /* Field: Indexed Multilingual Content: Locality */
+  $handler->display->display_options['fields']['field_imp_locality']['id'] = 'field_imp_locality';
+  $handler->display->display_options['fields']['field_imp_locality']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['field_imp_locality']['field'] = 'field_imp_locality';
+  $handler->display->display_options['fields']['field_imp_locality']['label'] = 'Location';
+  /* Field: Indexed Multilingual Content: Begin date */
+  $handler->display->display_options['fields']['field_imp_begin_date']['id'] = 'field_imp_begin_date';
+  $handler->display->display_options['fields']['field_imp_begin_date']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['field_imp_begin_date']['field'] = 'field_imp_begin_date';
+  $handler->display->display_options['fields']['field_imp_begin_date']['settings'] = array(
+    'format_type' => 'short_date_only',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Favorite widget */
+  $handler->display->display_options['fields']['favorite_widget']['id'] = 'favorite_widget';
+  $handler->display->display_options['fields']['favorite_widget']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['favorite_widget']['field'] = 'favorite_widget';
+  $handler->display->display_options['fields']['favorite_widget']['label'] = '';
+  $handler->display->display_options['fields']['favorite_widget']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['favorite_widget']['link_to_entity'] = 0;
+  /* Field: Indexed Multilingual Content: Flexible start */
+  $handler->display->display_options['fields']['field_imp_flexible_start']['id'] = 'field_imp_flexible_start';
+  $handler->display->display_options['fields']['field_imp_flexible_start']['table'] = 'search_api_index_uhc_portal';
+  $handler->display->display_options['fields']['field_imp_flexible_start']['field'] = 'field_imp_flexible_start';
+  $handler->display->display_options['fields']['field_imp_flexible_start']['type'] = 'flexible_start';
+  $handler->display->display_options['fields']['field_imp_flexible_start']['settings'] = array(
+    'format_type' => 'long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_remaining_days' => 0,
+  );
   $handler->display->display_options['path'] = 'open-university/search';
 
   /* Display: Facets block */
@@ -335,6 +487,7 @@ function uhc_open_university_views_default_views() {
     t('If you want to see all the courses, leave the search field empty.'),
     t('Desktop'),
     t('Table'),
+    t('Flexible start'),
     t('Facets block'),
     t('Open university search facets'),
   );

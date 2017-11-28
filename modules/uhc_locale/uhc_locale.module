@@ -17,4 +17,41 @@ function uhc_locale_language_switch_links_alter(array &$links, $type, $path) {
     $links[$langcode]['title'] = '<abbr title="' . $name . '">' . $abbr . '</abbr>';
     $links[$langcode]['html'] = TRUE;
   }
+
+  // Get current node and alter language links only when node is present.
+  $node = menu_get_object();
+
+  if ($node) {
+    // Get node translations.
+    $translations = $node->translations;
+    $original = $translations->original;
+
+    // Iterate through language links.
+    foreach ($links as $link => $link_value) {
+
+      // No need to set class for the original language.
+      if ($link == $original) {
+        continue;
+      }
+
+      // If current link target is not found in translations array,
+      // unset the corresponding link, give it a title and add disabled class.
+      if (!array_key_exists($link, $translations->data)) {
+        unset($links[$link]['href']);
+        $links[$link]['attributes']['class'][] = 'disabled';
+
+        switch($link) {
+          case 'en':
+            $links[$link]['attributes']['title'] = 'Page does not exist in English';
+            break;
+          case 'sv':
+            $links[$link]['attributes']['title'] = 'Sidan finns inte på svenska';
+            break;
+          case 'fi':
+            $links[$link]['attributes']['title'] = 'Sivua ei ole suomeksi';
+            break;
+        }
+      }
+    }
+  }
 }

@@ -21,7 +21,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional information',
-    'weight' => '31',
+    'weight' => '32',
     'children' => array(),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -114,7 +114,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Messages',
-    'weight' => '19',
+    'weight' => '20',
     'children' => array(
       0 => 'comments',
     ),
@@ -140,7 +140,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tasks',
-    'weight' => '24',
+    'weight' => '25',
     'children' => array(
       0 => 'field_reference_to_course_tasks',
     ),
@@ -167,7 +167,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Course overview',
-    'weight' => '30',
+    'weight' => '31',
     'children' => array(
       0 => 'uhc_course_implementation_inherited_fields_additional_info',
       1 => 'uhc_course_implementation_inherited_fields_conduct',
@@ -207,7 +207,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Material',
-    'weight' => '22',
+    'weight' => '23',
     'children' => array(
       0 => 'field_imp_material_description',
       1 => 'course_implementation_material',
@@ -270,7 +270,7 @@ function uhc_ds_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timetable',
-    'weight' => '21',
+    'weight' => '22',
     'children' => array(
       0 => 'event_reference_block',
       1 => 'uhc_event_teaching_schedule',

@@ -387,8 +387,9 @@ function uhc_subject_preprocess_field_multiple_value_form(&$variables) {
 function uhc_subject_field_collection_fieldset_field_as_label_alter(&$title, array $context) {
   $field_collection_item_wrapper = isset($context['field_collection_item_wrapper']) ? $context['field_collection_item_wrapper'] : NULL;
   $field_as_label = isset($context['field_as_label']) ? $context['field_as_label'] : NULL;
+  $value = $field_collection_item_wrapper->value();
 
-  if ($field_collection_item_wrapper && $field_as_label) {
+  if ($value->translations->data && $field_as_label) {
     if ($field_as_label == 'field_study_module_title') {
       $title = check_plain($field_collection_item_wrapper->field_study_module_title->value());
       $reference = $field_collection_item_wrapper->field_subject_ref_study_module->value();
@@ -407,5 +408,16 @@ function uhc_subject_field_collection_fieldset_field_as_label_alter(&$title, arr
         $title = check_plain($field_items[0]['value']);
       }
     }
+  }
+}
+
+/**
+ * Implements hook_field_widget_form_alter.
+ * Show related content visibility field only on subject nodes.
+ */
+function uhc_subject_field_widget_form_alter(&$element, &$form_state, $context) {
+  if (isset($element['#field_name']) && $element['#field_name'] == 'field_related_content_visibility' && $context['form']['#bundle'] != 'subject') {
+    $element['#default_value'] = 0;
+    $element['#access'] = FALSE;
   }
 }

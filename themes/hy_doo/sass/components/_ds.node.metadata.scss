@@ -48,4 +48,17 @@
       float: right;
     }
   }
+  .label-row.help {
+    display: inline-block;
+  }
+  .flexible-start {
+    line-height: 1.5em;
+    @include breakpoint($small) {
+      margin: 0 0 0 0.8em;
+    }
+  }
+}
+
+.label-row.help + .description-toggle {
+  display: inline !important;
 }

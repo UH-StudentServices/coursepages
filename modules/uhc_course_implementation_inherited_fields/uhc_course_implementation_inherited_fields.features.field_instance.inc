@@ -22,7 +22,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 96,
+        'weight' => 95,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -109,7 +109,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 103,
+        'weight' => 102,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -196,7 +196,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 98,
+        'weight' => 97,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -283,7 +283,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 99,
+        'weight' => 98,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -370,7 +370,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 110,
+        'weight' => 109,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -457,7 +457,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 100,
+        'weight' => 99,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -544,7 +544,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 109,
+        'weight' => 108,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -631,7 +631,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 107,
+        'weight' => 105,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -718,7 +718,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 97,
+        'weight' => 96,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -805,7 +805,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 105,
+        'weight' => 104,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -892,7 +892,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 102,
+        'weight' => 101,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -979,7 +979,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 101,
+        'weight' => 100,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1066,7 +1066,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 104,
+        'weight' => 103,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -1153,7 +1153,7 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 108,
+        'weight' => 107,
       ),
       'sidebar' => array(
         'label' => 'above',

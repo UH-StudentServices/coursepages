@@ -134,7 +134,7 @@ function uhc_course_implementation_strongarm() {
       'display' => array(
         'favorite_widget' => array(
           'default' => array(
-            'weight' => '17',
+            'weight' => '18',
             'visible' => TRUE,
           ),
         ),

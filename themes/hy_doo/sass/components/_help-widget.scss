@@ -1,34 +1,56 @@
-form {
-  .description-toggle {
-    @include font-size(18px);
+.description-toggle {
+  @include font-size(18px);
+  display: inline-block;
+  position: relative;
+  cursor: help;
+  &:after {
+    @include icon($icon-question);
+    padding-bottom: 2px;
+    vertical-align: middle;
     display: inline-block;
-    position: relative;
-    cursor: help;
-    &:after {
-      @include icon($icon-question);
-      padding-bottom: 2px;
-      vertical-align: middle;
-      display: inline-block;
-      color: $blue;
-    }
-    @include breakpoint($mobile-only) {
-      float: left;
-      padding-right: 0.5em;
-    }
+    color: $blue;
   }
+  @include breakpoint($mobile-only) {
+    float: left;
+    padding-right: 0.5em;
+  }
+}
 
+.description {
+  @include dropdown-menu(none, 'left', $darkgray);
+  @include border-radius(6px);
+  @include hyphenate;
+  font-size: 0.75em;
+  left: -15px;
+  top: 30px;
+  color: $white;
+  position: absolute;
+  padding: 0 1em;
+  &.collapsed {
+    padding: 1em;
+  }
+}
+
+// No visible toggle nor tip arrow when using a label element with help description.
+.label-row.help + .description-toggle {
+  display: block;
+  &:after {
+    display: none;
+  }
   .description {
-    @include dropdown-menu(none, 'left', $darkgray);
-    @include border-radius(6px);
-    @include hyphenate;
-    font-size: 0.75em;
-    left: -15px;
-    top: 30px;
-    color: $white;
-    position: absolute;
-    padding: 0 1em;
-    &.collapsed {
-      padding: 1em;
-    }
+    top: 0;
+    left: 0;
+  }
+  .help:after, .help:before {
+    display: none;
+  }
+}
+
+.label-row.help {
+  display: block;
+  white-space: nowrap;
+  padding: 0.5em 0 0 0;
+  @include breakpoint($small) {
+    padding: 0;
   }
 }
