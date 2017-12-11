@@ -201,8 +201,6 @@ function _hy_doo_preprocess_is_search_page(&$variables) {
     'search-main-page',
     'page-search',
     'page-open-university-search',
-    'page-genetics-search',
-    'page-molecular-biosciences-search'
   );
 
   return !empty($variables['classes_array'])

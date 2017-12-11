@@ -1,10 +1,6 @@
 name = UHC ActiveMQ Connector
-description = Connects to HY's Apache ActiveMQ and deals with queued messages.
+description = This module is deprecated.
 core = 7.x
 package = UHC
-version = 7.x-1.104
+version = 7.x-1.105
 project = uhc_activemq_connector
-files[] = includes/UHCESB.inc
-files[] = includes/UHCMessageQueueProcessorInterface.inc
-files[] = includes/UHCMessageQueueProcessorBase.inc
-files[] = includes/UHCOodi.inc

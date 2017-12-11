@@ -9,18 +9,6 @@
  */
 
 /**
- * Implements hook_uhc_activemq_connector_message_processor_info().
- */
-function uhc_course_source_uhc_activemq_connector_message_processor_info() {
-  $default_queue_name = variable_get('uhc_activemq_connector_default_queue', 'doo.local1.kurssisivu.in');
-  return array(
-    $default_queue_name => array(
-      array('class_name' => 'UHCCourseMessageProcessor', 'implements' => 'UHCMessageQueueProcessorInterface')
-    ),
-  );
-}
-
-/**
  * Imports given course number no matter whether it exist in system already or
  * not.
  *

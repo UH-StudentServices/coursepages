@@ -219,24 +219,15 @@ function uhc_course_material_inline_entity_form_entity_form_alter(&$entity_form,
     $entity_form['field_material_link']['#access'] = $has_file ? FALSE : TRUE;
     $entity_form['field_material_file']['#access'] = $has_link ? FALSE : TRUE;
 
-    $hidden_fields = array(
-      'field_material_author',
-      'field_private',
-      'field_material_section',
-      'field_material_pub_info'
-    );
-
     // if node formed accessed with add file, clean up form accordingly
     if (strpos($form_state['clicked_button']['#id'], 'add-material-file') !== false) {
       $relevant_field = 'field_material_file';
-      $hidden_fields[] = 'field_material_link';
-      uhc_course_material_clean_form($entity_form, $form_state, $relevant_field, $hidden_fields);
+      uhc_course_material_clean_form($entity_form, $form_state, $relevant_field, 'field_material_link');
     }
     // if node formed accessed with add link, clean up form accordingly
     if (strpos($form_state['clicked_button']['#id'], 'add-material-link') !== false) {
       $relevant_field = 'field_material_link';
-      $hidden_fields[] = 'field_material_file';
-      uhc_course_material_clean_form($entity_form, $form_state, $relevant_field, $hidden_fields);
+      uhc_course_material_clean_form($entity_form, $form_state, $relevant_field, 'field_material_file');
     }
   }
 
@@ -252,17 +243,16 @@ function uhc_course_material_inline_entity_form_entity_form_alter(&$entity_form,
 }
 
 /**
- * Clean up material node form. We want it as simple as possible when initially adding a file/link.
- * Hide label. Change form title to same as clicked button. Hide non-relevant fields, Make relevant field required.
+ * Clean up material node form. We want it as simple as possible when initially
+ * adding a file/link. Hide label. Change form title to same as clicked button.
+ * Hide non-relevant field, Make relevant field required.
  */
-function uhc_course_material_clean_form(&$entity_form, $form_state, $relevant_field, $hidden_fields) {
+function uhc_course_material_clean_form(&$entity_form, $form_state, $relevant_field, $hidden_field) {
   $entity_form[$relevant_field][LANGUAGE_NONE][0]['#title_display'] = 'invisible';
   $entity_form['#title'] = $form_state['clicked_button']['#value'];
   //$entity_form['actions']['ief_add_save']['#value'] = $form_state['clicked_button']['#value'];
   $entity_form[$relevant_field][LANGUAGE_NONE][0]['#required'] = TRUE;
-  foreach ($hidden_fields as $hidden_field) {
-    $entity_form[$hidden_field]['#access'] = FALSE;
-  }
+  $entity_form[$hidden_field]['#access'] = FALSE;
 }
 
 /**

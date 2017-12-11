@@ -158,7 +158,6 @@ function uhc_studies_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'list';
-  $handler->display->display_options['style_options']['row_class'] = 'list-of-links__link button--action icon--arrow-right theme-transparent';
   $handler->display->display_options['style_options']['class'] = 'list-of-links';
   $handler->display->display_options['style_options']['wrapper_class'] = '';
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -167,6 +166,9 @@ function uhc_studies_views_default_views() {
   $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['label'] = '';
+  $handler->display->display_options['fields']['title_field']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title_field']['alter']['path'] = '[path]';
+  $handler->display->display_options['fields']['title_field']['alter']['link_class'] = 'list-of-links__link button--action icon--arrow-right theme-transparent';
   $handler->display->display_options['fields']['title_field']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title_field']['link_to_entity'] = 1;
   /* Sort criterion: Field: Title (title_field) */

@@ -1,8 +1,9 @@
 name = UHC Display Suite
 description = Display settings for UHC subsite.
 core = 7.x
+php = 5.5
 package = UHC
-version = 7.x-1.104
+version = 7.x-1.105
 project = uhc_ds
 dependencies[] = ctools
 dependencies[] = date_views

@@ -15,11 +15,15 @@
   .org-location-date {
     color: $blue;
     letter-spacing: -0.05em;
-    padding: 0.8em 0;
-  }
-  &.exam {
-    border-left: 3px solid $orange;
-    padding-left: 0.8em;
+    padding: 0.8em 1em 0.8em 0;
+    display: block;
+    width: 100%;
+    border-bottom: 0;
+
+    div:nth-child(2) {
+      @include font-weight-light;
+      color: $gray;
+    }
   }
   &:hover {
     .org-location-date {

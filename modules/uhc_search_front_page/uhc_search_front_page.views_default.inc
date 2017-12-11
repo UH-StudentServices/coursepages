@@ -187,11 +187,6 @@ function uhc_search_front_page_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Sort criterion: Search: Relevance */
-  $handler->display->display_options['sorts']['search_api_relevance']['id'] = 'search_api_relevance';
-  $handler->display->display_options['sorts']['search_api_relevance']['table'] = 'search_api_index_uhc_portal';
-  $handler->display->display_options['sorts']['search_api_relevance']['field'] = 'search_api_relevance';
-  $handler->display->display_options['sorts']['search_api_relevance']['order'] = 'DESC';
   /* Filter criterion: Indexed Multilingual Content: Academic year */
   $handler->display->display_options['filters']['academic_year']['id'] = 'academic_year';
   $handler->display->display_options['filters']['academic_year']['table'] = 'search_api_index_uhc_portal';

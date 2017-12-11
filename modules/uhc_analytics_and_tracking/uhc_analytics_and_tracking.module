@@ -280,7 +280,7 @@ function uhc_analytics_and_tracking_track_search_type($keyword, $filters) {
  * @return string
  */
 function uhc_analytics_and_tracking_get_sort_by(&$view) {
-  return !empty($view->exposed_input['sorting']) ? uhc_open_university_sorting_label($view->exposed_input['sorting']) : '';
+  return !empty($view->exposed_input['sorting']) ? uhc_search_friendly_sorting_label($view->exposed_input['sorting']) : '';
 }
 
 /**

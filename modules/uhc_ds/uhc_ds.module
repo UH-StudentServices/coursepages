@@ -357,6 +357,8 @@ function uhc_ds_status_org_location_date($field) {
   $locality = $open_university && isset($values['field_imp_locality']) ? render($values['field_imp_locality']) : '';
   $course = node_load(field_get_items('node', $node, 'field_imp_reference_to_courses')[0]['target_id']);
   $flexible_start = isset($values['field_imp_flexible_start']) ? render($values['field_imp_flexible_start']) : '';
+  $method_of_study = uhc_ds_get_rendered_method_of_study($node);
+  $method_of_study = $method_of_study ? "$method_of_study, " : '';
 
   // when not viewing a course node, display title and credits only if they differ from the ones in the course.
   $title_and_credits = '';
@@ -370,10 +372,13 @@ function uhc_ds_status_org_location_date($field) {
     }
   }
 
-  $rendered_title_and_credits = '<div class="org-location-date"><div>' . $title_and_credits . '</div><div>';
+  $rendered_title_and_credits = '<div class="org-location-date list-of-links__link button--action icon--arrow-right theme-transparent"><div>'
+    . $title_and_credits
+    . '</div><div>';
 
   return render($status)
     . $rendered_title_and_credits
+    . $method_of_study
     . $organisation_names
     . $rendered_organiser
     . $locality
@@ -397,6 +402,23 @@ function uhc_ds_get_rendered_organisation_names($node) {
   }
 
   return implode(', ', $rendered_organisation_names);
+}
+
+/**
+ * @param $node
+ * @return string
+ */
+function uhc_ds_get_rendered_method_of_study($node) {
+  $method_of_study_field_items = field_get_items('node', $node, 'field_imp_method_of_study');
+  $rendered_method_of_study = array();
+
+  if (!empty($method_of_study_field_items)) {
+    $rendered_method_of_study = array_map(function ($term) {
+      return '<span class="field-imp-method-of-study">' . check_plain($term->name) . '</span>';
+    }, taxonomy_term_load_multiple(array_column($method_of_study_field_items, 'tid')));
+  }
+
+  return implode(', ', $rendered_method_of_study);
 }
 
 function uhc_ds_get_imp_course_organiser_fallback($node) {

@@ -1,0 +1,161 @@
+<?php
+/**
+ * @file
+ * Code for the Portal feature.
+ *
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Modifies open university view for two things:
+ *   1) Creates an custom sorting form element for picking sortable field and
+ *      sorting type
+ *   2) Moves items per page element into shared container with above
+ *
+ * Note: This technical approach is initial version of this type of sorting. We
+ * probably consider something better in following tickets.
+ *
+ * @see uhc_search_friendly_sorting_form_apply_sort()
+ */
+function uhc_search_friendly_sorting_form_alter(&$form, &$form_state, $form_id) {
+  if (!in_array($form['#id'], uhc_search_portal_feature_search_view_exposed_form_ids())) {
+    return;
+  }
+
+  $sorting_default_value = _uhc_search_friendly_sorting_get_default();
+
+  $submit_on_change_script = 'this.form.submit();';
+  $form['items_per_page']['#attributes']['onchange'][] = $submit_on_change_script;
+  $sort_options = array(
+    'title_field:asc' => uhc_search_friendly_sorting_label('title_field:asc'),
+    'title_field:desc' => uhc_search_friendly_sorting_label('title_field:desc'),
+  );
+  // Only show relavance option in other than Open University search.
+  if ($form['#id'] != 'views-exposed-form-uhc-search-open-university-desktop') {
+    $sort_options['search_api_relevance:desc'] = uhc_search_friendly_sorting_label('search_api_relevance:desc');
+  }
+  // Only show location options in Open University search.
+  if ($form['#id'] == 'views-exposed-form-uhc-search-open-university-desktop') {
+    $sort_options['field_imp_locality:asc'] = uhc_search_friendly_sorting_label('field_imp_locality:asc');
+    $sort_options['field_imp_locality:desc'] = uhc_search_friendly_sorting_label('field_imp_locality:desc');
+
+    // Default sorting by title (ascending).
+    $sorting_default_value = 'title_field:asc';
+  }
+  $sort_options['field_imp_begin_date:asc'] = uhc_search_friendly_sorting_label('field_imp_begin_date:asc');
+  $sort_options['field_imp_begin_date:desc'] = uhc_search_friendly_sorting_label('field_imp_begin_date:desc');
+
+  $form['#info']['pager-and-sorting-controls'] = array(
+    'value' => 'pager-and-sorting-controls',
+  );
+
+  $form['pager-and-sorting-controls'] = array(
+    '#type' => 'container',
+    '#weight' => 5,
+    '#attributes' => array(
+      'class' => array(
+        'pager-and-sorting-controls',
+      ),
+    ),
+    'sorting' => array(
+      '#type' => 'select',
+      '#options' => $sort_options,
+      '#default_value' => $sorting_default_value,
+      '#title' => t('Sort:'),
+      '#attributes' => array('onchange' => $submit_on_change_script),
+    ),
+    'items_per_page' => $form['items_per_page'],
+  );
+
+  unset($form['items_per_page']);
+  $form['#submit'][] = 'uhc_search_friendly_sorting_form_apply_sort';
+}
+
+/**
+ * Gets default sorting option. When no search term is given, return title
+ * ascending, and when search term has been given, return relevance descending.
+ * @return string
+ */
+function _uhc_search_friendly_sorting_get_default() {
+  return empty($_GET['search']) ? 'title_field:asc' : 'search_api_relevance:desc';
+}
+
+/**
+ * Helper function for resolving sorting machine definitions to human readable
+ * labels.
+ * @param $key
+ * @return mixed
+ * @todo Move this elsewhere and update dependency in uhc_analytics_and_tracking
+ */
+function uhc_search_friendly_sorting_label($key) {
+  $labels = _uhc_search_friendly_sorting_get_options();
+  return !empty($labels[$key]) ? $labels[$key] : $key;
+}
+
+/**
+ * @return array
+ *   Returns set of sorting options.
+ */
+function _uhc_search_friendly_sorting_get_options() {
+  return array(
+    'title_field:asc' => t('By name A-Ö'),
+    'title_field:desc' => t('By name Ö-A'),
+    'field_imp_locality:asc' => t('By location A-Ö'),
+    'field_imp_locality:desc' => t('By location Ö-A'),
+    'field_imp_begin_date:asc' => t('Ascending by begin date'),
+    'field_imp_begin_date:desc' => t('Descending by begin date'),
+    'search_api_relevance:desc' => t('Relevance'),
+  );
+}
+
+/**
+ * @param string $key
+ *   Sorting option key. For example: "title_field:desc"
+ *
+ * @return bool
+ *   Returns TRUE if given sorting option exists. FALSE otherwise.
+ */
+function _uhc_search_friendly_sorting_option_exists($key) {
+  $labels = _uhc_search_friendly_sorting_get_options();
+  return isset($labels[$key]);
+}
+
+/**
+ * This form submission callback applies sorting preferences as defined in
+ * custom sorting form element.
+ *
+ * Note: This technical approach is initial version of this type of sorting. We
+ * probably consider something better in following tickets.
+ *
+ * @see uhc_open_university_form_alter()
+ * @todo Move this elsewhere and update dependency in uhc_analytics_and_tracking
+ */
+function uhc_search_friendly_sorting_form_apply_sort(&$form, &$form_state) {
+  if (isset($_GET['search']) && isset($form_state['values']['sorting']) && _uhc_search_friendly_sorting_option_exists($form_state['values']['sorting'])) {
+    $sort = explode(':', $form_state['values']['sorting']);
+    $_GET['order'] = $sort[0];
+    $_GET['sort'] = $sort[1];
+  }
+}
+
+/**
+ * Implements hook_search_api_views_query_alter().
+ */
+function uhc_search_friendly_sorting_search_api_views_query_alter(view &$view, SearchApiViewsQuery &$query) {
+  if ($view->name == 'uhc_portal_search_front_page_') {
+    if ($view->plugin_name == 'rss') {
+      if (isset($_GET['sorting']) && _uhc_search_friendly_sorting_option_exists($_GET['sorting'])) {
+        $sorting = $_GET['sorting'];
+      }
+      else {
+        $sorting = _uhc_search_friendly_sorting_get_default();
+      }
+      $sort = explode(':', $sorting);
+      $query->sort($sort[0], strtoupper($sort[1]));
+    }
+  }
+}

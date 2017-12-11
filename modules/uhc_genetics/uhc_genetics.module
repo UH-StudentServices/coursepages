@@ -1,31 +1,5 @@
 <?php
 /**
  * @file
- * Contains module implementation of UHC Genetics module.
- *
- * @license GPL, or GNU General Public License, version 3
- * @license http://opensource.org/licenses/GPL-3.0
- * @see README.md how to contribute to this project
+ * This module is deprecated.
  */
-
-include_once 'uhc_genetics.features.inc';
-
-/**
- * Implementation of hook_menu().
- */
-function uhc_genetics_menu() {
-  // Empty page callback for genetics, so that we may populate them with blocks
-  // using context.
-  $items['genetics'] = array(
-    'page callback' => 'uhc_genetics_page',
-    'access callback' => TRUE,
-  );
-  return $items;
-}
-
-/**
- * Implementation of hook_page().
- */
-function uhc_genetics_page() {
-  return ' ';
-}

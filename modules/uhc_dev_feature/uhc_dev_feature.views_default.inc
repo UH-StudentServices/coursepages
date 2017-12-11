@@ -304,16 +304,6 @@ function uhc_dev_feature_views_default_views() {
   $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['label'] = 'Keyword';
   $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['identifier'] = 'field_imp_keywords_value';
   $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['group_items'] = array(
-    1 => array(
-      'title' => 'Genetics',
-      'operator' => '=',
-      'value' => 'genetiikka',
-    ),
-    2 => array(
-      'title' => 'Molecular bioscience',
-      'operator' => '=',
-      'value' => 'molekyylibiotieteet',
-    ),
     3 => array(
       'title' => '',
       'operator' => '=',

@@ -1338,3 +1338,28 @@ function uh_coursepages_update_7048(&$sandbox) {
 function uh_coursepages_update_7049(&$sandbox) {
   module_enable(array('uhc_migrate_message_report'));
 }
+
+/**
+ * Enable Search Friendly Sorting module.
+ */
+function uh_coursepages_update_7050(&$sandbox) {
+  module_enable(array('uhc_search_friendly_sorting'));
+}
+
+/**
+ * Disable uhc_genetics and uhc_molecular_biosciences modules.
+ */
+function uh_coursepages_update_7051(&$sandbox) {
+  module_disable(array('uhc_genetics', 'uhc_molecular_biosciences'));
+}
+
+/**
+ * Disable uhc_activemq_connector module.
+ */
+function uh_coursepages_update_7052(&$sandbox) {
+  variable_del('uhc_activemq_connector_settings');
+  variable_del('uhc_activemq_connector_log_incoming_messages');
+  variable_del('uhc_activemq_connector_default_queue');
+  variable_del('uhc_activemq_connector_default_queue_base');
+  module_disable(array('uhc_activemq_connector'));
+}

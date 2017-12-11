@@ -73,18 +73,6 @@ function uhc_course_implementation_source_add_course_implementation_submit(&$for
 }
 
 /**
- * Implements hook_uhc_activemq_connector_message_processor_info().
- */
-function uhc_course_implementation_source_uhc_activemq_connector_message_processor_info() {
-  $default_queue_name = variable_get('uhc_activemq_connector_default_queue', 'doo.local1.kurssisivu.in');
-  return array(
-    $default_queue_name => array(
-      array('class_name' => 'UHCCourseImplementationMessageProcessor', 'implements' => 'UHCMessageQueueProcessorInterface')
-    ),
-  );
-}
-
-/**
  * Queues a course implementation by the given ID.
  *
  * @param $course_imp_id

@@ -140,36 +140,6 @@ function uhc_statistics_views_default_views() {
     'course_implementation' => 'course_implementation',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Keywords (field_imp_keywords) */
-  $handler->display->display_options['filters']['field_imp_keywords_value']['id'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['table'] = 'field_data_field_imp_keywords';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['field'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_imp_keywords_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['operator_id'] = 'field_imp_keywords_value_op';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['label'] = 'Keywords (field_imp_keywords)';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['operator'] = 'field_imp_keywords_value_op';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['identifier'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['is_grouped'] = TRUE;
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['label'] = 'Keyword';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['identifier'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['group_items'] = array(
-    1 => array(
-      'title' => 'Genetics',
-      'operator' => '=',
-      'value' => 'genetiikka',
-    ),
-    2 => array(
-      'title' => 'Molecular bioscience',
-      'operator' => '=',
-      'value' => 'molekyylibiotieteet',
-    ),
-    3 => array(
-      'title' => '',
-      'operator' => '=',
-      'value' => '',
-    ),
-  );
   /* Filter criterion: Content: Has taxonomy terms (with depth; <em class="placeholder">Simple hierarchical select</em>) */
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['id'] = 'shs_term_node_tid_depth';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['table'] = 'node';
@@ -258,34 +228,6 @@ function uhc_statistics_views_default_views() {
     8 => 0,
   );
   $handler->display->display_options['filters']['field_imp_begin_date_value']['form_type'] = 'date_popup';
-  /* Filter criterion: User: Roles */
-  $handler->display->display_options['filters']['rid']['id'] = 'rid';
-  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
-  $handler->display->display_options['filters']['rid']['field'] = 'rid';
-  $handler->display->display_options['filters']['rid']['relationship'] = 'user';
-  $handler->display->display_options['filters']['rid']['value'] = array(
-    3 => '3',
-    4 => '4',
-    5 => '5',
-    6 => '6',
-  );
-  $handler->display->display_options['filters']['rid']['group'] = 1;
-  $handler->display->display_options['filters']['rid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['rid']['expose']['operator_id'] = 'rid_op';
-  $handler->display->display_options['filters']['rid']['expose']['label'] = 'Edited by user role';
-  $handler->display->display_options['filters']['rid']['expose']['operator'] = 'rid_op';
-  $handler->display->display_options['filters']['rid']['expose']['identifier'] = 'rid';
-  $handler->display->display_options['filters']['rid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-  );
-  $handler->display->display_options['filters']['rid']['expose']['reduce'] = TRUE;
   /* Filter criterion: Message: Type */
   $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
   $handler->display->display_options['filters']['type_1']['table'] = 'message';
@@ -609,12 +551,9 @@ function uhc_statistics_views_default_views() {
     t('Organisation'),
     t('Number of activities'),
     t('Last activity'),
-    t('Keywords (field_imp_keywords)'),
-    t('Keyword'),
     t('Method of study'),
     t('Last updated (between)'),
     t('Begin date (between)'),
-    t('Edited by user role'),
     t('Type of activity'),
     t('Data export'),
   );
@@ -733,36 +672,6 @@ function uhc_statistics_views_default_views() {
     'course_implementation' => 'course_implementation',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Keywords (field_imp_keywords) */
-  $handler->display->display_options['filters']['field_imp_keywords_value']['id'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['table'] = 'field_data_field_imp_keywords';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['field'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_imp_keywords_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['operator_id'] = 'field_imp_keywords_value_op';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['label'] = 'Keywords (field_imp_keywords)';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['operator'] = 'field_imp_keywords_value_op';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['identifier'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['is_grouped'] = TRUE;
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['label'] = 'Keyword';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['identifier'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['group_items'] = array(
-    1 => array(
-      'title' => 'Genetics',
-      'operator' => '=',
-      'value' => 'genetiikka',
-    ),
-    2 => array(
-      'title' => 'Molecular bioscience',
-      'operator' => '=',
-      'value' => 'molekyylibiotieteet',
-    ),
-    3 => array(
-      'title' => '',
-      'operator' => '=',
-      'value' => '',
-    ),
-  );
   /* Filter criterion: Content: Has taxonomy terms (with depth; <em class="placeholder">Simple hierarchical select</em>) */
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['id'] = 'shs_term_node_tid_depth';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['table'] = 'node';
@@ -1382,15 +1291,13 @@ function uhc_statistics_views_default_views() {
     t('last »'),
     t('This statistics view displays the amount of course implementations where the selected field has content. It is best to select a single field only as a filter and have the rest set as "-any-".'),
     t('<h2>@total results</h2>'),
-    t('Comments'),
+    t('Messages'),
     t('Course material'),
     t('Title'),
     t('Organisation'),
     t('Number of custom sections'),
     t('.'),
     t(','),
-    t('Keywords (field_imp_keywords)'),
-    t('Keyword'),
     t('Method of study'),
     t('Begin date (between)'),
     t('Moodle URL'),
@@ -1412,7 +1319,6 @@ function uhc_statistics_views_default_views() {
     t('Course conduct'),
     t('Material description'),
     t('Materials'),
-    t('Messages'),
     t('Restricted messages'),
     t('Restricted material'),
     t('Results'),
@@ -1511,36 +1417,6 @@ function uhc_statistics_views_default_views() {
     'course_implementation' => 'course_implementation',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Keywords (field_imp_keywords) */
-  $handler->display->display_options['filters']['field_imp_keywords_value']['id'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['table'] = 'field_data_field_imp_keywords';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['field'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_imp_keywords_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['operator_id'] = 'field_imp_keywords_value_op';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['label'] = 'Keywords (field_imp_keywords)';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['operator'] = 'field_imp_keywords_value_op';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['expose']['identifier'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['is_grouped'] = TRUE;
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['label'] = 'Keyword';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['identifier'] = 'field_imp_keywords_value';
-  $handler->display->display_options['filters']['field_imp_keywords_value']['group_info']['group_items'] = array(
-    1 => array(
-      'title' => 'Genetics',
-      'operator' => '=',
-      'value' => 'genetiikka',
-    ),
-    2 => array(
-      'title' => 'Molecular bioscience',
-      'operator' => '=',
-      'value' => 'molekyylibiotieteet',
-    ),
-    3 => array(
-      'title' => '',
-      'operator' => '=',
-      'value' => '',
-    ),
-  );
   /* Filter criterion: Content: Has taxonomy terms (with depth; <em class="placeholder">Simple hierarchical select</em>) */
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['id'] = 'shs_term_node_tid_depth';
   $handler->display->display_options['filters']['shs_term_node_tid_depth']['table'] = 'node';
@@ -1568,6 +1444,7 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['filters']['field_imp_begin_date_value']['table'] = 'field_data_field_imp_begin_date';
   $handler->display->display_options['filters']['field_imp_begin_date_value']['field'] = 'field_imp_begin_date_value';
   $handler->display->display_options['filters']['field_imp_begin_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_imp_begin_date_value']['group'] = 1;
   $handler->display->display_options['filters']['field_imp_begin_date_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['operator_id'] = 'field_imp_begin_date_value_op';
   $handler->display->display_options['filters']['field_imp_begin_date_value']['expose']['label'] = 'Begin date (between)';
@@ -1629,8 +1506,6 @@ function uhc_statistics_views_default_views() {
     t('last »'),
     t('Content entity referenced from field_imp_reference_to_courses'),
     t('Month Created'),
-    t('Keywords (field_imp_keywords)'),
-    t('Keyword'),
     t('Organisation'),
     t('Begin date (between)'),
     t('Created'),

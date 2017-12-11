@@ -86,7 +86,26 @@ function uhc_comment_form_comment_node_course_implementation_form_alter(&$form, 
     drupal_add_css('div#comments h2.title {display: none;}', 'inline');
   }
 
+  _uhc_comment_set_default_reply_to_address($form);
+
+  $form['#validate'][] = 'uhc_comment_comment_form_validate';
   $form['#submit'][] = 'uhc_comment_handle_comment_form_submit';
+}
+
+function _uhc_comment_set_default_reply_to_address(&$form) {
+  global $user;
+  $form['field_reply_to_email'][LANGUAGE_NONE][0]['value']['#default_value'] = $user->mail;
+}
+
+function uhc_comment_comment_form_validate($form, &$form_state) {
+  $reply_to_email = isset($form_state['values']['field_reply_to_email'][LANGUAGE_NONE][0]['value'])
+    ? $form_state['values']['field_reply_to_email'][LANGUAGE_NONE][0]['value']
+    : NULL;
+
+  if ($reply_to_email && filter_var($reply_to_email, FILTER_VALIDATE_EMAIL) === FALSE) {
+    $error = t('%email is not a valid e-mail address.', array('%email' => $reply_to_email));
+    form_set_error('field_reply_to_email', $error);
+  }
 }
 
 /**

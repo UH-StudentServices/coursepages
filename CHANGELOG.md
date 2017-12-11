@@ -1,3 +1,26 @@
+# University of Helsinki Courses v1.105
+Päiväys: 11.12.2017
+
+## Lisäykset
+  - DOO-3169: Näytetään opiskelumuoto käyttäjälle studies-sivulla.
+  - DOO-3225: Lisättiin kurssisivujen viestinlähetykseen mahdollisuus määrittää vastaussähköpostiosoite.
+
+## Muutokset
+  - DOO-3060: Parannettiin horisontaalisten välilehtien käyttökokemusta.
+  - DOO-3233: Palautettiin metatietokentät kurssimateriaalin lisäykseen.
+  - DOO-3062: Parannettiin toteutuksen linkin erottuvuutta studies-sivulla.
+
+## Korjaukset
+  - DOO-3231: Studies-ländärin koulutusohjelmittain -välilehden nuolet eivät ole linkkejä.
+  - DOO-3175: Hakutulossyötteen järjestäminen ei toiminut.
+
+## Poistot
+  - DOO-3251: Poistettiin roolisuodatin tilastonäkymästä.
+  - DOO-3168: Poistettiin tenttien korostusväripalkki studies-sivun toteutuslistauksista.
+  - DOO-3147: Poistettiin genetiikkaan ja molekyylibiologiaan liittyvää toiminnallisuutta.
+  - DOO-2554: Poistettiin vanha ESB PoC toteutus (ActiveMQ).
+
+
 # University of Helsinki Courses v1.104
 Päiväys: 13.11.2017
 

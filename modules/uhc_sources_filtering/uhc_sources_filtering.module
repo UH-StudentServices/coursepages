@@ -45,13 +45,10 @@ function uhc_sources_filtering_uhc_course_implementation_source_deny_source_row(
     return new SkippableItem('Too old course implementation.');
   }
 
-  // $row must be either allowed by organisation OR by allowed
-  // keyword&realisation type combination.
+  // $row must be allowed by organisation
   $allow_by_organisation = uhc_sources_filter_allow_by_organisation($row);
-  $allow_by_keyword_and_realisation_type = uhc_sources_filter_allow_by_keyword_and_realisation_type($row);
-  if (!$allow_by_organisation['result'] && !$allow_by_keyword_and_realisation_type['result']) {
-    $params = array('@reason1' => $allow_by_organisation['reason'], '@reason2' => $allow_by_keyword_and_realisation_type['reason']);
-    return new SkippableItem('Failed because @reason1 OR @reason2', $params);
+  if (!$allow_by_organisation['result']) {
+    return new SkippableItem('Failed because @reason', array('@reason' => $allow_by_organisation['reason']));
   }
 
   return FALSE;
@@ -100,43 +97,6 @@ function uhc_sources_filter_allow_by_organisation($row) {
     }
   }
   return array('result' => $allow_by_organisation, 'reason' => $reason);
-}
-
-/**
- * Specify if given $row should be allowed for importing in regards of
- * keyword and realisation type.
- * @param $row
- * @return array
- *   Result array having two values keyed by:
- *     - result: boolean value indicating whether to allow or not
- *     - reason: string reason why it was allowed/denied
- */
-function uhc_sources_filter_allow_by_keyword_and_realisation_type($row) {
-  // Allow by keyword and realisation types (only check if
-  // $allow_by_organisation is not TRUE)
-  // @todo Perhaps do this in uhc_genetics and uhc_molecular_biosciences modules?
-  $allowed_keywords = array('genetiikka', 'molekyylibiotieteet');
-  $denied_realisations = uhc_sources_filtering_denied_realisation_type_codes();
-  if (isset($row->descriptions) && isset($row->realisation_type_code)) {
-    // Important: Clone the row object to avoid modifying the original object
-    // when parsing the keywords.
-    $row_clone = clone $row;
-    $description_elements = variable_get('uhc_course_implementation_source_predefined_description_names', array());
-    CourseImplementationNodeMigration::prepareDescriptions($row_clone, $description_elements);
-    $keywords = CourseImplementationNodeMigration::parseKeywords($row_clone->keywords);
-    foreach ($keywords as $keyword) {
-      if (in_array($keyword, $allowed_keywords) && !in_array($row->realisation_type_code, $denied_realisations)) {
-        // When source row has allowed keyword and allowed realistion type, then
-        // allow migrating this item.
-        return array('result' => TRUE, 'reason' => 'Keyword was found from allowed keywords but is not blocked by allowed realisations type codes.');
-        break;
-      }
-    }
-    return array('result' => FALSE, 'reason' => 'Did not found any keywords (' . implode(', ', $keywords) . ') that are realisation type -whitelisted.');
-  }
-  else {
-    return array('result' => FALSE, 'reason' => 'Was not able to determine descriptions or realisation type code.');
-  }
 }
 
 /**

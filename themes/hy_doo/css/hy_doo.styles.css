@@ -7528,10 +7528,14 @@ h2.study-module-select-title {
   .node--teaser.node--course-implementation .org-location-date {
     color: #0098d0;
     letter-spacing: -0.05em;
-    padding: 0.8em 0; }
-  .node--teaser.node--course-implementation.exam {
-    border-left: 3px solid #fa9500;
-    padding-left: 0.8em; }
+    padding: 0.8em 1em 0.8em 0;
+    display: block;
+    width: 100%;
+    border-bottom: 0; }
+    .node--teaser.node--course-implementation .org-location-date div:nth-child(2) {
+      font-weight: 300;
+      font-style: normal;
+      color: #666; }
   .node--teaser.node--course-implementation:hover .org-location-date {
     color: #0882B3; }
   .node--teaser.node--course-implementation .label-row.help {
@@ -8801,6 +8805,77 @@ form label,
 
 img.file-icon {
   display: none; }
+
+/*
+ section: 6.7
+ title: Horizontal tabs
+ template: 6_7_horizontal-tabs
+ description:
+*/
+.horizontal-tabs .horizontal-tabs-list {
+  -ms-flex-align: center;
+      align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  margin-bottom: 30px;
+  overflow: hidden;
+  position: relative; }
+  @media (min-width: 48em) {
+    .horizontal-tabs .horizontal-tabs-list {
+      margin-bottom: 60px; } }
+
+.horizontal-tabs .horizontal-tabs-pane {
+  min-width: 0; }
+  .horizontal-tabs .horizontal-tabs-pane legend {
+    display: none; }
+
+.horizontal-tabs .horizontal-tab-button {
+  border: 1px solid #eaeaea;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
+  margin: 0;
+  text-align: center; }
+  .horizontal-tabs .horizontal-tab-button:not(:last-child) {
+    border-right: none; }
+  .horizontal-tabs .horizontal-tab-button > a {
+    font-size: 12.25px;
+    font-size: 0.875rem;
+    -ms-flex-align: center;
+        align-items: center;
+    background: #f8f8f8;
+    color: #979797;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    font-weight: 600;
+    height: 5rem;
+    -ms-flex-pack: center;
+        justify-content: center;
+    padding: 0;
+    transition-duration: 0.2s;
+    transition-property: color, background-color; }
+    @media (min-width: 48em) {
+      .horizontal-tabs .horizontal-tab-button > a {
+        font-size: 14px; } }
+    .horizontal-tabs .horizontal-tab-button > a > strong {
+      font-weight: 400; }
+  .horizontal-tabs .horizontal-tab-button.ui-tabs-selected {
+    border-top-color: #0098d0;
+    border-bottom-color: transparent;
+    z-index: 2; }
+    .horizontal-tabs .horizontal-tab-button.ui-tabs-selected a {
+      background-color: #FFF;
+      box-shadow: inset 0 3px 0 #0098d0;
+      color: #0098d0; }
+  .horizontal-tabs .horizontal-tab-button:hover > a {
+    color: #0098d0; }
 
 span.links__link.theme-language {
   color: #d2d2d2; }
