@@ -2,5 +2,5 @@ name = UHC Environment
 description = Appends an multilingual message about current environment.
 core = 7.x
 package = UHC
-version = 7.x-1.105
+version = 7.x-1.106
 dependencies[] = site_status_message

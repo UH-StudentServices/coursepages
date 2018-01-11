@@ -277,7 +277,6 @@ function uh_coursepages_install() {
     'field_imp_header_text' => 'field_imp_header_text_format',
     'field_imp_header_image_caption' => 'field_imp_header_image_caption_format',
     'field_imp_material_description' => 'field_imp_material_description_format',
-    'field_material_description' => 'field_material_description_format',
     'field_course_task_description' => 'field_course_task_description_format',
     'field_imp_teachersection_content' => 'field_imp_teachersection_content_format',
     'field_imp_teacher_se_content' => 'field_imp_teacher_se_content_format',

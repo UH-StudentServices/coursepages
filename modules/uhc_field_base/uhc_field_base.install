@@ -68,3 +68,10 @@ function uhc_course_material_update_7001() {
   // Clear field caches
   field_cache_clear();
 }
+
+/**
+ * Remove deprecated field (field_material_description).
+ */
+function uhc_course_material_update_7002() {
+  field_delete_field('field_material_description');
+}

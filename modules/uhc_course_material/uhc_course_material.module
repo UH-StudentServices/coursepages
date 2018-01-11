@@ -313,7 +313,7 @@ function uhc_course_material_field_widget_form_alter(&$element, &$form_state, $c
  * See uhc_course_material_ajax_render_alter().
  */
 function uhc_course_material_form_node_form_alter(&$form, &$form_state, $form_id) {
-  $material_edit_text = t('You can add more detailed information to your material with the edit-link');
+  $material_edit_text = t('You can add more detailed information to your material with the edit-link.');
   $material_edit_message = '<div class="messages alternative warning"><p>' . $material_edit_text . '</p></div>';
 
   if ($form_id == 'course_implementation_node_form') {

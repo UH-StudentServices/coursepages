@@ -1,3 +1,16 @@
+# University of Helsinki Courses v1.106
+Päiväys: 11.01.2018
+
+## Lisäykset
+  - DOO-3269: Lisättiin materiaalin ohjetekstin käännökset.
+
+## Muutokset
+  - DOO-3282: Parannettiin top level domain -tukea (https://tools.ietf.org/html/rfc1034).
+
+## Poistot
+  - DOO-1570: Poistettiin materiaalikohtainen kuvauskenttä tarpeettomana.
+
+
 # University of Helsinki Courses v1.105
 Päiväys: 11.12.2017
 

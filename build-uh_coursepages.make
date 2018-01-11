@@ -75,6 +75,7 @@ projects[joyride][patch]["https://www.drupal.org/node/2411447"] = https://www.dr
 projects[l10n_update][version] = "1.1"
 projects[libraries][version] = "2.3"
 projects[link][version] = "1.4"
+projects[link][patch]["https://www.drupal.org/project/link/issues/2299657"] = https://www.drupal.org/files/issues/link-2299657-for-7.x-1.4.patch
 projects[linkit][version] = "3.5"
 projects[location][version] = "3.7"
 projects[logging_alerts][version] = "2.2"

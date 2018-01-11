@@ -3418,7 +3418,6 @@ function uhc_ds_ds_layout_settings_info() {
     'regions' => array(
       'event_material_content' => array(
         0 => 'title_field',
-        1 => 'field_material_description',
       ),
       'event_material_attachements' => array(
         2 => 'field_material_link',
@@ -3427,7 +3426,6 @@ function uhc_ds_ds_layout_settings_info() {
     ),
     'fields' => array(
       'title_field' => 'event_material_content',
-      'field_material_description' => 'event_material_content',
       'field_material_link' => 'event_material_attachements',
       'field_material_file' => 'event_material_attachements',
     ),

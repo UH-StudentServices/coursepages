@@ -1878,30 +1878,6 @@ function uhc_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_material_description'.
-  $field_bases['field_material_description'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_material_description',
-    'field_permissions' => array(
-      'type' => 2,
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text_long',
-  );
-
   // Exported field_base: 'field_material_file'.
   $field_bases['field_material_file'] = array(
     'active' => 1,
