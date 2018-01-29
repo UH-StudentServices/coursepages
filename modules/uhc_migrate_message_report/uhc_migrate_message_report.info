@@ -2,6 +2,6 @@ name = UHC Migrate Message Report
 description = Reports of migrate messages.
 core = 7.x
 package = UHC
-version = 7.x-1.107
+version = 7.x-1.108
 project = uhc_migrate_message_report
 dependencies[] = uhc_course_implementation_source

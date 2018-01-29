@@ -762,9 +762,13 @@ function uhc_course_implementation_get_default_header_image($tid) {
       // Break the loop if we can't find parents anymore.
       break;
     }
+    // Sanity check: If the parent TID equals child TID, break to avoid infinite loop.
+    if ($tid == $parent->tid) {
+      watchdog('uhc_course_implementation', 'Term @tid reports self as parent.', array('@tid' => $tid), WATCHDOG_ERROR);
+      break;
+    }
     $tid = $parent->tid;
   }
-
 
   return $return;
 }

@@ -1,3 +1,15 @@
+# University of Helsinki Courses v1.108
+Päiväys: 29.01.2018
+
+## Muutokset
+  - DOO-3361: Ylläpitopuolelle kevyempi sivutus sisältölistaukseen.
+  - DOO-3359: Konfiguroitiin sovellus käyttämään Varnishin versiota 4
+    kaikissa ympäristöissä.
+
+## Korjaukset
+  - DOO-3362: Toteutuksen organisaatiokuvan lataaminen saattaa jäädä jumiin.
+
+
 # University of Helsinki Courses v1.107
 Päiväys: 25.01.2018
 
