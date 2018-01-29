@@ -165,18 +165,14 @@ function uhc_course_implementation_activity_send_notify_mail($comment) {
 
   // Fetch enrolled students' emails. Abort if none found.
   $students = uhc_course_collaboration_get_course_students(field_get_items('node', $node, 'field_imp_id')[0]['value']);
-  $to = '';
+  $recipients = array();
   foreach ($students as $student) {
     if (!empty($student['email'])) {
-      $to .= $student['email'] . ', ';
+      $recipients[] = $student['email'];
     }
   }
-  if (!$to) {
+  if (empty($recipients)) {
     return;
-  }
-  else {
-    // Remove trailing separator
-    $to = substr($to, 0, -2);
   }
 
   // Get teaching language (determines the language of sent emails)
@@ -220,9 +216,12 @@ function uhc_course_implementation_activity_send_notify_mail($comment) {
   $reply_to_email = field_get_items('comment', $comment, 'field_reply_to_email');
   if (!empty($reply_to_checked[0]['value']) && !empty($reply_to_email[0]['value'])) {
     $params['Reply-To'] = $reply_to_email[0]['value'];
+    $params['On-Behalf-Of'] = $reply_to_email[0]['value'];
   }
 
-  drupal_mail('uhc_course_implementation_activity', 'notification', $to, $selected_lang, $params, $from, TRUE);
+  foreach ($recipients as $to) {
+    drupal_mail('uhc_course_implementation_activity', 'notification', $to, $selected_lang, $params, $from, TRUE);
+  }
 }
 
 /**
@@ -237,6 +236,7 @@ function uhc_course_implementation_activity_mail($key, &$message, $params) {
     $message['headers']['Sender'] = $params['from'];
     if (!empty($params['Reply-To'])) {
       $message['headers']['Reply-To'] = $params['Reply-To'];
+      $message['headers']['On-Behalf-Of'] = $params['On-Behalf-Of'];
     }
   }
 }

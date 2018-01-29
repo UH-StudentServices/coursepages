@@ -67,6 +67,16 @@ function uhc_comment_preprocess_comment(&$variables) {
 function uhc_comment_node_view($node, $view_mode, $langcode) {
   if ($node->type == 'course_implementation') {
     uhc_comment_add_accordion_target_to_pager_links();
+    if (!empty($node->content['comments'])) {
+      if (!uhc_comment_form_access($node)) {
+        if (count($node->content['comments']['comments']) > 0) {
+          $node->content['comments']['comment_form']['#access'] = FALSE;
+        }
+        else {
+          $node->content['comments']['#access'] = FALSE;
+        }
+      }
+    }
   }
 }
 
@@ -79,13 +89,6 @@ function uhc_comment_add_accordion_target_to_pager_links() {
  * Implements hook_form_FORM_ID_alter().
  */
 function uhc_comment_form_comment_node_course_implementation_form_alter(&$form, &$form_state, $form_id) {
-  if (!uhc_comment_form_access($form['#node'])) {
-    // Deny access to form.
-    $form['#access'] = FALSE;
-    // Hide "Add new comment" title.
-    drupal_add_css('div#comments h2.title {display: none;}', 'inline');
-  }
-
   _uhc_comment_set_default_reply_to_address($form);
 
   $form['#validate'][] = 'uhc_comment_comment_form_validate';

@@ -1,3 +1,17 @@
+# University of Helsinki Courses v1.107
+Päiväys: 25.01.2018
+
+## Lisäykset
+  - DOO-3225: Lisättiin "On-Behalf-Of" -otsikkotieto opettajan lähettämiin viesteihin.
+
+## Muutokset
+  - DOO-3332: Siirrytään käyttämään organisaatiorekisterin tuotantoversiota.
+
+## Korjaukset
+ - DOO-3338: Kurssisivuilta lähtevässä sähköpostissa näkyivät kaikki opiskelijat jakelussa.
+ - DOO-3270: Kommentit ja tulokset -haitareita ei enää näytetä, mikäli niissä ei ole sisältöä.
+
+
 # University of Helsinki Courses v1.106
 Päiväys: 11.01.2018
 
