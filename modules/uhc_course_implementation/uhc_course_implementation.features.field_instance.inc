@@ -2892,6 +2892,96 @@ function uhc_course_implementation_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'node-course_implementation-field_imp_providing_org_code'.
+  $field_instances['node-course_implementation-field_imp_providing_org_code'] = array(
+    'bundle' => 'course_implementation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(
+          'field_multiple_limit' => -1,
+          'field_multiple_limit_offset' => 0,
+          'field_multiple_limit_order' => 0,
+        ),
+        'type' => 'text_default',
+        'weight' => 111,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_imp_providing_org_code',
+    'label' => 'Providing organisation code',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 'ds_code',
+          'embed_code' => 'embed_code',
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'embed_code' => array(
+              'weight' => 1,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'maxlength_js' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 54,
+    ),
+  );
+
+  // Exported field_instance:
   // 'node-course_implementation-field_imp_reference_to_courses'.
   $field_instances['node-course_implementation-field_imp_reference_to_courses'] = array(
     'bundle' => 'course_implementation',
@@ -5153,6 +5243,7 @@ function uhc_course_implementation_field_default_field_instances() {
   t('Organisation');
   t('Please specify how the students are able to interact online in this course. Recommended services are Moodle, Yammer, Presemo and Flinga but there are other services too. Sometimes it might be a good idea to ask the students for their opinion.');
   t('Prerequisites');
+  t('Providing organisation code');
   t('Reference to course tasks');
   t('Reference to course(s)');
   t('Relations to other study units');

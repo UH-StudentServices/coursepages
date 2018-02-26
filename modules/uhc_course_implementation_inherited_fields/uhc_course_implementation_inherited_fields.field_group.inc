@@ -21,7 +21,7 @@ function uhc_course_implementation_inherited_fields_field_group_info() {
   $field_group->parent_name = 'group_imp_integration';
   $field_group->data = array(
     'label' => 'Values from course',
-    'weight' => '54',
+    'weight' => '55',
     'children' => array(
       0 => 'field_inherited_additional_info',
       1 => 'field_inherited_conduct',
@@ -35,8 +35,8 @@ function uhc_course_implementation_inherited_fields_field_group_info() {
       9 => 'field_inherited_target_group',
       10 => 'field_inherited_timing',
       11 => 'field_inherited_working_methods',
-      12 => 'field_inherited_optional_studies',
-      13 => 'field_inherited_learning_support',
+      12 => 'field_inherited_learning_support',
+      13 => 'field_inherited_optional_studies',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

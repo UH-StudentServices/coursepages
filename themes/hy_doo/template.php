@@ -44,7 +44,14 @@ function hy_doo_preprocess_views_view(&$vars) {
  * Template for views lists with grouping as accordions
  */
 function hy_doo_preprocess_views_view_list(&$vars) {
-  if (in_array($vars['view']->name, array('subjects_by_category', 'studies_by_category'))) {
+  $views_to_process = array(
+    'course_implementations_by_course_degree_programme',
+    'course_implementations_by_course_subject',
+    'studies_by_category',
+    'subjects_by_category'
+  );
+
+  if (in_array($vars['view']->name, $views_to_process)) {
     $vars['theme_hook_suggestions'][] = 'views_view_list__group_by_accordion';
   }
 }

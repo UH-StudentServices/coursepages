@@ -216,7 +216,6 @@ function uhc_course_implementation_activity_send_notify_mail($comment) {
   $reply_to_email = field_get_items('comment', $comment, 'field_reply_to_email');
   if (!empty($reply_to_checked[0]['value']) && !empty($reply_to_email[0]['value'])) {
     $params['Reply-To'] = $reply_to_email[0]['value'];
-    $params['On-Behalf-Of'] = $reply_to_email[0]['value'];
   }
 
   foreach ($recipients as $to) {
@@ -233,10 +232,10 @@ function uhc_course_implementation_activity_mail($key, &$message, $params) {
     $message['subject'] = $params['subject'];
     $message['body'][] = $params['message'];
     $message['headers']['Return-Path'] = variable_get('site_mail', '');
-    $message['headers']['Sender'] = $params['from'];
+    $message['headers']['From'] = $message['headers']['Sender'] = $params['from'];
     if (!empty($params['Reply-To'])) {
       $message['headers']['Reply-To'] = $params['Reply-To'];
-      $message['headers']['On-Behalf-Of'] = $params['On-Behalf-Of'];
+      $message['headers']['From'] = $params['Reply-To'];
     }
   }
 }

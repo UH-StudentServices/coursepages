@@ -1,3 +1,34 @@
+# University of Helsinki Courses v1.110
+Päiväys: 22.02.2018
+
+## Lisäykset
+  - DOO-3370: Kokeiluasteella oleva kurssilistausupotustoiminnallisuus.
+
+## Päivitykset
+  - DOO-3394: Drupal-tietoturvapäivitys.
+
+
+# University of Helsinki Courses v1.109
+Päiväys: 14.02.2018
+
+## Lisäykset
+  - DOO-3366: Lisättiin CRON-ajoihin päällekkäisen ajon esto.
+  - DOO-2829: Kesäopetuksen listaukset.
+  - DOO-3336: Lisättiin opinnot-sivulle mahdollisuus asettaa otsikko ja kuvaustekstit.
+  - DOO-3236: Sähköpostiin mahdollisuus saada ilmoitus halutuista sisäänlukuviesteistä.
+  - DOO-3236: Aikaleima sisäänluvun lokimerkintöihin.
+
+## Muutokset
+  - DOO-3341: Muutettiin kurssin muokkausnäkymästä kuvaustekstien kuvaustekstiä.
+
+## Korjaukset
+  - DOO-3225: Korjattiin kurssiviestien sähköpostilähetysten otsakkeiden
+    käyttöä tarkoituksen mukaiseksi.
+
+## Päivitykset
+  - DOO-3364: Päivitettiin organisaatioita tuova moduuli.
+
+
 # University of Helsinki Courses v1.108
 Päiväys: 29.01.2018
 

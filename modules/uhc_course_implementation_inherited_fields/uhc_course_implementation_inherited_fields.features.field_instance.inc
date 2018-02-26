@@ -1232,15 +1232,15 @@ function uhc_course_implementation_inherited_fields_field_default_field_instance
   // Included for use with string extractors like potx.
   t('Activities and teaching methods in support of learning');
   t('Additional information');
+  t('Assessment practices and criteria');
+  t('Completion methods');
   t('Contents');
   t('Course conduct');
   t('Course study materials');
-  t('Assessment practices and criteria');
   t('Learning outcomes');
-  t('Completion methods');
+  t('Prerequisites');
   t('Recommended optional studies');
   t('Relations to other study units');
-  t('Prerequisites');
   t('Responsible person');
   t('Target group');
   t('Timing');

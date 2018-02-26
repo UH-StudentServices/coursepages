@@ -1,0 +1,15 @@
+<?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_migrate_message_notifications_uninstall() {
+  variable_del('uhc_migrate_message_notifications_email');
+  variable_del('uhc_migrate_message_notifications_lookup_messages');
+  variable_del('uhc_migrate_message_notifications_last_lookup');
+}

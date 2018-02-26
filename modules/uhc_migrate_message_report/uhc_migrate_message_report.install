@@ -1,0 +1,57 @@
+<?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_schema_alter().
+ */
+function uhc_migrate_message_report_schema_alter(&$schema) {
+  $name = _uhc_migrate_message_report_get_table_name();
+  $schema[$name]['fields']['created'] = array(
+    'description' => 'The Unix timestamp when the message was created.',
+    'type' => 'int',
+    'not null' => TRUE,
+    'default' => 0,
+  );
+}
+
+/**
+ * Implements hook_install().
+ */
+function uhc_migrate_message_report_install() {
+  $name = _uhc_migrate_message_report_get_table_name();
+  if (!db_field_exists($name, 'created')) {
+    db_add_field($name, 'created', array(
+      'description' => 'The Unix timestamp when the message was created.',
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0,
+    ));
+  }
+}
+
+/**
+ * Add created timestamp field for migrate message table.
+ */
+function uhc_migrate_message_report_update_7001() {
+  $name = _uhc_migrate_message_report_get_table_name();
+  if (!db_field_exists($name, 'created')) {
+    db_add_field($name, 'created', array(
+      'description' => 'The Unix timestamp when the message was created.',
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0,
+    ));
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_migrate_message_report_uninstall() {
+  $name = _uhc_migrate_message_report_get_table_name();
+  db_drop_field($name, 'created');
+}

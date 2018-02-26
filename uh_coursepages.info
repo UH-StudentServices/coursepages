@@ -1,7 +1,7 @@
 name = Helsinki University Portal
 description = Install with pre-configured features.
 core = 7.x
-version = 7.x-1.108
+version = 7.x-1.110
 dependencies[] = block
 dependencies[] = file
 dependencies[] = image
@@ -100,6 +100,7 @@ dependencies[] = uhc_subject
 dependencies[] = uhc_online_services
 dependencies[] = uhc_rest_api
 dependencies[] = uhc_migrate_message_report
+dependencies[] = uhc_migrate_message_notifications
 
 ; Project contrib
 dependencies[] = uh_taxonomy_organisations_migrate

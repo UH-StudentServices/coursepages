@@ -172,7 +172,7 @@ function uhc_studies_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related content',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_related_content_section',
     ),
@@ -245,6 +245,35 @@ function uhc_studies_field_group_info() {
   );
   $field_groups['group_study_modules|node|studies|form'] = $field_group;
 
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_summer_courses|node|studies_landing_page|form';
+  $field_group->group_name = 'group_summer_courses';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'studies_landing_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Summer courses',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_studies_lp_summer_view',
+      1 => 'field_summer_courses_title',
+      2 => 'field_summer_courses_description',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-summer-courses field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_summer_courses|node|studies_landing_page|form'] = $field_group;
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Banner');
@@ -254,6 +283,7 @@ function uhc_studies_field_group_info() {
   t('Promotion');
   t('Related content');
   t('Study modules');
+  t('Summer courses');
 
   return $field_groups;
 }

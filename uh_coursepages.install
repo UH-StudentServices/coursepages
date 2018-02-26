@@ -1362,3 +1362,10 @@ function uh_coursepages_update_7052(&$sandbox) {
   variable_del('uhc_activemq_connector_default_queue_base');
   module_disable(array('uhc_activemq_connector'));
 }
+
+/**
+ * Enable uhc_migrate_message_notifications module.
+ */
+function uh_coursepages_update_7053(&$sandbox) {
+  module_enable(array('uhc_migrate_message_notifications'));
+}

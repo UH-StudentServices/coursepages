@@ -5,7 +5,7 @@ core = 7.0
 api = 2
 
 projects[drupal][type] = core
-projects[drupal][version] = 7.56
+projects[drupal][version] = 7.57
 
 ; Patch: Text field (textarea) with "Default" formatter does not retain newlines
 projects[drupal][patch][1152216] = https://www.drupal.org/files/text-plain-1152216-24.patch
@@ -309,7 +309,7 @@ projects[uh_taxonomy_organisations][type] = module
 projects[uh_taxonomy_organisations][download][type] = git
 projects[uh_taxonomy_organisations][download][url] = "git://github.com/UH-StudentServices/uh_taxonomy_organisations.git"
 projects[uh_taxonomy_organisations][download][branch] = 7.x-1.x
-projects[uh_taxonomy_organisations][download][revision] = 26c91c9b9621bacf5d4baaaa1d3e48e43c0da61e
+projects[uh_taxonomy_organisations][download][revision] = 271782a0b7257c7b152ab3e9f8aecaf55eb54d8c
 
 projects[uh_mece][type] = module
 projects[uh_mece][download][type] = git
@@ -328,3 +328,9 @@ projects[hy_cookie_consent][download][type] = git
 projects[hy_cookie_consent][download][url] = "git://github.com/UniversityofHelsinki/hy_cookie_consent.git"
 projects[hy_cookie_consent][download][branch] = 7.x-1.x
 projects[hy_cookie_consent][download][revision] = 909f20821c323240142962df38fb4095b6b3b681
+
+projects[uh_courses_embed][type] = module
+projects[uh_courses_embed][download][type] = git
+projects[uh_courses_embed][download][url] = "git://github.com/UH-StudentServices/uh_courses_embed.git"
+projects[uh_courses_embed][download][branch] = master
+projects[uh_courses_embed][download][revision] = 1d0b22cfa68127248842ee2438af3412bd644897

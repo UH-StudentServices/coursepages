@@ -123,7 +123,7 @@ function uhc_course_implementation_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-course-overview field-group-tab',
-        'description' => 'Course overview texts are imported from Oodi',
+        'description' => 'Description texts are imported from Oodi and can be updated only there. <a href="https://wiki.helsinki.fi/x/0DyBDQ" target="_blank">Further information</a>.',
         'show_empty_fields' => 1,
       ),
       'formatter' => 'closed',
@@ -349,7 +349,8 @@ function uhc_course_implementation_field_group_info() {
       25 => 'field_hierarchy_parent_id',
       26 => 'field_hierarchy_position',
       27 => 'field_imp_extra_organisation',
-      28 => 'group_from_course',
+      28 => 'field_imp_providing_org_code',
+      29 => 'group_from_course',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

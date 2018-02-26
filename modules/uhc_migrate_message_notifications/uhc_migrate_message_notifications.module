@@ -1,0 +1,95 @@
+<?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function uhc_migrate_message_notifications_menu() {
+  return array(
+    'admin/reports/migrate-messages/list' => array(
+      'title' => 'Messages',
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+    ),
+    'admin/reports/migrate-messages/notifications' => array(
+      'title' => 'Notifications',
+      'description' => 'Configure your notifications related to migrate message monitoring.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('uhc_migrate_message_notifications_config_form'),
+      'access arguments' => array('access site reports'),
+      'file' => 'uhc_migrate_message_notifications.form.inc',
+      'file path' => drupal_get_path('module', 'uhc_migrate_message_notifications') . '/includes',
+      'type' => MENU_LOCAL_TASK,
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function uhc_migrate_message_notifications_menu_alter(&$menu) {
+  if (isset($menu['admin/reports/migrate-messages'])) {
+    // Convert existing migrate messages view as an default menu tab, so that we
+    // can add our migrate message notifications configuration form as secondary
+    // tab.
+    $menu['admin/reports/migrate-messages']['type'] = MENU_LOCAL_TASK | MENU_NORMAL_ITEM;
+  }
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function uhc_migrate_message_notifications_module_implements_alter(&$implementations, $hook) {
+  // Move hook_menu_alter implementation as last invokable implementation.
+  if ($hook == 'menu_alter') {
+    $hook_implementation = $implementations['uhc_migrate_message_notifications'];
+    if (isset($hook_implementation)) {
+      unset($implementations['uhc_migrate_message_notifications']);
+      $implementations['uhc_migrate_message_notifications'] = $hook_implementation;
+    }
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function uhc_migrate_message_notifications_cron() {
+  $to = variable_get('uhc_migrate_message_notifications_email', '');
+  if (empty($to)) {
+    // If no recipient email is set, then we don't need to even scan anything.
+    return;
+  }
+
+  $lookup = new UHCMigrateMessageScannerService(_uhc_migrate_message_report_get_table_name());
+  $lookup->setLastLookupTimestamp(variable_get('uhc_migrate_message_notifications_last_lookup', new DateTime('-3 hours -1 minute')));
+  $lookup->setLookupMessagesFromText(variable_get('uhc_migrate_message_notifications_lookup_messages', ''));
+  if ($lookup->shouldPerformLookup() && $lookup->performLookup()) {
+    if ($lookup->hasMatches()) {
+      // Send notification
+      drupal_mail('uhc_migrate_message_notifications', 'alert', $to, 'en', array('matches' => $lookup->getMatches()));
+      watchdog('uhc_migrate_message_notifications', 'Lookup matches found when scanning for migrate messages (@count).', array('@count' => count($lookup->getMatches())), WATCHDOG_WARNING);
+    }
+    else {
+      watchdog('uhc_migrate_message_notifications', 'No lookup matches found when scanning for migrate messages.', array(), WATCHDOG_INFO);
+    }
+    variable_set('uhc_migrate_message_notifications_last_lookup', $lookup->getCurrentLookupTimestamp());
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function uhc_migrate_message_notifications_mail($key, &$message, $params) {
+  if ($key == 'alert') {
+    $message['subject'] = t('Alert: Migrate messages found');
+    $message['body'][] = t('We have found some migrate messages that is under monitoring for notifications.');
+    if (!empty($params['matches']) && is_array($params['matches'])) {
+      foreach ($params['matches'] as $match) {
+        $message['body'][] = ' - ' . $match;
+      }
+    }
+  }
+}

@@ -50,7 +50,11 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
 
     // Specify description and mapping
     $this->description = 'Migrates course implementations from REST API backend.';
-    $this->map = new MigrateSQLMap($this->machineName,
+
+    // See uhc_migrate_message_report module
+    $migrate_map_class = class_exists('MigrateSQLMapWithCreated') ? 'MigrateSQLMapWithCreated' : 'MigrateSQLMap';
+
+    $this->map = new $migrate_map_class($this->machineName,
       array(
         'id' => array(
           'type' => 'varchar',
@@ -138,6 +142,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     // Other types of fields that are computed or prepared in prepare phase
     $this->addFieldMapping('status', 'status')->defaultValue(0);
     $this->addFieldMapping('field_cancelled', 'cancelled')->defaultValue(0);
+    $this->addFieldMapping('field_imp_providing_org_code', 'providing_organisation_code');
 
     // Date fields
     $this->addFieldMapping('field_imp_begin_date', 'start_date')->arguments(array('timezone' => 'Europe/Helsinki'));
@@ -235,6 +240,7 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     PortalMigrationBase::prepareStatus($row);
     CourseImplementationNodeMigration::prepareCancelled($row);
     CourseImplementationNodeMigration::prepareTeachingLanguage($row);
+    CourseImplementationNodeMigration::prepareProvidingOrganisationCode($row);
     CourseImplementationNodeMigration::prepareMultilingualRootTexts($row);
     CourseImplementationNodeMigration::prepareTitle($row);
     CourseImplementationNodeMigration::prepareInstructionLocality($row);
@@ -610,6 +616,22 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
       }
 
       $row->child_ids = $course_implementation_ids;
+    }
+  }
+
+  /**
+   * Prepares providing organisation code for storing. Only one code is stored,
+   * if multiple exist.
+   *
+   * @param $row
+   */
+  static public function prepareProvidingOrganisationCode($row) {
+    if (!empty($row->providing_organisation)) {
+      foreach ($row->providing_organisation as $providing_organisation) {
+        if (!empty($providing_organisation->code)) {
+          $row->providing_organisation_code = $providing_organisation->code;
+        }
+      }
     }
   }
 

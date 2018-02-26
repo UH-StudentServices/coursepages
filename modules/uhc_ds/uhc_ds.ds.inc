@@ -2204,6 +2204,20 @@ function uhc_ds_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'studies_landing_page';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
+    'field_related_content_section' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'related-content-section',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
+        ),
+      ),
+    ),
     'field_studies_lp_description' => array(
       'formatter_settings' => array(
         'ft' => array(
@@ -2239,6 +2253,7 @@ function uhc_ds_ds_field_settings_info() {
           'lb' => 'The course catalogue',
           'lb-el' => 'h2',
           'lb-cl' => 'tube',
+          'lb-at' => 'id="course-catalogue"',
           'lb-col' => TRUE,
           'ow' => TRUE,
           'ow-el' => 'div',
@@ -2249,13 +2264,44 @@ function uhc_ds_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_related_content_section' => array(
+    'field_studies_lp_summer_view' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'lb' => 'In summer',
+          'lb-el' => 'h2',
+          'lb-cl' => 'tube',
+          'lb-col' => TRUE,
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'clearfix',
+          'ow-def-cl' => FALSE,
+          'ow-at' => '',
+          'ow-def-at' => FALSE,
+        ),
+      ),
+    ),
+    'field_summer_courses_title' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
-          'fi-el' => 'div',
-          'fi-cl' => 'related-content-section',
+          'fi-el' => 'h2',
+          'fi-cl' => '',
+          'fi-at' => 'id="course-catalogue-summer"',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
+        ),
+      ),
+    ),
+    'field_summer_courses_description' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'p',
+          'fi-cl' => '',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
@@ -4061,15 +4107,21 @@ function uhc_ds_ds_layout_settings_info() {
         0 => 'field_studies_lp_image',
         1 => 'field_studies_lp_description',
         2 => 'field_studies_lp_view_attachment',
+        3 => 'field_summer_courses_title',
+        4 => 'field_summer_courses_description',
+        5 => 'field_studies_lp_summer_view',
       ),
       'portal_page_sidebar' => array(
-        3 => 'field_related_content_section',
+        6 => 'field_related_content_section',
       ),
     ),
     'fields' => array(
       'field_studies_lp_image' => 'portal_page_content',
       'field_studies_lp_description' => 'portal_page_content',
       'field_studies_lp_view_attachment' => 'portal_page_content',
+      'field_summer_courses_title' => 'portal_page_content',
+      'field_summer_courses_description' => 'portal_page_content',
+      'field_studies_lp_summer_view' => 'portal_page_content',
       'field_related_content_section' => 'portal_page_sidebar',
     ),
     'classes' => array(

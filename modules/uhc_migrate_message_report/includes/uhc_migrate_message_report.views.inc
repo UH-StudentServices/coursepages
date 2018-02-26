@@ -35,6 +35,20 @@ function uhc_migrate_message_report_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
+  $data[$table_name]['created'] = array(
+    'title' => t('Created'),
+    'help' => t('Date and time when message was created.'),
+    'filter' => array(
+      'handler' => 'views_handler_filter_date',
+    ),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort_date',
+    ),
+  );
   $data[$table_name]['sourceid1'] = array(
     'title' => t('Source ID'),
     'help' => t('Source ID. Usually same as course implementation ID.'),
@@ -114,6 +128,12 @@ function uhc_migrate_message_report_views_default_views() {
   $handler->display->display_options['fields']['msgid']['id'] = 'msgid';
   $handler->display->display_options['fields']['msgid']['table'] = 'migrate_message_courseimplementationnode';
   $handler->display->display_options['fields']['msgid']['field'] = 'msgid';
+  /* Field: Migrations: Created */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'migrate_message_courseimplementationnode';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'search_api_facetapi_YEAR';
   /* Field: Migrations: Source ID */
   $handler->display->display_options['fields']['sourceid1']['id'] = 'sourceid1';
   $handler->display->display_options['fields']['sourceid1']['table'] = 'migrate_message_courseimplementationnode';
@@ -152,6 +172,28 @@ function uhc_migrate_message_report_views_default_views() {
     7 => 0,
     8 => 0,
   );
+  /* Filter criterion: Migrations: Created */
+  $handler->display->display_options['filters']['created']['id'] = 'created';
+  $handler->display->display_options['filters']['created']['table'] = 'migrate_message_courseimplementationnode';
+  $handler->display->display_options['filters']['created']['field'] = 'created';
+  $handler->display->display_options['filters']['created']['group'] = 1;
+  $handler->display->display_options['filters']['created']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['created']['expose']['operator_id'] = 'created_op';
+  $handler->display->display_options['filters']['created']['expose']['label'] = 'Created';
+  $handler->display->display_options['filters']['created']['expose']['description'] = 'For example 2018-01-08';
+  $handler->display->display_options['filters']['created']['expose']['use_operator'] = TRUE;
+  $handler->display->display_options['filters']['created']['expose']['operator'] = 'created_op';
+  $handler->display->display_options['filters']['created']['expose']['identifier'] = 'created';
+  $handler->display->display_options['filters']['created']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
   /* Filter criterion: Migrations: Source ID */
   $handler->display->display_options['filters']['sourceid1']['id'] = 'sourceid1';
   $handler->display->display_options['filters']['sourceid1']['table'] = 'migrate_message_courseimplementationnode';
@@ -179,6 +221,7 @@ function uhc_migrate_message_report_views_default_views() {
   $handler->display->display_options['filters']['message']['table'] = 'migrate_message_courseimplementationnode';
   $handler->display->display_options['filters']['message']['field'] = 'message';
   $handler->display->display_options['filters']['message']['operator'] = 'contains';
+  $handler->display->display_options['filters']['message']['group'] = 1;
   $handler->display->display_options['filters']['message']['exposed'] = TRUE;
   $handler->display->display_options['filters']['message']['expose']['operator_id'] = 'message_op';
   $handler->display->display_options['filters']['message']['expose']['label'] = 'Message';
@@ -222,9 +265,11 @@ function uhc_migrate_message_report_views_default_views() {
     t('next ›'),
     t('last »'),
     t('Message ID'),
+    t('Created'),
     t('Source ID'),
     t('Message'),
     t('<small><pre>[message]</pre></small>'),
+    t('For example 2018-01-08'),
     t('Search by course implementation ID.'),
     t('Page'),
   );
