@@ -1,3 +1,13 @@
+# University of Helsinki Courses v1.112
+Päiväys: 29.03.2018
+
+## Lisäykset
+  - DOO-3464: Salli MATLAB-tiedostojen lataaminen kurssimateriaaleihin.
+
+## Päivitykset
+  - DOO-3480: Tietoturvapäivitys (Drupal core).
+
+
 # University of Helsinki Courses v1.111
 Päiväys: 19.03.2018
 

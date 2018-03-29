@@ -155,7 +155,7 @@ function uhc_course_material_field_default_field_instances() {
       'description_field' => 1,
       'entity_translation_sync' => FALSE,
       'file_directory' => 'course-material',
-      'file_extensions' => 'txt pdf doc docx ppt pptx xls xlsx jpg jpeg png gif svg bmp avi mov csv xml por sas sav ascii dta r rmd aif m4a mp3 ogg wav wma mpeg4 mpegps mp4 wmv flv mxf shp dbf geotiff netcdf warc tex',
+      'file_extensions' => 'txt pdf doc docx ppt pptx xls xlsx jpg jpeg png gif svg bmp avi mov csv xml por sas sav ascii dta r rmd aif m4a mp3 ogg wav wma mpeg4 mpegps mp4 wmv flv mxf shp dbf geotiff netcdf warc tex m',
       'filefield_paths' => array(
         'active_updating' => 0,
         'file_name' => array(
@@ -466,6 +466,7 @@ function uhc_course_material_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'field_multiple_limit' => -1,
           'field_multiple_limit_offset' => 0,
           'field_multiple_limit_order' => 0,
