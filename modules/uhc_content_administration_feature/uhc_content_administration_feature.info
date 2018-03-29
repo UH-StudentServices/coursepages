@@ -1,7 +1,7 @@
 name = UHC Content Administration
 core = 7.x
 package = UHC
-version = 7.x-1.110
+version = 7.x-1.111
 project = uhc_content_administration_feature
 dependencies[] = actions_permissions
 dependencies[] = admin_menu
@@ -440,7 +440,6 @@ features[user_permission][] = view uhc_ds_moodle_key_or_login on node
 features[user_permission][] = view uhc_ds_open_uni_registration on node
 features[user_permission][] = view uhc_ds_table_of_contents on node
 features[user_permission][] = view uhc_ds_title_and_credit on node
-features[user_role][] = Moodle integrator
 features[user_role][] = open university editor
 features[views_view][] = administration_nodes_open_university_editor
 features[views_view][] = notification_messages

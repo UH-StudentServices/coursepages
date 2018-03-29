@@ -116,8 +116,7 @@ function uhc_favorites_send_by_email_form_submit($form, &$form_state) {
   $nids = _uhc_favorites_get_nid_values($form_state);
   foreach ($nids as $nid) {
     $node = node_load($nid);
-    $access = node_access('view', $node);
-    if ($access) {
+    if ($node && node_access('view', $node)) {
       $entity_uri = entity_uri('node', $node);
       $links[] = '- ' . entity_label('node', $node) . ': ' . url($entity_uri['path'], array('absolute' => TRUE));
     }
@@ -167,10 +166,12 @@ function uhc_favorites_urls_callback() {
   $response = array();
   foreach ($nids as $nid) {
     $node = node_load($nid);
-    $response[] = array(
-      'uri' => url('node/'. $node->nid),
-      'label' => entity_label('node', $node)
-    );
+    if ($node && node_access('view', $node)) {
+      $response[] = array(
+        'uri' => url('node/'. $node->nid),
+        'label' => entity_label('node', $node)
+      );
+    }
   }
   drupal_json_output($response);
   drupal_exit();

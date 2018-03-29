@@ -49,7 +49,7 @@ function uhc_teacher_tools_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_imp_moodle';
   $field_group->data = array(
-    'label' => 'Link an existing Moodle course area without synchronizing',
+    'label' => 'Link an existing Moodle course area',
     'weight' => '57',
     'children' => array(
       0 => 'field_moodle_key',
@@ -57,11 +57,11 @@ function uhc_teacher_tools_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Link an existing Moodle course area without synchronizing',
+      'label' => 'Link an existing Moodle course area',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'When you provide the URL- address for your Moodle course area, the system will automatically generate an informative text about Moodle being used in this course.',
+        'description' => 'Add the URL for the Moodle course area as well as the enrolment key. The URL will be added as a button to the course page. The URL will be also visible in My Studies and My Teaching pages. The enrolment key is only displayed for students who are registered in WebOodi.',
         'show_empty_fields' => 0,
       ),
       'formatter' => 'open',
@@ -100,7 +100,7 @@ function uhc_teacher_tools_field_group_info() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Link an existing Moodle course area without synchronizing');
+  t('Link an existing Moodle course area');
   t('Moodle');
   t('Wiki');
 

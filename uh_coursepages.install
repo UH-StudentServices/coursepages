@@ -1369,3 +1369,10 @@ function uh_coursepages_update_7052(&$sandbox) {
 function uh_coursepages_update_7053(&$sandbox) {
   module_enable(array('uhc_migrate_message_notifications'));
 }
+
+/**
+ * Delete "Moodle integrator" role.
+ */
+function uh_coursepages_update_7054(&$sandbox) {
+  user_role_delete('Moodle integrator');
+}

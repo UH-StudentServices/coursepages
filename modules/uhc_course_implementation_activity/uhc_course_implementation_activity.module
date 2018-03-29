@@ -71,11 +71,10 @@ function template_preprocess_activity_rss_feed_link(&$variables) {
 function theme_activity_rss_feed_link($variables) {
   $output = '';
   if ($variables['path']) {
-    $output = '<span class="rss">';
     $output .= '<a href="' . url($variables['path']) . '" class="feed-icon" title="Subscribe this course activity">';
     $output .= '<img typeof="foaf:Image" src="/misc/feed.png" width="16" height="16" alt="Subscribe this course activity">';
+    $output .= '<span>RSS</span>';
     $output .= '</a>';
-    $output .= '</span>';
   }
   return $output;
 }

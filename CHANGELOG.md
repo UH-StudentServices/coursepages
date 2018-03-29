@@ -1,3 +1,23 @@
+# University of Helsinki Courses v1.111
+Päiväys: 19.03.2018
+
+## Muutokset
+  - DOO-2891: Moodle-alueen luontioikeus kurssin opettajille (ennen erillinen rooli).
+  - DOO-3391: Päivitettiin Moodle-alueen luonnin aputekstejä.
+  - DOO-3417: Editorina haluan muotoilla studies landing pagen kesäkurssien kuvaustekstiä.
+  - DOO-3389: Entity API -moduulin päivitys (1.8 -> 1.9).
+  - DOO-3400: Siirrettiin ja tyyliteltiin opetustapahtuman tyyppi kurssisivuilla
+  - DOO-3401: Opetuskieli: Sijainti muutettu. Näytetään kielen nimi lyhyen koodin sijaan.
+  - DOO-3402: RSS ja suosikit: Sijainti muutettu. Näytetään metatieto-osion alatunnisteessa.
+
+## Korjaukset
+  - DOO-2885: Moodle-alueen luontivirhe ei näkynyt käyttäjälle.
+  - DOO-3346: EntityMalformedException virhesanoma suosikkitoiminnallisuudessa.
+
+## Poistot
+  - DOO-2891: "Moodle integrator" -rooli poistettiin.
+
+
 # University of Helsinki Courses v1.110
 Päiväys: 22.02.2018
 

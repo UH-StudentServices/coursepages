@@ -57,3 +57,7 @@ h1, h2 {
 .heading-size-4 {
   @include font-size(21px);
 }
+
+.note {
+  color: $red;
+}

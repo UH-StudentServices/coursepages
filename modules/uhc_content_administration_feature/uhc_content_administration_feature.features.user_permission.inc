@@ -14,7 +14,6 @@ function uhc_content_administration_feature_user_default_permissions() {
   $permissions['Use Moodi button'] = array(
     'name' => 'Use Moodi button',
     'roles' => array(
-      'Moodle integrator' => 'Moodle integrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
     ),
     'module' => 'uhc_moodi',

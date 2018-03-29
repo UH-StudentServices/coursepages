@@ -17,9 +17,21 @@
   <?php endif; ?>
 
     <div class="ds-grid-12">
-      <<?php print $course_metadata_wrapper ?> class="<?php print $course_metadata_classes; ?>">
-        <?php print $course_metadata; ?>
-      </<?php print $course_metadata_wrapper ?>>
+      <div class="ds-node-metadata-wrapper">
+        <?php if (!empty($course_metadata_header)): ?>
+        <<?php print $course_metadata_header_wrapper ?> class="<?php print $course_metadata_header_classes; ?>">
+          <?php print $course_metadata_header; ?>
+        </<?php print $course_metadata_header_wrapper ?>>
+        <?php endif; ?>
+        <<?php print $course_metadata_wrapper ?> class="<?php print $course_metadata_classes; ?>">
+          <?php print $course_metadata; ?>
+        </<?php print $course_metadata_wrapper ?>>
+        <?php if (!empty($course_metadata_footer)): ?>
+        <<?php print $course_metadata_footer_wrapper ?> class="<?php print $course_metadata_footer_classes; ?>">
+          <?php print $course_metadata_footer; ?>
+        </<?php print $course_metadata_footer_wrapper ?>>
+        <?php endif; ?>
+      </div>
 
       <<?php print $course_banner_wrapper ?> class="<?php print $course_banner_classes; ?>">
         <?php print $course_banner; ?>

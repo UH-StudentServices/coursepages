@@ -6548,13 +6548,17 @@ body.open-university .view.course-list th.views-field-field-imp-giver-locality, 
 * Expected metadata setup consists from a variation of inline text elements which
 * either float to the left or right
 */
+.ds-node-metadata-wrapper {
+  border-top: 1px solid #EBEBEB; }
+
+.ds-node-metadata-header {
+  float: right; }
+
 .ds-node-metadata {
   width: 100%;
   clear: both;
-  border-top: 1px solid #EBEBEB;
   border-bottom: 1px solid #EBEBEB;
   display: block;
-  padding: 6px 0 5px;
   font-size: 0.875em;
   line-height: 2em; }
   .ds-node-metadata .field {
@@ -6570,16 +6574,7 @@ body.open-university .view.course-list th.views-field-field-imp-giver-locality, 
   .ds-node-metadata .teaching-languages {
     display: block; }
     .ds-node-metadata .teaching-languages span {
-      margin-left: 0.35em;
       font-weight: 900; }
-  .ds-node-metadata .rss {
-    padding: 0 0 0 10px;
-    line-height: 22px;
-    display: block;
-    float: right; }
-  @media (min-width: 75em) {
-    .ds-node-metadata .teaching-languages {
-      float: right; } }
   .ds-node-metadata .label-row.help {
     display: inline-block; }
   .ds-node-metadata .flexible-start {
@@ -6587,6 +6582,23 @@ body.open-university .view.course-list th.views-field-field-imp-giver-locality, 
     @media (min-width: 48em) {
       .ds-node-metadata .flexible-start {
         margin: 0 0 0 0.8em; } }
+
+.ds-node-metadata-footer .favoritewidget {
+  float: right; }
+  .ds-node-metadata-footer .favoritewidget.button__inline {
+    min-width: unset;
+    margin-right: 0;
+    padding-right: 0; }
+
+.ds-node-metadata-footer .rss {
+  padding-top: 12px;
+  display: block;
+  float: right; }
+  .ds-node-metadata-footer .rss img {
+    margin-top: 2px;
+    vertical-align: top; }
+  .ds-node-metadata-footer .rss span {
+    padding-left: 5px; }
 
 .label-row.help + .description-toggle {
   display: inline !important; }
@@ -6936,6 +6948,10 @@ body:not(.open-university) .view-id-course_node_references .field-imp-course-org
             float: right;
             padding-right: 0; } }
 
+.label-row__item.theme-light-gray {
+  background-color: #777777;
+  border-color: #777777; }
+
 /* Custom theming for menu local tasks */
 .tabs-wrapper {
   background-color: #0098d0;
@@ -6981,6 +6997,9 @@ body:not(.open-university) .view-id-course_node_references .field-imp-course-org
         content: "";
         font-size: 16px;
         margin-left: 0.5em; }
+
+#uhc-moodi-status-area:empty {
+  padding: 0; }
 
 div.study-module-multiselect {
   width: 100% !important; }
@@ -9347,6 +9366,9 @@ h1, h2 {
     .heading-size-4, .node-form .vertical-tabs-pane > .fieldset-wrapper > .form-wrapper > legend > .fieldset-legend, .node-form .ief-form > legend > .fieldset-legend,
     .node-form .field-type-field-collection fieldset:not(.collapsed) > legend > .fieldset-legend {
       font-size: 21px; } }
+
+.note {
+  color: #e5053a; }
 
 .block--uhc-autofill-metadata-enrollments-block a:after {
   display: none; }

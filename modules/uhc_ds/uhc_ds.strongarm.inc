@@ -22,6 +22,8 @@ function uhc_ds_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'ds_classes_regions';
   $strongarm->value = 'ds-node-metadata
+ds-node-metadata-footer
+ds-node-metadata-header
 ds-node-banner
 ds-node-content
 ds-node-teaser--course

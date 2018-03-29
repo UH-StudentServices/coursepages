@@ -3560,8 +3560,8 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_offset' => 0,
           'field_multiple_limit_order' => 0,
           'format' => array(
-            'iso' => 'iso',
-            'name' => 0,
+            'iso' => 0,
+            'name' => 'name',
             'name_native' => 0,
           ),
         ),

@@ -46,7 +46,7 @@ function uhc_moodi_permission() {
  */
 function uhc_moodi_access() {
   return user_has_role(user_role_load_by_name('administrator')->rid)
-    || user_access('Use Moodi button');
+    || uhc_course_collaboration_is_current_user_course_teacher();
 }
 
 /**
@@ -56,20 +56,19 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
   if (!empty($course_implementation_id)) {
 
     global $language;
-
-    // Fieldset for Moodi input elements.
-    $form['uhc_moodi_fieldset'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Create a new Moodle course area and synchronize students from WebOodi'),
-      '#description' => uhc_moodi_get_moodle_description($language->language),
-      '#weight' => -99,
-      '#collapsible' => FALSE,
-      '#collapsed' => TRUE,
-    );
-
     $moodi_response = uhc_moodi_get_controller()->get($course_implementation_id);
 
     if (uhc_moodi_access()) {
+
+      // Fieldset for Moodi input elements.
+      $form['uhc_moodi_fieldset'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Create a new Moodle course area and synchronize participants from WebOodi'),
+        '#description' => uhc_moodi_get_moodle_description($language->language),
+        '#weight' => -99,
+        '#collapsible' => FALSE,
+        '#collapsed' => TRUE,
+      );
 
       // Moodi create button.
       $form['uhc_moodi_fieldset']['uhc_moodi_create_button'] = array(
@@ -93,25 +92,23 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
       // Show status area when the Moodle URL exists or on error response.
       $show_status = !empty(uhc_moodi_get_moodle_url($moodi_response)) || uhc_moodi_is_error_response($moodi_response);
 
-      if ($show_status) {
-        $status_markup = '<h4>' . uhc_moodi_get_status_title($moodi_response) . '</h4>' . uhc_moodi_get_status_markup($moodi_response);
-        $form['uhc_moodi_fieldset']['uhc_moodi_status_area'] = array(
-          '#type' => 'markup',
-          '#prefix' => uhc_moodi_get_status_prefix($moodi_response),
-          '#suffix' => '</div>',
-          '#markup' => $status_markup,
-          '#attached' => array('js' => array(
-            drupal_get_path('module', 'uhc_moodi') . '/js/uhc_moodi_copy_moodle_url.js',
-          )),
-        );
-      }
-    }
-    else {
-      $form['uhc_moodi_fieldset']['uhc_moodi_not_available'] = array(
+      $form['uhc_moodi_fieldset']['uhc_moodi_status_area'] = array(
         '#type' => 'markup',
-        '#prefix' => '<div class="tube"><div class="messages info">',
-        '#suffix' => '</div></div>',
-        '#markup' => '<p>' . t('This function is not yet available.') . '</p>',
+        '#prefix' => uhc_moodi_get_status_prefix($moodi_response),
+        '#suffix' => '</div>',
+      );
+      if ($show_status) {
+        $form['uhc_moodi_fieldset']['uhc_moodi_status_area']['#markup'] = '<h4>' . uhc_moodi_get_status_title($moodi_response) . '</h4>' . uhc_moodi_get_status_markup($moodi_response);
+        $form['uhc_moodi_fieldset']['uhc_moodi_status_area']['#attached'] = array('js' => array(
+          drupal_get_path('module', 'uhc_moodi') . '/js/uhc_moodi_copy_moodle_url.js',
+        ));
+      }
+
+      // Description of Moodle areas without participants.
+      $form['uhc_moodi_without_participants_note'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Create a new Moodle course area without synchronizing participants from WebOodi'),
+        '#description' => uhc_moodi_get_moodle_description_without_participants($language->language),
       );
     }
 
@@ -135,31 +132,49 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
 
     // Add Moodi widget fieldset to Moodle fieldgroup.
     $form['#group_children']['uhc_moodi_fieldset'] = 'group_imp_moodle';
+    $form['#group_children']['uhc_moodi_without_participants_note'] = 'group_imp_moodle';
   }
 
   return $form;
 }
 
 function uhc_moodi_get_moodle_description($language_code) {
-  $moodle_pilot_email_by_language_code = array(
-    'en' => 'edutech@helsinki.fi',
-    'fi' => 'opetusteknologia@helsinki.fi',
-    'sv' => 'edutech@helsinki.fi'
+  // @todo: Build a GUI for changing these.
+  $import_url = array(
+    'en' => 'https://docs.moodle.org/33/en/Import_course_data',
+    'fi' => 'https://docs.moodle.org/3x/fi/Tuo',
+    'sv' => 'https://docs.moodle.org/33/en/Import_course_data',
+  );
+  $instructions_url = 'https://docs.moodle.org/3x/fi/HY-Uuden_kurssialueen_luonti';
+  $paragraphs = array(
+    t('Clicking this button creates a new Moodle area and adds the registered students and teachers from WebOodi by using automatic synchronization. The URL created for the Moodle area will be automatically added as a button to the course page. The course URL will be also visible in My Studies and My Teaching pages.'),
+    t('The Moodle area is hidden from students as a default after the creation. Therefore, you should remember to open the Moodle course area for students when the course is ready through the Moodle area settings. You can import content from another Moodle course area - such as the course\'s previous iteration - with the <a href="@url" target="_blank">Import</a> function.', array('@url' => $import_url[$language_code])),
+    t('<span class="note">Note. This function should not be used if the enrolment in the course is restricted in WebOodi.</span> Before creating a new Moodle course area, <strong>see more detailed <a href="@url" target="_blank">instructions</a>.</strong>', array('@url' => $instructions_url)),
   );
 
-  return t('This function is not yet available. If you are interested in participating the pilot use of the function, please contact <a href="mailto:@moodle_pilot_email">@moodle_pilot_email</a>.',
-    array('@moodle_pilot_email' => $moodle_pilot_email_by_language_code[$language_code])
+  return '<p>' . implode('</p><p>', $paragraphs) . '</p>';
+}
+
+function uhc_moodi_get_moodle_description_without_participants($language_code) {
+  // @todo: Build a GUI for changing these.
+  $form_url = 'https://moodle.helsinki.fi/course/request.php';
+  $selfenrollment_url = array(
+    'en' => 'https://docs.moodle.org/33/en/Self_enrolment',
+    'fi' => 'https://docs.moodle.org/3x/fi/K%C3%A4ytt%C3%A4j%C3%A4hallinta',
+    'sv' => 'https://docs.moodle.org/33/en/Self_enrolment',
   );
+  return '<p>' . t('Request a new course area by filling this <a href="@form_url" target="_blank">form</a>. With this method, course participants are not automatically imported from WebOodi. Students and teachers must be added to Moodle by e.g. <a href="@selfenrollment_url" target="_blank">self-enrolment</a>. Link the Moodle area to the course page as shown below.', array('@form_url' => $form_url, '@selfenrollment_url' => $selfenrollment_url[$language_code])) . '</p>';
 }
 
 /**
  * Returns status title based on Moodi response.
  *
  * @param $moodi_response object Moodi response.
+ * @param array $ok_status_codes
  * @return string Status title.
  */
-function uhc_moodi_get_status_title($moodi_response) {
-  return uhc_moodi_is_error_response($moodi_response) ? t('Error') : t('Moodle status OK');
+function uhc_moodi_get_status_title($moodi_response, $ok_status_codes = array(200, 404)) {
+  return uhc_moodi_is_error_response($moodi_response, $ok_status_codes) ? t('Error') : t('Moodle status OK');
 }
 
 /**
@@ -230,14 +245,15 @@ function uhc_moodi_get_data($moodi_response) {
  * Get status area CSS classes based on Moodi response.
  *
  * @param $moodi_response object Moodi response.
+ * @param $ok_status_codes
  * @return string CSS classes.
  */
-function uhc_moodi_get_status_classes($moodi_response) {
+function uhc_moodi_get_status_classes($moodi_response, $ok_status_codes) {
   $status_classes = array();
   $status_classes[] = 'messages';
   $status_classes[] = 'alternative';
 
-  if (!in_array($moodi_response->code, array(200, 404))) {
+  if (!in_array($moodi_response->code, $ok_status_codes)) {
     $status_classes[] = 'error';
   }
   else {
@@ -251,10 +267,11 @@ function uhc_moodi_get_status_classes($moodi_response) {
  * Get status area prefix based on Moodi response.
  *
  * @param $moodi_response object Moodi response.
+ * @param array $ok_status_codes
  * @return string Status area prefix.
  */
-function uhc_moodi_get_status_prefix($moodi_response) {
-  return '<div id="uhc-moodi-status-area" class="' . uhc_moodi_get_status_classes($moodi_response) . '">';
+function uhc_moodi_get_status_prefix($moodi_response, $ok_status_codes = array(200, 404)) {
+  return '<div id="uhc-moodi-status-area" class="' . uhc_moodi_get_status_classes($moodi_response, $ok_status_codes) . '">';
 }
 
 /**
@@ -282,8 +299,8 @@ function uhc_moodi_get_moodle_url($moodi_response) {
   return !empty($moodi_response_data->url) ? $moodi_response_data->url : '';
 }
 
-function uhc_moodi_is_error_response($moodi_response) {
-  return !in_array($moodi_response->code, array(200, 404));
+function uhc_moodi_is_error_response($moodi_response, $ok_status_codes = array(200, 404)) {
+  return !in_array($moodi_response->code, $ok_status_codes);
 }
 
 /**
@@ -299,11 +316,14 @@ function uhc_moodi_create_button_ajax_callback($form, &$form_state) {
     $moodi_create_response = uhc_moodi_get_controller($request_timeout_seconds)->create($course_implementation_id);
     $moodi_get_response = uhc_moodi_get_controller()->get($course_implementation_id);
 
-    $element['#prefix'] = uhc_moodi_get_status_prefix($moodi_create_response);
-    $element['#markup'] = '<h4>' . uhc_moodi_get_creation_result_title($moodi_create_response) . '</h4>';
+    $element['#prefix'] = uhc_moodi_get_status_prefix($moodi_create_response, array(200));
+    $element['#markup'] = '<h4>' . uhc_moodi_get_creation_result_title($moodi_create_response, array(200)) . '</h4>';
     $element['#markup'] .= uhc_moodi_get_status_markup($moodi_create_response);
-    $element['#markup'] .= '<h4>' . uhc_moodi_get_status_title($moodi_create_response) . '</h4>';
-    $element['#markup'] .= uhc_moodi_get_status_markup($moodi_get_response);
+
+    if (!uhc_moodi_is_error_response($moodi_create_response, array(200))) {
+      $element['#markup'] .= '<h4>' . uhc_moodi_get_status_title($moodi_create_response) . '</h4>';
+      $element['#markup'] .= uhc_moodi_get_status_markup($moodi_get_response);
+    }
 
     uhc_moodi_handle_create_response($moodi_create_response, $form);
   }
@@ -315,10 +335,11 @@ function uhc_moodi_create_button_ajax_callback($form, &$form_state) {
  * Returns creation result title based on Moodi response.
  *
  * @param $moodi_response object Moodi response.
+ * @param array $ok_status_codes
  * @return string Creation result title.
  */
-function uhc_moodi_get_creation_result_title($moodi_response) {
-  return uhc_moodi_is_error_response($moodi_response) ? t('Creation failed') : t('Moodle status OK');
+function uhc_moodi_get_creation_result_title($moodi_response, $ok_status_codes = array(200, 404)) {
+  return uhc_moodi_is_error_response($moodi_response, $ok_status_codes) ? t('Creation failed') : t('Moodle status OK');
 }
 
 /**

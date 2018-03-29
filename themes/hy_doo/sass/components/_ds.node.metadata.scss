@@ -3,14 +3,20 @@
 * either float to the left or right
 */
 
+.ds-node-metadata-wrapper {
+  @include border-side(top);
+}
+
+.ds-node-metadata-header {
+  float: right;
+}
+
 .ds-node-metadata {
   width: 100%;
   clear: both;
 
-  @include border-side(top);
   @include border-side(bottom);
   display: block;
-  padding: 6px 0 5px;
 
   font-size: 0.875em;
   line-height: 2em;
@@ -33,19 +39,7 @@
   .teaching-languages {
     display: block;
     span {
-      margin-left: 0.35em;
       font-weight: 900;
-    }
-  }
-  .rss {
-    padding: 0 0 0 10px;
-    line-height: 22px;
-    display: block;
-    float: right;
-  }
-  @include breakpoint($large) {
-    .teaching-languages {
-      float: right;
     }
   }
   .label-row.help {
@@ -55,6 +49,29 @@
     line-height: 1.5em;
     @include breakpoint($small) {
       margin: 0 0 0 0.8em;
+    }
+  }
+}
+
+.ds-node-metadata-footer {
+  .favoritewidget {
+    float: right;
+    &.button__inline {
+      min-width: unset;
+      margin-right: 0;
+      padding-right: 0;
+    }
+  }
+  .rss {
+    padding-top: 12px;
+    display: block;
+    float: right;
+    img {
+      margin-top: 2px;
+      vertical-align: top;
+    }
+    span {
+      padding-left: 5px;
     }
   }
 }
