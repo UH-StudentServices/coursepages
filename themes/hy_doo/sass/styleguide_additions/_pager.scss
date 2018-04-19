@@ -1,0 +1,16 @@
+ul.pager {
+  .pager__previous a {
+    @extend .button--action-before;
+    @extend .icon--arrow-left;
+  }
+  .pager__page {
+    @extend .button;
+    a {
+      color: $white;
+    }
+  }
+  .pager__next a {
+    @extend .button--action;
+    @extend .icon--arrow-right;
+  }
+}

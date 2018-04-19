@@ -7,7 +7,7 @@
   }
 
   tr {
-    @include border-bottom;
+    @include accessible-border-bottom;
     .form-wrapper,
     .form-item {
       margin: 0;

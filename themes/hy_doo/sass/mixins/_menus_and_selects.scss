@@ -9,7 +9,7 @@
   max-height: 0;
   width: 330px;
   &:before {
-    @include alternative-arrow($lightsilver, 10px, 'up');
+    @include alternative-arrow($mediumsilver, 10px, 'up');
     position: absolute;
     top: -11px;
     #{$side}: 12px;
@@ -21,7 +21,7 @@
     #{$side}: 12px;
   }
   &.collapsed {
-    @include border;
+    @include accessible-border;
     z-index: 999;
     overflow: visible;
     max-height: $max-height;
@@ -29,7 +29,7 @@
 }
 
 @mixin dropdown-list-item() {
-  @include border-bottom;
+  @include accessible-border-bottom;
   margin: 0 10px;
   &:last-child {
     border-bottom: 0;
@@ -44,7 +44,7 @@
 @mixin select-header() {
   @include transition(all 0.2s ease-in-out);
   @include font-weight-medium;
-  @include border;
+  @include accessible-border;
   display: block;
   cursor: pointer;
   padding: 8px;
@@ -71,7 +71,7 @@
     position: relative;
     width: auto !important;
     .chosen-single {
-      color: $gray;
+      color: $darkgray;
       display: inline-block;
       line-height: 50px;
       padding: 0 2em 0 0.5em;
@@ -100,13 +100,13 @@
         color: $black;
       }
       .chosen-drop {
-        @include border;
+        @include accessible-border;
         overflow: visible;
         max-height: none;
         li {
           padding: 0.5em 0;
           margin: 0 1em;
-          @include border-bottom;
+          @include accessible-border-bottom;
           &:last-child {
             border-bottom: none;
           }

@@ -36,7 +36,7 @@
         max-height: 400px;
         overflow: scroll;
         li {
-          @include border-bottom;
+          @include accessible-border-bottom;
           @include clearfix;
           padding: 10px;
           &:last-child {
@@ -59,7 +59,7 @@
             width: 70%;
             p {
               font-size: inherit;
-              color: $gray;
+              color: $darkgray;
               margin: 0;
               padding: 0;
               .user-name {

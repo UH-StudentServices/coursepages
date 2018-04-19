@@ -33,7 +33,7 @@
     li a.icon--done {
       background-image: none;
       &:after {
-        color: $green;
+        color: $light-green;
         position: absolute;
         right: 1em;
       }
@@ -41,7 +41,7 @@
 
     @include breakpoint($small) {
       li {
-        @include border;
+        @include accessible-border;
         border-bottom: none;
         outline: none;
         a  {
@@ -51,11 +51,11 @@
           position: relative;
         }
         &.selected {
-          @include box-shadow(-7px 0px 20px -3px $lightsilver);
+          @include box-shadow(-7px 0px 20px -3px $mediumsilver);
           border-right: none;
         }
         &.last {
-          border-bottom: 1px solid $lightsilver;
+          border-bottom: 1px solid $mediumsilver;
         }
       }
     }
@@ -74,16 +74,16 @@
       margin-bottom: 2em;
 
       @include breakpoint($small) {
-        border: 2px solid $lightsilver;
+        border: 2px solid $mediumsilver;
         .vertical-tabs-list li {
           a {
-            background: lighten($lightsilver, 5%);
+            background: lighten($mediumsilver, 5%);
             color: $silver;
           }
           &.selected a {
             border: none;
             background: $white;
-            color: $gray;
+            color: $darkgray;
           }
           &:last-child {
             border-bottom: none;
@@ -96,7 +96,7 @@
 
       .vertical-tabs-panes {
         padding-right: 1.5em;
-        border: 2px solid $lightsilver;
+        border: 2px solid $mediumsilver;
         @include breakpoint($small) {
           border: none;
         }

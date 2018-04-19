@@ -33,7 +33,7 @@
 }
 
 #autocomplete {
-  @include border;
+  @include accessible-border;
   z-index: 9999;
   padding: 0.5em;
   background: $white;

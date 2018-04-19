@@ -170,11 +170,20 @@ function uhc_moodi_get_moodle_description_without_participants($language_code) {
  * Returns status title based on Moodi response.
  *
  * @param $moodi_response object Moodi response.
- * @param array $ok_status_codes
  * @return string Status title.
  */
-function uhc_moodi_get_status_title($moodi_response, $ok_status_codes = array(200, 404)) {
+function uhc_moodi_get_status_title($moodi_response) {
+  $ok_status_codes = _uhc_moodi_get_ok_http_statuses();
   return uhc_moodi_is_error_response($moodi_response, $ok_status_codes) ? t('Error') : t('Moodle status OK');
+}
+
+/**
+ * @return array
+ *   List of statuses that can be interpreteded as normal response. Other
+ *   statuses would therefore be interpreteded as error.
+ */
+function _uhc_moodi_get_ok_http_statuses() {
+  return array(200, 404);
 }
 
 /**
@@ -185,21 +194,22 @@ function uhc_moodi_get_status_title($moodi_response, $ok_status_codes = array(20
  */
 function uhc_moodi_get_status_markup($moodi_response) {
   $status_markup = '';
+  $moodi_response_status = uhc_moodi_get_status($moodi_response);
   $moodi_response_data = uhc_moodi_get_data($moodi_response);
 
   if (!empty($moodi_response_data->moodleCourseId) || !empty(uhc_moodi_get_moodle_url($moodi_response))) {
     $status_markup .= t('The Moodle area is created and the students and teachers are enrolled from WebOodi to Moodle. Enrolments are synchronized every two hours.');
+  }
+  elseif (!in_array($moodi_response_status, _uhc_moodi_get_ok_http_statuses())) {
+    $status_markup .= t('Something went wrong. Please try later again and contact moodle@helsinki.fi if necessary.');
+    watchdog('uhc_moodi', 'Something went wrong, because status code.', array(), WATCHDOG_WARNING);
   }
   elseif (!empty($moodi_response_data->message)) {
     $status_markup .= check_plain($moodi_response_data->message);
   }
   else {
     $status_markup .= t('Something went wrong. Please try later again and contact moodle@helsinki.fi if necessary.');
-
-    if (!empty($moodi_response->error)) {
-      $error = check_plain($moodi_response->error);
-      $status_markup .= " ($error)";
-    }
+    watchdog('uhc_moodi', 'Something went wrong, because unidentified response.', array(), WATCHDOG_WARNING);
   }
 
   $moodle_area_url = !empty($moodi_response_data->url) ? $moodi_response_data->url : '';
@@ -240,6 +250,17 @@ function uhc_moodi_append_import_in_progress_status_markup($moodi_response_data,
 function uhc_moodi_get_data($moodi_response) {
   return isset($moodi_response->data) ? json_decode($moodi_response->data) : NULL;
 }
+
+/**
+ * @param $moodi_response
+ *
+ * @return integer|NULL
+ *   Returns HTTP status code of given moodi response.
+ */
+function uhc_moodi_get_status($moodi_response) {
+  return isset($moodi_response->code) ? $moodi_response->code : NULL;
+}
+
 
 /**
  * Get status area CSS classes based on Moodi response.

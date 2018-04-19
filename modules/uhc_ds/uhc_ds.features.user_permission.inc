@@ -712,5 +712,14 @@ function uhc_ds_user_default_permissions() {
     'module' => 'ds_extras',
   );
 
+  // Exported permission: 'view uhc_grades on node'.
+  $permissions['view uhc_grades on node'] = array(
+    'name' => 'view uhc_grades on node',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'ds_extras',
+  );
+
   return $permissions;
 }

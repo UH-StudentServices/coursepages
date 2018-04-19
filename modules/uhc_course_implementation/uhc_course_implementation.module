@@ -671,15 +671,33 @@ function uhc_course_implementation_help_texts_messages(&$content, $node, $drupal
  * Callback for exam results info text.
  */
 function uhc_course_implementation_exam_results_info_text($field) {
-  if ((!empty($field['entity']->field_imp_results) &&
+  $node = $field['entity'];
+
+  if ((uhc_course_implementation_has_exam_result_files($node) &&
       uhc_course_collaboration_private_current_user_has_access_to_private_content()) ||
-      uhc_tour_is_demo_node($field['entity'])) {
+      uhc_tour_is_demo_node($node)) {
     return '<div class="messages views-system-message status info alternative"><p>'
       . t('Results are available for six months after they have been published')
       . '</p></div>';
   }
 
   return '';
+}
+
+function uhc_course_implementation_has_exam_result_files($node) {
+  if ($node) {
+    $exam_results = field_get_items('node', $node, 'field_imp_results');
+
+    if (!empty($exam_results)) {
+      foreach ($exam_results as $exam_result) {
+        if (!empty(field_get_items('node', $exam_result['entity'], 'field_result_files'))) {
+          return TRUE;
+        }
+      }
+    }
+  }
+
+  return FALSE;
 }
 
 /**

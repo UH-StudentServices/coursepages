@@ -176,7 +176,7 @@ projects[pathologic][version] = 2.12
 projects[embed_views][version] = 1.2
 
 ; Display suite
-projects[ds][version] = "2.14"
+projects[ds][version] = "2.15"
 projects[ds][subdir] = "contrib"
 ;# Patch for text in resilts view see: https://www.drupal.org/node/2345387
 ;projects[ds][patch][rename-total-results] = "https://www.drupal.org/files/issues/ds-rename_total_results_output-2345387-1.patch"
@@ -303,6 +303,10 @@ libraries[stomp_php][download][type] = "get"
 libraries[stomp_php][download][url] = "https://github.com/dejanb/stomp-php/archive/2.1.1.zip"
 libraries[stomp_php][directory_name] = "stomp_php"
 libraries[stomp_php][destination] = "libraries"
+
+libraries[highcharts][directory_name] = highcharts
+libraries[highcharts][download][type] = file
+libraries[highcharts][download][url] = https://cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.7/highcharts.js
 
 ; Project contribs
 projects[uh_taxonomy_organisations][type] = module

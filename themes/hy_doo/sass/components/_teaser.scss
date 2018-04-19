@@ -1,6 +1,6 @@
 .node--teaser.node--course-implementation {
   @include font-size(15px);
-  @include border-bottom;
+  @include accessible-border-bottom;
   @include font-weight-medium;
   display: flex;
   cursor: pointer;
@@ -22,7 +22,7 @@
 
     div:nth-child(2) {
       @include font-weight-light;
-      color: $gray;
+      color: $darkgray;
     }
   }
   &:hover {

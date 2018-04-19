@@ -58,7 +58,6 @@
         margin-left: 0;
       }
       .login-link {
-        @include link-menu;
         line-height: 56px;
         &:before {
           display: none;
@@ -75,6 +74,9 @@
         @include dropdown-list-item;
       }
     }
+  }
+  .login-link {
+    @include link-menu;
   }
 }
 

@@ -17,7 +17,7 @@
 }
 
 .button--action.theme-transparent {
-  @include border-bottom;
+  @include accessible-border-bottom;
   padding-right: 1em;
   &:after {
     position: absolute;
@@ -32,7 +32,7 @@
 }
 
 .button--info {
-  @include border;
+  @include accessible-border;
   padding: 0.8em 1em;
   background: transparent;
   line-height: 21px;

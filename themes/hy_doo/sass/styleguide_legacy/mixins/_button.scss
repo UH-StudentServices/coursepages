@@ -1,0 +1,74 @@
+@mixin button {
+  transition-duration: 0.1s;
+  transition-property: all;
+  @include font-size(15px);
+  background-color: $blue;
+  border: none;
+  color: $white;
+  cursor: pointer;
+  padding: 0.8em 1em;
+
+  &:hover {
+    background-color: $darkblue;
+    color: $white;
+  }
+
+  &:before, &:after {
+    transition-duration: 0.1s;
+    transition-property: all;
+  }
+}
+
+@mixin button-next-transparent {
+  @include font-family-main;
+  @include font-size(15px);
+  display: block;
+  line-height: normal;
+  overflow: hidden;
+  padding-bottom: 0.8em;
+  padding-left: 0;
+  padding-top: 0.8em;
+  position: relative;
+
+  &:after {
+    @include icon($icon-link-arrow);
+    color: inherit;
+    font-weight: 200;
+    height: 100%;
+    margin-left: 1em;
+  }
+
+  a:hover &:after,
+  &:hover:after {
+    color: $darkblue;
+  }
+}
+
+@mixin button-anchor--up {
+  @include font-size(13px);
+  @include font-weight-medium;
+  background: $blue;
+  color: $white;
+  display: inline-block;
+  height: 60px;
+  line-height: 1.2em;
+  padding-top: 30px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  width: 60px;
+
+  &:hover {
+    background-color: $darkblue;
+  }
+
+  &:after {
+    @include icon($icon-link-arrow-up);
+    @include font-size(15px);
+    color: $white;
+    height: 100%;
+    left: 23px;
+    position: absolute;
+    top: 10px;
+  }
+}

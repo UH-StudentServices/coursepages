@@ -4,7 +4,7 @@
 */
 
 .ds-node-metadata-wrapper {
-  @include border-side(top);
+  @include accessible-border-side(top);
 }
 
 .ds-node-metadata-header {
@@ -15,7 +15,7 @@
   width: 100%;
   clear: both;
 
-  @include border-side(bottom);
+  @include accessible-border-side(bottom);
   display: block;
 
   font-size: 0.875em;
@@ -35,6 +35,7 @@
   }
   label {
     margin-right: 0.35em;
+    font-size: unset;
   }
   .teaching-languages {
     display: block;

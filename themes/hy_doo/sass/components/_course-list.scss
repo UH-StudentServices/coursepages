@@ -91,18 +91,18 @@ body.open-university {
     // mobile first
     display: block;
     padding: 1em 0;
-    border-bottom: 1px dashed #efefef;
+    border-bottom: 1px dashed $mediumsilver;
 
     background: white;
     overflow: hidden;
     @include breakpoint($small) {
       display: table-row;
       border-bottom-style: solid;
-      border-bottom-color: $lightsilver;
+      border-bottom-color: $mediumsilver;
       overflow: scroll;
     }
     &.views-row-first {
-      border-top: 1px dashed #efefef;
+      border-top: 1px dashed $mediumsilver;
       @include breakpoint($small) {
         border-top: 0;
       }

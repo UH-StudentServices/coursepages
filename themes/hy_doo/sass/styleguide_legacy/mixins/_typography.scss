@@ -1,0 +1,14 @@
+// Common text stylings
+@mixin text-paragraph {
+  @include font-size(16px);
+  margin: 0 0 $vert-spacing-unit 0;
+  letter-spacing: 0.01em;
+  line-height: 1.6em;
+}
+
+@mixin text-liftup {
+  @include font-size(18px);
+  @include font-weight-book;
+  color: $silver;
+  line-height: 1.5em;
+}

@@ -1538,13 +1538,8 @@ function uhc_course_implementation_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'field_multiple_limit_order' => 0,
-        ),
-        'type' => 'taxonomy_term_reference_link',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 110,
       ),
       'sidebar' => array(
@@ -2901,13 +2896,8 @@ function uhc_course_implementation_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(
-          'field_multiple_limit' => -1,
-          'field_multiple_limit_offset' => 0,
-          'field_multiple_limit_order' => 0,
-        ),
-        'type' => 'text_default',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 111,
       ),
       'sidebar' => array(
@@ -3135,7 +3125,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'view_mode' => 'default',
         ),
         'type' => 'entityreference_entity_view',
-        'weight' => 1,
+        'weight' => 2,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4539,7 +4529,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
-        'weight' => 80,
+        'weight' => 1,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4631,7 +4621,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_order' => 0,
         ),
         'type' => 'text_default',
-        'weight' => 81,
+        'weight' => 2,
       ),
       'sidebar' => array(
         'label' => 'above',
@@ -4720,7 +4710,7 @@ function uhc_course_implementation_field_default_field_instances() {
           'field_multiple_limit_order' => 0,
         ),
         'type' => 'link_default',
-        'weight' => 82,
+        'weight' => 3,
       ),
       'sidebar' => array(
         'label' => 'above',

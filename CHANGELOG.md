@@ -1,3 +1,17 @@
+# University of Helsinki Courses v1.113
+Päiväys: 19.04.2018 
+
+## Lisäykset
+  - DOO-3284: Lisättiin arvosanajakautuma näkymä kurssisivulle
+
+## Korjaukset
+  - DOO-2885: Moodi-napin käyttö ei tunnistanut virhetilannetta.
+
+## Päivitykset
+  - DOO-3465: Styleguiden uusin versio käyttöön.
+  - DOO-3519: Tietoturvapäivitys (Display Suite -moduuli).
+
+
 # University of Helsinki Courses v1.112
 Päiväys: 29.03.2018
 

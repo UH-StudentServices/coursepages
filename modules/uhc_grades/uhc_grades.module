@@ -1,0 +1,206 @@
+<?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_ds_fields_info().
+ *
+ * Introduces the grades field.
+ */
+function uhc_grades_ds_fields_info($entity_type) {
+  return array(
+    'node' => array(
+      'uhc_grades' => array(
+        'title' => 'Grades',
+        'field_type' => DS_FIELD_TYPE_FUNCTION,
+        'ui_limit' => array('course_implementation|*'),
+        'function' => 'uhc_grades_render',
+      ),
+    ),
+  );
+}
+
+function uhc_grades_render($field) {
+  if (uhc_course_collaboration_is_current_user_course_student()) {
+    return '<div class="accordion-content-item">'
+      . '<div id="grades">'
+      . '<div id="grades-chart"></div>'
+      . '</div>'
+      . '</div>';
+  }
+
+  return NULL;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function uhc_grades_preprocess_node(&$variables) {
+  $node = $variables['node'];
+
+  if ($node->type == 'course_implementation' && $variables['view_mode'] == 'full' && uhc_course_collaboration_is_current_user_course_student()) {
+    $course_implementation_id = uhc_grades_get_course_implementation_id($node);
+    $student_number = uhc_autofill_metadata_get_current_user_personal_unique_code();
+    $grades = uhc_grades_get_course_grades_for_student($course_implementation_id, $student_number);
+    uhc_grades_add_scripts($grades);
+  }
+}
+
+function uhc_grades_get_course_implementation_id($node) {
+  $field_imp_id = field_get_items('node', $node, 'field_imp_id');
+
+  return !empty($field_imp_id[0]['value']) ? $field_imp_id[0]['value'] : '';
+}
+
+function uhc_grades_add_scripts($grades) {
+  drupal_add_js(uhc_grades_get_chart_settings($grades), array('type' => 'setting'));
+  drupal_add_js(libraries_get_path('highcharts') . '/highcharts.js');
+  drupal_add_js(drupal_get_path('module', 'uhc_grades') . '/js/grades.js', array('scope' => 'footer'));
+}
+
+function uhc_grades_get_chart_settings($grades) {
+  global $language;
+
+  return array(
+    'uhc_grades' => array(
+      'grades' => $grades,
+      'language' => $language->language,
+      'text' => array(
+        'gradeDistribution' => t('Grade distribution'),
+        'legend' => t('Grade'),
+        'personalGrade' => t('My grade'),
+        'pieces' => t('pcs')
+      )
+    )
+  );
+}
+
+/**
+ * Get course grades matching the given student number. Other students' grades
+ * are omitted. Incomplete grades are omitted. Grade distribution is omitted if
+ * the total amount of grades is less than than the minimum required amount of
+ * grades.
+ *
+ * @param $course_implementation_id
+ * @param $student_number
+ * @return object|null
+ */
+function uhc_grades_get_course_grades_for_student($course_implementation_id, $student_number) {
+  $grades = uhc_grades_get_grades($course_implementation_id);
+
+  if (!empty($grades)) {
+    $grades = uhc_grades_omit_other_than_personal_grades($student_number, $grades);
+
+    if (uhc_grades_has_at_least_minimum_required_amount_of_grades($grades)) {
+      $grades = uhc_grades_omit_incomplete_grades($grades);
+      $grades = uhc_grades_add_accepted_grades($grades);
+
+      // Reset array indices.
+      $grades->grade_distribution = array_values($grades->grade_distribution);
+    }
+    else {
+      // Omit grade distribution when the total amount of grades is less than
+      // the minimum required amount of grades.
+      unset($grades->grade_distribution);
+    }
+  }
+
+  return $grades;
+}
+
+function uhc_grades_get_grades($course_implementation_id) {
+  $grades_response = uhc_grades_get_controller()->get($course_implementation_id);
+
+  return !empty($grades_response->data) ? json_decode($grades_response->data)->data : NULL;
+}
+
+function uhc_grades_get_controller($request_timeout_seconds = 3.0) {
+  static $uhcGradesController = FALSE;
+
+  if (!$uhcGradesController) {
+    $uhcGradesService = new UHCGradesService(uhc_grades_get_base_url(), $request_timeout_seconds);
+    $uhcGradesController = new UHCGradesController($uhcGradesService);
+  }
+
+  return $uhcGradesController;
+}
+
+function uhc_grades_get_base_url() {
+  return variable_get('uhc_grades_base_url');
+}
+
+function uhc_grades_omit_other_than_personal_grades($student_number, $grades) {
+  foreach ($grades->grades as $key => $grade) {
+    if ($grade->student_number === $student_number) {
+      $grades->personalGrade = $grade;
+    }
+  }
+
+  unset($grades->grades);
+
+  return $grades;
+}
+
+function uhc_grades_has_at_least_minimum_required_amount_of_grades($grades) {
+  return !empty($grades->grade_distribution) && uhc_grades_get_total_amount_of_grades($grades) >= uhc_grades_get_minimum_required_amount_of_grades();
+}
+
+function uhc_grades_get_total_amount_of_grades($grades) {
+  $total = array_reduce($grades->grade_distribution, function ($carry, $item) {
+    $carry += $item->total;
+    return $carry;
+  });
+
+  return $total;
+}
+
+function uhc_grades_get_minimum_required_amount_of_grades() {
+  return variable_get('uhc_grades_minimum_required_amount_of_grades', 5);
+}
+
+function uhc_grades_omit_incomplete_grades($grades) {
+  foreach ($grades->grade_distribution as $key => $grade) {
+    foreach ($grade->grade as $grade_value) {
+      if ($grade_value->text == 'Incomplete') {
+        unset($grades->grade_distribution[$key]);
+      }
+    }
+  }
+
+  return $grades;
+}
+
+function uhc_grades_add_accepted_grades($grades) {
+  $accepted_grades = uhc_grades_get_accepted_grades($grades);
+
+  if (!empty($accepted_grades)) {
+    array_push($grades->grade_distribution, $accepted_grades);
+  }
+
+  return $grades;
+}
+
+function uhc_grades_get_accepted_grades($grades) {
+  $grade = NULL;
+
+  $total_accepted = array_reduce($grades->grade_distribution, function ($carry, $item) {
+    $carry += (int) $item->grade[0]->text > 0 ? $item->total : 0;
+    return $carry;
+  });
+
+  if ($total_accepted > 0) {
+    $grade = (object) array(
+      'total' => $total_accepted,
+      'grade' => array(
+        (object) array('langcode' => 'fi', 'text' => 'Hyväksytty'),
+        (object) array('langcode' => 'sv', 'text' => 'Godkänd'),
+        (object) array('langcode' => 'en', 'text' => 'Accepted')
+      )
+    );
+  }
+
+  return $grade;
+}

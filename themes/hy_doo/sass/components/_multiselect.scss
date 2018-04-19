@@ -27,14 +27,14 @@
     width: 100%;
     font-size: 13px;
     ul {
-      @include border-bottom;
+      @include accessible-border-bottom;
       @include box-shadow(0px 1px 5px $lightsilver);
       @include scrollbar;
       background-color: $white;
       min-width: 255px;
       max-height: 250px;
       li {
-        @include border-bottom;
+        @include accessible-border-bottom;
         padding: 10px;
         color: $blue;
         cursor: pointer;
@@ -62,7 +62,7 @@
     }
     .block__content,
     .chosen-drop {
-      @include border;
+      @include accessible-border;
       @include shadow-under;
       display: block;
       z-index: 10;
@@ -71,7 +71,7 @@
 }
 
 .chosen-choices {
-  @include border;
+  @include accessible-border;
   .search-choice {
     cursor: pointer !important;
     color: $silver;
@@ -122,14 +122,14 @@
       }
       .item-list,
       .block__content {
-        @include border;
+        @include accessible-border;
         background-color: $white;
         position: absolute;
         .facet-buttons {
           @include transition(all 0.5s cubic-bezier(0.15, 1, 0.33, 1) 0s);
           @include transform(translateY(-100%));
           @include box-shadow(0px 1px 5px $lightsilver);
-          @include border;
+          @include accessible-border;
           padding: 0 1em;
           background-color: $white;
           position: absolute;

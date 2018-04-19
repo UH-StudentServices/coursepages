@@ -1,0 +1,12 @@
+name = UHC Grades
+description = Display course grades.
+core = 7.x
+package = UHC
+version = 7.x-1.112-dev
+project = uhc_grades
+
+dependencies[] = uhc_autofill_metadata
+dependencies[] = uhc_course_collaboration
+
+files[] = classes/UHCGradesService.php
+files[] = classes/UHCGradesController.php

@@ -16,7 +16,7 @@
   li.root {
     > .item-list {
       ul.root {
-        @include border-left;
+        @include accessible-border-left;
         margin: 1em 0;
         li {
           padding: 0 1em 1.2em 2em;
@@ -36,7 +36,7 @@
           }
           &.my-enrollment > a:after {
             @include icon($icon-done);
-            color: $green;
+            color: $light-green;
             position: absolute;
             right: 0;
             top: 6%;
@@ -54,7 +54,7 @@
         > li {
           margin-bottom: 1em;
           &:after {
-            @include border-bottom;
+            @include accessible-border-bottom;
             content: '';
             display: block;
             margin-top: 1em;

@@ -80,7 +80,7 @@
 .accordion-item__alternative {
   @extend %button--accordion;
   @include font-size(15px);
-  @include border-bottom;
+  @include accessible-border-bottom;
   @include font-weight-medium;
   color: $blue;
   text-transform: none;
@@ -132,8 +132,8 @@
   text-transform: uppercase;
   position: relative;
   @include font-size(15px);
-  @include border-side('top');
-  @include border-side('bottom');
+  @include accessible-border-side('top');
+  @include accessible-border-side('bottom');
   @include font-weight-bold;
   padding: 0.9em 2em 0.8em 4em;
 
@@ -183,7 +183,7 @@
   @include font-size(15px);
   position: relative;
   background: $white;
-  border: 2px dashed $lightsilver;
+  border: 2px dashed $mediumsilver;
   padding: 0.8em 0 0.8em 4em;
   margin-bottom: 0.5em;
 }

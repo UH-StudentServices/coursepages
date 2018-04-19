@@ -1376,3 +1376,17 @@ function uh_coursepages_update_7053(&$sandbox) {
 function uh_coursepages_update_7054(&$sandbox) {
   user_role_delete('Moodle integrator');
 }
+
+/**
+ * Update multilingual variables.
+ */
+function uh_coursepages_update_7055(&$sandbox) {
+  uh_coursepages_setup_variables();
+}
+
+/**
+ * Enable uhc_grades module.
+ */
+function uh_coursepages_update_7056(&$sandbox) {
+  module_enable(array('uhc_grades'));
+}

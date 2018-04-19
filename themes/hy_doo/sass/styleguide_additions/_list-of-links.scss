@@ -1,13 +1,13 @@
 .list-of-links__columns {
   @include font-size(15px);
-  @include border-bottom;
+  @include accessible-border-bottom;
   padding: 0.8em 0;
   display: flex;
   justify-content: space-between;
 }
 
 .list-of-links__link-info {
-  color: $gray;
+  color: $darkgray;
   margin: 0 1em;
   font-weight: normal;
   @include breakpoint($mobile-only) {

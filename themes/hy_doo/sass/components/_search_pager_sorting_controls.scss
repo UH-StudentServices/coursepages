@@ -24,7 +24,7 @@
       display: inline-block;
       padding: 0 0 0 1em;
       &:first-child {
-        @include border-right;
+        @include accessible-border-right;
         padding-right: 1em;
       }
     }

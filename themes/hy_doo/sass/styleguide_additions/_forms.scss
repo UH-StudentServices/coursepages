@@ -1,21 +1,17 @@
 input[type="checkbox"],
 input[type="radio"] {
-  display: none;
   & + a:before,
   & + label:before {
-    @include transition(all 0.2s ease-in-out);
-    content: '';
+    @include icon($icon-square);
+    color: $blue;
+    left: 1px;
     margin: 2px 8px 0 0;
-    display: block;
-    float: left;
-    height: 15px;
-    width: 15px;
-    border: 1px solid $blue;
   }
-  &:checked + a:before,
-  &:checked + label:before {
-    background-color: $darkblue;
-    border: 1px solid $darkblue;
+  &:checked {
+    + a:before,
+    + label:before {
+      content: $icon-square-checked;
+    }
   }
 }
 
@@ -76,7 +72,7 @@ form label,
 .form-type-radios label,
 %label__small {
   font-size: 0.85em;
-  color: $gray;
+  color: $darkgray;
   padding: 0.5em 0;
   line-height: 15px;
 }

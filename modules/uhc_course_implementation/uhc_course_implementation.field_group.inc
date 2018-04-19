@@ -502,7 +502,8 @@ function uhc_course_implementation_field_group_info() {
     'weight' => '29',
     'children' => array(
       0 => 'field_imp_results',
-      1 => 'uhc_course_implementation_exam_results_info_text',
+      1 => 'uhc_grades',
+      2 => 'uhc_course_implementation_exam_results_info_text',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(

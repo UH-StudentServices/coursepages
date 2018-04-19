@@ -10,7 +10,7 @@
     }
   }
   .event {
-    @include border-top;
+    @include accessible-border-top;
     clear: both;
     overflow: hidden;
     padding: 0.5em 0;

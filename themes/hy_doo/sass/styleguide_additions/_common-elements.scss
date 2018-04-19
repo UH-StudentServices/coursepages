@@ -1,0 +1,8 @@
+input[type="submit"] {
+  &[disabled],
+  &[disabled]:active,
+  &[disabled]:focus,
+  &[disabled]:hover {
+    background-color: $darkblue;
+  }
+}

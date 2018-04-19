@@ -1,7 +1,7 @@
 name = Helsinki University Portal
 description = Install with pre-configured features.
 core = 7.x
-version = 7.x-1.112
+version = 7.x-1.113
 dependencies[] = block
 dependencies[] = file
 dependencies[] = image

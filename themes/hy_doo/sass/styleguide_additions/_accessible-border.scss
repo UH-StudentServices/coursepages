@@ -1,0 +1,35 @@
+@mixin accessible-border-bottom {
+  border-bottom: 1px solid $mediumsilver;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+}
+
+@mixin accessible-border-top {
+  border-top: 1px solid $mediumsilver;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+@mixin accessible-border-left {
+  border-left: 1px solid $mediumsilver;
+  border-bottom: 0;
+  border-right: 0;
+  border-top: 0;
+}
+
+@mixin accessible-border-right {
+  border-right: 1px solid $mediumsilver;
+  border-left: 0;
+  border-bottom: 0;
+  border-top: 0;
+}
+
+@mixin accessible-border {
+  border: 1px solid $mediumsilver;
+}
+
+@mixin accessible-border-side($direction) {
+  border-#{$direction}: 1px solid $mediumsilver;
+}

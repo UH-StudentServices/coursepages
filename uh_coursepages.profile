@@ -383,7 +383,7 @@ function uh_coursepages_setup_variables() {
         <a class="logo theme-big" href="https://www.helsinki.fi/en"></a>
       </div>
       <div class="logo-block__content">
-        <h4>University of Helsinki</h4>
+        <div class="logo-block__sitename">University of Helsinki</div>
         <p>P.O. Box 3 (Fabianinkatu 33)<br>00014 University of Helsinki</p>
         <p>Switchboard: <a class="is-tel" href="tel:+3582941911">+358 (0) 2941 911</a></p>
       </div></div>',
@@ -395,7 +395,7 @@ function uh_coursepages_setup_variables() {
         <a class="logo theme-big" href="https://www.helsinki.fi/fi"></a>
       </div>
       <div class="logo-block__content">
-        <h4>Helsingin Yliopisto</h4>
+        <div class="logo-block__sitename">Helsingin Yliopisto</div>
         <p>PL 3 (Fabianinkatu 33)<br>00014 Helsingin yliopisto</p>
         <p>Puhelinvaihde: <a class="is-tel" href="tel:+3582941911">+358 (0) 2941 911</a></p>
       </div></div>',
@@ -407,7 +407,7 @@ function uh_coursepages_setup_variables() {
         <a class="logo theme-big" href="https://www.helsinki.fi/sv"></a>
       </div>
       <div class="logo-block__content">
-        <h4>Helsingfors universitet</h4>
+        <div class="logo-block__sitename">Helsingfors universitet</div>
         <p>PB 3 (Fabiansgatan 33)<br>00014 Helsingfors universitet</p>
         <p>Växel: <a class="is-tel" href="tel:+3582941911">+358 (0) 2941 911</a></p>
       </div></div>',
