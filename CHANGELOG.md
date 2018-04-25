@@ -1,3 +1,10 @@
+# University of Helsinki Courses v1.114
+Päiväys: 25.04.2018 
+
+## Päivitykset
+  - DOO-3528: Drupalin tietoturva päivitys
+
+
 # University of Helsinki Courses v1.113
 Päiväys: 19.04.2018 
 

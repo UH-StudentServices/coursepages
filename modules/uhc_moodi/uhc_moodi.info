@@ -2,7 +2,7 @@ name = UHC Moodi
 description = Provides Moodi integration services
 core = 7.x
 package = UHC
-version = 7.x-1.113
+version = 7.x-1.114
 project = uhc_moodi
 dependencies[] = uhc_course_collaboration
 

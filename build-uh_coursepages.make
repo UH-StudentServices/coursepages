@@ -5,7 +5,7 @@ core = 7.0
 api = 2
 
 projects[drupal][type] = core
-projects[drupal][version] = 7.58
+projects[drupal][version] = 7.59
 
 ; Patch: Text field (textarea) with "Default" formatter does not retain newlines
 projects[drupal][patch][1152216] = https://www.drupal.org/files/text-plain-1152216-24.patch
