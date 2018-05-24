@@ -336,5 +336,5 @@ projects[hy_cookie_consent][download][revision] = 909f20821c323240142962df38fb40
 projects[uh_courses_embed][type] = module
 projects[uh_courses_embed][download][type] = git
 projects[uh_courses_embed][download][url] = "git://github.com/UH-StudentServices/uh_courses_embed.git"
-projects[uh_courses_embed][download][branch] = master
-projects[uh_courses_embed][download][revision] = 1d0b22cfa68127248842ee2438af3412bd644897
+projects[uh_courses_embed][download][branch] = drupal7
+projects[uh_courses_embed][download][revision] = ee5124a54f083953c08a557f6dc3e120e86b6ac8

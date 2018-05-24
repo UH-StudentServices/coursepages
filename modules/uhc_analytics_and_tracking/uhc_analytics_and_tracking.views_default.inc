@@ -61,13 +61,13 @@ function uhc_analytics_and_tracking_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  /* Field: Page tracking calculated metrics: Avg. Time on Page */
+  /* Field: Page Tracking: Avg. Time on Page */
   $handler->display->display_options['fields']['avgTimeOnPage']['id'] = 'avgTimeOnPage';
   $handler->display->display_options['fields']['avgTimeOnPage']['table'] = 'google_analytics';
   $handler->display->display_options['fields']['avgTimeOnPage']['field'] = 'avgTimeOnPage';
   $handler->display->display_options['fields']['avgTimeOnPage']['date_format'] = 'long';
   $handler->display->display_options['fields']['avgTimeOnPage']['second_date_format'] = 'long';
-  /* Contextual filter: Page tracking dimensions: Page */
+  /* Contextual filter: Page Tracking: Page */
   $handler->display->display_options['arguments']['pagePath']['id'] = 'pagePath';
   $handler->display->display_options['arguments']['pagePath']['table'] = 'google_analytics';
   $handler->display->display_options['arguments']['pagePath']['field'] = 'pagePath';
@@ -116,20 +116,20 @@ function uhc_analytics_and_tracking_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'Page doesn\'t have any statistics.';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Page tracking metrics: Pageviews */
+  /* Field: Page Tracking: Pageviews */
   $handler->display->display_options['fields']['pageviews']['id'] = 'pageviews';
   $handler->display->display_options['fields']['pageviews']['table'] = 'google_analytics';
   $handler->display->display_options['fields']['pageviews']['field'] = 'pageviews';
   $handler->display->display_options['fields']['pageviews']['precision'] = '0';
   $handler->display->display_options['fields']['pageviews']['separator'] = '';
-  /* Field: Page tracking metrics: Unique Pageviews */
+  /* Field: Page Tracking: Unique Pageviews */
   $handler->display->display_options['fields']['uniquePageviews']['id'] = 'uniquePageviews';
   $handler->display->display_options['fields']['uniquePageviews']['table'] = 'google_analytics';
   $handler->display->display_options['fields']['uniquePageviews']['field'] = 'uniquePageviews';
   $handler->display->display_options['fields']['uniquePageviews']['label'] = 'Unique pageviews';
   $handler->display->display_options['fields']['uniquePageviews']['precision'] = '0';
   $handler->display->display_options['fields']['uniquePageviews']['separator'] = '';
-  /* Field: Page tracking calculated metrics: Avg. Time on Page */
+  /* Field: Page Tracking: Avg. Time on Page */
   $handler->display->display_options['fields']['avgTimeOnPage']['id'] = 'avgTimeOnPage';
   $handler->display->display_options['fields']['avgTimeOnPage']['table'] = 'google_analytics';
   $handler->display->display_options['fields']['avgTimeOnPage']['field'] = 'avgTimeOnPage';
@@ -138,7 +138,7 @@ function uhc_analytics_and_tracking_views_default_views() {
   $handler->display->display_options['fields']['avgTimeOnPage']['custom_date_format'] = 'i:s';
   $handler->display->display_options['fields']['avgTimeOnPage']['second_date_format'] = 'long';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Page tracking dimensions: Page */
+  /* Contextual filter: Page Tracking: Page */
   $handler->display->display_options['arguments']['pagePath']['id'] = 'pagePath';
   $handler->display->display_options['arguments']['pagePath']['table'] = 'google_analytics';
   $handler->display->display_options['arguments']['pagePath']['field'] = 'pagePath';

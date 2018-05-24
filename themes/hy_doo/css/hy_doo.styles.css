@@ -3461,7 +3461,7 @@ dl, ol, ul {
 input[type="submit"], .button--small, .accordion-item, .accordion-item__light, .accordion-item__alternative,
 .button--accordion,
 .button--action-before, ul.pager .pager__previous a,
-.button--action, ul.pager .pager__next a, .button--anchor, .button--expand, .button--icon,
+.button--action, ul.pager .pager__next a, .button--anchor, .button--expand, .button--icon, .button--outline,
 .button,
 ul.pager .pager__page {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
@@ -3481,10 +3481,10 @@ ul.pager .pager__page {
   input[type="submit"]:focus, .button--small:focus, .accordion-item:focus, .accordion-item__light:focus, .accordion-item__alternative:focus,
   .button--accordion:focus,
   .button--action-before:focus, ul.pager .pager__previous a:focus,
-  .button--action:focus, ul.pager .pager__next a:focus, .button--anchor:focus, .button--expand:focus, .button--icon:focus, input[type="submit"]:hover, .button--small:hover, .accordion-item:hover, .accordion-item__light:hover, .accordion-item__alternative:hover,
+  .button--action:focus, ul.pager .pager__next a:focus, .button--anchor:focus, .button--expand:focus, .button--icon:focus, .button--outline:focus, input[type="submit"]:hover, .button--small:hover, .accordion-item:hover, .accordion-item__light:hover, .accordion-item__alternative:hover,
   .button--accordion:hover,
   .button--action-before:hover, ul.pager .pager__previous a:hover,
-  .button--action:hover, ul.pager .pager__next a:hover, .button--anchor:hover, .button--expand:hover, .button--icon:hover,
+  .button--action:hover, ul.pager .pager__next a:hover, .button--anchor:hover, .button--expand:hover, .button--icon:hover, .button--outline:hover,
   .button:focus,
   ul.pager .pager__page:focus,
   .button:hover,
@@ -3494,10 +3494,10 @@ ul.pager .pager__page {
   input[type="submit"]:active, .button--small:active, .accordion-item:active, .accordion-item__light:active, .accordion-item__alternative:active,
   .button--accordion:active,
   .button--action-before:active, ul.pager .pager__previous a:active,
-  .button--action:active, ul.pager .pager__next a:active, .button--anchor:active, .button--expand:active, .button--icon:active, input.is-active[type="submit"], .is-active.button--small, .is-active.accordion-item, .is-active.accordion-item__light, .is-active.accordion-item__alternative,
+  .button--action:active, ul.pager .pager__next a:active, .button--anchor:active, .button--expand:active, .button--icon:active, .button--outline:active, input.is-active[type="submit"], .is-active.button--small, .is-active.accordion-item, .is-active.accordion-item__light, .is-active.accordion-item__alternative,
   .is-active.button--accordion,
   .is-active.button--action-before, ul.pager .pager__previous a.is-active,
-  .is-active.button--action, ul.pager .pager__next a.is-active, .is-active.button--anchor, .is-active.button--expand, .is-active.button--icon,
+  .is-active.button--action, ul.pager .pager__next a.is-active, .is-active.button--anchor, .is-active.button--expand, .is-active.button--icon, .is-active.button--outline,
   .button:active,
   ul.pager .pager__page:active,
   .button.is-active,
@@ -3506,10 +3506,10 @@ ul.pager .pager__page {
   input[type="submit"]:before, .button--small:before, .accordion-item:before, .accordion-item__light:before, .accordion-item__alternative:before,
   .button--accordion:before,
   .button--action-before:before, ul.pager .pager__previous a:before,
-  .button--action:before, ul.pager .pager__next a:before, .button--anchor:before, .button--expand:before, .button--icon:before, input[type="submit"]:after, .button--small:after, .accordion-item:after, .accordion-item__light:after, .accordion-item__alternative:after,
+  .button--action:before, ul.pager .pager__next a:before, .button--anchor:before, .button--expand:before, .button--icon:before, .button--outline:before, input[type="submit"]:after, .button--small:after, .accordion-item:after, .accordion-item__light:after, .accordion-item__alternative:after,
   .button--accordion:after,
   .button--action-before:after, ul.pager .pager__previous a:after,
-  .button--action:after, ul.pager .pager__next a:after, .button--anchor:after, .button--expand:after, .button--icon:after,
+  .button--action:after, ul.pager .pager__next a:after, .button--anchor:after, .button--expand:after, .button--icon:after, .button--outline:after,
   .button:before,
   ul.pager .pager__page:before,
   .button:after,
@@ -3519,10 +3519,10 @@ ul.pager .pager__page {
   input.theme-transparent[type="submit"], .theme-transparent.button--small, .theme-transparent.accordion-item, .theme-transparent.accordion-item__light, .theme-transparent.accordion-item__alternative,
   .theme-transparent.button--accordion,
   .theme-transparent.button--action-before, ul.pager .pager__previous a.theme-transparent,
-  .theme-transparent.button--action, ul.pager .pager__next a.theme-transparent, .theme-transparent.button--anchor, .theme-transparent.button--expand, .theme-transparent.button--icon, input.theme-transparent-alt[type="submit"], .theme-transparent-alt.button--small, .theme-transparent-alt.accordion-item, .theme-transparent-alt.accordion-item__light, .theme-transparent-alt.accordion-item__alternative,
+  .theme-transparent.button--action, ul.pager .pager__next a.theme-transparent, .theme-transparent.button--anchor, .theme-transparent.button--expand, .theme-transparent.button--icon, .theme-transparent.button--outline, input.theme-transparent-alt[type="submit"], .theme-transparent-alt.button--small, .theme-transparent-alt.accordion-item, .theme-transparent-alt.accordion-item__light, .theme-transparent-alt.accordion-item__alternative,
   .theme-transparent-alt.button--accordion,
   .theme-transparent-alt.button--action-before, ul.pager .pager__previous a.theme-transparent-alt,
-  .theme-transparent-alt.button--action, ul.pager .pager__next a.theme-transparent-alt, .theme-transparent-alt.button--anchor, .theme-transparent-alt.button--expand, .theme-transparent-alt.button--icon,
+  .theme-transparent-alt.button--action, ul.pager .pager__next a.theme-transparent-alt, .theme-transparent-alt.button--anchor, .theme-transparent-alt.button--expand, .theme-transparent-alt.button--icon, .theme-transparent-alt.button--outline,
   .button.theme-transparent,
   ul.pager .theme-transparent.pager__page,
   .button.theme-transparent-alt,
@@ -3532,10 +3532,10 @@ ul.pager .pager__page {
     input.theme-transparent[type="submit"]:hover, .theme-transparent.button--small:hover, .theme-transparent.accordion-item:hover, .theme-transparent.accordion-item__light:hover, .theme-transparent.accordion-item__alternative:hover,
     .theme-transparent.button--accordion:hover,
     .theme-transparent.button--action-before:hover, ul.pager .pager__previous a.theme-transparent:hover,
-    .theme-transparent.button--action:hover, ul.pager .pager__next a.theme-transparent:hover, .theme-transparent.button--anchor:hover, .theme-transparent.button--expand:hover, .theme-transparent.button--icon:hover, input.theme-transparent-alt[type="submit"]:hover, .theme-transparent-alt.button--small:hover, .theme-transparent-alt.accordion-item:hover, .theme-transparent-alt.accordion-item__light:hover, .theme-transparent-alt.accordion-item__alternative:hover,
+    .theme-transparent.button--action:hover, ul.pager .pager__next a.theme-transparent:hover, .theme-transparent.button--anchor:hover, .theme-transparent.button--expand:hover, .theme-transparent.button--icon:hover, .theme-transparent.button--outline:hover, input.theme-transparent-alt[type="submit"]:hover, .theme-transparent-alt.button--small:hover, .theme-transparent-alt.accordion-item:hover, .theme-transparent-alt.accordion-item__light:hover, .theme-transparent-alt.accordion-item__alternative:hover,
     .theme-transparent-alt.button--accordion:hover,
     .theme-transparent-alt.button--action-before:hover, ul.pager .pager__previous a.theme-transparent-alt:hover,
-    .theme-transparent-alt.button--action:hover, ul.pager .pager__next a.theme-transparent-alt:hover, .theme-transparent-alt.button--anchor:hover, .theme-transparent-alt.button--expand:hover, .theme-transparent-alt.button--icon:hover,
+    .theme-transparent-alt.button--action:hover, ul.pager .pager__next a.theme-transparent-alt:hover, .theme-transparent-alt.button--anchor:hover, .theme-transparent-alt.button--expand:hover, .theme-transparent-alt.button--icon:hover, .theme-transparent-alt.button--outline:hover,
     .button.theme-transparent:hover,
     ul.pager .theme-transparent.pager__page:hover,
     .button.theme-transparent-alt:hover,
@@ -3544,16 +3544,16 @@ ul.pager .pager__page {
     input.theme-transparent[type="submit"] a:hover, .theme-transparent.button--small a:hover, .theme-transparent.accordion-item a:hover, .theme-transparent.accordion-item__light a:hover, .theme-transparent.accordion-item__alternative a:hover,
     .theme-transparent.button--accordion a:hover,
     .theme-transparent.button--action-before a:hover, ul.pager .pager__previous a.theme-transparent a:hover,
-    .theme-transparent.button--action a:hover, ul.pager .pager__next a.theme-transparent a:hover, .theme-transparent.button--anchor a:hover, .theme-transparent.button--expand a:hover, .theme-transparent.button--icon a:hover, input.theme-transparent[type="submit"]:hover, .theme-transparent.button--small:hover, .theme-transparent.accordion-item:hover, .theme-transparent.accordion-item__light:hover, .theme-transparent.accordion-item__alternative:hover,
+    .theme-transparent.button--action a:hover, ul.pager .pager__next a.theme-transparent a:hover, .theme-transparent.button--anchor a:hover, .theme-transparent.button--expand a:hover, .theme-transparent.button--icon a:hover, .theme-transparent.button--outline a:hover, input.theme-transparent[type="submit"]:hover, .theme-transparent.button--small:hover, .theme-transparent.accordion-item:hover, .theme-transparent.accordion-item__light:hover, .theme-transparent.accordion-item__alternative:hover,
     .theme-transparent.button--accordion:hover,
     .theme-transparent.button--action-before:hover, ul.pager .pager__previous a.theme-transparent:hover,
-    .theme-transparent.button--action:hover, ul.pager .pager__next a.theme-transparent:hover, .theme-transparent.button--anchor:hover, .theme-transparent.button--expand:hover, .theme-transparent.button--icon:hover, input.theme-transparent-alt[type="submit"] a:hover, .theme-transparent-alt.button--small a:hover, .theme-transparent-alt.accordion-item a:hover, .theme-transparent-alt.accordion-item__light a:hover, .theme-transparent-alt.accordion-item__alternative a:hover,
+    .theme-transparent.button--action:hover, ul.pager .pager__next a.theme-transparent:hover, .theme-transparent.button--anchor:hover, .theme-transparent.button--expand:hover, .theme-transparent.button--icon:hover, .theme-transparent.button--outline:hover, input.theme-transparent-alt[type="submit"] a:hover, .theme-transparent-alt.button--small a:hover, .theme-transparent-alt.accordion-item a:hover, .theme-transparent-alt.accordion-item__light a:hover, .theme-transparent-alt.accordion-item__alternative a:hover,
     .theme-transparent-alt.button--accordion a:hover,
     .theme-transparent-alt.button--action-before a:hover, ul.pager .pager__previous a.theme-transparent-alt a:hover,
-    .theme-transparent-alt.button--action a:hover, ul.pager .pager__next a.theme-transparent-alt a:hover, .theme-transparent-alt.button--anchor a:hover, .theme-transparent-alt.button--expand a:hover, .theme-transparent-alt.button--icon a:hover, input.theme-transparent-alt[type="submit"]:hover, .theme-transparent-alt.button--small:hover, .theme-transparent-alt.accordion-item:hover, .theme-transparent-alt.accordion-item__light:hover, .theme-transparent-alt.accordion-item__alternative:hover,
+    .theme-transparent-alt.button--action a:hover, ul.pager .pager__next a.theme-transparent-alt a:hover, .theme-transparent-alt.button--anchor a:hover, .theme-transparent-alt.button--expand a:hover, .theme-transparent-alt.button--icon a:hover, .theme-transparent-alt.button--outline a:hover, input.theme-transparent-alt[type="submit"]:hover, .theme-transparent-alt.button--small:hover, .theme-transparent-alt.accordion-item:hover, .theme-transparent-alt.accordion-item__light:hover, .theme-transparent-alt.accordion-item__alternative:hover,
     .theme-transparent-alt.button--accordion:hover,
     .theme-transparent-alt.button--action-before:hover, ul.pager .pager__previous a.theme-transparent-alt:hover,
-    .theme-transparent-alt.button--action:hover, ul.pager .pager__next a.theme-transparent-alt:hover, .theme-transparent-alt.button--anchor:hover, .theme-transparent-alt.button--expand:hover, .theme-transparent-alt.button--icon:hover,
+    .theme-transparent-alt.button--action:hover, ul.pager .pager__next a.theme-transparent-alt:hover, .theme-transparent-alt.button--anchor:hover, .theme-transparent-alt.button--expand:hover, .theme-transparent-alt.button--icon:hover, .theme-transparent-alt.button--outline:hover,
     .button.theme-transparent a:hover, ul.pager .theme-transparent.pager__page a:hover,
     .button.theme-transparent:hover,
     ul.pager .theme-transparent.pager__page:hover,
@@ -3880,6 +3880,24 @@ ul.pager .pager__previous a {
  template: 3_7_8-button-group--small
  description:
 */
+/*
+ section: 3.7.9
+ title: Button outline
+ template: 3_7_9-button-outline
+ description:
+*/
+.button--outline {
+  font-weight: 600;
+  font-style: normal;
+  background-color: transparent;
+  border: 2px solid #0098d0;
+  color: #0098d0; }
+  .button--outline:after {
+    margin-left: 1em;
+    transition-property: none; }
+  .button--outline:hover {
+    background-color: #0098d0; }
+
 .island {
   padding: 1em; }
 
@@ -4045,7 +4063,7 @@ ul.pager .pager__previous a {
  description: The footer.
 */
 .l-footer {
-  background-color: #222;
+  background-color: #000;
   overflow: hidden;
   padding-bottom: 10px;
   padding-top: 2em; }
@@ -4117,7 +4135,7 @@ ul.pager .pager__previous a {
  description: The header bar with logo & navigation.
 */
 .l-header-bar {
-  background: #222;
+  background: #000;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
@@ -4190,7 +4208,7 @@ ul.pager .pager__previous a {
  description: Full screen overlay for menu, etc.
 */
 .l-overlay {
-  background-color: #222;
+  background-color: #000;
   display: none;
   -ms-flex-direction: column;
       flex-direction: column;
@@ -4357,12 +4375,12 @@ ul.pager .pager__previous a {
  description: The top bar small variant
 */
 .l-top-bar--small {
+  -ms-flex-align: center;
+      align-items: center;
+  background-color: #000;
   display: none; }
   @media (min-width: 62.5em) {
     .l-top-bar--small {
-      -ms-flex-align: center;
-          align-items: center;
-      background-color: #000;
       display: -ms-flexbox;
       display: flex; } }
   .l-top-bar--small .l-top-bar__left {
@@ -5471,14 +5489,9 @@ ul.pager {
 .main-menu-v2 a {
   color: #FFF;
   display: block;
-  letter-spacing: 0.01em;
-  transition: color 0.2s; }
-  .main-menu-v2 a:hover {
-    color: #d2d2d2; }
-  .main-menu-v2 a.active {
-    color: #0098d0; }
-    .main-menu-v2 a.active:hover {
-      color: #0882B3; }
+  letter-spacing: 0.01em; }
+  .main-menu-v2 a:hover, .main-menu-v2 a.active {
+    text-decoration: underline; }
 
 .main-menu-v2 li.is-lvl1 {
   margin-bottom: 48px;
@@ -5499,8 +5512,7 @@ ul.pager {
     font-size: 1.125rem;
     font-weight: 700;
     font-style: normal;
-    text-transform: uppercase;
-    text-decoration: none; }
+    text-transform: uppercase; }
   .main-menu-v2 li.is-lvl1.is-open {
     opacity: 1; }
     .main-menu-v2 li.is-lvl1.is-open > ul {
@@ -5532,9 +5544,7 @@ ul.pager {
     font-size: 0.875rem;
     font-weight: 600;
     font-style: normal;
-    color: #979797; }
-    .main-menu-v2 li.is-lvl2.theme-minor > a:hover {
-      color: #FFF; } }
+    color: #979797; } }
 
 .main-menu-v2__expand {
   bottom: 0;
@@ -5628,22 +5638,22 @@ ul.pager {
  template: 6_1_2_table-simple
  description:
 */
-
+.textarea table, .textarea-ingress table,
 .table-simple {
   font-size: 0.875rem; }
-  
+  .textarea table tr, .textarea-ingress table tr,
   .table-simple tr {
     background-color: #F8F8F8; }
-    
+    .textarea table tr th, .textarea-ingress table tr th,
     .table-simple tr th {
       background-color: #F8F8F8; }
-    
+    .textarea table tr:nth-of-type(2n), .textarea-ingress table tr:nth-of-type(2n),
     .table-simple tr:nth-of-type(2n) {
       background-color: #FFF; }
-      
+      .textarea table tr:nth-of-type(2n) th, .textarea-ingress table tr:nth-of-type(2n) th,
       .table-simple tr:nth-of-type(2n) th {
         background-color: #F8F8F8; }
-  
+  .textarea table td, .textarea-ingress table td, .textarea table th, .textarea-ingress table th,
   .table-simple td,
   .table-simple th {
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
@@ -5651,29 +5661,29 @@ ul.pager {
     color: #555555;
     padding: 0.7em 0.9em;
     vertical-align: top; }
-    
+    .textarea table td a, .textarea-ingress table td a, .textarea table td a.active, .textarea-ingress table td a.active, .textarea table th a, .textarea-ingress table th a, .textarea table th a.active, .textarea-ingress table th a.active,
     .table-simple td a,
     .table-simple td a.active,
     .table-simple th a,
     .table-simple th a.active {
       color: #0098d0;
       text-decoration: none; }
-      
+      .textarea table td a:hover, .textarea-ingress table td a:hover, .textarea table td a.active:hover, .textarea-ingress table td a.active:hover, .textarea table th a:hover, .textarea-ingress table th a:hover, .textarea table th a.active:hover, .textarea-ingress table th a.active:hover,
       .table-simple td a:hover,
       .table-simple td a.active:hover,
       .table-simple th a:hover,
       .table-simple th a.active:hover {
         color: #0882B3;
         text-decoration: none; }
-    
+    .textarea table td p, .textarea-ingress table td p, .textarea table th p, .textarea-ingress table th p,
     .table-simple td p,
     .table-simple th p {
       font-size: inherit; }
-    
+    .textarea table td.active, .textarea-ingress table td.active, .textarea table th.active, .textarea-ingress table th.active,
     .table-simple td.active,
     .table-simple th.active {
       color: #555555; }
-    
+    .textarea table td:first-child, .textarea-ingress table td:first-child, .textarea table th:first-child, .textarea-ingress table th:first-child,
     .table-simple td:first-child,
     .table-simple th:first-child {
       font-weight: 700;
@@ -5859,6 +5869,155 @@ ul.pager {
     -moz-osx-font-smoothing: grayscale;
     vertical-align: bottom;
     content: ""; }
+
+/*
+ section: 6.11.1
+ title: Textarea
+ template: 6_11_1_textarea
+ description: Basic component used in multiple row textareas with links, headings, lists and so on.
+*/
+.textarea,
+.textarea-ingress {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  line-height: 1.5em; }
+  .textarea ul, .textarea ol, .textarea-ingress ul, .textarea-ingress ol {
+    margin-bottom: 30px; }
+  .textarea li, .textarea-ingress li {
+    line-height: 1.5em;
+    margin-bottom: 0.5em; }
+  .textarea ul, .textarea-ingress ul {
+    padding-left: 2em;
+    position: relative; }
+    .textarea ul li, .textarea-ingress ul li {
+      list-style-type: none; }
+      .textarea ul li:before, .textarea-ingress ul li:before {
+        font-size: 0.5625rem;
+        display: inline-block;
+        font-family: "hy-icons";
+        font-style: normal;
+        font-weight: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        vertical-align: bottom;
+        content: "";
+        left: 0;
+        margin-top: 1px;
+        position: absolute; }
+  .textarea ol, .textarea-ingress ol {
+    counter-reset: item;
+    padding-left: 2em;
+    position: relative; }
+    .textarea ol li, .textarea-ingress ol li {
+      display: block; }
+      .textarea ol li:before, .textarea-ingress ol li:before {
+        font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        content: counter(item) ". ";
+        counter-increment: item;
+        left: 1px;
+        position: absolute; }
+  .textarea h1, .textarea h2, .textarea h3, .textarea h4, .textarea legend, .textarea .logo-block__content .logo-block__sitename, .logo-block__content .textarea .logo-block__sitename, .textarea h5, .textarea h6, .textarea-ingress h1, .textarea-ingress h2, .textarea-ingress h3, .textarea-ingress h4, .textarea-ingress legend, .textarea-ingress .logo-block__content .logo-block__sitename, .logo-block__content .textarea-ingress .logo-block__sitename, .textarea-ingress h5, .textarea-ingress h6 {
+    margin-top: 32px; }
+    .textarea h1:first-child, .textarea h2:first-child, .textarea h3:first-child, .textarea h4:first-child, .textarea legend:first-child, .textarea .logo-block__content .logo-block__sitename:first-child, .logo-block__content .textarea .logo-block__sitename:first-child, .textarea h5:first-child, .textarea h6:first-child, .textarea-ingress h1:first-child, .textarea-ingress h2:first-child, .textarea-ingress h3:first-child, .textarea-ingress h4:first-child, .textarea-ingress legend:first-child, .textarea-ingress .logo-block__content .logo-block__sitename:first-child, .logo-block__content .textarea-ingress .logo-block__sitename:first-child, .textarea-ingress h5:first-child, .textarea-ingress h6:first-child {
+      margin-top: 0; }
+  .textarea a, .textarea-ingress a {
+    word-wrap: break-word; }
+  .textarea table, .textarea-ingress table {
+    line-height: normal;
+    margin-bottom: 2em; }
+  @media (min-width: 48em) {
+    .textarea .dropcap, .textarea-ingress .dropcap {
+      font-size: 4.6875rem;
+      font-weight: 700;
+      font-style: normal;
+      float: left;
+      line-height: 65px;
+      padding-right: 10px;
+      text-transform: uppercase; } }
+
+/**
+ * textarea-initial
+ * An element (usually an image) floated left before a textarea.
+ */
+
+.textarea-initial {
+  float: left;
+  margin-bottom: 2em;
+  margin-right: 2em; }
+
+/*
+ section: 6.11.2
+ title: Textarea infobox
+ template: 6_11_2_textarea-infobox
+ description: Infobox type textarea.
+*/
+
+.textarea-infobox {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  background-color: #F8F8F8;
+  margin-bottom: 2em;
+  padding: 1.5em; }
+  
+  .textarea-infobox p {
+    line-height: normal; }
+    
+    .textarea-infobox p:last-of-type {
+      margin-bottom: 0; }
+
+/*
+ section: 6.11.3
+ title: Textarea ingress
+ template: 6_11_3_textarea-ingress
+ description: Ingress textarea. Can be used with links, headings, lists or without. Class 'theme-bold' is available.
+*/
+.textarea-ingress {
+  font-size: 1.125rem;
+  font-weight: 400;
+  font-style: normal;
+  color: #555555;
+  line-height: 1.5em;
+  margin-bottom: 30px; }
+  .textarea-ingress ul, .textarea-ingress ol, .textarea-ingress li, .textarea-ingress p {
+    font-size: inherit; }
+  .textarea-ingress.theme-bold {
+    font-size: 1.2em;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.5em;
+    margin-bottom: 30px; }
+    .textarea-ingress.theme-bold ul, .textarea-ingress.theme-bold ol, .textarea-ingress.theme-bold li, .textarea-ingress.theme-bold p {
+      font-size: inherit; }
+
+.textarea-readmore {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  background-color: #F8F8F8;
+  border-bottom: 1px solid #d2d2d2;
+  border-top: 1px solid #d2d2d2;
+  display: block;
+  font-weight: bold;
+  line-height: normal;
+  margin: 2em 0;
+  padding: 2.5rem 2rem;
+  transition: color 0.2s; }
+  @media (min-width: 48em) {
+    .textarea-readmore {
+      margin: 4em 0; } }
+
+.textarea-readmore__title {
+  font-size: 0.75rem;
+  display: block;
+  margin-bottom: 1rem;
+  text-transform: uppercase; }
+
+.textarea-readmore__text {
+  font-size: 1.875rem;
+  color: #222;
+  display: block;
+  max-width: 20em; }
+  @media (max-width: 48em) {
+    .textarea-readmore__text {
+      font-size: 1.42857rem; } }
 
 /* HY DOO THEME */
 @media (min-width: 48em) {
@@ -6211,45 +6370,44 @@ ul.pager {
       margin: 0;
       padding-left: 1.5em; } }
 
-.l-action-footer-wrapper {
-  border-top: 2px solid #d2d2d2; }
-  .l-action-footer-wrapper .l-action-footer .block--uhc-doo-theme-features-last-updated {
-    font-size: 0.875rem;
-    float: left;
-    line-height: 60px; }
-  .l-action-footer-wrapper .l-action-footer .block--uhc-doo-theme-features-up-anchor {
-    float: right; }
-    .l-action-footer-wrapper .l-action-footer .block--uhc-doo-theme-features-up-anchor a#up-anchor {
-      font-size: 0.8125rem;
-      font-weight: 600;
-      font-style: normal;
-      background: #0098d0;
-      color: #FFF;
+.l-action-footer-wrapper .l-action-footer .block--uhc-doo-theme-features-last-updated {
+  font-size: 0.875rem;
+  float: left;
+  line-height: 60px; }
+
+.l-action-footer-wrapper .l-action-footer .block--uhc-doo-theme-features-up-anchor {
+  float: right; }
+  .l-action-footer-wrapper .l-action-footer .block--uhc-doo-theme-features-up-anchor a#up-anchor {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-style: normal;
+    background: #0098d0;
+    color: #FFF;
+    display: inline-block;
+    height: 60px;
+    line-height: 1.2em;
+    padding-top: 30px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    width: 60px; }
+    .l-action-footer-wrapper .l-action-footer .block--uhc-doo-theme-features-up-anchor a#up-anchor:hover {
+      background-color: #005479; }
+    .l-action-footer-wrapper .l-action-footer .block--uhc-doo-theme-features-up-anchor a#up-anchor:after {
       display: inline-block;
-      height: 60px;
-      line-height: 1.2em;
-      padding-top: 30px;
-      position: relative;
-      text-align: center;
-      text-decoration: none;
-      width: 60px; }
-      .l-action-footer-wrapper .l-action-footer .block--uhc-doo-theme-features-up-anchor a#up-anchor:hover {
-        background-color: #005479; }
-      .l-action-footer-wrapper .l-action-footer .block--uhc-doo-theme-features-up-anchor a#up-anchor:after {
-        display: inline-block;
-        font-family: "hy-icons";
-        font-style: normal;
-        font-weight: normal;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        vertical-align: bottom;
-        content: "";
-        font-size: 0.9375rem;
-        color: #FFF;
-        height: 100%;
-        left: 23px;
-        position: absolute;
-        top: 10px; }
+      font-family: "hy-icons";
+      font-style: normal;
+      font-weight: normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      vertical-align: bottom;
+      content: "";
+      font-size: 0.9375rem;
+      color: #FFF;
+      height: 100%;
+      left: 23px;
+      position: absolute;
+      top: 10px; }
 
 .activity {
   float: right;
@@ -6519,61 +6677,50 @@ ul.pager {
   .course-hierarchy > li:after {
     display: none; }
 
-.course-hierarchy li.root > .item-list ul.root {
-  border-left: 1px solid #d2d2d2;
-  border-bottom: 0;
+.course-hierarchy li.root > .item-list ul.root li {
+  position: relative; }
+  .course-hierarchy li.root > .item-list ul.root li a {
+    font-size: 0.9375rem;
+    color: #979797; }
+    .course-hierarchy li.root > .item-list ul.root li a.active {
+      color: #424242; }
+  .course-hierarchy li.root > .item-list ul.root li.my-enrollment > a:after {
+    display: inline-block;
+    font-family: "hy-icons";
+    font-style: normal;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: bottom;
+    content: "";
+    color: #91C466;
+    position: absolute;
+    right: 0;
+    top: 6%; }
+  .course-hierarchy li.root > .item-list ul.root li:last-child {
+    padding-bottom: 0; }
+
+.course-hierarchy li.root > .item-list ul.root:first-child {
+  padding-top: 1em; }
+
+.course-hierarchy li.root > .item-list ul.root li.studygroupset {
+  border-top: 1px solid #d2d2d2;
+  border-left: 0;
   border-right: 0;
-  border-top: 0;
-  margin: 1em 0; }
-  .course-hierarchy li.root > .item-list ul.root li {
-    padding: 0 1em 1.2em 2em;
-    position: relative; }
-    .course-hierarchy li.root > .item-list ul.root li a {
-      font-size: 0.9375rem;
-      color: #979797; }
-      .course-hierarchy li.root > .item-list ul.root li a.active {
-        color: #424242; }
-        .course-hierarchy li.root > .item-list ul.root li a.active:before {
-          width: 0;
-          height: 0;
-          content: '';
-          border-top: 8px solid transparent;
-          border-bottom: 8px solid transparent;
-          border-left: 8px solid #005479;
-          position: absolute;
-          left: 0;
-          top: 10%; }
-    .course-hierarchy li.root > .item-list ul.root li.my-enrollment > a:after {
-      display: inline-block;
-      font-family: "hy-icons";
-      font-style: normal;
-      font-weight: normal;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      vertical-align: bottom;
-      content: "";
-      color: #91C466;
-      position: absolute;
-      right: 0;
-      top: 6%; }
-    .course-hierarchy li.root > .item-list ul.root li:last-child {
-      padding-bottom: 0; }
-  .course-hierarchy li.root > .item-list ul.root li.studygroupset {
-    padding: 0; }
-    .course-hierarchy li.root > .item-list ul.root li.studygroupset > a {
-      display: none; }
-  .course-hierarchy li.root > .item-list ul.root > li {
-    margin-bottom: 1em; }
-    .course-hierarchy li.root > .item-list ul.root > li:after {
-      border-bottom: 1px solid #d2d2d2;
-      border-left: 0;
-      border-right: 0;
-      border-top: 0;
-      content: '';
-      display: block;
-      margin-top: 1em; }
-    .course-hierarchy li.root > .item-list ul.root > li:last-child:after {
-      border-bottom: none; }
+  border-bottom: 0;
+  padding: 0; }
+  .course-hierarchy li.root > .item-list ul.root li.studygroupset > a {
+    display: none; }
+
+.course-hierarchy li.root > .item-list ul.root > li:after {
+  content: '';
+  display: block; }
+
+.course-hierarchy li.root > .item-list ul.root > li:last-child:after {
+  border-bottom: 1px solid #d2d2d2;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0; }
 
 @media (min-width: 48em) {
   .course-hierarchy {
@@ -6589,15 +6736,6 @@ ul.pager {
         border-bottom: 1px solid #dfdfdf;
         text-transform: uppercase;
         padding: 20px 20px 20px 60px; }
-      .course-hierarchy > li.root > a {
-        /*
-          @include menu-item-icon($icon-arrow);
-          padding-left: 20px;
-          &:before {
-            @include transform(rotate(90deg));
-            display: inline-block;
-          }
-          */ }
       .course-hierarchy > li.root > .item-list {
         margin-bottom: 0; }
         .course-hierarchy > li.root > .item-list ul.root {
@@ -6605,11 +6743,8 @@ ul.pager {
           border-left: 1px solid #dfdfdf; }
           .course-hierarchy > li.root > .item-list ul.root li {
             padding-left: 35px; }
-          .course-hierarchy > li.root > .item-list ul.root > li:after {
-            border-bottom: 1px solid #dfdfdf; }
           .course-hierarchy > li.root > .item-list ul.root > li.last:after {
-            margin-top: 0;
-            border-bottom: none; } }
+            margin-top: 0; } }
 
 .group-description-objectives .course-overview-source-legend {
   text-align: center; }
@@ -6960,11 +7095,15 @@ body.open-university .view.course-list th.views-field-field-imp-giver-locality, 
     float: right; }
   .ds-node-metadata label {
     margin-right: 0.35em;
-    font-size: unset; }
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 2em; }
   .ds-node-metadata .teaching-languages {
     display: block; }
     .ds-node-metadata .teaching-languages span {
       font-weight: 900; }
+      .ds-node-metadata .teaching-languages span:not(:last-of-type):after {
+        content: ", "; }
   .ds-node-metadata .label-row.help {
     display: inline-block; }
   .ds-node-metadata .flexible-start {
@@ -7148,7 +7287,7 @@ body:not(.open-university) .view-id-course_node_references .field-imp-course-org
     @media (min-width: 48em) {
       #block-feedback-form .feedback-link,
       #block-feedback-form #feedback-status-message {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
         width: 90px;
         height: 90px; } }
   #block-feedback-form #feedback-status-message {
@@ -7288,7 +7427,6 @@ body:not(.open-university) .view-id-course_node_references .field-imp-course-org
 .l-info-footer-wrapper {
   background-color: #f2f2f2; }
   .l-info-footer-wrapper .l-info-footer {
-    border-top: 2px solid #d2d2d2;
     padding-top: 2em; }
     .l-info-footer-wrapper .l-info-footer .block {
       margin-bottom: 2.814em; }

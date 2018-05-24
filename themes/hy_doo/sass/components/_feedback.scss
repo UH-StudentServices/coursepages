@@ -87,7 +87,7 @@
       line-height: 50px;
     }
     @include breakpoint($small) {
-      @include font-size(14px);
+      @include font-size(13px);
       width: 90px;
       height: 90px;
       &:before {

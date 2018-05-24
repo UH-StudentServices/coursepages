@@ -264,7 +264,7 @@ function theme_oodi_field($variables) {
   if (empty($variables['value'])) {
     return NULL;
   }
-  return '<div class="tube"><h3>' . $variables['title'] . '</h3><div class="oodi-field">' . $variables['value'] . '</div></div>';
+  return '<div class="tube"><h3>' . $variables['title'] . '</h3><div class="oodi-field textarea">' . $variables['value'] . '</div></div>';
 }
 
 /**

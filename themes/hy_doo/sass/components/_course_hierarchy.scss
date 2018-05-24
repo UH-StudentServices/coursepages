@@ -16,22 +16,13 @@
   li.root {
     > .item-list {
       ul.root {
-        @include accessible-border-left;
-        margin: 1em 0;
         li {
-          padding: 0 1em 1.2em 2em;
           position: relative;
           a {
             @include font-size(15px);
             color: $silver;
             &.active {
               color: $darkgray;
-              &:before {
-                @include alternative-arrow($darkblue, 8px, 'right');
-                position: absolute;
-                left: 0;
-                top: 10%;
-              }
             }
           }
           &.my-enrollment > a:after {
@@ -45,29 +36,24 @@
             padding-bottom: 0;
           }
         }
+        &:first-child {
+          padding-top: 1em;
+        }
         li.studygroupset {
+          @include accessible-border-top;
           padding: 0;
           > a {
             display: none;
           }
         }
         > li {
-          margin-bottom: 1em;
           &:after {
-            @include accessible-border-bottom;
             content: '';
             display: block;
-            margin-top: 1em;
-          }
-          &.studygroup,
-          &.studygroupset {
-            &:after {
-              //margin-left: 2em;
-            }
           }
           &:last-child {
             &:after {
-              border-bottom: none;
+              @include accessible-border-bottom;
             }
           }
         }
@@ -90,16 +76,6 @@
         padding: 20px 20px 20px 60px;
       }
       &.root {
-        > a {
-          /*
-          @include menu-item-icon($icon-arrow);
-          padding-left: 20px;
-          &:before {
-            @include transform(rotate(90deg));
-            display: inline-block;
-          }
-          */
-        }
         & > .item-list {
           margin-bottom: 0;
           ul.root {
@@ -109,12 +85,8 @@
               padding-left: 35px;
             }
             > li {
-              &:after {
-                border-bottom: 1px solid darken($lightsilver, 10%);
-              }
               &.last:after {
                 margin-top: 0;
-                border-bottom: none;
               }
             }
           }

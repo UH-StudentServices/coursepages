@@ -1,3 +1,26 @@
+# University of Helsinki Courses v1.115
+Päiväys: 24.05.2018
+
+## Lisäykset
+ - DOO-3469: Google event tracking: Opinnot-sivun välilehdet.
+
+## Muutokset
+ - DOO-3509: Google Analytics: IP-osoitteiden anonymisointi.
+ - DOO-3467: Moodle-alueen luontipainikkeen tekstimuutoksia.
+ - DOO-3554: Rajatut sisällöt näkyviin vain vahvistetusti ilmoittautuneille
+   käytettäessä automaattista vahvistamista.
+ - DOO-3404: Kurssihierarkian esittämisen visuaalisia muutoksia.
+ - DOO-3553: Moodle-alueen luonnin käyttökokemusparannuksia.
+
+## Korjaukset
+ - DOO-3477: Opetuskiel(i)en visuaalisia korjauksia.
+ - DOO-3473: Palautettiin luetteloiden muotoilu jakso- ja toteutussivuilla.
+
+## Päivitykset
+ - DOO-3059: Styleguiden päivittäminen uusimpaan versioon.
+ - DOO-3542: Kielivalinta kurssiupotuksille.
+
+
 # University of Helsinki Courses v1.114
 Päiväys: 25.04.2018 
 

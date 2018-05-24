@@ -190,6 +190,24 @@ function uhc_analytics_and_tracking_google_analytics_et_api() {
     'action' => 'click',
   );
 
+  // Horizontal tabs on studies landing page: Course catalogue.
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.node-type-studies-landing-page #course-catalogue + .horizontal-tabs a',
+    'category' => 'Studies landing page: Course catalogue tabs',
+    'label' => '!text',
+    'action' => 'click',
+  );
+
+  // Horizontal tabs on studies landing page: Summer course catalogue.
+  $selectors[] = array(
+    'event' => 'click',
+    'selector' => '.node-type-studies-landing-page #course-catalogue-summer ~ .clearfix .horizontal-tabs a',
+    'category' => 'Studies landing page: Summer course catalogue tabs',
+    'label' => '!text',
+    'action' => 'click',
+  );
+
   return $selectors;
 }
 

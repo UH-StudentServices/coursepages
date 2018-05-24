@@ -73,7 +73,7 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
       // Moodi create button.
       $form['uhc_moodi_fieldset']['uhc_moodi_create_button'] = array(
         '#type' => 'submit',
-        '#value' => t('Create Moodle course area'),
+        '#value' => t('Create a new Moodle course area'),
         '#access' => uhc_moodi_create_button_access($moodi_response),
         '#ajax' => array(
           'callback' => 'uhc_moodi_create_button_ajax_callback',
@@ -99,9 +99,6 @@ function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
       );
       if ($show_status) {
         $form['uhc_moodi_fieldset']['uhc_moodi_status_area']['#markup'] = '<h4>' . uhc_moodi_get_status_title($moodi_response) . '</h4>' . uhc_moodi_get_status_markup($moodi_response);
-        $form['uhc_moodi_fieldset']['uhc_moodi_status_area']['#attached'] = array('js' => array(
-          drupal_get_path('module', 'uhc_moodi') . '/js/uhc_moodi_copy_moodle_url.js',
-        ));
       }
 
       // Description of Moodle areas without participants.
@@ -364,23 +361,50 @@ function uhc_moodi_get_creation_result_title($moodi_response, $ok_status_codes =
 }
 
 /**
- * Handle Moodi create response. Redirects back to Moodle section on successful
- * Moodi create operation.
+ * Handle Moodi create response.
  *
  * @param $moodi_create_response object Moodi response.
  * @param $form array Course implementation form.
  */
 function uhc_moodi_handle_create_response($moodi_create_response, $form) {
   if ($moodi_create_response->code == 200) {
+    watchdog('uhc_moodi', 'Moodle creation successful.');
     uhc_moodi_create_moodle_created_activity_message();
-
-    $current_path = !empty($form['uhc_moodi_fieldset']['current_path']['#value'])
-      ? $form['uhc_moodi_fieldset']['current_path']['#value']
-      : '';
-
-    watchdog('uhc_moodi', 'Moodle creation successful. Refreshing page.');
-    uhc_moodi_redirect($current_path);
+    uhc_moodi_save_moodle_url();
+    uhc_moodi_refresh_page($form);
   }
+}
+
+function uhc_moodi_save_moodle_url() {
+  $nid = isset($_SESSION['og_context']['gid']) ? $_SESSION['og_context']['gid'] : NULL;
+
+  if ($nid) {
+    $node = node_load($nid);
+    $course_implementation_id = $node->field_imp_id[LANGUAGE_NONE][0]['value'];
+    $moodi_response = uhc_moodi_get_controller()->get($course_implementation_id);
+    $node->field_moodle_url[LANGUAGE_NONE][0]['url'] = uhc_moodi_get_moodle_url($moodi_response);
+    node_save($node);
+  }
+}
+
+function uhc_moodi_refresh_page($form) {
+  ctools_include('ajax');
+  ctools_add_js('ajax-responder');
+
+  $options = array(
+    'query' => array(
+      'section' => 'edit-group_imp_moodle',
+      'moodi_creation_successful' => TRUE
+    )
+  );
+
+  $current_path = !empty($form['uhc_moodi_fieldset']['current_path']['#value'])
+    ? $form['uhc_moodi_fieldset']['current_path']['#value']
+    : '';
+
+  $commands[] = ctools_ajax_command_redirect($current_path, 0, $options);
+  print ajax_render($commands);
+  exit;
 }
 
 function uhc_moodi_create_moodle_created_activity_message() {
@@ -389,27 +413,6 @@ function uhc_moodi_create_moodle_created_activity_message() {
   if ($nid) {
     $node = node_load($nid);
     uhc_course_implementation_activity_create_message($node, 'course_implementation_moodle_course_area_create');
-  }
-}
-
-/**
- * @param $path string Path.
- */
-function uhc_moodi_redirect($path) {
-  if (!empty($path)) {
-    ctools_include('ajax');
-    ctools_add_js('ajax-responder');
-
-    $options = array(
-      'query' => array(
-        'section' => 'edit-group_imp_moodle',
-        'moodi_creation_successful' => TRUE
-      )
-    );
-
-    $commands[] = ctools_ajax_command_redirect($path, 0, $options);
-    print ajax_render($commands);
-    exit;
   }
 }
 

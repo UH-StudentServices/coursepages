@@ -252,7 +252,9 @@ function uhc_autofill_metadata_get_enrollments($personal_unique_code) {
   if (isset($enrollment_data['status']) && $enrollment_data['status'] == 200 && !empty($enrollment_data['data'])) {
     foreach ($enrollment_data['data'] as $enrollment) {
       if (isset($enrollment['course_id'])) {
-        $enrollments[] = $enrollment['course_id'];
+        if (uhc_autofill_metadata_is_enrollment_confirmed($enrollment)) {
+          $enrollments[] = $enrollment['course_id'];
+        }
       }
     }
   }
@@ -261,18 +263,50 @@ function uhc_autofill_metadata_get_enrollments($personal_unique_code) {
 }
 
 /**
+ * An enrollment is considered confirmed if automatic confirmation is not
+ * enabled or automatic confirmation is enabled and the confirmation time is in
+ * the past.
+ *
+ * @param array $enrollment
+ * @return bool Is the enrollment confirmed?
+ */
+function uhc_autofill_metadata_is_enrollment_confirmed($enrollment) {
+  return empty($enrollment['automatic_enabled'])
+    || $enrollment['automatic_enabled'] != 'true'
+    || uhc_autofill_metadata_has_enrollment_confirmation_time_passed($enrollment);
+}
+
+/**
+ * Parses enrollment confirmation end time and returns whether it has passed.
+ *
+ * @param array $enrollment
+ * @return bool Has the enrollment confirmation time passed?
+ */
+function uhc_autofill_metadata_has_enrollment_confirmation_time_passed($enrollment) {
+  $end_date = !empty($enrollment['automatic_end_date']) ? date_create($enrollment['automatic_end_date']) : NULL;
+  $end_time = !empty($enrollment['automatic_end_time']) ? $enrollment['automatic_end_time'] : NULL;
+  $end_time_hours_minutes_seconds = isset($end_time) ? str_split($end_time, 2) : NULL;
+
+  if (isset($end_date, $end_time_hours_minutes_seconds)) {
+    date_add($end_date, date_interval_create_from_date_string("$end_time_hours_minutes_seconds[0] hours"));
+    date_add($end_date, date_interval_create_from_date_string("$end_time_hours_minutes_seconds[1] minutes"));
+    date_add($end_date, date_interval_create_from_date_string("$end_time_hours_minutes_seconds[2] seconds"));
+  }
+
+  return isset($end_date) && $end_date->getTimestamp() <= REQUEST_TIME;
+}
+
+/**
  * Returns enrollment information for the given user identified by personal
  * unique code.
  *
  * @param string $personal_unique_code
  *   Personal unique code, typically student number.
- * @param bool $filter_relevant_only
- *   If TRUE, filters enrollments that are relevant for students.
  * @return array|NULL
  *   Enrollment information (if found), NULL if not found or empty array if an error
  *   occured.
  */
-function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $filter_relevant_only = FALSE) {
+function uhc_autofill_metadata_get_enrollment_data($personal_unique_code) {
 
   // For easier debugging, we can fake our enrollment response by using this
   // Drupal variable (if it's set).
@@ -308,33 +342,7 @@ function uhc_autofill_metadata_get_enrollment_data($personal_unique_code, $filte
     }
   }
 
-  // When enrollment data is available and we want to filter relevant courses
-  if ($filter_relevant_only === TRUE && !empty($enrollment_data)) {
-    $enrollment_data = uhc_autofill_metadata_get_enrollment_filtered($enrollment_data);
-  }
-
   return $enrollment_data;
-}
-
-/**
- * Fiters non-relevant enrollments out and returns relevant courses.
- *
- * @param array $enrollments
- * @return array
- *   Returns $enrollments without non-relevant courses.
- */
-function uhc_autofill_metadata_get_enrollment_filtered(array $enrollments) {
-  $return = $enrollments;
-  $return['data'] = array();
-  for ($i = 0; $i < count($enrollments['data']); $i++) {
-    if (!empty($enrollments['data'][$i]['end_date'])) {
-      if (strtotime($enrollments['data'][$i]['end_date']) > REQUEST_TIME) {
-        // When end date is in the future, append enrollment to unfiltered list
-        $return['data'][] = $enrollments['data'][$i];
-      }
-    }
-  }
-  return $return;
 }
 
 function uhc_autofill_metadata_set_enrollments($account, $enrollments) {
