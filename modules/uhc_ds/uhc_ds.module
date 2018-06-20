@@ -682,7 +682,7 @@ function uhc_ds_moodle_key_or_login($field) {
       $value['#markup'] = t('Sign up for the course to view the registration key for Moodle.');
     }
     else {
-      $value['#markup'] = t('Enrolment key') . ': ' . $value['#markup'];
+      $value['#markup'] = t('Enrolment key') . ': ' . '<span>' . $value['#markup'] . '</span>';
     }
   }
 

@@ -1,3 +1,23 @@
+# University of Helsinki Courses v1.116
+Päiväys: 20.06.2018
+
+## Lisäykset
+  - DOO-3582: ESB: Lisättiin tuki asiakassertifikaateille.
+  - DOO-3565: Lisättiin Optime-lisäkentät tapahtumalistaukseen.
+  - DOO-3561: Ilmoita opiskelijalle mikäli ilmoittautumisten tarkastamisessa on ongelmia.
+
+## Muutokset
+  - DOO-3577: Arvosanan ja arvosanajakauman esittämisen tekstiparannukset.
+  - DOO-3590: Arvosanat: Näytä koko numeerinen skaala (1-5).
+  - DOO-3562: Kurssihierarkian esittämisen mobiilimuutokset.
+  - DOO-3527: Kesäopintotarjonnan lajittelu.
+
+## Korjaukset
+ - DOO-3584: Salli tekstin kopioiminen elementeistä (esim. Moodle-osoite ja avain).
+ - DOO-3560: Avoimen yliopiston sosiaalisen median linkit takaisin toimintaan.
+ - DOO-3597: Moodi-integraatio: Kutsu vain kun toteutuksen tunniste on numeerinen.
+
+
 # University of Helsinki Courses v1.115
 Päiväys: 24.05.2018
 

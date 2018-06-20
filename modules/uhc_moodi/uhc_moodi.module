@@ -53,7 +53,7 @@ function uhc_moodi_access() {
  * Adds Moodi widget to the given form.
  */
 function uhc_moodi_add_moodi_widget(&$form, $course_implementation_id) {
-  if (!empty($course_implementation_id)) {
+  if (!empty($course_implementation_id) && is_numeric($course_implementation_id)) {
 
     global $language;
     $moodi_response = uhc_moodi_get_controller()->get($course_implementation_id);

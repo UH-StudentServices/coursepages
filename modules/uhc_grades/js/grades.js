@@ -4,8 +4,10 @@
   const settings = Drupal.settings.uhc_grades;
 
   renderPersonalGrade(settings);
+  renderDistributionDisclaimer(settings);
   renderChart(settings);
   renderStatusTotals(settings);
+  renderGradesDisclaimer(settings);
 
   function getChartOptions(settings) {
     return {
@@ -84,7 +86,7 @@
       })[0].text
     });
 
-    return isNumericDistribution(settings.grades) ? categories.filter(isInteger) : categories;
+    return isNumericDistribution(settings.grades) ? ['1', '2', '3', '4', '5'] : categories;
   }
 
   function getDistribution(settings) {
@@ -137,6 +139,14 @@
     })[0].text;
   }
 
+  function renderDistributionDisclaimer(settings) {
+    if (settings.grades && !hasGradeDistribution(settings.grades)) {
+      const distributionDisclaimer = settings.text.distributionDisclaimer;
+      const html = '<div id=distribution-disclaimer><p>' + distributionDisclaimer + '</p></div>';
+      $('#grades-chart').before(html);
+    }
+  }
+
   function renderChart(settings) {
     if (hasGradeDistribution(settings.grades)) {
       $('#grades-chart').wrap('<div id="chart-container"></div>');
@@ -172,6 +182,14 @@
     return grades.grade_distribution.filter(function (grade) {
       return !isNumericGrade(grade);
     });
+  }
+
+  function renderGradesDisclaimer(settings) {
+    if (hasGradeDistribution(settings.grades)) {
+      const gradesDisclaimer = settings.text.gradesDisclaimer;
+      const html = '<div id=grades-disclaimer><p>' + gradesDisclaimer + '</p></div>';
+      $('#status-totals').after(html);
+    }
   }
 
   function polyfill() {

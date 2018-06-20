@@ -337,6 +337,9 @@ function uhc_autofill_metadata_get_enrollment_data($personal_unique_code) {
             array('@personal_unique_code' => $personal_unique_code, '@error' => $error),
             WATCHDOG_WARNING
           );
+
+          // Display enrollment check failure message to user
+          drupal_set_message(t('There is a temporary problem with verifying the access rights. Some of the page content may be missing.'), 'error');
         }
       }
     }

@@ -69,3 +69,9 @@
     }
   }
 }
+
+// Allow user select on button'ish elements (for example the Moodle URL and key).
+a.button--action,
+.button {
+  user-select: auto;
+}

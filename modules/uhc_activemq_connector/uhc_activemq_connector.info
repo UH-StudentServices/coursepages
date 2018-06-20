@@ -2,5 +2,5 @@ name = UHC ActiveMQ Connector
 description = This module is deprecated.
 core = 7.x
 package = UHC
-version = 7.x-1.115
+version = 7.x-1.116
 project = uhc_activemq_connector

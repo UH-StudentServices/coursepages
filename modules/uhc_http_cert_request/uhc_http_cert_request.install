@@ -1,0 +1,26 @@
+<?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Implements hook_install().
+ */
+function uhc_http_cert_request_install() {
+  variable_set('uhc_http_cert_request_original_drupal_http_request_function', variable_get('drupal_http_request_function', FALSE));
+  variable_set('drupal_http_request_function', 'uhc_http_cert_request_http_request');
+}
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function uhc_http_cert_request_uninstall() {
+  variable_set('drupal_http_request_function', variable_get('uhc_http_cert_request_original_drupal_http_request_function', FALSE));
+  variable_del('uhc_http_cert_request_original_drupal_http_request_function');
+  variable_del('uhc_http_cert_request_cert_filepath');
+  variable_del('uhc_http_cert_request_cert_key_filepath');
+  variable_del('uhc_http_cert_request_debug');
+}

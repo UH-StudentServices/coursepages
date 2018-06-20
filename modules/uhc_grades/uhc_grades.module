@@ -69,10 +69,12 @@ function uhc_grades_get_chart_settings($grades) {
       'grades' => $grades,
       'language' => $language->language,
       'text' => array(
-        'gradeDistribution' => t('Grade distribution'),
+        'gradeDistribution' => t('Distribution of grades'),
         'legend' => t('Grade'),
         'personalGrade' => t('My grade'),
-        'pieces' => t('pcs')
+        'pieces' => t('pcs'),
+        'distributionDisclaimer' => t('The distribution of grades cannot be presented because there were less than five results.'),
+        'gradesDisclaimer' => t('The distribution of grades may change if some grades are still waiting for registration.')
       )
     )
   );
@@ -197,7 +199,7 @@ function uhc_grades_get_accepted_grades($grades) {
       'grade' => array(
         (object) array('langcode' => 'fi', 'text' => 'Hyväksytty'),
         (object) array('langcode' => 'sv', 'text' => 'Godkänd'),
-        (object) array('langcode' => 'en', 'text' => 'Accepted')
+        (object) array('langcode' => 'en', 'text' => 'Passed')
       )
     );
   }

@@ -46,6 +46,7 @@ function theme_uhc_event_structured_teaching_schedule(&$variables) {
       $content .= '<span class="event-list-header">';
       $content .= '<span class="event-column"><span class="field accordion-content-item--label event-date">' . t('Date') . '</span><span class="field accordion-content-item--label event-time">' . t('Time') . '</span></span>';
       $content .= '<span class="event-column"><span class="field remove-styles accordion-content-item--label event-location">' . t('Location', array(), array('context' => 'event')) . '</span></span>';
+      $content .= '<span class="event-column"><span class="field remove-styles accordion-content-item--label event-optime-extras">' . t('Info', array(), array('context' => 'event')) . '</span></span>';
       $content .= '</span>';
 
       // Table contents
@@ -53,6 +54,16 @@ function theme_uhc_event_structured_teaching_schedule(&$variables) {
         $content .= '<div class="event">';
         $content .= '<div class="event-column"><div class="field event-date">' . $event['date'] . '</div><div class="field event-time">' . $event['time'] . '</div></div>';
         $content .= '<div class="event-column"><div class="field remove-styles event-location">' . theme('item_list', array('items' => $event['locations'])) . '</div></div>';
+
+        $staff_notes = !empty($event['optime_extra_information']->staffNotes) ? $event['optime_extra_information']->staffNotes : '';
+        $room_notes = !empty($event['optime_extra_information']->roomNotes) ? $event['optime_extra_information']->roomNotes : '';
+        $other_notes = !empty($event['optime_extra_information']->otherNotes) ? $event['optime_extra_information']->otherNotes : '';
+
+        $content .= '<div class="event-column"><div class="field remove-styles event-optime-extras">'
+          . '<span class="event-optime-extras-staff-notes">' . $staff_notes . '</span>'
+          . '<span class="event-optime-extras-room-notes">' . $room_notes . '</span>'
+          . '<span class="event-optime-extras-other-notes">' . $other_notes . '</span>'
+          . '</div></div>';
         $content .= '</div>';
       }
       $content .= $variables['suffix'];
@@ -107,11 +118,18 @@ function _uhc_event_structured_teaching_schedule_aggregate($events) {
       $location .= ', ' . l($event->building_address1, $path);
     }
 
-    // Append item
+    // Build Optime extra information.
+    $optime_extra_information = '';
+    if (!empty($event->optimeExtras)) {
+      $optime_extra_information = $event->optimeExtras;
+    }
+
+    // Append item.
     $key = sprintf('%sT%s', $date, $time);
     $aggregated_events[$key]['date'] = $date;
     $aggregated_events[$key]['time'] = $time;
     $aggregated_events[$key]['locations'][] = $location;
+    $aggregated_events[$key]['optime_extra_information'] = $optime_extra_information;
   }
 
   return $aggregated_events;

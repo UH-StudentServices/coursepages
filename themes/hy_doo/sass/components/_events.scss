@@ -16,8 +16,10 @@
     padding: 0.5em 0;
   }
   .event-column {
-    float: left;
-    width: 50%;
+    @include breakpoint($small) {
+      float: left;
+      width: 33%;
+    }
   }
   .field {
     @include hyphenate;
@@ -26,6 +28,20 @@
     display: inline-block;
     @include breakpoint($medium) {
       width: 49%;
+    }
+  }
+  .field.event-optime-extras {
+    @include breakpoint($medium) {
+      width: auto;
+    }
+    span {
+      display: block;
+      &:not(:last-child) {
+        padding-bottom: 1em;
+      }
+      &:empty {
+        padding-bottom: 0;
+      }
     }
   }
   &.table-three-columns .event-location {

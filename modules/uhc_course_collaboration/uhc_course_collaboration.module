@@ -536,7 +536,7 @@ function uhc_course_collaboration_get_course_students($course_imp_id) {
   $url = variable_get('uhc_course_implementation_source_item_url', '');
   $url = str_replace(':id', $course_imp_id, $url);
   $url = PortalMigrationBase::prependHostIfMissing($url);
-  $response = drupal_json_decode(file_get_contents($url));
+  $response = drupal_json_decode(drupal_http_request($url)->data);
   return isset($response['data']['students']) ? $response['data']['students'] : array();
 }
 

@@ -102,7 +102,7 @@ class UHCMigrateJSONReader implements Iterator {
       }
       else {
         // TODO: What if we get non-string or empty string response?
-        $this->fileContents = file_get_contents($this->url);
+        $this->fileContents = drupal_http_request($this->url)->data;
         return !empty($this->fileContents);
       }
     }

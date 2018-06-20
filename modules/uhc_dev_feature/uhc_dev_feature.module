@@ -108,7 +108,7 @@ function _uhc_dev_feature_integration_get_teacher_modify_rights($email) {
 }
 
 function _uhc_dev_feature_return_json_response($url) {
-  return drupal_json_decode(file_get_contents($url));
+  return drupal_json_decode(drupal_http_request($url)->data);
 }
 
 function _uhc_dev_feature_get_queue() {

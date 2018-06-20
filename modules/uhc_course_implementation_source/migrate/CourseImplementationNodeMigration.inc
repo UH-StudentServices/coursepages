@@ -28,12 +28,12 @@ class CourseImplementationNodeMigration extends PortalMigrationBase {
     // existance.
     $options = array('track_changes' => TRUE);
     if (!empty($arguments['predefined_item'])) {
-      $item_class = new PortalItemBase($arguments['predefined_item']);
+      $item_class = new PortalItemBase($arguments['predefined_item'], array('method' => 'GET'));
     }
     else {
       $item_url = variable_get('uhc_course_implementation_source_item_url', '');
       $item_url = PortalMigrationBase::prependHostIfMissing($item_url);
-      $item_class = new PortalItemBase($item_url);
+      $item_class = new PortalItemBase($item_url, array('method' => 'GET'));
       $options['reader_class'] = 'UHCMigrateJSONReader';
     }
 

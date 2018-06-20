@@ -66,31 +66,49 @@
   }
 
   @include breakpoint($mobile-only) {
-    background: $lightsilver;
-    border-top: 1px solid darken($lightsilver, 10%);
     > li {
       padding: 0;
       > a {
-        border-bottom: 1px solid darken($lightsilver, 10%);
         text-transform: uppercase;
-        padding: 20px 20px 20px 60px;
+        padding: 10px 0 0 0;
       }
       &.root {
         & > .item-list {
           margin-bottom: 0;
           ul.root {
-            margin: 15px 15px 15px 60px;
+            margin: 15px 0 15px 0;
             border-left: 1px solid darken($lightsilver, 10%);
             li {
-              padding-left: 35px;
+              padding-left: 15px;
             }
             > li {
               &.last:after {
                 margin-top: 0;
               }
             }
+            &:first-child {
+              padding-top: 0;
+            }
           }
         }
+      }
+    }
+  }
+}
+
+// Accordion styling.
+#course-hierarchy-accordion {
+  &.accordion-item {
+    &:before {
+      @include font-size(16px);
+      @include icon($icon-hamburger);
+    }
+
+    &.is-active {
+      &:before {
+        @include font-size(16px);
+        @include icon($icon-minus);
+        transform: none;
       }
     }
   }

@@ -259,8 +259,8 @@ function uhc_studies_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_studies_lp_summer_view',
-      1 => 'field_summer_courses_title',
-      2 => 'field_summer_courses_description',
+      1 => 'field_summer_courses_description',
+      2 => 'field_summer_courses_title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

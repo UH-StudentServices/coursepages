@@ -2,5 +2,5 @@ name = UHC Cache Warmer
 description = Provides a drush command for generating a hub pages file for the cache_warmer module.
 core = 7.x
 package = UHC
-version = 7.x-1.115
+version = 7.x-1.116
 project = uhc_cache_warmer

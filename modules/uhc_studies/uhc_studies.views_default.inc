@@ -55,6 +55,28 @@ function uhc_studies_views_default_views() {
   $handler->display->display_options['relationships']['field_course_degree_programme_tid']['field'] = 'field_course_degree_programme_tid';
   $handler->display->display_options['relationships']['field_course_degree_programme_tid']['relationship'] = 'field_imp_reference_to_courses_target_id';
   $handler->display->display_options['relationships']['field_course_degree_programme_tid']['required'] = TRUE;
+  /* Relationship: Content: Taxonomy terms on node */
+  $handler->display->display_options['relationships']['term_node_tid']['id'] = 'term_node_tid';
+  $handler->display->display_options['relationships']['term_node_tid']['table'] = 'node';
+  $handler->display->display_options['relationships']['term_node_tid']['field'] = 'term_node_tid';
+  $handler->display->display_options['relationships']['term_node_tid']['relationship'] = 'field_imp_reference_to_courses_target_id';
+  $handler->display->display_options['relationships']['term_node_tid']['label'] = 'Type of teaching';
+  $handler->display->display_options['relationships']['term_node_tid']['vocabularies'] = array(
+    'type_of_teaching' => 'type_of_teaching',
+    'scald_authors' => 0,
+    'scald_tags' => 0,
+    'course_tags' => 0,
+    'course_theme' => 0,
+    'degree_programme' => 0,
+    'faculty' => 0,
+    'form_of_teaching' => 0,
+    'material_sections' => 0,
+    'method_of_study' => 0,
+    'months' => 0,
+    'organisational_units' => 0,
+    'organisations_of_university_of_helsinki' => 0,
+    'subject_category' => 0,
+  );
   /* Field: Content: Credit */
   $handler->display->display_options['fields']['field_study_credit']['id'] = 'field_study_credit';
   $handler->display->display_options['fields']['field_study_credit']['table'] = 'field_data_field_study_credit';
@@ -102,6 +124,15 @@ function uhc_studies_views_default_views() {
   $handler->display->display_options['sorts']['name_field_value']['table'] = 'field_data_name_field';
   $handler->display->display_options['sorts']['name_field_value']['field'] = 'name_field_value';
   $handler->display->display_options['sorts']['name_field_value']['relationship'] = 'field_course_degree_programme_tid';
+  /* Sort criterion: Taxonomy term: Weight */
+  $handler->display->display_options['sorts']['weight']['id'] = 'weight';
+  $handler->display->display_options['sorts']['weight']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['sorts']['weight']['field'] = 'weight';
+  $handler->display->display_options['sorts']['weight']['relationship'] = 'term_node_tid';
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'node';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -144,6 +175,7 @@ function uhc_studies_views_default_views() {
     t('Desc'),
     t('Content entity referenced from field_imp_reference_to_courses'),
     t('term from field_course_degree_programme'),
+    t('Type of teaching'),
     t('[field_study_credit] cr'),
     t('[title], [field_imp_method_of_study], [field_study_credit]'),
     t('Block'),
@@ -189,6 +221,28 @@ function uhc_studies_views_default_views() {
   $handler->display->display_options['relationships']['field_imp_reference_to_courses_target_id']['table'] = 'field_data_field_imp_reference_to_courses';
   $handler->display->display_options['relationships']['field_imp_reference_to_courses_target_id']['field'] = 'field_imp_reference_to_courses_target_id';
   $handler->display->display_options['relationships']['field_imp_reference_to_courses_target_id']['required'] = TRUE;
+  /* Relationship: Content: Taxonomy terms on node */
+  $handler->display->display_options['relationships']['term_node_tid']['id'] = 'term_node_tid';
+  $handler->display->display_options['relationships']['term_node_tid']['table'] = 'node';
+  $handler->display->display_options['relationships']['term_node_tid']['field'] = 'term_node_tid';
+  $handler->display->display_options['relationships']['term_node_tid']['relationship'] = 'field_imp_reference_to_courses_target_id';
+  $handler->display->display_options['relationships']['term_node_tid']['label'] = 'Type of teaching';
+  $handler->display->display_options['relationships']['term_node_tid']['vocabularies'] = array(
+    'type_of_teaching' => 'type_of_teaching',
+    'scald_authors' => 0,
+    'scald_tags' => 0,
+    'course_tags' => 0,
+    'course_theme' => 0,
+    'degree_programme' => 0,
+    'faculty' => 0,
+    'form_of_teaching' => 0,
+    'material_sections' => 0,
+    'method_of_study' => 0,
+    'months' => 0,
+    'organisational_units' => 0,
+    'organisations_of_university_of_helsinki' => 0,
+    'subject_category' => 0,
+  );
   /* Field: Content: Credit */
   $handler->display->display_options['fields']['field_study_credit']['id'] = 'field_study_credit';
   $handler->display->display_options['fields']['field_study_credit']['table'] = 'field_data_field_study_credit';
@@ -241,6 +295,15 @@ function uhc_studies_views_default_views() {
   $handler->display->display_options['sorts']['field_course_subject_value']['table'] = 'field_data_field_course_subject';
   $handler->display->display_options['sorts']['field_course_subject_value']['field'] = 'field_course_subject_value';
   $handler->display->display_options['sorts']['field_course_subject_value']['relationship'] = 'field_imp_reference_to_courses_target_id';
+  /* Sort criterion: Taxonomy term: Weight */
+  $handler->display->display_options['sorts']['weight']['id'] = 'weight';
+  $handler->display->display_options['sorts']['weight']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['sorts']['weight']['field'] = 'weight';
+  $handler->display->display_options['sorts']['weight']['relationship'] = 'term_node_tid';
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'node';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -283,6 +346,7 @@ function uhc_studies_views_default_views() {
     t('Asc'),
     t('Desc'),
     t('Content entity referenced from field_imp_reference_to_courses'),
+    t('Type of teaching'),
     t('[field_study_credit] cr'),
     t('[title], [field_imp_method_of_study], [field_study_credit]'),
     t('Block'),

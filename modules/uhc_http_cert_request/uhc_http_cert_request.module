@@ -1,0 +1,26 @@
+<?php
+/**
+ * @license GPL, or GNU General Public License, version 3
+ * @license http://opensource.org/licenses/GPL-3.0
+ * @see README.md how to contribute to this project
+ */
+
+/**
+ * Callback for HTTP requesting.
+ */
+function uhc_http_cert_request_http_request($url, array $options) {
+  $cert_filepath = variable_get('uhc_http_cert_request_cert_filepath', NULL);
+  $cert_key_filepath = variable_get('uhc_http_cert_request_cert_key_filepath', NULL);
+  if (!empty($cert_filepath) && !empty($cert_key_filepath)) {
+    $options['curl_opts'] = array(
+      CURLOPT_SSLCERT => $cert_filepath,
+      CURLOPT_SSLKEY => $cert_key_filepath,
+    );
+  }
+  $response = chr_curl_http_request($url, $options);
+  if (variable_get('uhc_http_cert_request_debug', FALSE)) {
+    watchdog('uhc_http_cert_request', 'Requesting @url with options @opts', array('@url' => $url, '@opts' => print_r($options, 1)), WATCHDOG_DEBUG);
+    watchdog('uhc_http_cert_request', 'Responded with @response', array('@response' => print_r($response, 1)), WATCHDOG_DEBUG);
+  }
+  return $response;
+}

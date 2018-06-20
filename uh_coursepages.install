@@ -1390,3 +1390,10 @@ function uh_coursepages_update_7055(&$sandbox) {
 function uh_coursepages_update_7056(&$sandbox) {
   module_enable(array('uhc_grades'));
 }
+
+/**
+ * Enable UHC HTTP Certicate Request module.
+ */
+function uh_coursepages_update_7057(&$sandbox) {
+  module_enable(array('uhc_http_cert_request'));
+}
