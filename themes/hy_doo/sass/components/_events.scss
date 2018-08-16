@@ -21,6 +21,12 @@
       width: 33%;
     }
   }
+  .event-column-initial-width {
+    @include breakpoint($small) {
+      float: left;
+      width: initial;
+    }
+  }
   .field {
     @include hyphenate;
     padding-right: 0.5em;

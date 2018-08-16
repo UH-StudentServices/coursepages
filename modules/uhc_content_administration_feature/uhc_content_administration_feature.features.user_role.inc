@@ -16,5 +16,11 @@ function uhc_content_administration_feature_user_default_roles() {
     'weight' => 7,
   );
 
+  // Exported role: restricted administrator.
+  $roles['restricted administrator'] = array(
+    'name' => 'restricted administrator',
+    'weight' => 8,
+  );
+
   return $roles;
 }

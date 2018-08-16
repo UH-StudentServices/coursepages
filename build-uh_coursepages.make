@@ -57,7 +57,7 @@ projects[field_group][patch]["https://www.drupal.org/node/2649648"] = "https://w
 projects[field_multiple_limit][version] = "1.0-alpha5"
 projects[field_multiple_limit][patch]["https://www.drupal.org/node/2807079"] = "https://www.drupal.org/files/issues/Avoid_php_warnings-2807079-2.patch"
 projects[field_permissions][version] = "1.0"
-projects[filefield_paths][version] = "1.0"
+projects[filefield_paths][version] = "1.1"
 projects[form_error_logging][version] = "1.0-rc1"
 
 ; Support for field mapping on migrate

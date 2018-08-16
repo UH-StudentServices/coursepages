@@ -80,7 +80,8 @@ function uhc_shib_conf_user_edit_access($account) {
   // If we're user 1 or administrator, then fallback to original
   // user_edit_access() call.
   $administrator_role = user_role_load_by_name('administrator');
-  if ($user->uid == 1 || user_has_role($administrator_role->rid)) {
+  $restricted_administrator_role = user_role_load_by_name('restricted administrator');
+  if ($user->uid == 1 || user_has_role($administrator_role->rid) || user_has_role($restricted_administrator_role->rid)) {
     return user_edit_access($account);
   }
 

@@ -7196,6 +7196,11 @@ body:not(.open-university) .view-id-course_node_references .field-imp-course-org
     float: left;
     width: 33%; } }
 
+@media (min-width: 48em) {
+  .event-list .event-column-initial-width {
+    float: left;
+    width: initial; } }
+
 .event-list .field {
   -webkit-hyphens: auto;
   -ms-hyphens: auto;
@@ -7920,6 +7925,17 @@ h2.study-module-select-title {
           border-bottom: 0;
           border-top: 0;
           padding-right: 1em; } }
+
+@media (max-width: 48em) {
+  .page-search .pager-and-sorting-controls, .page-open-university-search .pager-and-sorting-controls {
+    position: relative;
+    top: 60px; }
+  .page-search .course-search .view-header, .page-open-university-search .course-search .view-header {
+    position: relative;
+    top: -60px; }
+  .page-open-university-search .course-search .view-header {
+    position: relative;
+    top: -140px; } }
 
 .search-filters {
   position: relative; }

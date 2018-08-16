@@ -42,36 +42,60 @@ function theme_uhc_event_structured_teaching_schedule(&$variables) {
     $events = json_decode($field_imp_events_json[0]['value']);
     if (json_last_error() == JSON_ERROR_NONE) {
 
-      // Table header
+      $events = _uhc_event_structured_teaching_schedule_aggregate($events);
+      $has_optime_extra_information = _uhc_event_has_optime_extra_information($events);
+      $event_column_class = $has_optime_extra_information ? 'event-column' : 'event-column-initial-width';
+
+      // Table header.
       $content .= '<span class="event-list-header">';
       $content .= '<span class="event-column"><span class="field accordion-content-item--label event-date">' . t('Date') . '</span><span class="field accordion-content-item--label event-time">' . t('Time') . '</span></span>';
       $content .= '<span class="event-column"><span class="field remove-styles accordion-content-item--label event-location">' . t('Location', array(), array('context' => 'event')) . '</span></span>';
-      $content .= '<span class="event-column"><span class="field remove-styles accordion-content-item--label event-optime-extras">' . t('Info', array(), array('context' => 'event')) . '</span></span>';
+
+      if ($has_optime_extra_information) {
+        $content .= '<span class="event-column"><span class="field remove-styles accordion-content-item--label event-optime-extras">' . t('Info', array(), array('context' => 'event')) . '</span></span>';
+      }
+
       $content .= '</span>';
 
-      // Table contents
-      foreach (_uhc_event_structured_teaching_schedule_aggregate($events) as $event) {
+      // Table contents.
+      foreach ($events as $event) {
         $content .= '<div class="event">';
         $content .= '<div class="event-column"><div class="field event-date">' . $event['date'] . '</div><div class="field event-time">' . $event['time'] . '</div></div>';
-        $content .= '<div class="event-column"><div class="field remove-styles event-location">' . theme('item_list', array('items' => $event['locations'])) . '</div></div>';
+        $content .= '<div class="' . $event_column_class . '"><div class="field remove-styles event-location">' . theme('item_list', array('items' => $event['locations'])) . '</div></div>';
 
-        $staff_notes = !empty($event['optime_extra_information']->staffNotes) ? $event['optime_extra_information']->staffNotes : '';
-        $room_notes = !empty($event['optime_extra_information']->roomNotes) ? $event['optime_extra_information']->roomNotes : '';
-        $other_notes = !empty($event['optime_extra_information']->otherNotes) ? $event['optime_extra_information']->otherNotes : '';
+        if ($has_optime_extra_information) {
+          $staff_notes = !empty($event['optime_extra_information']->staffNotes) ? $event['optime_extra_information']->staffNotes : '';
+          $room_notes = !empty($event['optime_extra_information']->roomNotes) ? $event['optime_extra_information']->roomNotes : '';
+          $other_notes = !empty($event['optime_extra_information']->otherNotes) ? $event['optime_extra_information']->otherNotes : '';
 
-        $content .= '<div class="event-column"><div class="field remove-styles event-optime-extras">'
-          . '<span class="event-optime-extras-staff-notes">' . $staff_notes . '</span>'
-          . '<span class="event-optime-extras-room-notes">' . $room_notes . '</span>'
-          . '<span class="event-optime-extras-other-notes">' . $other_notes . '</span>'
-          . '</div></div>';
+          $content .= '<div class="event-column"><div class="field remove-styles event-optime-extras">'
+            . '<span class="event-optime-extras-staff-notes">' . $staff_notes . '</span>'
+            . '<span class="event-optime-extras-room-notes">' . $room_notes . '</span>'
+            . '<span class="event-optime-extras-other-notes">' . $other_notes . '</span>'
+            . '</div></div>';
+        }
+
         $content .= '</div>';
       }
+
       $content .= $variables['suffix'];
 
       return $title . $content;
     }
   }
   return '';
+}
+
+function _uhc_event_has_optime_extra_information($events) {
+  foreach ($events as $event) {
+    if (!empty($event['optime_extra_information']->staffNotes)
+      || !empty($event['optime_extra_information']->roomNotes)
+      || !empty($event['optime_extra_information']->otherNotes)) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
 }
 
 /**

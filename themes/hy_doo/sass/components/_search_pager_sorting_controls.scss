@@ -30,3 +30,29 @@
     }
   }
 }
+
+// Move sorting controls after results heading on mobile.
+@include breakpoint($mobile-only) {
+  .page-search, .page-open-university-search {
+    .pager-and-sorting-controls {
+      position: relative;
+      top: 60px;
+    }
+
+    .course-search {
+      .view-header {
+        position: relative;
+        top: -60px;
+      }
+    }
+  }
+
+  .page-open-university-search {
+    .course-search {
+      .view-header {
+        position: relative;
+        top: -140px;
+      }
+    }
+  }
+}

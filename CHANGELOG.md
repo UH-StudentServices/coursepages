@@ -1,3 +1,15 @@
+# Univeristy of Helsinki Courses v1.117
+
+## Muutokset
+ - DOO-3591: Lisättiin ylläpitorooli rajoitetuin oikeuksin.
+ - DOO-807: Siirrettiin lajittelukontrollit hakutulosotsikoiden alle.
+ - DOO-2404: Kurssinoston muokkausnäkymään ohjetekstin (tooltip) korjaus.
+ - DOO-3604: Aikataulun "Lisätieto" -sarake näkyviin vain tarvittaessa.
+
+## Päivitykset
+  - Päivitettiin filefield_paths moduuli
+
+
 # University of Helsinki Courses v1.116
 Päiväys: 20.06.2018
 

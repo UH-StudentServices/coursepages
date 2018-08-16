@@ -26,6 +26,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
       'open university editor' => 'open university editor',
+      'restricted administrator' => 'restricted administrator',
     ),
     'module' => 'admin_menu',
   );
@@ -36,6 +37,7 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'restricted administrator' => 'restricted administrator',
     ),
     'module' => 'system',
   );
@@ -47,6 +49,7 @@ function uhc_content_administration_feature_user_default_permissions() {
       'administrator' => 'administrator',
       'course administrator' => 'course administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'restricted administrator' => 'restricted administrator',
       'teacher' => 'teacher',
     ),
     'module' => 'node',
@@ -77,8 +80,19 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'restricted administrator' => 'restricted administrator',
     ),
     'module' => 'uhc_sources',
+  );
+
+  // Exported permission: 'access user profiles'.
+  $permissions['access user profiles'] = array(
+    'name' => 'access user profiles',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'restricted administrator' => 'restricted administrator',
+    ),
+    'module' => 'user',
   );
 
   // Exported permission: 'add terms in course_theme'.
@@ -123,8 +137,29 @@ function uhc_content_administration_feature_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor-in-chief of communications' => 'editor-in-chief of communications',
+      'restricted administrator' => 'restricted administrator',
     ),
     'module' => 'menu',
+  );
+
+  // Exported permission: 'administer permissions'.
+  $permissions['administer permissions'] = array(
+    'name' => 'administer permissions',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'restricted administrator' => 'restricted administrator',
+    ),
+    'module' => 'user',
+  );
+
+  // Exported permission: 'administer users'.
+  $permissions['administer users'] = array(
+    'name' => 'administer users',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'restricted administrator' => 'restricted administrator',
+    ),
+    'module' => 'user',
   );
 
   // Exported permission: 'context ajax block access'.
