@@ -520,7 +520,10 @@ function uhc_course_implementation_enrollment_button($field) {
   $options = array(
     'absolute' => TRUE,
     'external' => TRUE,
-    'attributes' => array('class' => 'button--action icon--arrow-right button__inline'),
+    'attributes' => array(
+      'id' => 'enrollment-button',
+      'class' => 'button--action icon--arrow-right button__inline'
+    ),
     'html' => TRUE,
   );
   global $language;

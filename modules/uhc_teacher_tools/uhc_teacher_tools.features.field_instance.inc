@@ -162,7 +162,7 @@ function uhc_teacher_tools_field_default_field_instances() {
     'settings' => array(
       'absolute_url' => 1,
       'attributes' => array(
-        'class' => 'button--action icon--arrow-right button__inline',
+        'class' => 'button--action icon--arrow-right button__inline moodle-url',
         'configurable_class' => 0,
         'configurable_title' => 0,
         'rel' => '',
@@ -236,7 +236,7 @@ function uhc_teacher_tools_field_default_field_instances() {
     'settings' => array(
       'absolute_url' => 1,
       'attributes' => array(
-        'class' => 'button--action icon--arrow-right button__inline',
+        'class' => 'button--action icon--arrow-right button__inline wiki-url',
         'configurable_class' => 0,
         'configurable_title' => 0,
         'rel' => '',

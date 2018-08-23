@@ -8953,6 +8953,7 @@ h2.study-module-select-title {
   font-size: 0.9375rem;
   background-color: #0098d0;
   border: 0;
+  padding-top: 0.67em;
   padding-left: 4em;
   margin-bottom: 0.5em; }
   .accordion-item a {
@@ -9007,7 +9008,7 @@ h2.study-module-select-title {
     left: 0;
     top: 0;
     line-height: 3em;
-    padding-left: 1em;
+    padding-left: 1.05em;
     padding-right: 1em; }
   .accordion-item__light.is-active:before {
     -ms-transform: rotate(90deg);
@@ -9125,7 +9126,7 @@ h2.study-module-select-title {
   position: relative;
   background: #FFF;
   border: 2px dashed #d2d2d2;
-  padding: 0.8em 0 0.8em 4em;
+  padding: 0.63em 0 0.8em 4em;
   margin-bottom: 0.5em; }
 
 .accordion-edit-link {

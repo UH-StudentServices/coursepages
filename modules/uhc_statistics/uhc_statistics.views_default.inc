@@ -26,11 +26,8 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['css_class'] = 'view-statistics';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['group_by'] = TRUE;
-  $handler->display->display_options['access']['type'] = 'role';
-  $handler->display->display_options['access']['role'] = array(
-    3 => '3',
-    10 => '10',
-  );
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'access utilisation statistics';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -576,11 +573,8 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['css_class'] = 'view-statistics';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['group_by'] = TRUE;
-  $handler->display->display_options['access']['type'] = 'role';
-  $handler->display->display_options['access']['role'] = array(
-    3 => '3',
-    10 => '10',
-  );
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'access utilisation statistics';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -1181,7 +1175,7 @@ function uhc_statistics_views_default_views() {
     7 => 0,
     8 => 0,
   );
-  /* Filter criterion: Field: Restricted to course’s participants only (field_private) */
+  /* Filter criterion: Field: Visibility restricted to course’s participants only. (field_private) */
   $handler->display->display_options['filters']['field_private_value']['id'] = 'field_private_value';
   $handler->display->display_options['filters']['field_private_value']['table'] = 'field_data_field_private';
   $handler->display->display_options['filters']['field_private_value']['field'] = 'field_private_value';
@@ -1206,7 +1200,7 @@ function uhc_statistics_views_default_views() {
     8 => 0,
   );
   $handler->display->display_options['filters']['field_private_value']['expose']['reduce'] = TRUE;
-  /* Filter criterion: Field: Restricted to course’s participants only (field_private) */
+  /* Filter criterion: Field: Visibility restricted to course’s participants only. (field_private) */
   $handler->display->display_options['filters']['field_private_value_1']['id'] = 'field_private_value_1';
   $handler->display->display_options['filters']['field_private_value_1']['table'] = 'field_data_field_private';
   $handler->display->display_options['filters']['field_private_value_1']['field'] = 'field_private_value';
@@ -1293,7 +1287,7 @@ function uhc_statistics_views_default_views() {
     t('last »'),
     t('This statistics view displays the amount of course implementations where the selected field has content. It is best to select a single field only as a filter and have the rest set as "-any-".'),
     t('<h2>@total results</h2>'),
-    t('Messages'),
+    t('Comments'),
     t('Course material'),
     t('Title'),
     t('Organisation'),
@@ -1321,6 +1315,7 @@ function uhc_statistics_views_default_views() {
     t('Course conduct'),
     t('Material description'),
     t('Materials'),
+    t('Messages'),
     t('Restricted messages'),
     t('Restricted material'),
     t('Results'),
@@ -1344,11 +1339,8 @@ function uhc_statistics_views_default_views() {
   $handler->display->display_options['css_class'] = 'view-statistics';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['group_by'] = TRUE;
-  $handler->display->display_options['access']['type'] = 'role';
-  $handler->display->display_options['access']['role'] = array(
-    3 => '3',
-    10 => '10',
-  );
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'access utilisation statistics';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';

@@ -1,4 +1,14 @@
+# Univeristy of Helsinki Courses v1.118
+Päiväys: 23.08.2018
+
+## Korjaukset
+ - DOO-3637: Rajoitetulla ylläpitoroolilla näkee taas tilastot.
+ - DOO-3065: Paranneltiin demokurssin ohjelaatikoiden sijaintia.
+ - DOO-3432: Haitariotsikoiden tyylien viilauksia.
+
+
 # Univeristy of Helsinki Courses v1.117
+Päiväys: 16.08.2018
 
 ## Muutokset
  - DOO-3591: Lisättiin ylläpitorooli rajoitetuin oikeuksin.

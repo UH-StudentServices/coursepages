@@ -11,6 +11,17 @@
 include_once 'uhc_statistics.features.inc';
 
 /**
+ * Implements hook_permission().
+ */
+function uhc_statistics_permission() {
+  return array(
+    'access utilisation statistics' => array(
+      'title' => t('Access utilisation statistics'),
+    ),
+  );
+}
+
+/**
  * Implements hook_menu().
  */
 function uhc_statistics_menu() {

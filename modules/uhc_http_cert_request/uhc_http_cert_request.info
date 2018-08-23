@@ -2,6 +2,6 @@ name = UHC HTTP Certificate Request
 description = Injects client certificate for all Drupal's HTTP requests.
 core = 7.x
 package = UHC
-version = 7.x-1.117
+version = 7.x-1.118
 project = uhc_http_cert_request
 dependencies[] = chr

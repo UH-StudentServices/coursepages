@@ -100,17 +100,17 @@ function uhc_tour_context_default_contexts() {
   <p>This information is imported from WebOodi and can not be edited here.</p>
 </li>
 
-<li class="joyride-moodle" data-class="ds-node-banner" data-button="Next">
+<li class="moodle-url" data-class="ds-node-banner" data-button="Next">
   <h2>Introduction</h2>
   <p>Use this area for promoting the course to students. You can also add your own image.</p>
 </li>
 
-<li data-class="button--action" data-button="Next">
+<li class="wiki-url" data-class="moodle-url" data-button="Next">
   <h2>Moodle</h2>
   <p>The teacher may add the link to the Moodle course area.</p>
 </li>
 
-<li class="group-course-messages" data-class="button__inline" data-button="Next">
+<li class="group-course-messages" data-class="wiki-url" data-button="Next">
   <h2>Wiki</h2>
   <p>The teacher may add a link to a wiki.</p>
 </li>
@@ -165,7 +165,7 @@ function uhc_tour_context_default_contexts() {
   <p>This information is imported from WebOodi and can not be edited here.</p>
 </li>
 
-<li data-class="edit-link" class="joyride-edit-link" data-button="Next">
+<li class="joyride-edit-link" data-class="logout-link" data-button="Next">
   <h2>Edit</h2>
   <p>Switch to edit mode.</p>
 </li>
