@@ -2,5 +2,5 @@ name = UHC Genetics
 description = This module is deprecated.
 core = 7.x
 package = UHC
-version = 7.x-1.118
+version = 7.x-1.119
 project = uhc_genetics

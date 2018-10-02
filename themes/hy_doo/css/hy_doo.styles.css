@@ -9846,3 +9846,9 @@ h1, h2 {
       transition-property: all;
       background-color: white;
       color: #005479; } }
+
+.logged-in .l-top-bar__subright {
+  margin-right: 48px; }
+  @media (min-width: 48em) {
+    .logged-in .l-top-bar__subright {
+      margin-right: initial; } }

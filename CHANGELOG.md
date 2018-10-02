@@ -1,3 +1,21 @@
+# Univeristy of Helsinki Courses v1.119
+Päiväys: 02.09.2018
+
+## Lisäykset
+- DOO-3563: Lisättiin ilmoitus opiskelijoille ilmoittautumisen vahvistumisesta ja päivämäärästä
+- DOO-3665: Tuki zip-tiedostojen liittämiselle.
+
+## Muutokset
+- DOO-2253: Tapahtuman päivä ja aika pakollisiksi.
+- DOO-3117: Kun hakee hakusanalla, niin hakutulokset listataan oletuksena relevanssin mukaan.
+
+## Korjaukset
+- DOO-3666: Mobiili: Kielivalikot jäävät profiilikuvan taakse piiloon.
+
+## Päivitykset
+- DOO-3627: Päivitettiin Migrate ja Date moduulit PHP 7.1 yhteensopivuuden vuoksi
+
+
 # Univeristy of Helsinki Courses v1.118
 Päiväys: 23.08.2018
 

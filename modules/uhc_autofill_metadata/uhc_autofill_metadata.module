@@ -246,14 +246,18 @@ function _uhc_autofill_metadata_prefill(&$form, $field, $value) {
  * an error occured.
  */
 function uhc_autofill_metadata_get_enrollments($personal_unique_code) {
-  $enrollments = array();
-  $enrollment_data = uhc_autofill_metadata_get_enrollment_data($personal_unique_code);
+  $enrollments = &drupal_static(__FUNCTION__ . $personal_unique_code);
 
-  if (isset($enrollment_data['status']) && $enrollment_data['status'] == 200 && !empty($enrollment_data['data'])) {
-    foreach ($enrollment_data['data'] as $enrollment) {
-      if (isset($enrollment['course_id'])) {
-        if (uhc_autofill_metadata_is_enrollment_confirmed($enrollment)) {
-          $enrollments[] = $enrollment['course_id'];
+  if (!$enrollments) {
+    $enrollments = array();
+    $enrollment_data = uhc_autofill_metadata_get_enrollment_data($personal_unique_code);
+
+    if (isset($enrollment_data['status']) && $enrollment_data['status'] == 200 && !empty($enrollment_data['data'])) {
+      foreach ($enrollment_data['data'] as $enrollment) {
+        if (isset($enrollment['course_id'])) {
+          if (uhc_autofill_metadata_is_enrollment_confirmed($enrollment)) {
+            $enrollments[] = $enrollment['course_id'];
+          }
         }
       }
     }
@@ -271,29 +275,47 @@ function uhc_autofill_metadata_get_enrollments($personal_unique_code) {
  * @return bool Is the enrollment confirmed?
  */
 function uhc_autofill_metadata_is_enrollment_confirmed($enrollment) {
-  return empty($enrollment['automatic_enabled'])
-    || $enrollment['automatic_enabled'] != 'true'
+  return !uhc_autofill_metadata_is_automatic_enrollment_confirmation_enabled($enrollment)
     || uhc_autofill_metadata_has_enrollment_confirmation_time_passed($enrollment);
 }
 
 /**
- * Parses enrollment confirmation end time and returns whether it has passed.
- *
+ * @param array $enrollment
+ * @return bool Is automatic enrollment confirmation enabled?
+ */
+function uhc_autofill_metadata_is_automatic_enrollment_confirmation_enabled($enrollment) {
+  return isset($enrollment['automatic_enabled']) && $enrollment['automatic_enabled'] === 'true';
+}
+
+/**
  * @param array $enrollment
  * @return bool Has the enrollment confirmation time passed?
  */
 function uhc_autofill_metadata_has_enrollment_confirmation_time_passed($enrollment) {
-  $end_date = !empty($enrollment['automatic_end_date']) ? date_create($enrollment['automatic_end_date']) : NULL;
-  $end_time = !empty($enrollment['automatic_end_time']) ? $enrollment['automatic_end_time'] : NULL;
-  $end_time_hours_minutes_seconds = isset($end_time) ? str_split($end_time, 2) : NULL;
+  $enrollment_confirmation_date = uhc_autofill_metadata_get_automatic_enrollment_confirmation_date($enrollment);
 
-  if (isset($end_date, $end_time_hours_minutes_seconds)) {
-    date_add($end_date, date_interval_create_from_date_string("$end_time_hours_minutes_seconds[0] hours"));
-    date_add($end_date, date_interval_create_from_date_string("$end_time_hours_minutes_seconds[1] minutes"));
-    date_add($end_date, date_interval_create_from_date_string("$end_time_hours_minutes_seconds[2] seconds"));
+  return isset($enrollment_confirmation_date) && $enrollment_confirmation_date->getTimestamp() <= REQUEST_TIME;
+}
+
+/**
+ * @param $enrollment
+ * @return DateTime|false|null
+ */
+function uhc_autofill_metadata_get_automatic_enrollment_confirmation_date($enrollment) {
+  $end_date = !empty($enrollment['automatic_end_date']) ? date_create($enrollment['automatic_end_date']) : NULL;
+
+  if ($end_date) {
+    $end_time = !empty($enrollment['automatic_end_time']) ? $enrollment['automatic_end_time'] : NULL;
+    $end_time_hours_minutes_seconds = isset($end_time) ? str_split($end_time, 2) : NULL;
+
+    if (isset($end_time_hours_minutes_seconds)) {
+      date_add($end_date, date_interval_create_from_date_string("$end_time_hours_minutes_seconds[0] hours"));
+      date_add($end_date, date_interval_create_from_date_string("$end_time_hours_minutes_seconds[1] minutes"));
+      date_add($end_date, date_interval_create_from_date_string("$end_time_hours_minutes_seconds[2] seconds"));
+    }
   }
 
-  return isset($end_date) && $end_date->getTimestamp() <= REQUEST_TIME;
+  return $end_date;
 }
 
 /**
@@ -379,6 +401,7 @@ function uhc_autofill_metadata_node_view($node, $view_mode, $langcode) {
   if ($node->type == 'course_implementation' && arg(0) == 'node') {
     uhc_autofill_metadata_refresh_enrollments_for_current_user();
     uhc_autofill_metadata_refresh_organisation_modify_rights_for_current_user();
+    uhc_autofill_metadata_display_automatic_enrollment_confirmation_message($node);
   }
 }
 
@@ -430,6 +453,56 @@ function uhc_autofill_metadata_refresh_organisation_modify_rights_for_current_us
       }
     }
   }
+}
+
+/**
+ * Displays automatic enrollment confirmation date message when the current user
+ * has enrolled for the course and automatic enrollment confirmation is in the
+ * future.
+ *
+ * @param $node
+ */
+function uhc_autofill_metadata_display_automatic_enrollment_confirmation_message($node) {
+  if ($node) {
+    $enrollment_data = uhc_autofill_metadata_get_enrollment_data(uhc_autofill_metadata_get_current_user_personal_unique_code());
+    $course_implementation_id = $node->field_imp_id[LANGUAGE_NONE][0]['value'];
+
+    if (isset($enrollment_data) && !empty($enrollment_data['data'])) {
+      foreach ($enrollment_data['data'] as $enrollment) {
+        if (isset($enrollment['course_id']) && $enrollment['course_id'] == $course_implementation_id) {
+          $display_message = uhc_autofill_metadata_is_automatic_enrollment_confirmation_enabled($enrollment)
+            && uhc_autofill_metadata_is_automatic_enrollment_confirmation_in_future($enrollment);
+
+          if ($display_message) {
+            $timestamp = uhc_autofill_metadata_get_automatic_enrollment_confirmation_date($enrollment)->getTimestamp();
+            $automatic_enrollment_confirmation_date = date('d.m.Y', $timestamp);
+            $automatic_enrollment_confirmation_time = date('H:i', $timestamp);
+
+            drupal_set_message(
+              t('You have enrolled for this course. The enrolments will be confirmed @automatic_enrollment_confirmation_date at @automatic_enrollment_confirmation_time.',
+                array(
+                  '@automatic_enrollment_confirmation_date' => $automatic_enrollment_confirmation_date,
+                  '@automatic_enrollment_confirmation_time' => $automatic_enrollment_confirmation_time
+                )
+              )
+            );
+
+            break;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * @param array $enrollment
+ * @return bool Is automatic enrollment confirmation in the future?
+ */
+function uhc_autofill_metadata_is_automatic_enrollment_confirmation_in_future($enrollment) {
+  $automatic_enrollment_confirmation_date = uhc_autofill_metadata_get_automatic_enrollment_confirmation_date($enrollment);
+
+  return isset($automatic_enrollment_confirmation_date) && $automatic_enrollment_confirmation_date->getTimestamp() > REQUEST_TIME;
 }
 
 function uhc_autofill_metadata_get_current_user_employee_number() {

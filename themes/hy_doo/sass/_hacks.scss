@@ -24,3 +24,13 @@
     }
   }
 }
+
+// Make space for the avatar image on mobile for logged in users.
+.logged-in {
+  .l-top-bar__subright {
+    margin-right: 48px;
+    @include breakpoint($small) {
+      margin-right: initial;
+    }
+  }
+}

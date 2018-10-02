@@ -118,6 +118,11 @@
       // Display sorting and paging controls only when there are search results.
       if ($('.course-search .views-table').length == 0) {
         $('.pager-and-sorting-controls').hide();
+        $('form#views-exposed-form-uhc-portal-search-front-page--desktop').submit(function () {
+          if ($('input#edit-search').val().length > 0) {
+            $('select#edit-sorting').val('search_api_relevance:desc');
+          }
+        });
       }
     }
   };
