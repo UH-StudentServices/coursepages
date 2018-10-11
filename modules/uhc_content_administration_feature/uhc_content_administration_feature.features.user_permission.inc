@@ -10,15 +10,6 @@
 function uhc_content_administration_feature_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: 'Use Moodi button'.
-  $permissions['Use Moodi button'] = array(
-    'name' => 'Use Moodi button',
-    'roles' => array(
-      'editor-in-chief of communications' => 'editor-in-chief of communications',
-    ),
-    'module' => 'uhc_moodi',
-  );
-
   // Exported permission: 'access administration menu'.
   $permissions['access administration menu'] = array(
     'name' => 'access administration menu',

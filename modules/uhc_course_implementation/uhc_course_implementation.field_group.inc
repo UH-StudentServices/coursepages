@@ -561,6 +561,7 @@ function uhc_course_implementation_field_group_info() {
     'children' => array(
       0 => 'field_imp_hide_sign_up_button',
       1 => 'field_imp_flexible_start',
+      2 => 'field_imp_upper_sec_school_stdnt',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

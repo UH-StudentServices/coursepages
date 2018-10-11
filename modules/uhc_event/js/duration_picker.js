@@ -7,8 +7,8 @@
 
   Drupal.ajax.prototype.commands.timepickerinit = function(ajax, response, status) {
 
-    // Require date and time in frontend, because we don't want to use the required
-    // validation error message given by date_popup module.
+    // Require date and time in frontend, because date_popup field can't. See more from
+    // https://www.drupal.org/project/date/issues/1257024
     $(".field-name-field-event-begin-date input").attr('required', true);
     var requiredText = Drupal.t('This field is required.');
     $('.field-name-field-event-begin-date label .description-toggle').prepend('<span class="form-required" title="' + requiredText + '">*</span>')

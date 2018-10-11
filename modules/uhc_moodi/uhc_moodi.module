@@ -31,22 +31,11 @@ function uhc_moodi_form_course_implementation_node_form_alter(&$form, &$form_sta
 }
 
 /**
- * Implements hook_permission().
- */
-function uhc_moodi_permission() {
-  return array(
-    'Use Moodi button' => array(
-      'title' => t('Use Moodi button'),
-    ),
-  );
-}
-
-/**
  * @return bool TRUE if the user can access Moodi functionality, otherwise FALSE.
  */
 function uhc_moodi_access() {
   return user_has_role(user_role_load_by_name('administrator')->rid)
-    || uhc_course_collaboration_is_current_user_course_teacher();
+    || uhc_course_collaboration_is_current_user_course_teacher() || uhc_course_collaboration_is_current_user_course_administrator();
 }
 
 /**

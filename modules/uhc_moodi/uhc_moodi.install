@@ -14,3 +14,10 @@
 function uhc_moodi_uninstall() {
   variable_del('uhc_moodi_create_timeout');
 }
+
+/**
+ * Remove all "Use Moodi button" permission entries from database.
+ */
+function uhc_moodi_update_7001() {
+  db_query("DELETE FROM {role_permission} WHERE permission = 'Use Moodi button' AND module = 'uhc_moodi'");
+}

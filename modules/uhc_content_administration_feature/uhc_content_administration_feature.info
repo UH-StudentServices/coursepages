@@ -1,7 +1,7 @@
 name = UHC Content Administration
 core = 7.x
 package = UHC
-version = 7.x-1.119
+version = 7.x-1.120
 project = uhc_content_administration_feature
 dependencies[] = actions_permissions
 dependencies[] = admin_menu
@@ -34,7 +34,6 @@ dependencies[] = view_unpublished
 dependencies[] = views
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
-features[user_permission][] = Use Moodi button
 features[user_permission][] = access administration menu
 features[user_permission][] = access administration pages
 features[user_permission][] = access content overview

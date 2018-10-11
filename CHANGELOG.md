@@ -1,5 +1,19 @@
+# Univeristy of Helsinki Courses v1.120
+Päiväys: 10.10.2018
+
+## Lisäykset
+- DOO-3673: Lisättiin kurssin muokkaukseen mahdollisuus merkitä kurssi lukiolaisille soveltuvaksi
+- DOO-3672: Sallittiin virkailijoille Moodle-alueen luominen.
+
+## Muutokset
+- DOO-2253: Parannuksia tapahtuman aikojen validointiviesteihin.
+
+## Poistot
+- DOO-3672: Putsattiin vanhaa Moodle-toiminnallisuuden käyttöoikeuslogiikkaa.
+
+
 # Univeristy of Helsinki Courses v1.119
-Päiväys: 02.09.2018
+Päiväys: 02.10.2018
 
 ## Lisäykset
 - DOO-3563: Lisättiin ilmoitus opiskelijoille ilmoittautumisen vahvistumisesta ja päivämäärästä
