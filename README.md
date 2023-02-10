@@ -1,4 +1,6 @@
-# COURSE PAGES
+# COURSE PAGES *ARCHIVED*
+
+This repository is archived due to shutdown of the old Courses website in February 2023. 
 
 Course pages is a software that is built with [Drupal](http://drupal.org).
 
